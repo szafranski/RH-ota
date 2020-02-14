@@ -34,6 +34,8 @@ RSSI readouts - WORKS after flashing
 
 Tutorial how to do this - DONE
 
+what version of avrdude? 6.3?
+
 Things to consider:
 1. Why two of Arduinos during tests got bad fuses after using avrdude - BIG ISSUE
 2. Is there a way to program Arduino one by one, not all at once - DONE!
