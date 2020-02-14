@@ -140,7 +140,8 @@ while answer not in ("yes", "no", "adv"):
          Flash the bootloader - usb support
          Recover the Arduinos
          Check the signatures
-Fix pin busy
+         Fix pin busy
+         Program specific node
 
    else:
    	 print(" ")
