@@ -1,0 +1,116 @@
+sudo apt-get update
+sudo apt-get install bison flex -y
+cd ~
+wget http://download.savannah.gnu.org/releases/avrdude/avrdude-6.2.tar.gz
+tar xfv avrdude-6.2.tar.gz
+cd avrdude-6.2/
+./configure – -enable-linuxgpio
+make --> may take few minutes
+sudo make install
+sudo cp /usr/local/etc/avrdude.conf.orig /usr/local/etc/avrdude.conf
+sudo nano /usr/local/etc/avrdude.conf
+
+
+sudo systemctl stop rotorhazard
+python ~/RotorHazard/src/server/server.py
+
+cd ~/RotorHazard/src/server    
+python server.py
+
+cd ~/tools/nodes
+
+Ctrl+_ - find line 1175
+
+change this
+
+sudo sed -n '/reset/p/reset = 26;/g' /usr/local/etc/avrdude.conf
+
+#programmer
+#  id    = "linuxgpio";
+#  desc  = "Use the Linux sysfs interface to bitbang GPIO lines";
+#  type  = "linuxgpio";
+#  reset = ?;
+#  sck   = ?;
+#  mosi  = ?;
+#  miso  = ?;
+#;
+
+to this 
+
+programmer
+  id    = "linuxgpio";
+  desc  = "Use the Linux sysfs interface to bitbang GPIO lines";
+  type  = "linuxgpio";
+  reset = 12; 
+  sck   = 21;
+  mosi  = 20;
+  miso  = 19;
+;
+
+Just a test:
+sudo avrdude -c linuxgpio -p atmega328p -v
+
+?? sudo apt-get install arduino-mk
+
+sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:nodeallwb.hex.hex:i 
+
+node1wb - node4wb - hexes made especially for nodes 1 to 4
+nodeallwb - "universal" node code (number of node selected via grounded pin
+wb - all hexes are with bootloader so they can be unplugged and plugged into usb later as well
+
+
+
+cd ~/RotorHazard/src/server
+
+sudo sed -i 's/reset .*/reset = 12;/g' /home/pi/.avrduderc && sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node.b.hex:i && sudo sed -i 's/reset .*/reset = 13;/g' /home/pi/.avrduderc && sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:blankb.hex:i && sudo sed -i 's/reset .*/reset = 16;/g' /home/pi/.avrduderc && sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:blankb.hex:i  
+
+cd nodes
+
+numbered nodes:
+sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc &&
+sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node.b.hex:i &&
+sudo sed -i 's/reset .*/reset = 13;/g' /root/.avrduderc &&
+sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node.b.hex:i &&
+sudo sed -i 's/reset .*/reset = 16;/g' /root/.avrduderc &&
+sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node.b.hex:i
+
+sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc &&
+sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node.hex:i &&
+sudo sed -i 's/reset .*/reset = 13;/g' /root/.avrduderc &&
+sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node.hex:i &&
+sudo sed -i 's/reset .*/reset = 16;/g' /root/.avrduderc &&
+sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node.hex:i
+
+sudo sed -i 's/reset .*/reset = 12;/g' /root/pi/.avrduderc &&
+sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:blankb.hex:i &&
+sudo sed -i 's/reset .*/reset = 13;/g' /root/pi/.avrduderc &&
+sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:blankb.hex:i &&
+sudo sed -i 's/reset .*/reset = 16;/g' /root/pi/.avrduderc &&
+sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:blankb.hex:i 
+
+sudo sed -i 's/reset = 12;/reset = 16;/g' /usr/local/etc/avrdude.conf &&
+sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node.20s_b.hex:i && 
+sudo sed -i 's/reset = 13;/reset = 16;/g' /usr/local/etc/avrdude.conf 
+sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node.20s_b.hex:i
+sudo sed -i 's/reset = 16;/reset = 26;/g' /usr/local/etc/avrdude.conf
+sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node.20s_b.hex:i
+sudo sed -i 's/reset = 16;/reset = 26;/g' /usr/local/etc/avrdude.conf
+
+sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node_5_wb.hex.hex:i
+sudo sed -i 's/reset = 26;/reset = 12;/g' /usr/local/etc/avrdude.conf
+sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node_6_wb.hex.hex:i
+sudo sed -i 's/reset = 12;/reset = 5;/g' /usr/local/etc/avrdude.conf
+sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node_7_wb.hex.hex:i
+sudo sed -i 's/reset = 5;/reset = 6;/g' /usr/local/etc/avrdude.conf
+sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node_8_wb.hex.hex:i
+
+grounded_pin:
+sudo sed -i 's/reset = 16;/reset = 26;/g' /usr/local/etc/avrdude.conf
+sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node.v22.hex:i
+sudo sed -i 's/reset = 26;/reset = 12;/g' /usr/local/etc/avrdude.conf
+sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node_all_wb.hex.hex:i
+sudo sed -i 's/reset = 12;/reset = 5;/g' /usr/local/etc/avrdude.conf
+sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node_all_wb.hex.hex:i
+sudo sed -i 's/reset = 5;/reset = 6;/g' /usr/local/etc/avrdude.conf
+sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node_all_wb.hex.hex:i
+
