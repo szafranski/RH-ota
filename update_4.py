@@ -33,7 +33,7 @@ os.system("echo '     ##########################################################
 os.system("echo")
 os.system("echo")
 
-##### confirmation   ######
+##### confirmation   #####
 
 
 os.system("sudo pkill server.py")
