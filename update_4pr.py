@@ -12,31 +12,31 @@ from time import sleep # Import the sleep function from the time module
 import os
 GPIO.setwarnings(False) # Ignore warning for now
 GPIO.setmode(GPIO.BCM) # Use BCM pin numbering
-GPIO.setup(reset_1, GPIO.OUT, initial=GPIO.LOW)
-GPIO.setup(reset_2, GPIO.OUT, initial=GPIO.LOW)
-GPIO.setup(reset_3, GPIO.OUT, initial=GPIO.LOW)
-GPIO.setup(reset_4, GPIO.OUT, initial=GPIO.LOW)
+GPIO.setup(reset_1, GPIO.OUT, initial=GPIO.HIGH)
+GPIO.setup(reset_2, GPIO.OUT, initial=GPIO.HIGH)
+GPIO.setup(reset_3, GPIO.OUT, initial=GPIO.HIGH)
+GPIO.setup(reset_4, GPIO.OUT, initial=GPIO.HIGH)
 
 os.system("clear")
 sleep(0.1)
 print(" ")  
 print(" ")
 print(" ")
-os.system("echo '     ###########################################################################################'")
-os.system("echo '     ###                                                                                     ###'")
-os.system("echo '     ###                                   RotorHazard                                       ###'")
-os.system("echo '     ###                                                                                     ###'")
-os.system("echo '     ###   You are about to update nodes firmware. Please do not interrupt this operation!   ###'")
-os.system("echo '     ###                                                                                     ###'")
-os.system("echo '     ###                                                                                     ###'")
-os.system("echo '     ###########################################################################################'")
+print("     ###########################################################################################")
+print("     ###                                                                                     ###")
+print("     ###                                   RotorHazard                                       ###")
+print("     ###                                                                                     ###")
+print("     ###   You are about to update nodes firmware. Please do not interrupt this operation!   ###")
+print("     ###                                                                                     ###")
+print("     ###                                                                                     ###")
+print("     ###########################################################################################")
 print(" ")
 print(" ")
 print(" ")
 
 answer = None
-while answer not in ("yes", "no"):
-   answer = raw_input("           Do you want to proceed?    (yes) or (no):    ")
+while answer not in ("yes", "no", "adv"):
+   answer = raw_input("           Do you want to proceed?    (yes) (no) (adv):    ")
    if answer == "yes":
 	sleep(0.1)
 	os.system("sudo pkill server.py")
@@ -58,10 +58,10 @@ while answer not in ("yes", "no"):
 	os.system("sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node.hex:i")
 
 
-	os.system("echo")
-	os.system("echo '     Node 1 - flashed'")
-	os.system("echo")
-	os.system("echo")
+	print("")
+	print("     Node 1 - flashed")
+	print("")
+	print("")
 	GPIO.output(reset_1, GPIO.LOW)
 	GPIO.output(reset_2, GPIO.LOW)
 	GPIO.output(reset_3, GPIO.LOW)
@@ -78,10 +78,10 @@ while answer not in ("yes", "no"):
 	os.system("sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node.hex:i")
 
 
-	os.system("echo")
-	os.system("echo '     Node 2 - flashed'")
-	os.system("echo")
-	os.system("echo")
+	print("")
+	print("     Node 2 - flashed")
+	print("")
+	print("")
 	GPIO.output(reset_1, GPIO.LOW)
 	GPIO.output(reset_2, GPIO.LOW)
 	GPIO.output(reset_3, GPIO.LOW)
@@ -96,10 +96,10 @@ while answer not in ("yes", "no"):
 	os.system("sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node.hex:i")
 
 
-	os.system("echo")
-	os.system("echo '     Node 3 - flashed'")
-	os.system("echo")
-	os.system("echo")
+	print("")
+	print("     Node 3 - flashed'")
+	print("")
+	print("")
 	GPIO.output(reset_1, GPIO.LOW)
 	GPIO.output(reset_2, GPIO.LOW)
 	GPIO.output(reset_3, GPIO.LOW)
@@ -117,25 +117,31 @@ while answer not in ("yes", "no"):
 	os.system("sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc")
 
 
-	os.system("echo")
-	os.system("echo '     Node 4 - flashed'")
-	os.system("echo")
-	os.system("echo")
+	print("")
+	print("     Node 4 - flashed'")
+	print("")
+	print("")
 	sleep(0.1)
-	os.system("echo '     ########################################################################################'")
-	os.system("echo '     ###                                                                                  ###'")
-	os.system("echo '     ###  CONGRATULATIONS!              Flashing firmware to nodes - DONE                 ###'")
-	os.system("echo '     ###                                                                                  ###'")
-	os.system("echo '     ###  Please power off the timer, unplug voltage source for few seconds and reboot    ###'")
-	os.system("echo '     ###                                                                                  ###'")
-	os.system("echo '     ########################################################################################'")
-	os.system("echo")
-	os.system("echo")
+	print("     ########################################################################################")
+	print("     ###                                                                                  ###")
+	print("     ###  CONGRATULATIONS!              Flashing firmware to nodes - DONE                 ###")
+	print("     ###                                                                                  ###")
+	print("     ###  Please power off the timer, unplug voltage source for few seconds and reboot    ###")
+	print("     ###                                                                                  ###")
+	print("     ########################################################################################")
+	print("")
+	print("")
 	sleep(2)
    elif answer == "no":
 	 print(" ")
 	 print("OK - exiting")
 	 print(" ")  
+   elif answer == "adv":
+         Flash the bootloader - usb support
+         Recover the Arduinos
+         Check the signatures
+Fix pin busy
+
    else:
    	 print(" ")
 	 print("Please enter yes or no.")
