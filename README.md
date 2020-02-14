@@ -5,7 +5,7 @@ Concerns. Knows issues
 
 Uploading with bootloader? What if no? 
 
-Rescue button/instructions/jumper
+Rescue button/instructions/jumper?
 
 How channel sellecting works? Is it affected? Solution - diodes? software spi?
 
@@ -15,6 +15,9 @@ Only ground pin nodes or both versions?
 
 What about new pcb design?
 
+3. Consider using separating diodes - rx5808
+
+4. Consider using logic level converter - rather not, voltage divider on MISOline?
 
 
 State of the project for now:
