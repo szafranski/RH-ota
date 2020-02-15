@@ -150,7 +150,7 @@ while answer not in ("y","Y", "n", "a"):
 			print ("		2. Fix GPIO pina state")
 			print ("		3. Try to recover")
 			print ("		4. Start the server")
-			print ("		5. Show avrdude ")
+			print ("		5. Avrdude info")
 			print ("		6. EXIT")
 			print("\n")
 			ans=raw_input("			What would you like to do?\n\n\n") 
@@ -192,7 +192,7 @@ while answer not in ("y","Y", "n", "a"):
 					os.system("#sudo systemctl stop rotorhazard")
 					os.system("python ~/RotorHazard/src/server/server.py")	
 			elif ans=="5":
-					os.system("avrdude -c linuxgpio -p m328p -v")	
+					os.system("sudo avrdude -v")	
 			elif ans=="6":
 					print("\n\nSee you!\n\n")
 					sys.exit()
