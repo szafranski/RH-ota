@@ -39,8 +39,8 @@ while answer not in ("yes", "no", "adv"):
   answer = raw_input("           Do you want to proceed?    (yes) (no) (adv):    ")
   if answer == "yes":
    sleep(0.1)
-   os.system("sudo pkill server.py")
-   os.system("sudo systemctl stop rotorhazard")
+   os.system("#sudo pkill server.py")
+   os.system("#sudo systemctl stop rotorhazard")
    sleep(0.1)
 
    #GPIO.output(reset_1, #GPIO.LOW)
@@ -54,8 +54,8 @@ while answer not in ("yes", "no", "adv"):
    #GPIO.output(reset_4, #GPIO.HIGH)
 
    sleep(0.1)
-   os.system("sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc")
-   os.system("sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:node.hex:i")
+   os.system("#sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc")
+   os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:node.hex:i")
 
 
    print("")
@@ -74,8 +74,8 @@ while answer not in ("yes", "no", "adv"):
 
 
    sleep(0.1)
-   os.system("sudo sed -i 's/reset .*/reset = 13;/g' /root/.avrduderc")
-   os.system("sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:node.hex:i")
+   os.system("#sudo sed -i 's/reset .*/reset = 13;/g' /root/.avrduderc")
+   os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:node.hex:i")
 
 
    print("")
@@ -92,8 +92,8 @@ while answer not in ("yes", "no", "adv"):
    #GPIO.output(reset_3, #GPIO.HIGH)
    #GPIO.output(reset_4, #GPIO.HIGH)
    sleep(0.1)
-   os.system("sudo sed -i 's/reset .*/reset = 16;/g' /root/.avrduderc")
-   os.system("sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:node.hex:i")
+   os.system("#sudo sed -i 's/reset .*/reset = 16;/g' /root/.avrduderc")
+   os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:node.hex:i")
 
 
    print("")
@@ -111,9 +111,9 @@ while answer not in ("yes", "no", "adv"):
    #GPIO.output(reset_4, #GPIO.HIGH)
    sleep(0.1)
 
-   os.system("sudo sed -i 's/reset .*/reset = 26;/g' /root/.avrduderc")
-   os.system("sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:node.hex:i")
-   os.system("sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc")
+   os.system("#sudo sed -i 's/reset .*/reset = 26;/g' /root/.avrduderc")
+   os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:node.hex:i")
+   os.system("#sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc")
 
    print("")
    print("     Node 4 - flashed'")
@@ -135,22 +135,22 @@ while answer not in ("yes", "no", "adv"):
    print("OK - exiting")
    print("")  
   elif answer == "adv":
-    sleep(0.1)
-	 os.system("echo 12 > /sys/class/#GPIO/unexport")
-	 os.system("echo 13 > /sys/class/#GPIO/unexport")
-	 os.system("echo 16 > /sys/class/#GPIO/unexport")
-	 os.system("echo 26 > /sys/class/#GPIO/unexport")
-	 os.system("echo 19 > /sys/class/#GPIO/unexport")
-	 os.system("echo 20 > /sys/class/#GPIO/unexport")
-	 os.system("echo 21 > /sys/class/#GPIO/unexport")
-	  
+   sleep(0.1)
+   os.system("echo 12 > /sys/class/#GPIO/unexport")
+   os.system("echo 13 > /sys/class/#GPIO/unexport")
+   os.system("echo 16 > /sys/class/#GPIO/unexport")
+   os.system("echo 26 > /sys/class/#GPIO/unexport")
+   os.system("echo 19 > /sys/class/#GPIO/unexport")
+   os.system("echo 20 > /sys/class/#GPIO/unexport")
+   os.system("echo 21 > /sys/class/#GPIO/unexport")
+	 
    # Flash the bootloader - usb support
          # Recover the Arduinos
          # Check the signatures
          # Fix pin busy
          # Program specific node
 		 # pins fix
-   else:
-    print("")
-    print("Please enter yes / no / adv")
-    print("")
+  else:
+   print("")
+   print("Please enter yes / no / adv")
+   print("")
