@@ -10,6 +10,8 @@ reset_4 = 26
 #import RPi.#GPIO as #GPIO # Import Raspberry Pi #GPIO library
 from time import sleep # Import the sleep function from the time module
 import os
+import sys
+
 #GPIO.setwarnings(False) # Ignore warning for now
 #GPIO.setmode(#GPIO.BCM) # Use BCM pin numbering
 #GPIO.setup(reset_1, #GPIO.OUT, initial=#GPIO.HIGH)
@@ -19,9 +21,7 @@ import os
 
 os.system("clear")
 sleep(0.1)
-print("")  
-print("")
-print("")
+print("\n\n\n")  
 print("     ###########################################################################################")
 print("     ###                                                                                     ###")
 print("     ###                                   RotorHazard                                       ###")
@@ -30,14 +30,15 @@ print("     ###   You are about to update nodes firmware. Please do not interrup
 print("     ###                                                                                     ###")
 print("     ###                                                                                     ###")
 print("     ###########################################################################################")
-print("")
-print("")
-print("")
+print("\n\n\n")
 
 answer = None
-while answer not in ("yes", "no", "adv"):
-  answer = raw_input("           Do you want to proceed?    (yes) (no) (adv):    ")
-  if answer == "yes":
+while answer not in ("y", "n", "a"):
+  answer = raw_input("           \n\nDo you want to proceed?    \n\n y - yes \n\n n - no \n\n a - advanced    ")
+  
+  
+  
+  if answer == "y":
    sleep(0.1)
    os.system("#sudo pkill server.py")
    os.system("#sudo systemctl stop rotorhazard")
@@ -117,8 +118,7 @@ while answer not in ("yes", "no", "adv"):
 
    print("")
    print("     Node 4 - flashed'")
-   print("")
-   print("")
+   print("\n\n")
    sleep(0.1)
    print("     ########################################################################################")
    print("     ###                                                                                  ###")
@@ -127,22 +127,53 @@ while answer not in ("yes", "no", "adv"):
    print("     ###  Please power off the timer, unplug voltage source for few seconds and reboot    ###")
    print("     ###                                                                                  ###")
    print("     ########################################################################################")
-   print("")
-   print("")
+   print("\n\n")
    sleep(1)
-  elif answer == "no":
+  elif answer == "n":
    print("")
    print("OK - exiting")
    print("")  
-  elif answer == "adv":
+  elif answer == "a":
    sleep(0.1)
-   os.system("echo 12 > /sys/class/#GPIO/unexport")
-   os.system("echo 13 > /sys/class/#GPIO/unexport")
-   os.system("echo 16 > /sys/class/#GPIO/unexport")
-   os.system("echo 26 > /sys/class/#GPIO/unexport")
-   os.system("echo 19 > /sys/class/#GPIO/unexport")
-   os.system("echo 20 > /sys/class/#GPIO/unexport")
-   os.system("echo 21 > /sys/class/#GPIO/unexport")
+   ans=True
+   while ans:
+    print("\n\n")
+    print (" 1. Flash a bootloader")
+    print (" 2. Fix GPIO pin state")
+    print (" 3. Try to recover")
+    print (" 4. Start the server imediately")
+    print (" 5. Exit/Quit")
+    print("\n")
+    ans=raw_input("What would you like to do? ") 
+    if ans=="1": 
+      print("Attempting to flash a bootloader to Arduino") 
+    elif ans=="2":
+      os.system("echo 12 > /sys/class/#GPIO/unexport")
+      os.system("echo 13 > /sys/class/#GPIO/unexport")
+      os.system("echo 16 > /sys/class/#GPIO/unexport")
+      os.system("echo 26 > /sys/class/#GPIO/unexport")
+      os.system("echo 19 > /sys/class/#GPIO/unexport")
+      os.system("echo 20 > /sys/class/#GPIO/unexport")
+      os.system("echo 21 > /sys/class/#GPIO/unexport") 
+      print("\n\nDONE\n\n")	  
+    elif ans=="3":
+      print("\n Student Record Found")
+      os.system("#sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc")
+      os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:blank.hex:i")
+      os.system("#sudo sed -i 's/reset .*/reset = 13;/g' /root/.avrduderc")
+      os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:blank.hex:i")
+      os.system("#sudo sed -i 's/reset .*/reset = 16;/g' /root/.avrduderc")
+      os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:blank.hex:i")
+      os.system("#sudo sed -i 's/reset .*/reset = 26;/g' /root/.avrduderc")
+      os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:blank.hex:i")
+    elif ans=="4":
+      print("\n Goodbye\n") 
+    elif ans=="5":
+      print("\n Goodbye\n")
+      sys.exit()
+    elif ans !="":
+      print("\n Not Valid Choice Try again\n") 
+   
 	 
    # Flash the bootloader - usb support
          # Recover the Arduinos
@@ -152,5 +183,5 @@ while answer not in ("yes", "no", "adv"):
 		 # pins fix
   else:
    print("")
-   print("Please enter yes / no / adv")
+   print("Please enter y / n / a")
    print("")
