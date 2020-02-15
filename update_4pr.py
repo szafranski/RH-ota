@@ -19,6 +19,7 @@ import sys
 #GPIO.setup(reset_3, #GPIO.OUT, initial=#GPIO.HIGH)
 #GPIO.setup(reset_4, #GPIO.OUT, initial=#GPIO.HIGH)
 
+#os.system("cls")
 os.system("clear")
 sleep(0.1)
 print("\n\n\n")  
@@ -34,7 +35,7 @@ print("\n\n\n")
 
 answer = None
 while answer not in ("y", "n", "a"):
-  answer = raw_input("           \n\nDo you want to proceed?    \n\n y - yes \n\n n - no \n\n a - advanced    ")
+  answer = raw_input("           \n\nDo you want to proceed?    \n\n y - YES \n\n n - NO \n\n a - ADVANCED    ")
   
   
   
@@ -98,7 +99,7 @@ while answer not in ("y", "n", "a"):
 
 
    print("")
-   print("     Node 3 - flashed'")
+   print("     Node 3 - flashed")
    print("")
    print("")
    #GPIO.output(reset_1, #GPIO.LOW)
@@ -117,7 +118,7 @@ while answer not in ("y", "n", "a"):
    os.system("#sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc")
 
    print("")
-   print("     Node 4 - flashed'")
+   print("     Node 4 - flashed")
    print("\n\n")
    sleep(0.1)
    print("     ########################################################################################")
@@ -138,11 +139,12 @@ while answer not in ("y", "n", "a"):
    ans=True
    while ans:
     print("\n\n")
-    print (" 1. Flash a bootloader")
-    print (" 2. Fix GPIO pin state")
-    print (" 3. Try to recover")
-    print (" 4. Start the server imediately")
-    print (" 5. Exit/Quit")
+    print ("   1. Flash the bootloader")
+    print ("   2. Fix GPIO pin state")
+    print ("   3. Try to recover")
+    print ("   4. Start the server")
+    print ("   5. Show avrdude ")
+    print ("   6. EXIT")
     print("\n")
     ans=raw_input("What would you like to do? ") 
     if ans=="1": 
@@ -167,12 +169,16 @@ while answer not in ("y", "n", "a"):
       os.system("#sudo sed -i 's/reset .*/reset = 26;/g' /root/.avrduderc")
       os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:blank.hex:i")
     elif ans=="4":
-      print("\n Goodbye\n") 
+      print("\n\nServer will start in 5 seconds\n\n")
+      sleep(5)
+      os.system("python ~/RotorHazard/src/server/server.py")	
     elif ans=="5":
-      print("\n Goodbye\n")
+      os.system("avrdude -c linuxgpio -p m328p -v")	
+    elif ans=="6":
+      print("\n\nSee you!\n\n")
       sys.exit()
     elif ans !="":
-      print("\n Not Valid Choice Try again\n") 
+      print("\n\n Try again\n\n") 
    
 	 
    # Flash the bootloader - usb support
