@@ -35,7 +35,7 @@ print("\n\n\n")
 
 answer = None
 while answer not in ("y", "n", "a"):
-  answer = raw_input("           \n\nDo you want to proceed?    \n\n y - YES \n\n n - NO \n\n a - ADVANCED    ")
+  answer = raw_input("           \n\n   Do you want to proceed?    \n\n y - YES \n\n n - NO \n\n a - ADVANCED    ")
   
   
   
@@ -132,7 +132,7 @@ while answer not in ("y", "n", "a"):
    sleep(1)
   elif answer == "n":
    print("")
-   print("OK - exiting")
+   print("   OK - exiting")
    print("")  
   elif answer == "a":
    sleep(0.1)
