@@ -50,8 +50,6 @@ programmer
 Just a test:
 sudo avrdude -c linuxgpio -p atmega328p -v
 
-?? sudo apt-get install arduino-mk
-
 sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:nodeallwb.hex.hex:i 
 
 node1wb - node4wb - hexes made especially for nodes 1 to 4
