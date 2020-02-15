@@ -7,15 +7,15 @@ reset_2 = 13
 reset_3 = 16
 reset_4 = 26
 
-import RPi.GPIO as GPIO # Import Raspberry Pi GPIO library
+#import RPi.#GPIO as #GPIO # Import Raspberry Pi #GPIO library
 from time import sleep # Import the sleep function from the time module
 import os
-GPIO.setwarnings(False) # Ignore warning for now
-GPIO.setmode(GPIO.BCM) # Use BCM pin numbering
-GPIO.setup(reset_1, GPIO.OUT, initial=GPIO.HIGH)
-GPIO.setup(reset_2, GPIO.OUT, initial=GPIO.HIGH)
-GPIO.setup(reset_3, GPIO.OUT, initial=GPIO.HIGH)
-GPIO.setup(reset_4, GPIO.OUT, initial=GPIO.HIGH)
+#GPIO.setwarnings(False) # Ignore warning for now
+#GPIO.setmode(#GPIO.BCM) # Use BCM pin numbering
+#GPIO.setup(reset_1, #GPIO.OUT, initial=#GPIO.HIGH)
+#GPIO.setup(reset_2, #GPIO.OUT, initial=#GPIO.HIGH)
+#GPIO.setup(reset_3, #GPIO.OUT, initial=#GPIO.HIGH)
+#GPIO.setup(reset_4, #GPIO.OUT, initial=#GPIO.HIGH)
 
 os.system("clear")
 sleep(0.1)
@@ -43,76 +43,76 @@ while answer not in ("yes", "no", "adv"):
    os.system("sudo systemctl stop rotorhazard")
    sleep(0.1)
 
-   GPIO.output(reset_1, GPIO.LOW)
-   GPIO.output(reset_2, GPIO.LOW)
-   GPIO.output(reset_3, GPIO.LOW)
-   GPIO.output(reset_4, GPIO.LOW)
+   #GPIO.output(reset_1, #GPIO.LOW)
+   #GPIO.output(reset_2, #GPIO.LOW)
+   #GPIO.output(reset_3, #GPIO.LOW)
+   #GPIO.output(reset_4, #GPIO.LOW)
    sleep(0.1)
-   GPIO.output(reset_1, GPIO.HIGH)
-   GPIO.output(reset_2, GPIO.HIGH)
-   GPIO.output(reset_3, GPIO.HIGH)
-   GPIO.output(reset_4, GPIO.HIGH)
+   #GPIO.output(reset_1, #GPIO.HIGH)
+   #GPIO.output(reset_2, #GPIO.HIGH)
+   #GPIO.output(reset_3, #GPIO.HIGH)
+   #GPIO.output(reset_4, #GPIO.HIGH)
 
    sleep(0.1)
    os.system("sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc")
-   os.system("sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node.hex:i")
+   os.system("sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:node.hex:i")
 
 
    print("")
    print("     Node 1 - flashed")
    print("")
    print("")
-   GPIO.output(reset_1, GPIO.LOW)
-   GPIO.output(reset_2, GPIO.LOW)
-   GPIO.output(reset_3, GPIO.LOW)
-   GPIO.output(reset_4, GPIO.LOW)
+   #GPIO.output(reset_1, #GPIO.LOW)
+   #GPIO.output(reset_2, #GPIO.LOW)
+   #GPIO.output(reset_3, #GPIO.LOW)
+   #GPIO.output(reset_4, #GPIO.LOW)
    sleep(0.1)
-   GPIO.output(reset_1, GPIO.HIGH)
-   GPIO.output(reset_2, GPIO.HIGH)
-   GPIO.output(reset_3, GPIO.HIGH)
-   GPIO.output(reset_4, GPIO.HIGH)
+   #GPIO.output(reset_1, #GPIO.HIGH)
+   #GPIO.output(reset_2, #GPIO.HIGH)
+   #GPIO.output(reset_3, #GPIO.HIGH)
+   #GPIO.output(reset_4, #GPIO.HIGH)
 
 
    sleep(0.1)
    os.system("sudo sed -i 's/reset .*/reset = 13;/g' /root/.avrduderc")
-   os.system("sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node.hex:i")
+   os.system("sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:node.hex:i")
 
 
    print("")
    print("     Node 2 - flashed")
    print("")
    print("")
-   GPIO.output(reset_1, GPIO.LOW)
-   GPIO.output(reset_2, GPIO.LOW)
-   GPIO.output(reset_3, GPIO.LOW)
-   GPIO.output(reset_4, GPIO.LOW)
+   #GPIO.output(reset_1, #GPIO.LOW)
+   #GPIO.output(reset_2, #GPIO.LOW)
+   #GPIO.output(reset_3, #GPIO.LOW)
+   #GPIO.output(reset_4, #GPIO.LOW)
    sleep(0.1)
-   GPIO.output(reset_1, GPIO.HIGH)
-   GPIO.output(reset_2, GPIO.HIGH)
-   GPIO.output(reset_3, GPIO.HIGH)
-   GPIO.output(reset_4, GPIO.HIGH)
+   #GPIO.output(reset_1, #GPIO.HIGH)
+   #GPIO.output(reset_2, #GPIO.HIGH)
+   #GPIO.output(reset_3, #GPIO.HIGH)
+   #GPIO.output(reset_4, #GPIO.HIGH)
    sleep(0.1)
    os.system("sudo sed -i 's/reset .*/reset = 16;/g' /root/.avrduderc")
-   os.system("sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node.hex:i")
+   os.system("sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:node.hex:i")
 
 
    print("")
    print("     Node 3 - flashed'")
    print("")
    print("")
-   GPIO.output(reset_1, GPIO.LOW)
-   GPIO.output(reset_2, GPIO.LOW)
-   GPIO.output(reset_3, GPIO.LOW)
-   GPIO.output(reset_4, GPIO.LOW)
+   #GPIO.output(reset_1, #GPIO.LOW)
+   #GPIO.output(reset_2, #GPIO.LOW)
+   #GPIO.output(reset_3, #GPIO.LOW)
+   #GPIO.output(reset_4, #GPIO.LOW)
    sleep(0.1)
-   GPIO.output(reset_1, GPIO.HIGH)
-   GPIO.output(reset_2, GPIO.HIGH)
-   GPIO.output(reset_3, GPIO.HIGH)
-   GPIO.output(reset_4, GPIO.HIGH)
+   #GPIO.output(reset_1, #GPIO.HIGH)
+   #GPIO.output(reset_2, #GPIO.HIGH)
+   #GPIO.output(reset_3, #GPIO.HIGH)
+   #GPIO.output(reset_4, #GPIO.HIGH)
    sleep(0.1)
 
    os.system("sudo sed -i 's/reset .*/reset = 26;/g' /root/.avrduderc")
-   os.system("sudo avrdude -c linuxgpio -p atmega328p -v -U flash:w:node.hex:i")
+   os.system("sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:node.hex:i")
    os.system("sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc")
 
    print("")
@@ -136,13 +136,13 @@ while answer not in ("yes", "no", "adv"):
    print("")  
   elif answer == "adv":
     sleep(0.1)
-	 os.system("echo 12 > /sys/class/gpio/unexport")
-	 os.system("echo 13 > /sys/class/gpio/unexport")
-	 os.system("echo 16 > /sys/class/gpio/unexport")
-	 os.system("echo 26 > /sys/class/gpio/unexport")
-	 os.system("echo 19 > /sys/class/gpio/unexport")
-	 os.system("echo 20 > /sys/class/gpio/unexport")
-	 os.system("echo 21 > /sys/class/gpio/unexport")
+	 os.system("echo 12 > /sys/class/#GPIO/unexport")
+	 os.system("echo 13 > /sys/class/#GPIO/unexport")
+	 os.system("echo 16 > /sys/class/#GPIO/unexport")
+	 os.system("echo 26 > /sys/class/#GPIO/unexport")
+	 os.system("echo 19 > /sys/class/#GPIO/unexport")
+	 os.system("echo 20 > /sys/class/#GPIO/unexport")
+	 os.system("echo 21 > /sys/class/#GPIO/unexport")
 	  
    # Flash the bootloader - usb support
          # Recover the Arduinos
