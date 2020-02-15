@@ -1,7 +1,11 @@
+####To do:####
+
 # pins low/high as a function
 # define number of pins
 # flashed - only after success 
-###
+
+
+########enter pins connected to reset pins on Arduinos########
 reset_1 = 12
 reset_2 = 13
 reset_3 = 16
