@@ -1,7 +1,7 @@
 # pins low/high as a function
 # define number of pins
 # flashed - only after success 
-##
+###
 reset_1 = 12
 reset_2 = 13
 reset_3 = 16
