@@ -35,7 +35,7 @@ print("\n\n\n")
 
 answer = None
 while answer not in ("y", "n", "a"):
-	answer = raw_input("				\n\n		Do you want to proceed?			\n\n 			y - YES \n\n 			n - NO \n\n 			a - ADVANCED")
+	answer = raw_input("				\n\n		Do you want to proceed?			\n\n 			y - YES \n\n 			n - NO \n\n 			a - ADVANCED"		)
 	
 	
 	
