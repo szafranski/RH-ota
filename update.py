@@ -23,19 +23,19 @@ import sys
 os.system("clear")
 sleep(0.1)
 print("\n\n\n")	
-print("			##########################################################################################")
-print("			###                                                                                    ###")
-print("			###                                 RotorHazard                                        ###")
-print("			###                                                                                    ###")
-print("			###    You are about to update nodes firmware. Please do not interrupt this operation! ###")
-print("			###                                                                                    ###")
-print("			###                                                                                    ###")
-print("			##########################################################################################")
+print("		##########################################################################################")
+print("		###                                                                                    ###")
+print("		###                                 RotorHazard                                        ###")
+print("		###                                                                                    ###")
+print("		###    You are about to update nodes firmware. Please do not interrupt this operation! ###")
+print("		###                                                                                    ###")
+print("		###                                                                                    ###")
+print("		##########################################################################################")
 print("\n\n\n")
 
 answer = None
-while answer not in ("y", "n", "a"):
-	answer = raw_input("				\n\n		Do you want to proceed?			\n\n 			y - YES \n\n 			n - NO \n\n 			a - ADVANCED"		)
+while answer not in ("y","Y", "n", "a"):
+	answer = raw_input("				\n\n		Do you want to proceed?			\n\n 			y - YES \n\n 			n - NO \n\n 			a - ADVANCED\n\n\n")
 	
 	
 	
@@ -121,14 +121,14 @@ while answer not in ("y", "n", "a"):
 		print("				Node 4 - flashed")
 		print("\n\n")
 		sleep(0.1)
-		print("			##########################################################################################")
-		print("			###                                                                                    ###")
-		print("			###             CONGRATULATIONS!            Flashing firmware to nodes - DONE          ###")
-		print("			###                                                                                    ###")
-		print("			###                                                                                    ###")
-		print("			###    Please power off the timer, unplug voltage source for few seconds and reboot    ###")
-		print("			###                                                                                    ###")
-		print("			##########################################################################################")
+		print("		##########################################################################################")
+		print("		###                                                                                    ###")
+		print("		###             CONGRATULATIONS!            Flashing firmware to nodes - DONE          ###")
+		print("		###                                                                                    ###")
+		print("		###                                                                                    ###")
+		print("		###    Please power off the timer, unplug voltage source for few seconds and reboot    ###")
+		print("		###                                                                                    ###")
+		print("		##########################################################################################")
 
 		print("\n\n")
 		sleep(1)
@@ -140,17 +140,26 @@ while answer not in ("y", "n", "a"):
 		sleep(0.1)
 		ans=True
 		while ans:
-			print("\n\n")
+			print ("______________________________________________________________________________\n\n\n")
+			print("\n			ADVANCED MENU\n")
 			print ("		1. Flash the bootloader")
-			print ("		2. Fix GPIO pin state")
+			print ("		2. Fix GPIO pina state")
 			print ("		3. Try to recover")
 			print ("		4. Start the server")
 			print ("		5. Show avrdude ")
 			print ("		6. EXIT")
 			print("\n")
-			ans=raw_input("What would you like to do? ") 
+			ans=raw_input("			What would you like to do?\n\n\n") 
 			if ans=="1": 
 					print("Attempting to flash a bootloader to Arduino") 
+					os.system("#sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc")
+					os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:blankb.hex:i")
+					os.system("#sudo sed -i 's/reset .*/reset = 13;/g' /root/.avrduderc")
+					os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:blankb.hex:i")
+					os.system("#sudo sed -i 's/reset .*/reset = 16;/g' /root/.avrduderc")
+					os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:blankb.hex:i")
+					os.system("#sudo sed -i 's/reset .*/reset = 26;/g' /root/.avrduderc")
+					os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:blankb.hex:i")
 			elif ans=="2":
 					os.system("echo 12 > /sys/class/#GPIO/unexport")
 					os.system("echo 13 > /sys/class/#GPIO/unexport")
@@ -161,7 +170,7 @@ while answer not in ("y", "n", "a"):
 					os.system("echo 21 > /sys/class/#GPIO/unexport") 
 					print("\n\nDONE\n\n")		
 			elif ans=="3":
-					print("\n Student Record Found")
+					print("\n Attempting recovery\n\n")
 					os.system("#sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc")
 					os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:blank.hex:i")
 					os.system("#sudo sed -i 's/reset .*/reset = 13;/g' /root/.avrduderc")
@@ -171,7 +180,9 @@ while answer not in ("y", "n", "a"):
 					os.system("#sudo sed -i 's/reset .*/reset = 26;/g' /root/.avrduderc")
 					os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:blank.hex:i")
 			elif ans=="4":
-					print("\n\nServer will start in 5 seconds\n\n")
+					print("\n\n   Server will start in 5 seconds\n\n")
+					print("\n\nPlease wait\n\n")
+					print("\n")
 					sleep(5)
 					os.system("python ~/RotorHazard/src/server/server.py")	
 			elif ans=="5":
@@ -182,7 +193,6 @@ while answer not in ("y", "n", "a"):
 			elif ans !="":
 					print("\n\n Try again\n\n") 
 		
-	 
 		# Flash the bootloader - usb support
 							# Recover the Arduinos
 							# Check the signatures
