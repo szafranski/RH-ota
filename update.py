@@ -188,6 +188,8 @@ while answer not in ("y","Y", "n", "a"):
 					print("\n\nPlease wait\n\n")
 					print("\n")
 					sleep(5)
+					os.system("#sudo pkill server.py")
+					os.system("#sudo systemctl stop rotorhazard")
 					os.system("python ~/RotorHazard/src/server/server.py")	
 			elif ans=="5":
 					os.system("avrdude -c linuxgpio -p m328p -v")	
