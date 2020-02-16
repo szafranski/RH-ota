@@ -5,7 +5,7 @@
 # flashed - only after success 
 
 
-########enter pins connected to reset pins on Arduinos########
+######## enter pins connected to reset pins on Arduinos ########
 reset_1 = 12  # node 1
 reset_2 = 13  # node 2
 reset_3 = 16  # node 3
@@ -26,7 +26,7 @@ import sys
 #GPIO.setup(reset_4, #GPIO.OUT, initial=#GPIO.HIGH)
 
 os.system("cls")
-os.system("clear")
+#os.system("clear")
 sleep(0.1)
 print("\n\n\n")	
 print("		********************************************************************************************")
@@ -39,9 +39,9 @@ print("		***                                                                    
 print("		***                                                                                      ***")
 print("		********************************************************************************************")
 
-print("		                               !!! if you are using this tool for the first time           ")
-print("		                                       enter 'Advanced menu' and install avrdude           ")
-
+print("		                                !!! if you are using this tool for the first time           ")
+print("		                                        enter 'Advanced menu' and install avrdude           ")
+ 
 
 
 def mainMenu():
@@ -261,11 +261,6 @@ def advanced():
 		os.system("sudo nano /usr/local/etc/avrdude.conf")			
 	#	os.system("sudo avrdude -c linuxgpio -p atmega328p -v")					
 		
-
-
-
-
-
 		
 	def program_node():
 		def nodeMenu():
@@ -307,7 +302,6 @@ def advanced():
 				print("\t '3' - flashes 'blank' hex on the node")
 				print("\t '4' - flashes bootloader on the node")
 				print("\t '5' - Abort")
-				print("\t '4' - flashes bootloade
 				selection2=str(raw_input(""))
 				if selection2 =='1' : 
 					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_2.hex:i")
