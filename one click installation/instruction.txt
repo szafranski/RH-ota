@@ -1,0 +1,57 @@
+sudo apt-get update && sudo apt-get upgrade -y
+
+sudo apt-get install python-dev python-rpi.gpio libffi-dev python-smbus build-essential python-pip git scons swig -y
+
+sudo pip install cffi 
+
+
+sudo nano /boot/config.txt
+
+add the following lines to the end of the file:
+
+dtparam=i2c_baudrate=75000
+core_freq=250
+
+
+cd ~
+wget https://codeload.github.com/RotorHazard/RotorHazard/zip/master -O temp.zip
+unzip temp.zip
+mv RotorHazard-master RotorHazard
+rm temp.zip
+
+cd ~/RotorHazard/src/server
+sudo pip install -r requirements.txt
+
+cd ~/RotorHazard/src
+sudo chmod 777 server
+
+cd ~
+sudo git clone https://github.com/jgarff/rpi_ws281x.git
+cd rpi_ws281x
+sudo scons
+
+cd python
+sudo python setup.py install
+
+cd ~
+sudo git clone https://github.com/chrisb2/pi_ina219.git
+cd pi_ina219
+
+sudo python setup.py install
+
+cd ~
+sudo git clone https://github.com/rm-hull/bme280.git
+cd bme280
+
+sudo python setup.py install
+
+sudo apt-get install openjdk-8-jdk-headless -y
+
+sudo nano /lib/systemd/system/rotorhazard.service
+
+
+sudo chmod 644 /lib/systemd/system/rotorhazard.service
+
+sudo systemctl daemon-reload
+sudo systemctl enable rotorhazard.service
+sudo reboot

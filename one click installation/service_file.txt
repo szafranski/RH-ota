@@ -1,0 +1,10 @@
+[Unit]
+Description=RotorHazard Server
+After=multi-user.target
+
+[Service]
+WorkingDirectory=/home/pi/RotorHazard/src/server
+ExecStart=/usr/bin/python server.py
+
+[Install]
+WantedBy=multi-user.target

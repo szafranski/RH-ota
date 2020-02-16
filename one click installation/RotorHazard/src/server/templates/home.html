@@ -1,0 +1,60 @@
+{% extends "layout.html" %} {% block title %}Home{% endblock %} {% block head %} {% endblock %} {% block content %}
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function () {
+		socket.emit('load_data', {'load_types': [
+			'all_languages',
+			'language',
+		]});
+
+		socket.on('all_languages', function (msg) {
+			rotorhazard.language_strings = msg.languages;
+		});
+
+		socket.on('language', function (msg) {
+			if (msg.language) {
+				rotorhazard.interface_language = msg.language;
+			}
+		});
+	});
+</script>
+
+<main class="page-home">
+
+<div class="header">
+	<h1>
+		{% if getOption("timerLogo") %}
+			<img src="./static/{{ getOption('timerLogo') }}" alt="{{ getOption('timerName') }}" />
+		{% else %}
+			<img src="./static/image/RotorHazard Logo.svg" alt="{{ getOption('timerName') }}" />
+		{% endif %}
+	</h1>
+</div>
+
+<div class="panel">
+	<div class="panel-header">
+		<h2>{{ __("Current Event") }}</h2>
+	</div>
+	<div class="panel-content">
+		<h1>{{ getOption('eventName') }}</h1>
+		<p>{{ getOption('eventDescription') }}</p>
+	</div>
+</div>
+
+<div class="panel">
+	<div class="panel-header">
+		<h2>{{ __("Actions") }}</h2>
+	</div>
+	<div class="panel-content">
+		<ul class="home-menu">
+			<li><a class="button-like" href="/heats">{{ __("Event Heats and Classes") }}</a></li>
+			<li><a class="button-like" href="/results">{{ __("View Race Results") }}</a></li>
+			<li><a class="button-like" href="/current">{{ __("Spectate Current Race") }}</a></li>
+			<li class="admin-hide"><a class="button-like" href="/race">{{ __("Start Race") }}</a></li>
+			<li class="admin-hide"><a class="button-like" href="/marshal">{{ __("Marshal Race Data") }}</a></li>
+			<li><a class="button-like" href="/settings">{{ __("Admin / Settings") }}</a></li>
+		</ul>
+	</div>
+</div>
+
+</main>
+{% endblock %}
