@@ -43,7 +43,7 @@
 // ******************************************************************** //
 
 // *** Node Setup - Set node number here (1-8): ***
-#define NODE_NUMBER 0
+#define NODE_NUMBER 4
 
 // Set to 1-8 for manual selection.
 // Leave at 0 for automatic selection via hardware pin.
