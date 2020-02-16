@@ -42,7 +42,7 @@ def mainMenu():
 
 
 	print("\n\n\n\t What do you want to do now:\n\n")
-	print("\t\t 1 - Nodes update")
+	print("\t\t 1 - Nodes flash and update")
 	print("\t\t 2 - Advanced menu")
 	print("\t\t 3 - Exit")
 	print("\t\t 4 - This is my first time - READ!\n\n")
