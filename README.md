@@ -1,43 +1,36 @@
-# RH_node_ota_updates
-plans and instructions
+		
 
-Concerns. Knows issues
+		Hello! You are using tool designed to easy uploadig the firmware on the RotorHazard racetimer nodes.
 
-Uploading with bootloader? What if no? 
-
-Rescue button/instructions/jumper?
-
-How channel sellecting works? Is it affected? Solution - diodes? software spi?
-
-Bad fuses? Anyone?
-
-Only ground pin nodes or both versions?
-
-What about new pcb design?
-
-3. Consider using separating diodes - rx5808
-
-4. Consider using logic level converter - rather not, voltage divider on MISOline?
+                 For now consider this tool as a beta verision. Tests are being done constantly.
 
 
-State of the project for now:
 
-Arduino programmed by Rpi pins - DONE
 
-Multiple Arduinos programmed at once - DONE
+                 Files that you are about to flash are 'hex' files from an official RotorHazard Arduino nodes ino files.
 
-Ability to program Arduinos one after another - DONE
+                 After using this tool nodes would be flashed WITHOUT the bootloader which means,
 
-Confirmed consistency - DONE
+                 that you won't be capable of connecting your Arduinos to the usb port and using it with PC anymore,
 
-RSSI readouts - WORKS after flashing
+                 unless you flash bootloader back using 'Advanced menu' of this software.
 
-Tutorial how to do this - DONE
 
-what version of avrdude? 6.3?
 
-Things to consider:
-1. Why two of Arduinos during tests got bad fuses after using avrdude - BIG ISSUE
-2. Is there a way to program Arduino one by one, not all at once - DONE!
-3. Consider using separating diodes - rx5808
-4. Consider using logic level converter - rather not
+
+                 It is recommended to flash nodes with specfic file for every node, even if you are using autoselection mod.
+
+                 This way you can allways check if nodes were flashed correctly during manual boot of the server file
+
+                  - what smartass would do after flashing new firmware anyway.
+
+
+
+                 If you are using this tool for the first time enter 'Advanced menu' and select 'Install avrdude'.
+
+                 For more hardware instructions open 'manuals' file or visit Facebook page.
+
+
+
+
+                 	 Enjoy!                                                                 Szafran

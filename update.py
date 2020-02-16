@@ -42,11 +42,11 @@ def mainMenu():
 
 
 
-	print("\n\n\n What do you want to do now:\n\n")
-	print("\t '1' - UPDATE NODES")
-	print("\t '2' - EXIT")
-	print("\t '3' - ENTER ADVANCED MENU\n")
-	print("\t '4' - This is my first time - READ\n\n")
+	print("\n\n\n\t What do you want to do now:\n\n")
+	print("\t\t '1' - UPDATE NODES")
+	print("\t\t '2' - EXIT")
+	print("\t\t '3' - ENTER ADVANCED MENU")
+	print("\t\t '4' - This is my first time - READ!\n\n")
 	selection=str(raw_input(""))
 	if selection =='1':
 		update()
@@ -403,7 +403,7 @@ def advanced():
 	advancedMenu()
 def first():
 	os.system("clear")
-	sleep(0.3)
+	sleep(0.1)
 	print("\n\n\n\t\t Hello! You are using tool designed to easy uploadig the firmware on the RotorHazard racetimer nodes.")
 	print("\n\t\t For now consider this tool as a beta verision. Tests are being done constantly.")
 	print("\n\n ")
