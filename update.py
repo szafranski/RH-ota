@@ -39,17 +39,15 @@ print("		***                                                                    
 print("		***                                                                                      ***")
 print("		********************************************************************************************")
 
-print("		                                !!! if you are using this tool for the first time           ")
-print("		                                        enter 'Advanced menu' and install avrdude           ")
- 
+
 
 
 def mainMenu():
 	print("\n\n\n What do you want to do now:\n\n")
 	print("\t '1' - UPDATE NODES")
 	print("\t '2' - EXIT")
-	print("\t '3' - ENTER ADVANCED MENU")
-
+	print("\t '3' - ENTER ADVANCED MENU\n\n")
+	print("\t '4' - This is my first time - READ\n\n")
 	selection=str(raw_input(""))
 	if selection =='1':
 		update()
@@ -57,15 +55,17 @@ def mainMenu():
 		exit()
 	if selection=='3':
 		advanced()	
+	if selection=='4':
+		first()	
 	else: 
 		mainMenu()	
 
 def update():
 	print("\n\n\t Choose flashing type\n")
-	print("\t '1' - Node gets own dedicated firmware")
-	print("\t '2' - Node ground-autoselection firmware")
+	print("\t '1' - Nodes get own dedicated firmware")
+	print("\t '2' - Nodes ground-autoselection firmware")
 	print("\t '3' - Flashes 'blank' hex on every node")
-	print("\t '3' - Go back")
+	print("\t '4' - Go back")
 	sleep(0.1)
 	selection=str(raw_input(""))
 	if selection=='1':
@@ -193,7 +193,7 @@ def advanced():
 		print ("		'7' - Enter main menu")
 		print("\n")
 			
-		selection=str(raw_input("			What would you like to do?\n\n\n"))
+		selection=str(raw_input(""))
 		if selection =='1':
 			bootloader()
 		if selection =='2':
@@ -213,16 +213,37 @@ def advanced():
 			sleep(0.1) 
 			advancedMenu()
 	def bootloader(): 
-		print("		Attempting to flash a bootloader to Arduinos") 
-		os.system("sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc")
-		os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")
-		os.system("sudo sed -i 's/reset .*/reset = 13;/g' /root/.avrduderc")
-		os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")
-		os.system("sudo sed -i 's/reset .*/reset = 16;/g' /root/.avrduderc")
-		os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")
-		os.system("sudo sed -i 's/reset .*/reset = 26;/g' /root/.avrduderc")
-		os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")
-		print("\n\tBootloader flashed")
+		def bootMenu():
+			print("\n\t\t NODE MENU")
+			print("\n\t 1 - Flash bootloader on node 1")
+			print("\n\t 2 - Flash bootloader on node 2")
+			print("\n\t 3 - Flash bootloader on node 3")
+			print("\n\t 4 - Flash bootloader on node 4")
+			print("\n\t 5 - Go back")
+			selection=str(raw_input("\n\nWhich node do you want to flash bootloader on: "))
+			if selection =='1':
+				print("\n\t Node 1 selected")
+				os.system("sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc")
+				os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")	
+				print("\n\t Bootloader flashed")
+			if selection=='2':
+				os.system("sudo sed -i 's/reset .*/reset = 13;/g' /root/.avrduderc")
+				print("\n\t Node 2 selected")	
+				os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")	
+				print("\n\t Bootloader flashed")
+			if selection=='3':
+				print("\n\t Node 3 selected")	
+				os.system("sudo sed -i 's/reset .*/reset = 16;/g' /root/.avrduderc")
+				os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")	
+				print("\n\t Bootloader flashed")
+			if selection=='4':
+				print("\n\t Node 4 selected")		
+				os.system("sudo sed -i 's/reset .*/reset = 26;/g' /root/.avrduderc")
+				os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")		
+				print("\n\t Bootloader flashed")
+			if selection2 =='5':
+				nodeMenu()
+		bootMenu()
 	def gpio_fix(): 
 		os.system("echo 12 > /sys/class/GPIO/unexport")
 		os.system("echo 13 > /sys/class/GPIO/unexport")
@@ -381,4 +402,18 @@ def advanced():
 				nodeMenu()	
 		nodeMenu()			
 	advancedMenu()
+def first():
+print("\n\n\t\t Hello! You are using tool designed to easy uploadig the firmware on the RotorHazard racetimer nodes.")
+print("\n\n\t\t For now consider this tool as a beta verision. Tests are being done constantly")
+print("\n\n\ ")
+print("\n\n\t\t Hello! You are using tool designed to easy uploadig the firmware on the RotorHazard racetimer nodes.")
+print("\n\n\t\t Files that you are about to flash are hex files from an official RotorHazard Arduino nodes ino files.")
+print("\n\n\t\t After using this tool nodes would be flashed with files WITHOUT the bootloader which means,")
+print("\n\n\t\t that you won't be capable of connecting the Arduinos to the usb port and using it with PC anymore,")
+print("\n\n\t\t unless you flash bootloader back using 'Advanced menu' of this software.")
+print("\n\n\ ")
+print("\n\n It is recommended to flash nodes with specfic file for every node, even if you are using autoselection mod.")
+print("\n\n This way you can allways check if nodes were flashed correctly during manual boot of the server file ")
+print("\n\n ")
+print("\n\n Enjoy!\t\t\t\t\t\t\t\t Szafran ")
 mainMenu()
