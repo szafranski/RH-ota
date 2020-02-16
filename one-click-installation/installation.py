@@ -12,17 +12,19 @@ if selection =='k':
 	os.system(" cd ~")
 	os.system(" sudo apt-get update && sudo apt-get upgrade -y")
 
-	os.system("echo 'dtparam=spi=on' | /boot/config.txt  ")  
+
 
 	os.system("sudo systemctl enable ssh")
 	os.system("sudo systemctl start ssh ")
 	os.system("sudo apt-get install wget python-dev python-rpi.gpio libffi-dev python-smbus build-essential python-pip git scons swig -y")
 	os.system("sudo pip install cffi ")
 
-	os.system("echo 'dtparam=i2c_baudrate=75000' | sudo tee -a /boot/config.txt  ")    
+	os.system("echo 'dtparam=i2c_baudrate=75000' | sudo tee -a /boot/config.txt")
 
-	os.system("echo 'core_freq=250' | sudo tee -a /boot/config.txt      ")
+	os.system("echo 'core_freq=250' | sudo tee -a /boot/config.txt")
 
+	os.system("echo 'dtparam=spi=on' | sudo sudo tee -a /boot/config.txt  ")  
+	
 	os.system(" cd ~")
 	os.system(" wget https://codeload.github.com/RotorHazard/RotorHazard/zip/master -O temp.zip")
 	os.system(" unzip temp.zip")
