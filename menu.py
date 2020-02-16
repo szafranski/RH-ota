@@ -12,14 +12,6 @@ reset_3 = 16  # node 3
 reset_4 = 26  # node 4
 
 
-#### select flashing type ########
-
-programming_type = 1   
-
-# 1 - every node gets own firmware
-# 2 - ground autoselect option
-# 3 - blank 
-
 #import RPi.#GPIO as #GPIO # Import Raspberry Pi #GPIO library
 from time import sleep # Import the sleep function from the time module
 import os
@@ -67,9 +59,19 @@ def mainMenu():
 		mainMenu()	
 	
 
-
 def update():
+	print("\n\n\t Choose flashing type\n")
+	print("\t '1' - every node gets own firmware")
+	print("\t '2' - ground autoselect option")
+	print("\t '3' - flashes 'blank' hex on every node")
 	sleep(0.1)
+	selection=str(raw_input(""))
+	if selection=='1':
+		programming_type = 1
+	if selection=='2':
+		programming_type = 2	
+	if selection=='3':
+		programming_type = 3
 	os.system("#sudo pkill server.py")
 	os.system("#sudo systemctl stop rotorhazard")
 	sleep(0.1)
@@ -200,7 +202,7 @@ def advanced():
 		if selection2 =='6':
 			program_node()
 		if selection2 =='7':
-			mainMenu()	
+			sleep(0.2)	
 		else:
 			print("\n\n Try again\n\n") 
 			advancedMenu()
@@ -267,7 +269,7 @@ def advanced():
 				os.system("#sudo sed -i 's/reset .*/reset = 26;/g' /root/.avrduderc")
 				print("\n\t Node 4 selected")	
 			if selection3==5:
-				advancedMenu()	
+				sleep(0.2)	
 			if selection3==6:
 				sleep(0.2)
 				print("\n\nSee you!\n\n")
@@ -277,6 +279,6 @@ def advanced():
 				nodeMenu()	
 		nodeMenu()	
 	def mainMenu():
-		
+		sleep(0.1)
 	advancedMenu()
 mainMenu()
