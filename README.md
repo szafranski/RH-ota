@@ -1,9 +1,9 @@
 		
+		
 
 		Hello! You are using tool designed to easy uploadig the firmware on the RotorHazard racetimer nodes.
 
 		For now consider this tool as a beta verision. Tests are being done constantly.
-
 
 
 
@@ -14,7 +14,6 @@
 		that you won't be capable of connecting your Arduinos to the usb port and using it with PC anymore,
 
 		unless you flash bootloader back using 'Advanced menu' of this software.
-
 
 
 
