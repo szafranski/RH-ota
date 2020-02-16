@@ -264,6 +264,7 @@ def advanced():
 				print("\t '1' - node gets own firmware")
 				print("\t '2' - ground autoselect option")
 				print("\t '3' - flashes 'blank' hex on the node")
+				print("\t '4' - flashes bootloader on the node")
 				selection2=str(raw_input(""))
 				if selection2 =='1' : 
 					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_1.hex:i")
@@ -271,6 +272,8 @@ def advanced():
 					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota.hex:i")
 				if selection2 =='3' : 
 					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/blank.hex:i")
+				if selection2 =='4' : 
+					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")	
 				print("\n\t Node flashed")
 			if selection=='2':
 				os.system("#sudo sed -i 's/reset .*/reset = 13;/g' /root/.avrduderc")
@@ -279,6 +282,7 @@ def advanced():
 				print("\t '1' - node gets own firmware")
 				print("\t '2' - ground autoselect option")
 				print("\t '3' - flashes 'blank' hex on the node")
+				print("\t '4' - flashes bootloader on the node")
 				selection2=str(raw_input(""))
 				if selection2 =='1' : 
 					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_2.hex:i")
@@ -286,6 +290,8 @@ def advanced():
 					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota.hex:i")
 				if selection2 =='3' : 
 					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/blank.hex:i")
+				if selection2 =='4' : 
+					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")	
 				print("\n\t Node flashed")
 			if selection=='3':
 				os.system("#sudo sed -i 's/reset .*/reset = 16;/g' /root/.avrduderc")
@@ -294,6 +300,7 @@ def advanced():
 				print("\t '1' - node gets own firmware")
 				print("\t '2' - ground autoselect option")
 				print("\t '3' - flashes 'blank' hex on the node")
+				print("\t '4' - flashes bootloader on the node")
 				selection2=str(raw_input(""))
 				if selection2 =='1' : 
 					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_3.hex:i")
@@ -301,6 +308,8 @@ def advanced():
 					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota.hex:i")
 				if selection2 =='3' : 
 					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/blank.hex:i")
+				if selection2 =='4' : 
+					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")	
 				print("\n\t Node flashed")
 			if selection=='4':
 				os.system("#sudo sed -i 's/reset .*/reset = 26;/g' /root/.avrduderc")
@@ -309,6 +318,7 @@ def advanced():
 				print("\t '1' - node gets own firmware")
 				print("\t '2' - ground autoselect option")
 				print("\t '3' - flashes 'blank' hex on the node")
+				print("\t '4' - flashes bootloader on the node")
 				selection2=str(raw_input(""))
 				if selection2 =='1' : 
 					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_4.hex:i")
@@ -316,6 +326,8 @@ def advanced():
 					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota.hex:i")
 				if selection2 =='3' : 
 					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/blank.hex:i")
+				if selection2 =='4' : 
+					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")	
 				print("\n\t Node flashed")
 			if selection=='5':
 				sleep(0.2)	
