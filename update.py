@@ -12,13 +12,13 @@ reset_3 = 16  # node 3
 reset_4 = 26  # node 4
 
 
-import RPi.GPIO as GPIO # Import Raspberry Pi GPIO library
-from time import sleep # Import the sleep function from the time module
+import RPi.GPIO as GPIO
+from time import sleep
 import os
 import sys
 
 
-GPIO.setwarnings(False) # Ignore warning for now
+GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM) # Use BCM pin numbering
 GPIO.setup(reset_1, GPIO.OUT, initial=GPIO.HIGH)
 GPIO.setup(reset_2, GPIO.OUT, initial=GPIO.HIGH)
