@@ -2,9 +2,14 @@ from time import sleep # Import the sleep function from the time module
 import os
 import sys
 
-#os.system(" cd ~")
+os.system(" cd ~")
 os.system(" sudo apt-get update && sudo apt-get upgrade -y")
 
+sudo nano 
+os.system("echo 'dtparam=spi=on' | /boot/config.txt  ")  
+
+os.system("sudo systemctl enable ssh")
+os.system("sudo systemctl start ssh ")
 os.system(" sudo apt-get install wget python-dev  libffi-dev python-smbus build-essential python-pip git scons swig -y")
 #python-rpi.gpio
 os.system(" sudo pip install cffi ")
@@ -58,4 +63,4 @@ os.system(" sudo chmod 644 /lib/systemd/system/rotorhazard.service")
 
 os.system(" sudo systemctl daemon-reload")
 os.system(" sudo systemctl enable rotorhazard.service")
-print("Installation completed. Please type 'sudo reboot'")
+print("\n\n\t\tInstallation completed. Please type 'sudo reboot'")
