@@ -27,7 +27,7 @@ GPIO.setup(reset_4, GPIO.OUT, initial=GPIO.HIGH)
 
 
 os.system("clear")
-sleep(0.1)
+sleep(0.2)
 print("\n\n\n")	
 print("		********************************************************************************************")
 print("		***                                                                                      ***")
@@ -58,15 +58,14 @@ def mainMenu():
 	if selection=='3':
 		advanced()	
 	else: 
-		print("Enter 1 / 2 / 3")
 		mainMenu()	
-	
 
 def update():
 	print("\n\n\t Choose flashing type\n")
-	print("\t '1' - every node gets own firmware")
-	print("\t '2' - ground autoselect option")
-	print("\t '3' - flashes 'blank' hex on every node")
+	print("\t '1' - Node gets own dedicated firmware")
+	print("\t '2' - Node ground-autoselection firmware")
+	print("\t '3' - Flashes 'blank' hex on every node")
+	print("\t '3' - Go back")
 	sleep(0.1)
 	selection=str(raw_input(""))
 	if selection=='1':
@@ -75,6 +74,9 @@ def update():
 		programming_type = 2	
 	if selection=='3':
 		programming_type = 3
+	if selection=='4':
+		mainMenu()
+		
 	os.system("sudo pkill server.py")
 	os.system("sudo systemctl stop rotorhazard")
 	sleep(0.1)
@@ -165,7 +167,7 @@ def update():
 	sleep(0.1)
 	print("		******************************************************************************************")
 	print("		***                                                                                    ***")
-	print("		***             CONGRATULATIONS!            Flashing firmware to nodes - 		DONE          ***")
+	print("		***             CONGRATULATIONS!             Flashing firmware to nodes - 	 DONE      ***")
 	print("		***                                                                                    ***")
 	print("		***                                                                                    ***")
 	print("		***    Please power off the timer, unplug voltage source for few seconds and reboot    ***")
@@ -270,7 +272,7 @@ def advanced():
 			os.system("make")			
 			os.system("sudo make install")			
 			os.system("sudo nano /usr/local/etc/avrdude.conf")			
-			os.system("sudo avrdude -v")	\
+			os.system("sudo avrdude -v")	
 		if selection2 =='4' : 
 			advancedMenu()
 		avr_info()
