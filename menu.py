@@ -277,6 +277,6 @@ def advanced():
 				nodeMenu()	
 		nodeMenu()	
 	def mainMenu():
-		continue
+		
 	advancedMenu()
 mainMenu()
