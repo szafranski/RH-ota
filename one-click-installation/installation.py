@@ -3,10 +3,10 @@ import os
 import sys
 
 os.system("clear")
-print("\nThis script would automatically install RotorHazard software on your raspberry. After rebooting please check")
-print("\nby typing 'sudo raspi-config' if I2C, SPI and SSH protocols are active. Enjoy!")
+print("\n\t\tThis script would automatically install RotorHazard software on your raspberry. After rebooting please check")
+print("\n\t\tby typing 'sudo raspi-config' if I2C, SPI and SSH protocols are active. Enjoy!")
 
-print("\n\n\n\t\t Ready - press 'k'n")
+print("\n\n\n\t\t Ready - press 'k'")
 selection=str(raw_input(""))
 if selection =='k':	
 	os.system(" cd ~")
