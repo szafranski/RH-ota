@@ -11,16 +11,20 @@ reset_2 = 13
 reset_3 = 16
 reset_4 = 26
 
-#import RPi.#GPIO as #GPIO # Import Raspberry Pi #GPIO library
-from time import sleep # Import the sleep function from the time module
-import os
-import sys
+
+#### select flashing type ########
 
 programming_type = 1   
 
 # 1 - every node gets own firmware
 # 2 - ground autoselect option
 # 3 - blank 
+
+#import RPi.#GPIO as #GPIO # Import Raspberry Pi #GPIO library
+from time import sleep # Import the sleep function from the time module
+import os
+import sys
+
 
 #GPIO.setwarnings(False) # Ignore warning for now
 #GPIO.setmode(#GPIO.BCM) # Use BCM pin numbering
@@ -67,9 +71,9 @@ while answer not in ("y","Y", "n", "a"):
 
 		sleep(0.1)
 		os.system("#sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc")
-		if programming_type ==1 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node_ota_1.hex:i")
-		if programming_type ==2 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node.hex:i")
-		if programming_type ==3 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/blank.hex:i")
+		if programming_type ==1 : os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_1.hex:i")
+		if programming_type ==2 : os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node.hex:i")
+		if programming_type ==3 : os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/blank.hex:i")
 		sleep(0.3)
 
 		print("")
@@ -89,9 +93,9 @@ while answer not in ("y","Y", "n", "a"):
 
 		sleep(0.1)
 		os.system("#sudo sed -i 's/reset .*/reset = 13;/g' /root/.avrduderc")
-		if programming_type ==1 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node_ota_2.hex:i")
-		if programming_type ==2 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node.hex:i")
-		if programming_type ==3 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/blank.hex:i")
+		if programming_type ==1 : os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_2.hex:i")
+		if programming_type ==2 : os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node.hex:i")
+		if programming_type ==3 : os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/blank.hex:i")
 		sleep(0.3)
 
 		print("")
@@ -109,9 +113,9 @@ while answer not in ("y","Y", "n", "a"):
 		#GPIO.output(reset_4, #GPIO.HIGH)
 		sleep(0.1)
 		os.system("#sudo sed -i 's/reset .*/reset = 16;/g' /root/.avrduderc")
-		if programming_type ==1 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node_ota_3.hex:i")
-		if programming_type ==2 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node.hex:i")
-		if programming_type ==3 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/blank.hex:i")
+		if programming_type ==1 : os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_3.hex:i")
+		if programming_type ==2 : os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node.hex:i")
+		if programming_type ==3 : os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/blank.hex:i")
 		sleep(0.3)
 
 		print("")
@@ -129,9 +133,9 @@ while answer not in ("y","Y", "n", "a"):
 		#GPIO.output(reset_4, #GPIO.HIGH)
 		sleep(0.1)
 
-		if programming_type ==1 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node_ota_4.hex:i")
-		if programming_type ==2 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node.hex:i")
-		if programming_type ==3 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/blank.hex:i")
+		if programming_type ==1 : os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_4.hex:i")
+		if programming_type ==2 : os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node.hex:i")
+		if programming_type ==3 : os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/blank.hex:i")
 		os.system("#sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc")
 		sleep(0.3)
 
@@ -161,23 +165,24 @@ while answer not in ("y","Y", "n", "a"):
 			print ("______________________________________________________________________________\n\n\n")
 			print("\n			ADVANCED MENU\n")
 			print ("		1. Flash the bootloader")
-			print ("		2. Fix GPIO pina state")
+			print ("		2. Fix GPIO pins state")
 			print ("		3. Try to recover")
 			print ("		4. Start the server")
 			print ("		5. Avrdude info")
-			print ("		6. EXIT")
+			print ("		6. Program specific node")
+			print ("		7. EXIT")
 			print("\n")
 			ans=raw_input("			What would you like to do?\n\n\n") 
 			if ans=="1": 
 					print("Attempting to flash a bootloader to Arduino") 
 					os.system("#sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc")
-					os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:blankb.hex:i")
+					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")
 					os.system("#sudo sed -i 's/reset .*/reset = 13;/g' /root/.avrduderc")
-					os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:blankb.hex:i")
+					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")
 					os.system("#sudo sed -i 's/reset .*/reset = 16;/g' /root/.avrduderc")
-					os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:blankb.hex:i")
+					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")
 					os.system("#sudo sed -i 's/reset .*/reset = 26;/g' /root/.avrduderc")
-					os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:blankb.hex:i")
+					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")
 			elif ans=="2":
 					os.system("echo 12 > /sys/class/#GPIO/unexport")
 					os.system("echo 13 > /sys/class/#GPIO/unexport")
@@ -190,13 +195,13 @@ while answer not in ("y","Y", "n", "a"):
 			elif ans=="3":
 					print("\n Attempting recovery\n\n")
 					os.system("#sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc")
-					os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:blank.hex:i")
+					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:blank.hex:i")
 					os.system("#sudo sed -i 's/reset .*/reset = 13;/g' /root/.avrduderc")
-					os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:blank.hex:i")
+					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:blank.hex:i")
 					os.system("#sudo sed -i 's/reset .*/reset = 16;/g' /root/.avrduderc")
-					os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:blank.hex:i")
+					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:blank.hex:i")
 					os.system("#sudo sed -i 's/reset .*/reset = 26;/g' /root/.avrduderc")
-					os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:blank.hex:i")
+					os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:blank.hex:i")
 			elif ans=="4":
 					print("\n\n   Server will start in 5 seconds\n\n")
 					print("\n\nPlease wait\n\n")
@@ -206,15 +211,17 @@ while answer not in ("y","Y", "n", "a"):
 					os.system("#sudo systemctl stop rotorhazard")
 					os.system("python ~/RotorHazard/src/server/server.py")	
 			elif ans=="5":
-					os.system("sudo avrdude -v")	
+					os.system("sudo avrdude -c linuxgpio -p m328p -v")	
 			elif ans=="6":
+					os.system("sudo avrdude -c linuxgpio -p m328p -v")	
+			elif ans=="7":
 					print("\n\nSee you!\n\n")
 					sys.exit()
 			elif ans !="":
 					print("\n\n Try again\n\n") 
 		
 		# Flash the bootloader - usb support
-							# Recover the Arduinos
+
 							# Check the signatures
 							# Fix pin busy
 							# Program specific node
