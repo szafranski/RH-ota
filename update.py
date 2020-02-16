@@ -50,7 +50,7 @@ def mainMenu():
 	print("\t '2' - EXIT")
 	print("\t '3' - ENTER ADVANCED MENU")
 
-	selection=str(raw_input("\n\n\n\t\t\tEnter choice: "))
+	selection=str(raw_input(""))
 	if selection =='1':
 		update()
 	if selection=='2':
@@ -253,6 +253,7 @@ def advanced():
 		print ("		'1' - Check the state of avrdude installation + config file")
 		print ("		'2' - Check if nodes (at least one) are connected properly ")
 		print ("		'3' - Install avrdude")
+		print ("		'4' - Go back")
 		selection2=str(raw_input(""))
 		if selection2 =='1' : 
 			os.system("sudo avrdude -v")
@@ -269,7 +270,10 @@ def advanced():
 			os.system("make")			
 			os.system("sudo make install")			
 			os.system("sudo nano /usr/local/etc/avrdude.conf")			
-			os.system("sudo avrdude -v")					
+			os.system("sudo avrdude -v")	\
+		if selection2 =='4' : 
+			advancedMenu()
+		avr_info()
 	def program_node():
 		def nodeMenu():
 			print("\n\t\t NODE MENU")
