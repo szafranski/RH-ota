@@ -18,7 +18,7 @@
 
 
 
-		It is recommended to flash nodes with specfic file for every node, even if you are using autoselection mod.
+		It is recommended to flash nodes with specfic file for every node, even with 'autoselection mod'.
 
 		This way you can allways check if nodes were flashed correctly during manual boot of the server file
 
