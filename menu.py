@@ -198,17 +198,18 @@ def advanced():
 		if selection2 =='4':
 			server_start()
 		if selection2 =='5':
-			avr_info_node()
+			avr_info()
 		if selection2 =='6':
 			program_node()
 		if selection2 =='7':
 			sleep(0.2)	
+			mainMenu()
 		else:
-			print("\n\n Try again\n\n") 
+			sleep(0.1)
+			#print("\n\n Try again\n\n") 
 			advancedMenu()
 	def bootloader(): 
 		print("Attempting to flash a bootloader to Arduino") 
-		print("sudo")
 		os.system("#sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc")
 		os.system("#sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")
 		os.system("#sudo sed -i 's/reset .*/reset = 13;/g' /root/.avrduderc")
@@ -256,29 +257,28 @@ def advanced():
 			print("\n\t 5 - Abort")
 			print("\n\t 6 - Exit program")
 			selection3=str(raw_input("\n\nWhich node do you want to program: "))
-			if selection3 ==1:
+			if selection3 =='1':
 				os.system("#sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc")
 				print("\n\t Node 1 selected")
-			if selection3==2:
+			if selection3=='2':
 				os.system("#sudo sed -i 's/reset .*/reset = 13;/g' /root/.avrduderc")
 				print("\n\t Node 2 selected")
-			if selection3==3:
+			if selection3=='3':
 				os.system("#sudo sed -i 's/reset .*/reset = 16;/g' /root/.avrduderc")
 				print("\n\t Node 3 selected")
-			if selection3==4:
+			if selection3=='4':
 				os.system("#sudo sed -i 's/reset .*/reset = 26;/g' /root/.avrduderc")
 				print("\n\t Node 4 selected")	
-			if selection3==5:
+			if selection3=='5':
 				sleep(0.2)	
-			if selection3==6:
+				advancedMenu()
+			if selection3=='6':
 				sleep(0.2)
 				print("\n\nSee you!\n\n")
 				sys.exit()	
 			else: 
 				print("\nEnter 1 / 2 / 3 / 4 / 5 / 6")
 				nodeMenu()	
-		nodeMenu()	
-	def mainMenu():
-		sleep(0.1)
+		nodeMenu()			
 	advancedMenu()
 mainMenu()
