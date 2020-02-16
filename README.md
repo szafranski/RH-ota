@@ -2,7 +2,7 @@
 
 		Hello! You are using tool designed to easy uploadig the firmware on the RotorHazard racetimer nodes.
 
-        For now consider this tool as a beta verision. Tests are being done constantly.
+		For now consider this tool as a beta verision. Tests are being done constantly.
 
 
 
@@ -18,18 +18,18 @@
 
 
 
-        It is recommended to flash nodes with specfic file for every node, even if you are using autoselection mod.
+		It is recommended to flash nodes with specfic file for every node, even if you are using autoselection mod.
 
-        This way you can allways check if nodes were flashed correctly during manual boot of the server file
+		This way you can allways check if nodes were flashed correctly during manual boot of the server file
 
-        - what smartass would do after flashing new firmware anyway.
-
-
-
-        If you are using this tool for the first time enter 'Advanced menu' and select 'Install avrdude'.
-
-        For more hardware instructions open 'manuals' file or visit Facebook page.
+		- what smartass would do after flashing new firmware anyway.
 
 
 
-                 	 Enjoy!                                                                 Szafran
+		If you are using this tool for the first time enter 'Advanced menu' and select 'Install avrdude'.
+
+		For more hardware instructions open 'manuals' file or visit Facebook page.
+
+
+
+				Enjoy!																	Szafran
