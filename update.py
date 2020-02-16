@@ -16,6 +16,12 @@ from time import sleep # Import the sleep function from the time module
 import os
 import sys
 
+programming_type = 1   
+
+# 1 - every node gets own firmware
+# 2 - ground autoselect option
+# 3 - blank 
+
 #GPIO.setwarnings(False) # Ignore warning for now
 #GPIO.setmode(#GPIO.BCM) # Use BCM pin numbering
 #GPIO.setup(reset_1, #GPIO.OUT, initial=#GPIO.HIGH)
@@ -27,14 +33,14 @@ import sys
 os.system("clear")
 sleep(0.1)
 print("\n\n\n")	
-print("		##########################################################################################")
-print("		###                                                                                    ###")
-print("		###                                 RotorHazard                                        ###")
-print("		###                                                                                    ###")
-print("		###    You are about to update nodes firmware. Please do not interrupt this operation! ###")
-print("		###                                                                                    ###")
-print("		###                                                                                    ###")
-print("		##########################################################################################")
+print("		******************************************************************************************")
+print("		***                                                                                    ***")
+print("		***                                 RotorHazard                                        ***")
+print("		***                                                                                    ***")
+print("		***    You are about to update nodes firmware. Please do not interrupt this operation! ***")
+print("		***                                                                                    ***")
+print("		***                                                                                    ***")
+print("		******************************************************************************************")
 print("\n\n\n")
 
 answer = None
@@ -61,13 +67,15 @@ while answer not in ("y","Y", "n", "a"):
 
 		sleep(0.1)
 		os.system("#sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc")
-		os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:node.hex:i")
-
+		if programming_type ==1 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node_ota_1.hex:i")
+		if programming_type ==2 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node.hex:i")
+		if programming_type ==3 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/blank.hex:i")
+		sleep(0.3)
 
 		print("")
 		print("				Node 1 - flashed")
-		print("")
-		print("")
+		print("\n\n")
+
 		#GPIO.output(reset_1, #GPIO.LOW)
 		#GPIO.output(reset_2, #GPIO.LOW)
 		#GPIO.output(reset_3, #GPIO.LOW)
@@ -81,13 +89,15 @@ while answer not in ("y","Y", "n", "a"):
 
 		sleep(0.1)
 		os.system("#sudo sed -i 's/reset .*/reset = 13;/g' /root/.avrduderc")
-		os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:node.hex:i")
-
+		os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node_ota_2.hex:i")
+		os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node.hex:i")
+		os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/blank.hex:i")
+		sleep(0.3)
 
 		print("")
 		print("				Node 2 - flashed")
-		print("")
-		print("")
+		print("\n\n")
+
 		#GPIO.output(reset_1, #GPIO.LOW)
 		#GPIO.output(reset_2, #GPIO.LOW)
 		#GPIO.output(reset_3, #GPIO.LOW)
@@ -99,13 +109,15 @@ while answer not in ("y","Y", "n", "a"):
 		#GPIO.output(reset_4, #GPIO.HIGH)
 		sleep(0.1)
 		os.system("#sudo sed -i 's/reset .*/reset = 16;/g' /root/.avrduderc")
-		os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:node.hex:i")
-
+		os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node.hex:i")
+		os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node_ota_3.hex:i")
+		os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/blank.hex:i")
+		sleep(0.3)
 
 		print("")
 		print("				Node 3 - flashed")
-		print("")
-		print("")
+		print("\n\n")
+
 		#GPIO.output(reset_1, #GPIO.LOW)
 		#GPIO.output(reset_2, #GPIO.LOW)
 		#GPIO.output(reset_3, #GPIO.LOW)
@@ -117,22 +129,24 @@ while answer not in ("y","Y", "n", "a"):
 		#GPIO.output(reset_4, #GPIO.HIGH)
 		sleep(0.1)
 
-		os.system("#sudo sed -i 's/reset .*/reset = 26;/g' /root/.avrduderc")
-		os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:node.hex:i")
+		os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node_ota_4.hex:i")
+		os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node.hex:i")
+		os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/blank.hex:i")
 		os.system("#sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc")
+		sleep(0.3)
 
 		print("")
 		print("				Node 4 - flashed")
 		print("\n\n")
 		sleep(0.1)
-		print("		##########################################################################################")
-		print("		###                                                                                    ###")
-		print("		###             CONGRATULATIONS!            Flashing firmware to nodes - DONE          ###")
-		print("		###                                                                                    ###")
-		print("		###                                                                                    ###")
-		print("		###    Please power off the timer, unplug voltage source for few seconds and reboot    ###")
-		print("		###                                                                                    ###")
-		print("		##########################################################################################")
+		print("		******************************************************************************************")
+		print("		***                                                                                    ***")
+		print("		***             CONGRATULATIONS!            Flashing firmware to nodes - DONE          ***")
+		print("		***                                                                                    ***")
+		print("		***                                                                                    ***")
+		print("		***    Please power off the timer, unplug voltage source for few seconds and reboot    ***")
+		print("		***                                                                                    ***")
+		print("		******************************************************************************************")
 
 		print("\n\n")
 		sleep(1)
