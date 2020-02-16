@@ -89,9 +89,9 @@ while answer not in ("y","Y", "n", "a"):
 
 		sleep(0.1)
 		os.system("#sudo sed -i 's/reset .*/reset = 13;/g' /root/.avrduderc")
-		os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node_ota_2.hex:i")
-		os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node.hex:i")
-		os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/blank.hex:i")
+		if programming_type ==1 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node_ota_2.hex:i")
+		if programming_type ==2 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node.hex:i")
+		if programming_type ==3 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/blank.hex:i")
 		sleep(0.3)
 
 		print("")
@@ -109,9 +109,9 @@ while answer not in ("y","Y", "n", "a"):
 		#GPIO.output(reset_4, #GPIO.HIGH)
 		sleep(0.1)
 		os.system("#sudo sed -i 's/reset .*/reset = 16;/g' /root/.avrduderc")
-		os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node.hex:i")
-		os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node_ota_3.hex:i")
-		os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/blank.hex:i")
+		if programming_type ==1 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node_ota_3.hex:i")
+		if programming_type ==2 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node.hex:i")
+		if programming_type ==3 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/blank.hex:i")
 		sleep(0.3)
 
 		print("")
@@ -129,9 +129,9 @@ while answer not in ("y","Y", "n", "a"):
 		#GPIO.output(reset_4, #GPIO.HIGH)
 		sleep(0.1)
 
-		os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node_ota_4.hex:i")
-		os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node.hex:i")
-		os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/blank.hex:i")
+		if programming_type ==1 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node_ota_4.hex:i")
+		if programming_type ==2 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/node.hex:i")
+		if programming_type ==3 : os.system("#sudo avrdude -c linux#GPIO -p atmega328p -v -U flash:w:firmware/blank.hex:i")
 		os.system("#sudo sed -i 's/reset .*/reset = 12;/g' /root/.avrduderc")
 		sleep(0.3)
 
