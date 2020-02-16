@@ -404,7 +404,7 @@ def advanced():
 	advancedMenu()
 def first():
 	os.system("clear")
-	print("\n\n\\n\t\t Hello! You are using tool designed to easy uploadig the firmware on the RotorHazard racetimer nodes.")
+	print("\n\n\n\t\t Hello! You are using tool designed to easy uploadig the firmware on the RotorHazard racetimer nodes.")
 	print("\n\t\t For now consider this tool as a beta verision. Tests are being done constantly")
 	print("\n\n ")
 	print("\n\t\t Hello! You are using tool designed to easy uploadig the firmware on the RotorHazard racetimer nodes.")
@@ -414,9 +414,16 @@ def first():
 	print("\n\t\t unless you flash bootloader back using 'Advanced menu' of this software.")
 	print("\n\n ")
 	print("\n\t\t It is recommended to flash nodes with specfic file for every node, even if you are using autoselection mod.")
-	print("\n\t\t This way you can allways check if nodes were flashed correctly during manual boot of the server file. ")
+	print("\n\t\t This way you can allways check if nodes were flashed correctly during manual boot of the server file ")
+	print("\n\t\t  - what smartass would do after flashing new firmware anyway. ")
 	print("\n ")
-	print("\n\t\t  For more instructions open 'manuals' file or visit Facebook page.")
+	print("\n\t\t If you are using this tool for the first time enter 'Advanced menu' and select 'Install avrdude'.")
+	print("\n\t\t For more hardware instruction open 'manuals' file or visit Facebook page.")
 	print("\n ")
-	print("\n\n Enjoy!\t\t\t\t\t\t\t\t Szafran ")
+	print("\n\n\t\t  Enjoy!\t\t\t\t\t\t\t\t Szafran\n\n ")
+	selection=str(raw_input("\t\t\t\t\t\t\t\tGo back by pressing 'b'"))
+	if selection=='b':
+		mainMenu()
+	else
+		first()
 mainMenu()
