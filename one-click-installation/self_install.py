@@ -51,6 +51,7 @@ def main():
 		os.chdir("/home/pi/bme280")
 		os.system("sudo python setup.py install")
 		os.system("sudo apt-get install openjdk-8-jdk-headless -y")
+		os.system("sudo rm /lib/systemd/system/rotorhazard.service")
 		os.system("echo ' ' | sudo tee -a /lib/systemd/system/rotorhazard.service")
 		os.system("echo '[Unit]' | sudo tee -a /lib/systemd/system/rotorhazard.service")
 		os.system("echo 'Description=RotorHazard Server' | sudo tee -a /lib/systemd/system/rotorhazard.service")
