@@ -12,9 +12,9 @@ def main():
 	print("\n\tAfter rebooting please check by typing 'sudo raspi-config' if I2C, SPI and SSH protocols are active.")
 	print("\n\tMake sure that you are logged as user 'pi'.")
 	print("\n\n\t\t\t\t\t\t\t\t\tEnjoy!")
-	print("\n\n\n\t\t 'i' - Install from skratch")
-	print("\n\n\n\t\t 'u' - Update")
-	print("\n\n\n\t\t 'a' - Abort")
+	print("\n\n\n\t\t 'i' - Install software from skratch")
+	print("\n\n\n\t\t 'u' - Update existing installation")
+	print("\n\n\n\t\t 'a' - Abort ")
 	selection=str(raw_input(""))
 	if selection =='i':	
 		os.system("clear")
@@ -51,14 +51,15 @@ def main():
 		os.chdir("/home/pi/bme280")
 		os.system("sudo python setup.py install")
 		os.system("sudo apt-get install openjdk-8-jdk-headless -y")
+		os.system("echo ' ' | sudo tee -a /lib/systemd/system/rotorhazard.service")
 		os.system("echo '[Unit]' | sudo tee -a /lib/systemd/system/rotorhazard.service")
 		os.system("echo 'Description=RotorHazard Server' | sudo tee -a /lib/systemd/system/rotorhazard.service")
 		os.system("echo 'After=multi-user.target' | sudo tee -a /lib/systemd/system/rotorhazard.service")
-		os.system("echo ' ' | sudo tee -a /boot/config.txt")
-		os.system("echo '[Service]' | sudo tee -a /boot/config.txt")
+		os.system("echo ' ' | sudo tee -a /lib/systemd/system/rotorhazard.service")
+		os.system("echo '[Service]' | sudo tee -a /lib/systemd/system/rotorhazard.service")
 		os.system("echo 'WorkingDirectory=/home/pi/RotorHazard/src/server' | sudo tee -a /lib/systemd/system/rotorhazard.service")
 		os.system("echo 'ExecStart=/usr/bin/python server.py' | sudo tee -a /lib/systemd/system/rotorhazard.service")
-		os.system("echo ' ' | sudo tee -a /boot/config.txt")
+		os.system("echo ' ' | sudo tee -a /lib/systemd/system/rotorhazard.service")
 		os.system("echo '[Install]' | sudo tee -a /lib/systemd/system/rotorhazard.service")
 		os.system("echo 'WantedBy=multi-user.target' | sudo tee -a /lib/systemd/system/rotorhazard.service")
 		os.system("sudo chmod 644 /lib/systemd/system/rotorhazard.service")
@@ -72,7 +73,7 @@ def main():
 		print("\t##############################################")
 		
 		
-		print("\n\n\t\tRotorHazard service should start automatically after rebooting")
+		print("\n\n\tRotorHazard service should start automatically after rebooting")
 		def end():
 			print("\n\n\n\n\t\tType 'r' to reboot - recommended - or 'e' to exit\n\n\n")
 			def endMenu():
@@ -89,15 +90,16 @@ def main():
 			endMenu()	
 		end()
 	if selection =='u':	
+		os.system("sudo systemctl stop rotorhazard")
 		os.system("sudo apt-get update && sudo apt-get upgrade -y")
 		os.chdir("/home/pi")
-		os.system(" wget https://codeload.github.com/RotorHazard/RotorHazard/zip/master -O temp.zip")
-		os.system(" unzip temp.zip")
-		os.system(" mv RotorHazard RotorHazard.old")
-		os.system(" mv RotorHazard-master RotorHazard")
-		os.system(" rm temp.zip")
-		os.system(" cp RotorHazard.old/src/server/config.json RotorHazard/src/server/")
-		os.system(" cp RotorHazard.old/src/server/database.db RotorHazard/src/server/")
+		os.system("wget https://codeload.github.com/RotorHazard/RotorHazard/zip/master -O temp.zip")
+		os.system("unzip temp.zip")
+		os.system("mv RotorHazard RotorHazard.old")
+		os.system("mv RotorHazard-master RotorHazard")
+		os.system("rm temp.zip")
+		os.system("cp RotorHazard.old/src/server/config.json RotorHazard/src/server/")
+		os.system("cp RotorHazard.old/src/server/database.db RotorHazard/src/server/")
 		os.chdir("/home/pi/RotorHazard/src/server")
 		os.system("sudo pip install --upgrade --no-cache-dir -r requirements.txt")
 		print("\n\n")
@@ -107,7 +109,7 @@ def main():
 		print("\t##                                          ##")
 		print("\t##############################################")
 		def end():
-			print("\n\n\n\n\t\tType 'e' to exit\n\n\n")
+			print("\n\n\n\n\t\t\tType 'e' to exit\n\n\n")
 			def endMenu():
 				selection=str(raw_input(""))
 				if selection =='e':	
