@@ -2,22 +2,22 @@ from time import sleep
 import os
 import sys
 
-print("This script would automatically install RotorHazard software on your raspberry. After rebooting please check")
-print("by typing 'sudo raspi-config' if I2C, SPI and SSH protocols are active. Enjoy!")
+os.system("clear")
+print("\nThis script would automatically install RotorHazard software on your raspberry. After rebooting please check")
+print("\nby typing 'sudo raspi-config' if I2C, SPI and SSH protocols are active. Enjoy!")
 
-print("\t\t Ready - press 'k'n")
+print("\n\n\n\t\t Ready - press 'k'n")
 selection=str(raw_input(""))
 if selection =='k':	
 	os.system(" cd ~")
 	os.system(" sudo apt-get update && sudo apt-get upgrade -y")
 
-	sudo nano 
 	os.system("echo 'dtparam=spi=on' | /boot/config.txt  ")  
 
 	os.system("sudo systemctl enable ssh")
 	os.system("sudo systemctl start ssh ")
-	os.system(" sudo apt-get install wget python-dev python-rpi.gpio libffi-dev python-smbus build-essential python-pip git scons swig -y")
-	os.system(" sudo pip install cffi ")
+	os.system("sudo apt-get install wget python-dev python-rpi.gpio libffi-dev python-smbus build-essential python-pip git scons swig -y")
+	os.system("sudo pip install cffi ")
 
 	os.system("echo 'dtparam=i2c_baudrate=75000' | sudo tee -a /boot/config.txt  ")    
 
