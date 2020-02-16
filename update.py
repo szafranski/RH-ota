@@ -290,7 +290,7 @@ def advanced():
 			os.system("./configure --enable-linuxgpio")	
 			os.system("make")			
 			os.system("sudo make install")			
-			os.system("sudo nano /usr/local/etc/avrdude.conf")			
+			os.system("sudo cp programmer.txt /home/pi/.avrduderc")			
 			os.system("sudo avrdude -v")	
 		if selection=='4' : 
 			advancedMenu()

@@ -4,7 +4,7 @@ cd ~
 wget http://download.savannah.gnu.org/releases/avrdude/avrdude-6.2.tar.gz
 tar xfv avrdude-6.2.tar.gz
 cd avrdude-6.2/
-./configure --enable-linuxgpio
+./configure – -enable-linuxgpio
 make --> may take few minutes
 sudo make install
 sudo cp /usr/local/etc/avrdude.conf.orig /usr/local/etc/avrdude.conf
@@ -35,3 +35,4 @@ programmer
   mosi  = 20;
   miso  = 19;
 ;
+
