@@ -7,10 +7,10 @@
 
 ######## enter pins connected to reset pins on Arduino-nodes ########
 
-reset_1 = 12  ## node 1
-reset_2 = 13  ## node 2
-reset_3 = 16  ## node 3
-reset_4 = 26  ## node 4
+reset_1 = '12'  ## node 1
+reset_2 = '13'  ## node 2
+reset_3 = '16'  ## node 3
+reset_4 = '26'  ## node 4
 
 
 import RPi.GPIO as GPIO
@@ -61,7 +61,7 @@ def mainMenu():
 def update():
 	print("\n\n\t\t Choose flashing type\n")
 	print("\t\t 1 - Nodes get own dedicated firmware")
-	print("\t\t 2 - Nodes ground-autoselection firmware")
+	print("\t\t 2 - Nodes ground-auto selection firmware")
 	print("\t\t 3 - Flashes 'blank' hex on every node")
 	print("\t\t 4 - Go back")
 	sleep(0.1)
@@ -90,7 +90,7 @@ def update():
 	GPIO.output(reset_4, GPIO.HIGH)
 
 	sleep(0.1)
-	os.system("sudo sed -i 's/reset .*/reset = "+reset_1+";/g' /root/.avrduderc")
+	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_1)+";/g' /root/.avrduderc")
 	if programming_type ==1 : os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/node_ota_1.hex:i")
 	if programming_type ==2 : os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/node_ota.hex:i")
 	if programming_type ==3 : os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.hex:i")
@@ -111,7 +111,7 @@ def update():
 	GPIO.output(reset_4, GPIO.HIGH)
 
 	sleep(0.1)
-	os.system("sudo sed -i 's/reset .*/reset = "+reset_2+";/g' /root/.avrduderc")
+	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_2)+";/g' /root/.avrduderc")
 	if programming_type ==1 : os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/node_ota_2.hex:i")
 	if programming_type ==2 : os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/node_ota.hex:i")
 	if programming_type ==3 : os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.hex:i")
@@ -131,7 +131,7 @@ def update():
 	GPIO.output(reset_3, GPIO.HIGH)
 	GPIO.output(reset_4, GPIO.HIGH)
 	sleep(0.1)
-	os.system("sudo sed -i 's/reset .*/reset = "+reset_3+";/g' /root/.avrduderc")
+	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_3)+";/g' /root/.avrduderc")
 	if programming_type ==1 : os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/node_ota_3.hex:i")
 	if programming_type ==2 : os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/node_ota.hex:i")
 	if programming_type ==3 : os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.hex:i")
@@ -151,11 +151,11 @@ def update():
 	GPIO.output(reset_3, GPIO.HIGH)
 	GPIO.output(reset_4, GPIO.HIGH)
 	sleep(0.1)
-	os.system("sudo sed -i 's/reset .*/reset = "+reset_4+";/g' /root/.avrduderc")
+	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_4)+";/g' /root/.avrduderc")
 	if programming_type ==1 : os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/node_ota_4.hex:i")
 	if programming_type ==2 : os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/node_ota.hex:i")
 	if programming_type ==3 : os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.hex:i")
-	os.system("sudo sed -i 's/reset .*/reset = "+reset_1+";/g' /root/.avrduderc")
+	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_1)+";/g' /root/.avrduderc")
 	sleep(0.3)
 
 	print("")
@@ -220,45 +220,45 @@ def advanced():
 			selection=str(raw_input("\n\nWhich node do you want to flash bootloader on: "))
 			if selection=='1':
 				print("\n\t Node 1 selected")
-				os.system("sudo sed -i 's/reset .*/reset = "+reset_1+";/g' /root/.avrduderc")
+				os.system("sudo sed -i 's/reset .*/reset = "+str(reset_1)+";/g' /root/.avrduderc")
 				os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")	
 				print("\n\t Bootloader flashed")
 			if selection=='2':
-				os.system("sudo sed -i 's/reset .*/reset = "+reset_2+";/g' /root/.avrduderc")
+				os.system("sudo sed -i 's/reset .*/reset = "+str(reset_2)+";/g' /root/.avrduderc")
 				print("\n\t Node 2 selected")	
 				os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")	
 				print("\n\t Bootloader flashed")
 			if selection=='3':
 				print("\n\t Node 3 selected")	
-				os.system("sudo sed -i 's/reset .*/reset = "+reset_3+";/g' /root/.avrduderc")
+				os.system("sudo sed -i 's/reset .*/reset = "+str(reset_3)+";/g' /root/.avrduderc")
 				os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")	
 				print("\n\t Bootloader flashed")
 			if selection=='4':
 				print("\n\t Node 4 selected")		
-				os.system("sudo sed -i 's/reset .*/reset = "+reset_4+";/g' /root/.avrduderc")
+				os.system("sudo sed -i 's/reset .*/reset = "+str(reset_4)+";/g' /root/.avrduderc")
 				os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")		
 				print("\n\t Bootloader flashed")
 			if selection=='5':
 				advancedMenu()
 		bootMenu()
 	def gpio_fix(): 
-		os.system("echo "+reset_1+" > /sys/class/GPIO/unexport")
-		os.system("echo "+reset_2+" > /sys/class/GPIO/unexport")
-		os.system("echo "+reset_3+" > /sys/class/GPIO/unexport")
-		os.system("echo "+reset_4+" > /sys/class/GPIO/unexport")
+		os.system("echo "+str(reset_1)+" > /sys/class/GPIO/unexport")
+		os.system("echo "+str(reset_2)+" > /sys/class/GPIO/unexport")
+		os.system("echo "+str(reset_3)+" > /sys/class/GPIO/unexport")
+		os.system("echo "+str(reset_4)+" > /sys/class/GPIO/unexport")
 		os.system("echo 19 > /sys/class/GPIO/unexport")
 		os.system("echo 20 > /sys/class/GPIO/unexport")
 		os.system("echo 21 > /sys/class/GPIO/unexport") 
 		print("\n\n		DONE\n\n")		
 	def recover():
 		print("\n 		Attempting recovery\n\n")
-		os.system("sudo sed -i 's/reset .*/reset = "+reset_1+";/g' /root/.avrduderc")
+		os.system("sudo sed -i 's/reset .*/reset = "+str(reset_1)+";/g' /root/.avrduderc")
 		os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:blank.hex:i")
-		os.system("sudo sed -i 's/reset .*/reset = "+reset_2+";/g' /root/.avrduderc")
+		os.system("sudo sed -i 's/reset .*/reset = "+str(reset_2)+";/g' /root/.avrduderc")
 		os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:blank.hex:i")
-		os.system("sudo sed -i 's/reset .*/reset = "+reset_3+";/g' /root/.avrduderc")
+		os.system("sudo sed -i 's/reset .*/reset = "+str(reset_3)+";/g' /root/.avrduderc")
 		os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:blank.hex:i")
-		os.system("sudo sed -i 's/reset .*/reset = "+reset_4+";/g' /root/.avrduderc")
+		os.system("sudo sed -i 's/reset .*/reset = "+str(reset_4)+";/g' /root/.avrduderc")
 		os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:blank.hex:i")
 	def server_start():
 		print("\n\n   Server will start in 5 seconds\n\n")
@@ -313,11 +313,11 @@ def advanced():
 			print("\n\t 5 - Go back")
 			selection=str(raw_input("\n\nWhich node do you want to program: "))
 			if selection=='1':
-				os.system("sudo sed -i 's/reset .*/reset = "+reset_1+";/g' /root/.avrduderc")
+				os.system("sudo sed -i 's/reset .*/reset = "+str(reset_1)+";/g' /root/.avrduderc")
 				print("\n\t Node 1 selected")	
 				print("\n\n\t Choose flashing type\n")
 				print("\t 1 - Node gets own dedicated firmware")
-				print("\t 2 - Node ground-autoselectionfirmware")
+				print("\t 2 - Node ground-auto selectionfirmware")
 				print("\t 3 - Flashes 'blank' hex on the node")
 				print("\t 4 - Flashes bootloader on the node")
 				print("\t 5 - Abort")
@@ -334,11 +334,11 @@ def advanced():
 				if selection=='5':
 					nodeMenu()
 			if selection=='2':
-				os.system("sudo sed -i 's/reset .*/reset = "+reset_2+";/g' /root/.avrduderc")
+				os.system("sudo sed -i 's/reset .*/reset = "+str(reset_2)+";/g' /root/.avrduderc")
 				print("\n\t Node 2 selected")	
 				print("\n\n\t Choose flashing type\n")
 				print("\t 1 - Node gets own dedicated firmware")
-				print("\t 2 - Node ground-autoselectionfirmware")
+				print("\t 2 - Node ground-auto selectionfirmware")
 				print("\t 3 - Flashes 'blank' hex on the node")
 				print("\t 4 - Flashes bootloader on the node")
 				print("\t 5 - Abort")
@@ -355,11 +355,11 @@ def advanced():
 				if selection=='5':
 					nodeMenu()
 			if selection=='3':
-				os.system("sudo sed -i 's/reset .*/reset = "+reset_3+";/g' /root/.avrduderc")
+				os.system("sudo sed -i 's/reset .*/reset = "+str(reset_3)+";/g' /root/.avrduderc")
 				print("\n\t Node 3 selected")	
 				print("\n\n\t Choose flashing type\n")
 				print("\t 1 - Node gets own dedicated firmware")
-				print("\t 2 - Node ground-autoselectionfirmware")
+				print("\t 2 - Node ground-auto selectionfirmware")
 				print("\t 3 - Flashes 'blank' hex on the node")
 				print("\t 4 - Flashes bootloader on the node")
 				print("\t 5 - Abort")
@@ -376,11 +376,11 @@ def advanced():
 				if selection=='5':
 					nodeMenu()
 			if selection=='4':
-				os.system("sudo sed -i 's/reset .*/reset = "+reset_4+";/g' /root/.avrduderc")
+				os.system("sudo sed -i 's/reset .*/reset = "+str(reset_4)+";/g' /root/.avrduderc")
 				print("\n\t Node 4 selected")	
 				print("\n\n\t Choose flashing type\n")
 				print("\t 1 - Node gets own dedicated firmware")
-				print("\t 2 - Node ground-autoselectionfirmware")
+				print("\t 2 - Node ground-auto selectionfirmware")
 				print("\t 3 - Flashes 'blank' hex on the node")
 				print("\t 4 - Flashes bootloader on the node")
 				print("\t 5 - Abort")
@@ -413,7 +413,7 @@ def first():
 	print("\n\t\t that you won't be able to connec your Arduinos to the usb port and using it with PC anymore,")
 	print("\n\t\t unless you flash bootloader back using 'Advanced menu' of this software.")
 	print("\n\n ")
-	print("\n\t\t It is recommended to flash nodes with specfic file for every node, even if you are using autoselection mod.")
+	print("\n\t\t It is recommended to flash nodes with specfic file for every node, even if you are using auto selection mod.")
 	print("\n\t\t This way you can allways check if nodes were flashed correctly during manual boot of the server file ")
 	print("\n\t\t - what smartass would do after flashing new firmware anyways. :) ")
 	print("\n ")
