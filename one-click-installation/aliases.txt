@@ -1,8 +1,0 @@
-
-#My custom aliases
-#alias home=ssh -i ~/.ssh/mykep.pem tecmint@192.168.0.100
-alias ss="python ~/RotorHazard/src/server/server.py"
-alias ssn="python ~/RotorHazard/src/server/server.py"
-alias rh="cd ~/RotorHazard/src/server"
-alias py="python"
-alias sts="sudo systemctl stop rotorhazard"
