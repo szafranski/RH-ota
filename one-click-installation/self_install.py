@@ -6,9 +6,9 @@ def main():
 	os.system("clear")
 	print("\n\n\t\t\tAutomatic update and installation of ROTORHAZARD racing-timer software")
 	print("\n\n\tThis script will automatically install or update RotorHazard software on your raspberry. ")
-	print("\n\tASource will be main 'master' repository of RotorHazard software on github")
+	print("\n\tSource will be main 'master' repository of RotorHazard software on github")
 	print("\n\tAll additional software depedancies and libraries also will be installed or updated.")
-	print("\n\tYour database and config file will stay on the updated software")
+	print("\n\tYour database and config file will stay on the updated software.")
 	print("\n\tAfter rebooting please check by typing 'sudo raspi-config' if I2C, SPI and SSH protocols are active.")
 	print("\n\tMake sure that you are logged as user 'pi'.")
 	print("\n\n\t\t\t\t\t\t\t\t\tEnjoy!")
@@ -72,7 +72,6 @@ def main():
 		print("\t##         Installation completed!          ##")
 		print("\t##                                          ##")
 		print("\t##############################################")
-		
 		
 		print("\n\n\tRotorHazard service should start automatically after rebooting")
 		def end():
