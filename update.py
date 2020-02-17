@@ -2,7 +2,7 @@
 
 # pins low/high as a function
 # define number of nodes
-# 'flashed' - only after success 
+# show 'flashed' - only after success 
 
 
 ######## enter pins connected to reset pins on Arduino-nodes ########
@@ -12,7 +12,7 @@ reset_2 = 13  ## node 2
 reset_3 = 16  ## node 3
 reset_4 = 26  ## node 4
 
-user = 'pi' ## you can change it if your user us named differently
+user = 'pi' ## you can change it if your user is named differently
 
 import RPi.GPIO as GPIO
 from time import sleep
