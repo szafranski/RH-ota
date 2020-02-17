@@ -23,16 +23,16 @@ import os
 import sys
 
 
-#GPIO.setwarnings(False)
-#GPIO.setmode(#GPIO.BCM) # Use BCM pin numbering
-#GPIO.setup(reset_1, #GPIO.OUT, initial=#GPIO.HIGH)
-#GPIO.setup(reset_2, #GPIO.OUT, initial=#GPIO.HIGH)
-#GPIO.setup(reset_3, #GPIO.OUT, initial=#GPIO.HIGH)
-#GPIO.setup(reset_4, #GPIO.OUT, initial=#GPIO.HIGH)
-#GPIO.setup(reset_5, #GPIO.OUT, initial=#GPIO.HIGH)
-#GPIO.setup(reset_6, #GPIO.OUT, initial=#GPIO.HIGH)
-#GPIO.setup(reset_7, #GPIO.OUT, initial=#GPIO.HIGH)
-#GPIO.setup(reset_8, #GPIO.OUT, initial=#GPIO.HIGH)
+# #GPIO.setwarnings(False)
+# #GPIO.setmode(#GPIO.BCM) # Use BCM pin numbering
+# #GPIO.setup(reset_1, #GPIO.OUT, initial=#GPIO.HIGH)
+# #GPIO.setup(reset_2, #GPIO.OUT, initial=#GPIO.HIGH)
+# #GPIO.setup(reset_3, #GPIO.OUT, initial=#GPIO.HIGH)
+# #GPIO.setup(reset_4, #GPIO.OUT, initial=#GPIO.HIGH)
+# #GPIO.setup(reset_5, #GPIO.OUT, initial=#GPIO.HIGH)
+# #GPIO.setup(reset_6, #GPIO.OUT, initial=#GPIO.HIGH)
+# #GPIO.setup(reset_7, #GPIO.OUT, initial=#GPIO.HIGH)
+# #GPIO.setup(reset_8, #GPIO.OUT, initial=#GPIO.HIGH)
 
 def mainMenu():
 	os.system("clear")
