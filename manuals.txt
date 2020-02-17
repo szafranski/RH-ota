@@ -1,0 +1,9 @@
+
+
+For using this software you have to have SPI (spi1 - second one) pins of the Raspberry pi connected to spi pins of your Arduinos.
+
+Pins MISO, MOSI, SCK should be connected to all Arduinos - parallelly. Pins "reset" of Arduinos should be connected to specific pins
+
+on the Raspberry. You can change those pins to any unused general purpose pins from the GPIO header. After that, remember to changes 
+
+assignment of the pins in the update.py file accordingly. 
