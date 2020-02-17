@@ -181,15 +181,15 @@ def exit():
 def advanced():
 	sleep(0.1)
 	def advancedMenu():
-		print("\n\n\n")
+		print("\n\n")
 		print("\n			ADVANCED MENU:\n")
 		print("		1 - Flash the bootloader")
 		print("		2 - Fix GPIO pins state")
 		print("		3 - Try to recover")
 		print("		4 - Start the server")
-		print("		'5' - Install / check avrdude")
-		print("		'6' - Program specific node")
-		print("		'7' - Enter main menu")
+		print("		5 - Install / check avrdude")
+		print("		6 - Program specific node")
+		print("		7 - Enter main menu")
 		print("\n")
 			
 		selection=str(raw_input(""))
@@ -322,7 +322,7 @@ def advanced():
 				print("\t 2 - Node ground-autoselectionfirmware")
 				print("\t 3 - Flashes 'blank' hex on the node")
 				print("\t 4 - Flashes bootloader on the node")
-				print("\t '5' - Abort")
+				print("\t 5 - Abort")
 				selection=str(raw_input(""))
 				if selection=='1' : 
 					os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/node_ota_1.hex:i")
