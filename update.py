@@ -1,8 +1,6 @@
 ####To do:####
 
-# pins low/high as a function
 # show 'flashed' - only after success
-
 
 ######## enter pins connected to reset pins on Arduino-nodes ########
 
@@ -34,6 +32,17 @@ import sys
 # #GPIO.setup(reset_7, #GPIO.OUT, initial=#GPIO.HIGH)
 # #GPIO.setup(reset_8, #GPIO.OUT, initial=#GPIO.HIGH)
 
+def allPinsReset():
+	#GPIO.output(reset_1, #GPIO.LOW)
+	#GPIO.output(reset_2, #GPIO.LOW)
+	#GPIO.output(reset_3, #GPIO.LOW)
+	#GPIO.output(reset_4, #GPIO.LOW)
+	sleep(0.1)
+	#GPIO.output(reset_1, #GPIO.HIGH)
+	#GPIO.output(reset_2, #GPIO.HIGH)
+	#GPIO.output(reset_3, #GPIO.HIGH)
+	#GPIO.output(reset_4, #GPIO.HIGH)
+		
 def mainMenu():
 	os.system("clear")
 	sleep(0.2)
@@ -86,15 +95,6 @@ def update():
 	os.system("sudo systemctl stop rotorhazard")
 	sleep(0.1)
 
-	#GPIO.output(reset_1, #GPIO.LOW)
-	#GPIO.output(reset_2, #GPIO.LOW)
-	#GPIO.output(reset_3, #GPIO.LOW)
-	#GPIO.output(reset_4, #GPIO.LOW)
-	sleep(0.1)
-	#GPIO.output(reset_1, #GPIO.HIGH)
-	#GPIO.output(reset_2, #GPIO.HIGH)
-	#GPIO.output(reset_3, #GPIO.HIGH)
-	#GPIO.output(reset_4, #GPIO.HIGH)
 
 	sleep(0.1)
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_1)+";/g' /root/.avrduderc")
@@ -107,15 +107,7 @@ def update():
 	print("				Node 1 - flashed")
 	print("\n\n")
 
-	#GPIO.output(reset_1, #GPIO.LOW)
-	#GPIO.output(reset_2, #GPIO.LOW)
-	#GPIO.output(reset_3, #GPIO.LOW)
-	#GPIO.output(reset_4, #GPIO.LOW)
-	sleep(0.1)
-	#GPIO.output(reset_1, #GPIO.HIGH)
-	#GPIO.output(reset_2, #GPIO.HIGH)
-	#GPIO.output(reset_3, #GPIO.HIGH)
-	#GPIO.output(reset_4, #GPIO.HIGH)
+	allPinsReset()
 
 	sleep(0.1)
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_2)+";/g' /root/.avrduderc")
@@ -128,15 +120,8 @@ def update():
 	print("				Node 2 - flashed")
 	print("\n\n")
 
-	#GPIO.output(reset_1, #GPIO.LOW)
-	#GPIO.output(reset_2, #GPIO.LOW)
-	#GPIO.output(reset_3, #GPIO.LOW)
-	#GPIO.output(reset_4, #GPIO.LOW)
-	sleep(0.1)
-	#GPIO.output(reset_1, #GPIO.HIGH)
-	#GPIO.output(reset_2, #GPIO.HIGH)
-	#GPIO.output(reset_3, #GPIO.HIGH)
-	#GPIO.output(reset_4, #GPIO.HIGH)
+	allPinsReset()
+
 	sleep(0.1)
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_3)+";/g' /root/.avrduderc")
 	if programming_type ==1 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_3.hex:i")
@@ -148,15 +133,8 @@ def update():
 	print("				Node 3 - flashed")
 	print("\n\n")
 
-	#GPIO.output(reset_1, #GPIO.LOW)
-	#GPIO.output(reset_2, #GPIO.LOW)
-	#GPIO.output(reset_3, #GPIO.LOW)
-	#GPIO.output(reset_4, #GPIO.LOW)
-	sleep(0.1)
-	#GPIO.output(reset_1, #GPIO.HIGH)
-	#GPIO.output(reset_2, #GPIO.HIGH)
-	#GPIO.output(reset_3, #GPIO.HIGH)
-	#GPIO.output(reset_4, #GPIO.HIGH)
+	allPinsReset()
+
 	sleep(0.1)
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_4)+";/g' /root/.avrduderc")
 	if programming_type ==1 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_4.hex:i")
@@ -169,15 +147,7 @@ def update():
 	print("				Node 4 - flashed")
 	print("\n\n")
 	
-	#GPIO.output(reset_1, #GPIO.LOW)
-	#GPIO.output(reset_2, #GPIO.LOW)
-	#GPIO.output(reset_3, #GPIO.LOW)
-	#GPIO.output(reset_4, #GPIO.LOW)
-	sleep(0.1)
-	#GPIO.output(reset_1, #GPIO.HIGH)
-	#GPIO.output(reset_2, #GPIO.HIGH)
-	#GPIO.output(reset_3, #GPIO.HIGH)
-	#GPIO.output(reset_4, #GPIO.HIGH)
+	allPinsReset()
 
 	sleep(0.1)
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_5)+";/g' /root/.avrduderc")
@@ -190,15 +160,7 @@ def update():
 	print("				Node 5 - flashed")
 	print("\n\n")
 
-	#GPIO.output(reset_1, #GPIO.LOW)
-	#GPIO.output(reset_2, #GPIO.LOW)
-	#GPIO.output(reset_3, #GPIO.LOW)
-	#GPIO.output(reset_4, #GPIO.LOW)
-	sleep(0.1)
-	#GPIO.output(reset_1, #GPIO.HIGH)
-	#GPIO.output(reset_2, #GPIO.HIGH)
-	#GPIO.output(reset_3, #GPIO.HIGH)
-	#GPIO.output(reset_4, #GPIO.HIGH)
+	allPinsReset()
 
 	sleep(0.1)
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_6)+";/g' /root/.avrduderc")
@@ -211,15 +173,8 @@ def update():
 	print("				Node 6 - flashed")
 	print("\n\n")
 
-	#GPIO.output(reset_1, #GPIO.LOW)
-	#GPIO.output(reset_2, #GPIO.LOW)
-	#GPIO.output(reset_3, #GPIO.LOW)
-	#GPIO.output(reset_4, #GPIO.LOW)
-	sleep(0.1)
-	#GPIO.output(reset_1, #GPIO.HIGH)
-	#GPIO.output(reset_2, #GPIO.HIGH)
-	#GPIO.output(reset_3, #GPIO.HIGH)
-	#GPIO.output(reset_4, #GPIO.HIGH)
+	allPinsReset()
+	
 	sleep(0.1)
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_7)+";/g' /root/.avrduderc")
 	if programming_type ==1 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_3.hex:i")
@@ -231,15 +186,9 @@ def update():
 	print("				Node 7 - flashed")
 	print("\n\n")
 
-	#GPIO.output(reset_1, #GPIO.LOW)
-	#GPIO.output(reset_2, #GPIO.LOW)
-	#GPIO.output(reset_3, #GPIO.LOW)
-	#GPIO.output(reset_4, #GPIO.LOW)
-	sleep(0.1)
-	#GPIO.output(reset_1, #GPIO.HIGH)
-	#GPIO.output(reset_2, #GPIO.HIGH)
-	#GPIO.output(reset_3, #GPIO.HIGH)
-	#GPIO.output(reset_4, #GPIO.HIGH)
+
+	allPinsReset()
+	
 	sleep(0.1)
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_8)+";/g' /root/.avrduderc")
 	if programming_type ==1 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_4.hex:i")
