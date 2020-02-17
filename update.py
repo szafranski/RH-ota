@@ -292,7 +292,6 @@ def advanced():
 			os.chdir("/home/pi/avrdude-6.2/")
 			os.system("./configure --enable-linuxgpio")
 			os.system("make")
-			# os.system("sudo cp programmer.txt /root.avrduderc")
 			os.system("sudo rm /root/pi/.avrduderc")
 			os.system("echo '\"programmer\"'| sudo  tee -a /root/pi/.avrduderc")
 			os.system("echo ' id    = \"linuxgpio\";'| sudo  tee -a /root/pi/.avrduderc")
