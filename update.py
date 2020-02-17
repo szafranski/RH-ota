@@ -5,7 +5,7 @@
 # 'flashed' - only after success 
 
 
-######## enter pins connected to reset pins on Arduinos ########
+######## enter pins connected to reset pins on Arduino-nodes ########
 
 reset_1 = 12  ## node 1
 reset_2 = 13  ## node 2
@@ -39,7 +39,6 @@ def mainMenu():
 	print("		###                                                                                      ###")
 	print("		###                                                                                      ###")
 	print("		############################################################################################")
-
 
 
 	print("\n\n\n\t What do you want to do now:\n\n")
@@ -110,7 +109,6 @@ def update():
 	GPIO.output(reset_2, GPIO.HIGH)
 	GPIO.output(reset_3, GPIO.HIGH)
 	GPIO.output(reset_4, GPIO.HIGH)
-
 
 	sleep(0.1)
 	os.system("sudo sed -i 's/reset .*/reset = "+reset_2+";/g' /root/.avrduderc")
@@ -244,10 +242,10 @@ def advanced():
 				advancedMenu()
 		bootMenu()
 	def gpio_fix(): 
-		os.system("echo 12 > /sys/class/GPIO/unexport")
-		os.system("echo 13 > /sys/class/GPIO/unexport")
-		os.system("echo 16 > /sys/class/GPIO/unexport")
-		os.system("echo 26 > /sys/class/GPIO/unexport")
+		os.system("echo "+reset_1+" > /sys/class/GPIO/unexport")
+		os.system("echo "+reset_2+" > /sys/class/GPIO/unexport")
+		os.system("echo "+reset_3+" > /sys/class/GPIO/unexport")
+		os.system("echo "+reset_4+" > /sys/class/GPIO/unexport")
 		os.system("echo 19 > /sys/class/GPIO/unexport")
 		os.system("echo 20 > /sys/class/GPIO/unexport")
 		os.system("echo 21 > /sys/class/GPIO/unexport") 
@@ -343,7 +341,7 @@ def advanced():
 				print("\t 2 - Node ground-autoselectionfirmware")
 				print("\t 3 - Flashes 'blank' hex on the node")
 				print("\t 4 - Flashes bootloader on the node")
-				print("\t '5' - Abort")
+				print("\t 5 - Abort")
 				selection=str(raw_input(""))
 				if selection=='1' : 
 					os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/node_ota_2.hex:i")
@@ -364,7 +362,7 @@ def advanced():
 				print("\t 2 - Node ground-autoselectionfirmware")
 				print("\t 3 - Flashes 'blank' hex on the node")
 				print("\t 4 - Flashes bootloader on the node")
-				print("\t '5' - Abort")
+				print("\t 5 - Abort")
 				selection=str(raw_input(""))
 				if selection=='1' : 
 					os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/node_ota_3.hex:i")
@@ -385,7 +383,7 @@ def advanced():
 				print("\t 2 - Node ground-autoselectionfirmware")
 				print("\t 3 - Flashes 'blank' hex on the node")
 				print("\t 4 - Flashes bootloader on the node")
-				print("\t '5' - Abort")
+				print("\t 5 - Abort")
 				selection=str(raw_input(""))
 				if selection=='1' : 
 					os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/node_ota_4.hex:i")
@@ -408,7 +406,7 @@ def first():
 	os.system("clear")
 	sleep(0.1)
 	print("\n\n\n\t\t Hello! You are using tool designed to easy uploadig the firmware on the RotorHazard race-timer nodes.")
-	print("\n\t\t For now consider this tool as a beta verision. Tests are being done constantly.")
+	print("\n\t\t For now consider this tool as a beta verision. Tests are being done constantly.\n\n")
 	print("\n\n ")
 	print("\n\t\t Files that you are about to flash are 'hex' files from an official RotorHazard Arduino nodes ino files.")
 	print("\n\t\t After using this tool nodes would be flashed WITHOUT the bootloader which means,")
@@ -417,7 +415,7 @@ def first():
 	print("\n\n ")
 	print("\n\t\t It is recommended to flash nodes with specfic file for every node, even if you are using autoselection mod.")
 	print("\n\t\t This way you can allways check if nodes were flashed correctly during manual boot of the server file ")
-	print("\n\t\t - what smartass would do after flashing new firmware anyway. :) ")
+	print("\n\t\t - what smartass would do after flashing new firmware anyways. :) ")
 	print("\n ")
 	print("\n\t\t If you are using this tool for the first time enter 'Advanced menu' and select 'Install avrdude'.")
 	print("\n\t\t For more hardware instructions open 'manuals' file or visit Facebook page.")
