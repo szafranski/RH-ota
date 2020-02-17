@@ -7,10 +7,10 @@
 
 ######## enter pins connected to reset pins on Arduino-nodes ########
 
-reset_1 = '12'  ## node 1
-reset_2 = '13'  ## node 2
-reset_3 = '16'  ## node 3
-reset_4 = '26'  ## node 4
+reset_1 = 12  ## node 1
+reset_2 = 13  ## node 2
+reset_3 = 16  ## node 3
+reset_4 = 26  ## node 4
 
 
 import RPi.GPIO as GPIO
