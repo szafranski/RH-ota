@@ -1,4 +1,4 @@
-
+// differences: spin pins changed, added 5s delay during boot //
 
 #ifndef __TEST__
 // RotorHazard FPV Race Timing
@@ -43,7 +43,7 @@
 // ******************************************************************** //
 
 // *** Node Setup - Set node number here (1-8): ***
-#define NODE_NUMBER 4
+#define NODE_NUMBER 8
 
 // Set to 1-8 for manual selection.
 // Leave at 0 for automatic selection via hardware pin.
