@@ -2,6 +2,7 @@
 
 # pins low/high as a function
 # define number of pins
+# manual input of pins used on rpi
 # 'flashed' - only after success 
 
 
