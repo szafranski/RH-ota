@@ -31,7 +31,7 @@ GPIO.setup(reset_4, GPIO.OUT, initial=GPIO.HIGH)
 def mainMenu():
 	os.system("clear")
 	sleep(0.2)
-	print("\n\n\n")	
+	print("\n\n\n")
 	print("		############################################################################################")
 	print("		###                                                                                      ###")
 	print("		###                                 RotorHazard                                          ###")
@@ -55,9 +55,9 @@ def mainMenu():
 	if selection=='3':
 		exit()
 	if selection=='4':
-		first()	
+		first()
 	else: 
-		mainMenu()	
+		mainMenu()
 
 def update():
 	print("\n\n\t\t Choose flashing type\n")
@@ -197,7 +197,7 @@ def advanced():
 		if selection=='2':
 			gpio_fix()
 		if selection=='3':
-			recover()		
+			recover()
 		if selection=='4':
 			server_start()
 		if selection=='5':
@@ -205,7 +205,7 @@ def advanced():
 		if selection=='6':
 			program_node()
 		if selection=='7':
-			sleep(0.2)	
+			sleep(0.2)
 			mainMenu()
 		else:
 			sleep(0.1) 
@@ -224,22 +224,22 @@ def advanced():
 		if selection=='1':
 			print("\n\t Node 1 selected")
 			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_1)+";/g' /root/.avrduderc")
-			os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")	
+			os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")
 			print("\n\t Bootloader flashed")
 		if selection=='2':
 			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_2)+";/g' /root/.avrduderc")
-			print("\n\t Node 2 selected")	
-			os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")	
+			print("\n\t Node 2 selected")
+			os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")
 			print("\n\t Bootloader flashed")
 		if selection=='3':
-			print("\n\t Node 3 selected")	
+			print("\n\t Node 3 selected")
 			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_3)+";/g' /root/.avrduderc")
-			os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")	
+			os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")
 			print("\n\t Bootloader flashed")
 		if selection=='4':
-			print("\n\t Node 4 selected")		
+			print("\n\t Node 4 selected")
 			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_4)+";/g' /root/.avrduderc")
-			os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")		
+			os.system("sudo avrdude -c linuxGPIO -p m328p -v -U flash:w:firmware/blank.b.hex:i")
 			print("\n\t Bootloader flashed")
 		if selection=='5':
 			advancedMenu()
@@ -252,7 +252,7 @@ def advanced():
 		os.system("echo 19 > /sys/class/GPIO/unexport")
 		os.system("echo 20 > /sys/class/GPIO/unexport")
 		os.system("echo 21 > /sys/class/GPIO/unexport") 
-		print("\n\n		DONE\n\n")		
+		print("\n\n		DONE\n\n")
 	def recover():
 		print("\n 		Attempting recovery\n\n")
 		os.system("sudo sed -i 's/reset .*/reset = "+str(reset_1)+";/g' /root/.avrduderc")
@@ -284,16 +284,16 @@ def advanced():
 		if selection=='2' : 
 			os.system("sudo avrdude -c linuxGPIO -p m328p -v")
 		if selection=='3' : 
-			os.system("sudo apt-get update")	
-			os.system("sudo apt-get install wget bison flex -y")			
-			os.chdir("/home/pi")			
-			os.system("wget http://download.savannah.gnu.org/releases/avrdude/avrdude-6.2.tar.gz")			
-			os.system("tar xfv avrdude-6.2.tar.gz")			
-			os.chdir("/home/pi/avrdude-6.2/")	
-			os.system("./configure --enable-linuxgpio")	
-			os.system("make")			
+			os.system("sudo apt-get update")
+			os.system("sudo apt-get install wget bison flex -y")
+			os.chdir("/home/pi")
+			os.system("wget http://download.savannah.gnu.org/releases/avrdude/avrdude-6.2.tar.gz")
+			os.system("tar xfv avrdude-6.2.tar.gz")
+			os.chdir("/home/pi/avrdude-6.2/")
+			os.system("./configure --enable-linuxgpio")
+			os.system("make")
 			# os.system("sudo cp programmer.txt /root.avrduderc")
-			os.system("rm /root/pi/.avrduderc")			
+			os.system("rm /root/pi/.avrduderc")
 			os.system("echo 'programmer'| sudo  tee -a /root/pi/.avrduderc")
 			os.system("echo ' id    = \"linuxgpio\";| sudo  tee -a /root/pi/.avrduderc")
 			os.system("echo ' desc  = \"Use the Linux sysfs interface to bitbang GPIO lines\";| sudo  tee -a /root/pi/.avrduderc")
@@ -303,7 +303,7 @@ def advanced():
 			os.system("echo ' mosi  = 20;' | sudo  tee -a /root/pi/.avrduderc")
 			os.system("echo ' miso  = 19;' | sudo  tee -a /root/pi/.avrduderc")
 			os.system("echo ' ;' | sudo  tee -a /root/pi/.avrduderc")
-			os.system("sudo avrdude -v")	
+			os.system("sudo avrdude -v")
 		if selection=='4' : 
 			advancedMenu()
 		avr_info()
@@ -318,7 +318,7 @@ def advanced():
 			selection=str(raw_input("\n\nWhich node do you want to program: "))
 			if selection=='1':
 				os.system("sudo sed -i 's/reset .*/reset = "+str(reset_1)+";/g' /root/.avrduderc")
-				print("\n\t\t Node 1 selected")	
+				print("\n\t\t Node 1 selected")
 				print("\n\n\t\t Choose flashing type\n")
 				print("\t\t 1 - Node gets own dedicated firmware")
 				print("\t\t 2 - Node ground-auto selectionfirmware")
@@ -336,7 +336,7 @@ def advanced():
 					nodeMenu()
 			if selection=='2':
 				os.system("sudo sed -i 's/reset .*/reset = "+str(reset_2)+";/g' /root/.avrduderc")
-				print("\n\t\t Node 2 selected")	
+				print("\n\t\t Node 2 selected")
 				print("\n\n\t\t Choose flashing type\n")
 				print("\t\t 1 - Node gets own dedicated firmware")
 				print("\t\t 2 - Node ground-auto selectionfirmware")
@@ -354,7 +354,7 @@ def advanced():
 					nodeMenu()
 			if selection=='3':
 				os.system("sudo sed -i 's/reset .*/reset = "+str(reset_3)+";/g' /root/.avrduderc")
-				print("\n\t\t Node 3 selected")	
+				print("\n\t\t Node 3 selected")
 				print("\n\n\t\t Choose flashing type\n")
 				print("\t\t 1 - Node gets own dedicated firmware")
 				print("\t\t 2 - Node ground-auto selectionfirmware")
@@ -372,7 +372,7 @@ def advanced():
 					nodeMenu()
 			if selection=='4':
 				os.system("sudo sed -i 's/reset .*/reset = "+str(reset_4)+";/g' /root/.avrduderc")
-				print("\n\t Node 4 selected")	
+				print("\n\t Node 4 selected")
 				print("\n\n\t\t Choose flashing type\n")
 				print("\t\t 1 - Node gets own dedicated firmware")
 				print("\t\t 2 - Node ground-auto selectionfirmware")
@@ -389,10 +389,10 @@ def advanced():
 				if selection=='4':
 					nodeMenu()
 			if selection=='5':
-				sleep(0.2)	
+				sleep(0.2)
 				advancedMenu()
-				nodeMenu()	
-		nodeMenu()			
+				nodeMenu()
+		nodeMenu()
 	advancedMenu()
 def first():
 	os.system("clear")
