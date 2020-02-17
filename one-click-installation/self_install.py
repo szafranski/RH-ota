@@ -1,3 +1,8 @@
+
+## Will be added:
+## manual version selection
+## automatic check if current verion is up to date
+
 from time import sleep
 import os
 import sys
