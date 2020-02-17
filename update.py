@@ -60,11 +60,11 @@ def mainMenu():
 		mainMenu()	
 
 def update():
-	print("\n\n\t Choose flashing type\n")
-	print("\t 1 - Nodes get own dedicated firmware")
-	print("\t 2 - Nodes ground-autoselectionfirmware")
-	print("\t 3 - Flashes 'blank' hex on every node")
-	print("\t 4 - Go back")
+	print("\n\n\t\t Choose flashing type\n")
+	print("\t\t 1 - Nodes get own dedicated firmware")
+	print("\t\t 2 - Nodes ground-autoselection firmware")
+	print("\t\t 3 - Flashes 'blank' hex on every node")
+	print("\t\t 4 - Go back")
 	sleep(0.1)
 	selection=str(raw_input(""))
 	if selection=='1':
