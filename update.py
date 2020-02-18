@@ -76,9 +76,7 @@ if (linux_testing == True):
 		print("\n\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.1)
 
-def mainMenu():
-	os.system("clear")
-	sleep(0.2)
+def logo():
 	print("""\n\n	
 		############################################################################################
 		###                                                                                      ###
@@ -89,6 +87,9 @@ def mainMenu():
 		###                                                                                      ###
 		############################################################################################""")
 
+def mainMenu():
+	os.system("clear")
+	logo()
 
 	print("\n\n\n\t\t\t\t\t\t "+bcolors.RED+"MAIN MENU\n"+bcolors.ENDC)
 	print("\t\t\t\t\t 1 - Nodes flash and update")
@@ -108,6 +109,8 @@ def mainMenu():
 		mainMenu()
 
 def update():
+	os.system("clear")
+	logo()
 	print("\n\n\t\t\t\t Choose flashing type\n")
 	print("\t\t\t "+bcolors.GREEN+"1 - Every Node gets own dedicated firmware - recommended"+ bcolors.ENDC)
 	print("\t\t\t 2 - Nodes will use ground-auto selection firmware")
@@ -241,9 +244,10 @@ def exit():
 	print("\n\nSee you!\n\n")
 	sys.exit()
 def advanced():
-	sleep(0.1)
+	os.system("clear")
+	logo()
 	def advancedMenu():
-		print("\n")
+		print("\n\n")
 		print("\t\t\t			"+bcolors.RED+"ADVANCED MENU:\n"+bcolors.ENDC)
 		print("\t\t\t		 1 - Flash the bootloader")
 		print("\t\t\t		 2 - Fix GPIO pins state")
@@ -251,7 +255,7 @@ def advanced():
 		print("\t\t\t		 4 - Start the server now")
 		print("\t\t\t		 "+bcolors.BLUE+"5 - Install / check avrdude"+bcolors.ENDC)
 		print("\t\t\t		 6 - Program specific node")
-		print("\t\t\t		 7 - Enter main menu")
+		print("\t\t\t		 7 - Back to main menu")
 		print("\n")
 		selection=str(raw_input(""))
 		if selection=='1':
@@ -267,13 +271,13 @@ def advanced():
 		if selection=='6':
 			program_node()
 		if selection=='7':
-			sleep(0.2)
 			mainMenu()
 		else:
-			sleep(0.1) 
-			advancedMenu()
+			advanced()
 	def bootloader(): 
-		print("\n\t\t\t\t\t\t "+ bcolors.RED+"BOOTLOADER MENU"+ bcolors.ENDC)
+		os.system("clear")
+		logo()
+		print("\n\n\t\t\t\t\t\t "+ bcolors.RED+"BOOTLOADER MENU"+ bcolors.ENDC)
 		print("\n\t\t 1 - Flash the bootloader on node \t\t 5 - Flash the bootloader on node 5")
 		print("\n\t\t 2 - Flash the bootloader on node \t\t 6 - Flash the bootloader on node 6")
 		print("\n\t\t 3 - Flash the bootloader on node \t\t 7 - Flash the bootloader on node 7")
@@ -282,7 +286,7 @@ def advanced():
 		print("\n\n\t\t\t\t\t\t\t * after flashing the bootloader on a given node")
 		print("\n\t\t\t\t\t\t\t   remove that node from the laptimer is you want to flash ")
 		print("\n\t\t\t\t\t\t\t   anything on any different node")
-		selection=str(raw_input("\n\n\t\tWhich node do you want to flash bootloader on: "))
+		selection=str(raw_input("\n\n\t\t\tWhich node do you want to flash bootloader on: "))
 		print("\n\n\n\n")
 		if selection=='1':
 			print("\n\t Node 1 selected")
@@ -325,9 +329,12 @@ def advanced():
 			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.b.hex:i")
 			print("\n\t Bootloader flashed")			
 		if selection=='9':
-			advancedMenu()
+			advanced()
 		bootloader()
 	def gpio_fix(): 
+		os.system("clear")
+		logo()
+		print("/n/n/n")
 		os.system("echo "+str(reset_1)+" > /sys/class/GPIO/unexport")
 		os.system("echo "+str(reset_2)+" > /sys/class/GPIO/unexport")
 		os.system("echo "+str(reset_3)+" > /sys/class/GPIO/unexport")
@@ -340,7 +347,11 @@ def advanced():
 		os.system("echo 20 > /sys/class/GPIO/unexport")
 		os.system("echo 21 > /sys/class/GPIO/unexport") 
 		print("\n\n		DONE\n\n")
+		sleep(0.3)
+		advanced()
 	def recover():
+		os.system("clear")
+		logo()
 		print("\n 		Attempting recovery\n\n")
 		os.system("sudo sed -i 's/reset .*/reset = "+str(reset_1)+";/g' /root/.avrduderc")
 		os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:blank.hex:i")
@@ -358,7 +369,12 @@ def advanced():
 		os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:blank.hex:i")
 		os.system("sudo sed -i 's/reset .*/reset = "+str(reset_8)+";/g' /root/.avrduderc")
 		os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:blank.hex:i")
+		print("\n\n		DONE\n\n")
+		sleep(0.3)
+		advanced()
 	def server_start():
+		os.system("clear")
+		logo()
 		print("\n\n\t   Server will start in 5 seconds\n\n")
 		print("\n\n		Please wait...\n\n")
 		print("\n")
@@ -368,7 +384,9 @@ def advanced():
 		os.chdir("/home/"+user+"/RotorHazard/src/server/")
 		os.system("python server.py")
 	def avr_info():
-		print("\n				What do you want to do?\n")
+		os.system("clear")
+		logo()
+		print("\n\n\n						"+bcolors.RED+"AVRDUDE MENU"+bcolors.ENDC+"\n")
 		print ("			 1 - Check the state of avrdude installation + config file")
 		print ("			 2 - Check if nodes (at least one) are connected properly ")
 		print ("			 "+bcolors.BLUE+"3 - Install avrdude"+bcolors.ENDC)
@@ -400,17 +418,19 @@ def advanced():
 			os.system("echo ';' | sudo  tee -a /root/.avrduderc")
 			os.system("sudo avrdude -v")
 		if selection=='4' : 
-			advancedMenu()
+			advanced()
 		avr_info()
 	def program_node():
 		def nodeMenu():
-			print("\n\t\t\t\t\t\t "+bcolors.RED+"NODE MENU"+bcolors.ENDC)
+			os.system("clear")
+			logo()
+			print("\n\n\n\t\t\t\t\t\t "+bcolors.RED+"NODE MENU"+bcolors.ENDC)
 			print("\n\t\t\t\t 1 - Flash node 1 \t\t 5 - Flash node 5")
 			print("\n\t\t\t\t 2 - Flash node 2 \t\t 6 - Flash node 6")
 			print("\n\t\t\t\t 3 - Flash node 3 \t\t 7 - Flash node 7")
 			print("\n\t\t\t\t 4 - Flash node 4 \t\t 8 - Flash node 8")
 			print("\n\t\t\t\t                   9 - Go back")
-			selection=str(raw_input("\n\n\t\tWhich node do you want to program: "))
+			selection=str(raw_input("\n\n\t\t\tWhich node do you want to program: "))
 			print("\n\n")
 			if selection=='1':
 				os.system("sudo sed -i 's/reset .*/reset = "+str(reset_1)+";/g' /root/.avrduderc")
@@ -557,11 +577,10 @@ def advanced():
 				if selection=='4':
 					nodeMenu()
 			if selection=='9':
-				sleep(0.2)
-				advancedMenu()
-				nodeMenu()
+				advanced()
 		nodeMenu()
 	advancedMenu()
+
 def first():
 	os.system("clear")
 	sleep(0.1)
