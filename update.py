@@ -24,7 +24,7 @@ if (linux_testing == False):
 class bcolors:
 	HEADER = '\033[95m'
 	BLUE = '\033[94m'
-	OKGREEN = '\033[92m'
+	GREEN = '\033[92m'
 	YELLOW = '\033[93m'
 	RED = '\033[91m'
 	ENDC = '\033[0m'
@@ -108,7 +108,7 @@ def mainMenu():
 
 def update():
 	print("\n\n\t\t\t Choose flashing type\n")
-	print("\t\t "+bcolors.OKGREEN+"1 - Every Node gets own dedicated firmware - recommended"+ bcolors.ENDC)
+	print("\t\t "+bcolors.GREEN+"1 - Every Node gets own dedicated firmware - recommended"+ bcolors.ENDC)
 	print("\t\t 2 - Nodes will use ground-auto selection firmware")
 	print("\t\t 3 - Flash 'blank' hex on every node")
 	print("\t\t 4 - Go back")
