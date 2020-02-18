@@ -341,6 +341,7 @@ def advanced():
 		os.system("echo 21 > /sys/class/GPIO/unexport") 
 		print("\n\n		DONE\n\n")
 	def recover():
+<<<<<<< Updated upstream
 		print("\n 		Attempting recovery\n\n")
 		os.system("sudo sed -i 's/reset .*/reset = "+str(reset_1)+";/g' /root/.avrduderc")
 		os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:blank.hex:i")
@@ -358,6 +359,35 @@ def advanced():
 		os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:blank.hex:i")
 		os.system("sudo sed -i 's/reset .*/reset = "+str(reset_8)+";/g' /root/.avrduderc")
 		os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:blank.hex:i")
+=======
+		os.system("clear")
+		logo()
+		print("\n\n\n\t 		Attempting recovery...\n\n")
+		sleep(0.2)
+		x = 1
+		while x <= 2:
+			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_1)+";/g' /root/.avrduderc")
+			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:blank.hex:i")
+			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_2)+";/g' /root/.avrduderc")
+			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:blank.hex:i")
+			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_3)+";/g' /root/.avrduderc")
+			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:blank.hex:i")
+			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_4)+";/g' /root/.avrduderc")
+			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:blank.hex:i")
+			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_5)+";/g' /root/.avrduderc")
+			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:blank.hex:i")
+			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_6)+";/g' /root/.avrduderc")
+			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:blank.hex:i")
+			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_7)+";/g' /root/.avrduderc")
+			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:blank.hex:i")
+			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_8)+";/g' /root/.avrduderc")
+			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:blank.hex:i")
+			sleep(0.7)
+			x += 1
+		print("\n\n		DONE\n\n")
+		sleep(0.8)
+		advanced()
+>>>>>>> Stashed changes
 	def server_start():
 		print("\n\n\t   Server will start in 5 seconds\n\n")
 		print("\n\n		Please wait...\n\n")
