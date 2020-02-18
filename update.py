@@ -37,12 +37,21 @@ def allPinsReset():
 	#GPIO.output(reset_2, #GPIO.LOW)
 	#GPIO.output(reset_3, #GPIO.LOW)
 	#GPIO.output(reset_4, #GPIO.LOW)
+	#GPIO.output(reset_5, #GPIO.LOW)
+	#GPIO.output(reset_6, #GPIO.LOW)
+	#GPIO.output(reset_7, #GPIO.LOW)
+	#GPIO.output(reset_8, #GPIO.LOW)
 	sleep(0.1)
-	#GPIO.output(reset_1, #GPIO.HIGH)
-	#GPIO.output(reset_2, #GPIO.HIGH)
-	#GPIO.output(reset_3, #GPIO.HIGH)
-	#GPIO.output(reset_4, #GPIO.HIGH)
-		
+	#GPIO.output(reset_1, #GPIO.LOW)
+	#GPIO.output(reset_2, #GPIO.LOW)
+	#GPIO.output(reset_3, #GPIO.LOW)
+	#GPIO.output(reset_4, #GPIO.LOW)
+	#GPIO.output(reset_5, #GPIO.LOW)
+	#GPIO.output(reset_6, #GPIO.LOW)
+	#GPIO.output(reset_7, #GPIO.LOW)
+	#GPIO.output(reset_8, #GPIO.LOW)
+	sleep(0.1)
+
 def mainMenu():
 	os.system("clear")
 	sleep(0.2)
@@ -93,10 +102,9 @@ def update():
 		
 	os.system("sudo pkill server.py")
 	os.system("sudo systemctl stop rotorhazard")
-	sleep(0.1)
 
+	allPinsReset()
 
-	sleep(0.1)
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_1)+";/g' /root/.avrduderc")
 	if programming_type ==1 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_1.hex:i")
 	if programming_type ==2 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota.hex:i")
@@ -109,7 +117,6 @@ def update():
 
 	allPinsReset()
 
-	sleep(0.1)
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_2)+";/g' /root/.avrduderc")
 	if programming_type ==1 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_2.hex:i")
 	if programming_type ==2 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota.hex:i")
@@ -122,7 +129,6 @@ def update():
 
 	allPinsReset()
 
-	sleep(0.1)
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_3)+";/g' /root/.avrduderc")
 	if programming_type ==1 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_3.hex:i")
 	if programming_type ==2 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota.hex:i")
@@ -135,12 +141,10 @@ def update():
 
 	allPinsReset()
 
-	sleep(0.1)
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_4)+";/g' /root/.avrduderc")
 	if programming_type ==1 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_4.hex:i")
 	if programming_type ==2 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota.hex:i")
 	if programming_type ==3 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/blank.hex:i")
-	
 	sleep(0.3)
 
 	print("")
@@ -149,9 +153,8 @@ def update():
 	
 	allPinsReset()
 
-	sleep(0.1)
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_5)+";/g' /root/.avrduderc")
-	if programming_type ==1 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_1.hex:i")
+	if programming_type ==1 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_5.hex:i")
 	if programming_type ==2 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota.hex:i")
 	if programming_type ==3 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/blank.hex:i")
 	sleep(0.3)
@@ -162,9 +165,8 @@ def update():
 
 	allPinsReset()
 
-	sleep(0.1)
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_6)+";/g' /root/.avrduderc")
-	if programming_type ==1 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_2.hex:i")
+	if programming_type ==1 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_6.hex:i")
 	if programming_type ==2 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota.hex:i")
 	if programming_type ==3 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/blank.hex:i")
 	sleep(0.3)
@@ -174,10 +176,9 @@ def update():
 	print("\n\n")
 
 	allPinsReset()
-	
-	sleep(0.1)
+
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_7)+";/g' /root/.avrduderc")
-	if programming_type ==1 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_3.hex:i")
+	if programming_type ==1 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_7.hex:i")
 	if programming_type ==2 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota.hex:i")
 	if programming_type ==3 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/blank.hex:i")
 	sleep(0.3)
@@ -188,13 +189,11 @@ def update():
 
 
 	allPinsReset()
-	
-	sleep(0.1)
+
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_8)+";/g' /root/.avrduderc")
-	if programming_type ==1 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_4.hex:i")
+	if programming_type ==1 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota_8.hex:i")
 	if programming_type ==2 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/node_ota.hex:i")
 	if programming_type ==3 : os.system("sudo avrdude -c linux#GPIO -p m328p -v -U flash:w:firmware/blank.hex:i")
-	
 	sleep(0.3)
 
 	print("")
