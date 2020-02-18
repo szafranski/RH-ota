@@ -1,9 +1,12 @@
 
 
-For using this software you have to have SPI (spi1 - second one) pins of the Raspberry pi connected to spi pins of your Arduinos.
+For using this software you have to have SPI bus (SPI1 - second one) pins of the Raspberry Pi connected to SPI pins of your Arduinos.
 
 Pins MISO, MOSI, SCK should be connected to all Arduinos - parallelly. Pins "reset" of Arduinos should be connected to specific pins
 
-on the Raspberry. You can change those pins to any unused general purpose pins from the GPIO header. After that, remember to changes 
+on the Raspberry. You can change those pins to any unused general purpose pins from the GPIO header if you want. After that, 
 
-assignment of the pins in the update.py file accordingly. 
+remember to change assignment of the pins in the update.py file accordingly. 
+
+
+You can change username to match one that you use on the Raspberry, by opening update.py file in text editor - use 'nano update.py'.
