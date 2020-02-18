@@ -23,6 +23,7 @@ if (linux_testing == False):
 
 class bcolors:
 	HEADER = '\033[95m'
+	ORANGE = '\033[33m'
 	BLUE = '\033[94m'
 	GREEN = '\033[92m'
 	YELLOW = '\033[93m'
@@ -66,7 +67,7 @@ if (linux_testing == False):
 		GPIO.output(reset_5, GPIO.LOW)
 		GPIO.output(reset_6, GPIO.LOW)
 		GPIO.output(reset_7, GPIO.LOW)
-		GPIO.output(reset_8, GPIO.LOW)
+		GPIO.output(reset_8, GPIO.LOW)	
 		sleep(0.1)
 		
 if (linux_testing == True): 
@@ -81,7 +82,7 @@ def mainMenu():
 	print("""\n\n	
 		############################################################################################
 		###                                                                                      ###
-		###                                 RotorHazard                                          ###
+		###                                 """+bcolors.ORANGE+"""RotorHazard"""+bcolors.ENDC+"""                                          ###
 		###                                                                                      ###
 		###    You are about to update nodes firmware. Please do not interrupt this operation!   ###
 		###                                                                                      ###
@@ -248,7 +249,7 @@ def advanced():
 		print("\t\t\t		 2 - Fix GPIO pins state")
 		print("\t\t\t		 3 - Try to recover nodes")
 		print("\t\t\t		 4 - Start the server now")
-		print("\t\t\t		 "+bcolors.YELLOW+"5 - Install / check avrdude"+bcolors.ENDC)
+		print("\t\t\t		 "+bcolors.BLUE+"5 - Install / check avrdude"+bcolors.ENDC)
 		print("\t\t\t		 6 - Program specific node")
 		print("\t\t\t		 7 - Enter main menu")
 		print("\n")
@@ -370,7 +371,7 @@ def advanced():
 		print("\n			What do you want to do?\n")
 		print ("		 1 - Check the state of avrdude installation + config file")
 		print ("		 2 - Check if nodes (at least one) are connected properly ")
-		print ("		 "+bcolors.YELLOW+"3 - Install avrdude"+bcolors.ENDC)
+		print ("		 "+bcolors.BLUE+"3 - Install avrdude"+bcolors.ENDC)
 		print ("		 4 - Go back")
 		selection=str(raw_input(""))
 		if selection=='1' : 
@@ -404,11 +405,11 @@ def advanced():
 	def program_node():
 		def nodeMenu():
 			print("\n\t\t\t\t\t\t "+bcolors.RED+"NODE MENU"+bcolors.ENDC)
-			print("\n\t\t\t 1 - Flash node 1 \t\t 5 - Flash node 5")
-			print("\n\t\t\t 2 - Flash node 2 \t\t 6 - Flash node 6")
-			print("\n\t\t\t 3 - Flash node 3 \t\t 7 - Flash node 7")
-			print("\n\t\t\t 4 - Flash node 4 \t\t 8 - Flash node 8")
-			print("\n\t\t\t                   9 - Go back")
+			print("\n\t\t\t\t 1 - Flash node 1 \t\t 5 - Flash node 5")
+			print("\n\t\t\t\t 2 - Flash node 2 \t\t 6 - Flash node 6")
+			print("\n\t\t\t\t 3 - Flash node 3 \t\t 7 - Flash node 7")
+			print("\n\t\t\t\t 4 - Flash node 4 \t\t 8 - Flash node 8")
+			print("\n\t\t\t\t                   9 - Go back")
 			selection=str(raw_input("\n\n\t\tWhich node do you want to program: "))
 			print("\n\n")
 			if selection=='1':
@@ -582,7 +583,7 @@ def first():
 	
 		Enjoy!\n\
 										Szafran\n\n """)
-	selection=str(raw_input("\t\t\t\t\tGo back by pressing 'b'\n"))
+	selection=str(raw_input("\t\t\t\t\t"+bcolors.YELLOW+"Go back by pressing 'b'"+bcolors.ENDC+"\n"))
 	if selection=='b':
 		mainMenu()
 	else :
