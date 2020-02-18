@@ -1,7 +1,6 @@
 ####To do:####
 
 # show 'flashed' - only after success
-# colors
 
 linux_testing = True  ### change to True for testing on Linux PC
 
@@ -73,7 +72,7 @@ if (linux_testing == False):
 if (linux_testing == True): 
 	user='pfabi'   ### you can put here your username on the Linux PC - for testing
 	def allPinsReset():
-		print("\n\n\t\t\t\t\t Linux \n\n")
+		print("\n\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.1)
 
 def mainMenu():
@@ -90,11 +89,11 @@ def mainMenu():
 		############################################################################################""")
 
 
-	print("\n\n\n\t\t\t MAIN MENU\n\n")
-	print("\t\t 1 - Nodes flash and update")
-	print("\t\t 2 - Advanced menu")
-	print("\t\t 3 - Exit")
-	print("\t\t 4 - This is my first time - READ!")
+	print("\n\n\n\t\t\t\t\t\t "+bcolors.RED+"MAIN MENU\n"+bcolors.ENDC)
+	print("\t\t\t\t\t 1 - Nodes flash and update")
+	print("\t\t\t\t\t 2 - Advanced menu")
+	print("\t\t\t\t\t 3 - Exit")
+	print("\t\t\t\t\t 4 - This is my first time - READ!")
 	selection=str(raw_input(""))
 	if selection=='1':
 		update()
@@ -108,9 +107,9 @@ def mainMenu():
 		mainMenu()
 
 def update():
-	print("\n\n\t\t Choose flashing type\n")
-	print("\t\t 1 - Every Node gets own dedicated firmware - recommended - recommended")
-	print("\t\t 2 - Nodes will use ground-auto selection firmware - not recommended")
+	print("\n\n\t\t\t Choose flashing type\n")
+	print("\t\t "+bcolors.OKGREEN+"1 - Every Node gets own dedicated firmware - recommended"+ bcolors.ENDC)
+	print("\t\t 2 - Nodes will use ground-auto selection firmware")
 	print("\t\t 3 - Flash 'blank' hex on every node")
 	print("\t\t 4 - Go back")
 	sleep(0.1)
@@ -244,14 +243,14 @@ def advanced():
 	sleep(0.1)
 	def advancedMenu():
 		print("\n")
-		print("\n			ADVANCED MENU:\n")
-		print("		1 - Flash the bootloader")
-		print("		2 - Fix GPIO pins state")
-		print("		3 - Try to recover")
-		print("		4 - Start the server")
-		print("		5 - Install / check avrdude")
-		print("		6 - Program specific node")
-		print("		7 - Enter main menu")
+		print("\t\t\t			"+bcolors.RED+"ADVANCED MENU:\n"+bcolors.ENDC)
+		print("\t\t\t		 1 - Flash the bootloader")
+		print("\t\t\t		 2 - Fix GPIO pins state")
+		print("\t\t\t		 3 - Try to recover nodes")
+		print("\t\t\t		 4 - Start the server now")
+		print("\t\t\t		 "+bcolors.YELLOW+"5 - Install / check avrdude"+bcolors.ENDC)
+		print("\t\t\t		 6 - Program specific node")
+		print("\t\t\t		 7 - Enter main menu")
 		print("\n")
 		selection=str(raw_input(""))
 		if selection=='1':
@@ -273,17 +272,17 @@ def advanced():
 			sleep(0.1) 
 			advancedMenu()
 	def bootloader(): 
-		print("\n\t\t\t\t\t\t BOOTLOADER MENU")
+		print("\n\t\t\t\t\t\t "+ bcolors.RED+"BOOTLOADER MENU"+ bcolors.ENDC)
 		print("\n\t\t 1 - Flash the bootloader on node \t\t 5 - Flash the bootloader on node 5")
 		print("\n\t\t 2 - Flash the bootloader on node \t\t 6 - Flash the bootloader on node 6")
 		print("\n\t\t 3 - Flash the bootloader on node \t\t 7 - Flash the bootloader on node 7")
 		print("\n\t\t 4 - Flash the bootloader on node \t\t 8 - Flash the bootloader on node 8")
-		print("\n\t\t                                  \t\t 9 - Go back")
+		print("\n\t\t                                  9 - Go back")
 		print("\n\n\t\t\t\t\t\t\t * after flashing the bootloader on a given node")
 		print("\n\t\t\t\t\t\t\t   remove that node from the laptimer is you want to flash ")
 		print("\n\t\t\t\t\t\t\t   anything on any different node")
-		selection=str(raw_input("\n\n\t\tWhich node do you want to flash bootloader on:  "))
-		print("\n\n")
+		selection=str(raw_input("\n\n\t\tWhich node do you want to flash bootloader on: "))
+		print("\n\n\n\n")
 		if selection=='1':
 			print("\n\t Node 1 selected")
 			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_1)+";/g' /root/.avrduderc")
@@ -368,11 +367,11 @@ def advanced():
 		os.chdir("/home/"+user+"/RotorHazard/src/server/")
 		os.system("python server.py")
 	def avr_info():
-		print("\n			What do you want to do:\n")
-		print ("		1 - Check the state of avrdude installation + config file")
-		print ("		2 - Check if nodes (at least one) are connected properly ")
-		print ("		3 - Install avrdude")
-		print ("		4 - Go back")
+		print("\n			What do you want to do?\n")
+		print ("		 1 - Check the state of avrdude installation + config file")
+		print ("		 2 - Check if nodes (at least one) are connected properly ")
+		print ("		 "+bcolors.YELLOW+"3 - Install avrdude"+bcolors.ENDC)
+		print ("		 4 - Go back")
 		selection=str(raw_input(""))
 		if selection=='1' : 
 			os.system("sudo avrdude -v")
@@ -404,12 +403,12 @@ def advanced():
 		avr_info()
 	def program_node():
 		def nodeMenu():
-			print("\n\t\t\t\t\t selection f")
-			print("\n\t\t 1 - Flash node 1 \t\t 5 - Flash node 5")
-			print("\n\t\t 2 - Flash node 2 \t\t 6 - Flash node 6")
-			print("\n\t\t 3 - Flash node 3 \t\t 7 - Flash node 7")
-			print("\n\t\t 4 - Flash node 4 \t\t 8 - Flash node 8")
-			print("\n\t\t                  \t\t 9 - Go back")
+			print("\n\t\t\t\t\t\t "+bcolors.RED+"NODE MENU"+bcolors.ENDC)
+			print("\n\t\t\t 1 - Flash node 1 \t\t 5 - Flash node 5")
+			print("\n\t\t\t 2 - Flash node 2 \t\t 6 - Flash node 6")
+			print("\n\t\t\t 3 - Flash node 3 \t\t 7 - Flash node 7")
+			print("\n\t\t\t 4 - Flash node 4 \t\t 8 - Flash node 8")
+			print("\n\t\t\t                   9 - Go back")
 			selection=str(raw_input("\n\n\t\tWhich node do you want to program: "))
 			print("\n\n")
 			if selection=='1':
@@ -581,9 +580,10 @@ def first():
 	 If you are using this tool for the first time enter 'Advanced menu' and select 'Install avrdude'.\n\t
 	 For more hardware instructions open 'manuals' file or visit Facebook page.\n\t
 	
-	 Enjoy!\n\t\t\t\t\t\t\t\t\t\t Szafran\n\n """)
+		Enjoy!\n\
+										Szafran\n\n """)
 	selection=str(raw_input("\t\t\t\t\tGo back by pressing 'b'\n"))
-	if selection=='b':\n\t\t
+	if selection=='b':
 		mainMenu()
 	else :
 		first()
