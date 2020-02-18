@@ -78,7 +78,7 @@ if (linux_testing == True):
 def mainMenu():
 	os.system("clear")
 	sleep(0.2)
-	print("""\n\n\n	
+	print("""\n\n	
 		############################################################################################
 		###                                                                                      ###
 		###                                 RotorHazard                                          ###
