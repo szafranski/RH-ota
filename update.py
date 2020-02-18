@@ -21,6 +21,7 @@ if (linux_testing == False):
 
 
 
+
 class bcolors:
 	HEADER = '\033[95m'
 	ORANGE = '\033[33m'
@@ -31,6 +32,7 @@ class bcolors:
 	ENDC = '\033[0m'
 	BOLD = '\033[1m'
 	UNDERLINE = '\033[4m'
+
 
 from time import sleep
 import os
@@ -88,7 +90,6 @@ def mainMenu():
 		###                                                                                      ###
 		###                                                                                      ###
 		############################################################################################""")
-
 
 	print("\n\n\n\t\t\t\t\t\t "+bcolors.RED+"MAIN MENU\n"+bcolors.ENDC)
 	print("\t\t\t\t\t 1 - Nodes flash and update")
