@@ -2,7 +2,7 @@
 
 # show 'flashed' - only after success
 
-linux_testing = True  ### change to True for testing on Linux PC
+linux_testing = True  ### change to True for testing on Linux PC or WSL
 
 ######## Enter pins connected to reset pins on Arduino-nodes: ########
 
@@ -84,7 +84,7 @@ def mainMenu():
 		###                                                                                      ###
 		###                                 """+bcolors.ORANGE+"""RotorHazard"""+bcolors.ENDC+"""                                          ###
 		###                                                                                      ###
-		###    You are about to flash nodes firmware. Please do not interrupt this operation!   ###
+		###    You are about to flash nodes firmware. Please do not interrupt this operation!    ###
 		###                                                                                      ###
 		###                                                                                      ###
 		############################################################################################""")
@@ -108,11 +108,11 @@ def mainMenu():
 		mainMenu()
 
 def update():
-	print("\n\n\t\t\t Choose flashing type\n")
-	print("\t\t "+bcolors.GREEN+"1 - Every Node gets own dedicated firmware - recommended"+ bcolors.ENDC)
-	print("\t\t 2 - Nodes will use ground-auto selection firmware")
-	print("\t\t 3 - Flash 'blank' hex on every node")
-	print("\t\t 4 - Go back")
+	print("\n\n\t\t\t\t Choose flashing type\n")
+	print("\t\t\t "+bcolors.GREEN+"1 - Every Node gets own dedicated firmware - recommended"+ bcolors.ENDC)
+	print("\t\t\t 2 - Nodes will use ground-auto selection firmware")
+	print("\t\t\t 3 - Flash 'blank' hex on every node")
+	print("\t\t\t 4 - Go back")
 	sleep(0.1)
 	selection=str(raw_input(""))
 	if selection=='1':
