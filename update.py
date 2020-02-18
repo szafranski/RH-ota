@@ -121,7 +121,7 @@ def first ():
 	os.system("clear")
 	print("\n\n\n\n\n")
 	image()
-	sleep(2)
+	sleep(1.6)
 first()
 
 def mainMenu():
@@ -276,8 +276,12 @@ def update():
 	\n\n""")
 	sleep(5)
 def exit():
-	sleep(0.2)
-	print("\n\nSee you!\n\n")
+	os.system("clear")
+	print("\n\n")
+	image()
+	print("\n\t\t\t\t\t\t  Happy flyin'!\n")
+	sleep(1.3)
+	os.system("clear")
 	sys.exit()
 def advanced():
 	os.system("clear")
