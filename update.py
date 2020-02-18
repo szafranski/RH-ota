@@ -17,9 +17,10 @@ reset_7 = 27  ## node 7
 reset_8 = 22  ## node 8
 
 
-
 if (linux_testing == False):
 	user = 'pi'   ## you can change it if your user is named differently
+
+
 
 class bcolors:
 	HEADER = '\033[95m'
@@ -34,7 +35,6 @@ class bcolors:
 from time import sleep
 import os
 import sys
-
 
 
 if (linux_testing == False): 
@@ -565,7 +565,8 @@ def advanced():
 def first():
 	os.system("clear")
 	sleep(0.1)
-	print("""\n\n\n\t Hello! You are using tool designed to easy uploadig the firmware on the RotorHazard race-timer nodes.\n\t
+	print("""\n\n\n 
+	 Hello! You are using tool designed to easy uploadig the firmware on the RotorHazard race-timer nodes.\n\t
 	 For now consider this tool as a beta verision. Tests are being done constantly.\n
 	
 	 Files that you are about to flash are 'hex' files from an official RotorHazard Arduino nodes ino files.\n\t
@@ -582,7 +583,7 @@ def first():
 	
 	 Enjoy!\n\t\t\t\t\t\t\t\t\t\t Szafran\n\n """)
 	selection=str(raw_input("\t\t\t\t\tGo back by pressing 'b'\n"))
-	if selection=='b':
+	if selection=='b':\n\t\t
 		mainMenu()
 	else :
 		first()
