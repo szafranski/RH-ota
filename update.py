@@ -84,7 +84,7 @@ def mainMenu():
 		###                                                                                      ###
 		###                                 """+bcolors.ORANGE+"""RotorHazard"""+bcolors.ENDC+"""                                          ###
 		###                                                                                      ###
-		###    You are about to update nodes firmware. Please do not interrupt this operation!   ###
+		###    You are about to flash nodes firmware. Please do not interrupt this operation!   ###
 		###                                                                                      ###
 		###                                                                                      ###
 		############################################################################################""")
@@ -368,11 +368,11 @@ def advanced():
 		os.chdir("/home/"+user+"/RotorHazard/src/server/")
 		os.system("python server.py")
 	def avr_info():
-		print("\n			What do you want to do?\n")
-		print ("		 1 - Check the state of avrdude installation + config file")
-		print ("		 2 - Check if nodes (at least one) are connected properly ")
-		print ("		 "+bcolors.BLUE+"3 - Install avrdude"+bcolors.ENDC)
-		print ("		 4 - Go back")
+		print("\n				What do you want to do?\n")
+		print ("			 1 - Check the state of avrdude installation + config file")
+		print ("			 2 - Check if nodes (at least one) are connected properly ")
+		print ("			 "+bcolors.BLUE+"3 - Install avrdude"+bcolors.ENDC)
+		print ("			 4 - Go back")
 		selection=str(raw_input(""))
 		if selection=='1' : 
 			os.system("sudo avrdude -v")
