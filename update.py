@@ -1,8 +1,9 @@
 ####To do:####
 
 # show 'flashed' - only after success
+# colors
 
-######## enter pins connected to reset pins on Arduino-nodes ########
+######## Enter pins connected to reset pins on Arduino-nodes: ########
 
 reset_1 = 12  ## node 1
 reset_2 = 13  ## node 2
@@ -15,55 +16,75 @@ reset_8 = 22  ## node 8
 
 user = 'pi'   ## you can change it if your user is named differently
 
-#import RPi.#GPIO as #GPIO
+linux_testing = True  ### change to True for testing on Linux PC
+
+class bcolors:
+	HEADER = '\033[95m'
+	BLUE = '\033[94m'
+	OKGREEN = '\033[92m'
+	YELLOW = '\033[93m'
+	RED = '\033[91m'
+	ENDC = '\033[0m'
+	BOLD = '\033[1m'
+	UNDERLINE = '\033[4m'
+
 from time import sleep
 import os
 import sys
 
 
-# #GPIO.setwarnings(False)
-# #GPIO.setmode(#GPIO.BCM) # Use BCM pin numbering
-# #GPIO.setup(reset_1, #GPIO.OUT, initial=#GPIO.HIGH)
-# #GPIO.setup(reset_2, #GPIO.OUT, initial=#GPIO.HIGH)
-# #GPIO.setup(reset_3, #GPIO.OUT, initial=#GPIO.HIGH)
-# #GPIO.setup(reset_4, #GPIO.OUT, initial=#GPIO.HIGH)
-# #GPIO.setup(reset_5, #GPIO.OUT, initial=#GPIO.HIGH)
-# #GPIO.setup(reset_6, #GPIO.OUT, initial=#GPIO.HIGH)
-# #GPIO.setup(reset_7, #GPIO.OUT, initial=#GPIO.HIGH)
-# #GPIO.setup(reset_8, #GPIO.OUT, initial=#GPIO.HIGH)
 
-def allPinsReset():
-	#GPIO.output(reset_1, #GPIO.LOW)
-	#GPIO.output(reset_2, #GPIO.LOW)
-	#GPIO.output(reset_3, #GPIO.LOW)
-	#GPIO.output(reset_4, #GPIO.LOW)
-	#GPIO.output(reset_5, #GPIO.LOW)
-	#GPIO.output(reset_6, #GPIO.LOW)
-	#GPIO.output(reset_7, #GPIO.LOW)
-	#GPIO.output(reset_8, #GPIO.LOW)
-	sleep(0.1)
-	#GPIO.output(reset_1, #GPIO.LOW)
-	#GPIO.output(reset_2, #GPIO.LOW)
-	#GPIO.output(reset_3, #GPIO.LOW)
-	#GPIO.output(reset_4, #GPIO.LOW)
-	#GPIO.output(reset_5, #GPIO.LOW)
-	#GPIO.output(reset_6, #GPIO.LOW)
-	#GPIO.output(reset_7, #GPIO.LOW)
-	#GPIO.output(reset_8, #GPIO.LOW)
-	sleep(0.1)
+if (linux_testing == False): 
+	import RPi.GPIO as GPIO
+	
+	GPIO.setwarnings(False)
+	GPIO.setmode(GPIO.BCM) # Use BCM pin numbering
+	GPIO.setup(reset_1, GPIO.OUT, initial=GPIO.HIGH)
+	GPIO.setup(reset_2, GPIO.OUT, initial=GPIO.HIGH)
+	GPIO.setup(reset_3, GPIO.OUT, initial=GPIO.HIGH)
+	GPIO.setup(reset_4, GPIO.OUT, initial=GPIO.HIGH)
+	GPIO.setup(reset_5, GPIO.OUT, initial=GPIO.HIGH)
+	GPIO.setup(reset_6, GPIO.OUT, initial=GPIO.HIGH)
+	GPIO.setup(reset_7, GPIO.OUT, initial=GPIO.HIGH)
+	GPIO.setup(reset_8, GPIO.OUT, initial=GPIO.HIGH)
+	
+	def allPinsReset():
+		GPIO.output(reset_1, GPIO.LOW)
+		GPIO.output(reset_2, GPIO.LOW)
+		GPIO.output(reset_3, GPIO.LOW)
+		GPIO.output(reset_4, GPIO.LOW)
+		GPIO.output(reset_5, GPIO.LOW)
+		GPIO.output(reset_6, GPIO.LOW)
+		GPIO.output(reset_7, GPIO.LOW)
+		GPIO.output(reset_8, GPIO.LOW)
+		sleep(0.1)
+		GPIO.output(reset_1, GPIO.LOW)
+		GPIO.output(reset_2, GPIO.LOW)
+		GPIO.output(reset_3, GPIO.LOW)
+		GPIO.output(reset_4, GPIO.LOW)
+		GPIO.output(reset_5, GPIO.LOW)
+		GPIO.output(reset_6, GPIO.LOW)
+		GPIO.output(reset_7, GPIO.LOW)
+		GPIO.output(reset_8, GPIO.LOW)
+		sleep(0.1)
+		
+if (linux_testing == True): 
+	def allPinsReset():
+		print("\n\n\t\t\t\t\t Linux \n\n")
+		sleep(0.1)
 
 def mainMenu():
 	os.system("clear")
 	sleep(0.2)
-	print("\n\n\n")
-	print("		############################################################################################")
-	print("		###                                                                                      ###")
-	print("		###                                 RotorHazard                                          ###")
-	print("		###                                                                                      ###")
-	print("		###    You are about to update nodes firmware. Please do not interrupt this operation!   ###")
-	print("		###                                                                                      ###")
-	print("		###                                                                                      ###")
-	print("		############################################################################################")
+	print("""\n\n\n	
+		############################################################################################
+		###                                                                                      ###
+		###                                 RotorHazard                                          ###
+		###                                                                                      ###
+		###    You are about to update nodes firmware. Please do not interrupt this operation!   ###
+		###                                                                                      ###
+		###                                                                                      ###
+		############################################################################################""")
 
 
 	print("\n\n\n\t\t\t MAIN MENU\n\n")
@@ -201,15 +222,16 @@ def update():
 	print("\n\n")	
 	
 	sleep(0.1)
-	print("		##########################################################################################")
-	print("		###                                                                                    ###")
-	print("		###             CONGRATULATIONS!            Flashing firmware to nodes - DONE          ###")
-	print("		###                                                                                    ###")
-	print("		###                                                                                    ###")
-	print("		###    Please power off the timer, unplug voltage source for few seconds and reboot    ###")
-	print("		###                                                                                    ###")
-	print("		##########################################################################################")
-	print("\n\n")
+	print("""
+		##########################################################################################
+		###                                                                                    ###
+		###             CONGRATULATIONS!            Flashing firmware to nodes - DONE          ###
+		###                                                                                    ###
+		###                                                                                    ###
+		###    Please power off the timer, unplug voltage source for few seconds and reboot    ###
+		###                                                                                    ###
+		##########################################################################################
+	\n\n""")
 	sleep(5)
 def exit():
 	sleep(0.2)
@@ -540,23 +562,23 @@ def advanced():
 def first():
 	os.system("clear")
 	sleep(0.1)
-	print("\n\n\n\t\t Hello! You are using tool designed to easy uploadig the firmware on the RotorHazard race-timer nodes.")
-	print("\n\t\t For now consider this tool as a beta verision. Tests are being done constantly.")
-	print("\n\n ")
-	print("\n\t\t Files that you are about to flash are 'hex' files from an official RotorHazard Arduino nodes ino files.")
-	print("\n\t\t After using this tool nodes would be flashed WITHOUT the bootloader which means,")
-	print("\n\t\t that you won't be able to connect your Arduinos to the usb port and using it with PC anymore,")
-	print("\n\t\t unless you flash bootloader back using 'Advanced menu' of this software.")
-	print("\n\n ")
-	print("\n\t\t It is recommended to flash nodes with specfic file for every node, even if you did auto selection mod.")
-	print("\n\t\t This way you can allways check if nodes were flashed correctly during manual boot of the server file ")
-	print("\n\t\t - what smartass as you would do after flashing new firmware anyways. :) ")
-	print("\n ")
-	print("\n\t\t If you are using this tool for the first time enter 'Advanced menu' and select 'Install avrdude'.")
-	print("\n\t\t For more hardware instructions open 'manuals' file or visit Facebook page.")
-	print("\n ")
-	print("\n\n\t\t  Enjoy!\t\t\t\t\t\t\t\t Szafran\n\n ")
-	selection=str(raw_input("\t\t\t\t\t\tGo back by pressing 'b'\n"))
+	print("""\n\n\n\t\t Hello! You are using tool designed to easy uploadig the firmware on the RotorHazard race-timer nodes.
+	\n\t For now consider this tool as a beta verision. Tests are being done constantly.
+	\n\n 
+	\n\t Files that you are about to flash are 'hex' files from an official RotorHazard Arduino nodes ino files.
+	\n\t After using this tool nodes would be flashed WITHOUT the bootloader which means,
+	\n\t that you won't be able to connect your Arduinos to the usb port and using it with PC anymore,
+	\n\t unless you flash bootloader back using 'Advanced menu' of this software.
+	\n\n 
+	\n\t It is recommended to flash nodes with specfic file for every node, even if you did auto selection mod.
+	\n\t This way you can allways check if nodes were flashed and recognized correctly during manual boot 
+	\n\t of the server file - what smartass as you would do after flashing new firmware anyways. :) 
+	\n 
+	\n\t If you are using this tool for the first time enter 'Advanced menu' and select 'Install avrdude'.
+	\n\t For more hardware instructions open 'manuals' file or visit Facebook page.
+	\n 
+	\n\t\t  Enjoy!\n\t\t\t\t\t\t\t\t\t\t Szafran\n\n """)
+	selection=str(raw_input("\t\t\t\t\tGo back by pressing 'b'\n"))
 	if selection=='b':
 		mainMenu()
 	else :
