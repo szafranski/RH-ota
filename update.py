@@ -19,7 +19,6 @@ reset_8 = 26  ## node 8
 if (linux_testing == False):
 	user = 'pi'   ## you can change it if your user is named differently
 
-                                                                                
 
 
 class bcolors:
@@ -33,14 +32,12 @@ class bcolors:
 	BOLD = '\033[1m'
 	UNDERLINE = '\033[4m'
 
-from PIL import Image
-
 from time import sleep
 import os
 import sys
 
 
-if (linux_testing == False): 
+if (linux_testing == True): 
 	import RPi.GPIO as GPIO
 	GPIO.setwarnings(False)
 	GPIO.setmode(GPIO.BCM) # Use BCM pin numbering
@@ -63,14 +60,14 @@ if (linux_testing == False):
 		GPIO.output(reset_7, GPIO.LOW)
 		GPIO.output(reset_8, GPIO.LOW)
 		sleep(0.1)
-		GPIO.output(reset_1, GPIO.LOW)
-		GPIO.output(reset_2, GPIO.LOW)
-		GPIO.output(reset_3, GPIO.LOW)
-		GPIO.output(reset_4, GPIO.LOW)
-		GPIO.output(reset_5, GPIO.LOW)
-		GPIO.output(reset_6, GPIO.LOW)
-		GPIO.output(reset_7, GPIO.LOW)
-		GPIO.output(reset_8, GPIO.LOW)	
+		GPIO.output(reset_1, GPIO.HIGH)
+		GPIO.output(reset_2, GPIO.HIGH)
+		GPIO.output(reset_3, GPIO.HIGH)
+		GPIO.output(reset_4, GPIO.HIGH)
+		GPIO.output(reset_5, GPIO.HIGH)
+		GPIO.output(reset_6, GPIO.HIGH)
+		GPIO.output(reset_7, GPIO.HIGH)
+		GPIO.output(reset_8, GPIO.HIGH)	
 		sleep(0.1)
 
 def nodeOneReset():
@@ -95,18 +92,22 @@ def nodeFourReset():
 	
 def nodeFiveReset():
 	GPIO.output(reset_5, GPIO.LOW)
+	sleep(0.05)
 	GPIO.output(reset_5, GPIO.HIGH)
 	
 def nodeSixReset():
 	GPIO.output(reset_6, GPIO.LOW)
+	sleep(0.05)
 	GPIO.output(reset_6, GPIO.HIGH)
 	
 def nodeSevenReset():
 	GPIO.output(reset_7, GPIO.LOW)
+	sleep(0.05)
 	GPIO.output(reset_7, GPIO.HIGH)
 	
 def nodeEightReset():
 	GPIO.output(reset_8, GPIO.LOW)
+	sleep(0.05)
 	GPIO.output(reset_8, GPIO.HIGH)
 		
 		
@@ -167,7 +168,6 @@ first()
 def mainMenu():
 	os.system("clear")
 	logo()
-
 	print("\n\n\n\t\t\t\t\t\t "+bcolors.RED+"MAIN MENU\n"+bcolors.ENDC)
 	print("\t\t\t\t\t 1 - Nodes flash and update")
 	print("\t\t\t\t\t 2 - Advanced menu")
@@ -191,7 +191,7 @@ def update():
 	print("\n\n\t\t\t\t Choose flashing type\n")
 	print("\t\t\t "+bcolors.GREEN+"1 - Every Node gets own dedicated firmware - recommended"+ bcolors.ENDC)
 	print("\t\t\t 2 - Nodes will use ground-auto selection firmware")
-	print("\t\t\t 3 - Flash 'blank' hex on every node")
+	print("\t\t\t 3 - Flash 'blink' hex on every node")
 	print("\t\t\t 4 - Go back")
 	sleep(0.1)
 	selection=str(raw_input(""))
@@ -215,7 +215,7 @@ def update():
 		os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0_wb.hex:i ")
 	if programming_type ==3 : 
 		nodeOneReset()
-		os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
+		os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blink.b.hex:i")
 	sleep(0.1)
 
 	print("")
@@ -231,7 +231,7 @@ def update():
 		os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0_wb.hex:i ")
 	if programming_type ==3 : 
 		nodeTwoReset()
-		os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
+		os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blink.b.hex:i")
 	sleep(0.1)
 
 	print("")
@@ -247,7 +247,7 @@ def update():
 		os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0_wb.hex:i ")
 	if programming_type ==3 : 
 		nodeThreeReset()
-		os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
+		os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blink.b.hex:i")
 	sleep(0.1)
 
 	print("")
@@ -263,7 +263,7 @@ def update():
 		os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0_wb.hex:i ")
 	if programming_type ==3 : 
 		nodeFourReset()
-		os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
+		os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blink.b.hex:i")
 	sleep(0.1)
 
 	print("")
@@ -271,40 +271,40 @@ def update():
 	print("\n\n")
 	sleep(0.2)
 
-	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_5)+";/g' /root/.avrduderc")
-	if programming_type ==1 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota_5.hex:i")
-	if programming_type ==2 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota.hex:i")
-	if programming_type ==3 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
+	nodeFiveReset
+	if programming_type ==1 : os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/node_ota_5.hex:i")
+	if programming_type ==2 : os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/node_ota.hex:i")
+	if programming_type ==3 : os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blink.b.hex:i")
 	sleep(0.3)
 
 	print("")
 	print("				Node 5 - flashed")
 	print("\n\n")
 
-	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_6)+";/g' /root/.avrduderc")
-	if programming_type ==1 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota_6.hex:i")
-	if programming_type ==2 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota.hex:i")
-	if programming_type ==3 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
+	nodeSixReset
+	if programming_type ==1 : os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/node_ota_6.hex:i")
+	if programming_type ==2 : os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/node_ota.hex:i")
+	if programming_type ==3 : os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blink.b.hex:i")
 	sleep(0.3)
 
 	print("")
 	print("				Node 6 - flashed")
 	print("\n\n")
 
-	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_7)+";/g' /root/.avrduderc")
-	if programming_type ==1 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota_7.hex:i")
-	if programming_type ==2 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota.hex:i")
-	if programming_type ==3 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
+	nodeSevenReset
+	if programming_type ==1 : os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/node_ota_7.hex:i")
+	if programming_type ==2 : os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/node_ota.hex:i")
+	if programming_type ==3 : os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blink.b.hex:i")
 	sleep(0.3)
 
 	print("")
 	print("				Node 7 - flashed")
 	print("\n\n")
 
-	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_8)+";/g' /root/.avrduderc")
-	if programming_type ==1 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota_8.hex:i")
-	if programming_type ==2 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota.hex:i")
-	if programming_type ==3 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
+	nodeEightReset
+	if programming_type ==1 : os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/node_ota_8.hex:i")
+	if programming_type ==2 : os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/node_ota.hex:i")
+	if programming_type ==3 : os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blink.b.hex:i")
 	sleep(0.3)
 
 	print("")
@@ -378,43 +378,43 @@ def advanced():
 		print("\n\n\n\n")
 		if selection=='1':
 			print("\n\t Node 1 selected")
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_1)+";/g' /root/.avrduderc")
-			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.b.hex:i")
+			nodeOneReset
+			os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blank.b.hex:i")
 			print("\n\t Bootloader flashed")
 		if selection=='2':
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_2)+";/g' /root/.avrduderc")
+			nodeTwoReset
 			print("\n\t Node 2 selected")
-			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.b.hex:i")
+			os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blank.b.hex:i")
 			print("\n\t Bootloader flashed")
 		if selection=='3':
 			print("\n\t Node 3 selected")
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_3)+";/g' /root/.avrduderc")
-			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.b.hex:i")
+			nodeThreeReset
+			os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blank.b.hex:i")
 			print("\n\t Bootloader flashed")
 		if selection=='4':
 			print("\n\t Node 4 selected")
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_4)+";/g' /root/.avrduderc")
-			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.b.hex:i")
+			nodeFourReset
+			os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blank.b.hex:i")
 			print("\n\t Bootloader flashed")
 		if selection=='5':
 			print("\n\t Node 5 selected")
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_5)+";/g' /root/.avrduderc")
-			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.b.hex:i")
+			nodeFiveReset
+			os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blank.b.hex:i")
 			print("\n\t Bootloader flashed")
 		if selection=='6':
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_6)+";/g' /root/.avrduderc")
+			nodeSixReset
 			print("\n\t Node 6 selected")
-			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.b.hex:i")
+			os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blank.b.hex:i")
 			print("\n\t Bootloader flashed")
 		if selection=='7':
 			print("\n\t Node 7 selected")
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_7)+";/g' /root/.avrduderc")
-			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.b.hex:i")
+			nodeSevenReset
+			os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blank.b.hex:i")
 			print("\n\t Bootloader flashed")
 		if selection=='8':
 			print("\n\t Node 8 selected")
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_8)+";/g' /root/.avrduderc")
-			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.b.hex:i")
+			nodeEightReset
+			os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blank.b.hex:i")
 			print("\n\t Bootloader flashed")			
 		if selection=='9':
 			advanced()
@@ -431,9 +431,8 @@ def advanced():
 		os.system("echo "+str(reset_6)+" > /sys/class/GPIO/unexport")
 		os.system("echo "+str(reset_7)+" > /sys/class/GPIO/unexport")
 		os.system("echo "+str(reset_8)+" > /sys/class/GPIO/unexport")
-		os.system("echo 19 > /sys/class/GPIO/unexport")
-		os.system("echo 20 > /sys/class/GPIO/unexport")
-		os.system("echo 21 > /sys/class/GPIO/unexport") 
+		os.system("echo 8 > /sys/class/GPIO/unexport")
+		os.system("echo 10 > /sys/class/GPIO/unexport")
 		print("\n\n		DONE\n\n")
 		sleep(0.3)
 		advanced()
@@ -444,22 +443,22 @@ def advanced():
 		sleep(0.2)
 		x = 1
 		while x <= 2:
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_1)+";/g' /root/.avrduderc")
-			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:blank.hex:i")
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_2)+";/g' /root/.avrduderc")
-			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:blank.hex:i")
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_3)+";/g' /root/.avrduderc")
-			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:blank.hex:i")
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_4)+";/g' /root/.avrduderc")
-			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:blank.hex:i")
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_5)+";/g' /root/.avrduderc")
-			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:blank.hex:i")
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_6)+";/g' /root/.avrduderc")
-			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:blank.hex:i")
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_7)+";/g' /root/.avrduderc")
-			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:blank.hex:i")
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_8)+";/g' /root/.avrduderc")
-			os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:blank.hex:i")
+			nodeOneReset
+			os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:blink.b.hex:i")
+			nodeTwoReset
+			os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:blink.b.hex:i")
+			nodeThreeReset
+			os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:blink.b.hex:i")
+			nodeFourReset
+			os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:blink.b.hex:i")
+			nodeFiveReset
+			os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:blink.b.hex:i")
+			nodeSixReset
+			os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:blink.b.hex:i")
+			nodeSevenReset
+			os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:blink.b.hex:i")
+			nodeEightReset
+			os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:blink.b.hex:i")
 			sleep(0.7)
 			x += 1
 		print("\n\n		DONE\n\n")
@@ -509,150 +508,150 @@ def advanced():
 			selection=str(raw_input("\n\n\t\t\tWhich node do you want to program: "))
 			print("\n\n")
 			if selection=='1':
-				os.system("sudo sed -i 's/reset .*/reset = "+str(reset_1)+";/g' /root/.avrduderc")
+				nodeOneReset
 				print("\n\t\t\t\t Node 1 selected")
 				print("\n\n\t\t\t Choose flashing type\n")
 				print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
 				print("\t\t\t 2 - Node ground-auto selection firmware")
-				print("\t\t\t 3 - Flashes 'blank' hex on the node")
+				print("\t\t\t 3 - Flashes 'blink' hex on the node")
 				print("\t\t\t 4 - Abort")
 				selection=str(raw_input(""))
 				if selection=='1' : 
 					nodeOneReset()
 					os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_1_wb.hex:i ")
 				if selection=='2' : 
-					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota.hex:i")
+					os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/node_ota.hex:i")
 				if selection=='3' : 
-					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
+					os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blink.b.hex:i")
 				print("\n\t Node flashed")
 				if selection=='4':
 					nodeMenu()
 			if selection=='2':
-				os.system("sudo sed -i 's/reset .*/reset = "+str(reset_2)+";/g' /root/.avrduderc")
+				nodeTwoReset
 				print("\n\\t\t\t\t Node 2 selected")
 				print("\n\n\t\t\t Choose flashing type\n")
 				print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
 				print("\t\t\t 2 - Node ground-auto selection firmware")
-				print("\t\t\t 3 - Flashes 'blank' hex on the node")
+				print("\t\t\t 3 - Flashes 'blink' hex on the node")
 				print("\t\t\t 4 - Abort")
 				selection=str(raw_input(""))
 				if selection=='1' : 
 					nodeTwoReset()
 					os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_2_wb.hex:i ")
 				if selection=='2' : 
-					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota.hex:i")
+					os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/node_ota.hex:i")
 				if selection=='3' : 
-					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
+					os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blink.b.hex:i")
 				print("\n\t Node flashed")
 				if selection=='4':
 					nodeMenu()
 			if selection=='3':
-				os.system("sudo sed -i 's/reset .*/reset = "+str(reset_3)+";/g' /root/.avrduderc")
+				nodeThreeReset
 				print("\n\t\t\t\t Node 3 selected")
 				print("\n\n\t\t\t Choose flashing type\n")
 				print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
 				print("\t\t\t 2 - Node ground-auto selection firmware")
-				print("\t\t\t 3 - Flashes 'blank' hex on the node")
+				print("\t\t\t 3 - Flashes 'blink' hex on the node")
 				print("\t\t\t 4 - Abort")
 				selection=str(raw_input(""))
 				if selection=='1' : 
 					nodeThreeReset()
 					os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_3_wb.hex:i ")
 				if selection=='2' : 
-					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota.hex:i")
+					os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/node_ota.hex:i")
 				if selection=='3' : 
-					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
+					os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blink.b.hex:i")
 				print("\n\t Node flashed")
 				if selection=='4':
 					nodeMenu()
 			if selection=='4':
-				os.system("sudo sed -i 's/reset .*/reset = "+str(reset_4)+";/g' /root/.avrduderc")
+				nodeFourReset
 				print("\n\t\t\t\t Node 4 selected")
 				print("\n\n\t\t\t Choose flashing type\n")
 				print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
 				print("\t\t\t 2 - Node ground-auto selection firmware")
-				print("\t\t\t 3 - Flashes 'blank' hex on the node")
+				print("\t\t\t 3 - Flashes 'blink' hex on the node")
 				print("\t\t\t 4 - Abort")
 				selection=str(raw_input(""))
 				if selection=='1' : 
 					nodeFourReset()
 					os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_4_wb.hex:i ")
 				if selection=='2' : 
-					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota.hex:i")
+					os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/node_ota.hex:i")
 				if selection=='3' : 
-					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
+					os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blink.b.hex:i")
 				print("\n\t Node flashed")
 				if selection=='4':
 					nodeMenu()
 			if selection=='5':
-				os.system("sudo sed -i 's/reset .*/reset = "+str(reset_5)+";/g' /root/.avrduderc")
+				nodeFiveReset
 				print("\n\t\t\t\t Node 5 selected")
 				print("\n\n\t\t\t Choose flashing type\n")
 				print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
 				print("\t\t\t 2 - Node ground-auto selection firmware")
-				print("\t\t\t 3 - Flashes 'blank' hex on the node")
+				print("\t\t\t 3 - Flashes 'blink' hex on the node")
 				print("\t\t\t 4 - Abort")
 				selection=str(raw_input(""))
 				if selection=='1' : 
-					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota_5.hex:i")
+					os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/node_ota_5.hex:i")
 				if selection=='2' : 
-					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota.hex:i")
+					os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/node_ota.hex:i")
 				if selection=='3' : 
-					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
+					os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blink.b.hex:i")
 				print("\n\t Node flashed")
 				if selection=='4':
 					nodeMenu()
 			if selection=='6':
-				os.system("sudo sed -i 's/reset .*/reset = "+str(reset_6)+";/g' /root/.avrduderc")
+				nodeSixReset
 				print("\n\t\t\t\t Node 6 selected")
 				print("\n\n\t\t\t Choose flashing type\n")
 				print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
 				print("\t\t\t 2 - Node ground-auto selection firmware")
-				print("\t\t\t 3 - Flashes 'blank' hex on the node")
+				print("\t\t\t 3 - Flashes 'blink' hex on the node")
 				print("\t\t\t 4 - Abort")
 				selection=str(raw_input(""))
 				if selection=='1' : 
-					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota_6.hex:i")
+					os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/node_ota_6.hex:i")
 				if selection=='2' : 
-					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota.hex:i")
+					os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/node_ota.hex:i")
 				if selection=='3' : 
-					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
+					os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blink.b.hex:i")
 				print("\n\t Node flashed")
 				if selection=='4':
 					nodeMenu()
 			if selection=='7':
-				os.system("sudo sed -i 's/reset .*/reset = "+str(reset_7)+";/g' /root/.avrduderc")
+				nodeSevenReset
 				print("\n\t\t\t\t Node 7 selected")
 				print("\n\n\t\t\t Choose flashing type\n")
 				print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
 				print("\t\t\t 2 - Node ground-auto selection firmware")
-				print("\t\t\t 3 - Flashes 'blank' hex on the node")
+				print("\t\t\t 3 - Flashes 'blink' hex on the node")
 				print("\t\t\t 4 - Abort")
 				selection=str(raw_input(""))
 				if selection=='1' : 
-					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota_4.hex:i")
+					os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/node_ota_4.hex:i")
 				if selection=='2' : 
-					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota.hex:i")
+					os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/node_ota.hex:i")
 				if selection=='3' : 
-					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
+					os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blink.b.hex:i")
 				print("\n\t Node flashed")
 				if selection=='4':
 					nodeMenu()
 			if selection=='8':
-				os.system("sudo sed -i 's/reset .*/reset = "+str(reset_8)+";/g' /root/.avrduderc")
+				nodeEightReset
 				print("\n\t\t\t\t Node 8 selected")
 				print("\n\n\t\t\t Choose flashing type\n")
 				print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
 				print("\t\t\t 2 - Node ground-auto selection firmware")
-				print("\t\t\t 3 - Flashes 'blank' hex on the node")
+				print("\t\t\t 3 - Flashes 'blink' hex on the node")
 				print("\t\t\t 4 - Abort")
 				selection=str(raw_input(""))
 				if selection=='1' : 
-					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota_4.hex:i")
+					os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/node_ota_4.hex:i")
 				if selection=='2' : 
-					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota.hex:i")
+					os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/node_ota.hex:i")
 				if selection=='3' : 
-					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
+					os.system("sudo avrdude -c arduino -p m328p -v -U flash:w:firmware/blink.b.hex:i")
 				print("\n\t Node flashed")
 				if selection=='4':
 					nodeMenu()
@@ -688,5 +687,6 @@ def first():
 	else :
 		first()
 mainMenu()
+
 
 
