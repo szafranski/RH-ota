@@ -19,6 +19,7 @@ reset_8 = 26  ## node 8
 if (linux_testing == False):
 	user = 'pi'   ## you can change it if your user is named differently
 
+                                                                                
 
 
 class bcolors:
@@ -31,6 +32,8 @@ class bcolors:
 	ENDC = '\033[0m'
 	BOLD = '\033[1m'
 	UNDERLINE = '\033[4m'
+
+from PIL import Image
 
 from time import sleep
 import os
@@ -164,6 +167,7 @@ first()
 def mainMenu():
 	os.system("clear")
 	logo()
+
 	print("\n\n\n\t\t\t\t\t\t "+bcolors.RED+"MAIN MENU\n"+bcolors.ENDC)
 	print("\t\t\t\t\t 1 - Nodes flash and update")
 	print("\t\t\t\t\t 2 - Advanced menu")
