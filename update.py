@@ -72,18 +72,22 @@ if (linux_testing == False):
 
 def nodeOneReset():
 	GPIO.output(reset_1, GPIO.LOW)
+	sleep(0.05)
 	GPIO.output(reset_1, GPIO.HIGH)
 		
 def nodeTwoReset():
 	GPIO.output(reset_2, GPIO.LOW)
+	sleep(0.05)
 	GPIO.output(reset_2, GPIO.HIGH)
 	
 def nodeThreeReset():
 	GPIO.output(reset_3, GPIO.LOW)
+	sleep(0.05)
 	GPIO.output(reset_3, GPIO.HIGH)
 	
 def nodeFourReset():
 	GPIO.output(reset_4, GPIO.LOW)
+	sleep(0.05)
 	GPIO.output(reset_4, GPIO.HIGH)
 	
 def nodeFiveReset():
@@ -105,7 +109,7 @@ def nodeEightReset():
 		
 if (linux_testing == True): 
 	user='pfabi'   ### you can put here your username on the Linux PC - for testing
-	def #allPinsReset():
+	def allPinsReset():
 		print("\n\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.1)
 
@@ -199,17 +203,14 @@ def update():
 	os.system("sudo pkill server.py")
 	os.system("sudo systemctl stop rotorhazard")
 
-	#allPinsReset()
-
-	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_1)+";/g' /root/.avrduderc")
 	if programming_type ==1 : 
-		def nodeOneReset():
+		nodeOneReset()
 		os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_1_wb.hex:i ")
 	if programming_type ==2 : 
-		def nodeOneReset():
+		nodeOneReset()
 		os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0_wb.hex:i ")
 	if programming_type ==3 : 
-		def nodeOneReset():
+		nodeOneReset()
 		os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
 	sleep(0.1)
 
@@ -218,17 +219,14 @@ def update():
 	print("\n\n")
 	sleep(0.2)
 
-	#allPinsReset()
-
-	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_2)+";/g' /root/.avrduderc")
 	if programming_type ==1 : 
-		def nodeTwoReset():
+		nodeTwoReset()
 		os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_2_wb.hex:i ")
 	if programming_type ==2 : 
-		def nodeTwoReset():
+		nodeTwoReset()
 		os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0_wb.hex:i ")
 	if programming_type ==3 : 
-		def nodeTwoReset():
+		nodeTwoReset()
 		os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
 	sleep(0.1)
 
@@ -237,15 +235,14 @@ def update():
 	print("\n\n")
 	sleep(0.2)
 
-	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_3)+";/g' /root/.avrduderc")
 	if programming_type ==1 : 
-		def nodeThreeReset():
+		nodeThreeReset()
 		os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_3_wb.hex:i ")
 	if programming_type ==2 : 
-		def nodeThreeReset():
+		nodeThreeReset()
 		os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0_wb.hex:i ")
 	if programming_type ==3 : 
-		def nodeThreeReset():
+		nodeThreeReset()
 		os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
 	sleep(0.1)
 
@@ -255,13 +252,13 @@ def update():
 	sleep(0.2)
 
 	if programming_type ==1 : 
-		def nodeFourReset():
+		nodeFourReset()
 		os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_4_wb.hex:i ")
 	if programming_type ==2 : 
-		def nodeFourReset():
+		nodeFourReset()
 		os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0_wb.hex:i ")
 	if programming_type ==3 : 
-		def nodeFourReset():
+		nodeFourReset()
 		os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
 	sleep(0.1)
 
@@ -280,8 +277,6 @@ def update():
 	print("				Node 5 - flashed")
 	print("\n\n")
 
-	#allPinsReset()
-
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_6)+";/g' /root/.avrduderc")
 	if programming_type ==1 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota_6.hex:i")
 	if programming_type ==2 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota.hex:i")
@@ -292,8 +287,6 @@ def update():
 	print("				Node 6 - flashed")
 	print("\n\n")
 
-	#allPinsReset()
-
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_7)+";/g' /root/.avrduderc")
 	if programming_type ==1 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota_7.hex:i")
 	if programming_type ==2 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota.hex:i")
@@ -303,9 +296,6 @@ def update():
 	print("")
 	print("				Node 7 - flashed")
 	print("\n\n")
-
-
-	#allPinsReset()
 
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_8)+";/g' /root/.avrduderc")
 	if programming_type ==1 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota_8.hex:i")
@@ -363,7 +353,7 @@ def advanced():
 		if selection=='5':
 			avr_info()
 		if selection=='6':
-			program_node()
+				program_node()
 		if selection=='7':
 			mainMenu()
 		else:
@@ -524,7 +514,7 @@ def advanced():
 				print("\t\t\t 4 - Abort")
 				selection=str(raw_input(""))
 				if selection=='1' : 
-					def nodeOneReset():
+					nodeOneReset()
 					os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_1_wb.hex:i ")
 				if selection=='2' : 
 					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota.hex:i")
@@ -543,7 +533,7 @@ def advanced():
 				print("\t\t\t 4 - Abort")
 				selection=str(raw_input(""))
 				if selection=='1' : 
-					def nodeTwoReset():
+					nodeTwoReset()
 					os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_2_wb.hex:i ")
 				if selection=='2' : 
 					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota.hex:i")
@@ -562,7 +552,7 @@ def advanced():
 				print("\t\t\t 4 - Abort")
 				selection=str(raw_input(""))
 				if selection=='1' : 
-					def nodeThreeReset():
+					nodeThreeReset()
 					os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_3_wb.hex:i ")
 				if selection=='2' : 
 					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota.hex:i")
@@ -581,7 +571,7 @@ def advanced():
 				print("\t\t\t 4 - Abort")
 				selection=str(raw_input(""))
 				if selection=='1' : 
-					def nodeFourReset():
+					nodeFourReset()
 					os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_4_wb.hex:i ")
 				if selection=='2' : 
 					os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota.hex:i")
