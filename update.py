@@ -202,52 +202,73 @@ def update():
 	#allPinsReset()
 
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_1)+";/g' /root/.avrduderc")
-	if programming_type ==1 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota_1.hex:i")
-	if programming_type ==2 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota.hex:i")
-	if programming_type ==3 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
-	sleep(0.3)
+	if programming_type ==1 : 
+		def nodeOneReset():
+		os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_1_wb.hex:i ")
+	if programming_type ==2 : 
+		def nodeOneReset():
+		os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0_wb.hex:i ")
+	if programming_type ==3 : 
+		def nodeOneReset():
+		os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
+	sleep(0.1)
 
 	print("")
 	print("				Node 1 - flashed")
 	print("\n\n")
+	sleep(0.2)
 
 	#allPinsReset()
 
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_2)+";/g' /root/.avrduderc")
-	if programming_type ==1 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota_2.hex:i")
-	if programming_type ==2 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota.hex:i")
-	if programming_type ==3 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
-	sleep(0.3)
+	if programming_type ==1 : 
+		def nodeTwoReset():
+		os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_2_wb.hex:i ")
+	if programming_type ==2 : 
+		def nodeTwoReset():
+		os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0_wb.hex:i ")
+	if programming_type ==3 : 
+		def nodeTwoReset():
+		os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
+	sleep(0.1)
 
 	print("")
 	print("				Node 2 - flashed")
 	print("\n\n")
-
-	#allPinsReset()
+	sleep(0.2)
 
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_3)+";/g' /root/.avrduderc")
-	if programming_type ==1 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota_3.hex:i")
-	if programming_type ==2 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota.hex:i")
-	if programming_type ==3 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
-	sleep(0.3)
+	if programming_type ==1 : 
+		def nodeThreeReset():
+		os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_3_wb.hex:i ")
+	if programming_type ==2 : 
+		def nodeThreeReset():
+		os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0_wb.hex:i ")
+	if programming_type ==3 : 
+		def nodeThreeReset():
+		os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
+	sleep(0.1)
 
 	print("")
 	print("				Node 3 - flashed")
 	print("\n\n")
+	sleep(0.2)
 
-	#allPinsReset()
-
-	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_4)+";/g' /root/.avrduderc")
-	if programming_type ==1 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota_4.hex:i")
-	if programming_type ==2 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota.hex:i")
-	if programming_type ==3 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
-	sleep(0.3)
+	if programming_type ==1 : 
+		def nodeFourReset():
+		os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_4_wb.hex:i ")
+	if programming_type ==2 : 
+		def nodeFourReset():
+		os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0_wb.hex:i ")
+	if programming_type ==3 : 
+		def nodeFourReset():
+		os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/blank.hex:i")
+	sleep(0.1)
 
 	print("")
 	print("				Node 4 - flashed")
 	print("\n\n")
-	
-	#allPinsReset()
+	sleep(0.2)
 
 	os.system("sudo sed -i 's/reset .*/reset = "+str(reset_5)+";/g' /root/.avrduderc")
 	if programming_type ==1 : os.system("sudo avrdude -c linuxgpio -p m328p -v -U flash:w:firmware/node_ota_5.hex:i")
@@ -473,28 +494,11 @@ def advanced():
 		if selection=='1' : 
 			os.system("sudo avrdude -v")
 		if selection=='2' : 
-			os.system("sudo avrdude -c linuxgpio -p m328p -v")
+			os.system("sudo avrdude -c arduino -p m328p -v")
 		if selection=='3' : 
 			os.system("sudo apt-get update")
-			os.system("sudo apt-get install wget bison flex -y")
+			os.system("sudo apt-get install avrdude")
 			os.chdir("/home/"+user)
-			os.system("wget http://download.savannah.gnu.org/releases/avrdude/avrdude-6.2.tar.gz")
-			os.system("tar xfv avrdude-6.2.tar.gz")
-			os.chdir("/home/"+user+"/avrdude-6.2/")
-			os.system("./configure --enable-linuxgpio")
-			os.system("make")
-			os.system("sudo make install")
-			os.system("sudo rm /root/.avrduderc")
-			os.system("echo 'programmer'| sudo  tee -a /root/.avrduderc")
-			os.system("echo ' id    = \"linuxgpio\";'| sudo  tee -a /root/.avrduderc")
-			os.system("echo ' desc  = \"Use the Linux sysfs interface to bitbang GPIO lines\";'| sudo  tee -a /root/.avrduderc")
-			os.system("echo ' type  = \"linuxgpio\";'| sudo  tee -a /root/.avrduderc")
-			os.system("echo ' reset = 12;' | sudo tee -a /root/.avrduderc")
-			os.system("echo ' sck   = 21;' | sudo  tee -a /root/.avrduderc")
-			os.system("echo ' mosi  = 20;' | sudo  tee -a /root/.avrduderc")
-			os.system("echo ' miso  = 19;' | sudo  tee -a /root/.avrduderc")
-			os.system("echo ';' | sudo  tee -a /root/.avrduderc")
-			os.system("sudo avrdude -v")
 		if selection=='4' : 
 			advanced()
 		avr_info()
