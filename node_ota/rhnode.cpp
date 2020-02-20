@@ -1,5 +1,7 @@
 // differences: spin pins changed, added 5s delay during boot //
 
+bool ota = true;
+
 #ifndef __TEST__
 // RotorHazard FPV Race Timing
 // Based on Delta 5 Race Timer by Scott Chin
@@ -43,7 +45,7 @@
 // ******************************************************************** //
 
 // *** Node Setup - Set node number here (1-8): ***
-#define NODE_NUMBER 8
+#define NODE_NUMBER 3
 
 // Set to 1-8 for manual selection.
 // Leave at 0 for automatic selection via hardware pin.
@@ -110,7 +112,7 @@ void setRxModule(uint16_t frequency);
 
 // Initialize program
 void setup()
-{ delay(5000); 
+{ //delay(5000); 
   
   if (!NODE_NUMBER)
   {
@@ -159,8 +161,7 @@ void setup()
       }
     }
   }
-
-  Serial.begin(115200);  // Start serial interface
+if (ota == false) Serial.begin(115200);  // Start serial interface
 
   pinMode(RX5808_SEL_PIN, OUTPUT);  // RX5808 comms
   pinMode(RX5808_DATA_PIN, OUTPUT);
