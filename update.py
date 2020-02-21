@@ -175,6 +175,7 @@ def image():
 """)
 
 def logo():
+	os.system("clear")
 	print("""\n\n	
 		############################################################################################
 		###                                                                                      ###
@@ -208,7 +209,6 @@ def flashEachNode():
 		selection=str(raw_input("\n\n\t\t\tWhich node do you want to program: "))
 		print("\n\n")
 		if selection=='1':
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_1)+";/g' /root/.avrduderc")
 			print("\n\t\t\t\t Node 1 selected")
 			print("\n\n\t\t\t Choose flashing type\n")
 			print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
@@ -218,17 +218,18 @@ def flashEachNode():
 			selection=str(raw_input(""))
 			if selection=='1' : 
 				nodeOneReset()
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_1.hex:i ")
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_1.hex:i ")
 			if selection=='2' : 
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0.hex:i")
+				nodeOneReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_0.hex:i")
 			if selection=='3' : 
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/'Blink'.hex:i ")
+				nodeOneReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/blink.hex:i ")
 			print("\n\t Node flashed")
 			if selection=='4':
 				nodeMenu()
 			nodeMenu()
 		if selection=='2':
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_2)+";/g' /root/.avrduderc")
 			print("\n\\t\t\t\t Node 2 selected")
 			print("\n\n\t\t\t Choose flashing type\n")
 			print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
@@ -238,17 +239,18 @@ def flashEachNode():
 			selection=str(raw_input(""))
 			if selection=='1' : 
 				nodeTwoReset()
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_2.hex:i ")
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_2.hex:i ")
 			if selection=='2' : 
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0.hex:i")
+				nodeTwoReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_0.hex:i")
 			if selection=='3' : 
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/'Blink'.hex:i ")
+				nodeTwoReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/blink.hex:i ")
 			print("\n\t Node flashed")
 			if selection=='4':
 				nodeMenu()
 			nodeMenu()
 		if selection=='3':
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_3)+";/g' /root/.avrduderc")
 			print("\n\t\t\t\t Node 3 selected")
 			print("\n\n\t\t\t Choose flashing type\n")
 			print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
@@ -258,17 +260,18 @@ def flashEachNode():
 			selection=str(raw_input(""))
 			if selection=='1' : 
 				nodeThreeReset()
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_3.hex:i ")
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_3.hex:i ")
 			if selection=='2' : 
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0.hex:i")
+				nodeThreeReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_0.hex:i")
 			if selection=='3' : 
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/'Blink'.hex:i ")
+				nodeThreeReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/blink.hex:i ")
 			print("\n\t Node flashed")
 			if selection=='4':
 				nodeMenu()
 			nodeMenu()
 		if selection=='4':
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_4)+";/g' /root/.avrduderc")
 			print("\n\t\t\t\t Node 4 selected")
 			print("\n\n\t\t\t Choose flashing type\n")
 			print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
@@ -278,17 +281,18 @@ def flashEachNode():
 			selection=str(raw_input(""))
 			if selection=='1' : 
 				nodeFourReset()
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_4.hex:i ")
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_4.hex:i ")
 			if selection=='2' : 
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0.hex:i")
+				nodeFourReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_0.hex:i")
 			if selection=='3' : 
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/'Blink'.hex:i ")
+				nodeFourReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/blink.hex:i ")
 			print("\n\t Node flashed")
 			if selection=='4':
 				nodeMenu()
 			nodeMenu()
 		if selection=='5':
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_5)+";/g' /root/.avrduderc")
 			print("\n\t\t\t\t Node 5 selected")
 			print("\n\n\t\t\t Choose flashing type\n")
 			print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
@@ -297,17 +301,19 @@ def flashEachNode():
 			print("\t\t\t 4 - Abort")
 			selection=str(raw_input(""))
 			if selection=='1' : 
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_5.hex:i")
+				nodeFiveReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_5.hex:i ")
 			if selection=='2' : 
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0.hex:i")
+				nodeFiveReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_0.hex:i")
 			if selection=='3' : 
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/'Blink'.hex:i ")
+				nodeFiveReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/blink.hex:i ")
 			print("\n\t Node flashed")
 			if selection=='4':
 				nodeMenu()
 			nodeMenu()
 		if selection=='6':
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_6)+";/g' /root/.avrduderc")
 			print("\n\t\t\t\t Node 6 selected")
 			print("\n\n\t\t\t Choose flashing type\n")
 			print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
@@ -316,17 +322,19 @@ def flashEachNode():
 			print("\t\t\t 4 - Abort")
 			selection=str(raw_input(""))
 			if selection=='1' : 
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_6.hex:i")
+				nodeSixReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_6.hex:i ")
 			if selection=='2' : 
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0.hex:i")
+				nodeSixReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_0.hex:i")
 			if selection=='3' : 
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/'Blink'.hex:i ")
+				nodeSixReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/blink.hex:i ")
 			print("\n\t Node flashed")
 			if selection=='4':
 				nodeMenu()
 			nodeMenu()
 		if selection=='7':
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_7)+";/g' /root/.avrduderc")
 			print("\n\t\t\t\t Node 7 selected")
 			print("\n\n\t\t\t Choose flashing type\n")
 			print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
@@ -335,17 +343,19 @@ def flashEachNode():
 			print("\t\t\t 4 - Abort")
 			selection=str(raw_input(""))
 			if selection=='1' : 
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_4.hex:i")
+				nodeSevenReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_7.hex:i ")
 			if selection=='2' : 
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0.hex:i")
+				nodeSevenReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_0.hex:i")
 			if selection=='3' : 
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/'Blink'.hex:i ")
+				nodeSevenReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/blink.hex:i ")
 			print("\n\t Node flashed")
 			if selection=='4':
 				nodeMenu()
 			nodeMenu()
 		if selection=='8':
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_8)+";/g' /root/.avrduderc")
 			print("\n\t\t\t\t Node 8 selected")
 			print("\n\n\t\t\t Choose flashing type\n")
 			print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
@@ -354,11 +364,14 @@ def flashEachNode():
 			print("\t\t\t 4 - Abort")
 			selection=str(raw_input(""))
 			if selection=='1' : 
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_4.hex:i")
+				nodeEightReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_8.hex:i ")
 			if selection=='2' : 
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0.hex:i")
+				nodeEightReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_0.hex:i")
 			if selection=='3' : 
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/'Blink'.hex:i ")
+				nodeEightReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/blink.hex:i ")
 			print("\n\t Node flashed")
 			if selection=='4':
 				nodeMenu()
@@ -412,13 +425,13 @@ def mainMenu():
 
 			if programming_type ==1 : 
 				nodeOneReset()
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_1.hex:i ")
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_1.hex:i ")
 			if programming_type ==2 : 
 				nodeOneReset()
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0.hex:i ")
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_0.hex:i ")
 			if programming_type ==3 : 
 				nodeOneReset()
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/'Blink'.hex:i ")
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/blink.hex:i ")
 			sleep(0.1)
 
 			print("")
@@ -428,13 +441,13 @@ def mainMenu():
 
 			if programming_type ==1 : 
 				nodeTwoReset()
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_2.hex:i ")
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_2.hex:i ")
 			if programming_type ==2 : 
 				nodeTwoReset()
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0.hex:i ")
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_0.hex:i ")
 			if programming_type ==3 : 
 				nodeTwoReset()
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/'Blink'.hex:i ")
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/blink.hex:i ")
 			sleep(0.1)
 
 			print("")
@@ -444,13 +457,13 @@ def mainMenu():
 
 			if programming_type ==1 : 
 				nodeThreeReset()
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_3.hex:i ")
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_3.hex:i ")
 			if programming_type ==2 : 
 				nodeThreeReset()
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0.hex:i ")
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_0.hex:i ")
 			if programming_type ==3 : 
 				nodeThreeReset()
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/'Blink'.hex:i ")
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/blink.hex:i ")
 			sleep(0.1)
 
 			print("")
@@ -460,13 +473,13 @@ def mainMenu():
 
 			if programming_type ==1 : 
 				nodeFourReset()
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_4.hex:i ")
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_4.hex:i ")
 			if programming_type ==2 : 
 				nodeFourReset()
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0.hex:i ")
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_0.hex:i ")
 			if programming_type ==3 : 
 				nodeFourReset()
-				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/'Blink'.hex:i ")
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/blink.hex:i ")
 			sleep(0.1)
 
 			print("")
@@ -474,41 +487,61 @@ def mainMenu():
 			print("\n\n")
 			sleep(0.2)
 
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_5)+";/g' /root/.avrduderc")
-			if programming_type ==1 : os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_5.hex:i")
-			if programming_type ==2 : os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0.hex:i")
-			if programming_type ==3 : os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/'Blink'.hex:i ")
-			sleep(0.3)
+			if programming_type ==1 : 
+				nodeFourReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_5.hex:i ")
+			if programming_type ==2 : 
+				nodeFourReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_0.hex:i ")
+			if programming_type ==3 : 
+				nodeFourReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/blink.hex:i ")
+			sleep(0.1)
 
 			print("")
 			print("				Node 5 - flashed")
 			print("\n\n")
 
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_6)+";/g' /root/.avrduderc")
-			if programming_type ==1 : os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_6.hex:i")
-			if programming_type ==2 : os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0.hex:i")
-			if programming_type ==3 : os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/'Blink'.hex:i ")
-			sleep(0.3)
+			if programming_type ==1 : 
+				nodeFourReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_6.hex:i ")
+			if programming_type ==2 : 
+				nodeFourReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_0.hex:i ")
+			if programming_type ==3 : 
+				nodeFourReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/blink.hex:i ")
+			sleep(0.1)
 
 			print("")
 			print("				Node 6 - flashed")
 			print("\n\n")
 
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_7)+";/g' /root/.avrduderc")
-			if programming_type ==1 : os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_7.hex:i")
-			if programming_type ==2 : os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0.hex:i")
-			if programming_type ==3 : os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/'Blink'.hex:i ")
-			sleep(0.3)
+			if programming_type ==1 : 
+				nodeFourReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_7.hex:i ")
+			if programming_type ==2 : 
+				nodeFourReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_0.hex:i ")
+			if programming_type ==3 : 
+				nodeFourReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/blink.hex:i ")
+			sleep(0.1)
 
 			print("")
 			print("				Node 7 - flashed")
 			print("\n\n")
 
-			os.system("sudo sed -i 's/reset .*/reset = "+str(reset_8)+";/g' /root/.avrduderc")
-			if programming_type ==1 : os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_8.hex:i")
-			if programming_type ==2 : os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/node_0.hex:i")
-			if programming_type ==3 : os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH_ota/firmware/'Blink'.hex:i ")
-			sleep(0.3)
+			if programming_type ==1 : 
+				nodeFourReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_8.hex:i ")
+			if programming_type ==2 : 
+				nodeFourReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/node_0.hex:i ")
+			if programming_type ==3 : 
+				nodeFourReset()
+				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/pi/RH-ota/firmware/blink.hex:i ")
+			sleep(0.1)
 
 			print("")
 			print("				Node 8 - flashed")
@@ -644,9 +677,5 @@ def mainMenu():
 	else: 
 		mainMenu()
 mainMenu()
-
-
-
-
 
 
