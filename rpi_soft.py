@@ -163,8 +163,7 @@ def update():
 		if selection == 'u':
 			update()
 		if selection == 'a':
-			print("\n\n\t\t\tBye, bye\n\n\t\t")
-			sleep(1)
+			sleep(0.5)
 			os.system("clear")
 			sys.exit()
 		else:
