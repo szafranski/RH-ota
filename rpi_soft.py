@@ -57,6 +57,29 @@ def first ():
 	sleep(1)
 first()
 
+def end():
+	print("\n\n\n\t\tType 'r' for reboot - recommended\n")
+	print("\t\tType 's' to start the server now\n")
+	print("\t\tType 'e' for exit\n")
+	def endMenu():
+		selection=str(raw_input(""))
+		if selection =='r':	
+			os.system("sudo reboot")
+		if selection =='e':	
+			sleep(1)
+			os.system("clear")
+			sys.exit()
+		if selection =='s':	
+			print("\n\n\t\t\tServer will start in few seconds\n\n\t\t")
+			sleep(2)
+			os.system("clear")
+			os.system("python /home/"+user+"/RotorHazard/src/server/server.py")
+			sys.exit()
+		else: 
+			end()
+	endMenu()	
+	os.system("clear")
+
 def installation():
 	#os.system("sudo killall python *server.py")
 	os.system("sudo systemctl stop rotorhazard")
@@ -123,7 +146,9 @@ def installation():
 	##                                          ##\t
 	##         Installation completed!          ##\t
 	##                                          ##\t
-	##############################################\t""")
+	##############################################\t \n\n
+	After rebooting please check by typing 'sudo raspi-config' \n
+	if I2C, SPI and SSH protocols are active.\n""")
 	end()
 
 def update():
@@ -178,30 +203,6 @@ def update():
 		##############################################\t""")
 		end()
 
-def end():
-	print("\n\n\n\t\tType 'r' for reboot - recommended\n")
-	print("\t\tType 's' to start the server now\n")
-	print("\t\tType 'e' for exit\n")
-	def endMenu():
-		selection=str(raw_input(""))
-		if selection =='r':	
-			os.system("sudo reboot")
-		if selection =='e':	
-			print("\n\n\t\t\tBye, bye\n\n\t\t")
-			sleep(1)
-			os.system("clear")
-			sys.exit()
-		if selection =='s':	
-			print("\n\n\t\t\tServer will start in few seconds\n\n\t\t")
-			sleep(2)
-			os.system("clear")
-			os.system("python /home/"+user+"/RotorHazard/src/server/server.py")
-			sys.exit()
-		else: 
-			end()
-	endMenu()	
-	os.system("clear")
-
 def main():
 	os.system("clear")
 	sleep(0.2)
@@ -209,9 +210,10 @@ def main():
 	This script will automatically install or update RotorHazard software on your Raspberry Pi. \n\t
 	All additional software depedancies and libraries also will be installed or updated.\n\t
 	Your current database and config file should stay on the updated software.\n\t
-	After rebooting please check by typing 'sudo raspi-config' if I2C, SPI and SSH protocols are active.\n\n\t
-	Source will be '"""+bcolors.BLUE+version+bcolors.ENDC+"""' repository of RotorHazard software on github - or version choosen by you.\n\t
-	Make sure that you are logged as user '"""+bcolors.BLUE+user+bcolors.ENDC+"""'. \n\n\tYou can change those by oppening file 'rpi_soft.py' in text editor - like 'nano'.
+	Source of the software will be '"""+bcolors.BLUE+version+bcolors.ENDC+"""' repository of RotorHazard software on github\n\t 
+	- or version choosen by you.\n\t
+	Also make sure that you are logged as user '"""+bcolors.BLUE+user+bcolors.ENDC+"""'. \n\n\t
+	You can change those by oppening file 'rpi_soft.py' in text editor - like 'nano'.
 	\n\n\n\t\t\t\t\t\t\t\t\tEnjoy!\n\n\t\t
 	\t 'i' - Install software from skratch\n\t\t
 	\t 'u' - Update existing installation\n\t\t
