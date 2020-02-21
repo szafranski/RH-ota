@@ -1,3 +1,3 @@
 
 
-		Eveyrthing works - more - coming soon
+		More info here: https://www.instructables.com/id/RotorHazard-Updater/
