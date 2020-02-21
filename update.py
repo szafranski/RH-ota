@@ -7,14 +7,14 @@ linux_testing = False  ### change to True for testing on Linux PC or WSL
 
 ######## Enter pins connected to reset pins on Arduino-nodes: ########
 
-reset_1 = 12  ## node 1
-reset_2 = 16  ## node 2
-reset_3 = 20  ## node 3
-reset_4 = 22  ## node 4
-reset_5 = 6   ## node 5
-reset_6 = 13  ## node 6
-reset_7 = 19  ## node 7
-reset_8 = 26  ## node 8
+reset_1 = 12  ## node 1  # 12
+reset_2 = 16  ## node 2  # 16
+reset_3 = 20  ## node 3  # 20
+reset_4 = 22  ## node 4  # 22
+reset_5 = 6   ## node 5  # 6
+reset_6 = 13  ## node 6  # 13
+reset_7 = 19  ## node 7  # 19
+reset_8 = 26  ## node 8  # 26
 
 
 if (linux_testing == False):
