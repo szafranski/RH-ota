@@ -622,20 +622,7 @@ def mainMenu():
 			os.system("clear")
 			sleep(0.1)
 			print("""\n\n\n 
-			 Hello! You are using tool designed to easy uploadig the firmware on the RotorHazard race-timer nodes.\n\t
-			 For now consider this tool as a beta verision. Tests are being done constantly.\n
-			
-			 Files that you are about to flash are 'hex' files from an official RotorHazard Arduino nodes ino files.\n\t
-			 After using this tool nodes would be flashed WITHOUT the bootloader which means,\n\t
-			 that you won't be able to connect your Arduinos to the usb port and using it with PC anymore,\n\t
-			 unless you flash bootloader back using 'Advanced menu' of this software.\n\t
-			
-			 It is recommended to flash nodes with specfic file for every node, even if you did auto selection mod.\n\t
-			 This way you can allways check if nodes were flashed and recognized correctly during manual boot \n\t
-			 of the server file - what smartass as you would do after flashing new firmware anyways. :) \n\t
-			
-			 If you are using this tool for the first time enter 'Advanced menu' and select 'Install avrdude'.\n\t
-			 For more hardware instructions open 'manuals' file or visit Facebook page.\n\t
+			Hello - tutorial - coming soon
 			
 				Enjoy!\n\
 												Szafran\n\n """)
