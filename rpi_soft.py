@@ -230,8 +230,9 @@ def main():
 			if selection == 'i':
 				installation()
 			if selection == 'a':
-				print("\n\n\t\t\tBye, bye\n\n\t\t")
-				sleep(1)
+				os.system("clear")
+				image()
+				sleep(0.5)
 				os.system("clear")
 				sys.exit()
 			else:
@@ -242,10 +243,8 @@ def main():
 		update()
 	if selection =='a':	
 		os.system("clear")
-		print("\n\n")
 		image()
-		print("\n\t\t\t\t\t\t  \n")
-		sleep(1.3)
+		sleep(0.5)
 		os.system("clear")
 		sys.exit()
 	else :
