@@ -54,7 +54,7 @@ def first ():
 	os.system("clear")
 	print("\n\n\n\n\n")
 	image()
-	sleep(1)
+	sleep(0.5)
 first()
 
 def end():
