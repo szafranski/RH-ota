@@ -230,7 +230,7 @@ def flashEachNode():
 				nodeMenu()
 			nodeMenu()
 		if selection=='2':
-			print("\n\\t\t\t\t Node 2 selected")
+			print("\n\t\t\t\t Node 2 selected")
 			print("\n\n\t\t\t Choose flashing type\n")
 			print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
 			print("\t\t\t 2 - Node ground-auto selection firmware")
@@ -664,6 +664,7 @@ def mainMenu():
 				mainMenu()
 			else :
 				firstTime()
+		firstTime()
 	if selection=='6':
 		def end():
 			os.system("clear")
