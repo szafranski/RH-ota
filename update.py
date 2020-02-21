@@ -177,7 +177,7 @@ def logo():
 		###                                                                                      ###
 		###                                 """+bcolors.ORANGE+"""RotorHazard"""+bcolors.ENDC+"""                                          ###
 		###                                                                                      ###
-		###    You are about to flash nodes firmware. Please do not interrupt this operation!    ###
+		###    You are about to flash nodes firmware. Please do not interrupt this operation.    ###
 		###                                                                                      ###
 		###                                                                                      ###
 		############################################################################################""")
@@ -651,7 +651,9 @@ def mainMenu():
 			os.system("clear")
 			sleep(0.1)
 			print("""\n\n\n 
-			Hello - tutorial - coming soon
+			More info here: https://www.instructables.com/id/RotorHazard-Updater/\n
+	
+			and in how_to folder - look for PDF file.\n\n 
 			
 				Enjoy!\n\
 												Szafran\n\n """)
