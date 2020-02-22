@@ -2,8 +2,10 @@
 
 # show 'flashed' - only after success
 # define number of nodes
+# AccessPoint
+# self-updater
 
-	### Change those only if you want to test the software on PC ###
+##### Change those only if you want to test the software on PC #####
 linux_testing = True  	### change to True for testing on Linux PC or WSL
 						### change your Linux PC username in line 99 as well
 
@@ -174,14 +176,13 @@ def image():
 
 def logo():
 	print("""\n\n	
-		############################################################################################
-		###                                                                                      ###
-		###                                 """+bcolors.ORANGE+"""RotorHazard"""+bcolors.ENDC+"""                                          ###
-		###                                                                                      ###
-		###    You are about to flash nodes firmware. Please do not interrupt this operation.    ###
-		###                                                                                      ###
-		###                                                                                      ###
-		############################################################################################""")
+			#######################################################################
+			###                                                                 ###
+			###                        """+bcolors.ORANGE+"""RotorHazard"""+bcolors.ENDC+"""                              ###
+			###                                                                 ###
+			###                   OTA Updater and Manager                       ###
+			###                                                                 ###
+			#######################################################################""")
 
 
 
