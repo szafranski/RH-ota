@@ -1,0 +1,40 @@
+## Instructions for avrdude installation - unecesarry cause this is automated in py script
+
+sudo apt-get update
+sudo apt-get install bison flex -y
+cd ~
+wget http://download.savannah.gnu.org/releases/avrdude/avrdude-6.2.tar.gz
+tar xfv avrdude-6.2.tar.gz
+cd avrdude-6.2/
+./configure – -enable-linuxgpio
+make --> may take few minutes
+sudo make install
+sudo cp /usr/local/etc/avrdude.conf.orig /usr/local/etc/avrdude.conf
+sudo nano /usr/local/etc/avrdude.conf
+
+Ctrl+_ - find line 1175
+
+Change this
+
+#programmer
+#  id    = "linuxgpio";
+#  desc  = "Use the Linux sysfs interface to bitbang GPIO lines";
+#  type  = "linuxgpio";
+#  reset = ?;
+#  sck   = ?;
+#  mosi  = ?;
+#  miso  = ?;
+#;
+
+to this 
+
+programmer
+  id    = "linuxgpio";
+  desc  = "Use the Linux sysfs interface to bitbang GPIO lines";
+  type  = "linuxgpio";
+  reset = 12; 
+  sck   = 21;
+  mosi  = 20;
+  miso  = 19;
+;
+
