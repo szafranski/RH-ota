@@ -649,7 +649,7 @@ def mainMenu():
 						os.system("echo 'alias ss=\"python ~/RotorHazard/src/server/server.py\"   #  starts the server' | sudo tee -a ~/.bashrc")
 						os.system("echo 'alias cfg=\"nano ~/RotorHazard/src/server/config.json\"   #  opens config.json file' | sudo tee -a ~/.bashrc")
 						os.system("echo 'alias rh=\"cd ~/RotorHazard/src/server\"   # goes to server file location' | sudo tee -a ~/.bashrc")
-						os.system("echo 'alias py=\"python\"  # you do not have to write whole -python- word' | sudo tee -a ~/.bashrc")
+						os.system("echo 'alias py=\"python\"  # pure laziness' | sudo tee -a ~/.bashrc")
 						os.system("echo 'alias sts=\"sudo systemctl stop rotorhazard\" # stops RH service' | sudo tee -a ~/.bashrc")
 						os.system("echo 'alias otadir=\"cd ~/RH-ota\"   # goes to server file location' | sudo tee -a ~/.bashrc")
 						os.system("echo 'alias ota=\"python ~/RH-ota/update.py\"  # opens updating script' | sudo tee -a ~/.bashrc")
@@ -672,7 +672,7 @@ def mainMenu():
 					ss 	-->  python ~/RotorHazard/src/server/server.py   # starts the server\n\t
 					cfg 	-->  nano ~/RotorHazard/src/server/config.json   # opens config.json file\n\t
 					rh  	-->  cd ~/RotorHazard/src/server   		 # goes to server file location\n\t
-					py  	-->  python  					 # I'm THAT lazy\n\t
+					py  	-->  python  					 # pure laziness\n\t
 					sts  	-->  sudo systemctl stop rotorhazard 		 # stops RH service if was started\n\t
 					otadir  -->  cd ~/RH-ota   				 # goes to main server file location\n\t
 					ota  	-->  python ~/RH-ota/update.py  		 # opens updating script\n\t
