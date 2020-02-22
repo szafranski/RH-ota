@@ -21,6 +21,8 @@ reset_8 = 26  ## node 8  # 26
 if (linux_testing == False):
 	user = 'pi'       ## you can change it if your user is named differently
 
+if (linux_testing == True):
+	linux_user = 'jaca'   ### change this if you are using this software on Linux PC
 class bcolors:
 	HEADER = '\033[95m'
 	ORANGE = '\033[33m'
@@ -97,7 +99,7 @@ if (linux_testing == False):
 
 
 if (linux_testing == True): 
-	user='pfabi'   ### you can put here your username on the Linux PC - for testing
+	user= linux_user   
 	def allPinsReset():
 		print("\n\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.1)
@@ -639,6 +641,7 @@ def mainMenu():
 
 			if selection=='5':
 				def aliasesMenu():
+					os.system("clear")
 					def aliasesContent():
 						os.system("echo '' | sudo tee -a ~/.bashrc")
 						os.system("echo '### Shortcuts that can be used in terminal window ###' | sudo tee -a ~/.bashrc")
@@ -654,18 +657,17 @@ def mainMenu():
 						os.system("echo 'alias rld=\"source ~/.bashrc\"   #  reloads aliases file' | sudo tee -a ~/.bashrc")
 						os.system("echo 'alias rcfg=\"sudo raspi-config\"   #  open raspberrys configs' | sudo tee -a ~/.bashrc")
 						os.system("echo '' | sudo tee -a ~/.bashrc")
-						os.system("echo '# After aplying adding aliases manually reboot raspberry or type \"source ~/.bashrc\".' | sudo tee -a ~/.bashrc")
+						os.system("echo '# After adding or changing aliases manually - reboot raspberry or type \"source ~/.bashrc\".' | sudo tee -a ~/.bashrc")
 						os.system("echo 'leave this file here' | sudo tee -a ~/.aliases_added")
 						print("\n\n\t\t	Aliases added successfully")
 						sleep(1)
 						featuresMenu()
 					print("""\n\n\t\t
-					Aliases in Linux act like shortcuts or referances to another commands. You can use them every time when you are\n\t
-					operating in the terminal window. For example instead of typing 'python ~/RotorHazard/src/server/server.py' \n\t
+					Aliases in Linux act like shortcuts or referances to another commands. You can use them every time when you \n\t
+					operates in the terminal window. For example instead of typing 'python ~/RotorHazard/src/server/server.py' \n\t
 					you can just type 'ss' (server start) etc. Aliases can be modified and added anytime you want. You just have to \n\t
-					open '~./bashrc' file with text editor like 'nano'. After that you have reboot or paste 'source ~/.bashrc' 
-					- or use alias 'rld'. If you want to use aliases written below just press 'y'. \n\t
-					If you want to abort press 'a'.\n\n\t
+					open '~./bashrc' file with text editor like 'nano'. After that you have reboot or paste 'source ~/.bashrc' \n\t
+					- or use alias 'rld'. \n\n\t
 					
 					alias ss 	-->  python ~/RotorHazard/src/server/server.py   # starts the server\n\t
 					alias cfg 	-->  nano ~/RotorHazard/src/server/config.json   # opens config.json file\n\t
@@ -675,27 +677,27 @@ def mainMenu():
 					alias otadir  	-->  cd ~/RH-ota   				 # goes to main server file location\n\t
 					alias ota  	-->  python ~/RH-ota/update.py  		 # opens updating script\n\t
 					alias als  	-->  nano ~/.bashrc   				 # opens this file\n\t
-					alias rld  	-->  source ~/.bashrc   			 # reloads aliases file - has to be done after changes\n\t
+					alias rld  	-->  source ~/.bashrc   			 # reloads aliases file \n\t
 					alias rcfg  	-->  sudo raspi-config   			 # open raspberry's configs\n\t\n
+					""")
 					
-					
-					selection=str(raw_input("\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
-						if selection == 'y':
-							if os.path.exists("/home/"+user+"/.aliases_added") == True:
-								print("\n\n\t\t Looks like you already have aliases added. Do you want to continue anyway?")
-								selection=str(raw_input("\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
-								if selection=='y':
-									aliasesContent()
-								if selection =='a':
-									featuresMenu()
-								else:
-									aliasesMenu()
-							else:
+					selection=str(raw_input("\t\t\t\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+					if selection == 'y':
+						if os.path.exists("/home/"+user+"/.aliases_added") == True:
+							print("\n\n\t\t\t\t\t Looks like you already have aliases added. Do you want to continue anyway?\n")
+							selection=str(raw_input("\t\t\t\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+							if selection=='y':
 								aliasesContent()
-						if selection == 'a':
-							aliasesContent()
+							if selection =='a':
+								featuresMenu()
+							else:
+								aliasesMenu()
 						else:
-							aliasesMenu()
+							aliasesContent()
+					if selection == 'a':
+						featuresMenu()
+					else:
+						aliasesMenu()
 				aliasesMenu()
 			if selection=='6':
 				mainMenu()
