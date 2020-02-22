@@ -6,7 +6,7 @@
 # self-updater
 
 ##### Change those only if you want to test the software on PC #####
-linux_testing = True  	### change to True for testing on Linux PC or WSL
+linux_testing = False  	### change to True for testing on Linux PC or WSL
 						### change your Linux PC username in line 99 as well
 
 ########    Enter pins connected to reset pins on Arduino-nodes:    ########
@@ -147,42 +147,42 @@ if (linux_testing == True):
 
 def image():
 	print("""
-\t\t\t                               **/(((/**                              
-\t\t\t                            */###########(*                           
-\t\t\t                          */#####@@@@@#####(*                         
-\t\t\t                         *(((((@@@###@@@#####*,                       
-\t\t\t                       */((((@@@#######@@@####/*                      
-\t\t\t                      *(((((@@@(((((#(##@@@#####*                     
-\t\t\t                    **((((&@@&((((*...####@@@####**                   
-\t\t\t                   *(((((@@@((((((....((((#@@@#####*                  
-\t\t\t                 **((((#@@@((((((*.....((((#%@@&####/*                
-\t\t\t                */((((@@@((((((((......(((((((@@@####(*               
-\t\t\t              .*(((((@@@(((((((((......((((((((@@@%####**             
-\t\t\t             */((((@@@(((((((((((......((((((((((@@@####(*            
-\t\t\t            *(((((@@@((((((((((((.....*(((((((((((@@@#####*,          
-\t\t\t          **((((@@@((((((((((((((.....((((((((((((((@@@(#(#/*         
-\t\t\t          *((((@@@(((((((((((((((.....(((((((((((((((@@@((###*        
-\t\t\t       */((((&@@&(((((((((((((,...(((....(((((((((((((#@@@((((/*      
-\t\t\t      */((((@@@(((((((((......................((((((((((@@@((((#*     
-\t\t\t    .*//(((@@@((((((............(((((((*.........,(((((((%@@&((((/*   
-\t\t\t   */////@@@(((((........../((((((((((((((*..........((((((@@@(((((*  
-\t\t\t  */////@@@/(((......./(((((((((((((((((((((((/......../((((@@@#((((*.
-\t\t\t *////%@@/////(((((((((((((((((((((((((((((((((((((((..(((((((@@@((((*
-\t\t\t *////@@@/////////((((((((((((((((((((((((((((((((((((((((((((@@@((((*
-\t\t\t **/////@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#((((**
-\t\t\t  ***/////////////////(((((((((((((((((((((((((((((((((((((((((((((** 
-\t\t\t     ****////////////////((((((((((((((((((((((((((((((((((((/****   
+\t\t                               **/(((/**                              
+\t\t                            */###########(*                           
+\t\t                          */#####@@@@@#####(*                         
+\t\t                         *(((((@@@###@@@#####*,                       
+\t\t                       */((((@@@#######@@@####/*                      
+\t\t                      *(((((@@@(((((#(##@@@#####*                     
+\t\t                    **((((&@@&((((*...####@@@####**                   
+\t\t                   *(((((@@@((((((....((((#@@@#####*                  
+\t\t                 **((((#@@@((((((*.....((((#%@@&####/*                
+\t\t                */((((@@@((((((((......(((((((@@@####(*               
+\t\t              .*(((((@@@(((((((((......((((((((@@@%####**             
+\t\t             */((((@@@(((((((((((......((((((((((@@@####(*            
+\t\t            *(((((@@@((((((((((((.....*(((((((((((@@@#####*,          
+\t\t          **((((@@@((((((((((((((.....((((((((((((((@@@(#(#/*         
+\t\t          *((((@@@(((((((((((((((.....(((((((((((((((@@@((###*        
+\t\t       */((((&@@&(((((((((((((,...(((....(((((((((((((#@@@((((/*      
+\t\t      */((((@@@(((((((((......................((((((((((@@@((((#*     
+\t\t    .*//(((@@@((((((............(((((((*.........,(((((((%@@&((((/*   
+\t\t   */////@@@(((((........../((((((((((((((*..........((((((@@@(((((*  
+\t\t  */////@@@/(((......./(((((((((((((((((((((((/......../((((@@@#((((*.
+\t\t *////%@@/////(((((((((((((((((((((((((((((((((((((((..(((((((@@@((((*
+\t\t *////@@@/////////((((((((((((((((((((((((((((((((((((((((((((@@@((((*
+\t\t **/////@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#((((**
+\t\t  ***/////////////////(((((((((((((((((((((((((((((((((((((((((((((** 
+\t\t     ****////////////////((((((((((((((((((((((((((((((((((((/****   
 """)
 
 def logo():
 	print("""\n\n	
-			#######################################################################
-			###                                                                 ###
-			###                        """+bcolors.ORANGE+"""RotorHazard"""+bcolors.ENDC+"""                              ###
-			###                                                                 ###
-			###                   OTA Updater and Manager                       ###
-			###                                                                 ###
-			#######################################################################""")
+		#######################################################################
+		###                                                                 ###
+		###                        """+bcolors.ORANGE+"""RotorHazard"""+bcolors.ENDC+"""                              ###
+		###                                                                 ###
+		###                   OTA Updater and Manager                       ###
+		###                                                                 ###
+		#######################################################################""")
 
 
 
@@ -198,17 +198,17 @@ def flashEachNode():
 	def nodeMenu():
 		os.system("clear")
 		logo()
-		print("\n\n\n\t\t\t\t\t\t "+bcolors.RED+"NODE MENU"+bcolors.ENDC)
-		print("\n\t\t\t\t 1 - Flash node 1 \t\t 5 - Flash node 5")
-		print("\n\t\t\t\t 2 - Flash node 2 \t\t 6 - Flash node 6")
-		print("\n\t\t\t\t 3 - Flash node 3 \t\t 7 - Flash node 7")
-		print("\n\t\t\t\t 4 - Flash node 4 \t\t 8 - Flash node 8")
-		print("\n\t\t\t\t              "+bcolors.YELLOW+"9 - Back to main menu"+bcolors.ENDC)
+		print("\n\n\n\t\t\t\t\t    "+bcolors.RED+"NODE MENU"+bcolors.ENDC)
+		print("\n\t\t\t 1 - Flash node 1 \t\t 5 - Flash node 5")
+		print("\n\t\t\t 2 - Flash node 2 \t\t 6 - Flash node 6")
+		print("\n\t\t\t 3 - Flash node 3 \t\t 7 - Flash node 7")
+		print("\n\t\t\t 4 - Flash node 4 \t\t 8 - Flash node 8")
+		print("\n\t\t\t              "+bcolors.YELLOW+"9 - Back to main menu"+bcolors.ENDC)
 		selection=str(raw_input("\n\n\t\t\tWhich node do you want to program: "))
 		print("\n\n")
 		if selection=='1':
 			print("\n\t\t\t\t Node 1 selected")
-			print("\n\n\t\t\t Choose flashing type\n")
+			print("\n\n\t\t\t Choose flashing type:\n")
 			print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
 			print("\t\t\t 2 - Node ground-auto selection firmware")
 			print("\t\t\t 3 - Flashes 'Blink' on the node")
@@ -229,7 +229,7 @@ def flashEachNode():
 			nodeMenu()
 		if selection=='2':
 			print("\n\t\t\t\t Node 2 selected")
-			print("\n\n\t\t\t Choose flashing type\n")
+			print("\n\n\t\t\t Choose flashing type:\n")
 			print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
 			print("\t\t\t 2 - Node ground-auto selection firmware")
 			print("\t\t\t 3 - Flashes 'Blink' on the node")
@@ -250,7 +250,7 @@ def flashEachNode():
 			nodeMenu()
 		if selection=='3':
 			print("\n\t\t\t\t Node 3 selected")
-			print("\n\n\t\t\t Choose flashing type\n")
+			print("\n\n\t\t\t Choose flashing type:\n")
 			print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
 			print("\t\t\t 2 - Node ground-auto selection firmware")
 			print("\t\t\t 3 - Flashes 'Blink' on the node")
@@ -271,7 +271,7 @@ def flashEachNode():
 			nodeMenu()
 		if selection=='4':
 			print("\n\t\t\t\t Node 4 selected")
-			print("\n\n\t\t\t Choose flashing type\n")
+			print("\n\n\t\t\t Choose flashing type:\n")
 			print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
 			print("\t\t\t 2 - Node ground-auto selection firmware")
 			print("\t\t\t 3 - Flashes 'Blink' on the node")
@@ -292,7 +292,7 @@ def flashEachNode():
 			nodeMenu()
 		if selection=='5':
 			print("\n\t\t\t\t Node 5 selected")
-			print("\n\n\t\t\t Choose flashing type\n")
+			print("\n\n\t\t\t Choose flashing type:\n")
 			print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
 			print("\t\t\t 2 - Node ground-auto selection firmware")
 			print("\t\t\t 3 - Flashes 'Blink' on the node")
@@ -313,7 +313,7 @@ def flashEachNode():
 			nodeMenu()
 		if selection=='6':
 			print("\n\t\t\t\t Node 6 selected")
-			print("\n\n\t\t\t Choose flashing type\n")
+			print("\n\n\t\t\t Choose flashing type:\n")
 			print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
 			print("\t\t\t 2 - Node ground-auto selection firmware")
 			print("\t\t\t 3 - Flashes 'Blink' on the node")
@@ -334,7 +334,7 @@ def flashEachNode():
 			nodeMenu()
 		if selection=='7':
 			print("\n\t\t\t\t Node 7 selected")
-			print("\n\n\t\t\t Choose flashing type\n")
+			print("\n\n\t\t\t Choose flashing type:\n")
 			print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
 			print("\t\t\t 2 - Node ground-auto selection firmware")
 			print("\t\t\t 3 - Flashes 'Blink' on the node")
@@ -355,7 +355,7 @@ def flashEachNode():
 			nodeMenu()
 		if selection=='8':
 			print("\n\t\t\t\t Node 8 selected")
-			print("\n\n\t\t\t Choose flashing type\n")
+			print("\n\n\t\t\t Choose flashing type:\n")
 			print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
 			print("\t\t\t 2 - Node ground-auto selection firmware")
 			print("\t\t\t 3 - Flashes 'Blink' on the node")
@@ -382,13 +382,13 @@ def flashEachNode():
 def mainMenu():
 	os.system("clear")
 	logo()
-	print("\n\n\n\t\t\t\t\t\t "+bcolors.RED+"MAIN MENU\n"+bcolors.ENDC)
-	print("\t\t\t\t\t "+bcolors.BLUE+"1 - Server software installation and update\n	"+bcolors.ENDC)
-	print("\t\t\t\t\t "+bcolors.BLUE+"2 - Nodes flash and update\n"+bcolors.ENDC)
-	print("\t\t\t\t\t 3 - Start the server now\n")
-	print("\t\t\t\t\t 4 - Additional features\n")
-	print("\t\t\t\t\t 5 - This is my first time - READ!\n")
-	print("\t\t\t\t\t "+bcolors.YELLOW+"6 - Exit"+bcolors.ENDC)
+	print("\n\n\n\t\t\t\t\t "+bcolors.RED+"   MAIN MENU\n"+bcolors.ENDC)
+	print("\t\t\t   "+bcolors.BLUE+"1 - Server software installation and update\n	"+bcolors.ENDC)
+	print("\t\t\t   "+bcolors.BLUE+"2 - Nodes flash and update\n"+bcolors.ENDC)
+	print("\t\t\t   3 - Start the server now\n")
+	print("\t\t\t   4 - Additional features\n")
+	print("\t\t\t   5 - This is my first time - READ!\n")
+	print("\t\t\t   "+bcolors.YELLOW+"6 - Exit"+bcolors.ENDC)
 	selection=str(raw_input(""))
 	if selection=='1':
 		sleep(0.1)
@@ -397,12 +397,12 @@ def mainMenu():
 		def nodesUpdate():
 			os.system("clear")
 			logo()
-			print("\n\n\t\t\t\t Choose flashing type\n")
-			print("\t\t\t "+bcolors.GREEN+"1 - Every Node gets own dedicated firmware - recommended"+ bcolors.ENDC)
-			print("\t\t\t 2 - Nodes will use ground-auto selection firmware")
-			print("\t\t\t 3 - Flash 'Blink' on every node")
-			print("\t\t\t 4 - Flash each node individually")
-			print("\t\t\t "+bcolors.YELLOW+"5 - Go back"+bcolors.ENDC)
+			print("\n\n\t\t\t\t Choose flashing type:\n")
+			print("\t\t\t "+bcolors.GREEN+"1 - Every Node gets own dedicated firmware - recommended"+ bcolors.ENDC+"\n")
+			print("\t\t\t 2 - Nodes will use ground-auto selection firmware\n")
+			print("\t\t\t 3 - Flash 'Blink' on every node\n")
+			print("\t\t\t 4 - Flash each node individually\n")
+			print("\t\t\t "+bcolors.YELLOW+"5 - Go back"+bcolors.ENDC+"\n")
 			sleep(0.1)
 			selection=str(raw_input(""))
 			if selection=='1':
@@ -575,14 +575,14 @@ def mainMenu():
 		def featuresMenu():
 			os.system("clear")
 			logo()
-			print("\n\n\n\t\t\t\t\t\t "+bcolors.RED+"FEATURES MENU\n"+bcolors.ENDC)
-			print("\t\t\t\t\t "+bcolors.BLUE+"1 - Install avrdude\n"+bcolors.ENDC)
-			print("\t\t\t\t\t "+bcolors.BLUE+"2 - Enable serial protocol"+bcolors.ENDC+"\n")
-			print("\t\t\t\t\t 3 - Fix GPIO pins state\n")
-			print("\t\t\t\t\t 4 - Raspberry as Access Point - coming soon\n")
-			print("\t\t\t\t\t 5 - Useful aliases\n")
-			print("\t\t\t\t\t 6 - Self updater - coming soon\n")
-			print("\t\t\t\t\t "+bcolors.YELLOW+"7 - Go back"+bcolors.ENDC)
+			print("\n\n\n\t\t\t\t      "+bcolors.RED+"   FEATURES MENU\n"+bcolors.ENDC)
+			print("\t\t\t   "+bcolors.BLUE+"1 - Install avrdude\n"+bcolors.ENDC)
+			print("\t\t\t   "+bcolors.BLUE+"2 - Enable serial protocol"+bcolors.ENDC+"\n")
+			print("\t\t\t   3 - Fix GPIO pins state\n")
+			print("\t\t\t   4 - Raspberry as Access Point - coming soon\n")
+			print("\t\t\t   5 - Useful aliases\n")
+			print("\t\t\t   6 - Self updater - coming soon\n")
+			print("\t\t\t   "+bcolors.YELLOW+"7 - Go back"+bcolors.ENDC)
 			selection=str(raw_input(""))
 			if selection=='1':
 				def avrDude():
@@ -719,12 +719,12 @@ def mainMenu():
 			os.system("clear")
 			sleep(0.1)
 			print("""\n\n\n 
-			More info here: https://www.instructables.com/id/RotorHazard-Updater/\n
-	
-			and in how_to folder - look for PDF file.\n\n 
-			
-				Enjoy!\n\
-												Szafran\n\n """)
+		More info here: https://www.instructables.com/id/RotorHazard-Updater/\n
+
+		and in how_to folder - look for PDF file.\n\n 
+		
+			Enjoy!\n\
+									Szafran\n\n """)
 			selection=str(raw_input("\t\t\t\t\t"+bcolors.YELLOW+"Go back by pressing 'b'"+bcolors.ENDC+"\n"))
 			if selection=='b':
 				mainMenu()
@@ -736,7 +736,7 @@ def mainMenu():
 			os.system("clear")
 			print("\n\n")
 			image()
-			print("\n\t\t\t\t\t\t  Happy flyin'!\n")
+			print("\n\t\t\t\t\t  Happy flyin'!\n")
 			sleep(1.3)
 			os.system("clear")
 			sys.exit()
