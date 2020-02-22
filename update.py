@@ -577,7 +577,7 @@ def mainMenu():
 			print("\t\t\t\t\t "+bcolors.BLUE+"2 - Enable serial protocol"+bcolors.ENDC+"\n")
 			print("\t\t\t\t\t 3 - Fix GPIO pins state\n")
 			print("\t\t\t\t\t 4 - Raspberry as Access Point - coming soon\n")
-			print("\t\t\t\t\t 5 - Useful aliases - coming soon\n")
+			print("\t\t\t\t\t 5 - Useful aliases - explanation will be added\n")
 			print("\t\t\t\t\t 6 - Go back")
 			selection=str(raw_input(""))
 			if selection=='1':
@@ -638,8 +638,39 @@ def mainMenu():
 					print("coming soon")
 
 			if selection=='5':
-				def aliases():
-					print("coming soon")
+				def aliasesMenu():
+					def aliasesContent():
+						os.system("echo '' | sudo tee -a ~/.bashrc")
+						os.system("echo '### Shortcuts that can be used in terminal window' | sudo tee -a ~/.bashrc")
+						os.system("echo '' | sudo tee -a ~/.bashrc")
+						os.system("echo 'alias ss=\"python ~/RotorHazard/src/server/server.py\"   #  starts the server' | sudo tee -a ~/.bashrc")
+						os.system("echo 'alias cfg=\"nano ~/RotorHazard/src/server/config.json\"   #  opens config.json file' | sudo tee -a ~/.bashrc")
+						os.system("echo 'alias rh=\"cd ~/RotorHazard/src/server\"   # goes to server file location' | sudo tee -a ~/.bashrc")
+						os.system("echo 'alias py=\"python\"  # you do not have to write whole -python- word' | sudo tee -a ~/.bashrc")
+						os.system("echo 'alias sts=\"sudo systemctl stop rotorhazard\" # stops RH service' | sudo tee -a ~/.bashrc")
+						os.system("echo 'alias otadir=\"cd ~/RH-ota\"   # goes to server file location' | sudo tee -a ~/.bashrc")
+						os.system("echo 'alias ota=\"python ~/RH-ota/update.py\"  # opens updating script' | sudo tee -a ~/.bashrc")
+						os.system("echo 'alias als=\"nano ~/.bashrc\"   #  opens this file' | sudo tee -a ~/.bashrc")
+						os.system("echo 'alias rld=\"source ~/.bashrc\"   #  reloads aliases file' | sudo tee -a ~/.bashrc")
+						os.system("echo 'alias rcfg=\"sudo raspi-config\"   #  open raspberrys configs' | sudo tee -a ~/.bashrc")
+						os.system("echo '' | sudo tee -a ~/.bashrc")
+						os.system("echo '# After aplying adding aliases manually reboot raspberry or type \"source ~/.bashrc\".' | sudo tee -a ~/.bashrc")
+						os.system("echo 'leave this file here' | sudo tee -a ~/.aliases_added")
+						print("\n\n\t\t	Aliases added successfully")
+						sleep(1)
+						featuresMenu()
+					if os.path.exists("/home/"+user+"/.aliases_added") == True:
+						print("\n\n\t\t Looks like you already have aliases added. Do you want to continue anyway?")
+						selection=str(raw_input("\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+						if selection=='y':
+							aliasesContent()
+						if selection =='a':
+							featuresMenu()
+						else:
+							aliasesMenu()
+					else:
+						aliasesContent()
+				aliasesMenu()
 			if selection=='6':
 				mainMenu()
 			else:
