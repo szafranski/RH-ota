@@ -2,9 +2,14 @@
 # My custom aliases - you can add those at the bottom of ~/.bashrc file
 # That way you could use "shortcuts" in terminal window.
 
-alias ss="python ~/RotorHazard/src/server/server.py"
-alias rh="cd ~/RotorHazard/src/server"
-alias py="python"
+alias ss="python ~/RotorHazard/src/server/server.py"   #  starts the server
+alias cfg="nano ~/RotorHazard/src/server/config.json"   #  opens config.json file
+alias rh="cd ~/RotorHazard/src/server"   # goes to server file location
+alias py="python"  # you do not have to write whole -python- word
 alias sts="sudo systemctl stop rotorhazard" # stops RH service
+alias otadir="cd ~/RH-ota"   # goes to server file location
+alias ota="python ~/RH-ota/update.py"  # opens updating script
+alias als="nano ~/.bashrc"   #  opens this file
+alias rld="source ~/.bashrc"   #  reloads aliases file
 
 # After aplying those changes reboot raspberry or type " source ~/.bashrc ".
