@@ -600,6 +600,7 @@ def mainMenu():
 				avrDude()
 			if selection== '2':
 				def serialEnable():
+					os.system("echo 'enable_uart=1'| sudo  tee -a /boot/config.txt")
 					os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
 					print (" \t\t\t\tYou have to reboot Raspberry now. Ok?\n")
 					print (" \t\t\t\t1 - Reboot now\n")
