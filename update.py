@@ -4,7 +4,7 @@
 # define number of nodes
 
 	### Change those only if you want to test the software on PC ###
-linux_testing = True  	### change to True for testing on Linux PC or WSL
+linux_testing = False  	### change to True for testing on Linux PC or WSL
 						### change your Linux PC username in line 99 as well
 
 ########    Enter pins connected to reset pins on Arduino-nodes:    ########
