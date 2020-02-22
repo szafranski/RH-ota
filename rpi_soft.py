@@ -188,7 +188,7 @@ def update():
 		os.system("mkdir /home/"+user+"/backup_RH_data")
 		os.system("cp /home/"+user+"/RotorHazard.old/src/server/config.json /home/"+user+"/RotorHazard/src/server/")
 		os.system("cp -r /home/"+user+"/RotorHazard.old/src/server/static/image /home/"+user+"/backup_RH_data/")
-		os.system("cp -a /home/"+user+"/RotorHazard.old/src/server/static/image/ /home/"+user+"/RotorHazard/src/server/static/image/")
+		os.system("cp -r /home/"+user+"/RotorHazard.old/src/server/static/image /home/"+user+"/RotorHazard/src/server/static/image")
 		os.system("cp /home/"+user+"/RotorHazard.old/src/server/config.json /home/"+user+"/backup_RH_data")
 		os.system("cp /home/"+user+"/RotorHazard.old/src/server/database.db /home/"+user+"/RotorHazard/src/server/")
 		os.chdir("/home/"+user+"/RotorHazard/src/server")
@@ -208,7 +208,7 @@ def main():
 	print("""\n\n\t\t"""+bcolors.RED+"""AUTOMATIC UPDATE AND INSTALLATION OF ROTORHAZARD RACING TIMER SOFTWARE\n\n\t"""+bcolors.ENDC+"""
 	This script will automatically install or update RotorHazard software on your Raspberry Pi. \n\t
 	All additional software depedancies and libraries also will be installed or updated.\n\t
-	Your current database and config file should stay on the updated software.\n\t
+	Your current database, config file and custom images should stay on the updated software.\n\t
 	Source of the software will be '"""+bcolors.BLUE+version+bcolors.ENDC+"""' repository of RotorHazard software on github\n\t 
 	- or version choosen by you.\n\t
 	Also make sure that you are logged as user '"""+bcolors.BLUE+user+bcolors.ENDC+"""'. \n\n\t
