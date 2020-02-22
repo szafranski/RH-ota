@@ -577,7 +577,7 @@ def mainMenu():
 			print("\t\t\t\t\t "+bcolors.BLUE+"2 - Enable serial protocol"+bcolors.ENDC+"\n")
 			print("\t\t\t\t\t 3 - Fix GPIO pins state\n")
 			print("\t\t\t\t\t 4 - Raspberry as Access Point - coming soon\n")
-			print("\t\t\t\t\t 5 - Useful aliases - explanation will be added\n")
+			print("\t\t\t\t\t 5 - Useful aliases\n")
 			print("\t\t\t\t\t 6 - Go back")
 			selection=str(raw_input(""))
 			if selection=='1':
@@ -641,7 +641,7 @@ def mainMenu():
 				def aliasesMenu():
 					def aliasesContent():
 						os.system("echo '' | sudo tee -a ~/.bashrc")
-						os.system("echo '### Shortcuts that can be used in terminal window' | sudo tee -a ~/.bashrc")
+						os.system("echo '### Shortcuts that can be used in terminal window ###' | sudo tee -a ~/.bashrc")
 						os.system("echo '' | sudo tee -a ~/.bashrc")
 						os.system("echo 'alias ss=\"python ~/RotorHazard/src/server/server.py\"   #  starts the server' | sudo tee -a ~/.bashrc")
 						os.system("echo 'alias cfg=\"nano ~/RotorHazard/src/server/config.json\"   #  opens config.json file' | sudo tee -a ~/.bashrc")
@@ -659,17 +659,43 @@ def mainMenu():
 						print("\n\n\t\t	Aliases added successfully")
 						sleep(1)
 						featuresMenu()
-					if os.path.exists("/home/"+user+"/.aliases_added") == True:
-						print("\n\n\t\t Looks like you already have aliases added. Do you want to continue anyway?")
-						selection=str(raw_input("\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
-						if selection=='y':
+					print("""\n\n\t\t
+					Aliases in Linux act like shortcuts or referances to another commands. You can use them every time when you are\n\t
+					operating in the terminal window. For example instead of typing 'python ~/RotorHazard/src/server/server.py' \n\t
+					you can just type 'ss' (server start) etc. Aliases can be modified and added anytime you want. You just have to \n\t
+					open '~./bashrc' file with text editor like 'nano'. After that you have reboot or paste 'source ~/.bashrc' 
+					- or use alias 'rld'. If you want to use aliases written below just press 'y'. \n\t
+					If you want to abort press 'a'.\n\n\t
+					
+					alias ss 	-->  python ~/RotorHazard/src/server/server.py   # starts the server\n\t
+					alias cfg 	-->  nano ~/RotorHazard/src/server/config.json   # opens config.json file\n\t
+					alias rh  	-->  cd ~/RotorHazard/src/server   		 # goes to server file location\n\t
+					alias py  	-->  python  					 # I'm THAT lazy\n\t
+					alias sts  	-->  sudo systemctl stop rotorhazard 		 # stops RH service if was started\n\t
+					alias otadir  	-->  cd ~/RH-ota   				 # goes to main server file location\n\t
+					alias ota  	-->  python ~/RH-ota/update.py  		 # opens updating script\n\t
+					alias als  	-->  nano ~/.bashrc   				 # opens this file\n\t
+					alias rld  	-->  source ~/.bashrc   			 # reloads aliases file - has to be done after changes\n\t
+					alias rcfg  	-->  sudo raspi-config   			 # open raspberry's configs\n\t\n
+					
+					
+					selection=str(raw_input("\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+						if selection == 'y':
+							if os.path.exists("/home/"+user+"/.aliases_added") == True:
+								print("\n\n\t\t Looks like you already have aliases added. Do you want to continue anyway?")
+								selection=str(raw_input("\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+								if selection=='y':
+									aliasesContent()
+								if selection =='a':
+									featuresMenu()
+								else:
+									aliasesMenu()
+							else:
+								aliasesContent()
+						if selection == 'a':
 							aliasesContent()
-						if selection =='a':
-							featuresMenu()
 						else:
 							aliasesMenu()
-					else:
-						aliasesContent()
 				aliasesMenu()
 			if selection=='6':
 				mainMenu()
