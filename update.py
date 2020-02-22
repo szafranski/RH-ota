@@ -668,13 +668,13 @@ def mainMenu():
 					you can just type 'ss' (server start) etc. Aliases can be modified and added anytime you want. You just have to \n\t
 					open '~./bashrc' file with text editor like 'nano'. After that you have reboot or paste 'source ~/.bashrc' \n\t
 					- or use alias 'rld'. \n\n\t
-				      Alias			Command					What it does	\n
+				       Alias			Command					What it does	\n
 					ss 	-->  python ~/RotorHazard/src/server/server.py   # starts the server\n\t
 					cfg 	-->  nano ~/RotorHazard/src/server/config.json   # opens config.json file\n\t
 					rh  	-->  cd ~/RotorHazard/src/server   		 # goes to server file location\n\t
 					py  	-->  python  					 # I'm THAT lazy\n\t
 					sts  	-->  sudo systemctl stop rotorhazard 		 # stops RH service if was started\n\t
-					otadir  	-->  cd ~/RH-ota   				 # goes to main server file location\n\t
+					otadir  -->  cd ~/RH-ota   				 # goes to main server file location\n\t
 					ota  	-->  python ~/RH-ota/update.py  		 # opens updating script\n\t
 					als  	-->  nano ~/.bashrc   				 # opens this file\n\t
 					rld  	-->  source ~/.bashrc   			 # reloads aliases file \n\t
