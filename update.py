@@ -4,7 +4,7 @@
 # define number of nodes
 
 	### Change those only if you want to test the software on PC ###
-linux_testing = False  	### change to True for testing on Linux PC or WSL
+linux_testing = True  	### change to True for testing on Linux PC or WSL
 						### change your Linux PC username in line 99 as well
 
 ########    Enter pins connected to reset pins on Arduino-nodes:    ########
@@ -202,7 +202,7 @@ def flashEachNode():
 		print("\n\t\t\t\t 2 - Flash node 2 \t\t 6 - Flash node 6")
 		print("\n\t\t\t\t 3 - Flash node 3 \t\t 7 - Flash node 7")
 		print("\n\t\t\t\t 4 - Flash node 4 \t\t 8 - Flash node 8")
-		print("\n\t\t\t\t              9 - Back to main menu")
+		print("\n\t\t\t\t              "+bcolors.YELLOW+"9 - Back to main menu"+bcolors.ENDC)
 		selection=str(raw_input("\n\n\t\t\tWhich node do you want to program: "))
 		print("\n\n")
 		if selection=='1':
@@ -387,7 +387,7 @@ def mainMenu():
 	print("\t\t\t\t\t 3 - Start the server now\n")
 	print("\t\t\t\t\t 4 - Additional features\n")
 	print("\t\t\t\t\t 5 - This is my first time - READ!\n")
-	print("\t\t\t\t\t 6 - Exit")
+	print("\t\t\t\t\t "+bcolors.YELLOW+"6 - Exit"+bcolors.ENDC)
 	selection=str(raw_input(""))
 	if selection=='1':
 		sleep(0.1)
@@ -401,7 +401,7 @@ def mainMenu():
 			print("\t\t\t 2 - Nodes will use ground-auto selection firmware")
 			print("\t\t\t 3 - Flash 'Blink' on every node")
 			print("\t\t\t 4 - Flash each node individually")
-			print("\t\t\t 5 - Go back")
+			print("\t\t\t "+bcolors.YELLOW+"5 - Go back"+bcolors.ENDC)
 			sleep(0.1)
 			selection=str(raw_input(""))
 			if selection=='1':
@@ -415,12 +415,11 @@ def mainMenu():
 			if selection=='5':
 				mainMenu()
 			# else:
-				# print("type!")
-				# sleep(3)
-				# # nodesUpdate()
+				# nodesUpdate()
+					
 			#os.system("sudo pkill server.py")
 			os.system("sudo systemctl stop rotorhazard")
-			
+
 			if programming_type == 1 :
 				nodeOneReset()
 				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -D -U flash:w:/home/"+user+"/RH-ota/firmware/node_1.hex:i ")
@@ -581,7 +580,8 @@ def mainMenu():
 			print("\t\t\t\t\t 3 - Fix GPIO pins state\n")
 			print("\t\t\t\t\t 4 - Raspberry as Access Point - coming soon\n")
 			print("\t\t\t\t\t 5 - Useful aliases\n")
-			print("\t\t\t\t\t 6 - Go back")
+			print("\t\t\t\t\t 6 - Self updater - coming soon\n")
+			print("\t\t\t\t\t "+bcolors.YELLOW+"7 - Go back"+bcolors.ENDC)
 			selection=str(raw_input(""))
 			if selection=='1':
 				def avrDude():
@@ -590,7 +590,7 @@ def mainMenu():
 					print("\n\n\n						"+bcolors.RED+"AVRDUDE MENU"+bcolors.ENDC+"\n")
 					print ("			 "+bcolors.BLUE+"1 - Install avrdude"+bcolors.ENDC)
 					print ("			 2 - Check if nodes (at least one) are connected properly ")
-					print ("			 3 - Go back")
+					print ("			 "+bcolors.YELLOW+"3 - Go back"+bcolors.ENDC)
 					selection=str(raw_input(""))
 					if selection=='1' : 
 						os.system("sudo apt-get update")
@@ -606,7 +606,7 @@ def mainMenu():
 					os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
 					print (" \t\t\t\tYou have to reboot Raspberry now. Ok?\n")
 					print (" \t\t\t\t1 - Reboot now\n")
-					print (" \t\t\t\t2 - Go back\n\n")
+					print (" \t\t\t\t"+bcolors.YELLOW+"2 - Go back\n\n"+bcolors.ENDC)
 					selection=str(raw_input(""))
 					if selection=='1':
 						os.system("sudo reboot")
@@ -639,7 +639,7 @@ def mainMenu():
 			if selection=='4':
 				def raspberryAP():
 					print("coming soon")
-
+					sleep(1)
 			if selection=='5':
 				def aliasesMenu():
 					sleep(0.1)
@@ -705,6 +705,9 @@ def mainMenu():
 						aliasesMenu()
 				aliasesMenu()
 			if selection=='6':
+				print("coming soon")
+				sleep(1)
+			if selection=='7':
 				mainMenu()
 			else:
 				featuresMenu()
