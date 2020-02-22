@@ -1,7 +1,9 @@
 
 ### You can change user name and version you want to use here:
 
-user = 'pi'           ### change to '<your username>' or leave unchanged if you haven't changed the default username on raspberry
+
+user = 'pi'       		### change to '<your username>' or leave unchanged if you haven't changed the default username on a Raspberry
+						### change for testing purposes on Linux or in WSL as well
 
 version = 'master'    ### change to eg. '2.0.2' or leave as it is (can be in beta so check out latest release page:
                       ### https://github.com/RotorHazard/RotorHazard/releases and check current "Latest release version"
@@ -155,7 +157,7 @@ def installation():
 def update():
 	os.system("clear")
 	if os.path.exists("/home/"+user+"/RotorHazard") == False:
-		print("""\n\t Looks like you don't have RotorHazard server software installed for now!!! \n\t\t
+		print("""\n\t Looks like you don't have RotorHazard server software installed for now. \n\t\t
 	 If so please install your server software first or you won't be able to use the timer. """)
 	 	selection=str(raw_input("""\n\n\t\t"""+bcolors.OKGREEN+""" 'i' - Install the software - recommended """+ bcolors.ENDC+
 		"""\n\n\t\t 'u' - Force update procedure   \n\n\t\t 'a' - Abort both  \n\n """))
@@ -212,7 +214,7 @@ def main():
 	This script will automatically install or update RotorHazard software on your Raspberry Pi. \n\t
 	All additional software depedancies and libraries also will be installed or updated.\n\t
 	Your current database, config file and custom images should stay on the updated software.\n\t
-	Source of the software will be '"""+bcolors.BLUE+version+bcolors.ENDC+"""' repository of RotorHazard software on github\n\t 
+	Source of the software will be '"""+bcolors.BLUE+version+bcolors.ENDC+"""' repository of RotorHazard software on GitHub\n\t 
 	- or version choosen by you.\n\t
 	Also make sure that you are logged as user '"""+bcolors.BLUE+user+bcolors.ENDC+"""'. \n\n\t
 	You can change those by oppening file 'rpi_soft.py' in text editor - like 'nano'.

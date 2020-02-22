@@ -3,7 +3,9 @@
 # show 'flashed' - only after success
 # define number of nodes
 
-linux_testing = False  ### change to True for testing on Linux PC or WSL
+	### Change those only if you want to test the software on PC ###
+linux_testing = False  	### change to True for testing on Linux PC or WSL
+						### change your Linux PC username in line 99 as well
 
 ########    Enter pins connected to reset pins on Arduino-nodes:    ########
 
@@ -571,7 +573,7 @@ def mainMenu():
 			os.system("clear")
 			logo()
 			print("\n\n\n\t\t\t\t\t\t "+bcolors.RED+"FEATURES MENU\n"+bcolors.ENDC)
-			print("\t\t\t\t\t "+bcolors.BLUE+"1 - Install avrdude\n"+bcolors.ENDC+")
+			print("\t\t\t\t\t "+bcolors.BLUE+"1 - Install avrdude\n"+bcolors.ENDC)
 			print("\t\t\t\t\t "+bcolors.BLUE+"2 - Enable serial protocol"+bcolors.ENDC+"\n")
 			print("\t\t\t\t\t 3 - Fix GPIO pins state\n")
 			print("\t\t\t\t\t 4 - Raspberry as Access Point - coming soon\n")
