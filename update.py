@@ -668,17 +668,17 @@ def mainMenu():
 					you can just type 'ss' (server start) etc. Aliases can be modified and added anytime you want. You just have to \n\t
 					open '~./bashrc' file with text editor like 'nano'. After that you have reboot or paste 'source ~/.bashrc' \n\t
 					- or use alias 'rld'. \n\n\t
-					
-					alias ss 	-->  python ~/RotorHazard/src/server/server.py   # starts the server\n\t
-					alias cfg 	-->  nano ~/RotorHazard/src/server/config.json   # opens config.json file\n\t
-					alias rh  	-->  cd ~/RotorHazard/src/server   		 # goes to server file location\n\t
-					alias py  	-->  python  					 # I'm THAT lazy\n\t
-					alias sts  	-->  sudo systemctl stop rotorhazard 		 # stops RH service if was started\n\t
-					alias otadir  	-->  cd ~/RH-ota   				 # goes to main server file location\n\t
-					alias ota  	-->  python ~/RH-ota/update.py  		 # opens updating script\n\t
-					alias als  	-->  nano ~/.bashrc   				 # opens this file\n\t
-					alias rld  	-->  source ~/.bashrc   			 # reloads aliases file \n\t
-					alias rcfg  	-->  sudo raspi-config   			 # open raspberry's configs\n\t\n
+				      Alias			Command					What it does	\n
+					ss 	-->  python ~/RotorHazard/src/server/server.py   # starts the server\n\t
+					cfg 	-->  nano ~/RotorHazard/src/server/config.json   # opens config.json file\n\t
+					rh  	-->  cd ~/RotorHazard/src/server   		 # goes to server file location\n\t
+					py  	-->  python  					 # I'm THAT lazy\n\t
+					sts  	-->  sudo systemctl stop rotorhazard 		 # stops RH service if was started\n\t
+					otadir  	-->  cd ~/RH-ota   				 # goes to main server file location\n\t
+					ota  	-->  python ~/RH-ota/update.py  		 # opens updating script\n\t
+					als  	-->  nano ~/.bashrc   				 # opens this file\n\t
+					rld  	-->  source ~/.bashrc   			 # reloads aliases file \n\t
+					rcfg  	-->  sudo raspi-config   			 # open raspberry's configs\n\t\n
 					""")
 					
 					selection=str(raw_input("\t\t\t\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
