@@ -19,10 +19,10 @@ reset_7 = 19  ## node 7  # 19
 reset_8 = 26  ## node 8  # 26
 
 if (linux_testing == False):
-	user = 'pi'       ## you can change it if your user is named differently
+	user = 'pi'           ### you can change it if your Raspberry's user is named differently
 
 if (linux_testing == True):
-	linux_user = 'jaca'   ### change this if you are using this software on Linux PC
+	linux_user = 'jaca'   ### change this if you are using this software on Linux PC for testing
 class bcolors:
 	HEADER = '\033[95m'
 	ORANGE = '\033[33m'
