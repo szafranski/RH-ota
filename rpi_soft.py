@@ -2,7 +2,7 @@
 ### You can change user name and version you want to use here:
 
 
-user = 'pi'       		### change to '<your username>' or leave unchanged if you haven't changed the default username on a Raspberry
+user = 'andrzej'       		### change to '<your username>' or leave unchanged if you haven't changed the default username on a Raspberry
 						### change for testing purposes on Linux or in WSL as well
 
 version = 'master'    ### change to eg. '2.0.2' or leave as it is (can be in beta so check out latest release page:
@@ -60,9 +60,9 @@ def first ():
 first()
 
 def end():
-	print("\n\n\n\t\tType 'r' for reboot - recommended\n")
+	print("\n\n\n\t\t"+bcolors.OKGREEN+"Type 'r' for reboot - recommended"+bcolors.ENDC+"\n")
 	print("\t\tType 's' to start the server now\n")
-	print("\t\tType 'e' for exit\n")
+	print("\t\t"+bcolors.YELLOW+"Type 'e' for exit\n"+bcolors.ENDC)
 	def endMenu():
 		selection=str(raw_input(""))
 		if selection =='r':	
@@ -160,7 +160,7 @@ def update():
 		print("""\n\t Looks like you don't have RotorHazard server software installed for now. \n\t\t
 	 If so please install your server software first or you won't be able to use the timer. """)
 	 	selection=str(raw_input("""\n\n\t\t"""+bcolors.OKGREEN+""" 'i' - Install the software - recommended """+ bcolors.ENDC+
-		"""\n\n\t\t 'u' - Force update procedure   \n\n\t\t 'a' - Abort both  \n\n """))
+		"""\n\n\t\t 'u' - Force update procedure   \n\n\t\t """+bcolors.YELLOW+"""'a' - Abort both  \n\n """+bcolors.ENDC+""" """))
 		if selection == 'i':
 			installation()
 		if selection == 'u':
@@ -221,7 +221,7 @@ def main():
 	\n\n\n\t\t\t\t\t\t\t\t\tEnjoy!\n\n\t\t
 	\t 'i' - Install software from skratch\n\t\t
 	\t 'u' - Update existing installation\n\t\t
-	\t 'a' - Abort \n""")
+	\t"""+bcolors.YELLOW+""" 'a' - Abort \n"""+bcolors.ENDC+""" """)
 	selection=str(raw_input(""))
 	if selection =='i':	
 		if (os.path.exists("/home/"+user+"/.old_RotorHazard.old/.installation-check_file.txt") == True) or (os.path.exists("/home/"+user+"/RotorHazard") == True):
@@ -229,7 +229,7 @@ def main():
 			print("""\n\t Looks like you already have RotorHazard server software installed. \n
 	 If so please use update mode instead. """)
 			selection=str(raw_input("""\n\n\t\t"""+bcolors.OKGREEN+""" 'u' - Select update mode - recommended """+ bcolors.ENDC+
-			"""\n\n\t\t 'i' - Force installation anyway   \n\n\t\t 'a' - Abort both  \n\n """))
+			"""\n\n\t\t 'i' - Force installation anyway   \n\n\t\t """+bcolors.YELLOW+"""'a' - Abort both  \n\n """+bcolors.ENDC+""" """))
 			if selection == 'u':
 				update()
 			if selection == 'i':
