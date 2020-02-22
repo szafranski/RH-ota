@@ -5,7 +5,7 @@
 
 linux_testing = False  ### change to True for testing on Linux PC or WSL
 
-######## Enter pins connected to reset pins on Arduino-nodes: ########
+########    Enter pins connected to reset pins on Arduino-nodes:    ########
 
 reset_1 = 12  ## node 1  # 12
 reset_2 = 16  ## node 2  # 16
@@ -17,7 +17,7 @@ reset_7 = 19  ## node 7  # 19
 reset_8 = 26  ## node 8  # 26
 
 if (linux_testing == False):
-	user = 'pi'   ## you can change it if your user is named differently
+	user = 'pi'       ## you can change it if your user is named differently
 
 class bcolors:
 	HEADER = '\033[95m'
@@ -29,8 +29,6 @@ class bcolors:
 	ENDC = '\033[0m'
 	BOLD = '\033[1m'
 	UNDERLINE = '\033[4m'
-
-from PIL import Image
 
 from time import sleep
 import os
@@ -574,8 +572,8 @@ def mainMenu():
 			os.system("clear")
 			logo()
 			print("\n\n\n\t\t\t\t\t\t "+bcolors.RED+"FEATURES MENU\n"+bcolors.ENDC)
-			print("\t\t\t\t\t 1 - Install avrdude\n")
-			print("\t\t\t\t\t 2 - Enable serial protocol\n")
+			print("\t\t\t\t\t "+bcolors.BLUE+"1 - Install avrdude\n"+bcolors.ENDC+")
+			print("\t\t\t\t\t "+bcolors.BLUE+"2 - Enable serial protocol"+bcolors.ENDC+"\n")
 			print("\t\t\t\t\t 3 - Fix GPIO pins state\n")
 			print("\t\t\t\t\t 4 - Raspberry as Access Point - coming soon\n")
 			print("\t\t\t\t\t 5 - Useful aliases - coming soon\n")
