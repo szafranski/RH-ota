@@ -1,7 +1,6 @@
 ####To do:####
 
 # show 'flashed' - only after success?
-# define number of nodes
 # Access Point
 # self-updater
 
@@ -10,7 +9,7 @@ linux_testing = True  		### change to True for testing on Linux PC or WSL
 							### change your Linux PC username in line 99 as well
 
 ########## Define number of nodes that you have in your system here:
-nodes_number = 4
+nodes_number = 8
 
 ########    Enter pins connected to reset pins on Arduino-nodes:    ########
 
