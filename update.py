@@ -394,7 +394,6 @@ def flashEachNode():
 			mainMenu()
 	nodeMenu()
 
-
 def mainMenu():
 	os.system("clear")
 	logo()
