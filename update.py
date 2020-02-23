@@ -602,7 +602,6 @@ def mainMenu():
 					else:
 						serialEnable()
 				serialEnable()
-
 			if selection=='3':
 				def gpioState(): 
 					os.system("clear")
@@ -622,7 +621,6 @@ def mainMenu():
 					print("\n\n		DONE\n\n")
 					sleep(0.3)
 				gpioState()
-
 			if selection=='4':
 				def raspberryAP():
 					print("coming soon")
@@ -646,11 +644,13 @@ def mainMenu():
 						os.system("echo 'alias als=\"nano ~/.bashrc\"   #  opens this file' | sudo tee -a ~/.bashrc")
 						os.system("echo 'alias rld=\"source ~/.bashrc\"   #  reloads aliases file' | sudo tee -a ~/.bashrc")
 						os.system("echo 'alias rcfg=\"sudo raspi-config\"   #  open raspberrys configs' | sudo tee -a ~/.bashrc")
+						os.system("echo 'alias gitota=\"git clone https://github.com/szafranski/RH-ota.git\"   #  clones ota repo' | sudo tee -a ~/.bashrc")
 						os.system("echo '' | sudo tee -a ~/.bashrc")
 						os.system("echo '# After adding or changing aliases manually - reboot raspberry or type \"source ~/.bashrc\".' | sudo tee -a ~/.bashrc")
 						os.system("echo 'leave this file here' | sudo tee -a ~/.aliases_added")
+						os.system("source ~/.bashrc")
 						print("\n\n\t\t	Aliases added successfully")
-						sleep(1)
+						sleep(2)
 						featuresMenu()
 					print("""\n\n\t\t
 		Aliases in Linux act like shortcuts or referances to another commands. You can use them every time when you \n\t
@@ -668,8 +668,8 @@ def mainMenu():
 		ota  	-->  python ~/RH-ota/update.py  		 # opens updating script\n\t
 		als  	-->  nano ~/.bashrc   				 # opens this file\n\t
 		rld  	-->  source ~/.bashrc   			 # reloads aliases file \n\t
-		rcfg  	-->  sudo raspi-config   			 # open raspberry's configs\n\t\t\t\n
-		
+		rcfg  	-->  sudo raspi-config   			 # open raspberry's configs\n\t
+		gitota	-->  git clone https://github.com/sza(...) 	 # clones ota repo\n\t\t\t\n
 					Do you want to use above aliases in your system?
 		""")
 					
@@ -706,7 +706,7 @@ def mainMenu():
 			sleep(0.3)
 			print("""\n\n\n 
 		More info here: https://www.instructables.com/id/RotorHazard-Updater/\n
-
+		
 		and in how_to folder - look for PDF file.\n\n 
 		
 			Enjoy!\n\
