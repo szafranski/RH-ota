@@ -6,8 +6,8 @@
 # self-updater
 
 ##### Change those only if you want to test the software on PC #####
-linux_testing = False  	### change to True for testing on Linux PC or WSL
-						### change your Linux PC username in line 99 as well
+linux_testing = False  		### change to True for testing on Linux PC or WSL
+							### change your Linux PC username in line 99 as well
 
 ########    Enter pins connected to reset pins on Arduino-nodes:    ########
 
@@ -200,7 +200,16 @@ def logo():
 		###                                                                 ###
 		#######################################################################""")
 
-
+def logo2():
+	print("""
+		#######################################################################
+		###                                                                 ###
+		###                Flashing firmware to nodes - DONE                ###
+		###                                                                 ###
+		###                          Thank you!                             ###
+		###                                                                 ###
+		#######################################################################
+		\n\n""")
 
 def first ():
 	image ()
@@ -397,7 +406,8 @@ def flashEachNode():
 def mainMenu():
 	os.system("clear")
 	logo()
-	os.system("sudo systemctl stop rotorhazard")
+	if linux_testing == False:
+		os.system("sudo systemctl stop rotorhazard")
 	print("\n\n\n\t\t\t\t\t "+bcolors.RED+"   MAIN MENU\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BLUE+"1 - Server software installation and update\n	"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BLUE+"2 - Nodes flash and update\n"+bcolors.ENDC)
@@ -454,6 +464,8 @@ def mainMenu():
 				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/node_8.hex:i ")
 				print("\n				Node 8 - flashed\n\n")
 				sleep(1)
+				logo2()
+				sleep(2)
 			if selection=='2':
 				nodeOneReset()
 				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/node_0.hex:i ")
@@ -487,6 +499,8 @@ def mainMenu():
 				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/node_0.hex:i ")
 				print("\n				Node 8 - flashed\n\n")
 				sleep(1)
+				logo2()
+				sleep(2)
 			if selection=='3':
 				nodeOneReset()
 				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/blink.hex:i ")
@@ -520,25 +534,15 @@ def mainMenu():
 				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/blink.hex:i ")
 				print("\n				Node 8 - flashed\n\n")
 				sleep(1)
+				logo2()
+				sleep(2)
 			if selection=='4':
 				flashEachNode()
 			if selection=='5':
 				mainMenu()
 			else:
 				nodesUpdate()
-					
-			#os.system("sudo pkill server.py")
 			sleep(0.3)
-			print("""
-		##################################################################
-		###                                                            ###
-		###                 Flashing firmware to nodes - DONE          ###
-		###                                                            ###
-		###                    Please reboot the timer                 ###
-		###                                                            ###
-		##################################################################
-			\n\n""")
-			sleep(3)
 		nodesUpdate()
 
 	if selection=='3':
