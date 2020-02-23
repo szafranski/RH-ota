@@ -650,6 +650,31 @@ def flashEachNode():
 			nodeMenu()
 	nodeMenu()
 
+def selfUpdater():
+	os.system("echo 'updater marker' | sudo tee -a ~/.updater_self")
+	if os.path.exists("/home/"+user+"/.updater_self") == False:
+		os.system("echo 'alias updateota=\"cd /home/andrzej && sudo rm -r RH-ota && git clone https://github.com/szafranski/RH-ota.git && echo  && echo                    RotorHazard OTA manager updated && echo   \"  # part of self updater ' | sudo tee -a ~/.bashrc")
+		sleep(0.5)
+		os.system("source /home/andrzej/.bashrc")
+	sleep(0.12)
+	os.system("clear")
+	sleep(0.12)
+	logo()
+	sleep(0.12)
+	print("""\n\n \t
+			If you want to update this program and download \n\t\t
+			new firmware for Arduino nodes (if it's available) \n\t\t
+			- so you can next flash them - you have to exit \n\t\t
+			this program and type 'updateota' in terminal window.\n\t\t
+			Be sure that you have internet connection established.\n\n """)
+	selection=str(raw_input("\n\t\t\t\t"+bcolors.GREEN+"Exit program by pressing 'e' "+bcolors.ENDC+"\n\n\t\t\t\t"+bcolors.YELLOW+"Go back by pressing 'b'"+bcolors.ENDC+"\n\n"))
+	if selection=='e':
+		sys.exit()
+	if selection=='b':
+		featuresMenu()
+	else :
+		selfUpdater()
+
 def featuresMenu():
 	sleep(0.12)
 	os.system("clear")
@@ -744,7 +769,6 @@ def featuresMenu():
 					os.system("sudo reboot")
 				if selection== 'b':
 					featuresMenu()
-					
 			print("""\n\n\t\tSerial port has to be enabled. Without it Arduinos cannot be programmed.
 					\n\t\tDo you want to enable it now?""")
 			selection=str(raw_input("\n\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
@@ -765,7 +789,6 @@ def featuresMenu():
 			else:
 				serialMenu()
 		serialMenu()
-		
 	if selection=='3':
 		def gpioState(): 
 			os.system("clear")
@@ -857,8 +880,8 @@ gitota	-->  git clone https://github.com/sza(...) 	 # clones ota repo\n\t\t\t\n
 				aliasesMenu()
 		aliasesMenu()
 	if selection=='6':
-		print("coming soon")
-		sleep(1)
+		sleep(0.1)
+		# selfUpdater()
 	if selection=='7':
 		mainMenu()
 	else:

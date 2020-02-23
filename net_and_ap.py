@@ -1,5 +1,3 @@
-## will be developed
-
 
 myPlace = 'PL'   ### change accordingly
 
