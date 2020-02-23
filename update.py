@@ -75,29 +75,29 @@ if (linux_testing == False):
 		sleep(0.05)
 
 	def nodeOneReset():
-		allPinsLow()
-		GPIO.output(reset_1, GPIO.HIGH)
+		allPinsHigh()
+		GPIO.output(reset_1, GPIO.LOW)
 	def nodeTwoReset():
-		allPinsLow()
-		GPIO.output(reset_2, GPIO.HIGH)
+		allPinsHigh()
+		GPIO.output(reset_2, GPIO.LOW)
 	def nodeThreeReset():
-		allPinsLow()
-		GPIO.output(reset_3, GPIO.HIGH)
+		allPinsHigh()
+		GPIO.output(reset_3, GPIO.LOW)
 	def nodeFourReset():
-		allPinsLow()
-		GPIO.output(reset_4, GPIO.HIGH)
+		allPinsHigh()
+		GPIO.output(reset_4, GPIO.LOW)
 	def nodeFiveReset():
-		allPinsLow()
-		GPIO.output(reset_5, GPIO.HIGH)
+		allPinsHigh()
+		GPIO.output(reset_5, GPIO.LOW)
 	def nodeSixReset():
-		allPinsLow()
-		GPIO.output(reset_6, GPIO.HIGH)
+		allPinsHigh()
+		GPIO.output(reset_6, GPIO.LOW)
 	def nodeSevenReset():
-		allPinsLow()
-		GPIO.output(reset_7, GPIO.HIGH)
+		allPinsHigh()
+		GPIO.output(reset_7, GPIO.LOW)
 	def nodeEightReset():
-		allPinsLow()
-		GPIO.output(reset_8, GPIO.HIGH)
+		allPinsHigh()
+		GPIO.output(reset_8, GPIO.LOW)
 
 
 if (linux_testing == True): 
