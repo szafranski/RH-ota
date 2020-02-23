@@ -9,7 +9,7 @@ linux_testing = False  		### change to True for testing on Linux PC or WSL
 							### change your Linux PC username in line 99 as well
 
 ########## Define number of nodes that you have in your system here:
-nodes_number = 4  ## default 4 
+nodes_number = 8  ## default 8
 
 ########    Enter pins connected to reset pins on Arduino-nodes:    ########
 
@@ -842,7 +842,7 @@ def mainMenu():
 	selection=str(raw_input(""))
 	if selection=='1':
 		sleep(0.3)
-		os.system('python ./rpi_soft.py')
+		os.system("python /home/"+user+"/RH-ota/rpi_soft.py")
 	if selection=='2':
 		def nodesUpdate():
 			sleep(0.12)
