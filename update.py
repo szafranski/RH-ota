@@ -40,7 +40,6 @@ from time import sleep
 import os
 import sys
 
-
 if (linux_testing == False): 
 	import RPi.GPIO as GPIO
 	GPIO.setwarnings(False)
