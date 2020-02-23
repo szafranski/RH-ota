@@ -6,11 +6,8 @@
 # self-updater
 
 ##### Change those only if you want to test the software on PC #####
-linux_testing = True  		### change to True for testing on Linux PC or WSL
+linux_testing = False  		### change to True for testing on Linux PC or WSL
 							### change your Linux PC username in line 99 as well
-
-########## Define number of nodes that you have in your system here:
-nodes_number = 4
 
 ########    Enter pins connected to reset pins on Arduino-nodes:    ########
 
@@ -213,160 +210,113 @@ def first ():
 	sleep(1.3)
 first()
 
+def flashAllBlink():
+	nodeOneReset()
+	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/blink.hex:i ")
+	print("\n				Node 1 - flashed\n\n")
+	sleep(1)
+	nodeTwoReset()
+	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/blink.hex:i ")
+	print("\n				Node 2 - flashed\n\n")
+	sleep(1)
+	nodeThreeReset()
+	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/blink.hex:i ")
+	print("\n				Node 3 - flashed\n\n")
+	sleep(1)
+	nodeFourReset()
+	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/blink.hex:i ")
+	print("\n				Node 4 - flashed\n\n")
+	sleep(1)
+	nodeFiveReset()
+	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/blink.hex:i ")
+	print("\n				Node 5 - flashed\n\n")
+	sleep(1)
+	nodeSixReset()
+	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/blink.hex:i ")
+	print("\n				Node 6 - flashed\n\n")
+	sleep(1)
+	nodeSevenReset()
+	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/blink.hex:i ")
+	print("\n				Node 7 - flashed\n\n")
+	sleep(1)
+	nodeEightReset()
+	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/blink.hex:i ")
+	print("\n				Node 8 - flashed\n\n")
+	sleep(1)
+	logo2()
+	sleep(2)
+
 def flashAllNodes():
 	nodeOneReset()
 	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/node_1.hex:i ")
 	print("\n				Node 1 - flashed\n\n")
 	sleep(1)
-	if nodes_number ==1:
-		return
 	nodeTwoReset()
 	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/node_2.hex:i ")
 	print("\n				Node 2 - flashed\n\n")
 	sleep(1)
-	if nodes_number ==2:
-		return
 	nodeThreeReset()
 	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/node_3.hex:i ")
 	print("\n				Node 3 - flashed\n\n")
 	sleep(1)
-	if nodes_number ==3:
-		return
 	nodeFourReset()
 	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/node_4.hex:i ")
 	print("\n				Node 4 - flashed\n\n")
 	sleep(1)
-	if nodes_number ==4:
-		return
 	nodeFiveReset()
 	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/node_5.hex:i ")
 	print("\n				Node 5 - flashed\n\n")
 	sleep(1)
-	if nodes_number ==5:
-		return
 	nodeSixReset()
 	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/node_6.hex:i ")
 	print("\n				Node 6 - flashed\n\n")
 	sleep(1)
-	if nodes_number ==6:
-		return
 	nodeSevenReset()
 	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/node_7.hex:i ")
 	print("\n				Node 7 - flashed\n\n")
 	sleep(1)
-	if nodes_number ==7:
-		return
 	nodeEightReset()
 	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/node_8.hex:i ")
 	print("\n				Node 8 - flashed\n\n")
-	if nodes_number ==8:
-		return
-	# logo2()
-	# sleep(2)
+	sleep(1)
+	logo2()
+	sleep(2)
 
 def flashAllGnd():
 	nodeOneReset()
 	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/node_0.hex:i ")
 	print("\n				Node 1 - flashed\n\n")
 	sleep(1)
-	if nodes_number ==1:
-		return
 	nodeTwoReset()
 	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/node_0.hex:i ")
 	print("\n				Node 2 - flashed\n\n")
 	sleep(1)
-	if nodes_number ==2:
-		return
 	nodeThreeReset()
 	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/node_0.hex:i ")
 	print("\n				Node 3 - flashed\n\n")
 	sleep(1)
-	if nodes_number ==3:
-		return
 	nodeFourReset()
 	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/node_0.hex:i ")
 	print("\n				Node 4 - flashed\n\n")
 	sleep(1)
-	if nodes_number ==4:
-		return
 	nodeFiveReset()
 	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/node_0.hex:i ")
 	print("\n				Node 5 - flashed\n\n")
 	sleep(1)
-	if nodes_number ==5:
-		return
 	nodeSixReset()
 	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/node_0.hex:i ")
 	print("\n				Node 6 - flashed\n\n")
 	sleep(1)
-	if nodes_number ==6:
-		return
 	nodeSevenReset()
 	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/node_0.hex:i ")
 	print("\n				Node 7 - flashed\n\n")
 	sleep(1)
-	if nodes_number ==7:
-		return
 	nodeEightReset()
 	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/node_0.hex:i ")
 	print("\n				Node 8 - flashed\n\n")
 	sleep(1)
-	if nodes_number ==8:
-		return
-	# logo2()
-	# sleep(2)
-
-def flashAllBlink():
-	nodeOneReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/blink.hex:i ")
-	print("\n				Node 1 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==1:
-		return
-	nodeTwoReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/blink.hex:i ")
-	print("\n				Node 2 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==2:
-		return
-	nodeThreeReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/blink.hex:i ")
-	print("\n				Node 3 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==3:
-		return
-	nodeFourReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/blink.hex:i ")
-	print("\n				Node 4 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==4:
-		return
-	nodeFiveReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/blink.hex:i ")
-	print("\n				Node 5 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==5:
-		return
-	nodeSixReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/blink.hex:i ")
-	print("\n				Node 6 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==6:
-		return
-	nodeSevenReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/blink.hex:i ")
-	print("\n				Node 7 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==7:
-		return
-	nodeEightReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600  -U flash:w:/home/"+user+"/RH-ota/firmware/blink.hex:i ")
-	print("\n				Node 8 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==8:
-		return
-	# logo2()
-	# sleep(2)
+	logo2()
+	sleep(2)
 
 def flashEachNode():
 	def nodeMenu():
@@ -839,16 +789,10 @@ def mainMenu():
 			selection=str(raw_input(""))
 			if selection=='1':
 				flashAllNodes()
-				logo2()
-				sleep(2)
 			if selection=='2':
 				flashAllGnd()
-				logo2()
-				sleep(2)
 			if selection=='3':
 				flashAllBlink()
-				logo2()
-				sleep(2)
 			if selection=='4':
 				flashEachNode()
 			if selection=='5':
