@@ -320,8 +320,11 @@ def flashAllGnd():
 
 def flashEachNode():
 	def nodeMenu():
+		sleep(0.12)
 		os.system("clear")
+		sleep(0.12)
 		logo()
+		sleep(0.12)
 		print("\n\n\n\t\t\t\t\t    "+bcolors.RED+"NODE MENU"+bcolors.ENDC)
 		print("\n\t\t\t 1 - Flash node 1 \t\t 5 - Flash node 5")
 		print("\n\t\t\t 2 - Flash node 2 \t\t 6 - Flash node 6")
@@ -577,8 +580,11 @@ def flashEachNode():
 	nodeMenu()
 
 def featuresMenu():
+	sleep(0.12)
 	os.system("clear")
+	sleep(0.12)
 	logo()
+	sleep(0.12)
 	print("\n\n\n\t\t\t\t      "+bcolors.RED+"   FEATURES MENU\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BLUE+"1 - Install avrdude\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BLUE+"2 - Enable serial protocol"+bcolors.ENDC+"\n")
@@ -590,8 +596,11 @@ def featuresMenu():
 	selection=str(raw_input(""))
 	if selection=='1':
 		def avrDude():
+			sleep(0.12)
 			os.system("clear")
+			sleep(0.12)
 			logo()
+			sleep(0.12)
 			print("\n\n\n						"+bcolors.RED+"AVRDUDE MENU"+bcolors.ENDC+"\n")
 			print ("			 "+bcolors.BLUE+"1 - Install avrdude"+bcolors.ENDC)
 			print ("			 2 - Check if nodes (at least one) are connected properly ")
@@ -606,20 +615,47 @@ def featuresMenu():
 				mainMenu()
 		avrDude()
 	if selection== '2':
-		def serialEnable():
-			os.system("echo 'enable_uart=1'| sudo  tee -a /boot/config.txt")
-			os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
-			print (" \t\t\t\tYou have to reboot Raspberry now. Ok?\n")
-			print (" \t\t\t\t1 - Reboot now\n")
-			print (" \t\t\t\t"+bcolors.YELLOW+"2 - Go back\n\n"+bcolors.ENDC)
-			selection=str(raw_input(""))
-			if selection=='1':
-				os.system("sudo reboot")
-			if selection== '2':
+		def serialMenu():
+			sleep(0.12)
+			os.system("clear")
+			sleep(0.12)
+			logo()
+			sleep(0.12)
+			def serialContent():
+				os.system("echo 'functionality added' | sudo tee -a ~/.serialok")
+				os.system("echo 'enable_uart=1'| sudo  tee -a /boot/config.txt")
+				os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
+				print("\n\n\t\t\t	Serial port enabled successfully")
+				print (" \n\t\t\t\tYou have to reboot Raspberry now. Ok?\n")
+				print (" \t\t\t\t\t'r' - Reboot now\n")
+				print (" \t\t\t\t\t"+bcolors.YELLOW+"'b' - Go back\n\n"+bcolors.ENDC)
+				selection=str(raw_input(""))
+				if selection=='r':
+					os.system("sudo reboot")
+				if selection== 'b':
+					featuresMenu()
+					
+			print("""\n\n\t\tSerial port has to be enabled. Without it Arduinos cannot be programmed.
+					\n\t\tDo you want to enable it now?""")
+			selection=str(raw_input("\n\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+			if selection == 'y':
+				if os.path.exists("/home/"+user+"/.serialok") == True:
+					print("\n\n\t\t Looks like you already enabled Serial port. Do you want to continue anyway?\n")
+					selection=str(raw_input("\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+					if selection=='y':
+						serialContent()
+					if selection =='a':
+						featuresMenu()
+					else:
+						serialMenu()
+				else:
+					serialContent()
+			if selection == 'a':
 				featuresMenu()
 			else:
-				serialEnable()
-		serialEnable()
+				serialMenu()
+		serialMenu()
+		
 	if selection=='3':
 		def gpioState(): 
 			os.system("clear")
@@ -645,9 +681,9 @@ def featuresMenu():
 			sleep(1)
 	if selection=='5':
 		def aliasesMenu():
-			sleep(0.3)
+			sleep(0.2)
 			os.system("clear")
-			sleep(0.3)
+			sleep(0.2)
 			def aliasesContent():
 				os.system("echo '' | sudo tee -a ~/.bashrc")
 				os.system("echo '### Shortcuts that can be used in terminal window ###' | sudo tee -a ~/.bashrc")
@@ -665,7 +701,7 @@ def featuresMenu():
 				os.system("echo 'alias gitota=\"git clone https://github.com/szafranski/RH-ota.git\"   #  clones ota repo' | sudo tee -a ~/.bashrc")
 				os.system("echo '' | sudo tee -a ~/.bashrc")
 				os.system("echo '# After adding or changing aliases manually - reboot raspberry or type \"source ~/.bashrc\".' | sudo tee -a ~/.bashrc")
-				os.system("echo 'leave this file here' | sudo tee -a ~/.aliases_added")
+				os.system("echo 'functionality added' | sudo tee -a ~/.aliases_added")
 				os.system("source ~/.bashrc")
 				print("\n\n\t\t	Aliases added successfully")
 				sleep(2)
@@ -718,8 +754,11 @@ gitota	-->  git clone https://github.com/sza(...) 	 # clones ota repo\n\t\t\t\n
 		featuresMenu()
 
 def mainMenu():
+	sleep(0.12)
 	os.system("clear")
+	sleep(0.12)
 	logo()
+	sleep(0.12)
 	if linux_testing == False:
 		os.system("sudo systemctl stop rotorhazard")
 	print("\n\n\n\t\t\t\t\t "+bcolors.RED+"   MAIN MENU\n"+bcolors.ENDC)
@@ -735,8 +774,11 @@ def mainMenu():
 		os.system('python ./rpi_soft.py')
 	if selection=='2':
 		def nodesUpdate():
+			sleep(0.12)
 			os.system("clear")
+			sleep(0.12)
 			logo()
+			sleep(0.12)
 			print("\n\n\t\t\t\t Choose flashing type:\n")
 			print("\t\t\t "+bcolors.GREEN+"1 - Every Node gets own dedicated firmware - recommended"+ bcolors.ENDC+"\n")
 			print("\t\t\t 2 - Nodes will use ground-auto selection firmware\n")
