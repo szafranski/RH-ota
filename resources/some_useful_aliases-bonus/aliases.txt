@@ -13,4 +13,4 @@ alias als="nano ~/.bashrc"   #  opens this file
 alias rld="source ~/.bashrc"   #  reloads aliases file
 alias rcfg="sudo raspi-config"   #  open raspberrys configs
 
-# After aplying those changes reboot raspberry or type " source ~/.bashrc ".
+# After aplying adding aliases manually reboot raspberry or type " source ~/.bashrc ".
