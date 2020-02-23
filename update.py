@@ -115,7 +115,6 @@ if (linux_testing == False):
 		sleep(0.1)
 		GPIO.output(reset_8, GPIO.HIGH)
 
-
 if (linux_testing == True): 
 	user= linux_user   
 	def allPinsReset():
@@ -127,39 +126,30 @@ if (linux_testing == True):
 	def allPinsHigh():
 		print("\n\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.3)
-		
 	def nodeOneReset():
 		print("\n\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.3)
-			
 	def nodeTwoReset():
 		print("\n\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.3)
-		
 	def nodeThreeReset():
 		print("\n\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.3)
-		
 	def nodeFourReset():
 		print("\n\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.3)
-		
 	def nodeFiveReset():
 		print("\n\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.3)
-		
 	def nodeSixReset():
 		print("\n\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.3)
-		
 	def nodeSevenReset():
 		print("\n\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.3)
-		
 	def nodeEightReset():
 		print("\n\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.3)
-
 
 def image():
 	print("""
@@ -544,7 +534,7 @@ def mainMenu():
 				nodesUpdate()
 			sleep(0.3)
 		nodesUpdate()
-
+		
 	if selection=='3':
 		def serverStart():
 			os.system("clear")
@@ -705,10 +695,8 @@ def mainMenu():
 			os.system("clear")
 			sleep(0.3)
 			print("""\n\n\n 
-		More info here: https://www.instructables.com/id/RotorHazard-Updater/\n
-		
+		More info here: https://www.instructables.com/id/RotorHazard-Updater/\n\n
 		and in how_to folder - look for PDF file.\n\n 
-		
 			Enjoy!\n\
 									Szafran\n\n """)
 			selection=str(raw_input("\t\t\t\t\t"+bcolors.YELLOW+"Go back by pressing 'b'"+bcolors.ENDC+"\n"))
