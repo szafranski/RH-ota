@@ -5,11 +5,11 @@
 # self-updater
 
 ##### Change those only if you want to test the software on PC #####
-linux_testing = False  		### change to True for testing on Linux PC or WSL
-							### change your Linux PC username in line 99 as well
+linux_testing = True  		### change to True for testing on Linux PC or WSL
+							### change your Linux PC username in line 29 as well
 
 ########## Define number of nodes that you have in your system here:
-nodes_number = 8  ## default 8
+nodes_number = 4  ## default 8
 
 ########    Enter pins connected to reset pins on Arduino-nodes:    ########
 
@@ -26,7 +26,7 @@ if (linux_testing == False):
 	user = 'pi'           ### you can change it if your Raspberry's user is named differently
 
 if (linux_testing == True):
-	linux_user = 'pfabi'   ### change this if you are using this software on Linux PC for testing
+	linux_user = 'andrzej'   ### change this if you are using this software on Linux PC for testing
 
 class bcolors:
 	HEADER = '\033[95m'
@@ -671,17 +671,54 @@ def featuresMenu():
 			logo()
 			sleep(0.12)
 			print("\n\n\n						"+bcolors.RED+"AVRDUDE MENU"+bcolors.ENDC+"\n")
-			print ("			 "+bcolors.BLUE+"1 - Install avrdude"+bcolors.ENDC)
-			print ("			 2 - Check if nodes are accessible - coming soon")
+			print ("			 "+bcolors.BLUE+"1 - Install and test avrdude"+bcolors.ENDC)
+			print ("			 2 - Check if nodes are accessible")
 			print ("			 "+bcolors.YELLOW+"3 - Go back"+bcolors.ENDC)
 			selection=str(raw_input(""))
 			if selection=='1' : 
 				os.system("sudo apt-get update")
 				os.system("sudo apt-get install avrdude")
 			if selection=='2' : 
-				allPinsReset()
+				nodeOneReset()
 				os.system("sudo avrdude -c arduino -p m328p -v")
 				sleep(2)
+				if nodes_number == 1:
+					return
+				nodeTwoReset()
+				os.system("sudo avrdude -c arduino -p m328p -v")
+				sleep(2)
+				if nodes_number == 2:
+					return
+				nodeThreeReset()
+				os.system("sudo avrdude -c arduino -p m328p -v")
+				sleep(2)
+				if nodes_number == 3:
+					return
+				nodeFourReset()
+				os.system("sudo avrdude -c arduino -p m328p -v")
+				sleep(2)
+				if nodes_number == 4:
+					return
+				nodeFiveReset()
+				os.system("sudo avrdude -c arduino -p m328p -v")
+				sleep(2)
+				if nodes_number == 5:
+					return
+				nodeSixReset()
+				os.system("sudo avrdude -c arduino -p m328p -v")
+				sleep(2)
+				if nodes_number == 6:
+					return
+				nodeSevenReset()
+				os.system("sudo avrdude -c arduino -p m328p -v")
+				sleep(2)
+				if nodes_number == 7:
+					return
+				nodeEightReset()
+				os.system("sudo avrdude -c arduino -p m328p -v")
+				sleep(2)
+				if nodes_number == 8:
+					return
 			if selection=='3' : 
 				mainMenu()
 		avrDude()
@@ -842,7 +879,7 @@ def mainMenu():
 	selection=str(raw_input(""))
 	if selection=='1':
 		sleep(0.3)
-		os.system("python /home/"+user+"/RH-ota/rpi_soft.py")
+		os.system("python ./rpi_soft.py")
 	if selection=='2':
 		def nodesUpdate():
 			sleep(0.12)
@@ -880,10 +917,10 @@ def mainMenu():
 		
 	if selection=='3':
 		def serverStart():
-			os.system("clear")
-			logo()
-			#os.system("sudo pkill server.py")
 			os.system("sudo systemctl stop rotorhazard")
+			sleep(0.12)
+			os.system("clear")
+			sleep(0.12)
 			print("\n\n		Please wait...\n\n")
 			print("\n")
 			os.system("python /home/"+user+"/RotorHazard/src/server/server.py")
@@ -892,12 +929,17 @@ def mainMenu():
 			featuresMenu()
 	if selection=='5':
 		def firstTime():
+			sleep(0.12)
 			os.system("clear")
-			sleep(0.3)
+			sleep(0.12)
+			logo()
+			sleep(0.12)
 			print("""\n\n\n 
-		More info here: https://www.instructables.com/id/RotorHazard-Updater/\n\n
+		You can use all implemened features, but if you want to be able to program\n
+		Arduino-based nodes - enter Features menu and begin with first 2 points.\n\n
+		More info here: https://www.instructables.com/id/RotorHazard-Updater/\n
 		and in how_to folder - look for PDF file.\n\n 
-			Enjoy!\n\
+			\n\t\t\tEnjoy!\n\
 									Szafran\n\n """)
 			selection=str(raw_input("\t\t\t\t\t"+bcolors.YELLOW+"Go back by pressing 'b'"+bcolors.ENDC+"\n"))
 			if selection=='b':
