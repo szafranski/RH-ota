@@ -1,6 +1,6 @@
 ####To do:####
 
-# show 'flashed' - only after success?
+# show 'flashed'?
 # Access Point
 # self-updater
 
@@ -9,18 +9,18 @@ linux_testing = False  		### change to True for testing on Linux PC or WSL
 							### change your Linux PC username in line 99 as well
 
 ########## Define number of nodes that you have in your system here:
-nodes_number = 8
+nodes_number = 4  ## default 4 
 
 ########    Enter pins connected to reset pins on Arduino-nodes:    ########
 
-reset_1 = 12  ## node 1  # 12
-reset_2 = 16  ## node 2  # 16
-reset_3 = 20  ## node 3  # 20
-reset_4 = 21  ## node 4  # 21
-reset_5 = 6   ## node 5  # 6
-reset_6 = 13  ## node 6  # 13
-reset_7 = 19  ## node 7  # 19
-reset_8 = 26  ## node 8  # 26
+reset_1 = 12  ## node 1  # default 12
+reset_2 = 16  ## node 2  # default 16
+reset_3 = 20  ## node 3  # default 20
+reset_4 = 21  ## node 4  # default 21
+reset_5 = 6   ## node 5  # default 6
+reset_6 = 13  ## node 6  # default 13
+reset_7 = 19  ## node 7  # default 19
+reset_8 = 26  ## node 8  # default 26
 
 if (linux_testing == False):
 	user = 'pi'           ### you can change it if your Raspberry's user is named differently
@@ -78,6 +78,25 @@ if (linux_testing == False):
 		GPIO.output(reset_8, GPIO.HIGH)
 		sleep(0.05)
 
+	def allPinsReset():
+		GPIO.output(reset_1, GPIO.LOW)
+		GPIO.output(reset_2, GPIO.LOW)
+		GPIO.output(reset_3, GPIO.LOW)
+		GPIO.output(reset_4, GPIO.LOW)
+		GPIO.output(reset_5, GPIO.LOW)
+		GPIO.output(reset_6, GPIO.LOW)
+		GPIO.output(reset_7, GPIO.LOW)
+		GPIO.output(reset_8, GPIO.LOW)
+		sleep(0.05)
+		GPIO.output(reset_1, GPIO.HIGH)
+		GPIO.output(reset_2, GPIO.HIGH)
+		GPIO.output(reset_3, GPIO.HIGH)
+		GPIO.output(reset_4, GPIO.HIGH)
+		GPIO.output(reset_5, GPIO.HIGH)
+		GPIO.output(reset_6, GPIO.HIGH)
+		GPIO.output(reset_7, GPIO.HIGH)
+		GPIO.output(reset_8, GPIO.HIGH)
+		sleep(0.05)
 	def nodeOneReset():
 		allPinsHigh()
 		GPIO.output(reset_1, GPIO.LOW)
@@ -198,7 +217,7 @@ def logo2():
 	print("""
 		#######################################################################
 		###                                                                 ###
-		###                Flashing firmware to nodes - DONE                ###
+		###             Flashing firmware onto """+str(nodes_number)+""" nodes - DONE               ###
 		###                                                                 ###
 		###                          Thank you!                             ###
 		###                                                                 ###
@@ -660,7 +679,9 @@ def featuresMenu():
 				os.system("sudo apt-get update")
 				os.system("sudo apt-get install avrdude")
 			if selection=='2' : 
+				allPinsReset()
 				os.system("sudo avrdude -c arduino -p m328p -v")
+				sleep(2)
 			if selection=='3' : 
 				mainMenu()
 		avrDude()
@@ -840,15 +861,15 @@ def mainMenu():
 			if selection=='1':
 				flashAllNodes()
 				logo2()
-				sleep(2)
+				sleep(3)
 			if selection=='2':
 				flashAllGnd()
 				logo2()
-				sleep(2)
+				sleep(3)
 			if selection=='3':
 				flashAllBlink()
 				logo2()
-				sleep(2)
+				sleep(3)
 			if selection=='4':
 				flashEachNode()
 			if selection=='5':
