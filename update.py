@@ -672,7 +672,7 @@ def featuresMenu():
 			sleep(0.12)
 			print("\n\n\n						"+bcolors.RED+"AVRDUDE MENU"+bcolors.ENDC+"\n")
 			print ("			 "+bcolors.BLUE+"1 - Install avrdude"+bcolors.ENDC)
-			print ("			 2 - Check if nodes (at least one) are connected properly - coming soon")
+			print ("			 2 - Check if nodes are accessible - coming soon")
 			print ("			 "+bcolors.YELLOW+"3 - Go back"+bcolors.ENDC)
 			selection=str(raw_input(""))
 			if selection=='1' : 
