@@ -110,7 +110,7 @@ def installation():
 	os.system("wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"+version+" -O temp.zip")
 	os.system("unzip temp.zip")
 	os.system("rm temp.zip")
-	os.system("mv RotorHazard-"+version+" /home/"+user+"/RotorHazard")
+	os.system("mv /home/"+user+"/RotorHazard-"+version+" /home/"+user+"/RotorHazard")
 	os.system("sudo pip install -r /home/"+user+"/RotorHazard/src/server/requirements.txt")
 	os.system("sudo chmod 777 /home/"+user+"/RotorHazard/src/server")
 	os.chdir("/home/"+user)
