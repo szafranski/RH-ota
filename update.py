@@ -5,7 +5,7 @@
 # self-updater
 
 ##### Change those only if you want to test the software on PC #####
-linux_testing = False  		### change to True for testing on Linux PC or WSL
+linux_testing = True  		### change to True for testing on Linux PC or WSL
 							### change your Linux PC username in line 29 as well
 
 ########## Define number of nodes that you have in your system here:
@@ -212,7 +212,9 @@ def logo():
 		###                   OTA Updater and Manager                       ###
 		###                                                                 ###
 		#######################################################################""")
-
+	if (linux_testing == True):
+		print("\t\t\t\t\t    Linux PC")
+		
 def logo2():
 	print("""
 		#######################################################################
@@ -787,6 +789,7 @@ def featuresMenu():
 		def raspberryAP():
 			print("coming soon")
 			sleep(1)
+			#os.system("python ./net_and_ap.py")
 	if selection=='5':
 		def aliasesMenu():
 			sleep(0.2)
