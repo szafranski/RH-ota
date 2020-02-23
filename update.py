@@ -52,7 +52,7 @@ if (linux_testing == False):
 	GPIO.setup(reset_6, GPIO.OUT, initial=GPIO.HIGH)
 	GPIO.setup(reset_7, GPIO.OUT, initial=GPIO.HIGH)
 	GPIO.setup(reset_8, GPIO.OUT, initial=GPIO.HIGH)
-	
+
 	def allPinsLow():
 		GPIO.output(reset_1, GPIO.LOW)
 		GPIO.output(reset_2, GPIO.LOW)
@@ -63,7 +63,7 @@ if (linux_testing == False):
 		GPIO.output(reset_7, GPIO.LOW)
 		GPIO.output(reset_8, GPIO.LOW)
 		sleep(0.05)
-		
+
 	def allPinsHigh():
 		GPIO.output(reset_1, GPIO.HIGH)
 		GPIO.output(reset_2, GPIO.HIGH)
