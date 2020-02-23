@@ -27,6 +27,7 @@ if (linux_testing == False):
 
 if (linux_testing == True):
 	linux_user = 'pfabi'   ### change this if you are using this software on Linux PC for testing
+
 class bcolors:
 	HEADER = '\033[95m'
 	ORANGE = '\033[33m'
