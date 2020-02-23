@@ -886,8 +886,7 @@ def mainMenu():
 			os.system("sudo systemctl stop rotorhazard")
 			print("\n\n		Please wait...\n\n")
 			print("\n")
-			os.chdir("/home/"+user+"/RotorHazard/src/server/")
-			os.system("python server.py")
+			os.system("python /home/"+user+"/RotorHazard/src/server/server.py")
 		serverStart()
 	if selection=='4':
 			featuresMenu()
