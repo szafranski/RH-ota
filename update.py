@@ -87,7 +87,7 @@ if (linux_testing == False):
 		GPIO.output(reset_6, GPIO.LOW)
 		GPIO.output(reset_7, GPIO.LOW)
 		GPIO.output(reset_8, GPIO.LOW)
-		sleep(0.05)
+		sleep(0.1)
 		GPIO.output(reset_1, GPIO.HIGH)
 		GPIO.output(reset_2, GPIO.HIGH)
 		GPIO.output(reset_3, GPIO.HIGH)
@@ -96,7 +96,7 @@ if (linux_testing == False):
 		GPIO.output(reset_6, GPIO.HIGH)
 		GPIO.output(reset_7, GPIO.HIGH)
 		GPIO.output(reset_8, GPIO.HIGH)
-		sleep(0.05)
+
 	def nodeOneReset():
 		allPinsHigh()
 		GPIO.output(reset_1, GPIO.LOW)
@@ -672,7 +672,7 @@ def featuresMenu():
 			sleep(0.12)
 			print("\n\n\n						"+bcolors.RED+"AVRDUDE MENU"+bcolors.ENDC+"\n")
 			print ("			 "+bcolors.BLUE+"1 - Install avrdude"+bcolors.ENDC)
-			print ("			 2 - Check if nodes (at least one) are connected properly ")
+			print ("			 2 - Check if nodes (at least one) are connected properly - coming soon")
 			print ("			 "+bcolors.YELLOW+"3 - Go back"+bcolors.ENDC)
 			selection=str(raw_input(""))
 			if selection=='1' : 
