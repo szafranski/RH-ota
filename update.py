@@ -1,8 +1,8 @@
 ####To do:####
 
-# show 'flashed' - only after success
+# show 'flashed' - only after success?
 # define number of nodes
-# AccessPoint
+# Access Point
 # self-updater
 
 ##### Change those only if you want to test the software on PC #####
@@ -24,7 +24,7 @@ if (linux_testing == False):
 	user = 'pi'           ### you can change it if your Raspberry's user is named differently
 
 if (linux_testing == True):
-	linux_user = 'andrzej'   ### change this if you are using this software on Linux PC for testing
+	linux_user = 'pfabi'   ### change this if you are using this software on Linux PC for testing
 class bcolors:
 	HEADER = '\033[95m'
 	ORANGE = '\033[33m'
