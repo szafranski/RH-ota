@@ -244,7 +244,9 @@ def logo():
 		#######################################################################""")
 	if (linux_testing == True):
 		print("\t\t\t\t\t  Linux PC version")
-		
+	if os.path.exists("./updater-config.json") == False:
+		print("\t\t\t    Looks that you haven't set up config file yet!")
+
 def logo2():
 	print("""
 		#######################################################################
@@ -1035,23 +1037,48 @@ def mainMenu():
 			featuresMenu()
 	if selection=='5':
 		def firstTime():
-			sleep(0.12)
-			os.system("clear")
-			sleep(0.12)
-			logo()
-			sleep(0.12)
-			print("""\n\n\n 
+			def secondPage():
+				sleep(0.12)
+				os.system("clear")
+				sleep(0.12)
+				print("""\n\n 
+		    \t\tCONFIGURATION FILE:\n\n
+		Open "distr-updater-config.json" from same folder, make changes \n
+		and save as "updater-config.json". \n\n
+		Possible RotorHazard versions:\n
+		> """+bcolors.BLUE+"""\"stable\""""+bcolors.ENDC+""" - last stable release (can be from before few months)\n
+		> """+bcolors.BLUE+"""\"beta\""""+bcolors.ENDC+"""   - last beta release (usually few weeks, quite stable)\n
+		> """+bcolors.BLUE+"""\"master\""""+bcolors.ENDC+""" - absolutly newest release (even if not well tested)\n
+				""")
+				selection=str(raw_input("\n\t\t\t"+bcolors.GREEN+"'f' - first page'"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - back to menu"+bcolors.ENDC+"\n"))
+				if selection=='f':
+					firstPage()
+				if selection=='b':
+					mainMenu()
+				else :
+					secondPage()
+			def firstPage():
+				sleep(0.12)
+				os.system("clear")
+				sleep(0.12)
+				logo()
+				sleep(0.12)
+				print("""\n\n\n 
 		You can use all implemened features, but if you want to be able to program\n
 		Arduino-based nodes - enter Features menu and begin with first 2 points.\n\n
+		Also remember about setting up config file - check second page.  \n\n
 		More info here: https://www.instructables.com/id/RotorHazard-Updater/\n
 		and in how_to folder - look for PDF file.\n\n 
 			\n\t\t\tEnjoy!\n\
 									Szafran\n\n """)
-			selection=str(raw_input("\t\t\t\t\t"+bcolors.YELLOW+"Go back by pressing 'b'"+bcolors.ENDC+"\n"))
-			if selection=='b':
-				mainMenu()
-			else :
-				firstTime()
+				selection=str(raw_input("\t\t\t"+bcolors.GREEN+"'s' - second page'"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - go back"+bcolors.ENDC+"\n"))
+				if selection=='s':
+					secondPage()
+				if selection=='b':
+					mainMenu()
+				else :
+					firstPage()
+			firstPage()
 		firstTime()
 	if selection=='6':
 		def end():
