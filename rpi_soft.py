@@ -70,7 +70,6 @@ def image():
 \t\t     ****////////////////((((((((((((((((((((((((((((((((((((/****   
 """)
 
-
 def first ():
 	os.system("clear")
 	print("\n\n\n")
@@ -123,7 +122,8 @@ def installation():
 	os.system("echo 'dtparam=i2c_arm=on' | sudo tee -a /boot/config.txt")
 	os.system("sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
 	os.system("sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
-	os.system("mkdir /home/"+user+"/.old_RotorHazard.old")
+	if os.path.exists("/home/"+user+"/.old_RotorHazard.old") == False:
+		os.system("mkdir /home/"+user+"/.old_RotorHazard.old")
 	os.system("sudo mv /home/"+user+"/RotorHazard-master /home/"+user+"/.old_RotorHazard.old/")
 	os.chdir("/home/"+user)
 	os.system("wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"+server_version+" -O temp.zip")
@@ -148,7 +148,7 @@ def installation():
 	os.system("sudo python setup.py install")
 	os.system("echo 'leave this file here' | sudo tee -a /home/"+user+"/.old_RotorHazard.old/.installation-check_file.txt")
 	os.system("sudo apt-get install openjdk-8-jdk-headless -y")
-	os.system("sudo rm /lib/systemd/system/rotorhazard.service")
+	os.system("sudo rm /lib/systemd/system/rotorhaSzard.service")
 	os.system("echo ' ' | sudo tee -a /lib/systemd/system/rotorhazard.service")
 	os.system("echo '[Unit]' | sudo tee -a /lib/systemd/system/rotorhazard.service")
 	os.system("echo 'Description=RotorHazard Server' | sudo tee -a /lib/systemd/system/rotorhazard.service")
@@ -164,11 +164,11 @@ def installation():
 	os.system("sudo systemctl daemon-reload")
 	os.system("sudo systemctl enable rotorhazard.service")
 	print("""\n\n\t
-	##############################################\t
-	##                                          ##\t
-	##         Installation completed!          ##\t
-	##                                          ##\t
-	##############################################\t \n\n
+	##############################################
+	##                                          ##
+	##         Installation completed!          ##
+	##                                          ##
+	############################################## \n\n
 	After rebooting please check by typing 'sudo raspi-config' \n
 	if I2C, SPI and SSH protocols are active.\n""")
 	end()
@@ -200,7 +200,8 @@ def update():
 		os.system("sudo pip install pillow")
 		os.system("sudo apt-get install libjpeg-dev ntp -y")
 		os.system("sudo apt-get update && sudo apt-get upgrade -y")
-		os.system("mkdir /home/"+user+"/.old_RotorHazard.old")
+		if os.path.exists("/home/"+user+"/.old_RotorHazard.old") == False:
+			os.system("mkdir /home/"+user+"/.old_RotorHazard.old")
 		os.system("sudo mv /home/"+user+"/RotorHazard-master /home/"+user+"/.old_RotorHazard.old/")
 		os.system("sudo mv /home/"+user+"/RotorHazard.old /home/"+user+"/.old_RotorHazard.old/")
 		os.system("sudo mv /home/"+user+"/RotorHazard /home/"+user+"/RotorHazard.old")
@@ -209,7 +210,8 @@ def update():
 		os.system("unzip temp.zip")
 		os.system("sudo mv /home/"+user+"/RotorHazard-"+server_version+" /home/"+user+"/RotorHazard")
 		os.system("rm temp.zip")
-		os.system("mkdir /home/"+user+"/backup_RH_data")
+		if os.path.exists("/home/"+user+"/backup_RH_data") == False:
+			os.system("mkdir /home/"+user+"/backup_RH_data")
 		os.system("cp /home/"+user+"/RotorHazard.old/src/server/config.json /home/"+user+"/RotorHazard/src/server/")
 		os.system("cp -r /home/"+user+"/RotorHazard.old/src/server/static/image /home/"+user+"/backup_RH_data/")
 		os.system("cp -r /home/"+user+"/RotorHazard.old/src/server/static/image /home/"+user+"/RotorHazard/src/server/static/image")
@@ -219,11 +221,11 @@ def update():
 		os.system("cp /home/"+user+"/RotorHazard.old/src/server/database.db /home/"+user+"/backup_RH_data")
 		os.system("sudo pip install --upgrade --no-cache-dir -r requirements.txt")
 		print("""\n\n\t
-		##############################################\t
-		##                                          ##\t
-		##            Update completed!             ##\t
-		##                                          ##\t
-		##############################################\t""")
+		##############################################
+		##                                          ##
+		##            Update completed!             ##
+		##                                          ##
+		##############################################""")
 		end()
 
 def main():
@@ -248,7 +250,7 @@ def main():
 			print("""\n\t Looks like you already have RotorHazard server software installed. \n
 	 If so please use update mode instead. """)
 			selection=str(raw_input("""\n\n\t\t"""+bcolors.OKGREEN+""" 'u' - Select update mode - recommended """+ bcolors.ENDC+
-			"""\n\n\t\t 'i' - Force installation anyway   \n\n\t\t """+bcolors.YELLOW+"""'a' - Abort both  \n\n """+bcolors.ENDC+""" """))
+			"""\n\n\t\t 'i' - Force installation anyway\n\n\t\t """+bcolors.YELLOW+"""'a' - Abort both  \n\n """+bcolors.ENDC+""" """))
 			if selection == 'u':
 				update()
 			if selection == 'i':
@@ -274,4 +276,3 @@ def main():
 	else :
 		main()
 main()
-
