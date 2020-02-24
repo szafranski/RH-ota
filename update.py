@@ -1020,7 +1020,7 @@ def firstTime():
 		Possible RotorHazard versions:\n
 		> """+bcolors.BLUE+"""\"stable\""""+bcolors.ENDC+""" - last stable release (can be from before few months)\n
 		> """+bcolors.BLUE+"""\"beta\""""+bcolors.ENDC+"""   - last beta release (usually few weeks, quite stable)\n
-		> """+bcolors.BLUE+"""\"master\""""+bcolors.ENDC+""" - absolutly newest release (even if not well tested)\n
+		> """+bcolors.BLUE+"""\"master\""""+bcolors.ENDC+""" - absolutely newest release (even if not well tested)\n
 		""")
 		selection=str(raw_input("\n\t\t\t"+bcolors.GREEN+"'f' - first page'"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - back to menu"+bcolors.ENDC+"\n"))
 		if selection=='f':
