@@ -1,5 +1,6 @@
 
-updater_version = 2.2  ### version of THIS program - has nothing to do with RH version
+updater_version = 2.2 	### version of THIS program - has nothing to do with RH version
+						### reffers to the API level of contained nodes firmware 
 
 ####To do:####
 # show 'flashed'?
