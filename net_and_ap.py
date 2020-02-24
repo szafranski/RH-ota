@@ -1,6 +1,27 @@
+from time import sleep
+import os
+import sys
+import json
 
-myPlace = 'PL'   ### change accordingly
-user = 'pi'
+if os.path.exists("./updater-config.json") == True:
+	with open('updater-config.json') as config_file:
+		data = json.load(config_file)
+else:
+	with open('distr-updater-config.json') as config_file:
+		data = json.load(config_file)
+
+if data['debug_mode'] == 1:
+	linux_testing = True
+else:
+	linux_testing = False 
+
+if linux_testing == True:
+	user = data['linux_user']
+else:
+	user = data['pi_user']
+
+myPlace = data['country']   ### change accordingly
+
 
 def image():
 	print("""

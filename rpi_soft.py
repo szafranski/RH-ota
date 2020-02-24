@@ -1,11 +1,26 @@
+from time import sleep
+import os
+import sys
+import json
 
-### You can change user name and version here:
+if os.path.exists("./updater-config.json") == True:
+	with open('updater-config.json') as config_file:
+		data = json.load(config_file)
+else:
+	with open('distr-updater-config.json') as config_file:
+		data = json.load(config_file)
 
+if data['debug_mode'] == 1:
+	linux_testing = True
+else:
+	linux_testing = False 
 
-user = 'pi'       		### change to '<your username>' or leave unchanged if you haven't changed the default username on a Raspberry
-						### change for testing purposes on Linux or in WSL as well
+if linux_testing == True:
+	user = data['linux_user']
+else:
+	user = data['pi_user']
 
-preffered_RH_version = 'stable'   #### can be 'beta'or 'master' or 'user_defined' - default 'stable'
+preffered_RH_version = data['RH_version']   #### can be 'beta'or 'master' or 'user_defined' - default 'stable'
 
 if preffered_RH_version == 'master':
 	server_version = 'master'
@@ -13,12 +28,9 @@ if preffered_RH_version == 'beta':
 	server_version = '2.1.0-beta.3'
 if preffered_RH_version == 'stable':
 	server_version = '2.0.2'
-if preffered_RH_version =='user_defined':
+if preffered_RH_version =='custom':
 	server_version = 'X.X.X'           ### paste custom version number here if you want to declare it manually
 
-from time import sleep
-import os
-import sys
 class bcolors:
 	HEADER = '\033[95m'
 	BLUE = '\033[94m'
