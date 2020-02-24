@@ -7,7 +7,7 @@ import os
 import sys
 import json
 
-updater_version = '2.2.3'   ### version of THIS program - has nothing to do with the RH version
+updater_version = '2.2.4'   ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
                             ### third number reffers to actual verion of the updater
 
@@ -706,6 +706,183 @@ def flashEachNode():
 			nodeMenu()
 	nodeMenu()
 
+def avrDude():
+	sleep(0.12)
+	os.system("clear")
+	sleep(0.12)
+	logo()
+	sleep(0.12)
+	print("\n\n\n						"+bcolors.RED+"AVRDUDE MENU"+bcolors.ENDC+"\n")
+	print ("			 "+bcolors.BLUE+"1 - Install avrdude"+bcolors.ENDC)
+	print ("			 2 - Check if nodes are accessible - beta")
+	print ("			 "+bcolors.YELLOW+"3 - Go back"+bcolors.ENDC)
+	selection=str(raw_input(""))
+	if selection=='1' : 
+		os.system("sudo apt-get update")
+		os.system("sudo apt-get install avrdude -y")
+	if selection=='2' : 
+		nodeOneReset()
+		os.system("sudo avrdude -c arduino -p m328p -v")
+		sleep(2)
+		if nodes_number == 1:
+			return
+		nodeTwoReset()
+		os.system("sudo avrdude -c arduino -p m328p -v")
+		sleep(2)
+		if nodes_number == 2:
+			return
+		nodeThreeReset()
+		os.system("sudo avrdude -c arduino -p m328p -v")
+		sleep(2)
+		if nodes_number == 3:
+			return
+		nodeFourReset()
+		os.system("sudo avrdude -c arduino -p m328p -v")
+		sleep(2)
+		if nodes_number == 4:
+			return
+		nodeFiveReset()
+		os.system("sudo avrdude -c arduino -p m328p -v")
+		sleep(2)
+		if nodes_number == 5:
+			return
+		nodeSixReset()
+		os.system("sudo avrdude -c arduino -p m328p -v")
+		sleep(2)
+		if nodes_number == 6:
+			return
+		nodeSevenReset()
+		os.system("sudo avrdude -c arduino -p m328p -v")
+		sleep(2)
+		if nodes_number == 7:
+			return
+		nodeEightReset()
+		os.system("sudo avrdude -c arduino -p m328p -v")
+		sleep(2)
+		if nodes_number == 8:
+			return
+	if selection=='3' : 
+		mainMenu()
+
+def serialMenu():
+	sleep(0.12)
+	os.system("clear")
+	sleep(0.12)
+	logo()
+	sleep(0.12)
+	def serialContent():
+		os.system("echo 'functionality added' | sudo tee -a ~/.serialok")
+		os.system("echo 'enable_uart=1'| sudo  tee -a /boot/config.txt")
+		os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
+		print("\n\n\t\t\t	Serial port enabled successfully")
+		print (" \n\t\t\t\tYou have to reboot Raspberry now. Ok?\n")
+		print (" \t\t\t\t\t'r' - Reboot now\n")
+		print (" \t\t\t\t\t"+bcolors.YELLOW+"'b' - Go back\n\n"+bcolors.ENDC)
+		selection=str(raw_input(""))
+		if selection=='r':
+			os.system("sudo reboot")
+		if selection== 'b':
+			featuresMenu()
+	print("""\n\n\t\tSerial port has to be enabled. Without it Arduinos cannot be programmed.
+			\n\t\tDo you want to enable it now?""")
+	selection=str(raw_input("\n\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+	if selection == 'y':
+		if os.path.exists("/home/"+user+"/.serialok") == True:
+			print("\n\n\t\t Looks like you already enabled Serial port. Do you want to continue anyway?\n")
+			selection=str(raw_input("\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+			if selection=='y':
+				serialContent()
+			if selection =='a':
+				featuresMenu()
+			else:
+				serialMenu()
+		else:
+			serialContent()
+	if selection == 'a':
+		featuresMenu()
+	else:
+		serialMenu()
+
+def gpioState(): 
+	os.system("clear")
+	logo()
+	print("/n/n/n")
+	os.system("echo "+str(reset_1)+" > /sys/class/GPIO/unexport")
+	os.system("echo "+str(reset_2)+" > /sys/class/GPIO/unexport")
+	os.system("echo "+str(reset_3)+" > /sys/class/GPIO/unexport")
+	os.system("echo "+str(reset_4)+" > /sys/class/GPIO/unexport")
+	os.system("echo "+str(reset_5)+" > /sys/class/GPIO/unexport")
+	os.system("echo "+str(reset_6)+" > /sys/class/GPIO/unexport")
+	os.system("echo "+str(reset_7)+" > /sys/class/GPIO/unexport")
+	os.system("echo "+str(reset_8)+" > /sys/class/GPIO/unexport")
+	os.system("echo 19 > /sys/class/GPIO/unexport")
+	os.system("echo 20 > /sys/class/GPIO/unexport")
+	os.system("echo 21 > /sys/class/GPIO/unexport") 
+	print("\n\n		DONE\n\n")
+	sleep(0.3)
+
+def aliasesMenu():
+	sleep(0.2)
+	os.system("clear")
+	sleep(0.2)
+	def aliasesContent():
+		os.system("echo '' | sudo tee -a ~/.bashrc")
+		os.system("echo '### Shortcuts that can be used in terminal window ###' | sudo tee -a ~/.bashrc")
+		os.system("echo '' | sudo tee -a ~/.bashrc")
+		os.system("echo 'alias ss=\"python ~/RotorHazard/src/server/server.py\"   #  starts the server' | sudo tee -a ~/.bashrc")
+		os.system("echo 'alias cfg=\"nano ~/RotorHazard/src/server/config.json\"   #  opens config.json file' | sudo tee -a ~/.bashrc")
+		os.system("echo 'alias rh=\"cd ~/RotorHazard/src/server\"   # goes to server file location' | sudo tee -a ~/.bashrc")
+		os.system("echo 'alias py=\"python\"  # pure laziness' | sudo tee -a ~/.bashrc")
+		os.system("echo 'alias sts=\"sudo systemctl stop rotorhazard\" # stops RH service' | sudo tee -a ~/.bashrc")
+		os.system("echo 'alias otadir=\"cd ~/RH-ota\"   # goes to server file location' | sudo tee -a ~/.bashrc")
+		os.system("echo 'alias ota=\"python ~/RH-ota/update.py\"  # opens updating script' | sudo tee -a ~/.bashrc")
+		os.system("echo 'alias als=\"nano ~/.bashrc\"   #  opens this file' | sudo tee -a ~/.bashrc")
+		os.system("echo 'alias rld=\"source ~/.bashrc\"   #  reloads aliases file' | sudo tee -a ~/.bashrc")
+		os.system("echo 'alias rcfg=\"sudo raspi-config\"   #  open raspberrys configs' | sudo tee -a ~/.bashrc")
+		os.system("echo 'alias gitota=\"git clone https://github.com/szafranski/RH-ota.git\"   #  clones ota repo' | sudo tee -a ~/.bashrc")
+		os.system("echo '' | sudo tee -a ~/.bashrc")
+		os.system("echo '# After adding or changing aliases manually - reboot raspberry or type \"source ~/.bashrc\".' | sudo tee -a ~/.bashrc")
+		os.system("echo 'functionality added' | sudo tee -a ~/.aliases_added")
+		os.system("source ~/.bashrc")
+		print("\n\n\t\t	Aliases added successfully")
+		sleep(2)
+		featuresMenu()
+	print("""\n\n\t\t
+	Aliases in Linux act like shortcuts or referances to another commands. You can use them every time when you \n\t
+	operates in the terminal window. For example instead of typing 'python ~/RotorHazard/src/server/server.py' \n\t
+	you can just type 'ss' (server start) etc. Aliases can be modified and added anytime you want. You just \n\t  
+	have to open '~./bashrc' file in text editor like 'nano'. After that you have reboot or type 'source ~/.bashrc'. \n\n\t
+	Alias			Command				  What it does	\n
+	ss 	-->  python ~/RotorHazard/src/server/server.py   # starts the server\n\t
+	cfg 	-->  nano ~/RotorHazard/src/server/config.json   # opens config.json file\n\t
+	rh  	-->  cd ~/RotorHazard/src/server   		 # goes to server file location\n\t
+	py  	-->  python  					 # pure laziness\n\t
+	sts  	-->  sudo systemctl stop rotorhazard 		 # stops RH service if was started\n\t
+	otadir  -->  cd ~/RH-ota   				 # goes to main server file location\n\t
+	ota  	-->  python ~/RH-ota/update.py  		 # opens updating script\n\t
+	als  	-->  nano ~/.bashrc   				 # opens this file\n\t
+	rld  	-->  source ~/.bashrc   			 # reloads aliases file \n\t
+	rcfg  	-->  sudo raspi-config   			 # open raspberry's configs\n\t
+	gitota	-->  git clone https://github.com/sza(...) 	 # clones ota repo\n\t\t\t\n
+		Do you want to use above aliases in your system?""")
+	selection=str(raw_input("\t\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+	if selection == 'y':
+		if os.path.exists("/home/"+user+"/.aliases_added") == True:
+			print("\n\n\t\t\t Looks like you already have aliases added. Do you want to continue anyway?\n")
+			selection=str(raw_input("\t\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+			if selection=='y':
+				aliasesContent()
+			if selection =='a':
+				featuresMenu()
+			else:
+				aliasesMenu()
+		else:
+			aliasesContent()
+	if selection == 'a':
+		featuresMenu()
+	else:
+		aliasesMenu()
+
 def selfUpdater():
 	sleep(0.12)
 	os.system("clear")
@@ -776,122 +953,10 @@ def featuresMenu():
 	print("\t\t\t   "+bcolors.YELLOW+"7 - Go back"+bcolors.ENDC)
 	selection=str(raw_input(""))
 	if selection=='1':
-		def avrDude():
-			sleep(0.12)
-			os.system("clear")
-			sleep(0.12)
-			logo()
-			sleep(0.12)
-			print("\n\n\n						"+bcolors.RED+"AVRDUDE MENU"+bcolors.ENDC+"\n")
-			print ("			 "+bcolors.BLUE+"1 - Install avrdude"+bcolors.ENDC)
-			print ("			 2 - Check if nodes are accessible - beta")
-			print ("			 "+bcolors.YELLOW+"3 - Go back"+bcolors.ENDC)
-			selection=str(raw_input(""))
-			if selection=='1' : 
-				os.system("sudo apt-get update")
-				os.system("sudo apt-get install avrdude -y")
-			if selection=='2' : 
-				nodeOneReset()
-				os.system("sudo avrdude -c arduino -p m328p -v")
-				sleep(2)
-				if nodes_number == 1:
-					return
-				nodeTwoReset()
-				os.system("sudo avrdude -c arduino -p m328p -v")
-				sleep(2)
-				if nodes_number == 2:
-					return
-				nodeThreeReset()
-				os.system("sudo avrdude -c arduino -p m328p -v")
-				sleep(2)
-				if nodes_number == 3:
-					return
-				nodeFourReset()
-				os.system("sudo avrdude -c arduino -p m328p -v")
-				sleep(2)
-				if nodes_number == 4:
-					return
-				nodeFiveReset()
-				os.system("sudo avrdude -c arduino -p m328p -v")
-				sleep(2)
-				if nodes_number == 5:
-					return
-				nodeSixReset()
-				os.system("sudo avrdude -c arduino -p m328p -v")
-				sleep(2)
-				if nodes_number == 6:
-					return
-				nodeSevenReset()
-				os.system("sudo avrdude -c arduino -p m328p -v")
-				sleep(2)
-				if nodes_number == 7:
-					return
-				nodeEightReset()
-				os.system("sudo avrdude -c arduino -p m328p -v")
-				sleep(2)
-				if nodes_number == 8:
-					return
-			if selection=='3' : 
-				mainMenu()
 		avrDude()
 	if selection== '2':
-		def serialMenu():
-			sleep(0.12)
-			os.system("clear")
-			sleep(0.12)
-			logo()
-			sleep(0.12)
-			def serialContent():
-				os.system("echo 'functionality added' | sudo tee -a ~/.serialok")
-				os.system("echo 'enable_uart=1'| sudo  tee -a /boot/config.txt")
-				os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
-				print("\n\n\t\t\t	Serial port enabled successfully")
-				print (" \n\t\t\t\tYou have to reboot Raspberry now. Ok?\n")
-				print (" \t\t\t\t\t'r' - Reboot now\n")
-				print (" \t\t\t\t\t"+bcolors.YELLOW+"'b' - Go back\n\n"+bcolors.ENDC)
-				selection=str(raw_input(""))
-				if selection=='r':
-					os.system("sudo reboot")
-				if selection== 'b':
-					featuresMenu()
-			print("""\n\n\t\tSerial port has to be enabled. Without it Arduinos cannot be programmed.
-					\n\t\tDo you want to enable it now?""")
-			selection=str(raw_input("\n\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
-			if selection == 'y':
-				if os.path.exists("/home/"+user+"/.serialok") == True:
-					print("\n\n\t\t Looks like you already enabled Serial port. Do you want to continue anyway?\n")
-					selection=str(raw_input("\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
-					if selection=='y':
-						serialContent()
-					if selection =='a':
-						featuresMenu()
-					else:
-						serialMenu()
-				else:
-					serialContent()
-			if selection == 'a':
-				featuresMenu()
-			else:
-				serialMenu()
 		serialMenu()
 	if selection=='3':
-		def gpioState(): 
-			os.system("clear")
-			logo()
-			print("/n/n/n")
-			os.system("echo "+str(reset_1)+" > /sys/class/GPIO/unexport")
-			os.system("echo "+str(reset_2)+" > /sys/class/GPIO/unexport")
-			os.system("echo "+str(reset_3)+" > /sys/class/GPIO/unexport")
-			os.system("echo "+str(reset_4)+" > /sys/class/GPIO/unexport")
-			os.system("echo "+str(reset_5)+" > /sys/class/GPIO/unexport")
-			os.system("echo "+str(reset_6)+" > /sys/class/GPIO/unexport")
-			os.system("echo "+str(reset_7)+" > /sys/class/GPIO/unexport")
-			os.system("echo "+str(reset_8)+" > /sys/class/GPIO/unexport")
-			os.system("echo 19 > /sys/class/GPIO/unexport")
-			os.system("echo 20 > /sys/class/GPIO/unexport")
-			os.system("echo 21 > /sys/class/GPIO/unexport") 
-			print("\n\n		DONE\n\n")
-			sleep(0.3)
 		gpioState()
 	if selection=='4':
 		def raspberryAP():
@@ -899,68 +964,6 @@ def featuresMenu():
 			sleep(1)
 			#os.system("python ./net_and_ap.py")
 	if selection=='5':
-		def aliasesMenu():
-			sleep(0.2)
-			os.system("clear")
-			sleep(0.2)
-			def aliasesContent():
-				os.system("echo '' | sudo tee -a ~/.bashrc")
-				os.system("echo '### Shortcuts that can be used in terminal window ###' | sudo tee -a ~/.bashrc")
-				os.system("echo '' | sudo tee -a ~/.bashrc")
-				os.system("echo 'alias ss=\"python ~/RotorHazard/src/server/server.py\"   #  starts the server' | sudo tee -a ~/.bashrc")
-				os.system("echo 'alias cfg=\"nano ~/RotorHazard/src/server/config.json\"   #  opens config.json file' | sudo tee -a ~/.bashrc")
-				os.system("echo 'alias rh=\"cd ~/RotorHazard/src/server\"   # goes to server file location' | sudo tee -a ~/.bashrc")
-				os.system("echo 'alias py=\"python\"  # pure laziness' | sudo tee -a ~/.bashrc")
-				os.system("echo 'alias sts=\"sudo systemctl stop rotorhazard\" # stops RH service' | sudo tee -a ~/.bashrc")
-				os.system("echo 'alias otadir=\"cd ~/RH-ota\"   # goes to server file location' | sudo tee -a ~/.bashrc")
-				os.system("echo 'alias ota=\"python ~/RH-ota/update.py\"  # opens updating script' | sudo tee -a ~/.bashrc")
-				os.system("echo 'alias als=\"nano ~/.bashrc\"   #  opens this file' | sudo tee -a ~/.bashrc")
-				os.system("echo 'alias rld=\"source ~/.bashrc\"   #  reloads aliases file' | sudo tee -a ~/.bashrc")
-				os.system("echo 'alias rcfg=\"sudo raspi-config\"   #  open raspberrys configs' | sudo tee -a ~/.bashrc")
-				os.system("echo 'alias gitota=\"git clone https://github.com/szafranski/RH-ota.git\"   #  clones ota repo' | sudo tee -a ~/.bashrc")
-				os.system("echo '' | sudo tee -a ~/.bashrc")
-				os.system("echo '# After adding or changing aliases manually - reboot raspberry or type \"source ~/.bashrc\".' | sudo tee -a ~/.bashrc")
-				os.system("echo 'functionality added' | sudo tee -a ~/.aliases_added")
-				os.system("source ~/.bashrc")
-				print("\n\n\t\t	Aliases added successfully")
-				sleep(2)
-				featuresMenu()
-			print("""\n\n\t\t
-		Aliases in Linux act like shortcuts or referances to another commands. You can use them every time when you \n\t
-		operates in the terminal window. For example instead of typing 'python ~/RotorHazard/src/server/server.py' \n\t
-		you can just type 'ss' (server start) etc. Aliases can be modified and added anytime you want. You just \n\t  
-		have to open '~./bashrc' file in text editor like 'nano'. After that you have reboot or type 'source ~/.bashrc'. \n\n\t
-		Alias			Command				  What it does	\n
-		ss 	-->  python ~/RotorHazard/src/server/server.py   # starts the server\n\t
-		cfg 	-->  nano ~/RotorHazard/src/server/config.json   # opens config.json file\n\t
-		rh  	-->  cd ~/RotorHazard/src/server   		 # goes to server file location\n\t
-		py  	-->  python  					 # pure laziness\n\t
-		sts  	-->  sudo systemctl stop rotorhazard 		 # stops RH service if was started\n\t
-		otadir  -->  cd ~/RH-ota   				 # goes to main server file location\n\t
-		ota  	-->  python ~/RH-ota/update.py  		 # opens updating script\n\t
-		als  	-->  nano ~/.bashrc   				 # opens this file\n\t
-		rld  	-->  source ~/.bashrc   			 # reloads aliases file \n\t
-		rcfg  	-->  sudo raspi-config   			 # open raspberry's configs\n\t
-		gitota	-->  git clone https://github.com/sza(...) 	 # clones ota repo\n\t\t\t\n
-			Do you want to use above aliases in your system?
-""")
-			selection=str(raw_input("\t\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
-			if selection == 'y':
-				if os.path.exists("/home/"+user+"/.aliases_added") == True:
-					print("\n\n\t\t\t Looks like you already have aliases added. Do you want to continue anyway?\n")
-					selection=str(raw_input("\t\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
-					if selection=='y':
-						aliasesContent()
-					if selection =='a':
-						featuresMenu()
-					else:
-						aliasesMenu()
-				else:
-					aliasesContent()
-			if selection == 'a':
-				featuresMenu()
-			else:
-				aliasesMenu()
 		aliasesMenu()
 	if selection=='6':
 		selfUpdater()
@@ -968,6 +971,99 @@ def featuresMenu():
 		mainMenu()
 	else:
 		featuresMenu()
+
+def nodesUpdate():
+	sleep(0.12)
+	os.system("clear")
+	sleep(0.12)
+	logo()
+	sleep(0.12)
+	print("\n\n\t\t\t\t Choose flashing type:\n")
+	print("\t\t\t "+bcolors.GREEN+"1 - Every Node gets own dedicated firmware - recommended"+ bcolors.ENDC+"\n")
+	print("\t\t\t 2 - Nodes will use ground-auto selection firmware\n")
+	print("\t\t\t 3 - Flash 'Blink' on every node\n")
+	print("\t\t\t 4 - Flash each node individually\n")
+	print("\t\t\t "+bcolors.YELLOW+"5 - Go back"+bcolors.ENDC+"\n")
+	sleep(0.3)
+	selection=str(raw_input(""))
+	if selection=='1':
+		flashAllNodes()
+		logo2()
+		sleep(3)
+	if selection=='2':
+		flashAllGnd()
+		logo2()
+		sleep(3)
+	if selection=='3':
+		flashAllBlink()
+		logo2()
+		sleep(3)
+	if selection=='4':
+		flashEachNode()
+	if selection=='5':
+		mainMenu()
+	else:
+		nodesUpdate()
+
+def serverStart():
+	os.system("sudo systemctl stop rotorhazard")
+	sleep(0.12)
+	os.system("clear")
+	sleep(0.12)
+	print("\n\n		Please wait...\n\n")
+	print("\n")
+	os.system("python /home/"+user+"/RotorHazard/src/server/server.py")
+
+def firstTime():
+	def secondPage():
+		sleep(0.12)
+		os.system("clear")
+		sleep(0.12)
+		print("""\n\n 
+			\t\tCONFIGURATION FILE:\n\n
+		Open "distr-updater-config.json" from same folder, make changes \n
+		and save as "updater-config.json". \n\n
+		Possible RotorHazard versions:\n
+		> """+bcolors.BLUE+"""\"stable\""""+bcolors.ENDC+""" - last stable release (can be from before few months)\n
+		> """+bcolors.BLUE+"""\"beta\""""+bcolors.ENDC+"""   - last beta release (usually few weeks, quite stable)\n
+		> """+bcolors.BLUE+"""\"master\""""+bcolors.ENDC+""" - absolutly newest release (even if not well tested)\n
+		""")
+		selection=str(raw_input("\n\t\t\t"+bcolors.GREEN+"'f' - first page'"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - back to menu"+bcolors.ENDC+"\n"))
+		if selection=='f':
+			firstPage()
+		if selection=='b':
+			mainMenu()
+		else :
+			secondPage()
+	def firstPage():
+		sleep(0.12)
+		os.system("clear")
+		sleep(0.12)
+		print("""\n\n\n 
+		You can use all implemened features, but if you want to be able to program\n
+		Arduino-based nodes - enter Features menu and begin with first 2 points.\n\n
+		Also remember about setting up config file - check second page.  \n\n
+		More info here: https://www.instructables.com/id/RotorHazard-Updater/\n
+		and in how_to folder - look for PDF file.\n\n 
+			\n\t\t\tEnjoy!\n\
+									Szafran\n\n """)
+		selection=str(raw_input("\t\t\t"+bcolors.GREEN+"'s' - second page'"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - go back"+bcolors.ENDC+"\n"))
+		if selection=='s':
+			secondPage()
+		if selection=='b':
+			mainMenu()
+		else :
+			firstPage()
+	firstPage()
+
+def end():
+		os.system("clear")
+		print("\n\n")
+		image()
+		print("\t\t\t\t\t  Happy flyin'!\n")
+		sleep(1.3)
+		os.system("clear")
+		sys.exit()
 
 def mainMenu():
 	sleep(0.12)
@@ -989,106 +1085,14 @@ def mainMenu():
 		sleep(0.3)
 		os.system("python ./rpi_soft.py")
 	if selection=='2':
-		def nodesUpdate():
-			sleep(0.12)
-			os.system("clear")
-			sleep(0.12)
-			logo()
-			sleep(0.12)
-			print("\n\n\t\t\t\t Choose flashing type:\n")
-			print("\t\t\t "+bcolors.GREEN+"1 - Every Node gets own dedicated firmware - recommended"+ bcolors.ENDC+"\n")
-			print("\t\t\t 2 - Nodes will use ground-auto selection firmware\n")
-			print("\t\t\t 3 - Flash 'Blink' on every node\n")
-			print("\t\t\t 4 - Flash each node individually\n")
-			print("\t\t\t "+bcolors.YELLOW+"5 - Go back"+bcolors.ENDC+"\n")
-			sleep(0.3)
-			selection=str(raw_input(""))
-			if selection=='1':
-				flashAllNodes()
-				logo2()
-				sleep(3)
-			if selection=='2':
-				flashAllGnd()
-				logo2()
-				sleep(3)
-			if selection=='3':
-				flashAllBlink()
-				logo2()
-				sleep(3)
-			if selection=='4':
-				flashEachNode()
-			if selection=='5':
-				mainMenu()
-			else:
-				nodesUpdate()
 		nodesUpdate()
-		
 	if selection=='3':
-		def serverStart():
-			os.system("sudo systemctl stop rotorhazard")
-			sleep(0.12)
-			os.system("clear")
-			sleep(0.12)
-			print("\n\n		Please wait...\n\n")
-			print("\n")
-			os.system("python /home/"+user+"/RotorHazard/src/server/server.py")
 		serverStart()
 	if selection=='4':
 			featuresMenu()
 	if selection=='5':
-		def firstTime():
-			def secondPage():
-				sleep(0.12)
-				os.system("clear")
-				sleep(0.12)
-				print("""\n\n 
-		    \t\tCONFIGURATION FILE:\n\n
-		Open "distr-updater-config.json" from same folder, make changes \n
-		and save as "updater-config.json". \n\n
-		Possible RotorHazard versions:\n
-		> """+bcolors.BLUE+"""\"stable\""""+bcolors.ENDC+""" - last stable release (can be from before few months)\n
-		> """+bcolors.BLUE+"""\"beta\""""+bcolors.ENDC+"""   - last beta release (usually few weeks, quite stable)\n
-		> """+bcolors.BLUE+"""\"master\""""+bcolors.ENDC+""" - absolutly newest release (even if not well tested)\n
-				""")
-				selection=str(raw_input("\n\t\t\t"+bcolors.GREEN+"'f' - first page'"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - back to menu"+bcolors.ENDC+"\n"))
-				if selection=='f':
-					firstPage()
-				if selection=='b':
-					mainMenu()
-				else :
-					secondPage()
-			def firstPage():
-				sleep(0.12)
-				os.system("clear")
-				sleep(0.12)
-				logo()
-				sleep(0.12)
-				print("""\n\n\n 
-		You can use all implemened features, but if you want to be able to program\n
-		Arduino-based nodes - enter Features menu and begin with first 2 points.\n\n
-		Also remember about setting up config file - check second page.  \n\n
-		More info here: https://www.instructables.com/id/RotorHazard-Updater/\n
-		and in how_to folder - look for PDF file.\n\n 
-			\n\t\t\tEnjoy!\n\
-									Szafran\n\n """)
-				selection=str(raw_input("\t\t\t"+bcolors.GREEN+"'s' - second page'"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - go back"+bcolors.ENDC+"\n"))
-				if selection=='s':
-					secondPage()
-				if selection=='b':
-					mainMenu()
-				else :
-					firstPage()
-			firstPage()
 		firstTime()
 	if selection=='6':
-		def end():
-			os.system("clear")
-			print("\n\n")
-			image()
-			print("\t\t\t\t\t  Happy flyin'!\n")
-			sleep(1.3)
-			os.system("clear")
-			sys.exit()
 		end()
 	else: 
 		mainMenu()
