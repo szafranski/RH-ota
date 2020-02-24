@@ -7,8 +7,8 @@ import os
 import sys
 import json
 
-updater_version = '2.2.1'   ### version of THIS program - has nothing to do with RH version
-                            ### reffers to the API level of newest contained nodes firmware 
+updater_version = '2.2.2'   ### version of THIS program - has nothing to do with the RH version
+                            ### it reffers to the API level of newest contained nodes firmware 
                             ### third number reffers to actual verion of the updater
 
 if os.path.exists("./updater-config.json") == True:
