@@ -1,3 +1,7 @@
+####To do:####
+# avrdude test
+# Access Point
+
 from time import sleep
 import os
 import sys
@@ -13,10 +17,6 @@ if os.path.exists("./updater-config.json") == True:
 else:
 	with open('distr-updater-config.json') as config_file:
 		data = json.load(config_file)
-
-####To do:####
-# avrdude test
-# Access Point
 
 preffered_RH_version = data['RH_version']
 
