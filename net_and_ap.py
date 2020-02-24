@@ -50,9 +50,9 @@ def first ():
 first()
 
 
-Set the WiFi country in raspi-config's Localisation Options:
-sudo raspi-config
-( 4. point -> I4 - Change WiFi country -> select -> enter -> finish )
+# Set the WiFi country in raspi-config's Localisation Options:
+# sudo raspi-config
+# ( 4. point -> I4 - Change WiFi country -> select -> enter -> finish )
 
 os.system("sudo sed -i 's/country/# country/g' /etc/wpa_supplicant/wpa_supplicant.conf")
 os.system("echo 'country="+myPlace+"'| sudo  tee -a /boot/config.txt")
