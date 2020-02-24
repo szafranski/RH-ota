@@ -1,12 +1,20 @@
 
-### You can change user name and version you want to use here:
+### You can change user name and version here:
 
 
 user = 'pi'       		### change to '<your username>' or leave unchanged if you haven't changed the default username on a Raspberry
 						### change for testing purposes on Linux or in WSL as well
 
-version = 'master'    ### change to eg. '2.0.2' or leave as it is (can be in beta so check out latest release page:
-                      ### https://github.com/RotorHazard/RotorHazard/releases and check current "Latest release version"
+preffered_RH_version = 'stable'   #### can be 'beta'or 'master' or 'user_defined' - default 'stable'
+
+if preffered_RH_version == 'master':
+	server_version = 'master'
+if preffered_RH_version == 'beta':
+	server_version = '2.1.0-beta.3'
+if preffered_RH_version == 'stable':
+	server_version = '2.0.2'
+if preffered_RH_version =='user_defined':
+	server_version = 'X.X.X'           ### paste custom version number here if you want to declare it manually
 
 from time import sleep
 import os
@@ -83,10 +91,10 @@ def end():
 
 def installation():
 	#os.system("sudo killall python *server.py")
-	os.system("sudo systemctl stop rotorhazard")
 	os.system("clear")
 	sleep(0.1)
 	print("\n\t\t Installation process started - please wait... \n")
+	os.system("sudo systemctl stop rotorhazard")
 	os.chdir("/home/"+user)
 	os.system("sudo apt-get update && sudo apt-get upgrade -y")
 	os.system("sudo systemctl enable ssh")
@@ -106,10 +114,10 @@ def installation():
 	os.system("mkdir /home/"+user+"/.old_RotorHazard.old")
 	os.system("sudo mv /home/"+user+"/RotorHazard-master /home/"+user+"/.old_RotorHazard.old/")
 	os.chdir("/home/"+user)
-	os.system("wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"+version+" -O temp.zip")
+	os.system("wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"+server_version+" -O temp.zip")
 	os.system("unzip temp.zip")
 	os.system("rm temp.zip")
-	os.system("mv /home/"+user+"/RotorHazard-"+version+" /home/"+user+"/RotorHazard")
+	os.system("mv /home/"+user+"/RotorHazard-"+server_version+" /home/"+user+"/RotorHazard")
 	os.system("sudo pip install -r /home/"+user+"/RotorHazard/src/server/requirements.txt")
 	os.system("sudo chmod 777 /home/"+user+"/RotorHazard/src/server")
 	os.chdir("/home/"+user)
@@ -185,9 +193,9 @@ def update():
 		os.system("sudo mv /home/"+user+"/RotorHazard.old /home/"+user+"/.old_RotorHazard.old/")
 		os.system("sudo mv /home/"+user+"/RotorHazard /home/"+user+"/RotorHazard.old")
 		os.chdir("/home/"+user)
-		os.system("wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"+version+" -O temp.zip")
+		os.system("wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"+server_version+" -O temp.zip")
 		os.system("unzip temp.zip")
-		os.system("sudo mv /home/"+user+"/RotorHazard-"+version+" /home/"+user+"/RotorHazard")
+		os.system("sudo mv /home/"+user+"/RotorHazard-"+server_version+" /home/"+user+"/RotorHazard")
 		os.system("rm temp.zip")
 		os.system("mkdir /home/"+user+"/backup_RH_data")
 		os.system("cp /home/"+user+"/RotorHazard.old/src/server/config.json /home/"+user+"/RotorHazard/src/server/")
@@ -213,8 +221,8 @@ def main():
 	This script will automatically install or update RotorHazard software on your Raspberry Pi. \n\t
 	All additional software depedancies and libraries also will be installed or updated.\n\t
 	Your current database, config file and custom bitmaps will stay on the updated software.\n\t
-	Source of the software will be '"""+bcolors.BLUE+version+bcolors.ENDC+"""' repository of RotorHazard software on GitHub.\n\t 
-	If you prefer to use recent stable version - change the source accordingly.\n\t
+	Source of the software will be '"""+bcolors.BLUE+server_version+bcolors.ENDC+"""' version from the RotorHazard repository.\n\t 
+	If you prefer to use newest possible beta version - change the source accordingly.\n\t
 	Also make sure that you are logged as user '"""+bcolors.BLUE+user+bcolors.ENDC+"""'. \n\n\t
 	You can change those by oppening file 'rpi_soft.py' in text editor - like 'nano'.
 	\n\n\n\t\t\t\t\t\t\t\t\tEnjoy!\n\n\t\t

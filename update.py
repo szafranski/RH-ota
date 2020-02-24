@@ -16,6 +16,8 @@ if preffered_RH_version == 'beta':
 	firmware_version = 'beta'
 if preffered_RH_version == 'stable':
 	firmware_version = 'stable'
+if preffered_RH_version == 'user_defined':
+	firmware_version = 'stable'
 
 ##### Change those only if you want to test the software on PC #####
 linux_testing = False  		### change to True for testing on Linux PC or WSL
