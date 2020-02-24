@@ -16,7 +16,7 @@ else:
 	linux_testing = False 
 
 if linux_testing == True:
-	user = data['linux_user']
+	user = data['debug_user']
 else:
 	user = data['pi_user']
 
@@ -236,7 +236,7 @@ def main():
 	Source of the software will be '"""+bcolors.BLUE+server_version+bcolors.ENDC+"""' version from the RotorHazard repository.\n\t 
 	If you prefer to use newest possible beta version - change the source accordingly.\n\t
 	Also make sure that you are logged as user '"""+bcolors.BLUE+user+bcolors.ENDC+"""'. \n\n\t
-	You can change those by oppening file 'rpi_soft.py' in text editor - like 'nano'.
+	You can change those by editing file 'updater-config.json' in text editor - like 'nano'.
 	\n\n\n\t\t\t\t\t\t\t\t\tEnjoy!\n\n\t\t
 	\t 'i' - Install software from skratch\n\t\t
 	\t 'u' - Update existing installation\n\t\t

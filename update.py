@@ -48,7 +48,7 @@ else:
 	linux_testing = False 
 
 if linux_testing == True:
-	user = data['linux_user']
+	user = data['debug_user']
 else:
 	user = data['pi_user']
 
