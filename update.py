@@ -678,6 +678,15 @@ def selfUpdater():
 		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+""",\n\t\t
 		so you allways know what firmware version updater contains.\n\t\t
 		Be sure that you have internet connection established.\n\n """)
+		print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
+		+bcolors.YELLOW+"""    Go back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
+		selection=str(raw_input(""))
+		if selection=='r':
+			os.system("sudo reboot")
+		if selection=='b':
+			featuresMenu()
+		else :
+			selfUpdater()
 	else:
 		print("""\n\n 
 		If you want to update this program and download new firmware, \n
@@ -686,10 +695,8 @@ def selfUpdater():
 		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+""",\n\t\t
 		so you allways know what firmware version updater contains.\n\n\t\t
 		Be sure that you have internet connection established.\n\n """)
-	selection=str(raw_input("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
-	+bcolors.YELLOW+"""    Go back by pressing 'b'"""+bcolors.ENDC+"""\n\n"""))
-	if selection=='r':
-		os.system("sudo reboot")
+	print("""\n\t\t\t\t"""+bcolors.YELLOW+"""    Go back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
+	selection=str(raw_input(""))
 	if selection=='b':
 		featuresMenu()
 	else :
