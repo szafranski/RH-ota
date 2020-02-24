@@ -230,7 +230,7 @@ def logo2():
 def first ():
 	image ()
 	os.system("clear")
-	print("\n\n\n")
+	print("\n\n")
 	image()
 	print("\t\t\t\t\t Updater version: "+str(updater_version))
 	sleep(1.3)
@@ -659,7 +659,7 @@ def selfUpdater():
 	logo()
 	sleep(0.12)
 	if os.path.exists("/home/"+user+"/.updater_self") == False:
-		os.system("""echo 'alias updateupdater=\"cd /home/"+user+" && sudo rm -r RH-ota && git clone https://github.com/szafranski/RH-ota.git && 
+		os.system("""echo 'alias updateupdater=\"cd /home/"""+user+""" && sudo rm -r RH-ota && git clone https://github.com/szafranski/RH-ota.git && 
 		echo  && echo  RotorHazard OTA Manager updated && echo   \"  # part of self updater' | sudo tee -a ~/.bashrc""")
 		sleep(0.1)
 		os.system("source /home/"+user+"/.bashrc")
@@ -695,12 +695,15 @@ def selfUpdater():
 		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+""",\n\t\t
 		so you allways know what firmware version updater contains.\n\n\t\t
 		Be sure that you have internet connection established.\n\n """)
-	print("""\n\t\t\t\t"""+bcolors.YELLOW+"""    Go back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
-	selection=str(raw_input(""))
-	if selection=='b':
-		featuresMenu()
-	else :
-		selfUpdater()
+		print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Exit program by pressing 'e' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
+		+bcolors.YELLOW+"""    Go back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
+		selection=str(raw_input(""))
+		if selection=='e':
+			sys.exit()
+		if selection=='b':
+			featuresMenu()
+		else :
+			selfUpdater()
 
 def featuresMenu():
 	sleep(0.12)
@@ -905,7 +908,6 @@ gitota	-->  git clone https://github.com/sza(...) 	 # clones ota repo\n\t\t\t\n
 				aliasesMenu()
 		aliasesMenu()
 	if selection=='6':
-		#return
 		selfUpdater()
 	if selection=='7':
 		mainMenu()

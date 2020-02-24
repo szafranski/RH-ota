@@ -52,9 +52,8 @@ def image():
 
 
 def first ():
-	image ()
 	os.system("clear")
-	print("\n\n\n\n\n")
+	print("\n\n\n")
 	image()
 	sleep(0.5)
 first()
