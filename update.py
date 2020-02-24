@@ -7,14 +7,18 @@ updater_version = '2.2.1'   ### version of THIS program - has nothing to do with
                             ### reffers to the API level of newest contained nodes firmware 
                             ### third number reffers to actual verion of the updater
 
-with open('updater-config.json') as config_file:
-	data = json.load(config_file)
+if os.path.exists("./updater-config.json") == False:
+	with open('distr-updater-config.json') as config_file:
+		data = json.load(config_file)
+else:
+	with open('updater-config.json') as config_file:
+		data = json.load(config_file)
 
 ####To do:####
 # avrdude test
 # Access Point
 
-preffered_RH_version = data['RH_version']   #### can be changed to 'beta'or 'master'
+preffered_RH_version = data['RH_version']
 
 if preffered_RH_version == 'master':
 	firmware_version = 'master'
@@ -25,8 +29,7 @@ if preffered_RH_version == 'stable':
 if preffered_RH_version == 'custom':
 	firmware_version = 'stable'
 
-########## Define number of nodes that you have in your system here:
-nodes_number = data['nodes_number']    ## default 8
+nodes_number = data['nodes_number']
 
 ########    Enter pins connected to reset pins on Arduino-nodes:    ########
 

@@ -3,10 +3,12 @@ import os
 import sys
 import json
 
-### You can change user name and version here:
-
-with open('updater-config.json') as config_file:
-	data = json.load(config_file)
+if os.path.exists("./updater-config.json") == False:
+	with open('distr-updater-config.json') as config_file:
+		data = json.load(config_file)
+else:
+	with open('updater-config.json') as config_file:
+		data = json.load(config_file)
 
 if data['debug_mode'] == 1:
 	linux_testing = True
@@ -17,7 +19,6 @@ if linux_testing == True:
 	user = data['linux_user']
 else:
 	user = data['pi_user']
-
 
 preffered_RH_version = data['RH_version']   #### can be 'beta'or 'master' or 'user_defined' - default 'stable'
 
