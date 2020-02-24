@@ -1,7 +1,7 @@
 
-updater_version = '2.2.1' 	### version of THIS program - has nothing to do with RH version
-							### reffers to the API level of newest contained nodes firmware 
-							### third number reffers to actual verion of the updater
+updater_version = '2.2.1'   ### version of THIS program - has nothing to do with RH version
+                            ### reffers to the API level of newest contained nodes firmware 
+                            ### third number reffers to actual verion of the updater
 
 ####To do:####
 # avrdude test
@@ -20,11 +20,11 @@ if preffered_RH_version == 'user_defined':
 	firmware_version = 'stable'
 
 ##### Change those only if you want to test the software on PC #####
-linux_testing = False  		### change to True for testing on Linux PC or WSL
-							### change your Linux PC username in line 32 as well
+linux_testing = False       ### change to True for testing on Linux PC or WSL
+                            ### change your Linux PC username in line 32 as well
 
 ########## Define number of nodes that you have in your system here:
-nodes_number = 8  ## default 8
+nodes_number = 8    ## default 8
 
 ########    Enter pins connected to reset pins on Arduino-nodes:    ########
 
