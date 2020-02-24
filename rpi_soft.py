@@ -2,7 +2,7 @@
 ### You can change user name and version you want to use here:
 
 
-user = 'andrzej'       		### change to '<your username>' or leave unchanged if you haven't changed the default username on a Raspberry
+user = 'pfabi'       		### change to '<your username>' or leave unchanged if you haven't changed the default username on a Raspberry
 						### change for testing purposes on Linux or in WSL as well
 
 version = 'master'    ### change to eg. '2.0.2' or leave as it is (can be in beta so check out latest release page:

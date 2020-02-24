@@ -1,12 +1,13 @@
-####To do:####
 
+updater_version = 2.2  ### version of THIS program - has nothing to do with RH version
+
+####To do:####
 # show 'flashed'?
 # Access Point
-# self-updater
 
 ##### Change those only if you want to test the software on PC #####
 linux_testing = False  		### change to True for testing on Linux PC or WSL
-							### change your Linux PC username in line 29 as well
+							### change your Linux PC username in line 30 as well
 
 ########## Define number of nodes that you have in your system here:
 nodes_number = 8  ## default 8
@@ -26,7 +27,7 @@ if (linux_testing == False):
 	user = 'pi'           ### you can change it if your Raspberry's user is named differently
 
 if (linux_testing == True):
-	linux_user = 'andrzej'   ### change this if you are using this software on Linux PC for testing
+	linux_user = 'pfabi'   ### change this if you are using this software on Linux PC for testing
 
 class bcolors:
 	HEADER = '\033[95m'
@@ -204,7 +205,7 @@ def image():
 """)
 
 def logo():
-	print("""\n\n	
+	print("""\n	
 		#######################################################################
 		###                                                                 ###
 		###                        """+bcolors.ORANGE+"""RotorHazard"""+bcolors.ENDC+"""                              ###
@@ -213,7 +214,7 @@ def logo():
 		###                                                                 ###
 		#######################################################################""")
 	if (linux_testing == True):
-		print("\t\t\t\t\t    Linux PC")
+		print("\t\t\t\t\t  Linux PC version")
 		
 def logo2():
 	print("""
@@ -229,8 +230,9 @@ def logo2():
 def first ():
 	image ()
 	os.system("clear")
-	print("\n\n\n\n\n")
+	print("\n\n\n")
 	image()
+	print("\t\t\t\t\t Updater version: "+str(updater_version))
 	sleep(1.3)
 first()
 
@@ -651,25 +653,43 @@ def flashEachNode():
 	nodeMenu()
 
 def selfUpdater():
-	os.system("echo 'updater marker' | sudo tee -a ~/.updater_self")
-	if os.path.exists("/home/"+user+"/.updater_self") == False:
-		os.system("echo 'alias updateota=\"cd /home/andrzej && sudo rm -r RH-ota && git clone https://github.com/szafranski/RH-ota.git && echo  && echo                    RotorHazard OTA manager updated && echo   \"  # part of self updater ' | sudo tee -a ~/.bashrc")
-		sleep(0.5)
-		os.system("source /home/andrzej/.bashrc")
 	sleep(0.12)
 	os.system("clear")
 	sleep(0.12)
 	logo()
 	sleep(0.12)
-	print("""\n\n \t
-			If you want to update this program and download \n\t\t
-			new firmware for Arduino nodes (if it's available) \n\t\t
-			- so you can next flash them - you have to exit \n\t\t
-			this program and type 'updateota' in terminal window.\n\t\t
-			Be sure that you have internet connection established.\n\n """)
-	selection=str(raw_input("\n\t\t\t\t"+bcolors.GREEN+"Exit program by pressing 'e' "+bcolors.ENDC+"\n\n\t\t\t\t"+bcolors.YELLOW+"Go back by pressing 'b'"+bcolors.ENDC+"\n\n"))
-	if selection=='e':
-		sys.exit()
+	if os.path.exists("/home/"+user+"/.updater_self") == False:
+		os.system("""echo 'alias updateota=\"cd /home/"+user+" && sudo rm -r RH-ota && git clone https://github.com/szafranski/RH-ota.git && 
+		echo  && echo  RotorHazard OTA Manager updated && echo   \"  # part of self updater' | sudo tee -a ~/.bashrc""")
+		sleep(0.1)
+		os.system("source /home/"+user+"/.bashrc")
+		os.system("echo 'updater marker' | sudo tee -a ~/.updater_self")
+		sleep(0.12)
+		os.system("clear")
+		sleep(0.12)
+		logo()
+		sleep(0.12)
+		print("""\n\n 
+		If you want to update this program and download new firmware, \n
+		prepared for Arduino nodes - so you can next flash them  \n\t\t
+		- you have to reboot the Raspberry. Next step is to type  \n\t\t
+		'updateota' in the terminal window.\n\t\t
+		Next time you won't have to reboot before updating.\n\n\t\t
+		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+""",\n\t\t
+		so you allways know what firmware version updater contains.\n\t\t
+		Be sure that you have internet connection established.\n\n """)
+	else:
+		print("""\n\n 
+		If you want to update this program and download new firmware, \n
+		prepared for Arduino nodes - so you can next flash them \n\t\t
+		- you have to type 'updateota' in the terminal window.\n\n\t\t
+		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+""",\n\t\t
+		so you allways know what firmware version updater contains.\n\n\t\t
+		Be sure that you have internet connection established.\n\n """)
+	selection=str(raw_input("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
+	+bcolors.YELLOW+"""    Go back by pressing 'b'"""+bcolors.ENDC+"""\n\n"""))
+	if selection=='r':
+		os.system("sudo reboot")
 	if selection=='b':
 		featuresMenu()
 	else :
@@ -685,9 +705,9 @@ def featuresMenu():
 	print("\t\t\t   "+bcolors.BLUE+"1 - Install avrdude\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BLUE+"2 - Enable serial protocol"+bcolors.ENDC+"\n")
 	print("\t\t\t   3 - Fix GPIO pins state\n")
-	print("\t\t\t   4 - Raspberry as Access Point - coming soon\n")
+	print("\t\t\t   4 - Access Point and Internet - coming soon\n")
 	print("\t\t\t   5 - Useful aliases\n")
-	print("\t\t\t   6 - Self updater - coming soon\n")
+	print("\t\t\t   6 - Self updater - beta\n")
 	print("\t\t\t   "+bcolors.YELLOW+"7 - Go back"+bcolors.ENDC)
 	selection=str(raw_input(""))
 	if selection=='1':
@@ -844,8 +864,7 @@ def featuresMenu():
 Aliases in Linux act like shortcuts or referances to another commands. You can use them every time when you \n\t
 operates in the terminal window. For example instead of typing 'python ~/RotorHazard/src/server/server.py' \n\t
 you can just type 'ss' (server start) etc. Aliases can be modified and added anytime you want. You just \n\t  
-have to open '~./bashrc' file in text editor like 'nano'. After that you have reboot or type 'source ~/.bashrc' \n\t
-- or use alias 'rld'. \n\n\t
+have to open '~./bashrc' file in text editor like 'nano'. After that you have reboot or type 'source ~/.bashrc'. \n\n\t
    Alias			Command					What it does	\n
 ss 	-->  python ~/RotorHazard/src/server/server.py   # starts the server\n\t
 cfg 	-->  nano ~/RotorHazard/src/server/config.json   # opens config.json file\n\t
@@ -860,7 +879,6 @@ rcfg  	-->  sudo raspi-config   			 # open raspberry's configs\n\t
 gitota	-->  git clone https://github.com/sza(...) 	 # clones ota repo\n\t\t\t\n
 			Do you want to use above aliases in your system?
 """)
-			
 			selection=str(raw_input("\t\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 			if selection == 'y':
 				if os.path.exists("/home/"+user+"/.aliases_added") == True:
@@ -880,8 +898,8 @@ gitota	-->  git clone https://github.com/sza(...) 	 # clones ota repo\n\t\t\t\n
 				aliasesMenu()
 		aliasesMenu()
 	if selection=='6':
-		sleep(0.1)
-		# selfUpdater()
+		#return
+		selfUpdater()
 	if selection=='7':
 		mainMenu()
 	else:
@@ -978,7 +996,7 @@ def mainMenu():
 			os.system("clear")
 			print("\n\n")
 			image()
-			print("\n\t\t\t\t\t  Happy flyin'!\n")
+			print("\t\t\t\t\t  Happy flyin'!\n")
 			sleep(1.3)
 			os.system("clear")
 			sys.exit()
