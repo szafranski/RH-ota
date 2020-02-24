@@ -700,7 +700,8 @@ def selfUpdater():
 		Next time you won't have to reboot before updating.\n\n\t\t
 		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+""",\n\t\t
 		so you allways know what firmware version updater contains.\n\t\t
-		Be sure that you have internet connection established.\n\n """)
+		Be sure that you have internet connection established\n\t\t
+		and remember to re-type number of nodes and username.\n\n """)
 		print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
 		+bcolors.YELLOW+"""    Go back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
 		selection=str(raw_input(""))
@@ -717,7 +718,8 @@ def selfUpdater():
 		- you have to type 'updateupdater' in the terminal window.\n\n\t\t
 		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+""",\n\t\t
 		so you allways know what firmware version updater contains.\n\n\t\t
-		Be sure that you have internet connection established.\n\n """)
+		Be sure that you have internet connection established\n\t\t
+		and remember to re-type number of nodes and username.\n\n """)
 		print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Exit program by pressing 'e' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
 		+bcolors.YELLOW+"""    Go back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
 		selection=str(raw_input(""))
@@ -740,7 +742,7 @@ def featuresMenu():
 	print("\t\t\t   3 - Fix GPIO pins state\n")
 	print("\t\t\t   4 - Access Point and Internet - coming soon\n")
 	print("\t\t\t   5 - Useful aliases\n")
-	print("\t\t\t   6 - Self updater - beta\n")
+	print("\t\t\t   6 - Self updater \n")
 	print("\t\t\t   "+bcolors.YELLOW+"7 - Go back"+bcolors.ENDC)
 	selection=str(raw_input(""))
 	if selection=='1':
@@ -751,13 +753,13 @@ def featuresMenu():
 			logo()
 			sleep(0.12)
 			print("\n\n\n						"+bcolors.RED+"AVRDUDE MENU"+bcolors.ENDC+"\n")
-			print ("			 "+bcolors.BLUE+"1 - Install and test avrdude"+bcolors.ENDC)
-			print ("			 2 - Check if nodes are accessible")
+			print ("			 "+bcolors.BLUE+"1 - Install avrdude"+bcolors.ENDC)
+			print ("			 2 - Check if nodes are accessible - beta")
 			print ("			 "+bcolors.YELLOW+"3 - Go back"+bcolors.ENDC)
 			selection=str(raw_input(""))
 			if selection=='1' : 
 				os.system("sudo apt-get update")
-				os.system("sudo apt-get install avrdude")
+				os.system("sudo apt-get install avrdude -y")
 			if selection=='2' : 
 				nodeOneReset()
 				os.system("sudo avrdude -c arduino -p m328p -v")
@@ -894,22 +896,22 @@ def featuresMenu():
 				sleep(2)
 				featuresMenu()
 			print("""\n\n\t\t
-Aliases in Linux act like shortcuts or referances to another commands. You can use them every time when you \n\t
-operates in the terminal window. For example instead of typing 'python ~/RotorHazard/src/server/server.py' \n\t
-you can just type 'ss' (server start) etc. Aliases can be modified and added anytime you want. You just \n\t  
-have to open '~./bashrc' file in text editor like 'nano'. After that you have reboot or type 'source ~/.bashrc'. \n\n\t
-   Alias			Command					What it does	\n
-ss 	-->  python ~/RotorHazard/src/server/server.py   # starts the server\n\t
-cfg 	-->  nano ~/RotorHazard/src/server/config.json   # opens config.json file\n\t
-rh  	-->  cd ~/RotorHazard/src/server   		 # goes to server file location\n\t
-py  	-->  python  					 # pure laziness\n\t
-sts  	-->  sudo systemctl stop rotorhazard 		 # stops RH service if was started\n\t
-otadir  -->  cd ~/RH-ota   				 # goes to main server file location\n\t
-ota  	-->  python ~/RH-ota/update.py  		 # opens updating script\n\t
-als  	-->  nano ~/.bashrc   				 # opens this file\n\t
-rld  	-->  source ~/.bashrc   			 # reloads aliases file \n\t
-rcfg  	-->  sudo raspi-config   			 # open raspberry's configs\n\t
-gitota	-->  git clone https://github.com/sza(...) 	 # clones ota repo\n\t\t\t\n
+		Aliases in Linux act like shortcuts or referances to another commands. You can use them every time when you \n\t
+		operates in the terminal window. For example instead of typing 'python ~/RotorHazard/src/server/server.py' \n\t
+		you can just type 'ss' (server start) etc. Aliases can be modified and added anytime you want. You just \n\t  
+		have to open '~./bashrc' file in text editor like 'nano'. After that you have reboot or type 'source ~/.bashrc'. \n\n\t
+		Alias			Command				  What it does	\n
+		ss 	-->  python ~/RotorHazard/src/server/server.py   # starts the server\n\t
+		cfg 	-->  nano ~/RotorHazard/src/server/config.json   # opens config.json file\n\t
+		rh  	-->  cd ~/RotorHazard/src/server   		 # goes to server file location\n\t
+		py  	-->  python  					 # pure laziness\n\t
+		sts  	-->  sudo systemctl stop rotorhazard 		 # stops RH service if was started\n\t
+		otadir  -->  cd ~/RH-ota   				 # goes to main server file location\n\t
+		ota  	-->  python ~/RH-ota/update.py  		 # opens updating script\n\t
+		als  	-->  nano ~/.bashrc   				 # opens this file\n\t
+		rld  	-->  source ~/.bashrc   			 # reloads aliases file \n\t
+		rcfg  	-->  sudo raspi-config   			 # open raspberry's configs\n\t
+		gitota	-->  git clone https://github.com/sza(...) 	 # clones ota repo\n\t\t\t\n
 			Do you want to use above aliases in your system?
 """)
 			selection=str(raw_input("\t\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
