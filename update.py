@@ -1,14 +1,20 @@
+from time import sleep
+import os
+import sys
+import json
 
 updater_version = '2.2.1'   ### version of THIS program - has nothing to do with RH version
                             ### reffers to the API level of newest contained nodes firmware 
                             ### third number reffers to actual verion of the updater
 
+with open('updater-config.json') as config_file:
+	data = json.load(config_file)
+
 ####To do:####
 # avrdude test
 # Access Point
-# json configs
 
-preffered_RH_version = 'stable'   #### can be changed to 'beta'or 'master'
+preffered_RH_version = data['RH_version']   #### can be changed to 'beta'or 'master'
 
 if preffered_RH_version == 'master':
 	firmware_version = 'master'
@@ -16,15 +22,11 @@ if preffered_RH_version == 'beta':
 	firmware_version = 'beta'
 if preffered_RH_version == 'stable':
 	firmware_version = 'stable'
-if preffered_RH_version == 'user_defined':
+if preffered_RH_version == 'custom':
 	firmware_version = 'stable'
 
-##### Change those only if you want to test the software on PC #####
-linux_testing = False       ### change to True for testing on Linux PC or WSL
-                            ### change your Linux PC username in line 44 as well
-
 ########## Define number of nodes that you have in your system here:
-nodes_number = 8    ## default 8
+nodes_number = data['nodes_number']    ## default 8
 
 ########    Enter pins connected to reset pins on Arduino-nodes:    ########
 
@@ -37,11 +39,15 @@ reset_6 = 13  ## node 6  # default 13
 reset_7 = 19  ## node 7  # default 19
 reset_8 = 26  ## node 8  # default 26
 
-if (linux_testing == False):
-	user = 'pi'           ### you can change it if your Raspberry's user is named differently
+if data['debug_mode'] == 1:
+	linux_testing = True
+else:
+	linux_testing = False 
 
-if (linux_testing == True):
-	linux_user = 'pfabi'   ### change this if you are using this software on Linux PC for testing
+if linux_testing == True:
+	user = data['linux_user']
+else:
+	user = data['pi_user']
 
 class bcolors:
 	HEADER = '\033[95m'
@@ -53,10 +59,6 @@ class bcolors:
 	ENDC = '\033[0m'
 	BOLD = '\033[1m'
 	UNDERLINE = '\033[4m'
-
-from time import sleep
-import os
-import sys
 
 if (linux_testing == False): 
 	import RPi.GPIO as GPIO
@@ -154,7 +156,6 @@ if (linux_testing == False):
 		GPIO.output(reset_8, GPIO.HIGH)
 
 if (linux_testing == True): 
-	user= linux_user   
 	def allPinsReset():
 		print("\n\n\t\t\t\t\t/home/"+user+"/RH-ota/firmware/"+firmware_version+"/X.hex")
 		print("\n\t\t\t\t\t Linux - PC\n\n")

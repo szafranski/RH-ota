@@ -1,0 +1,8 @@
+{
+	"pi_user" : "pi",
+	"RH_version" : "beta",
+	"linux_user" : "pfabi",
+	"country" : "PL",
+	"nodes_number" : 8,
+	"debug_mode" : 1
+}
