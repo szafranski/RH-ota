@@ -729,8 +729,8 @@ def selfUpdater():
 		Next time you won't have to reboot before updating.\n\n\t\t
 		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+""",\n\t\t
 		so you allways know what firmware version updater contains.\n\t\t
-		Be sure that you have internet connection established\n\t\t
-		and remember to re-type number of nodes and username.\n\n """)
+		For example 2.2.1 contains nodes firmware with API 22 etc.\n\t\t
+		Be sure that you have internet connection established.\n\n """)
 		print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
 		+bcolors.YELLOW+"""    Go back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
 		selection=str(raw_input(""))
@@ -746,9 +746,9 @@ def selfUpdater():
 		prepared for Arduino nodes - so you can next flash them \n\t\t
 		- you have to type 'updateupdater' in the terminal window.\n\n\t\t
 		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+""",\n\t\t
-		so you allways know what firmware version updater contains.\n\n\t\t
-		Be sure that you have internet connection established\n\t\t
-		and remember to re-type number of nodes and username.\n\n """)
+		so you allways know what firmware version updater contains.\n\t\t
+		For example "2.2.1" contains nodes firmware with "API level 22" etc.\n\t\t
+		Be sure that you have internet connection established.\n\n """)
 		print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Exit program by pressing 'e' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
 		+bcolors.YELLOW+"""    Go back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
 		selection=str(raw_input(""))
