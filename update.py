@@ -21,7 +21,7 @@ if preffered_RH_version == 'user_defined':
 
 ##### Change those only if you want to test the software on PC #####
 linux_testing = False       ### change to True for testing on Linux PC or WSL
-                            ### change your Linux PC username in line 32 as well
+                            ### change your Linux PC username in line 44 as well
 
 ########## Define number of nodes that you have in your system here:
 nodes_number = 8    ## default 8
