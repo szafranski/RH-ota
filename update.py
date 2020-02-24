@@ -659,7 +659,7 @@ def selfUpdater():
 	logo()
 	sleep(0.12)
 	if os.path.exists("/home/"+user+"/.updater_self") == False:
-		os.system("""echo 'alias updateota=\"cd /home/"+user+" && sudo rm -r RH-ota && git clone https://github.com/szafranski/RH-ota.git && 
+		os.system("""echo 'alias updateupdater=\"cd /home/"+user+" && sudo rm -r RH-ota && git clone https://github.com/szafranski/RH-ota.git && 
 		echo  && echo  RotorHazard OTA Manager updated && echo   \"  # part of self updater' | sudo tee -a ~/.bashrc""")
 		sleep(0.1)
 		os.system("source /home/"+user+"/.bashrc")
@@ -673,7 +673,7 @@ def selfUpdater():
 		If you want to update this program and download new firmware, \n
 		prepared for Arduino nodes - so you can next flash them  \n\t\t
 		- you have to reboot the Raspberry. Next step is to type  \n\t\t
-		'updateota' in the terminal window.\n\t\t
+		'updateupdater' in the terminal window.\n\t\t
 		Next time you won't have to reboot before updating.\n\n\t\t
 		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+""",\n\t\t
 		so you allways know what firmware version updater contains.\n\t\t
@@ -682,7 +682,7 @@ def selfUpdater():
 		print("""\n\n 
 		If you want to update this program and download new firmware, \n
 		prepared for Arduino nodes - so you can next flash them \n\t\t
-		- you have to type 'updateota' in the terminal window.\n\n\t\t
+		- you have to type 'updateupdater' in the terminal window.\n\n\t\t
 		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+""",\n\t\t
 		so you allways know what firmware version updater contains.\n\n\t\t
 		Be sure that you have internet connection established.\n\n """)
