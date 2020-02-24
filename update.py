@@ -33,14 +33,14 @@ nodes_number = data['nodes_number']
 
 ########    Enter pins connected to reset pins on Arduino-nodes:    ########
 
-reset_1 = 12  ## node 1  # default 12
-reset_2 = 16  ## node 2  # default 16
-reset_3 = 20  ## node 3  # default 20
-reset_4 = 21  ## node 4  # default 21
-reset_5 = 6   ## node 5  # default 6
-reset_6 = 13  ## node 6  # default 13
-reset_7 = 19  ## node 7  # default 19
-reset_8 = 26  ## node 8  # default 26
+reset_1 = 12    ## node 1   # default 12
+reset_2 = 16    ## node 2   # default 16
+reset_3 = 20    ## node 3   # default 20
+reset_4 = 21    ## node 4   # default 21
+reset_5 = 6     ## node 5   # default 6
+reset_6 = 13    ## node 6   # default 13
+reset_7 = 19    ## node 7   # default 19
+reset_8 = 26    ## node 8   # default 26
 
 if data['debug_mode'] == 1:
 	linux_testing = True
