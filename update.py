@@ -3,12 +3,13 @@ updater_version = 2.2 	### version of THIS program - has nothing to do with RH v
 						### reffers to the API level of contained nodes firmware 
 
 ####To do:####
-# show 'flashed'?
+# avrdude test
 # Access Point
+# json configs
 
 ##### Change those only if you want to test the software on PC #####
 linux_testing = False  		### change to True for testing on Linux PC or WSL
-							### change your Linux PC username in line 30 as well
+							### change your Linux PC username in line 32 as well
 
 ########## Define number of nodes that you have in your system here:
 nodes_number = 8  ## default 8
