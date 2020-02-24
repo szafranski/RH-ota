@@ -9,7 +9,7 @@ import json
 
 updater_version = '2.2.4'   ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
-                            ### third number reffers to actual verion of the updater
+                            ### third number reffers to actual verion of the updater itself
 
 if os.path.exists("./updater-config.json") == True:
 	with open('updater-config.json') as config_file:
@@ -237,9 +237,9 @@ def logo():
 	print("""\n	
 		#######################################################################
 		###                                                                 ###
-		###                        """+bcolors.ORANGE+"""RotorHazard"""+bcolors.ENDC+"""                              ###
+		###\t\t\t"""+bcolors.ORANGE+"""     RotorHazard        """+bcolors.ENDC+"""\t\t    ###
 		###                                                                 ###
-		###                   OTA Updater and Manager                       ###
+		###                     OTA Updater and Manager                     ###
 		###                                                                 ###
 		#######################################################################""")
 	if (linux_testing == True):
@@ -251,7 +251,7 @@ def logo2():
 	print("""
 		#######################################################################
 		###                                                                 ###
-		###             Flashing firmware onto """+str(nodes_number)+""" nodes - DONE               ###
+		###\t\tFlashing firmware onto """+str(nodes_number)+""" nodes - DONE\t\t    ###
 		###                                                                 ###
 		###                          Thank you!                             ###
 		###                                                                 ###
@@ -315,8 +315,6 @@ def flashAllNodes():
 	print("\n				Node 8 - flashed\n\n")
 	if nodes_number ==8:
 		return
-	# logo2()
-	# sleep(2)
 
 def flashAllGnd():
 	nodeOneReset()
@@ -367,8 +365,6 @@ def flashAllGnd():
 	sleep(1)
 	if nodes_number ==8:
 		return
-	# logo2()
-	# sleep(2)
 
 def flashAllBlink():
 	nodeOneReset()
@@ -419,8 +415,6 @@ def flashAllBlink():
 	sleep(1)
 	if nodes_number ==8:
 		return
-	# logo2()
-	# sleep(2)
 
 def flashEachNode():
 	def nodeMenu():
@@ -434,7 +428,7 @@ def flashEachNode():
 		print("\n\t\t\t 2 - Flash node 2 \t\t 6 - Flash node 6")
 		print("\n\t\t\t 3 - Flash node 3 \t\t 7 - Flash node 7")
 		print("\n\t\t\t 4 - Flash node 4 \t\t 8 - Flash node 8")
-		print("\n\t\t\t              "+bcolors.YELLOW+"9 - Back to main menu"+bcolors.ENDC)
+		print("\n\t\t\t\t\t"+bcolors.YELLOW+"9 - Back to main menu"+bcolors.ENDC)
 		selection=str(raw_input("\n\n\t\t\tWhich node do you want to program: "))
 		print("\n\n")
 		if selection=='1':
@@ -712,10 +706,10 @@ def avrDude():
 	sleep(0.12)
 	logo()
 	sleep(0.12)
-	print("\n\n\n						"+bcolors.RED+"AVRDUDE MENU"+bcolors.ENDC+"\n")
-	print ("			 "+bcolors.BLUE+"1 - Install avrdude"+bcolors.ENDC)
-	print ("			 2 - Check if nodes are accessible - beta")
-	print ("			 "+bcolors.YELLOW+"3 - Go back"+bcolors.ENDC)
+	print("\n\n\n\t\t\t\t\t\t"+bcolors.RED+"AVRDUDE MENU"+bcolors.ENDC+"\n")
+	print ("\t\t\t "+bcolors.BLUE+"1 - Install avrdude"+bcolors.ENDC)
+	print ("\t\t\t 2 - Check if nodes are accessible - beta")
+	print ("\t\t\t "+bcolors.YELLOW+"3 - Go back"+bcolors.ENDC)
 	selection=str(raw_input(""))
 	if selection=='1' : 
 		os.system("sudo apt-get update")
@@ -910,7 +904,7 @@ def selfUpdater():
 		For example 2.2.1 contains nodes firmware with API 22 etc.\n\t\t
 		Be sure that you have internet connection established.\n\n """)
 		print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
-		+bcolors.YELLOW+"""    Go back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
+		+bcolors.YELLOW+"""\tGo back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
 		selection=str(raw_input(""))
 		if selection=='r':
 			os.system("sudo reboot")
@@ -928,7 +922,7 @@ def selfUpdater():
 		For example "2.2.1" contains nodes firmware with "API level 22" etc.\n\t\t
 		Be sure that you have internet connection established.\n\n """)
 		print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Exit program by pressing 'e' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
-		+bcolors.YELLOW+"""    Go back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
+		+bcolors.YELLOW+"""\tGo back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
 		selection=str(raw_input(""))
 		if selection=='e':
 			sys.exit()
@@ -943,7 +937,7 @@ def featuresMenu():
 	sleep(0.12)
 	logo()
 	sleep(0.12)
-	print("\n\n\n\t\t\t\t      "+bcolors.RED+"   FEATURES MENU\n"+bcolors.ENDC)
+	print("\n\n\n\t\t\t\t\t\t"+bcolors.RED+"FEATURES MENU\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BLUE+"1 - Install avrdude\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BLUE+"2 - Enable serial protocol"+bcolors.ENDC+"\n")
 	print("\t\t\t   3 - Fix GPIO pins state\n")
@@ -1010,7 +1004,7 @@ def serverStart():
 	sleep(0.12)
 	os.system("clear")
 	sleep(0.12)
-	print("\n\n		Please wait...\n\n")
+	print("\n\n\t\tPlease wait...\n\n")
 	print("\n")
 	os.system("python /home/"+user+"/RotorHazard/src/server/server.py")
 
@@ -1020,7 +1014,7 @@ def firstTime():
 		os.system("clear")
 		sleep(0.12)
 		print("""\n\n 
-			\t\tCONFIGURATION FILE:\n\n
+		\t\t\tCONFIGURATION FILE:\n\n
 		Open "distr-updater-config.json" from same folder, make changes \n
 		and save as "updater-config.json". \n\n
 		Possible RotorHazard versions:\n
@@ -1045,8 +1039,7 @@ def firstTime():
 		Also remember about setting up config file - check second page.  \n\n
 		More info here: https://www.instructables.com/id/RotorHazard-Updater/\n
 		and in how_to folder - look for PDF file.\n\n 
-			\n\t\t\tEnjoy!\n\
-									Szafran\n\n """)
+		\t\n\t\t\tEnjoy!\n\t\t\t\t\t\t\tSzafran\n\n\n """)
 		selection=str(raw_input("\t\t\t"+bcolors.GREEN+"'s' - second page'"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - go back"+bcolors.ENDC+"\n"))
 		if selection=='s':
 			secondPage()
@@ -1097,5 +1090,3 @@ def mainMenu():
 	else: 
 		mainMenu()
 mainMenu()
-
-
