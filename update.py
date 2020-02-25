@@ -957,8 +957,10 @@ def featuresMenu():
 			if linux_testing == True:
 				os.system("python ./net_and_ap.py")
 			else:
-				print("coming soon")
-				sleep(1)
+				os.system("clear")
+				print("\n\n\n\t\t\t\tcoming soon")
+				sleep(1.5)
+		raspberryAP()
 	if selection=='5':
 		aliasesMenu()
 	if selection=='6':
