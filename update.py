@@ -953,10 +953,12 @@ def featuresMenu():
 	if selection=='3':
 		gpioState()
 	if selection=='4':
-		def raspberryAP():
-			print("coming soon")
-			sleep(1)
-			#os.system("python ./net_and_ap.py")
+		def raspberryAP():   ### in development
+			if linux_testing == True:
+				os.system("python ./net_and_ap.py")
+			else:
+				print("coming soon")
+				sleep(1)
 	if selection=='5':
 		aliasesMenu()
 	if selection=='6':
