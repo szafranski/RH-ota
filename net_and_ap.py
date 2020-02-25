@@ -56,18 +56,22 @@ def logoTop():
 	print("""\n	
 		#######################################################################
 		###                                                                 ###
-		###                        """+bcolors.ORANGE+"""RotorHazard"""+bcolors.ENDC+"""                              ###
+		###\t\t\t"""+bcolors.ORANGE+"""     RotorHazard        """+bcolors.ENDC+"""\t\t    ###
 		###                                                                 ###
-		###                   OTA Updater and Manager                       ###
+		###                     OTA Updater and Manager                     ###
 		###                                                                 ###
 		#######################################################################""")
+	if (linux_testing == True):
+		print("\t\t\t\t\t  Linux PC version")
+	if os.path.exists("./updater-config.json") == False:
+		print("\t\t\t    Looks that you haven't set up config file yet!")
 
 def first ():
 	image ()
 	os.system("clear")
 	print("\n")
 	image()
-	sleep(1.3)
+	sleep(0.5)
 first()
 
 # Set the WiFi country in raspi-config's Localisation Options:
@@ -82,16 +86,16 @@ def stepOne():
 	os.system("sudo apt-get update && sudo apt-get upgrade -y")
 	os.system("curl -sL https://install.raspap.com | bash -s -- -y")
 	print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\t\t\t\t"""
-			+bcolors.YELLOW+"""    Go back by pressing 'b'"""+bcolors.ENDC+"""\n""")
-			selection=str(raw_input(""))
-			if selection=='r':
-				os.system("sudo reboot")
-			if selection=='b':
-				featuresMenu()
-			else :
-				apManager()
+			+bcolors.YELLOW+"""    Exit by pressing 'e'"""+bcolors.ENDC+"""\n""")
+	selection=str(raw_input(""))
+	if selection=='r':
+		os.system("sudo reboot")
+	if selection=='e':
+		sys.exit()
+	else :
+		main()
 
-def stepTwo:
+def stepTwo():
 	print("""Step 2.""")
 
 	print("""
@@ -108,9 +112,7 @@ Configure hotspot -> SSID (enter name you want, eg. "RH-TIMER")
 
 Wireless Mode (change to 802.11n - 2.4GHz)
 
-save settings  
-<br/>
-<br/>
+save settings 
 
 Click:
 Configure hotspot -> security tab
@@ -118,13 +120,18 @@ Configure hotspot -> security tab
 PSK (enter password that you want to have, eg. "timerpass")
 
 save settings
-<br/>
 
-DON'T CHANGE OTHER SETTINGS IN GUI!  
-<br/>
-<br/>
+DON'T CHANGE OTHER SETTINGS IN GUI!  """)
 
-""")
+	print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\t\t\t\t"""
+			+bcolors.YELLOW+"""    Exit by pressing 'e'"""+bcolors.ENDC+"""\n""")
+	selection=str(raw_input(""))
+	if selection=='r':
+		os.system("sudo reboot")
+	if selection=='e':
+		sys.exit()
+	else :
+		main()
 
 def stepThree():
 
@@ -149,13 +156,22 @@ def stepThree():
 	os.system("echo 'interface=eth0' | sudo tee -a /etc/dnsmasq.conf")
 	os.system("echo 'dhcp-range=172.20.20.21,172.20.20.255,255.255.255.0,24h' | sudo tee -a /etc/dnsmasq.conf")
 	os.system("sudo cp /etc/dnsmasq.conf /etc/dnsmasq.conf.my")
-	os.system("sudo reboot")
+
+	print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\t\t\t\t"""
+			+bcolors.YELLOW+"""    Exit by pressing 'e'"""+bcolors.ENDC+"""\n""")
+	selection=str(raw_input(""))
+	if selection=='r':
+		os.system("sudo reboot")
+	if selection=='e':
+		sys.exit()
+	else :
+		main()
 
 def stepFour():
 
 	print("""Step 4.""")
 
-print("""
+	print("""
 Connect PC to WiFi network:
 name: RH-TIMER
 password: timerpass
@@ -163,8 +179,17 @@ if you have any problems connecting wifi with new name - try "forgetting" the (o
 
 Now you should be able to enter the network typing in the browser:
 10.10.10.10:5000 - using WiFi
-172.20.20.20:5000 - using ethernet.
-""")
+172.20.20.20:5000 - using ethernet.""")
+
+	print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\t\t\t\t"""
+			+bcolors.YELLOW+"""    Exit by pressing 'e'"""+bcolors.ENDC+"""\n""")
+	selection=str(raw_input(""))
+	if selection=='r':
+		os.system("sudo reboot")
+	if selection=='e':
+		sys.exit()
+	else :
+		main()
 
 def stepFive():
 
@@ -179,10 +204,43 @@ def stepFive():
 	os.system("echo '#static routers=172.20.20.20' | sudo tee -a /etc/dhcpcd.conf.net")
 	os.system("echo '#static domain_name_server=1.1.1.1 8.8.8.8' | sudo tee -a /etc/dhcpcd.conf.net")
 
+def end():
+		os.system("clear")
+		print("\n\n")
+		image()
+		sleep(0.5)
+		os.system("clear")
+		sys.exit()
+
 def apConf():
 	os.system("sudo cp /etc/dhcpcd.netap /etc/dhcpcd.conf")
-	os.system("sudo reboot") ok?
+	print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\t\t\t\t"""
+			+bcolors.YELLOW+"""    Exit by pressing 'e'"""+bcolors.ENDC+"""\n""")
+	selection=str(raw_input(""))
+	if selection=='r':
+		os.system("sudo reboot")
+	if selection=='e':
+		sys.exit()
+	else :
+		apConf()
 
 def netConf():
 	os.system("sudo cp /etc/dhcpcd.netap /etc/dhcpcd.conf")
-	os.system("sudo reboot") ok?
+	print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\t\t\t\t"""
+			+bcolors.YELLOW+"""    Exit by pressing 'e'"""+bcolors.ENDC+"""\n""")
+	selection=str(raw_input(""))
+	if selection=='r':
+		os.system("sudo reboot")
+	if selection=='e':
+		sys.exit()
+	else :
+		netConf()
+
+def main():
+	stepOne()
+	stepTwo()
+	stepThree()
+	stepFour()
+	stepFive()
+	end()
+main()
