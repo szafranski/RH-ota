@@ -833,7 +833,7 @@ def aliasesMenu():
 		os.system("echo 'alias als=\"nano ~/.bashrc\"   #  opens this file' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias rld=\"source ~/.bashrc\"   #  reloads aliases file' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias rcfg=\"sudo raspi-config\"   #  open raspberrys configs' | sudo tee -a ~/.bashrc")
-		os.system("echo 'alias gitota=\"git clone https://github.com/szafranski/RH-ota.git\"   #  clones ota repo' | sudo tee -a ~/.bashrc")
+		os.system("echo 'alias gitota=\"git clone --depth=1 https://github.com/szafranski/RH-ota.git\"   #  clones ota repo' | sudo tee -a ~/.bashrc")
 		os.system("echo '' | sudo tee -a ~/.bashrc")
 		os.system("echo '# After adding or changing aliases manually - reboot raspberry or type \"source ~/.bashrc\".' | sudo tee -a ~/.bashrc")
 		os.system("echo 'functionality added' | sudo tee -a ~/.aliases_added")
@@ -884,7 +884,7 @@ def selfUpdater():
 	logoTop()
 	sleep(0.12)
 	if os.path.exists("/home/"+user+"/.updater_self") == False:
-		os.system("""echo 'alias updateupdater=\"cd /home/"""+user+""" && cp ~/RH-ota/updater-config.json ~/updater-config.json  &&  sudo rm -r RH-ota  &&  git clone https://github.com/szafranski/RH-ota.git &&  echo  &&  mv ~/updater-config.json ~/RH-ota/updater-config.json  &&  echo RotorHazard OTA Manager updated  &&  echo \"  # part of self updater' | sudo tee -a ~/.bashrc""")
+		os.system("""echo 'alias updateupdater=\"cd /home/"""+user+""" && cp ~/RH-ota/updater-config.json ~/updater-config.json  &&  sudo rm -r RH-ota  &&  git clone --depth=1 https://github.com/szafranski/RH-ota.git &&  echo  &&  mv ~/updater-config.json ~/RH-ota/updater-config.json  &&  echo RotorHazard OTA Manager updated  &&  echo \"  # part of self updater' | sudo tee -a ~/.bashrc""")
 		sleep(0.1)
 		os.system("source /home/"+user+"/.bashrc")
 		os.system("echo 'updater marker' | sudo tee -a ~/.updater_self")
