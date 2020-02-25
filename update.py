@@ -230,10 +230,10 @@ def image():
 \t\t *////@@@/////////((((((((((((((((((((((((((((((((((((((((((((@@@((((*
 \t\t **/////@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#((((**
 \t\t  ***/////////////////(((((((((((((((((((((((((((((((((((((((((((((** 
-\t\t     ****////////////////((((((((((((((((((((((((((((((((((((/****   
+\t\t     ****////////////////((((((((((((((((((((((((((((((((((((/****    
 """)
 
-def logo():
+def logoTop():
 	print("""\n	
 		#######################################################################
 		###                                                                 ###
@@ -247,7 +247,7 @@ def logo():
 	if os.path.exists("./updater-config.json") == False:
 		print("\t\t\t    Looks that you haven't set up config file yet!")
 
-def logo2():
+def logoUpdate():
 	print("""
 		#######################################################################
 		###                                                                 ###
@@ -421,9 +421,9 @@ def flashEachNode():
 		sleep(0.12)
 		os.system("clear")
 		sleep(0.12)
-		logo()
+		logoTop()
 		sleep(0.12)
-		print("\n\n\n\t\t\t\t\t\t"+bcolors.RED+"NODE MENU"+bcolors.ENDC)
+		print("\n\n\n\t\t\t\t\t    "+bcolors.RED+"NODES MENU"+bcolors.ENDC)
 		print("\n\t\t\t 1 - Flash node 1 \t\t 5 - Flash node 5")
 		print("\n\t\t\t 2 - Flash node 2 \t\t 6 - Flash node 6")
 		print("\n\t\t\t 3 - Flash node 3 \t\t 7 - Flash node 7")
@@ -704,7 +704,7 @@ def avrDude():
 	sleep(0.12)
 	os.system("clear")
 	sleep(0.12)
-	logo()
+	logoTop()
 	sleep(0.12)
 	print("\n\n\n\t\t\t\t\t\t"+bcolors.RED+"AVRDUDE MENU"+bcolors.ENDC+"\n")
 	print ("\t\t\t "+bcolors.BLUE+"1 - Install avrdude"+bcolors.ENDC)
@@ -762,7 +762,7 @@ def serialMenu():
 	sleep(0.12)
 	os.system("clear")
 	sleep(0.12)
-	logo()
+	logoTop()
 	sleep(0.12)
 	def serialContent():
 		os.system("echo 'functionality added' | sudo tee -a ~/.serialok")
@@ -799,7 +799,7 @@ def serialMenu():
 
 def gpioState(): 
 	os.system("clear")
-	logo()
+	logoTop()
 	print("/n/n/n")
 	os.system("echo "+str(reset_1)+" > /sys/class/GPIO/unexport")
 	os.system("echo "+str(reset_2)+" > /sys/class/GPIO/unexport")
@@ -881,7 +881,7 @@ def selfUpdater():
 	sleep(0.12)
 	os.system("clear")
 	sleep(0.12)
-	logo()
+	logoTop()
 	sleep(0.12)
 	if os.path.exists("/home/"+user+"/.updater_self") == False:
 		os.system("""echo 'alias updateupdater=\"cd /home/"""+user+""" && cp ~/RH-ota/updater-config.json ~/updater-config.json  &&  sudo rm -r RH-ota  &&  git clone https://github.com/szafranski/RH-ota.git &&  echo  &&  mv ~/updater-config.json ~/RH-ota/updater-config.json  &&  echo RotorHazard OTA Manager updated  &&  echo \"  # part of self updater' | sudo tee -a ~/.bashrc""")
@@ -891,7 +891,7 @@ def selfUpdater():
 		sleep(0.12)
 		os.system("clear")
 		sleep(0.12)
-		logo()
+		logoTop()
 		sleep(0.12)
 		print("""\n\n 
 		If you want to update this program and download new firmware, \n
@@ -935,7 +935,7 @@ def featuresMenu():
 	sleep(0.12)
 	os.system("clear")
 	sleep(0.12)
-	logo()
+	logoTop()
 	sleep(0.12)
 	print("\n\n\n\t\t\t\t\t\t"+bcolors.RED+"FEATURES MENU\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BLUE+"1 - Install avrdude\n"+bcolors.ENDC)
@@ -970,7 +970,7 @@ def nodesUpdate():
 	sleep(0.12)
 	os.system("clear")
 	sleep(0.12)
-	logo()
+	logoTop()
 	sleep(0.12)
 	print("\n\n\t\t\t\t Choose flashing type:\n")
 	print("\t\t\t "+bcolors.GREEN+"1 - Every Node gets own dedicated firmware - recommended"+ bcolors.ENDC+"\n")
@@ -982,15 +982,15 @@ def nodesUpdate():
 	selection=str(raw_input(""))
 	if selection=='1':
 		flashAllNodes()
-		logo2()
+		logoUpdate()
 		sleep(3)
 	if selection=='2':
 		flashAllGnd()
-		logo2()
+		logoUpdate()
 		sleep(3)
 	if selection=='3':
 		flashAllBlink()
-		logo2()
+		logoUpdate()
 		sleep(3)
 	if selection=='4':
 		flashEachNode()
@@ -1063,7 +1063,7 @@ def mainMenu():
 	sleep(0.12)
 	os.system("clear")
 	sleep(0.12)
-	logo()
+	logoTop()
 	sleep(0.12)
 	if linux_testing == False:
 		os.system("sudo systemctl stop rotorhazard")
@@ -1076,7 +1076,7 @@ def mainMenu():
 	print("\t\t\t   "+bcolors.YELLOW+"6 - Exit"+bcolors.ENDC)
 	selection=str(raw_input(""))
 	if selection=='1':
-		os.system("python ./rpi_soft.py")
+		os.system("python ./rpi_soft.py")   ### opens second file
 	if selection=='2':
 		nodesUpdate()
 	if selection=='3':
