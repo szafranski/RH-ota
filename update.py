@@ -1076,14 +1076,13 @@ def mainMenu():
 	print("\t\t\t   "+bcolors.YELLOW+"6 - Exit"+bcolors.ENDC)
 	selection=str(raw_input(""))
 	if selection=='1':
-		sleep(0.3)
 		os.system("python ./rpi_soft.py")
 	if selection=='2':
 		nodesUpdate()
 	if selection=='3':
 		serverStart()
 	if selection=='4':
-			featuresMenu()
+		featuresMenu()
 	if selection=='5':
 		firstTime()
 	if selection=='6':
