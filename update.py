@@ -423,7 +423,7 @@ def flashEachNode():
 		sleep(0.12)
 		logo()
 		sleep(0.12)
-		print("\n\n\n\t\t\t\t\t    "+bcolors.RED+"NODE MENU"+bcolors.ENDC)
+		print("\n\n\n\t\t\t\t\t\t"+bcolors.RED+"NODE MENU"+bcolors.ENDC)
 		print("\n\t\t\t 1 - Flash node 1 \t\t 5 - Flash node 5")
 		print("\n\t\t\t 2 - Flash node 2 \t\t 6 - Flash node 6")
 		print("\n\t\t\t 3 - Flash node 3 \t\t 7 - Flash node 7")
@@ -919,7 +919,7 @@ def selfUpdater():
 		- you have to type 'updateupdater' in the terminal window.\n\n\t\t
 		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+""",\n\t\t
 		so you allways know what firmware version updater contains.\n\t\t
-		For example "2.2.1" contains nodes firmware with "API level 22" etc.\n\t\t
+		For example "2.2.3" contains nodes firmware with "API level 22" etc.\n\t\t
 		Be sure that you have internet connection established.\n\n """)
 		print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Exit program by pressing 'e' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
 		+bcolors.YELLOW+"""\tGo back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
@@ -1015,8 +1015,9 @@ def firstTime():
 		sleep(0.12)
 		print("""\n\n 
 		\t\t\tCONFIGURATION FILE:\n\n
-		Open "distr-updater-config.json" from same folder, make changes \n
-		and save as "updater-config.json". \n\n
+		Copy "distr-updater-config.json" from same folder to "updater-config.json". \n
+		Use: 'cp distr-updater-config.json updater-config.json'.\n
+		Next, edit new file using 'nano' command, make changes and save. \n\n
 		Possible RotorHazard versions:\n
 		> """+bcolors.BLUE+"""\"stable\""""+bcolors.ENDC+""" - last stable release (can be from before few months)\n
 		> """+bcolors.BLUE+"""\"beta\""""+bcolors.ENDC+"""   - last beta release (usually few weeks, quite stable)\n
@@ -1039,7 +1040,7 @@ def firstTime():
 		Also remember about setting up config file - check second page.  \n\n
 		More info here: https://www.instructables.com/id/RotorHazard-Updater/\n
 		and in how_to folder - look for PDF file.\n\n 
-		\t\n\t\t\tEnjoy!\n\t\t\t\t\t\t\tSzafran\n\n\n """)
+		\t\n\t\t\tEnjoy!\n\t\t\t\t\t\t\t\tSzafran\n\n\n """)
 		selection=str(raw_input("\t\t\t"+bcolors.GREEN+"'s' - second page'"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - go back"+bcolors.ENDC+"\n"))
 		if selection=='s':
 			secondPage()
