@@ -31,7 +31,7 @@ if preffered_RH_version == 'custom':
 
 nodes_number = data['nodes_number']
 
-########    Enter pins connected to reset pins on Arduino-nodes:    ########
+########    Pins connected to reset pins on Arduino-nodes:    ########
 
 reset_1 = 12    ## node 1   # default 12
 reset_2 = 16    ## node 2   # default 16
@@ -846,7 +846,7 @@ def aliasesMenu():
 	operates in the terminal window. For example instead of typing 'python ~/RotorHazard/src/server/server.py' \n\t
 	you can just type 'ss' (server start) etc. Aliases can be modified and added anytime you want. You just \n\t  
 	have to open '~./bashrc' file in text editor like 'nano'. After that you have reboot or type 'source ~/.bashrc'. \n\n\t
-	Alias			Command				  What it does	\n
+	Alias			Command					  What it does	\n
 	ss 	-->  python ~/RotorHazard/src/server/server.py   # starts the server\n\t
 	cfg 	-->  nano ~/RotorHazard/src/server/config.json   # opens config.json file\n\t
 	rh  	-->  cd ~/RotorHazard/src/server   		 # goes to server file location\n\t
@@ -859,7 +859,7 @@ def aliasesMenu():
 	rcfg  	-->  sudo raspi-config   			 # open raspberry's configs\n\t
 	gitota	-->  git clone https://github.com/sza(...) 	 # clones ota repo\n\t\t\t\n
 		Do you want to use above aliases in your system?""")
-	selection=str(raw_input("\t\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+	selection=str(raw_input("\n\t\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 	if selection == 'y':
 		if os.path.exists("/home/"+user+"/.aliases_added") == True:
 			print("\n\n\t\t\t Looks like you already have aliases added. Do you want to continue anyway?\n")
