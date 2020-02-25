@@ -20,7 +20,7 @@ if linux_testing == True:
 else:
 	user = data['pi_user']
 
-myPlace = data['country']   ### change accordingly
+myPlace = data['country']
 
 
 def image():
