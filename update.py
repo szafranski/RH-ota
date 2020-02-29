@@ -7,7 +7,7 @@ import os
 import sys
 import json
 
-updater_version = '2.2.4'   ### version of THIS program - has nothing to do with the RH version
+updater_version = '2.2.5'   ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
                             ### third number reffers to actual verion of the updater itself
 
@@ -31,16 +31,35 @@ if preffered_RH_version == 'custom':
 
 nodes_number = data['nodes_number']
 
-########    Pins connected to reset pins on Arduino-nodes:    ########
+pins_assignment = data['pins_assignment']
 
-reset_1 = 12    ## node 1   # default 12
-reset_2 = 16    ## node 2   # default 16
-reset_3 = 20    ## node 3   # default 20
-reset_4 = 21    ## node 4   # default 21
-reset_5 = 6     ## node 5   # default 6
-reset_6 = 13    ## node 6   # default 13
-reset_7 = 19    ## node 7   # default 19
-reset_8 = 26    ## node 8   # default 26
+if pins_assignment == 'PCB':
+	reset_1 = 12    ## node 1   # default 12
+	reset_2 = 16    ## node 2   # default 16
+	reset_3 = 4     ## node 3   # default 4
+	reset_4 = 21    ## node 4   # default 21
+	reset_5 = 6     ## node 5   # default 6
+	reset_6 = 13    ## node 6   # default 13
+	reset_7 = 19    ## node 7   # default 19
+	reset_8 = 26    ## node 8   # default 26
+if pins_assignment == 'default':
+	reset_1 = 12    ## node 1   # default 12
+	reset_2 = 16    ## node 2   # default 16
+	reset_3 = 20    ## node 3   # default 20
+	reset_4 = 21    ## node 4   # default 21
+	reset_5 = 6     ## node 5   # default 6
+	reset_6 = 13    ## node 6   # default 13
+	reset_7 = 19    ## node 7   # default 19
+	reset_8 = 26    ## node 8   # default 26
+if pins_assignment == 'custom':
+	reset_1 = 0    ## node 1   # custom pin assignment
+	reset_2 = 0    ## node 2   # custom pin assignment
+	reset_3 = 0    ## node 3   # custom pin assignment
+	reset_4 = 0    ## node 4   # custom pin assignment
+	reset_5 = 0    ## node 5   # custom pin assignment
+	reset_6 = 0    ## node 6   # custom pin assignment
+	reset_7 = 0    ## node 7   # custom pin assignment
+	reset_8 = 0    ## node 8   # custom pin assignment
 
 if data['debug_mode'] == 1:
 	linux_testing = True
@@ -243,7 +262,7 @@ def logoTop():
 		###                                                                 ###
 		#######################################################################""")
 	if (linux_testing == True):
-		print("\t\t\t\t\t  Linux PC version")
+		print("\t\t\t  Linux PC version\t"+"Pins assignment mode: "+str(data['pins_assignment']))
 	if os.path.exists("./updater-config.json") == False:
 		print("\t\t\t    Looks that you haven't set up config file yet!")
 
@@ -884,7 +903,7 @@ def selfUpdater():
 	logoTop()
 	sleep(0.12)
 	if os.path.exists("/home/"+user+"/.updater_self") == False:
-		os.system("""echo 'alias updateupdater=\"cd /home/"""+user+""" && cp ~/RH-ota/updater-config.json ~/updater-config.json  &&  sudo rm -r RH-ota  &&  git clone --depth=1 https://github.com/szafranski/RH-ota.git &&  echo  &&  mv ~/updater-config.json ~/RH-ota/updater-config.json  &&  echo RotorHazard OTA Manager updated  &&  echo \"  # part of self updater' | sudo tee -a ~/.bashrc""")
+		os.system("""echo 'alias updateupdater=\"cd /home/"""+user+""" && cp ~/RH-ota/updater-config.json ~/updater-config.json  &&  sudo rm -r RH-ota  &&  git clone --depth=1 https://github.com/szafranski/RH-ota.git &&  echo  &&  mv ~/updater-config.json ~/RH-ota/updater-config.json  &&  echo RotorHazard OTA Manager updated - see update-notes.txt &&  echo \"  # part of self updater' | sudo tee -a ~/.bashrc""")
 		sleep(0.1)
 		os.system("source /home/"+user+"/.bashrc")
 		os.system("echo 'updater marker' | sudo tee -a ~/.updater_self")
