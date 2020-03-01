@@ -1,3 +1,5 @@
+2.2.5 and higher
+
 If you performed an update from 2.2.4 version or previous:
 
 Add a following line to the updater-config.json file:
