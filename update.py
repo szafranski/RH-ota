@@ -31,7 +31,20 @@ if preffered_RH_version == 'custom':
 
 nodes_number = data['nodes_number']
 
-pins_assignment = data['pins_assignment']
+def check_if_string_in_file(file_name, string_to_search):
+	with open(file_name, 'r') as read_obj:
+		for line in read_obj:
+			if string_to_search in line:
+				return True
+	return False
+
+if os.path.exists("./updater-config.json") == True:
+	if check_if_string_in_file('updater-config.json', 'assignment'):
+		pins_assignment = data['pins_assignment']
+	else:
+		pins_assignment = 'default'
+else:
+	pins_assignment = 'default'
 
 if pins_assignment == 'PCB':
 	reset_1 = 12    ## node 1   # default 12
@@ -262,7 +275,7 @@ def logoTop():
 		###                                                                 ###
 		#######################################################################""")
 	if (linux_testing == True):
-		print("\t\t\t  Linux PC version\t"+"Pins assignment mode: "+str(data['pins_assignment']))
+		print("\t\t\t  Linux PC version\t"+"Pins assignment mode: "+str(pins_assignment))
 	if os.path.exists("./updater-config.json") == False:
 		print("\t\t\t    Looks that you haven't set up config file yet!")
 
