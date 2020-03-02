@@ -1,6 +1,6 @@
 2.2.5 and higher
 
-If you performed an update from 2.2.4 version or previous:
+If you performed an update from 2.2.4 version or previous and you want to use custom pins as reset pins:
 
 Add a following line to the updater-config.json file:
 
@@ -20,4 +20,6 @@ So the file looks like this:
 
 !!! Remember about adding "," sign to the end of the previous line.
 
-Thanks!
+The default file that you can check so you have an example is distr-updater-config.json.
+
+Thanks! Happy flyin'!
