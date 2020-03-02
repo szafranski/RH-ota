@@ -6,7 +6,7 @@
 		
 		
 		If you want full functionality - visit:
-
+		[Instructables page](https://www.instructables.com/id/RotorHazard-Updater/)<br/>
 		https://www.instructables.com/id/RotorHazard-Updater/
 		
 		or check how_to folder - look for PDF file.
