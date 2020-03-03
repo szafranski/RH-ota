@@ -1,0 +1,29 @@
+2.2.5 and higher
+
+If you performed an update from 2.2.4 version or previous and you want to use custom pins as reset pins:
+
+Add a following line to the updater-config.json file:
+
+	"pins_assignment" : "custom"
+
+So the file looks like this:
+
+{
+	"pi_user" : (...),
+	"RH_version" : (...),
+	"debug_user" : (...),
+	"country" : (...),
+	"nodes_number" : (...),
+	"debug_mode" : 0,
+	"pins_assignment" : "custom"
+}
+
+!!! Remember about adding "," sign to the end of the previous line.
+
+And than edit lines 68 to 75 in update.py file.
+
+nano update.py
+
+The default file that you can check so you have an example is 'distr-updater-config.json'.
+
+Thanks! Happy flyin'!
