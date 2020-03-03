@@ -24,6 +24,6 @@ And than edit lines 68 to 75 in update.py file.
 
 nano update.py
 
-The default file that you can check so you have an example is distr-updater-config.json.
+The default file that you can check so you have an example is 'distr-updater-config.json'.
 
 Thanks! Happy flyin'!
