@@ -9,6 +9,7 @@ if os.path.exists(homedir+"/RH-ota/updater-config.json") == True:
 else:
 	config_file_exists = False
 
+print("\n\n\n\t\t Updating process has started\n\n\n")
 if config_file_exists == True:
 	os.system("sudo cp ~/RH-ota/updater-config.json ~/.ota_markers/updater-config.json")
 os.system("sudo rm -r ~/RH-ota")
