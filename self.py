@@ -20,7 +20,7 @@ os.system("sudo cp ~/RH-ota/updater-config.json ~/.ota_markers/updater-config.js
 os.system("sudo rm -r ~/RH-ota")
 #os.chdir("home"+user)
 os.chdir(~)
-os.system("git clone -b updating_tests_and_net --depth=1 https://github.com/szafranski/RH-ota.git") 
+os.system("git clone --depth=1 https://github.com/szafranski/RH-ota.git") 
 os.system("sudo cp ~/.ota_markers/updater-config.json ~/RH-ota/updater-config.json")
 print("\n\n\t\t RotorHazard OTA Manager updated - you can see update-notes.txt\n\n")
 sleep(2)
