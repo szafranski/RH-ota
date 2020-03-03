@@ -5,6 +5,8 @@ import sys
 
 if os.path.exists("~/RH-ota/updater-config.json") == True:
 	config_file_exists = True
+else:
+	config_file_exists = False
 
 if config_file_exists == True:
 	os.system("sudo cp ~/RH-ota/updater-config.json ~/.ota_markers/updater-config.json")
