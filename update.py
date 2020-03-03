@@ -939,7 +939,11 @@ def selfUpdater():
 		else :
 			selfUpdater()
 	else:
-		os.system("""echo 'alias updateupdater=\"cd /home/"""+user+""" && cp ~/RH-ota/updater-config.json ~/updater-config.json  &&  sudo rm -r RH-ota  &&  git clone --depth=1 https://github.com/szafranski/RH-ota.git &&  echo  &&  mv ~/updater-config.json ~/RH-ota/updater-config.json  &&  echo RotorHazard OTA Manager updated - see update-notes.txt &&  echo \"  # part of self updater' | sudo tee -a ~/.bashrc""")
+		os.system("""echo 'alias updateupdater=\"cd ~ && sudo cp ~/RH-ota/self.py ~/.ota_markers/self.py && sudo python ~/.ota_markers/self.py \"  # part of self-updater' | sudo tee -a ~/.bashrc""")
+# old way		os.system("""echo 'alias updateupdater=\"cd /home/"""+user+""" && cp ~/RH-ota/updater-config.json ~/updater-config.json  
+# &&  sudo rm -r RH-ota  &&  git clone --depth=1 https://github.com/szafranski/RH-ota.git &&  echo  
+# &&  mv ~/updater-config.json ~/RH-ota/updater-config.json  &&  echo RotorHazard OTA Manager updated - see update-notes.txt 
+# &&  echo \"  # part of self updater' | sudo tee -a ~/.bashrc""")
 		sleep(0.1)
 		os.system("echo 'updater marker' | sudo tee -a ~/.ota_markers/.updater_self")
 		sleep(0.12)
