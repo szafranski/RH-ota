@@ -3,7 +3,6 @@ import os
 import sys
 import json
 
-
 # with open('~/RH-ota/updater-config.json') as config_file:
 	# data = json.load(config_file)
 # if data['debug_mode'] == 1:
@@ -16,8 +15,6 @@ import json
 # else:
 	# user = data['pi_user']
 
-#os.chdir("home"+user)
-os.chdir(~)
 os.system("sudo cp ~/RH-ota/updater-config.json ~/.ota_markers/updater-config.json")
 os.system("sudo rm -r ~/RH-ota")
 os.system("git clone --depth=1 https://github.com/szafranski/RH-ota.git") 
