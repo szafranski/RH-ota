@@ -3,7 +3,9 @@ import os
 import sys
 #import json
 
-if os.path.exists("~/RH-ota/updater-config.json") == True:
+homedir = os.path.expanduser('~')
+
+if os.path.exists(homedir+"/RH-ota/updater-config.json") == True:
 	config_file_exists = True
 else:
 	config_file_exists = False
