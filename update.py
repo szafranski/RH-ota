@@ -7,7 +7,7 @@ import os
 import sys
 import json
 
-updater_version = '2.2.5'   ### version of THIS program - has nothing to do with the RH version
+updater_version = '2.2.5c'   ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
                             ### third number reffers to actual verion of the updater itself
 
@@ -290,13 +290,21 @@ def logoUpdate():
 		#######################################################################
 		\n\n""")
 
+def compatibility():               ### adds compatibility with previous versions
+	if os.path.exists("/home/"+user+"/.aliases_added") == True:
+		os.system("sudo mv /home/"+user+"/.aliases_added /home/"+user+"/.ota_markers/.aliases_added")
+	if os.path.exists("/home/"+user+"/.aliases_added") == True:
+		os.system("sudo mv /home/"+user+"/.updater_self /home/"+user+"/.ota_markers/.updater_self")
+
+
 def first ():
 	image ()
 	os.system("clear")
 	print("\n\n")
 	image()
 	print("\t\t\t\t\t Updater version: "+str(updater_version))
-	sleep(1.3)
+	compatibility()
+	sleep(1.1)
 first()
 
 def flashAllNodes():
@@ -848,8 +856,6 @@ def gpioState():
 	sleep(0.3)
 
 def aliasesMenu():
-	if os.path.exists("/home/"+user+"/.aliases_added") == True:   ### adds compatibility with previous versions
-		os.system("sudo mv /home/"+user+"/.aliases_added /home/"+user+"/.ota_markers/.aliases_added")
 	sleep(0.2)
 	os.system("clear")
 	sleep(0.2)
@@ -911,10 +917,6 @@ def aliasesMenu():
 		aliasesMenu()
 
 def selfUpdater():
-	if os.path.exists("/home/"+user+"/.aliases_added") == True:   ### adds compatibility with previous versions
-		os.system("sudo mv /home/"+user+"/.aliases_added /home/"+user+"/.ota_markers/.aliases_added")
-	if os.path.exists("/home/"+user+"/.aliases_added") == True:   ### adds compatibility with previous versions
-		os.system("sudo mv /home/"+user+"/.updater_self /home/"+user+"/.ota_markers/.updater_self")
 	sleep(0.12)
 	os.system("clear")
 	sleep(0.12)
