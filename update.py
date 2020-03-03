@@ -298,8 +298,9 @@ def compatibility():               ### adds compatibility with previous versions
 	if os.path.exists("/home/"+user+"/.bashrc") == True:
 		if check_if_string_in_file('/home/'+user+'/.bashrc', 'RotorHazard OTA Manager updated'):
 			os.system("sed -i 's/alias updateupdater/# alias updateupdater/g' /home/"+user+"/.bashrc")
+			os.system("""echo 'alias updateupdater=\"cd ~ && sudo cp ~/RH-ota/self.py ~/.ota_markers/self.py && sudo python ~/.ota_markers/self.py \"  # part of self-updater' | sudo tee -a ~/.bashrc""")
 
-def first ():
+			def first ():
 	image ()
 	os.system("clear")
 	print("\n\n")
