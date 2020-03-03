@@ -3,18 +3,20 @@ import os
 import sys
 import json
 
-with open('updater-config.json') as config_file:
-	data = json.load(config_file)
+if os.path.exists("/home/"+user+"/.ota_markers/updater-config.json") == True:
+	with open('updater-config.json') as config_file:
+		data = json.load(config_file)
 
-if data['debug_mode'] == 1:
-	linux_testing = True
-else:
-	linux_testing = False 
-	
-if linux_testing == True:
-	user = data['debug_user']
-else:
-	user = data['pi_user']
+	if data['debug_mode'] == 1:
+		linux_testing = True
+	else:
+		linux_testing = False 
+		
+	if linux_testing == True:
+		user = data['debug_user']
+	else:
+		user = data['pi_user']
+
 
 os.chdir("/home/"+user)
 if os.path.exists("/home/"+user+"/.ota_markers") == False:

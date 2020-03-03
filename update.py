@@ -848,6 +848,8 @@ def gpioState():
 	sleep(0.3)
 
 def aliasesMenu():
+	if os.path.exists("/home/"+user+"/.aliases_added") == True:   ### adds compatibility with previous versions
+		os.system("sudo mv /home/"+user+"/.aliases_added /home/"+user+"/.ota_markers/.aliases_added")
 	sleep(0.2)
 	os.system("clear")
 	sleep(0.2)
@@ -868,8 +870,7 @@ def aliasesMenu():
 		os.system("echo 'alias gitota=\"git clone --depth=1 https://github.com/szafranski/RH-ota.git\"   #  clones ota repo' | sudo tee -a ~/.bashrc")
 		os.system("echo '' | sudo tee -a ~/.bashrc")
 		os.system("echo '# After adding or changing aliases manually - reboot raspberry or type \"source ~/.bashrc\".' | sudo tee -a ~/.bashrc")
-		os.system("echo 'functionality added' | sudo tee -a ~/.aliases_added")
-		os.system("source ~/.bashrc")
+		os.system("echo 'functionality added' | sudo tee -a ~/.ota_markers/.aliases_added")
 		print("\n\n\t\t	Aliases added successfully")
 		sleep(2)
 		featuresMenu()
@@ -893,7 +894,7 @@ def aliasesMenu():
 		Do you want to use above aliases in your system?""")
 	selection=str(raw_input("\n\t\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 	if selection == 'y':
-		if os.path.exists("/home/"+user+"/.aliases_added") == True:
+		if os.path.exists("/home/"+user+"/.ota_markers/.aliases_added") == True:
 			print("\n\n\t\t\t Looks like you already have aliases added. Do you want to continue anyway?\n")
 			selection=str(raw_input("\t\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 			if selection=='y':
@@ -910,16 +911,37 @@ def aliasesMenu():
 		aliasesMenu()
 
 def selfUpdater():
+	if os.path.exists("/home/"+user+"/.aliases_added") == True:   ### adds compatibility with previous versions
+		os.system("sudo mv /home/"+user+"/.aliases_added /home/"+user+"/.ota_markers/.aliases_added")
+	if os.path.exists("/home/"+user+"/.aliases_added") == True:   ### adds compatibility with previous versions
+		os.system("sudo mv /home/"+user+"/.updater_self /home/"+user+"/.ota_markers/.updater_self")
 	sleep(0.12)
 	os.system("clear")
 	sleep(0.12)
 	logoTop()
 	sleep(0.12)
-	if os.path.exists("/home/"+user+"/.updater_self") == False:
+	if os.path.exists("/home/"+user+"/.ota_markers/.updater_self") == True:
+		print("""\n\n 
+		If you want to update this program and download new firmware, \n
+		prepared for Arduino nodes - so you can next flash them \n\t\t
+		- you have to type 'updateupdater' in the terminal window.\n\n\t\t
+		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+""",\n\t\t
+		so you allways know what firmware version updater contains.\n\t\t
+		For example "2.2.3" contains nodes firmware with "API level 22" etc.\n\t\t
+		Be sure that you have internet connection established.\n\n """)
+		print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Exit program by pressing 'e' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
+		+bcolors.YELLOW+"""\tGo back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
+		selection=str(raw_input(""))
+		if selection=='e':
+			sys.exit()
+		if selection=='b':
+			featuresMenu()
+		else :
+			selfUpdater()
+	else:
 		os.system("""echo 'alias updateupdater=\"cd /home/"""+user+""" && cp ~/RH-ota/updater-config.json ~/updater-config.json  &&  sudo rm -r RH-ota  &&  git clone --depth=1 https://github.com/szafranski/RH-ota.git &&  echo  &&  mv ~/updater-config.json ~/RH-ota/updater-config.json  &&  echo RotorHazard OTA Manager updated - see update-notes.txt &&  echo \"  # part of self updater' | sudo tee -a ~/.bashrc""")
 		sleep(0.1)
-		os.system("source /home/"+user+"/.bashrc")
-		os.system("echo 'updater marker' | sudo tee -a ~/.updater_self")
+		os.system("echo 'updater marker' | sudo tee -a ~/.ota_markers/.updater_self")
 		sleep(0.12)
 		os.system("clear")
 		sleep(0.12)
@@ -940,24 +962,6 @@ def selfUpdater():
 		selection=str(raw_input(""))
 		if selection=='r':
 			os.system("sudo reboot")
-		if selection=='b':
-			featuresMenu()
-		else :
-			selfUpdater()
-	else:
-		print("""\n\n 
-		If you want to update this program and download new firmware, \n
-		prepared for Arduino nodes - so you can next flash them \n\t\t
-		- you have to type 'updateupdater' in the terminal window.\n\n\t\t
-		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+""",\n\t\t
-		so you allways know what firmware version updater contains.\n\t\t
-		For example "2.2.3" contains nodes firmware with "API level 22" etc.\n\t\t
-		Be sure that you have internet connection established.\n\n """)
-		print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Exit program by pressing 'e' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
-		+bcolors.YELLOW+"""\tGo back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
-		selection=str(raw_input(""))
-		if selection=='e':
-			sys.exit()
 		if selection=='b':
 			featuresMenu()
 		else :
