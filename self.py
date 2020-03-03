@@ -15,11 +15,12 @@ import json
 # else:
 	# user = data['pi_user']
 
-os.system("sudo cp ~/RH-ota/updater-config.json ~/.ota_markers/updater-config.json")
+if os.path.exists("~/RH-ota/updater-config.json") == True:
+	os.system("sudo cp ~/RH-ota/updater-config.json ~/.ota_markers/updater-config.json")
 os.system("sudo rm -r ~/RH-ota")
 os.system("git clone --depth=1 https://github.com/szafranski/RH-ota.git") 
 os.system("sudo cp ~/.ota_markers/updater-config.json ~/RH-ota/updater-config.json")
-print("\n\n\t\t RotorHazard OTA Manager updated - you can see update-notes.txt\n\n")
+print("\n\n\t\t RotorHazard OTA Manager updated - you can see 'update-notes.txt'\n\n")
 sleep(2)
 
 
