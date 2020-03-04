@@ -1,7 +1,7 @@
 import smbus 
 
 # Slave Addresses for Arduinos 
-ARDUINO_1_ADDRESS = 8 # I2C Address of Arduino 1 
+ARDUINO_1_ADDRESS = 0x08 # I2C Address of Arduino 1 
 ARDUINO_2_ADDRESS = 10 # I2C Address of Arduino 2 
 ARDUINO_3_ADDRESS = 12 # I2C Address of Arduino 3 
 ARDUINO_4_ADDRESS = 14 # I2C Address of Arduino 4 
