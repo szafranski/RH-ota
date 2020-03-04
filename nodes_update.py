@@ -446,7 +446,7 @@ def flashEachNode():
 					return
 				if selection=='4':
 					nodeMenu()
-				if selection=='5' : 
+				if selection=='55' : 
 					nodeOneReset()
 					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/com.hex:i ")
 					print("\n\t Testing firmware on Node 1 flashed\n")
