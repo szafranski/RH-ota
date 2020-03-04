@@ -11,6 +11,15 @@ else:
 	with open('distr-updater-config.json') as config_file:
 		data = json.load(config_file)
 
+if data['debug_mode'] == 1:
+	linux_testing = True
+else:
+	linux_testing = False 
+
+if linux_testing == True:
+	user = data['debug_user']
+else:
+	user = data['pi_user']
 preffered_RH_version = data['RH_version']
 
 if preffered_RH_version == 'master':
