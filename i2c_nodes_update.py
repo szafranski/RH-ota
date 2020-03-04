@@ -126,15 +126,17 @@ if (linux_testing == False):
 
 def test():
 	selection=str(raw_input("What do you want to send?"))
+	if selection=='0':
+		bus.write_byte(addr, 0x0) # switch it off
 	if selection=='1':
 		bus.write_byte(addr, 0x1) # switch it on
-	if selection=='0':
-		bus.write_byte(addr, 0x0) # switch it on
 	if selection=='2':
 		nodeOneReset():
 		os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/blink.hex:i ")
 		print("\n\t Node 1 flashed with I2C - blink\n")
 		sleep(1.5)
-	test()
+	if selection=='3':
+		sys.exit()
+test()
 
 
