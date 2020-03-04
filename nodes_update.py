@@ -777,9 +777,9 @@ def nodesUpdate():
 	if selection=='4':
 		flashEachNode()
 	if selection=='5':
-		gpioState()
-	if selection=='6':
 		os.system("python ./i2c_nodes_update.py")
+	if selection=='6':
+		gpioState()
 	if selection=='7':
 		sys.exit()
 	else:
