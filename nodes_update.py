@@ -757,8 +757,9 @@ def nodesUpdate():
 	print("\t\t\t 2 - Nodes will use ground-auto selection firmware\n")
 	print("\t\t\t 3 - Flash 'Blink' on every node\n")
 	print("\t\t\t 4 - Flash each node individually\n")
-	print("\t\t\t 5 - Fix GPIO pins state - obsolete\n")
-	print("\t\t\t "+bcolors.YELLOW+"6 - Go back"+bcolors.ENDC+"\n")
+	print("\t\t\t 5 - I2C resetting - early beta\n")
+	print("\t\t\t 6 - Fix GPIO pins state - obsolete\n")
+	print("\t\t\t "+bcolors.YELLOW+"7 - Go back"+bcolors.ENDC+"\n")
 	sleep(0.3)
 	selection=str(raw_input(""))
 	if selection=='1':
@@ -778,6 +779,8 @@ def nodesUpdate():
 	if selection=='5':
 		gpioState()
 	if selection=='6':
+		os.system("python ./i2c_nodes_update.py")
+	if selection=='7':
 		sys.exit()
 	else:
 		nodesUpdate()
