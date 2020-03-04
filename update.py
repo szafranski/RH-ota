@@ -118,6 +118,8 @@ def compatibility():               ### adds compatibility with previous versions
 		os.system("mv /home/"+user+"/.updater_self /home/"+user+"/.ota_markers/.updater_self")
 	if os.path.exists("/home/"+user+"/.old_RotorHazard.old/.installation-check_file.txt") == True:
 		os.system("mv /home/"+user+"/.old_RotorHazard.old/.installation-check_file.txt /home/"+user+"/.ota_markers/.installation-check_file.txt")
+	if os.path.exists("/home/"+user+"/.serialok") == True:
+		os.system("mv /home/"+user+"/.serialok /home/"+user+"/.ota_markers/.serialok")
 	if os.path.exists("/home/"+user+"/.bashrc") == True:
 		if check_if_string_in_file('/home/'+user+'/.bashrc', 'RotorHazard OTA Manager updated'):
 			os.system("sed -i 's/alias updateupdater/# alias updateupdater/g' /home/"+user+"/.bashrc")
@@ -574,7 +576,6 @@ def avrDude():
 	sleep(0.12)
 	print("\n\n\n\t\t\t\t\t\t"+bcolors.RED+"AVRDUDE MENU"+bcolors.ENDC+"\n")
 	print ("\t\t\t "+bcolors.BLUE+"1 - Install avrdude"+bcolors.ENDC)
-	# print ("\t\t\t 2 - Check if nodes are accessible - coming soon")
 	print ("\t\t\t "+bcolors.YELLOW+"2 - Go back"+bcolors.ENDC)
 	selection=str(raw_input(""))
 	if selection=='1' : 
@@ -590,7 +591,7 @@ def serialMenu():
 	logoTop()
 	sleep(0.12)
 	def serialContent():
-		os.system("echo 'functionality added' | sudo tee -a ~/.serialok")
+		os.system("echo 'functionality added' | sudo tee -a ~/.ota_markers/.serialok")
 		os.system("echo 'enable_uart=1'| sudo  tee -a /boot/config.txt")
 		os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
 		print("\n\n\t\t\t	Serial port enabled successfully")
@@ -606,7 +607,7 @@ def serialMenu():
 			\n\t\tDo you want to enable it now?""")
 	selection=str(raw_input("\n\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 	if selection == 'y':
-		if os.path.exists("/home/"+user+"/.serialok") == True:
+		if os.path.exists("/home/"+user+"/.ota_markers/.serialok") == True:
 			print("\n\n\t\t Looks like you already enabled Serial port. Do you want to continue anyway?\n")
 			selection=str(raw_input("\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 			if selection=='y':
