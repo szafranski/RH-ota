@@ -113,11 +113,11 @@ def logoUpdate():
 
 def compatibility():               ### adds compatibility with previous versions
 	if os.path.exists("/home/"+user+"/.aliases_added") == True:
-		os.system("sudo mv /home/"+user+"/.aliases_added /home/"+user+"/.ota_markers/.aliases_added")
+		os.system("mv /home/"+user+"/.aliases_added /home/"+user+"/.ota_markers/.aliases_added")
 	if os.path.exists("/home/"+user+"/.aliases_added") == True:
-		os.system("sudo mv /home/"+user+"/.updater_self /home/"+user+"/.ota_markers/.updater_self")
+		os.system("mv /home/"+user+"/.updater_self /home/"+user+"/.ota_markers/.updater_self")
 	if os.path.exists("/home/"+user+"/.old_RotorHazard.old/.installation-check_file.txt") == True:
-		os.system("sudo mv /home/"+user+"/.old_RotorHazard.old/.installation-check_file.txt /home/"+user+"/.ota_markers/.installation-check_file.txt")
+		os.system("mv /home/"+user+"/.old_RotorHazard.old/.installation-check_file.txt /home/"+user+"/.ota_markers/.installation-check_file.txt")
 	if os.path.exists("/home/"+user+"/.bashrc") == True:
 		if check_if_string_in_file('/home/'+user+'/.bashrc', 'RotorHazard OTA Manager updated'):
 			os.system("sed -i 's/alias updateupdater/# alias updateupdater/g' /home/"+user+"/.bashrc")
