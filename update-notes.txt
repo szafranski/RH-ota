@@ -20,9 +20,9 @@ So the file looks like this:
 
 !!! Remember about adding "," sign to the end of the previous line.
 
-And than edit lines 68 to 75 in update.py file.
+And than edit lines 60 to 67 in nodes_update.py file.
 
-nano update.py
+nano nodes_update.py
 
 The default file that you can check so you have an example is 'distr-updater-config.json'.
 
