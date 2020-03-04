@@ -1,11 +1,14 @@
 from smbus import SMBus
 
-addr = 0x8 # bus address
+addr = 0x08 # bus address
+bus = SMBus(1) # indicates /dev/ic2-1
 
 def main():
-	bus = SMBus(1) # indicates /dev/ic2-1
-	bus.write_byte(addr, 0x1) # switch it on
-	input("Press return to exit")
-	bus.write_byte(addr, 0x0) # switch it on
+	selection=str(raw_input(""))
+	if selection=='1':
+		bus.write_byte(addr, 0x1) # switch it on
+	if selection=='2':
+		bus.write_byte(addr, 0x0) # switch it on
 	main()
 main()
+
