@@ -112,6 +112,8 @@ def logoUpdate():
 		\n\n""")
 
 def compatibility():               ### adds compatibility with previous versions
+	if os.path.exists("/home/"+user+"/.ota_markers") == False:
+		os.system("mkdir /home/"+user+"/.ota_markers")
 	if os.path.exists("/home/"+user+"/.aliases_added") == True:
 		os.system("mv /home/"+user+"/.aliases_added /home/"+user+"/.ota_markers/.aliases_added")
 	else:
