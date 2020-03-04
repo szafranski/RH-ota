@@ -1,5 +1,5 @@
 import smbus 
- 
+
 # Slave Addresses for Arduinos 
 ARDUINO_1_ADDRESS = 8 # I2C Address of Arduino 1 
 ARDUINO_2_ADDRESS = 10 # I2C Address of Arduino 2 
@@ -13,8 +13,8 @@ ARDUINO_8_ADDRESS = 22 # I2C Address of Arduino 8
 # Create the I2C bus 
 I2Cbus = smbus.SMBus(1) 
 
-aSelect = input("Which Arduino (1-8): ") 
-bSelect = input("On or Off (on/off): ") 
+aSelect = raw_input("Which Arduino (1-8): ") 
+bSelect = raw_input("On or Off (on/off): ") 
 
 if aSelect == 1: 
 	SlaveAddress = ARDUINO_1_ADDRESS 
