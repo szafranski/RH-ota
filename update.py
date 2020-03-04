@@ -813,39 +813,6 @@ def featuresMenu():
 	else:
 		featuresMenu()
 
-# def nodesUpdate():
-	# sleep(0.12)
-	# os.system("clear")
-	# sleep(0.12)
-	# logoTop()
-	# sleep(0.12)
-	# print("\n\n\t\t\t\t Choose flashing type:\n")
-	# print("\t\t\t "+bcolors.GREEN+"1 - Every Node gets own dedicated firmware - recommended"+ bcolors.ENDC+"\n")
-	# print("\t\t\t 2 - Nodes will use ground-auto selection firmware\n")
-	# print("\t\t\t 3 - Flash 'Blink' on every node\n")
-	# print("\t\t\t 4 - Flash each node individually\n")
-	# print("\t\t\t "+bcolors.YELLOW+"5 - Go back"+bcolors.ENDC+"\n")
-	# sleep(0.3)
-	# selection=str(raw_input(""))
-	# if selection=='1':
-		# flashAllNodes()
-		# logoUpdate()
-		# sleep(3)
-	# if selection=='2':
-		# flashAllGnd()
-		# logoUpdate()
-		# sleep(3)
-	# if selection=='3':
-		# flashAllBlink()
-		# logoUpdate()
-		# sleep(3)
-	# if selection=='4':
-		# flashEachNode()
-	# if selection=='5':
-		# mainMenu()
-	# else:
-		# nodesUpdate()
-
 def serverStart():
 	os.system("sudo systemctl stop rotorhazard")
 	sleep(0.12)
