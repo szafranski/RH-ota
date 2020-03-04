@@ -7,7 +7,7 @@ import os
 import sys
 import json
 
-updater_version = '2.2.6c'   ### version of THIS program - has nothing to do with the RH version
+updater_version = '2.2.6d'   ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
                             ### third number reffers to actual verion of the updater itself
 
@@ -114,19 +114,27 @@ def logoUpdate():
 		\n\n""")
 
 def compatibility():               ### adds compatibility with previous versions
-	if os.path.exists("/home/"+user+"/.ota_markers") == False:
-		os.system("mkdir /home/"+user+"/.ota_markers")
-	if os.path.exists("/home/"+user+"/.aliases_added") == True:
-		os.system("mv /home/"+user+"/.aliases_added /home/"+user+"/.ota_markers/.aliases_added")
-	if os.path.exists("/home/"+user+"/.aliases_added") == True:
-		os.system("mv /home/"+user+"/.updater_self /home/"+user+"/.ota_markers/.updater_self")
-	if os.path.exists("/home/"+user+"/.old_RotorHazard.old/.installation-check_file.txt") == True:
-		os.system("mv /home/"+user+"/.old_RotorHazard.old/.installation-check_file.txt /home/"+user+"/.ota_markers/.installation-check_file.txt")
-	if os.path.exists("/home/"+user+"/.serialok") == True:
-		os.system("mv /home/"+user+"/.serialok /home/"+user+"/.ota_markers/.serialok")
-	if os.path.exists("/home/"+user+"/.bashrc") == True:
-		if check_if_string_in_file('/home/'+user+'/.bashrc', 'RotorHazard OTA Manager updated'):
-			os.system("sed -i 's/alias updateupdater/# alias updateupdater/g' /home/"+user+"/.bashrc")
+	if os.path.exists(homedir+"/.ota_markers") == False:
+		os.system("mkdir "+homedir+"/.ota_markers")
+	if os.path.exists(homedir+"/.aliases_added") == True:
+		if os.path.exists(homedir+"/.ota_markers/.aliases_added") == False:
+			os.system("cp "+homedir+"/.aliases_added "+homedir+"/.ota_markers/.aliases_added ")
+		os.system("rm "+homedir+"/.aliases_added")
+	if os.path.exists(homedir+"/.updater_self") == True:
+		if os.path.exists(homedir+"/.ota_markers/.aliases_added") == False:
+			os.system("cp "+homedir+"/.updater_self "+homedir+"/.ota_markers/.updater_self ")
+		os.system("rm "+homedir+"/.updater_self")
+	if os.path.exists(homedir+"/.old_RotorHazard.old/.installation-check_file.txt") == True:
+		if os.path.exists(homedir+"/.ota_markers/.installation-check_file.txt") == False:
+			os.system("cp /home/"+user+"/.old_RotorHazard.old/.installation-check_file.txt "+homedir+"/.ota_markers/.installation-check_file.txt")
+		os.system("rm "+homedir+"/.installation-check_file.txt")
+	if os.path.exists(homedir+"/.serialok") == True:
+		if os.path.exists(homedir+"/.ota_markers/.serialok") == False:
+			os.system("cp "+homedir+"/.serialok "+homedir+"/.ota_markers/.serialok")
+		os.system("rm "+homedir+"/.serialok")
+	if os.path.exists(homedir+"/.bashrc") == True:
+		if check_if_string_in_file(homedir+'/.bashrc', 'RotorHazard OTA Manager updated'):
+			os.system("sed -i 's/alias updateupdater/# alias updateupdater/g' "+homedir+"/.bashrc")
 			os.system("""echo 'alias updateupdater=\"cd ~ && sudo cp ~/RH-ota/self.py ~/.ota_markers/self.py && sudo python ~/.ota_markers/self.py \"  # part of self-updater' | sudo tee -a ~/.bashrc""")
 
 def first ():

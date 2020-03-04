@@ -123,7 +123,9 @@ def installation():
 	os.system("sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
 	if os.path.exists("/home/"+user+"/.old_RotorHazard.old") == False:
 		os.system("mkdir /home/"+user+"/.old_RotorHazard.old")
-	os.system("sudo mv /home/"+user+"/RotorHazard-master /home/"+user+"/.old_RotorHazard.old/")
+	if os.path.exists("/home/"+user+"/RotorHazard-master") == True:
+		os.system("cp -r /home/"+user+"/RotorHazard-master /home/"+user+"/.old_RotorHazard.old/")
+		os.system("rm -r /home/"+user+"/.old_RotorHazard.old")
 	os.chdir("/home/"+user)
 	os.system("wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"+server_version+" -O temp.zip")
 	os.system("unzip temp.zip")
@@ -199,13 +201,19 @@ def update():
 		os.system("sudo apt-get update && sudo apt-get upgrade -y")
 		if os.path.exists("/home/"+user+"/.old_RotorHazard.old") == False:
 			os.system("mkdir /home/"+user+"/.old_RotorHazard.old")
-		os.system("sudo mv /home/"+user+"/RotorHazard-master /home/"+user+"/.old_RotorHazard.old/")
-		os.system("sudo mv /home/"+user+"/RotorHazard.old /home/"+user+"/.old_RotorHazard.old/")
-		os.system("sudo mv /home/"+user+"/RotorHazard /home/"+user+"/RotorHazard.old")
+		if os.path.exists("/home/"+user+"/RotorHazard-master") == True:
+			if os.path.exists("/home/"+user+"/.old_RotorHazard.old/RotorHazard-master") == False:
+				os.system("cp -r /home/"+user+"/RotorHazard-master /home/"+user+"/.old_RotorHazard.old/")
+			os.system("rm -r RotorHazard-master")
+		if os.path.exists("/home/"+user+"/RotorHazard.old") == True:
+			if os.path.exists("/home/"+user+"/.old_RotorHazard.old/RotorHazard.old") == False:
+				os.system("cp -r /home/"+user+"/RotorHazard.old /home/"+user+"/.old_RotorHazard.old/")
+			os.system("rm -r RotorHazard.old")
+		os.system("mv /home/"+user+"/RotorHazard /home/"+user+"/RotorHazard.old")
 		os.chdir("/home/"+user)
 		os.system("wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"+server_version+" -O temp.zip")
 		os.system("unzip temp.zip")
-		os.system("sudo mv /home/"+user+"/RotorHazard-"+server_version+" /home/"+user+"/RotorHazard")
+		os.system("mv /home/"+user+"/RotorHazard-"+server_version+" /home/"+user+"/RotorHazard")
 		os.system("rm temp.zip")
 		if os.path.exists("/home/"+user+"/backup_RH_data") == False:
 			os.system("mkdir /home/"+user+"/backup_RH_data")
