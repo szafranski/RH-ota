@@ -704,6 +704,48 @@ def gpioState():
 	print("\n\n		DONE\n\n")
 	sleep(0.3)
 
+	# def connectionTest(): 
+		# nodeOneReset()
+		# os.system("sudo avrdude -c arduino -p m328p -v")
+		# sleep(2)
+		# if nodes_number == 1:
+			# return
+		# nodeTwoReset()
+		# os.system("sudo avrdude -c arduino -p m328p -v")
+		# sleep(2)
+		# if nodes_number == 2:
+			# return
+		# nodeThreeReset()
+		# os.system("sudo avrdude -c arduino -p m328p -v")
+		# sleep(2)
+		# if nodes_number == 3:
+			# return
+		# nodeFourReset()
+		# os.system("sudo avrdude -c arduino -p m328p -v")
+		# sleep(2)
+		# if nodes_number == 4:
+			# return
+		# nodeFiveReset()
+		# os.system("sudo avrdude -c arduino -p m328p -v")
+		# sleep(2)
+		# if nodes_number == 5:
+			# return
+		# nodeSixReset()
+		# os.system("sudo avrdude -c arduino -p m328p -v")
+		# sleep(2)
+		# if nodes_number == 6:
+			# return
+		# nodeSevenReset()
+		# os.system("sudo avrdude -c arduino -p m328p -v")
+		# sleep(2)
+		# if nodes_number == 7:
+			# return
+		# nodeEightReset()
+		# os.system("sudo avrdude -c arduino -p m328p -v")
+		# sleep(2)
+		# if nodes_number == 8:
+			# return
+
 def nodesUpdate():
 	sleep(0.12)
 	os.system("clear")
