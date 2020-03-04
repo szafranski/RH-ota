@@ -11,7 +11,9 @@ updater_version = '2.2.6b'   ### version of THIS program - has nothing to do wit
                             ### it reffers to the API level of newest contained nodes firmware 
                             ### third number reffers to actual verion of the updater itself
 
-if os.path.exists("updater-config.json") == True:
+homedir = os.path.expanduser('~')
+
+if os.path.exists(homedir+"/RH-ota/updater-config.json") == True:
 	with open('updater-config.json') as config_file:
 		data = json.load(config_file)
 else:
