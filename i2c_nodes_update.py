@@ -31,22 +31,110 @@ if preffered_RH_version == 'stable':
 if preffered_RH_version == 'custom':
 	firmware_version = 'stable'
 
-addr = 0x08 # bus address
 bus = SMBus(1) # indicates /dev/ic2-1
 
-def main():
+node1addr = 0x08
+node2addr = 0x10
+node3addr = 0x12
+node4addr = 0x14
+node5addr = 0x16
+node6addr = 0x18
+node7addr = 0x20
+node8addr = 0x22
+
+
+if (linux_testing == False): 
+	import RPi.GPIO as GPIO
+	GPIO.setwarnings(False)
+	GPIO.setmode(GPIO.BCM) # Use BCM pin numbering
+	GPIO.setup(reset_1, GPIO.OUT, initial=GPIO.HIGH)
+
+	def allPinsLow():
+		GPIO.output(reset_1, GPIO.LOW)
+		GPIO.output(reset_2, GPIO.LOW)
+		GPIO.output(reset_3, GPIO.LOW)
+		GPIO.output(reset_4, GPIO.LOW)
+		GPIO.output(reset_5, GPIO.LOW)
+		GPIO.output(reset_6, GPIO.LOW)
+		GPIO.output(reset_7, GPIO.LOW)
+		GPIO.output(reset_8, GPIO.LOW)
+		sleep(0.05)
+
+	def allPinsHigh():
+		GPIO.output(reset_1, GPIO.HIGH)
+		GPIO.output(reset_2, GPIO.HIGH)
+		GPIO.output(reset_3, GPIO.HIGH)
+		GPIO.output(reset_4, GPIO.HIGH)
+		GPIO.output(reset_5, GPIO.HIGH)
+		GPIO.output(reset_6, GPIO.HIGH)
+		GPIO.output(reset_7, GPIO.HIGH)
+		GPIO.output(reset_8, GPIO.HIGH)
+		sleep(0.05)
+
+	def allPinsReset():
+		GPIO.output(reset_1, GPIO.LOW)
+		GPIO.output(reset_2, GPIO.LOW)
+		GPIO.output(reset_3, GPIO.LOW)
+		GPIO.output(reset_4, GPIO.LOW)
+		GPIO.output(reset_5, GPIO.LOW)
+		GPIO.output(reset_6, GPIO.LOW)
+		GPIO.output(reset_7, GPIO.LOW)
+		GPIO.output(reset_8, GPIO.LOW)
+		sleep(0.1)
+		GPIO.output(reset_1, GPIO.HIGH)
+		GPIO.output(reset_2, GPIO.HIGH)
+		GPIO.output(reset_3, GPIO.HIGH)
+		GPIO.output(reset_4, GPIO.HIGH)
+		GPIO.output(reset_5, GPIO.HIGH)
+		GPIO.output(reset_6, GPIO.HIGH)
+		GPIO.output(reset_7, GPIO.HIGH)
+		GPIO.output(reset_8, GPIO.HIGH)
+
+	def nodeOneReset():
+		allPinsHigh()
+		GPIO.output(reset_1, GPIO.LOW)
+		sleep(0.1)
+		GPIO.output(reset_1, GPIO.HIGH)
+	def nodeTwoReset():
+		bus.write_byte(node1addr, 0x0)
+		sleep(0.1)
+		bus.write_byte(node1addr, 0x1)
+	def nodeThreeReset():
+		bus.write_byte(node2addr, 0x0)
+		sleep(0.1)
+		bus.write_byte(node2addr, 0x1)
+	def nodeFourReset():
+		bus.write_byte(node3addr, 0x0)
+		sleep(0.1)
+		bus.write_byte(node3addr, 0x1)
+	def nodeFiveReset():
+		bus.write_byte(node4addr, 0x0)
+		sleep(0.1)
+		bus.write_byte(node4addr, 0x1)
+	def nodeSixReset():
+		bus.write_byte(node5addr, 0x0)
+		sleep(0.1)
+		bus.write_byte(node5addr, 0x1)
+	def nodeSevenReset():
+		bus.write_byte(node6addr, 0x0)
+		sleep(0.1)
+		bus.write_byte(node6addr, 0x1)
+	def nodeEightReset():
+		bus.write_byte(node7addr, 0x0)
+		sleep(0.1)
+		bus.write_byte(node7addr, 0x1)
+
+def test():
 	selection=str(raw_input("What do you want to send?"))
 	if selection=='1':
 		bus.write_byte(addr, 0x1) # switch it on
 	if selection=='0':
 		bus.write_byte(addr, 0x0) # switch it on
 	if selection=='2':
-		bus.write_byte(addr, 0x0) # switch it on
-		sleep(0.5)
-		bus.write_byte(addr, 0x1) # switch it on
+		nodeOneReset():
 		os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/blink.hex:i ")
-		print("\n\t Node 1 flashed\n")
+		print("\n\t Node 1 flashed with I2C - blink\n")
 		sleep(1.5)
-	main()
-main()
+	test()
+
 
