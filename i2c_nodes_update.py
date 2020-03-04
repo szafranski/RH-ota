@@ -42,6 +42,7 @@ node6addr = 0x18
 node7addr = 0x20
 node8addr = 0x22
 
+reset_1=12
 
 if (linux_testing == False): 
 	import RPi.GPIO as GPIO
@@ -51,44 +52,44 @@ if (linux_testing == False):
 
 	def allPinsLow():
 		GPIO.output(reset_1, GPIO.LOW)
-		GPIO.output(reset_2, GPIO.LOW)
-		GPIO.output(reset_3, GPIO.LOW)
-		GPIO.output(reset_4, GPIO.LOW)
-		GPIO.output(reset_5, GPIO.LOW)
-		GPIO.output(reset_6, GPIO.LOW)
-		GPIO.output(reset_7, GPIO.LOW)
-		GPIO.output(reset_8, GPIO.LOW)
+		# GPIO.output(reset_2, GPIO.LOW)
+		# GPIO.output(reset_3, GPIO.LOW)
+		# GPIO.output(reset_4, GPIO.LOW)
+		# GPIO.output(reset_5, GPIO.LOW)
+		# GPIO.output(reset_6, GPIO.LOW)
+		# GPIO.output(reset_7, GPIO.LOW)
+		# GPIO.output(reset_8, GPIO.LOW)
 		sleep(0.05)
 
 	def allPinsHigh():
 		GPIO.output(reset_1, GPIO.HIGH)
-		GPIO.output(reset_2, GPIO.HIGH)
-		GPIO.output(reset_3, GPIO.HIGH)
-		GPIO.output(reset_4, GPIO.HIGH)
-		GPIO.output(reset_5, GPIO.HIGH)
-		GPIO.output(reset_6, GPIO.HIGH)
-		GPIO.output(reset_7, GPIO.HIGH)
-		GPIO.output(reset_8, GPIO.HIGH)
+		# GPIO.output(reset_2, GPIO.HIGH)
+		# GPIO.output(reset_3, GPIO.HIGH)
+		# GPIO.output(reset_4, GPIO.HIGH)
+		# GPIO.output(reset_5, GPIO.HIGH)
+		# GPIO.output(reset_6, GPIO.HIGH)
+		# GPIO.output(reset_7, GPIO.HIGH)
+		# GPIO.output(reset_8, GPIO.HIGH)
 		sleep(0.05)
 
 	def allPinsReset():
 		GPIO.output(reset_1, GPIO.LOW)
-		GPIO.output(reset_2, GPIO.LOW)
-		GPIO.output(reset_3, GPIO.LOW)
-		GPIO.output(reset_4, GPIO.LOW)
-		GPIO.output(reset_5, GPIO.LOW)
-		GPIO.output(reset_6, GPIO.LOW)
-		GPIO.output(reset_7, GPIO.LOW)
-		GPIO.output(reset_8, GPIO.LOW)
+		# GPIO.output(reset_2, GPIO.LOW)
+		# GPIO.output(reset_3, GPIO.LOW)
+		# GPIO.output(reset_4, GPIO.LOW)
+		# GPIO.output(reset_5, GPIO.LOW)
+		# GPIO.output(reset_6, GPIO.LOW)
+		# GPIO.output(reset_7, GPIO.LOW)
+		# GPIO.output(reset_8, GPIO.LOW)
 		sleep(0.1)
 		GPIO.output(reset_1, GPIO.HIGH)
-		GPIO.output(reset_2, GPIO.HIGH)
-		GPIO.output(reset_3, GPIO.HIGH)
-		GPIO.output(reset_4, GPIO.HIGH)
-		GPIO.output(reset_5, GPIO.HIGH)
-		GPIO.output(reset_6, GPIO.HIGH)
-		GPIO.output(reset_7, GPIO.HIGH)
-		GPIO.output(reset_8, GPIO.HIGH)
+		# GPIO.output(reset_2, GPIO.HIGH)
+		# GPIO.output(reset_3, GPIO.HIGH)
+		# GPIO.output(reset_4, GPIO.HIGH)
+		# GPIO.output(reset_5, GPIO.HIGH)
+		# GPIO.output(reset_6, GPIO.HIGH)
+		# GPIO.output(reset_7, GPIO.HIGH)
+		# GPIO.output(reset_8, GPIO.HIGH)
 
 	def nodeOneReset():
 		allPinsHigh()
@@ -131,7 +132,7 @@ def test():
 	if selection=='1':
 		bus.write_byte(addr, 0x1) # switch it on
 	if selection=='2':
-		nodeOneReset():
+		nodeTwoReset()
 		os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/blink.hex:i ")
 		print("\n\t Node 1 flashed with I2C - blink\n")
 		sleep(1.5)
