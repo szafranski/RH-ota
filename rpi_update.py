@@ -31,6 +31,8 @@ if preffered_RH_version == 'stable':
 if preffered_RH_version =='custom':
 	server_version = 'X.X.X'           ### paste custom version number here if you want to declare it manually
 
+homedir = os.path.expanduser('~')
+
 class bcolors:
 	HEADER = '\033[95m'
 	BLUE = '\033[94m'
@@ -77,6 +79,24 @@ def first ():
 	sleep(0.5)
 first()
 
+def sysConf():
+	os.system("sudo systemctl enable ssh")
+	os.system("sudo systemctl start ssh ")
+	os.system("sudo apt-get install wget ntp libjpeg-dev i2c-tools python-dev python-rpi.gpio libffi-dev python-smbus build-essential python-pip git scons swig -y")
+	os.system("sudo pip install cffi ")
+	os.system("sudo pip install pillow")
+	os.system("echo 'dtparam=i2c_baudrate=75000' | sudo tee -a /boot/config.txt")
+	os.system("echo 'core_freq=250' | sudo tee -a /boot/config.txt")
+	os.system("echo 'dtparam=spi=on' | sudo sudo tee -a /boot/config.txt  ")  
+	os.system("echo 'i2c-bcm2708' | sudo tee -a /boot/config.txt")
+	os.system("echo 'i2c-dev' | sudo tee -a /boot/config.txt")
+	os.system("echo 'dtparam=i2c1=on' | sudo tee -a /boot/config.txt")
+	os.system("echo 'dtparam=i2c_arm=on' | sudo tee -a /boot/config.txt")
+	os.system("sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
+	os.system("sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
+
+
+
 def end():
 	print("\n\n\n\t\t"+bcolors.OKGREEN+"Type 'r' for reboot - recommended"+bcolors.ENDC+"\n")
 	print("\t\tType 's' to start the server now\n")
@@ -107,20 +127,7 @@ def installation():
 	print("\n\t\t Installation process started - please wait... \n")
 	os.chdir("/home/"+user)
 	os.system("sudo apt-get update && sudo apt-get upgrade -y")
-	os.system("sudo systemctl enable ssh")
-	os.system("sudo systemctl start ssh ")
-	os.system("sudo apt-get install wget ntp libjpeg-dev i2c-tools python-dev python-rpi.gpio libffi-dev python-smbus build-essential python-pip git scons swig -y")
-	os.system("sudo pip install cffi ")
-	os.system("sudo pip install pillow")
-	os.system("echo 'dtparam=i2c_baudrate=75000' | sudo tee -a /boot/config.txt")
-	os.system("echo 'core_freq=250' | sudo tee -a /boot/config.txt")
-	os.system("echo 'dtparam=spi=on' | sudo sudo tee -a /boot/config.txt  ")  
-	os.system("echo 'i2c-bcm2708' | sudo tee -a /boot/config.txt")
-	os.system("echo 'i2c-dev' | sudo tee -a /boot/config.txt")
-	os.system("echo 'dtparam=i2c1=on' | sudo tee -a /boot/config.txt")
-	os.system("echo 'dtparam=i2c_arm=on' | sudo tee -a /boot/config.txt")
-	os.system("sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
-	os.system("sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
+	sysConf()
 	if os.path.exists("/home/"+user+"/.old_RotorHazard.old") == False:
 		os.system("mkdir /home/"+user+"/.old_RotorHazard.old")
 	if os.path.exists("/home/"+user+"/RotorHazard-master") == True:
@@ -149,7 +156,7 @@ def installation():
 	os.system("sudo python setup.py install")
 	os.system("echo 'leave this file here' | sudo tee -a /home/"+user+"/.ota_master/.installation-check_file.txt")
 	os.system("sudo apt-get install openjdk-8-jdk-headless -y")
-	os.system("sudo rm /lib/systemd/system/rotorhaSzard.service")
+	os.system("sudo rm /lib/systemd/system/rotorhazard.service")
 	os.system("echo ' ' | sudo tee -a /lib/systemd/system/rotorhazard.service")
 	os.system("echo '[Unit]' | sudo tee -a /lib/systemd/system/rotorhazard.service")
 	os.system("echo 'Description=RotorHazard Server' | sudo tee -a /lib/systemd/system/rotorhazard.service")
