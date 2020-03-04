@@ -780,7 +780,6 @@ def featuresMenu():
 		featuresMenu()
 
 def serverStart():
-	os.system("sudo systemctl stop rotorhazard")
 	sleep(0.12)
 	os.system("clear")
 	sleep(0.12)
