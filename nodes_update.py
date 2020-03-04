@@ -440,7 +440,7 @@ def flashEachNode():
 					return
 				if selection=='3' : 
 					nodeOneReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/test.hex:i ")
+					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/oscar.hex:i ")
 					print("\n\t Node 1 flashed\n")
 					sleep(1.5)
 					return
