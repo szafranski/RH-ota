@@ -446,6 +446,11 @@ def flashEachNode():
 					return
 				if selection=='4':
 					nodeMenu()
+				if selection=='5' : 
+					nodeOneReset()
+					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/com.hex:i ")
+					print("\n\t Testing firmware on Node 1 flashed\n")
+					sleep(1.5)
 				else:
 					nodeOneMenu()
 				nodeMenu()
@@ -757,7 +762,7 @@ def nodesUpdate():
 	print("\t\t\t 2 - Nodes will use ground-auto selection firmware\n")
 	print("\t\t\t 3 - Flash 'Blink' on every node\n")
 	print("\t\t\t 4 - Flash each node individually\n")
-	print("\t\t\t 5 - I2C resetting - early beta\n")
+	print("\t\t\t 5 - I2C programming - early beta\n")
 	print("\t\t\t 6 - Fix GPIO pins state - obsolete\n")
 	print("\t\t\t "+bcolors.YELLOW+"7 - Go back"+bcolors.ENDC+"\n")
 	sleep(0.3)
