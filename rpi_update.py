@@ -101,10 +101,10 @@ def end():
 	os.system("clear")
 
 def installation():
+	os.system("sudo systemctl stop rotorhazard")
 	os.system("clear")
 	sleep(0.1)
 	print("\n\t\t Installation process started - please wait... \n")
-	os.system("sudo systemctl stop rotorhazard")
 	os.chdir("/home/"+user)
 	os.system("sudo apt-get update && sudo apt-get upgrade -y")
 	os.system("sudo systemctl enable ssh")
@@ -194,7 +194,6 @@ def update():
 		os.system("clear")
 		sleep(0.1)
 		print("\n\t\t Updating existing installation - please wait... \n")
-		os.system("sudo systemctl stop rotorhazard")
 		os.system("sudo pip install pillow")
 		os.system("sudo apt-get install libjpeg-dev ntp -y")
 		os.system("sudo apt-get update && sudo apt-get upgrade -y")
