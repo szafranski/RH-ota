@@ -133,6 +133,8 @@ def compatibility():               ### adds compatibility with previous versions
 
 def first ():
 	image ()
+	if linux_testing == False:
+		os.system("sudo systemctl stop rotorhazard")
 	os.system("clear")
 	print("\n\n")
 	image()
@@ -845,8 +847,6 @@ def mainMenu():
 	sleep(0.12)
 	logoTop()
 	sleep(0.12)
-	if linux_testing == False:
-		os.system("sudo systemctl stop rotorhazard")
 	print("\n\n\n\t\t\t\t\t "+bcolors.RED+"   MAIN MENU\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BLUE+"1 - Server software installation and update\n	"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BLUE+"2 - Nodes flash and update\n"+bcolors.ENDC)
