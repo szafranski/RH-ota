@@ -97,9 +97,9 @@ if (linux_testing == False):
 		sleep(0.1)
 		GPIO.output(reset_1, GPIO.HIGH)
 	def nodeTwoReset():
-		bus.write_byte(node1addr, 0x0)
-		sleep(0.1)
-		bus.write_byte(node1addr, 0x1)
+		bus.write_byte(node1addr, 4E20)
+		# sleep(0.1)
+		# bus.write_byte(node1addr, 0x1)
 	def nodeThreeReset():
 		bus.write_byte(node2addr, 0x0)
 		sleep(0.1)
