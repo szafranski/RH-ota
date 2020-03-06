@@ -135,7 +135,12 @@ def compatibility():               ### adds compatibility with previous versions
 	if os.path.exists(homedir+"/.bashrc") == True:
 		if check_if_string_in_file(homedir+'/.bashrc', 'RotorHazard OTA Manager updated'):
 			os.system("sed -i 's/alias updateupdater/# alias updateupdater/g' "+homedir+"/.bashrc")
+			os.system("sed -i 's/RotorHazard OTA Manager updated/old alias/g' "+homedir+"/.bashrc")
 			os.system("""echo 'alias updateupdater=\"cd ~ && sudo cp ~/RH-ota/self.py ~/.ota_markers/self.py && sudo python ~/.ota_markers/self.py \"  # part of self-updater' | sudo tee -a ~/.bashrc""")
+	if check_if_string_in_file(homedir+'/.bashrc', 'starts the server'):
+			os.system("sed -i 's/alias ss/# alias ss/g' "+homedir+"/.bashrc")
+			os.system("sed -i 's/starts the server/starts the server - old alias/g' "+homedir+"/.bashrc")
+			os.system("echo 'alias ss=\"cd ~/RotorHazard/src/server && python server.py\"   #  starts the RH-server' | sudo tee -a ~/.bashrc")
 
 def first ():
 	image ()
@@ -645,7 +650,7 @@ def aliasesMenu():
 		os.system("echo '' | sudo tee -a ~/.bashrc")
 		os.system("echo '### Shortcuts that can be used in terminal window ###' | sudo tee -a ~/.bashrc")
 		os.system("echo '' | sudo tee -a ~/.bashrc")
-		os.system("echo 'alias ss=\"cd ~/RotorHazard/src/server && python server.py\"   #  starts the server' | sudo tee -a ~/.bashrc")
+		os.system("echo 'alias ss=\"cd ~/RotorHazard/src/server && python server.py\"   #  starts the RH-server' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias cfg=\"nano ~/RotorHazard/src/server/config.json\"   #  opens config.json file' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias rh=\"cd ~/RotorHazard/src/server\"   # goes to server file location' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias py=\"python\"  # pure laziness' | sudo tee -a ~/.bashrc")
@@ -668,13 +673,13 @@ def aliasesMenu():
 	you can just type 'ss' (server start) etc. Aliases can be modified and added anytime you want. You just \n\t  
 	have to open '~./bashrc' file in text editor like 'nano'. After that you have reboot or type 'source ~/.bashrc'. \n\n\t
 	Alias			Command					  What it does	\n
-	ss 	-->  python ~/RotorHazard/src/server/server.py   # starts the server\n\t
+	ss 	-->  cd ~/RotorHazard/src/server && python server.py   # starts the RH-server\n\t
 	cfg 	-->  nano ~/RotorHazard/src/server/config.json   # opens config.json file\n\t
 	rh  	-->  cd ~/RotorHazard/src/server   		 # goes to server file location\n\t
 	py  	-->  python  					 # pure laziness\n\t
 	sts  	-->  sudo systemctl stop rotorhazard 		 # stops RH service if was started\n\t
 	otadir  -->  cd ~/RH-ota   				 # goes to main server file location\n\t
-	ota  	-->  python ~/RH-ota/update.py  		 # opens updating script\n\t
+	ota  	-->  cd ~/RH-ota && python update.py  		 # opens updating script\n\t
 	als  	-->  nano ~/.bashrc   				 # opens this file\n\t
 	rld  	-->  source ~/.bashrc   			 # reloads aliases file \n\t
 	rcfg  	-->  sudo raspi-config   			 # open raspberry's configs\n\t
