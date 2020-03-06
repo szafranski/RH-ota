@@ -146,7 +146,6 @@ def compatibility():               ### adds compatibility and fixes with previou
 			os.system("sed -i 's/opens updating script/old alias/g' "+homedir+"/.bashrc")
 			os.system("echo 'alias ota=\"cd ~/RH-ota && python update.py\"  # opens updating soft' | sudo tee -a ~/.bashrc >/dev/null")
 
-
 def first ():
 	image ()
 	if linux_testing == False:
@@ -454,4 +453,3 @@ def mainMenu():
 	else: 
 		mainMenu()
 mainMenu()
-
