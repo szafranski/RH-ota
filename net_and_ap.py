@@ -169,7 +169,9 @@ def stepZero():
 	You will loose ability of connecting Raspberry wirelessly to any router or hotspot.\n
 	You will still have ability to connect it to the Internet sharing device, \n
 	like router or PC via ethernet cable. You will also be able to connect with the timer\n
-	via Wifi from PC or mobile phone etc. - if you had range. \n\n
+	via Wifi from PC or mobile phone etc. - if you had range. \n
+	If during this process you would want to check detailed instructions,
+	you can enter 'net_ap' folder from this repo, on your mobile phone etc.\n
 	This process will require few reboots. Do you want to continue?\n""")
 	print("""\n
 	\t\t"""+bcolors.GREEN+"""'y' - Yes, let's do it """+bcolors.ENDC+"""\n
