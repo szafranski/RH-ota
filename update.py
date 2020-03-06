@@ -668,7 +668,7 @@ def aliasesMenu():
 		os.system("echo 'alias gitota=\"git clone --depth=1 https://github.com/szafranski/RH-ota.git\"   #  clones ota repo' | sudo tee -a ~/.bashrc")
 		os.system("echo '' | sudo tee -a ~/.bashrc")
 		os.system("echo '# After adding or changing aliases manually - reboot raspberry or type \"source ~/.bashrc\".' | sudo tee -a ~/.bashrc")
-		os.system("echo 'functionality added' | sudo tee -a ~/.ota_markers/.aliases_added")
+		os.system("echo 'functionality added' | sudo tee -a ~/.ota_markers/.aliases_added >/dev/null")
 		print("\n\n\t\t	Aliases added successfully")
 		sleep(2)
 		featuresMenu()
@@ -733,7 +733,7 @@ def selfUpdater():
 		else :
 			selfUpdater()
 	else:
-		os.system("""echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self-updater' | sudo tee -a ~/.bashrc >/dev/null""")
+		os.system("""echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self-updater' | sudo tee -a ~/.bashrc""")
 		sleep(0.1)
 		os.system("echo 'updater marker' | sudo tee -a ~/.ota_markers/.updater_self >/dev/null")
 		sleep(0.12)
