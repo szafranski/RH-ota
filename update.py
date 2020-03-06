@@ -139,7 +139,7 @@ def compatibility():               ### adds compatibility with previous versions
 			os.system("""echo 'alias updateupdater=\"cd ~ && sudo cp ~/RH-ota/self.py ~/.ota_markers/self.py && sudo python ~/.ota_markers/self.py \"  # part of self-updater' | sudo tee -a ~/.bashrc""")
 		if check_if_string_in_file(homedir+'/.bashrc', 'starts the server'):
 			os.system("sed -i 's/alias ss/# alias ss/g' "+homedir+"/.bashrc")
-			os.system("sed -i 's/starts the server/starts the server - old alias/g' "+homedir+"/.bashrc")
+			os.system("sed -i 's/starts the server/old alias/g' "+homedir+"/.bashrc")
 			os.system("echo 'alias ss=\"cd ~/RotorHazard/src/server && python server.py\"   #  starts the RH-server' | sudo tee -a ~/.bashrc")
 
 def first ():
