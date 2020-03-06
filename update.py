@@ -403,6 +403,7 @@ def firstTime():
 		You can use all implemened features, but if you want to be able to program\n
 		Arduino-based nodes - enter Features menu and begin with first 2 points.\n\n
 		Also remember about setting up config file - check second page.  \n\n
+		This program has ability to 'self-updating'. Check "Features menu"\n\n
 		More info here: https://www.instructables.com/id/RotorHazard-Updater/\n
 		and in how_to folder - look for PDF file.\n\n 
 		\t\n\t\t\tEnjoy!\n\t\t\t\t\t\t\t\tSzafran\n\n\n """)
