@@ -11,7 +11,7 @@ else:
 
 def versionCheck():
 	os.system("grep 'updater_version =' ~/RH-ota/update.py > ~/.ota_markers/.version")
-	os.system("sed -i 's/updater_version = / /' ~/.ota_markers/.version")
+	os.system("sed -i 's/updater_version = //' ~/.ota_markers/.version")
 	os.system("sed -i 's/#.*/ /' ~/.ota_markers/.version")
 	f = open(homedir+"/.ota_markers/.version","r")
 	for line in f:
@@ -26,7 +26,7 @@ os.system("git clone --depth=1 https://github.com/szafranski/RH-ota.git")
 if config_file_exists == True:
 	os.system("sudo cp ~/.ota_markers/updater-config.json ~/RH-ota/updater-config.json")
 versionCheck()
-print("\n\n\n\t\t RotorHazard OTA Manager updated to "+version_name+"- you can see 'update-notes.txt'\n\n\n")
+print("\n\n\n\t\t RotorHazard OTA Manager updated to "+version_name+"\n\t\tYou may check update-notes.txt.\n\n\n")
 sleep(2)
 
 
