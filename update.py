@@ -340,7 +340,7 @@ def featuresMenu():
 	print("\t\t\t   3 - Access Point and Internet - coming soon\n")
 	print("\t\t\t   4 - Useful aliases\n")
 	print("\t\t\t   5 - Self updater \n")
-	print("\t\t\t   "+bcolors.YELLOW+"6 - Go back"+bcolors.ENDC)
+	print("\t\t\t   "+bcolors.YELLOW+"e - Exit to main menu"+bcolors.ENDC)
 	selection=str(raw_input(""))
 	if selection=='1':
 		avrDude()
@@ -359,7 +359,7 @@ def featuresMenu():
 		aliasesMenu()
 	if selection=='5':
 		selfUpdater()
-	if selection=='6':
+	if selection=='e':
 		mainMenu()
 	else:
 		featuresMenu()
@@ -437,7 +437,7 @@ def mainMenu():
 	print("\t\t\t   3 - Start the server now\n")
 	print("\t\t\t   4 - Additional features\n")
 	print("\t\t\t   5 - This is my first time - READ!\n")
-	print("\t\t\t   "+bcolors.YELLOW+"6 - Exit"+bcolors.ENDC)
+	print("\t\t\t   "+bcolors.YELLOW+"e - Exit"+bcolors.ENDC)
 	selection=str(raw_input(""))
 	if selection=='1':
 		os.system("python ./rpi_update.py")   ### opens raspberry updating file
@@ -449,7 +449,7 @@ def mainMenu():
 		featuresMenu()
 	if selection=='5':
 		firstTime()
-	if selection=='6':
+	if selection=='e':
 		end()
 	else: 
 		mainMenu()

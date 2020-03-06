@@ -414,7 +414,7 @@ def flashEachNode():
 		print("\n\t\t\t 2 - Flash node 2 \t\t 6 - Flash node 6")
 		print("\n\t\t\t 3 - Flash node 3 \t\t 7 - Flash node 7")
 		print("\n\t\t\t 4 - Flash node 4 \t\t 8 - Flash node 8")
-		print("\n\t\t\t\t\t"+bcolors.YELLOW+"9 - Back to main menu"+bcolors.ENDC)
+		print("\n\t\t\t\t\t"+bcolors.YELLOW+"e - Exit to main menu"+bcolors.ENDC)
 		selection=str(raw_input("\n\n\t\t\tWhich node do you want to program: "))
 		print("\n\n")
 		if selection=='1':
@@ -685,7 +685,7 @@ def flashEachNode():
 					nodeEightMenu()
 				nodeMenu()
 			nodeEightMenu()
-		if selection=='9':
+		if selection=='e':
 			sys.exit()
 		else:
 			nodeMenu()
@@ -764,7 +764,7 @@ def nodesUpdate():
 	print("\t\t\t 4 - Flash each node individually\n")
 	print("\t\t\t 5 - I2C programming - early beta\n")
 	print("\t\t\t 6 - Fix GPIO pins state - obsolete\n")
-	print("\t\t\t "+bcolors.YELLOW+"7 - Go back"+bcolors.ENDC+"\n")
+	print("\t\t\t "+bcolors.YELLOW+"e - Exit to main menu"+bcolors.ENDC+"\n")
 	sleep(0.3)
 	selection=str(raw_input(""))
 	if selection=='1':
@@ -785,7 +785,7 @@ def nodesUpdate():
 		os.system("python ./.dev/.i2c_nodes_update.py")
 	if selection=='6':
 		gpioState()
-	if selection=='7':
+	if selection=='e':
 		sys.exit()
 	else:
 		nodesUpdate()
