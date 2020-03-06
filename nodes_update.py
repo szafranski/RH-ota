@@ -448,7 +448,7 @@ def flashEachNode():
 					nodeMenu()
 				if selection=='dev' : 
 					nodeOneReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/.dev/.comm.hex:i ")
+					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/.dev/comm.hex:i ")
 					print("\n\t Testing firmware on Node 1 flashed\n")
 					sleep(1.5)
 				else:
@@ -782,7 +782,7 @@ def nodesUpdate():
 	if selection=='4':
 		flashEachNode()
 	if selection=='5':
-		os.system("python ./.dev/.i2c_nodes_update.py")
+		os.system("python ./.dev/i2c_nodes_update.py")
 	if selection=='6':
 		gpioState()
 	if selection=='e':
