@@ -159,7 +159,7 @@ def installation():
 	os.system("sudo git clone https://github.com/rm-hull/bme280.git")
 	os.chdir("/home/"+user+"/bme280")
 	os.system("sudo python setup.py install")
-	os.system("echo 'leave this file here' | sudo tee -a /home/"+user+"/.ota_master/.installation-check_file.txt")
+	os.system("echo 'leave this file here' | sudo tee -a /home/"+user+"/.ota_markers/.installation-check_file.txt")
 	os.system("sudo apt-get install openjdk-8-jdk-headless -y")
 	os.system("sudo rm /lib/systemd/system/rotorhazard.service")
 	os.system("echo ' ' | sudo tee -a /lib/systemd/system/rotorhazard.service")
@@ -262,7 +262,7 @@ def main():
 	\t"""+bcolors.YELLOW+""" 'a' - Abort \n"""+bcolors.ENDC+""" """)
 	selection=str(raw_input(""))
 	if selection =='i':	
-		if (os.path.exists("/home/"+user+"/.ota_master/.installation-check_file.txt") == True) or (os.path.exists("/home/"+user+"/RotorHazard") == True):
+		if (os.path.exists("/home/"+user+"/.ota_markers/.installation-check_file.txt") == True) or (os.path.exists("/home/"+user+"/RotorHazard") == True):
 			os.system("clear")
 			print("""\n\t Looks like you already have RotorHazard server software installed. \n
 	 If so please use update mode instead. """)
