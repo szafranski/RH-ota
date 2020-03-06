@@ -95,8 +95,6 @@ def sysConf():
 	os.system("sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
 	os.system("sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
 
-
-
 def end():
 	print("\n\n\n\t\t"+bcolors.OKGREEN+"Type 'r' for reboot - recommended"+bcolors.ENDC+"\n")
 	print("\t\tType 's' to start the server now\n")
@@ -122,7 +120,6 @@ def end():
 	os.system("clear")
 
 def installation():
-	os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
 	os.system("clear")
 	sleep(0.1)
 	print("\n\t\t Installation process started - please wait... \n")
@@ -200,7 +197,6 @@ def update():
 		else:
 			main()
 	else :
-		os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
 		os.system("clear")
 		sleep(0.1)
 		print("\n\t\t Updating existing installation - please wait... \n")
