@@ -260,7 +260,7 @@ def aliasesMenu():
 	selection=str(raw_input("\n\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 	if selection == 'y':
 		if os.path.exists("/home/"+user+"/.ota_markers/.aliases_added") == True:
-			print("\n\n\t\t Looks like you already have aliases added. Do you want to continue anyway?\n")
+			print("\n\n\t\tLooks like you already have aliases added. Do you want to continue anyway?\n")
 			selection=str(raw_input("\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 			if selection=='y':
 				aliasesContent()
