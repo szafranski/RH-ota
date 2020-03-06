@@ -288,7 +288,7 @@ def selfUpdater():
 		- you have to type 'updateupdater' in the terminal window.\n\n\t\t
 		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+""",\n\t\t
 		so you allways know what firmware version updater contains.\n\t\t
-		For example "2.2.3" contains nodes firmware with "API level 22" etc.\n\t\t
+		For example "2.2.5c" contains nodes firmware with "API level 22" etc.\n\t\t
 		Be sure that you have internet connection established.\n\n """)
 		print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Exit program by pressing 'e' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
 		+bcolors.YELLOW+"""\tGo back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
