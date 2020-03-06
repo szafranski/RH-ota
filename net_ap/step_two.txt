@@ -1,0 +1,23 @@
+connect PC to WiFi network: <br/>
+name: raspi-webgui<br/>
+password: ChangeMe<br/><br/><br/>
+
+enter IP address: 10.3.141.1 in browser
+Username: admin
+Password: secret<br/>  <br/>
+
+Click:
+Configure hotspot -> SSID (enter name you want, eg. "RH-TIMER") 
+
+Wireless Mode (change to 802.11n - 2.4GHz)
+
+save settings 
+
+Click:
+Configure hotspot -> security tab
+
+PSK (enter password that you want to have, eg. "timerpass")
+
+save settings
+
+DON'T CHANGE OTHER SETTINGS IN GUI!  """)

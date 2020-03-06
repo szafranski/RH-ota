@@ -336,7 +336,7 @@ def featuresMenu():
 	print("\n\n\n\t\t\t\t\t\t"+bcolors.RED+"FEATURES MENU\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BLUE+"1 - Install avrdude\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BLUE+"2 - Enable serial protocol"+bcolors.ENDC+"\n")
-	print("\t\t\t   3 - Access Point and Internet - coming soon\n")
+	print("\t\t\t   3 - Access Point and Internet - new\n")
 	print("\t\t\t   4 - Useful aliases\n")
 	print("\t\t\t   5 - Self updater \n")
 	print("\t\t\t   "+bcolors.YELLOW+"e - Exit to main menu"+bcolors.ENDC)
