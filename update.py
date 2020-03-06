@@ -144,7 +144,7 @@ def compatibility():               ### adds compatibility and fixes with previou
 		if check_if_string_in_file(homedir+'/.bashrc', 'opens updating script'):
 			os.system("sed -i 's/alias ota/# alias ota/g' "+homedir+"/.bashrc")
 			os.system("sed -i 's/opens updating script/old alias/g' "+homedir+"/.bashrc")
-			os.system("echo 'alias ota=\"cd ~/RH-ota && python update.py\"  # opens updating script' | sudo tee -a ~/.bashrc")
+			os.system("echo 'alias ota=\"cd ~/RH-ota && python update.py\"  # opens updating soft' | sudo tee -a ~/.bashrc")
 
 
 def first ():
@@ -661,7 +661,7 @@ def aliasesMenu():
 		os.system("echo 'alias py=\"python\"  # pure laziness' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias sts=\"sudo systemctl stop rotorhazard\" # stops RH service' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias otadir=\"cd ~/RH-ota\"   # goes to server file location' | sudo tee -a ~/.bashrc")
-		os.system("echo 'alias ota=\"cd ~/RH-ota && python update.py\"  # opens updating script' | sudo tee -a ~/.bashrc")
+		os.system("echo 'alias ota=\"cd ~/RH-ota && python update.py\"  # opens updating soft' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias als=\"nano ~/.bashrc\"   #  opens this file' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias rld=\"source ~/.bashrc\"   #  reloads aliases file' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias rcfg=\"sudo raspi-config\"   #  open raspberrys configs' | sudo tee -a ~/.bashrc")
@@ -684,7 +684,7 @@ def aliasesMenu():
 	py  	-->  python  					 # pure laziness\n\t
 	sts  	-->  sudo systemctl stop rotorhazard 		 # stops RH service if was started\n\t
 	otadir  -->  cd ~/RH-ota   				 # goes to main server file location\n\t
-	ota  	-->  cd ~/RH-ota && python update.py  		 # opens updating script\n\t
+	ota  	-->  cd ~/RH-ota && python update.py  		 # opens updating soft\n\t
 	als  	-->  nano ~/.bashrc   				 # opens this file\n\t
 	rld  	-->  source ~/.bashrc   			 # reloads aliases file \n\t
 	rcfg  	-->  sudo raspi-config   			 # open raspberry's configs\n\t
