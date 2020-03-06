@@ -256,7 +256,8 @@ def aliasesMenu():
 	rld  	-->  source ~/.bashrc   			 # reloads aliases file \t
 	rcfg  	-->  sudo raspi-config   			 # open raspberry's configs\t
 	gitota	-->  git clone https://github.com/sza(...) 	 # clones ota repo\t\t\n
-		Do you want to use above aliases in your system?""")
+		Do you want to use above aliases in your system?\n
+		Reboot should be performed after adding those""")
 	selection=str(raw_input("\n\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 	if selection == 'y':
 		if os.path.exists("/home/"+user+"/.ota_markers/.aliases_added") == True:
