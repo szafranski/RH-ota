@@ -37,6 +37,6 @@ if config_file_exists == True:
 	os.system("sudo cp ~/.ota_markers/updater-config.json ~/RH-ota/updater-config.json")
 newVersionCheck()
 print("\n\n\n\t RotorHazard OTA Manager updated to version "+new_version_name+"\n\t\tYou may check update-notes.txt\n\n")
-sleep(2)
+sleep(1.5)
 
 
