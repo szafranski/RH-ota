@@ -27,7 +27,7 @@ if preffered_RH_version == 'master':
 if preffered_RH_version == 'beta':
 	server_version = '2.1.0-beta.3'
 if preffered_RH_version == 'stable':
-	server_version = '2.0.2'
+	server_version = '2.1.0'
 if preffered_RH_version =='custom':
 	server_version = 'X.X.X'           ### paste custom version number here if you want to declare it manually
 
@@ -131,7 +131,8 @@ def installation():
 	os.chdir("/home/"+user)
 	os.system("sudo apt-get update && sudo apt-get upgrade -y")
 	os.system("sudo apt autoremove -y")
-	sysConf()
+	if conf_allowed == True:
+		sysConf()
 	if os.path.exists("/home/"+user+"/.old_RotorHazard.old") == False:
 		os.system("mkdir /home/"+user+"/.old_RotorHazard.old")
 	if os.path.exists("/home/"+user+"/RotorHazard-master") == True:
@@ -193,6 +194,7 @@ def update():
 	 	selection=str(raw_input("""\n\n\t\t"""+bcolors.OKGREEN+""" 'i' - Install the software - recommended """+ bcolors.ENDC+
 		"""\n\n\t\t 'u' - Force update procedure   \n\n\t\t """+bcolors.YELLOW+"""'a' - Abort both  \n\n """+bcolors.ENDC+""" """))
 		if selection == 'i':
+			conf_allowed = True
 			installation()
 		if selection == 'u':
 			update()
@@ -264,10 +266,14 @@ def main():
 			print("""\n\t Looks like you already have RotorHazard server software installed. \n
 	 If so please use update mode instead. """)
 			selection=str(raw_input("""\n\n\t\t"""+bcolors.OKGREEN+""" 'u' - Select update mode - recommended """+ bcolors.ENDC+
-			"""\n\n\t\t 'i' - Force installation anyway\n\n\t\t """+bcolors.YELLOW+"""'a' - Abort both  \n\n """+bcolors.ENDC+""" """))
+			"""\n\n\t\t 'i' - Force installation anyway\n\n\t\t 'c' - Force installation and sys. config.\n\n\t\t """+bcolors.YELLOW+"""'a' - Abort both  \n\n """+bcolors.ENDC+""" """))
 			if selection == 'u':
 				update()
 			if selection == 'i':
+				conf_allowed = False
+				installation()
+			if selection == 'c':
+				conf_allowed = True
 				installation()
 			if selection == 'a':
 				os.system("clear")
@@ -278,6 +284,7 @@ def main():
 			else:
 				main()
 		else :
+			conf_allowed = True
 			installation()
 	if selection =='u':	
 		update()
