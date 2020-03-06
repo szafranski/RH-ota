@@ -227,13 +227,13 @@ def update():
 		os.system("sudo rm temp.zip")
 		if os.path.exists("/home/"+user+"/backup_RH_data") == False:
 			os.system("sudo mkdir /home/"+user+"/backup_RH_data")
-		os.system("sudo cp /home/"+user+"/RotorHazard.old/src/server/config.json /home/"+user+"/RotorHazard/src/server/")
-		os.system("sudo cp -r /home/"+user+"/RotorHazard.old/src/server/static/image /home/"+user+"/backup_RH_data/")
-		os.system("sudo cp -r /home/"+user+"/RotorHazard.old/src/server/static/image /home/"+user+"/RotorHazard/src/server/static")
-		os.system("sudo cp /home/"+user+"/RotorHazard.old/src/server/config.json /home/"+user+"/backup_RH_data")
-		os.system("sudo cp /home/"+user+"/RotorHazard.old/src/server/database.db /home/"+user+"/RotorHazard/src/server/")
+		os.system("cp /home/"+user+"/RotorHazard.old/src/server/config.json /home/"+user+"/RotorHazard/src/server/")
+		os.system("cp -r /home/"+user+"/RotorHazard.old/src/server/static/image /home/"+user+"/backup_RH_data/")
+		os.system("cp -r /home/"+user+"/RotorHazard.old/src/server/static/image /home/"+user+"/RotorHazard/src/server/static")
+		os.system("cp /home/"+user+"/RotorHazard.old/src/server/config.json /home/"+user+"/backup_RH_data")
+		os.system("cp /home/"+user+"/RotorHazard.old/src/server/database.db /home/"+user+"/RotorHazard/src/server/")
+		os.system("cp /home/"+user+"/RotorHazard.old/src/server/database.db /home/"+user+"/backup_RH_data")
 		os.chdir("/home/"+user+"/RotorHazard/src/server")
-		os.system("sudo cp /home/"+user+"/RotorHazard.old/src/server/database.db /home/"+user+"/backup_RH_data")
 		os.system("sudo pip install --upgrade --no-cache-dir -r requirements.txt")
 		print("""\n\n\t
 		##############################################
