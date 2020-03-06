@@ -206,11 +206,11 @@ def update():
 		if os.path.exists("/home/"+user+"/.old_RotorHazard.old") == False:
 			os.system("mkdir /home/"+user+"/.old_RotorHazard.old")
 		if os.path.exists("/home/"+user+"/RotorHazard-master") == True:
-			os.system("cp -r /home/"+user+"/RotorHazard-master /home/"+user+"/.old_RotorHazard.old/")
-			os.system("rm -r RotorHazard-master")
+			os.system("cp -r /home/"+user+"/RotorHazard-master /home/"+user+"/.old_RotorHazard.old/RotorHazard-master")
+			os.system("rm -r /home/"+user+"/RotorHazard-master")
 		if os.path.exists("/home/"+user+"/RotorHazard.old") == True:
 			os.system("cp -r /home/"+user+"/RotorHazard.old /home/"+user+"/.old_RotorHazard.old/")
-			os.system("rm -r RotorHazard.old")
+			os.system("rm -r /home/"+user+"/RotorHazard.old")
 		os.system("mv /home/"+user+"/RotorHazard /home/"+user+"/RotorHazard.old")
 		os.chdir("/home/"+user)
 		os.system("wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"+server_version+" -O temp.zip")
