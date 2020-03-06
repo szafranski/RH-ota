@@ -2,3 +2,4 @@
 updater-config.json
 net
 check.py
+.travis.yml
