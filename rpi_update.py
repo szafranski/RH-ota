@@ -117,8 +117,6 @@ def end():
 			os.system("clear")
 			sys.exit()
 		if selection =='s':	
-			print("\n\n\t\t\tServer will start in few seconds\n\n\t\t")
-			sleep(1)
 			serverStart()
 			sys.exit()
 		else: 
@@ -132,6 +130,7 @@ def installation():
 	print("\n\t\t Installation process started - please wait... \n")
 	os.chdir("/home/"+user)
 	os.system("sudo apt-get update && sudo apt-get upgrade -y")
+	os.system("sudo apt autoremove -y")
 	sysConf()
 	if os.path.exists("/home/"+user+"/.old_RotorHazard.old") == False:
 		os.system("mkdir /home/"+user+"/.old_RotorHazard.old")
@@ -210,10 +209,11 @@ def update():
 		os.system("sudo pip install pillow")
 		os.system("sudo apt-get install libjpeg-dev ntp -y")
 		os.system("sudo apt-get update && sudo apt-get upgrade -y")
+		os.system("sudo apt autoremove -y")
 		if os.path.exists("/home/"+user+"/.old_RotorHazard.old") == False:
 			os.system("mkdir /home/"+user+"/.old_RotorHazard.old")
 		if os.path.exists("/home/"+user+"/RotorHazard-master") == True:
-			os.system("cp -r /home/"+user+"/RotorHazard-master /home/"+user+"/.old_RotorHazard.old/RotorHazard-master")
+			os.system("cp -r /home/"+user+"/RotorHazard-master /home/"+user+"/.old_RotorHazard.old/")
 			os.system("rm -r /home/"+user+"/RotorHazard-master")
 		if os.path.exists("/home/"+user+"/RotorHazard.old") == True:
 			os.system("cp -r /home/"+user+"/RotorHazard.old /home/"+user+"/.old_RotorHazard.old/")
@@ -228,7 +228,7 @@ def update():
 			os.system("mkdir /home/"+user+"/backup_RH_data")
 		os.system("cp /home/"+user+"/RotorHazard.old/src/server/config.json /home/"+user+"/RotorHazard/src/server/")
 		os.system("cp -r /home/"+user+"/RotorHazard.old/src/server/static/image /home/"+user+"/backup_RH_data/")
-		os.system("cp -r /home/"+user+"/RotorHazard.old/src/server/static/image /home/"+user+"/RotorHazard/src/server/static/image")
+		os.system("cp -r /home/"+user+"/RotorHazard.old/src/server/static/image /home/"+user+"/RotorHazard/src/server/static")
 		os.system("cp /home/"+user+"/RotorHazard.old/src/server/config.json /home/"+user+"/backup_RH_data")
 		os.system("cp /home/"+user+"/RotorHazard.old/src/server/database.db /home/"+user+"/RotorHazard/src/server/")
 		os.chdir("/home/"+user+"/RotorHazard/src/server")
