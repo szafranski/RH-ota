@@ -28,7 +28,7 @@ def newVersionCheck():
 		new_version_name = line
 
 oldVersionCheck()
-print("\n\n\n\t\t Updating process from version"+old_version_name+"has been started...\n\n\n")
+print("\n\n\n\t Updating process from version"+old_version_name+"has been started...\n\n\n")
 if config_file_exists == True:
 	os.system("sudo cp ~/RH-ota/updater-config.json ~/.ota_markers/updater-config.json")
 os.system("sudo rm -r ~/RH-ota")
