@@ -240,7 +240,7 @@ def update():
 		os.system("cp /home/"+user+"/RotorHazard.old/src/server/database.db /home/"+user+"/RotorHazard/src/server/")
 		os.system("cp /home/"+user+"/RotorHazard.old/src/server/database.db /home/"+user+"/backup_RH_data")
 		os.chdir("/home/"+user+"/RotorHazard/src/server")
-		os.system("sudo pip install --upgrade --no-cache-dir -r requirements.txt")
+		os.system("sudo -H pip install --upgrade --no-cache-dir -r requirements.txt")
 		print("""\n\n\t
 		##############################################
 		##                                          ##
