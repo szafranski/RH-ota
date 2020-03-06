@@ -127,7 +127,7 @@ def installation():
 	print("\n\t\t Installation process started - please wait... \n")
 	os.system("sudo apt-get update && sudo apt-get upgrade -y")
 	os.system("sudo apt autoremove -y")
-	os.system("sudo apt-get install wget ntp libjpeg-dev i2c-tools python-dev python-rpi.gpio libffi-dev python-smbus build-essential python-pip git scons swig -y")
+	os.system("sudo apt-get install wget ntp libjpeg-dev i2c-tools python-dev python-rpi.gpio libffi-dev python-smbus build-essential python-pip git scons swig zip -y")
 	os.system("sudo pip install cffi ")
 	os.system("sudo pip install pillow")
 	if conf_allowed == True:
