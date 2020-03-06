@@ -10,8 +10,8 @@ else:
 	config_file_exists = False
 
 def oldVersionCheck():
-	os.system("grep 'soft_version =' ~/RH-ota/update.py > ~/.ota_markers/.old_version")
-	os.system("sed -i 's/soft_version = //' ~/.ota_markers/.old_version")
+	os.system("grep 'updater_version =' ~/RH-ota/update.py > ~/.ota_markers/.old_version")
+	os.system("sed -i 's/updater_version = //' ~/.ota_markers/.old_version")
 	os.system("sed -i 's/#.*/ /' ~/.ota_markers/.old_version")
 	f = open(homedir+"/.ota_markers/.old_version","r")
 	for line in f:
@@ -19,8 +19,8 @@ def oldVersionCheck():
 		old_version_name = line
 
 def newVersionCheck():
-	os.system("grep 'soft_version =' ~/RH-ota/update.py > ~/.ota_markers/.new_version")
-	os.system("sed -i 's/soft_version = //' ~/.ota_markers/.new_version")
+	os.system("grep 'updater_version =' ~/RH-ota/update.py > ~/.ota_markers/.new_version")
+	os.system("sed -i 's/updater_version = //' ~/.ota_markers/.new_version")
 	os.system("sed -i 's/#.*/ /' ~/.ota_markers/.new_version")
 	f = open(homedir+"/.ota_markers/.new_version","r")
 	for line in f:
@@ -28,7 +28,7 @@ def newVersionCheck():
 		new_version_name = line
 
 oldVersionCheck()
-print("\n\n\n\t Please wait: updating process from version "+old_version_name+"\n\n")
+print("\n\n\n\t Please wait: updating process from "+old_version_name+"\n\n")
 if config_file_exists == True:
 	os.system("sudo cp ~/RH-ota/updater-config.json ~/.ota_markers/updater-config.json")
 os.system("sudo rm -r ~/RH-ota")
@@ -36,7 +36,7 @@ os.system("git clone --depth=1 https://github.com/szafranski/RH-ota.git")
 if config_file_exists == True:
 	os.system("sudo cp ~/.ota_markers/updater-config.json ~/RH-ota/updater-config.json")
 newVersionCheck()
-print("\n\n\n\t RotorHazard OTA Manager updated to version "+new_version_name+"\n\t\tYou may check update-notes.txt\n\n")
+print("\n\n\n\t RotorHazard OTA Manager updated to "+new_version_name+"\n\t\tYou may check update-notes.txt\n\n")
 sleep(2)
 
 
