@@ -7,7 +7,7 @@ import os
 import sys
 import json
 
-updater_version = '2.2.7c'       ### version of THIS program - has nothing to do with the RH version
+updater_version = '2.2.8'   ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
                             ### third number reffers to actual verion of the updater itself
 
@@ -346,14 +346,7 @@ def featuresMenu():
 	if selection== '2':
 		serialMenu()
 	if selection=='3':
-		def raspberryAP():   ### in development
-			if linux_testing == True:
-				os.system("python ./net_and_ap.py")
-			else:
-				os.system("clear")
-				print("\n\n\n\t\t\t\tcoming soon")
-				sleep(1.5)
-		raspberryAP()
+		os.system("python ./net_and_ap.py")
 	if selection=='4':
 		aliasesMenu()
 	if selection=='5':

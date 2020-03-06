@@ -32,35 +32,6 @@ class bcolors:
 	BOLD = '\033[1m'
 	UNDERLINE = '\033[4m'
 
-def image():
-	print("""
-\t                               **/(((/**                              
-\t                            */###########(*                           
-\t                          */#####@@@@@#####(*                         
-\t                         *(((((@@@###@@@#####*,                       
-\t                       */((((@@@#######@@@####/*                      
-\t                      *(((((@@@(((((#(##@@@#####*                     
-\t                    **((((&@@&((((*...####@@@####**                   
-\t                   *(((((@@@((((((....((((#@@@#####*                  
-\t                 **((((#@@@((((((*.....((((#%@@&####/*                
-\t                */((((@@@((((((((......(((((((@@@####(*               
-\t              .*(((((@@@(((((((((......((((((((@@@%####**             
-\t             */((((@@@(((((((((((......((((((((((@@@####(*            
-\t            *(((((@@@((((((((((((.....*(((((((((((@@@#####*,          
-\t          **((((@@@((((((((((((((.....((((((((((((((@@@(#(#/*         
-\t          *((((@@@(((((((((((((((.....(((((((((((((((@@@((###*        
-\t       */((((&@@&(((((((((((((,...(((....(((((((((((((#@@@((((/*      
-\t      */((((@@@(((((((((......................((((((((((@@@((((#*     
-\t    .*//(((@@@((((((............(((((((*.........,(((((((%@@&((((/*   
-\t   */////@@@(((((........../((((((((((((((*..........((((((@@@(((((*  
-\t  */////@@@/(((......./(((((((((((((((((((((((/......../((((@@@#((((*.
-\t *////%@@/////(((((((((((((((((((((((((((((((((((((((..(((((((@@@((((*
-\t *////@@@/////////((((((((((((((((((((((((((((((((((((((((((((@@@((((*
-\t **/////@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#((((**
-\t  ***/////////////////(((((((((((((((((((((((((((((((((((((((((((((** 
-\t     ****////////////////((((((((((((((((((((((((((((((((((((/****    
-""")
-
 def logoTop():
 	print("""\n	
 		#######################################################################
@@ -74,14 +45,6 @@ def logoTop():
 		print("\t\t\t\t\t  Linux PC version")
 	if os.path.exists("./updater-config.json") == False:
 		print("\t\t\t    Looks that you haven't set up config file yet!")
-
-def first ():
-	image ()
-	os.system("clear")
-	print("\n")
-	image()
-	sleep(0.5)
-first()
 
 # Set the WiFi country in raspi-config's Localisation Options:
 # sudo raspi-config
@@ -114,29 +77,11 @@ Now you should be able to enter the network typing in the browser:
 def stepThree():
 
 	print("""\n\t\tStep 3.\n""")
-#	os.system("sudo mv /etc/dhcpcd.conf /etc/dhcpcd.conf.orig")
-#	os.system("echo 'interface wlan0' | sudo tee -a /etc/dhcpcd.conf")
-#	os.system("echo 'static ip_address=10.10.10.10/24' | sudo tee -a /etc/dhcpcd.conf")
-#	os.system("echo 'static routers=10.10.10.10' | sudo tee -a /etc/dhcpcd.conf")
-#	os.system("echo 'static domain_name_server=1.1.1.1 8.8.8.8' | sudo tee -a /etc/dhcpcd.conf")
-#	os.system("echo ' ' | sudo tee -a /etc/dhcpcd.conf")
-#	os.system("echo 'interface eth0' | sudo tee -a /etc/dhcpcd.conf")
-#	os.system("echo 'static ip_address=172.20.20.20/20' | sudo tee -a /etc/dhcpcd.conf")
-#	os.system("echo 'static routers=172.20.20.20' | sudo tee -a /etc/dhcpcd.conf")
-#	os.system("echo 'static domain_name_server=1.1.1.1 8.8.8.8' | sudo tee -a /etc/dhcpcd.conf")
-#	os.system("sudo cp /etc/dhcpcd.conf /etc/dhcpcd.conf.my")
-#	os.system("sudo cp /etc/dhcpcd.conf /etc/dhcpcd.conf.netap")
-#	os.system("sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig")
-#	os.system("echo 'interface=wlan0' | sudo tee -a /etc/dnsmasq.conf")
-#	os.system("echo 'dhcp-range=10.10.10.11,10.10.10.255,255.255.255.0,24h' | sudo tee -a /etc/dnsmasq.conf")
-#	os.system("echo ' ' | sudo tee -a /etc/dnsmasq.conf")
-#	os.system("echo 'interface=eth0' | sudo tee -a /etc/dnsmasq.conf")
-#	os.system("echo 'dhcp-range=172.20.20.21,172.20.20.255,255.255.255.0,24h' | sudo tee -a /etc/dnsmasq.conf")
-#	os.system("sudo cp /etc/dnsmasq.conf /etc/dnsmasq.conf.my")
+	os.system("sudo cp /etc/dhcpcd.conf /etc/dhcpcd.conf.ap")
 	print("""\n\tAfter rebooting you can connect to the timer, via Wifi or ethernet.\n 
 	WiFi: 10.10.10.10:5000 (10.10.10.10:5000 if connecting from a browser)
 	ethernet: 172.20.20.20 (172.20.20.20:5000 if connecting from a browser)\n\n
-	You can enter access point extra menu after rebooing
+	You can enter Access Point extra menu after rebooing
 	and check how you can connect to the internet.\n""")
 	print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
 			+bcolors.YELLOW+"""    Exit by pressing 'e'"""+bcolors.ENDC+"""\n""")
@@ -151,7 +96,7 @@ def stepThree():
 def stepTwo():
 	print("""\n\n
 	Step 2.\n
-Next step would require performing some actions in GUI.
+Next step requires performing some actions in GUI.
 You may write those informations down or take a picture etc.
 You can also print file 'step_two.txt' from 'net_ap' folder.
 Remember to do it BEFORE rebooting.
@@ -185,12 +130,22 @@ DON'T CHANGE OTHER SETTINGS IN GUI!
 
 Read carefully whole instruction from above before rebooting!""")
 
+def confCopy():
+	os.system("echo 'alias netcfg=\"cp /etc/dhcpcd.conf.net /etc/dhcpcd.conf \"  # net conf' | sudo tee -a ~/.bashrc")
+	os.system("echo 'alias apcfg=\"cp /etc/dhcpcd.conf.ap /etc/dhcpcd.conf \"  # net conf' | sudo tee -a ~/.bashrc")
+	os.system("sudo cp ./net_ap/dhcpcd.conf.net /etc/dhcpcd.conf.net")
+	os.system("sudo cp ./net_ap/dhcpcd.conf.ap /etc/dhcpcd.conf.ap")
+	os.system("sudo cp /etc/dhcpcd.conf /etc/dhcpcd.conf.orig")
+	os.system("sudo cp /etc/dnsmasq.conf /etc/dnsmasq.conf.orig")
+	os.system("sudo cp ./net_ap/dnsmasq.conf.net /etc/dnsmasq.conf.net")
+
 def stepOne():
-#	os.system("sudo sed -i 's/country/# country/g' /etc/wpa_supplicant/wpa_supplicant.conf")
-#	os.system("echo 'country="+myPlace+"'| sudo  tee -a /boot/config.txt")
-#	os.system("sudo apt-get update && sudo apt-get upgrade -y")
+	confCopy()
+	os.system("sudo sed -i 's/country/# country/g' /etc/wpa_supplicant/wpa_supplicant.conf")
+	os.system("echo 'country="+myPlace+"'| sudo  tee -a /boot/config.txt")
+	os.system("sudo apt-get update && sudo apt-get upgrade -y")
 	os.system("sudo apt install curl -y")
-#	os.system("curl -sL https://install.raspap.com | bash -s -- -y")
+	os.system("curl -sL https://install.raspap.com | bash -s -- -y")
 	stepTwo()
 	print("""\n\t\t\t\t"""+bcolors.GREEN+"""Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
 			+bcolors.YELLOW+"""Exit by pressing 'e'"""+bcolors.ENDC+"""\n""")
@@ -218,8 +173,8 @@ def stepZero():
 	This process will require few reboots. Do you want to continue?\n""")
 	print("""\n
 	\t\t"""+bcolors.GREEN+"""'y' - Yes, let's do it """+bcolors.ENDC+"""\n
-	\t\t'3' - enters "Step 3." - check it later\n
-	\t\t'x' - enters access point extra menu - check it later\n
+	\t\t'3' - enters "Step 3." - check it after first two steps\n
+	\t\t'x' - enters Access Point extra menu - check it after operation\n
 	\t\t"""+bcolors.YELLOW+"""'e' - exit to main menu"""+bcolors.ENDC+"""\n""")
 	selection=str(raw_input(""))
 	if selection=='y':
@@ -233,58 +188,70 @@ def stepZero():
 	else :
 		main()
 
-
-def stepFive():
-
-	print("""Step 5.""")
-	os.system("echo 'interface wlan0' | sudo tee -a /etc/dhcpcd.conf.net")
-	os.system("echo 'static ip_address=10.10.10.10/24' | sudo tee -a /etc/dhcpcd.conf.conf.net")
-	os.system("echo 'static routers=10.10.10.10' | sudo tee -a /etc/dhcpcd.conf.conf.net")
-	os.system("echo 'static domain_name_server=1.1.1.1 8.8.8.8' | sudo tee -a /etc/dhcpcd.conf.conf.net")
-	os.system("echo ' ' | sudo tee -a /etc/dhcpcd.conf.net")
-	os.system("echo 'interface eth0' | sudo tee -a /etc/dhcpcd.conf.net")
-	os.system("echo '#static ip_address=172.20.20.20/20' | sudo tee -a /etc/dhcpcd.conf.net")
-	os.system("echo '#static routers=172.20.20.20' | sudo tee -a /etc/dhcpcd.conf.net")
-	os.system("echo '#static domain_name_server=1.1.1.1 8.8.8.8' | sudo tee -a /etc/dhcpcd.conf.net")
-
-def end():
+def apMenu():
+	def secondPage():
+		sleep(0.12)
 		os.system("clear")
-		print("\n\n")
-		image()
-		sleep(0.5)
+		sleep(0.12)
+		print("""\n
+		When Raspberry configuration has been changed so it performs
+		as Access Point or as a DHCP client (normal mode),
+		configuration file is being copied with a proper name.
+		Next you have to reboot, so changes can be applied.
+		When you setup Pi as a client, you can just connect
+		it to the router. If you are using PC as a internet sharing
+		device, you have to enable that option in OS settings.
+		Instructions for Windows can be found in net_ap folder.\n
+		
+		If you want to connect to Raspberry via SSH or VNC,
+		when it's in client mode you have to know its IP address.
+		Check it in router settings page or using special program 
+		'Advanced IP Scanner' on a PC. If you are using Pi as a AP, 
+		its IP is always 172.20.20.20 (ethernet). Remember to disable
+		internet sharing functionality on your PC's OS, when Raspberry
+		is in Access Point mode. \n
+		Remember that you can always connect to the timer (eg. from yet 
+		another device) via WiFi. It's wireless IP is 10.10.10.10.\n
+		You can also read/print those instructions. File 'detailed.txt',
+		in net_ap folder.
+		\n""")
+		selection=str(raw_input("\t\t\t"+bcolors.GREEN+"'k' - OK '"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - go back"+bcolors.ENDC+"\n"))
+		if selection=='k':
+			sys.exit()
+		if selection=='b':
+			firstPage()
+		else :
+			secondPage()
+	def firstPage():
+		sleep(0.12)
 		os.system("clear")
-		sys.exit()
-
-def apConf():
-	os.system("sudo cp /etc/dhcpcd.netap /etc/dhcpcd.conf")
-	print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\t\t\t\t"""
-			+bcolors.YELLOW+"""    Exit by pressing 'e'"""+bcolors.ENDC+"""\n""")
-	selection=str(raw_input(""))
-	if selection=='r':
-		os.system("sudo reboot")
-	if selection=='e':
-		sys.exit()
-	else :
-		apConf()
-
-def netConf():
-	os.system("sudo cp /etc/dhcpcd.netap /etc/dhcpcd.conf")
-	print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\t\t\t\t"""
-			+bcolors.YELLOW+"""    Exit by pressing 'e'"""+bcolors.ENDC+"""\n""")
-	selection=str(raw_input(""))
-	if selection=='r':
-		os.system("sudo reboot")
-	if selection=='e':
-		sys.exit()
-	else :
-		netConf()
+		sleep(0.12)
+		logoTop()
+		sleep(0.12)
+		print("""\n
+		Right now you have your Access Point configured. However,
+		there is still an option to mantain internet connection.
+		You will be able to connect the Pi via ethernet to the router 
+		or PC - with internet sharing option enbled. It requires chages
+		in configuration file. Those will be performed automatically,
+		after entering 'netcfg' or 'apcfg' in command line.
+		Remember to reboot the timer after every change. Instruction
+		can be also found in 'apconf.txt' file in net_ap folder.\n
+		Remember that regardless how you have your Raspberry configured
+		in a given moment, you can always connect to it using WiFi.
+		It can be helpful if you don't remember how your timer was configured
+		when you left it or when some troubleshooting is required.\n
+		Open second page, for detailed explanation.\n\n""")
+		selection=str(raw_input("\t\t\t"+bcolors.GREEN+"'s' - second page'"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - go back"+bcolors.ENDC+"\n"))
+		if selection=='s':
+			secondPage()
+		if selection=='b':
+			main()
+		else :
+			firstPage()
+	firstPage()
 
 def main():
 	stepZero()
 	stepOne()
-	stepTwo()
-	stepThree()
-	stepFour()
-	stepFive()
-	end()
 main()
