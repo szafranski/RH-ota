@@ -13,7 +13,7 @@ def versionCheck():
 	os.system("grep 'updater_version =' ~/RH-ota/update.py > ~/.ota_markers/.version")
 	os.system("sed -i 's/updater_version = / /' ~/.ota_markers/.version")
 	os.system("sed -i 's/#.*/ /' ~/.ota_markers/.version")
-	version_name=os.system("cat ~/.ota_markers/.version")
+	version_name = os.system("cat ~/.ota_markers/.version")
 
 print("\n\n\n\t\t Updating process has been started...\n\n\n")
 if config_file_exists == True:
