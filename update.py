@@ -798,8 +798,8 @@ def serverStart():
 	sleep(0.12)
 	print("\n\n\t\tPlease wait...\n\n")
 	print("\n")
-	os.system("python server.py")
 	os.chdir("/home/"+user+"/RotorHazard/src/server")
+	os.system("python server.py")
 
 def firstTime():
 	def secondPage():
