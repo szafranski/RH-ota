@@ -238,28 +238,30 @@ def aliasesMenu():
 		sleep(2)
 		featuresMenu()
 	print("""\n\n\t\t
-	Aliases in Linux act like shortcuts or referances to another commands. You can use them every time when you \n\t
-	operates in the terminal window. For example instead of typing 'python ~/RotorHazard/src/server/server.py' \n\t
-	you can just type 'ss' (server start) etc. Aliases can be modified and added anytime you want. You just \n\t  
-	have to open '~./bashrc' file in text editor like 'nano'. After that you have reboot or type 'source ~/.bashrc'. \n\n\t
+	Aliases in Linux act like shortcuts or referances to another commands. 
+	You can use them every time when you operates in the terminal window. 
+	For example instead of typing 'python ~/RotorHazard/src/server/server.py' 
+	you can just type 'ss' (server start) etc. Aliases can be modified and added 
+	anytime you want. You just have to open '~./bashrc' file in text editor 
+	- like 'nano'. After that you have reboot or type 'source ~/.bashrc'. \n
 	Alias			Command					  What it does	\n
-	ss 	-->  cd ~/RotorHazard/src/server && python server.py   # starts the RH-server\n\t
-	cfg 	-->  nano ~/RotorHazard/src/server/config.json   # opens config.json file\n\t
-	rh  	-->  cd ~/RotorHazard/src/server   		 # goes to server file location\n\t
-	py  	-->  python  					 # pure laziness\n\t
-	sts  	-->  sudo systemctl stop rotorhazard 		 # stops RH service if was started\n\t
-	otadir  -->  cd ~/RH-ota   				 # goes to main server file location\n\t
-	ota  	-->  cd ~/RH-ota && python update.py  		 # opens updating soft\n\t
-	als  	-->  nano ~/.bashrc   				 # opens this file\n\t
-	rld  	-->  source ~/.bashrc   			 # reloads aliases file \n\t
-	rcfg  	-->  sudo raspi-config   			 # open raspberry's configs\n\t
-	gitota	-->  git clone https://github.com/sza(...) 	 # clones ota repo\n\t\t\t\n
+	ss 	-->  cd ~/RotorH(...)server && python server.py  # starts the RH-server\t
+	cfg 	-->  nano ~/RotorHazard/src/server/config.json   # opens config.json file\t
+	rh  	-->  cd ~/RotorHazard/src/server   		 # goes to server file location\t
+	py  	-->  python  					 # pure laziness\t
+	sts  	-->  sudo systemctl stop rotorhazard 		 # stops RH service if was started\t
+	otadir  -->  cd ~/RH-ota   				 # goes to main server file locationt
+	ota  	-->  cd ~/RH-ota && python update.py  		 # opens updating soft\t
+	als  	-->  nano ~/.bashrc   				 # opens this file\t
+	rld  	-->  source ~/.bashrc   			 # reloads aliases file \t
+	rcfg  	-->  sudo raspi-config   			 # open raspberry's configs\t
+	gitota	-->  git clone https://github.com/sza(...) 	 # clones ota repo\t\t\n
 		Do you want to use above aliases in your system?""")
-	selection=str(raw_input("\n\t\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+	selection=str(raw_input("\n\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 	if selection == 'y':
 		if os.path.exists("/home/"+user+"/.ota_markers/.aliases_added") == True:
-			print("\n\n\t\t\t Looks like you already have aliases added. Do you want to continue anyway?\n")
-			selection=str(raw_input("\t\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+			print("\n\n\t\t Looks like you already have aliases added. Do you want to continue anyway?\n")
+			selection=str(raw_input("\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 			if selection=='y':
 				aliasesContent()
 			if selection =='a':
