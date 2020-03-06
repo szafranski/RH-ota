@@ -194,6 +194,7 @@ def update():
 	 	selection=str(raw_input("""\n\n\t\t"""+bcolors.OKGREEN+""" 'i' - Install the software - recommended """+ bcolors.ENDC+
 		"""\n\n\t\t 'u' - Force update procedure   \n\n\t\t """+bcolors.YELLOW+"""'a' - Abort both  \n\n """+bcolors.ENDC+""" """))
 		if selection == 'i':
+			global conf_allowed
 			conf_allowed = True
 			installation()
 		if selection == 'u':
@@ -270,9 +271,11 @@ def main():
 			if selection == 'u':
 				update()
 			if selection == 'i':
+				global conf_allowed
 				conf_allowed = False
 				installation()
 			if selection == 'c':
+				global conf_allowed
 				conf_allowed = True
 				installation()
 			if selection == 'a':
@@ -284,6 +287,7 @@ def main():
 			else:
 				main()
 		else :
+			global conf_allowed
 			conf_allowed = True
 			installation()
 	if selection =='u':	
