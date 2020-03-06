@@ -82,9 +82,6 @@ first()
 def sysConf():
 	os.system("sudo systemctl enable ssh")
 	os.system("sudo systemctl start ssh ")
-	os.system("sudo apt-get install wget ntp libjpeg-dev i2c-tools python-dev python-rpi.gpio libffi-dev python-smbus build-essential python-pip git scons swig -y")
-	os.system("sudo pip install cffi ")
-	os.system("sudo pip install pillow")
 	os.system("echo 'dtparam=i2c_baudrate=75000' | sudo tee -a /boot/config.txt")
 	os.system("echo 'core_freq=250' | sudo tee -a /boot/config.txt")
 	os.system("echo 'dtparam=spi=on' | sudo sudo tee -a /boot/config.txt  ")  
@@ -130,6 +127,9 @@ def installation():
 	print("\n\t\t Installation process started - please wait... \n")
 	os.system("sudo apt-get update && sudo apt-get upgrade -y")
 	os.system("sudo apt autoremove -y")
+	os.system("sudo apt-get install wget ntp libjpeg-dev i2c-tools python-dev python-rpi.gpio libffi-dev python-smbus build-essential python-pip git scons swig -y")
+	os.system("sudo pip install cffi ")
+	os.system("sudo pip install pillow")
 	if conf_allowed == True:
 		sysConf()
 	if os.path.exists("/home/"+user+"/.old_RotorHazard.old") == False:
