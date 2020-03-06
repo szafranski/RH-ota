@@ -122,7 +122,7 @@ def end():
 	os.system("clear")
 
 def installation():
-	os.system("sudo systemctl stop rotorhazard")
+	os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
 	os.system("clear")
 	sleep(0.1)
 	print("\n\t\t Installation process started - please wait... \n")
@@ -200,7 +200,7 @@ def update():
 		else:
 			main()
 	else :
-		os.system("sudo systemctl stop rotorhazard")
+		os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
 		os.system("clear")
 		sleep(0.1)
 		print("\n\t\t Updating existing installation - please wait... \n")
