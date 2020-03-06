@@ -3,3 +3,5 @@ language: python
 rvm:
  - 2.2
  - jruby
+git:
+  depth: 1
