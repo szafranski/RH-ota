@@ -1,6 +1,5 @@
 ####To do:####
 # avrdude test - maybe
-# Access Point - steps
 
 from time import sleep
 import os
