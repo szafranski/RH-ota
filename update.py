@@ -151,11 +151,11 @@ def first ():
 	image ()
 	if linux_testing == False:
 		os.system("sudo systemctl stop rotorhazard")
+	compatibility()
 	os.system("clear")
 	print("\n\n")
 	image()
 	print("\t\t\t\t\t Updater version: "+str(updater_version))
-	compatibility()
 	sleep(1.1)
 first()
 
