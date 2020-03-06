@@ -207,8 +207,8 @@ def update():
 		os.system("clear")
 		sleep(0.1)
 		print("\n\t\t Updating existing installation - please wait... \n")
-		os.system("sudo python -m pip install --upgrade pip")
-		os.system("sudo pip install pillow")
+		os.system("sudo -H python -m pip install --upgrade pip")
+		os.system("sudo -H pip install pillow")
 		os.system("sudo apt-get install libjpeg-dev ntp -y")
 		os.system("sudo apt-get update && sudo apt-get upgrade -y")
 		os.system("sudo apt autoremove -y")
@@ -304,3 +304,4 @@ def main():
 	else :
 		main()
 main()
+
