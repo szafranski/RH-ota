@@ -13,6 +13,7 @@ def oldVersionCheck():
 	os.system("grep 'soft_version =' ~/RH-ota/update.py > ~/.ota_markers/.old_version")
 	os.system("sed -i 's/soft_version = //' ~/.ota_markers/.old_version")
 	os.system("sed -i 's/#.*/ /' ~/.ota_markers/.old_version")
+	os.system("sed -i 's/ //' ~/.ota_markers/.old_version")
 	f = open(homedir+"/.ota_markers/.old_version","r")
 	for line in f:
 		global old_version_name
@@ -22,6 +23,7 @@ def newVersionCheck():
 	os.system("grep 'soft_version =' ~/RH-ota/update.py > ~/.ota_markers/.new_version")
 	os.system("sed -i 's/soft_version = //' ~/.ota_markers/.new_version")
 	os.system("sed -i 's/#.*/ /' ~/.ota_markers/.new_version")
+	os.system("sed -i 's/ //' ~/.ota_markers/.new_version")
 	f = open(homedir+"/.ota_markers/.new_version","r")
 	for line in f:
 		global new_version_name
