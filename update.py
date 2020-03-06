@@ -13,7 +13,7 @@ updater_version = '2.2.6d'   ### version of THIS program - has nothing to do wit
 
 homedir = os.path.expanduser('~')
 
-if os.path.exists(homedir+"/RH-ota/updater-config.json") == True:
+if os.path.exists(./updater-config.json") == True:
 	with open('updater-config.json') as config_file:
 		data = json.load(config_file)
 else:
