@@ -136,15 +136,15 @@ def compatibility():               ### adds compatibility and fixes with previou
 		if check_if_string_in_file(homedir+'/.bashrc', 'RotorHazard OTA Manager updated'):
 			os.system("sed -i 's/alias updateupdater/# alias updateupdater/g' "+homedir+"/.bashrc")
 			os.system("sed -i 's/RotorHazard OTA Manager updated/old alias/g' "+homedir+"/.bashrc")
-			os.system("""echo 'alias updateupdater=\"cd ~ && sudo cp ~/RH-ota/self.py ~/.ota_markers/self.py && sudo python ~/.ota_markers/self.py \"  # part of self-updater' | sudo tee -a ~/.bashrc""")
+			os.system("""echo 'alias updateupdater=\"cd ~ && sudo cp ~/RH-ota/self.py ~/.ota_markers/self.py && sudo python ~/.ota_markers/self.py \"  # part of self-updater' | sudo tee -a ~/.bashrc >/dev/null""")
 		if check_if_string_in_file(homedir+'/.bashrc', 'starts the server'):
 			os.system("sed -i 's/alias ss/# alias ss/g' "+homedir+"/.bashrc")
 			os.system("sed -i 's/starts the server/old alias/g' "+homedir+"/.bashrc")
-			os.system("echo 'alias ss=\"cd ~/RotorHazard/src/server && python server.py\"   #  starts the RH-server' | sudo tee -a ~/.bashrc")
+			os.system("echo 'alias ss=\"cd ~/RotorHazard/src/server && python server.py\"   #  starts the RH-server' | sudo tee -a ~/.bashrc >/dev/null")
 		if check_if_string_in_file(homedir+'/.bashrc', 'opens updating script'):
 			os.system("sed -i 's/alias ota=/# alias ota=/g' "+homedir+"/.bashrc")
 			os.system("sed -i 's/opens updating script/old alias/g' "+homedir+"/.bashrc")
-			os.system("echo 'alias ota=\"cd ~/RH-ota && python update.py\"  # opens updating soft' | sudo tee -a ~/.bashrc")
+			os.system("echo 'alias ota=\"cd ~/RH-ota && python update.py\"  # opens updating soft' | sudo tee -a ~/.bashrc >/dev/null")
 
 
 def first ():
@@ -733,9 +733,9 @@ def selfUpdater():
 		else :
 			selfUpdater()
 	else:
-		os.system("""echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self-updater' | sudo tee -a ~/.bashrc""")
+		os.system("""echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self-updater' | sudo tee -a ~/.bashrc >/dev/null""")
 		sleep(0.1)
-		os.system("echo 'updater marker' | sudo tee -a ~/.ota_markers/.updater_self")
+		os.system("echo 'updater marker' | sudo tee -a ~/.ota_markers/.updater_self >/dev/null")
 		sleep(0.12)
 		os.system("clear")
 		sleep(0.12)
