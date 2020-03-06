@@ -150,7 +150,7 @@ def compatibility():               ### adds compatibility and fixes with previou
 def first ():
 	image ()
 	if linux_testing == False:
-		os.system("sudo systemctl stop rotorhazard")
+		os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
 	compatibility()
 	os.system("clear")
 	print("\n\n")
