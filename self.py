@@ -26,7 +26,7 @@ os.system("git clone --depth=1 https://github.com/szafranski/RH-ota.git")
 if config_file_exists == True:
 	os.system("sudo cp ~/.ota_markers/updater-config.json ~/RH-ota/updater-config.json")
 versionCheck()
-print("\n\n\n\t\t RotorHazard OTA Manager updated to "+version_name+"\n\t\tYou may check update-notes.txt.\n\n\n")
+print("\n\n\n\t RotorHazard OTA Manager updated to version "+version_name+"\n\t\tYou may check update-notes.txt.\n\n\n")
 sleep(2)
 
 
