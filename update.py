@@ -7,9 +7,11 @@ import os
 import sys
 import json
 
-updater_version = '2.2.6'   ### version of THIS program - has nothing to do with the RH version
+updater_version = '2.2.7b'       ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
                             ### third number reffers to actual verion of the updater itself
+
+homedir = os.path.expanduser('~')
 
 if os.path.exists("./updater-config.json") == True:
 	with open('updater-config.json') as config_file:
@@ -111,460 +113,51 @@ def logoUpdate():
 		#######################################################################
 		\n\n""")
 
-def compatibility():               ### adds compatibility with previous versions
-	if os.path.exists("/home/"+user+"/.aliases_added") == True:
-		os.system("mv /home/"+user+"/.aliases_added /home/"+user+"/.ota_markers/.aliases_added")
-	if os.path.exists("/home/"+user+"/.aliases_added") == True:
-		os.system("mv /home/"+user+"/.updater_self /home/"+user+"/.ota_markers/.updater_self")
-	if os.path.exists("/home/"+user+"/.old_RotorHazard.old/.installation-check_file.txt") == True:
-		os.system("mv /home/"+user+"/.old_RotorHazard.old/.installation-check_file.txt /home/"+user+"/.ota_markers/.installation-check_file.txt")
-	if os.path.exists("/home/"+user+"/.bashrc") == True:
-		if check_if_string_in_file('/home/'+user+'/.bashrc', 'RotorHazard OTA Manager updated'):
-			os.system("sed -i 's/alias updateupdater/# alias updateupdater/g' /home/"+user+"/.bashrc")
-			os.system("""echo 'alias updateupdater=\"cd ~ && sudo cp ~/RH-ota/self.py ~/.ota_markers/self.py && sudo python ~/.ota_markers/self.py \"  # part of self-updater' | sudo tee -a ~/.bashrc""")
+def compatibility():               ### adds compatibility and fixes with previous versions
+	if os.path.exists(homedir+"/.ota_markers") == False:
+		os.system("mkdir "+homedir+"/.ota_markers")
+	if os.path.exists(homedir+"/.aliases_added") == True:
+		if os.path.exists(homedir+"/.ota_markers/.aliases_added") == False:
+			os.system("cp "+homedir+"/.aliases_added "+homedir+"/.ota_markers/.aliases_added ")
+		os.system("rm "+homedir+"/.aliases_added")
+	if os.path.exists(homedir+"/.updater_self") == True:
+		if os.path.exists(homedir+"/.ota_markers/.aliases_added") == False:
+			os.system("cp "+homedir+"/.updater_self "+homedir+"/.ota_markers/.updater_self ")
+		os.system("rm "+homedir+"/.updater_self")
+	if os.path.exists(homedir+"/.old_RotorHazard.old/.installation-check_file.txt") == True:
+		if os.path.exists(homedir+"/.ota_markers/.installation-check_file.txt") == False:
+			os.system("cp /home/"+user+"/.old_RotorHazard.old/.installation-check_file.txt "+homedir+"/.ota_markers/.installation-check_file.txt")
+		os.system("rm "+homedir+"/.installation-check_file.txt")
+	if os.path.exists(homedir+"/.serialok") == True:
+		if os.path.exists(homedir+"/.ota_markers/.serialok") == False:
+			os.system("cp "+homedir+"/.serialok "+homedir+"/.ota_markers/.serialok")
+		os.system("rm "+homedir+"/.serialok")
+	if os.path.exists(homedir+"/.bashrc") == True:
+		if check_if_string_in_file(homedir+'/.bashrc', 'RotorHazard OTA Manager updated'):
+			os.system("sed -i 's/alias updateupdater/# alias updateupdater/g' "+homedir+"/.bashrc")
+			os.system("sed -i 's/RotorHazard OTA Manager updated/old alias/g' "+homedir+"/.bashrc")
+			os.system("""echo 'alias updateupdater=\"cd ~ && sudo cp ~/RH-ota/self.py ~/.ota_markers/self.py && sudo python ~/.ota_markers/self.py \"  # part of self-updater' | sudo tee -a ~/.bashrc >/dev/null""")
+		if check_if_string_in_file(homedir+'/.bashrc', 'starts the server'):
+			os.system("sed -i 's/alias ss/# alias ss/g' "+homedir+"/.bashrc")
+			os.system("sed -i 's/starts the server/old alias/g' "+homedir+"/.bashrc")
+			os.system("echo 'alias ss=\"cd ~/RotorHazard/src/server && python server.py\"   #  starts the RH-server' | sudo tee -a ~/.bashrc >/dev/null")
+		if check_if_string_in_file(homedir+'/.bashrc', 'opens updating script'):
+			os.system("sed -i 's/alias ota=/# alias ota=/g' "+homedir+"/.bashrc")
+			os.system("sed -i 's/opens updating script/old alias/g' "+homedir+"/.bashrc")
+			os.system("echo 'alias ota=\"cd ~/RH-ota && python update.py\"  # opens updating soft' | sudo tee -a ~/.bashrc >/dev/null")
+
 
 def first ():
 	image ()
+	if linux_testing == False:
+		os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
+	compatibility()
 	os.system("clear")
 	print("\n\n")
 	image()
 	print("\t\t\t\t\t Updater version: "+str(updater_version))
-	compatibility()
 	sleep(1.1)
 first()
-
-def flashAllNodes():
-	nodeOneReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_1.hex:i ")
-	print("\n				Node 1 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==1:
-		return
-	nodeTwoReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_2.hex:i ")
-	print("\n				Node 2 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==2:
-		return
-	nodeThreeReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_3.hex:i ")
-	print("\n				Node 3 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==3:
-		return
-	nodeFourReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_4.hex:i ")
-	print("\n				Node 4 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==4:
-		return
-	nodeFiveReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_5.hex:i ")
-	print("\n				Node 5 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==5:
-		return
-	nodeSixReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_6.hex:i ")
-	print("\n				Node 6 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==6:
-		return
-	nodeSevenReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_7.hex:i ")
-	print("\n				Node 7 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==7:
-		return
-	nodeEightReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_8.hex:i ")
-	print("\n				Node 8 - flashed\n\n")
-	if nodes_number ==8:
-		return
-
-def flashAllGnd():
-	nodeOneReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_0.hex:i ")
-	print("\n				Node 1 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==1:
-		return
-	nodeTwoReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_0.hex:i ")
-	print("\n				Node 2 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==2:
-		return
-	nodeThreeReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_0.hex:i ")
-	print("\n				Node 3 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==3:
-		return
-	nodeFourReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_0.hex:i ")
-	print("\n				Node 4 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==4:
-		return
-	nodeFiveReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_0.hex:i ")
-	print("\n				Node 5 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==5:
-		return
-	nodeSixReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_0.hex:i ")
-	print("\n				Node 6 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==6:
-		return
-	nodeSevenReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_0.hex:i ")
-	print("\n				Node 7 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==7:
-		return
-	nodeEightReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_0.hex:i ")
-	print("\n				Node 8 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==8:
-		return
-
-def flashAllBlink():
-	nodeOneReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/blink.hex:i ")
-	print("\n				Node 1 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==1:
-		return
-	nodeTwoReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/blink.hex:i ")
-	print("\n				Node 2 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==2:
-		return
-	nodeThreeReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/blink.hex:i ")
-	print("\n				Node 3 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==3:
-		return
-	nodeFourReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/blink.hex:i ")
-	print("\n				Node 4 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==4:
-		return
-	nodeFiveReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/blink.hex:i ")
-	print("\n				Node 5 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==5:
-		return
-	nodeSixReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/blink.hex:i ")
-	print("\n				Node 6 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==6:
-		return
-	nodeSevenReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/blink.hex:i ")
-	print("\n				Node 7 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==7:
-		return
-	nodeEightReset()
-	os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/blink.hex:i ")
-	print("\n				Node 8 - flashed\n\n")
-	sleep(1)
-	if nodes_number ==8:
-		return
-
-def flashEachNode():
-	def nodeMenu():
-		sleep(0.12)
-		os.system("clear")
-		sleep(0.12)
-		logoTop()
-		sleep(0.12)
-		print("\n\n\n\t\t\t\t\t    "+bcolors.RED+"NODES MENU"+bcolors.ENDC)
-		print("\n\t\t\t 1 - Flash node 1 \t\t 5 - Flash node 5")
-		print("\n\t\t\t 2 - Flash node 2 \t\t 6 - Flash node 6")
-		print("\n\t\t\t 3 - Flash node 3 \t\t 7 - Flash node 7")
-		print("\n\t\t\t 4 - Flash node 4 \t\t 8 - Flash node 8")
-		print("\n\t\t\t\t\t"+bcolors.YELLOW+"9 - Back to main menu"+bcolors.ENDC)
-		selection=str(raw_input("\n\n\t\t\tWhich node do you want to program: "))
-		print("\n\n")
-		if selection=='1':
-			def nodeOneMenu():
-				print("\n\t\t\t\t Node 1 selected")
-				print("\n\n\t\t\t Choose flashing type:\n")
-				print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
-				print("\t\t\t 2 - Node ground-auto selection firmware")
-				print("\t\t\t 3 - Flashes 'Blink' on the node")
-				print("\t\t\t 4 - Abort")
-				selection=str(raw_input(""))
-				if selection=='1' : 
-					nodeOneReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_1.hex:i ")
-					print("\n\t Node 1 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='2' : 
-					nodeOneReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_0.hex:i")
-					print("\n\t Node 1 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='3' : 
-					nodeOneReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/blink.hex:i ")
-					print("\n\t Node 1 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='4':
-					nodeMenu()
-				else:
-					nodeOneMenu()
-				nodeMenu()
-			nodeOneMenu()
-		if selection=='2':
-			def nodeTwoMenu():
-				print("\n\t\t\t\t Node 2 selected")
-				print("\n\n\t\t\t Choose flashing type:\n")
-				print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
-				print("\t\t\t 2 - Node ground-auto selection firmware")
-				print("\t\t\t 3 - Flashes 'Blink' on the node")
-				print("\t\t\t 4 - Abort")
-				selection=str(raw_input(""))
-				if selection=='1' : 
-					nodeTwoReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_2.hex:i ")
-					print("\n\t Node 2 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='2' : 
-					nodeTwoReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_0.hex:i")
-					sleep(1.5)
-					return
-				if selection=='3' : 
-					nodeTwoReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/blink.hex:i ")
-					print("\n\t Node 2 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='4':
-					nodeMenu()
-				else:
-					nodeTwoMenu()
-				nodeMenu()
-			nodeTwoMenu()
-		if selection=='3':
-			def nodeThreeMenu():
-				print("\n\t\t\t\t Node 3 selected")
-				print("\n\n\t\t\t Choose flashing type:\n")
-				print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
-				print("\t\t\t 2 - Node ground-auto selection firmware")
-				print("\t\t\t 3 - Flashes 'Blink' on the node")
-				print("\t\t\t 4 - Abort")
-				selection=str(raw_input(""))
-				if selection=='1' : 
-					nodeThreeReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_3.hex:i ")
-					print("\n\t Node 3 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='2' : 
-					nodeThreeReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_0.hex:i")
-					print("\n\t Node 3 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='3' : 
-					nodeThreeReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/blink.hex:i ")
-					print("\n\t Node 3 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='4':
-					nodeMenu()
-				else:
-					nodeThreeMenu()
-				nodeMenu()
-			nodeThreeMenu()
-		if selection=='4':
-			def nodeFourMenu():
-				print("\n\t\t\t\t Node 4 selected")
-				print("\n\n\t\t\t Choose flashing type:\n")
-				print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
-				print("\t\t\t 2 - Node ground-auto selection firmware")
-				print("\t\t\t 3 - Flashes 'Blink' on the node")
-				print("\t\t\t 4 - Abort")
-				selection=str(raw_input(""))
-				if selection=='1' : 
-					nodeFourReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_4.hex:i ")
-					print("\n\t Node 4 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='2' : 
-					nodeFourReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_0.hex:i")
-					print("\n\t Node 4 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='3' : 
-					nodeFourReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/blink.hex:i ")
-					print("\n\t Node 4 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='4':
-					nodeMenu()
-				else:
-					nodeFourMenu()
-				nodeMenu()
-			nodeFourMenu()
-		if selection=='5':
-			def nodeFiveMenu():
-				print("\n\t\t\t\t Node 5 selected")
-				print("\n\n\t\t\t Choose flashing type:\n")
-				print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
-				print("\t\t\t 2 - Node ground-auto selection firmware")
-				print("\t\t\t 3 - Flashes 'Blink' on the node")
-				print("\t\t\t 4 - Abort")
-				selection=str(raw_input(""))
-				if selection=='1' : 
-					nodeFiveReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_5.hex:i ")
-					print("\n\t Node 5 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='2' : 
-					nodeFiveReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_0.hex:i")
-					print("\n\t Node 5 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='3' : 
-					nodeFiveReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/blink.hex:i ")
-					print("\n\t Node 5 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='4':
-					nodeMenu()
-				else:
-					nodeFiveMenu()
-				nodeMenu()
-			nodeFiveMenu()
-		if selection=='6':
-			def nodeSixMenu():
-				print("\n\t\t\t\t Node 6 selected")
-				print("\n\n\t\t\t Choose flashing type:\n")
-				print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
-				print("\t\t\t 2 - Node ground-auto selection firmware")
-				print("\t\t\t 3 - Flashes 'Blink' on the node")
-				print("\t\t\t 4 - Abort")
-				selection=str(raw_input(""))
-				if selection=='1' : 
-					nodeSixReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_6.hex:i ")
-					print("\n\t Node 6 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='2' : 
-					nodeSixReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_0.hex:i")
-					print("\n\t Node 6 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='3' : 
-					nodeSixReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/blink.hex:i ")
-					print("\n\t Node 6 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='4':
-					nodeMenu()
-				else:
-					nodeSixMenu()
-				nodeMenu()
-			nodeSixMenu()
-		if selection=='7':
-			def nodeSevenMenu():
-				print("\n\t\t\t\t Node 7 selected")
-				print("\n\n\t\t\t Choose flashing type:\n")
-				print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
-				print("\t\t\t 2 - Node ground-auto selection firmware")
-				print("\t\t\t 3 - Flashes 'Blink' on the node")
-				print("\t\t\t 4 - Abort")
-				selection=str(raw_input(""))
-				if selection=='1' : 
-					nodeSevenReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_7.hex:i ")
-					print("\n\t Node 7 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='2' : 
-					nodeSevenReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_0.hex:i")
-					print("\n\t Node 7 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='3' : 
-					nodeSevenReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/blink.hex:i ")
-					print("\n\t Node 7 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='4':
-					nodeMenu()
-				else:
-					nodeSevenMenu()
-				nodeMenu()
-			nodeSevenMenu()
-		if selection=='8':
-			def nodeEightMenu():
-				print("\n\t\t\t\t Node 8 selected")
-				print("\n\n\t\t\t Choose flashing type:\n")
-				print("\t\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
-				print("\t\t\t 2 - Node ground-auto selection firmware")
-				print("\t\t\t 3 - Flashes 'Blink' on the node")
-				print("\t\t\t 4 - Abort")
-				selection=str(raw_input(""))
-				if selection=='1' : 
-					nodeSevenReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_8.hex:i ")
-					print("\n\t Node 8 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='2' : 
-					nodeSevenReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_0.hex:i")
-					print("\n\t Node 8 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='3' : 
-					nodeSevenReset()
-					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/blink.hex:i ")
-					print("\n\t Node 8 flashed\n")
-					sleep(1.5)
-					return
-				if selection=='4':
-					nodeMenu()
-				else:
-					nodeEightMenu()
-				nodeMenu()
-			nodeEightMenu()
-		if selection=='9':
-			mainMenu()
-		else:
-			nodeMenu()
-	nodeMenu()
 
 def avrDude():
 	sleep(0.12)
@@ -574,53 +167,11 @@ def avrDude():
 	sleep(0.12)
 	print("\n\n\n\t\t\t\t\t\t"+bcolors.RED+"AVRDUDE MENU"+bcolors.ENDC+"\n")
 	print ("\t\t\t "+bcolors.BLUE+"1 - Install avrdude"+bcolors.ENDC)
-	# print ("\t\t\t 2 - Check if nodes are accessible - coming soon")
 	print ("\t\t\t "+bcolors.YELLOW+"2 - Go back"+bcolors.ENDC)
 	selection=str(raw_input(""))
 	if selection=='1' : 
 		os.system("sudo apt-get update")
 		os.system("sudo apt-get install avrdude -y")
-	# if selection=='2' : 
-		# nodeOneReset()
-		# os.system("sudo avrdude -c arduino -p m328p -v")
-		# sleep(2)
-		# if nodes_number == 1:
-			# return
-		# nodeTwoReset()
-		# os.system("sudo avrdude -c arduino -p m328p -v")
-		# sleep(2)
-		# if nodes_number == 2:
-			# return
-		# nodeThreeReset()
-		# os.system("sudo avrdude -c arduino -p m328p -v")
-		# sleep(2)
-		# if nodes_number == 3:
-			# return
-		# nodeFourReset()
-		# os.system("sudo avrdude -c arduino -p m328p -v")
-		# sleep(2)
-		# if nodes_number == 4:
-			# return
-		# nodeFiveReset()
-		# os.system("sudo avrdude -c arduino -p m328p -v")
-		# sleep(2)
-		# if nodes_number == 5:
-			# return
-		# nodeSixReset()
-		# os.system("sudo avrdude -c arduino -p m328p -v")
-		# sleep(2)
-		# if nodes_number == 6:
-			# return
-		# nodeSevenReset()
-		# os.system("sudo avrdude -c arduino -p m328p -v")
-		# sleep(2)
-		# if nodes_number == 7:
-			# return
-		# nodeEightReset()
-		# os.system("sudo avrdude -c arduino -p m328p -v")
-		# sleep(2)
-		# if nodes_number == 8:
-			# return
 	if selection=='2' : 
 		mainMenu()
 
@@ -631,7 +182,7 @@ def serialMenu():
 	logoTop()
 	sleep(0.12)
 	def serialContent():
-		os.system("echo 'functionality added' | sudo tee -a ~/.serialok")
+		os.system("echo 'functionality added' | sudo tee -a ~/.ota_markers/.serialok")
 		os.system("echo 'enable_uart=1'| sudo  tee -a /boot/config.txt")
 		os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
 		print("\n\n\t\t\t	Serial port enabled successfully")
@@ -647,7 +198,7 @@ def serialMenu():
 			\n\t\tDo you want to enable it now?""")
 	selection=str(raw_input("\n\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 	if selection == 'y':
-		if os.path.exists("/home/"+user+"/.serialok") == True:
+		if os.path.exists("/home/"+user+"/.ota_markers/.serialok") == True:
 			print("\n\n\t\t Looks like you already enabled Serial port. Do you want to continue anyway?\n")
 			selection=str(raw_input("\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 			if selection=='y':
@@ -671,20 +222,20 @@ def aliasesMenu():
 		os.system("echo '' | sudo tee -a ~/.bashrc")
 		os.system("echo '### Shortcuts that can be used in terminal window ###' | sudo tee -a ~/.bashrc")
 		os.system("echo '' | sudo tee -a ~/.bashrc")
-		os.system("echo 'alias ss=\"python ~/RotorHazard/src/server/server.py\"   #  starts the server' | sudo tee -a ~/.bashrc")
+		os.system("echo 'alias ss=\"cd ~/RotorHazard/src/server && python server.py\"   #  starts the RH-server' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias cfg=\"nano ~/RotorHazard/src/server/config.json\"   #  opens config.json file' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias rh=\"cd ~/RotorHazard/src/server\"   # goes to server file location' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias py=\"python\"  # pure laziness' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias sts=\"sudo systemctl stop rotorhazard\" # stops RH service' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias otadir=\"cd ~/RH-ota\"   # goes to server file location' | sudo tee -a ~/.bashrc")
-		os.system("echo 'alias ota=\"python ~/RH-ota/update.py\"  # opens updating script' | sudo tee -a ~/.bashrc")
+		os.system("echo 'alias ota=\"cd ~/RH-ota && python update.py\"  # opens updating soft' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias als=\"nano ~/.bashrc\"   #  opens this file' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias rld=\"source ~/.bashrc\"   #  reloads aliases file' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias rcfg=\"sudo raspi-config\"   #  open raspberrys configs' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias gitota=\"git clone --depth=1 https://github.com/szafranski/RH-ota.git\"   #  clones ota repo' | sudo tee -a ~/.bashrc")
 		os.system("echo '' | sudo tee -a ~/.bashrc")
 		os.system("echo '# After adding or changing aliases manually - reboot raspberry or type \"source ~/.bashrc\".' | sudo tee -a ~/.bashrc")
-		os.system("echo 'functionality added' | sudo tee -a ~/.ota_markers/.aliases_added")
+		os.system("echo 'functionality added' | sudo tee -a ~/.ota_markers/.aliases_added >/dev/null")
 		print("\n\n\t\t	Aliases added successfully")
 		sleep(2)
 		featuresMenu()
@@ -694,13 +245,13 @@ def aliasesMenu():
 	you can just type 'ss' (server start) etc. Aliases can be modified and added anytime you want. You just \n\t  
 	have to open '~./bashrc' file in text editor like 'nano'. After that you have reboot or type 'source ~/.bashrc'. \n\n\t
 	Alias			Command					  What it does	\n
-	ss 	-->  python ~/RotorHazard/src/server/server.py   # starts the server\n\t
+	ss 	-->  cd ~/RotorHazard/src/server && python server.py   # starts the RH-server\n\t
 	cfg 	-->  nano ~/RotorHazard/src/server/config.json   # opens config.json file\n\t
 	rh  	-->  cd ~/RotorHazard/src/server   		 # goes to server file location\n\t
 	py  	-->  python  					 # pure laziness\n\t
 	sts  	-->  sudo systemctl stop rotorhazard 		 # stops RH service if was started\n\t
 	otadir  -->  cd ~/RH-ota   				 # goes to main server file location\n\t
-	ota  	-->  python ~/RH-ota/update.py  		 # opens updating script\n\t
+	ota  	-->  cd ~/RH-ota && python update.py  		 # opens updating soft\n\t
 	als  	-->  nano ~/.bashrc   				 # opens this file\n\t
 	rld  	-->  source ~/.bashrc   			 # reloads aliases file \n\t
 	rcfg  	-->  sudo raspi-config   			 # open raspberry's configs\n\t
@@ -749,9 +300,9 @@ def selfUpdater():
 		else :
 			selfUpdater()
 	else:
-		os.system("""echo 'alias updateupdater=\"cd ~ && sudo cp ~/RH-ota/self.py ~/.ota_markers/self.py && sudo python ~/.ota_markers/self.py \"  # part of self-updater' | sudo tee -a ~/.bashrc""")
+		os.system("""echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self-updater' | sudo tee -a ~/.bashrc""")
 		sleep(0.1)
-		os.system("echo 'updater marker' | sudo tee -a ~/.ota_markers/.updater_self")
+		os.system("echo 'updater marker' | sudo tee -a ~/.ota_markers/.updater_self >/dev/null")
 		sleep(0.12)
 		os.system("clear")
 		sleep(0.12)
@@ -789,7 +340,7 @@ def featuresMenu():
 	print("\t\t\t   3 - Access Point and Internet - coming soon\n")
 	print("\t\t\t   4 - Useful aliases\n")
 	print("\t\t\t   5 - Self updater \n")
-	print("\t\t\t   "+bcolors.YELLOW+"6 - Go back"+bcolors.ENDC)
+	print("\t\t\t   "+bcolors.YELLOW+"e - Exit to main menu"+bcolors.ENDC)
 	selection=str(raw_input(""))
 	if selection=='1':
 		avrDude()
@@ -808,19 +359,19 @@ def featuresMenu():
 		aliasesMenu()
 	if selection=='5':
 		selfUpdater()
-	if selection=='6':
+	if selection=='e':
 		mainMenu()
 	else:
 		featuresMenu()
 
 def serverStart():
-	os.system("sudo systemctl stop rotorhazard")
 	sleep(0.12)
 	os.system("clear")
 	sleep(0.12)
 	print("\n\n\t\tPlease wait...\n\n")
 	print("\n")
-	os.system("python /home/"+user+"/RotorHazard/src/server/server.py")
+	os.chdir("/home/"+user+"/RotorHazard/src/server")
+	os.system("python server.py")
 
 def firstTime():
 	def secondPage():
@@ -852,6 +403,7 @@ def firstTime():
 		You can use all implemened features, but if you want to be able to program\n
 		Arduino-based nodes - enter Features menu and begin with first 2 points.\n\n
 		Also remember about setting up config file - check second page.  \n\n
+		This program has ability to perform 'self-updates'. Check "Features menu".\n\n
 		More info here: https://www.instructables.com/id/RotorHazard-Updater/\n
 		and in how_to folder - look for PDF file.\n\n 
 		\t\n\t\t\tEnjoy!\n\t\t\t\t\t\t\t\tSzafran\n\n\n """)
@@ -879,15 +431,13 @@ def mainMenu():
 	sleep(0.12)
 	logoTop()
 	sleep(0.12)
-	if linux_testing == False:
-		os.system("sudo systemctl stop rotorhazard")
 	print("\n\n\n\t\t\t\t\t "+bcolors.RED+"   MAIN MENU\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BLUE+"1 - Server software installation and update\n	"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BLUE+"2 - Nodes flash and update\n"+bcolors.ENDC)
 	print("\t\t\t   3 - Start the server now\n")
 	print("\t\t\t   4 - Additional features\n")
 	print("\t\t\t   5 - This is my first time - READ!\n")
-	print("\t\t\t   "+bcolors.YELLOW+"6 - Exit"+bcolors.ENDC)
+	print("\t\t\t   "+bcolors.YELLOW+"e - Exit"+bcolors.ENDC)
 	selection=str(raw_input(""))
 	if selection=='1':
 		os.system("python ./rpi_update.py")   ### opens raspberry updating file
@@ -899,7 +449,7 @@ def mainMenu():
 		featuresMenu()
 	if selection=='5':
 		firstTime()
-	if selection=='6':
+	if selection=='e':
 		end()
 	else: 
 		mainMenu()

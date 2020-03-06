@@ -27,9 +27,11 @@ if preffered_RH_version == 'master':
 if preffered_RH_version == 'beta':
 	server_version = '2.1.0-beta.3'
 if preffered_RH_version == 'stable':
-	server_version = '2.0.2'
+	server_version = '2.1.0'
 if preffered_RH_version =='custom':
 	server_version = 'X.X.X'           ### paste custom version number here if you want to declare it manually
+
+homedir = os.path.expanduser('~')
 
 class bcolors:
 	HEADER = '\033[95m'
@@ -77,6 +79,28 @@ def first ():
 	sleep(0.5)
 first()
 
+def sysConf():
+	os.system("sudo systemctl enable ssh")
+	os.system("sudo systemctl start ssh ")
+	os.system("echo 'dtparam=i2c_baudrate=75000' | sudo tee -a /boot/config.txt")
+	os.system("echo 'core_freq=250' | sudo tee -a /boot/config.txt")
+	os.system("echo 'dtparam=spi=on' | sudo sudo tee -a /boot/config.txt  ")  
+	os.system("echo 'i2c-bcm2708' | sudo tee -a /boot/config.txt")
+	os.system("echo 'i2c-dev' | sudo tee -a /boot/config.txt")
+	os.system("echo 'dtparam=i2c1=on' | sudo tee -a /boot/config.txt")
+	os.system("echo 'dtparam=i2c_arm=on' | sudo tee -a /boot/config.txt")
+	os.system("sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
+	os.system("sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
+
+def serverStart():
+	sleep(0.12)
+	os.system("clear")
+	sleep(0.12)
+	print("\n\n\t\tPlease wait...\n\n")
+	print("\n")
+	os.chdir("/home/"+user+"/RotorHazard/src/server")
+	os.system("python server.py")
+
 def end():
 	print("\n\n\n\t\t"+bcolors.OKGREEN+"Type 'r' for reboot - recommended"+bcolors.ENDC+"\n")
 	print("\t\tType 's' to start the server now\n")
@@ -90,10 +114,7 @@ def end():
 			os.system("clear")
 			sys.exit()
 		if selection =='s':	
-			print("\n\n\t\t\tServer will start in few seconds\n\n\t\t")
-			sleep(2)
-			os.system("clear")
-			os.system("python /home/"+user+"/RotorHazard/src/server/server.py")
+			serverStart()
 			sys.exit()
 		else: 
 			end()
@@ -104,33 +125,25 @@ def installation():
 	os.system("clear")
 	sleep(0.1)
 	print("\n\t\t Installation process started - please wait... \n")
-	os.system("sudo systemctl stop rotorhazard")
-	os.chdir("/home/"+user)
 	os.system("sudo apt-get update && sudo apt-get upgrade -y")
-	os.system("sudo systemctl enable ssh")
-	os.system("sudo systemctl start ssh ")
+	os.system("sudo apt autoremove -y")
 	os.system("sudo apt-get install wget ntp libjpeg-dev i2c-tools python-dev python-rpi.gpio libffi-dev python-smbus build-essential python-pip git scons swig -y")
 	os.system("sudo pip install cffi ")
 	os.system("sudo pip install pillow")
-	os.system("echo 'dtparam=i2c_baudrate=75000' | sudo tee -a /boot/config.txt")
-	os.system("echo 'core_freq=250' | sudo tee -a /boot/config.txt")
-	os.system("echo 'dtparam=spi=on' | sudo sudo tee -a /boot/config.txt  ")  
-	os.system("echo 'i2c-bcm2708' | sudo tee -a /boot/config.txt")
-	os.system("echo 'i2c-dev' | sudo tee -a /boot/config.txt")
-	os.system("echo 'dtparam=i2c1=on' | sudo tee -a /boot/config.txt")
-	os.system("echo 'dtparam=i2c_arm=on' | sudo tee -a /boot/config.txt")
-	os.system("sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
-	os.system("sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
+	if conf_allowed == True:
+		sysConf()
 	if os.path.exists("/home/"+user+"/.old_RotorHazard.old") == False:
 		os.system("mkdir /home/"+user+"/.old_RotorHazard.old")
-	os.system("sudo mv /home/"+user+"/RotorHazard-master /home/"+user+"/.old_RotorHazard.old/")
+	if os.path.exists("/home/"+user+"/RotorHazard-master") == True:
+		os.system("cp -r /home/"+user+"/RotorHazard-master /home/"+user+"/.old_RotorHazard.old/")
+		os.system("rm -r /home/"+user+"/RotorHazard-master")
 	os.chdir("/home/"+user)
 	os.system("wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"+server_version+" -O temp.zip")
 	os.system("unzip temp.zip")
 	os.system("rm temp.zip")
 	os.system("mv /home/"+user+"/RotorHazard-"+server_version+" /home/"+user+"/RotorHazard")
-	os.system("sudo pip install -r /home/"+user+"/RotorHazard/src/server/requirements.txt")
-	os.system("sudo chmod 777 /home/"+user+"/RotorHazard/src/server")
+#	os.system("sudo pip install -r /home/"+user+"/RotorHazard/src/server/requirements.txt")
+	os.system("sudo chmod 777 -R /home/"+user+"/RotorHazard/src/server")
 	os.chdir("/home/"+user)
 	os.system("sudo git clone https://github.com/jgarff/rpi_ws281x.git")
 	os.chdir("/home/"+user+"/rpi_ws281x")
@@ -145,9 +158,9 @@ def installation():
 	os.system("sudo git clone https://github.com/rm-hull/bme280.git")
 	os.chdir("/home/"+user+"/bme280")
 	os.system("sudo python setup.py install")
-	os.system("echo 'leave this file here' | sudo tee -a /home/"+user+"/.ota_master/.installation-check_file.txt")
+	os.system("echo 'leave this file here' | sudo tee -a /home/"+user+"/.ota_markers/.installation-check_file.txt")
 	os.system("sudo apt-get install openjdk-8-jdk-headless -y")
-	os.system("sudo rm /lib/systemd/system/rotorhaSzard.service")
+	os.system("sudo rm /lib/systemd/system/rotorhazard.service")
 	os.system("echo ' ' | sudo tee -a /lib/systemd/system/rotorhazard.service")
 	os.system("echo '[Unit]' | sudo tee -a /lib/systemd/system/rotorhazard.service")
 	os.system("echo 'Description=RotorHazard Server' | sudo tee -a /lib/systemd/system/rotorhazard.service")
@@ -180,6 +193,7 @@ def update():
 	 	selection=str(raw_input("""\n\n\t\t"""+bcolors.OKGREEN+""" 'i' - Install the software - recommended """+ bcolors.ENDC+
 		"""\n\n\t\t 'u' - Force update procedure   \n\n\t\t """+bcolors.YELLOW+"""'a' - Abort both  \n\n """+bcolors.ENDC+""" """))
 		if selection == 'i':
+			conf_allowed = True
 			installation()
 		if selection == 'u':
 			update()
@@ -190,34 +204,40 @@ def update():
 		else:
 			main()
 	else :
-		os.system("sudo systemctl stop rotorhazard")
 		os.system("clear")
 		sleep(0.1)
 		print("\n\t\t Updating existing installation - please wait... \n")
-		os.system("sudo systemctl stop rotorhazard")
 		os.system("sudo pip install pillow")
 		os.system("sudo apt-get install libjpeg-dev ntp -y")
 		os.system("sudo apt-get update && sudo apt-get upgrade -y")
+		os.system("sudo apt autoremove -y")
 		if os.path.exists("/home/"+user+"/.old_RotorHazard.old") == False:
-			os.system("mkdir /home/"+user+"/.old_RotorHazard.old")
-		os.system("sudo mv /home/"+user+"/RotorHazard-master /home/"+user+"/.old_RotorHazard.old/")
-		os.system("sudo mv /home/"+user+"/RotorHazard.old /home/"+user+"/.old_RotorHazard.old/")
+			os.system("sudo mkdir /home/"+user+"/.old_RotorHazard.old")
+		if os.path.exists("/home/"+user+"/RotorHazard-master") == True:
+			os.system("sudo cp -r /home/"+user+"/RotorHazard-master /home/"+user+"/.old_RotorHazard.old/")
+			os.system("sudo rm -r /home/"+user+"/RotorHazard-master")
+		if os.path.exists("/home/"+user+"/RotorHazard.old") == True:
+			os.system("sudo cp -r /home/"+user+"/RotorHazard.old /home/"+user+"/.old_RotorHazard.old/")
+			os.system("sudo rm -r /home/"+user+"/RotorHazard.old")
 		os.system("sudo mv /home/"+user+"/RotorHazard /home/"+user+"/RotorHazard.old")
 		os.chdir("/home/"+user)
 		os.system("wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"+server_version+" -O temp.zip")
 		os.system("unzip temp.zip")
-		os.system("sudo mv /home/"+user+"/RotorHazard-"+server_version+" /home/"+user+"/RotorHazard")
-		os.system("rm temp.zip")
+		os.system("mv /home/"+user+"/RotorHazard-"+server_version+" /home/"+user+"/RotorHazard")
+		os.system("sudo rm temp.zip")
 		if os.path.exists("/home/"+user+"/backup_RH_data") == False:
-			os.system("mkdir /home/"+user+"/backup_RH_data")
+			os.system("sudo mkdir /home/"+user+"/backup_RH_data")
+		os.system("sudo chmod 777 -R /home/"+user+"/RotorHazard/src/server")
+		os.system("sudo chmod 777 -R /home/"+user+"/RotorHazard.old")
+		os.system("sudo chmod 777 -R /home/"+user+"/backup_RH_data")
 		os.system("cp /home/"+user+"/RotorHazard.old/src/server/config.json /home/"+user+"/RotorHazard/src/server/")
-		os.system("cp -r /home/"+user+"/RotorHazard.old/src/server/static/image /home/"+user+"/backup_RH_data/")
-		os.system("cp -r /home/"+user+"/RotorHazard.old/src/server/static/image /home/"+user+"/RotorHazard/src/server/static/image")
+		os.system("cp -r /home/"+user+"/RotorHazard.old/src/server/static/image /home/"+user+"/backup_RH_data")
+		os.system("cp -r /home/"+user+"/RotorHazard.old/src/server/static/image /home/"+user+"/RotorHazard/src/server/static")
 		os.system("cp /home/"+user+"/RotorHazard.old/src/server/config.json /home/"+user+"/backup_RH_data")
 		os.system("cp /home/"+user+"/RotorHazard.old/src/server/database.db /home/"+user+"/RotorHazard/src/server/")
-		os.chdir("/home/"+user+"/RotorHazard/src/server")
 		os.system("cp /home/"+user+"/RotorHazard.old/src/server/database.db /home/"+user+"/backup_RH_data")
-		os.system("sudo pip install --upgrade --no-cache-dir -r requirements.txt")
+		os.chdir("/home/"+user+"/RotorHazard/src/server")
+#		os.system("sudo pip install --upgrade --no-cache-dir -r requirements.txt")
 		print("""\n\n\t
 		##############################################
 		##                                          ##
@@ -227,6 +247,7 @@ def update():
 		end()
 
 def main():
+	global conf_allowed
 	os.system("clear")
 	sleep(0.2)
 	print("""\n\n\t\t"""+bcolors.RED+"""AUTOMATIC UPDATE AND INSTALLATION OF ROTORHAZARD RACING TIMER SOFTWARE\n\n\t"""+bcolors.ENDC+"""
@@ -234,6 +255,7 @@ def main():
 	All additional software depedancies and libraries also will be installed or updated.\n\t
 	Your current database, config file and custom bitmaps will stay on the updated software.\n\t
 	Source of the software will be '"""+bcolors.BLUE+server_version+bcolors.ENDC+"""' version from the RotorHazard repository.\n\t 
+	Remember to perform self-updating of this software, before updating server software.\n\t
 	If you prefer to use newest possible beta version - change the source accordingly.\n\t
 	Also make sure that you are logged as user '"""+bcolors.BLUE+user+bcolors.ENDC+"""'. \n\n\t
 	You can change those by editing file 'updater-config.json' in text editor - like 'nano'.
@@ -243,15 +265,19 @@ def main():
 	\t"""+bcolors.YELLOW+""" 'a' - Abort \n"""+bcolors.ENDC+""" """)
 	selection=str(raw_input(""))
 	if selection =='i':	
-		if (os.path.exists("/home/"+user+"/.ota_master/.installation-check_file.txt") == True) or (os.path.exists("/home/"+user+"/RotorHazard") == True):
+		if (os.path.exists("/home/"+user+"/.ota_markers/.installation-check_file.txt") == True) or (os.path.exists("/home/"+user+"/RotorHazard") == True):
 			os.system("clear")
 			print("""\n\t Looks like you already have RotorHazard server software installed. \n
 	 If so please use update mode instead. """)
 			selection=str(raw_input("""\n\n\t\t"""+bcolors.OKGREEN+""" 'u' - Select update mode - recommended """+ bcolors.ENDC+
-			"""\n\n\t\t 'i' - Force installation anyway\n\n\t\t """+bcolors.YELLOW+"""'a' - Abort both  \n\n """+bcolors.ENDC+""" """))
+			"""\n\n\t\t 'i' - Force installation anyway\n\n\t\t 'c' - Force installation and sys. config.\n\n\t\t """+bcolors.YELLOW+"""'a' - Abort both  \n\n """+bcolors.ENDC+""" """))
 			if selection == 'u':
 				update()
 			if selection == 'i':
+				conf_allowed = False
+				installation()
+			if selection == 'c':
+				conf_allowed = True
 				installation()
 			if selection == 'a':
 				os.system("clear")
@@ -262,6 +288,7 @@ def main():
 			else:
 				main()
 		else :
+			conf_allowed = True
 			installation()
 	if selection =='u':	
 		update()

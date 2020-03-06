@@ -414,7 +414,7 @@ def flashEachNode():
 		print("\n\t\t\t 2 - Flash node 2 \t\t 6 - Flash node 6")
 		print("\n\t\t\t 3 - Flash node 3 \t\t 7 - Flash node 7")
 		print("\n\t\t\t 4 - Flash node 4 \t\t 8 - Flash node 8")
-		print("\n\t\t\t\t\t"+bcolors.YELLOW+"9 - Back to main menu"+bcolors.ENDC)
+		print("\n\t\t\t\t\t"+bcolors.YELLOW+"e - Exit to main menu"+bcolors.ENDC)
 		selection=str(raw_input("\n\n\t\t\tWhich node do you want to program: "))
 		print("\n\n")
 		if selection=='1':
@@ -446,6 +446,11 @@ def flashEachNode():
 					return
 				if selection=='4':
 					nodeMenu()
+				if selection=='dev' : 
+					nodeOneReset()
+					os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/.dev/.comm.hex:i ")
+					print("\n\t Testing firmware on Node 1 flashed\n")
+					sleep(1.5)
 				else:
 					nodeOneMenu()
 				nodeMenu()
@@ -680,7 +685,7 @@ def flashEachNode():
 					nodeEightMenu()
 				nodeMenu()
 			nodeEightMenu()
-		if selection=='9':
+		if selection=='e':
 			sys.exit()
 		else:
 			nodeMenu()
@@ -704,6 +709,48 @@ def gpioState():
 	print("\n\n		DONE\n\n")
 	sleep(0.3)
 
+# def connectionTest(): 
+	# nodeOneReset()
+	# os.system("sudo avrdude -c arduino -p m328p -v")
+	# sleep(2)
+	# if nodes_number == 1:
+		# return
+	# nodeTwoReset()
+	# os.system("sudo avrdude -c arduino -p m328p -v")
+	# sleep(2)
+	# if nodes_number == 2:
+		# return
+	# nodeThreeReset()
+	# os.system("sudo avrdude -c arduino -p m328p -v")
+	# sleep(2)
+	# if nodes_number == 3:
+		# return
+	# nodeFourReset()
+	# os.system("sudo avrdude -c arduino -p m328p -v")
+	# sleep(2)
+	# if nodes_number == 4:
+		# return
+	# nodeFiveReset()
+	# os.system("sudo avrdude -c arduino -p m328p -v")
+	# sleep(2)
+	# if nodes_number == 5:
+		# return
+	# nodeSixReset()
+	# os.system("sudo avrdude -c arduino -p m328p -v")
+	# sleep(2)
+	# if nodes_number == 6:
+		# return
+	# nodeSevenReset()
+	# os.system("sudo avrdude -c arduino -p m328p -v")
+	# sleep(2)
+	# if nodes_number == 7:
+		# return
+	# nodeEightReset()
+	# os.system("sudo avrdude -c arduino -p m328p -v")
+	# sleep(2)
+	# if nodes_number == 8:
+		# return
+
 def nodesUpdate():
 	sleep(0.12)
 	os.system("clear")
@@ -715,8 +762,9 @@ def nodesUpdate():
 	print("\t\t\t 2 - Nodes will use ground-auto selection firmware\n")
 	print("\t\t\t 3 - Flash 'Blink' on every node\n")
 	print("\t\t\t 4 - Flash each node individually\n")
-	print("\t\t\t 5 - Fix GPIO pins state - obsolete\n")
-	print("\t\t\t "+bcolors.YELLOW+"6 - Go back"+bcolors.ENDC+"\n")
+	print("\t\t\t 5 - I2C programming - early beta\n")
+	print("\t\t\t 6 - Fix GPIO pins state - obsolete\n")
+	print("\t\t\t "+bcolors.YELLOW+"e - Exit to main menu"+bcolors.ENDC+"\n")
 	sleep(0.3)
 	selection=str(raw_input(""))
 	if selection=='1':
@@ -734,8 +782,10 @@ def nodesUpdate():
 	if selection=='4':
 		flashEachNode()
 	if selection=='5':
-		gpioState()
+		os.system("python ./.dev/.i2c_nodes_update.py")
 	if selection=='6':
+		gpioState()
+	if selection=='e':
 		sys.exit()
 	else:
 		nodesUpdate()
