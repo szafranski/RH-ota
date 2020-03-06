@@ -1,4 +1,4 @@
-language: python
+language: python2.7
 rvm:
  - 2.2
  - jruby
