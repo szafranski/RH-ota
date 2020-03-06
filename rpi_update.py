@@ -113,7 +113,8 @@ def end():
 			print("\n\n\t\t\tServer will start in few seconds\n\n\t\t")
 			sleep(2)
 			os.system("clear")
-			os.system("python /home/"+user+"/RotorHazard/src/server/server.py")
+			os.chdir("/home/"+user+"/RotorHazard/src/server")
+			os.system("python server.py")
 			sys.exit()
 		else: 
 			end()
@@ -132,7 +133,7 @@ def installation():
 		os.system("mkdir /home/"+user+"/.old_RotorHazard.old")
 	if os.path.exists("/home/"+user+"/RotorHazard-master") == True:
 		os.system("cp -r /home/"+user+"/RotorHazard-master /home/"+user+"/.old_RotorHazard.old/")
-		os.system("rm -r /home/"+user+"/.old_RotorHazard.old")
+		os.system("rm -r /home/"+user+"/RotorHazard-master")
 	os.chdir("/home/"+user)
 	os.system("wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"+server_version+" -O temp.zip")
 	os.system("unzip temp.zip")
@@ -209,12 +210,10 @@ def update():
 		if os.path.exists("/home/"+user+"/.old_RotorHazard.old") == False:
 			os.system("mkdir /home/"+user+"/.old_RotorHazard.old")
 		if os.path.exists("/home/"+user+"/RotorHazard-master") == True:
-			if os.path.exists("/home/"+user+"/.old_RotorHazard.old/RotorHazard-master") == False:
-				os.system("cp -r /home/"+user+"/RotorHazard-master /home/"+user+"/.old_RotorHazard.old/")
+			os.system("cp -r /home/"+user+"/RotorHazard-master /home/"+user+"/.old_RotorHazard.old/")
 			os.system("rm -r RotorHazard-master")
 		if os.path.exists("/home/"+user+"/RotorHazard.old") == True:
-			if os.path.exists("/home/"+user+"/.old_RotorHazard.old/RotorHazard.old") == False:
-				os.system("cp -r /home/"+user+"/RotorHazard.old /home/"+user+"/.old_RotorHazard.old/")
+			os.system("cp -r /home/"+user+"/RotorHazard.old /home/"+user+"/.old_RotorHazard.old/")
 			os.system("rm -r RotorHazard.old")
 		os.system("mv /home/"+user+"/RotorHazard /home/"+user+"/RotorHazard.old")
 		os.chdir("/home/"+user)
