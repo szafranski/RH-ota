@@ -142,7 +142,7 @@ def installation():
 	os.system("unzip temp.zip")
 	os.system("rm temp.zip")
 	os.system("mv /home/"+user+"/RotorHazard-"+server_version+" /home/"+user+"/RotorHazard")
-	os.system("sudo pip install -r /home/"+user+"/RotorHazard/src/server/requirements.txt")
+#	os.system("sudo pip install -r /home/"+user+"/RotorHazard/src/server/requirements.txt")
 	os.system("sudo chmod 777 -R /home/"+user+"/RotorHazard/src/server")
 	os.chdir("/home/"+user)
 	os.system("sudo git clone https://github.com/jgarff/rpi_ws281x.git")
@@ -237,7 +237,7 @@ def update():
 		os.system("cp /home/"+user+"/RotorHazard.old/src/server/database.db /home/"+user+"/RotorHazard/src/server/")
 		os.system("cp /home/"+user+"/RotorHazard.old/src/server/database.db /home/"+user+"/backup_RH_data")
 		os.chdir("/home/"+user+"/RotorHazard/src/server")
-		os.system("sudo pip install --upgrade --no-cache-dir -r requirements.txt")
+#		os.system("sudo pip install --upgrade --no-cache-dir -r requirements.txt")
 		print("""\n\n\t
 		##############################################
 		##                                          ##
