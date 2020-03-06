@@ -262,7 +262,7 @@ def main():
 	\t"""+bcolors.YELLOW+""" 'a' - Abort \n"""+bcolors.ENDC+""" """)
 	selection=str(raw_input(""))
 	if selection =='i':	
-		if os.path.exists("/home/"+user+"/.ota_master/.installation-check_file.txt") or os.path.exists("/home/"+user+"/RotorHazard") == True:
+		if (os.path.exists("/home/"+user+"/.ota_master/.installation-check_file.txt") == True) or (os.path.exists("/home/"+user+"/RotorHazard") == True):
 			os.system("clear")
 			print("""\n\t Looks like you already have RotorHazard server software installed. \n
 	 If so please use update mode instead. """)
