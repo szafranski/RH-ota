@@ -10,9 +10,8 @@ else:
 	config_file_exists = False
 
 def versionCheck():
-	os.system("grep 'updater_version =' ~/RH-ota/update.py > ~/.ota_markers/.version")
-	os.system("sed -i 's/updater_version = //' ~/.ota_markers/.version")
-	os.system("sed -i 's/\'//' ~/.ota_markers/.version")
+	os.system("grep 'soft_version =' ~/RH-ota/update.py > ~/.ota_markers/.version")
+	os.system("sed -i 's/soft_version = //' ~/.ota_markers/.version")
 	os.system("sed -i 's/#.*/ /' ~/.ota_markers/.version")
 	f = open(homedir+"/.ota_markers/.version","r")
 	for line in f:
