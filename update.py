@@ -194,11 +194,11 @@ def serialMenu():
 			featuresMenu()
 	print("""\n\n\t\tSerial port has to be enabled. Without it Arduinos cannot be programmed.
 			\n\t\tDo you want to enable it now?""")
-	selection=str(raw_input("\n\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+	selection=str(raw_input("\n\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 	if selection == 'y':
 		if os.path.exists("/home/"+user+"/.ota_markers/.serialok") == True:
-			print("\n\n\t\t Looks like you already enabled Serial port. Do you want to continue anyway?\n")
-			selection=str(raw_input("\t\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+			print("\n\n\t\tLooks like you already enabled Serial port. Do you want to continue anyway?\n")
+			selection=str(raw_input("\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 			if selection=='y':
 				serialContent()
 			if selection =='a':

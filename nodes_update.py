@@ -694,7 +694,7 @@ def flashEachNode():
 def gpioState(): 
 	os.system("clear")
 	logoTop()
-	print("/n/n/n")
+	print("\n\n\n")
 	os.system("echo "+str(reset_1)+" > /sys/class/GPIO/unexport")
 	os.system("echo "+str(reset_2)+" > /sys/class/GPIO/unexport")
 	os.system("echo "+str(reset_3)+" > /sys/class/GPIO/unexport")
