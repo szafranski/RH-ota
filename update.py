@@ -645,13 +645,13 @@ def aliasesMenu():
 		os.system("echo '' | sudo tee -a ~/.bashrc")
 		os.system("echo '### Shortcuts that can be used in terminal window ###' | sudo tee -a ~/.bashrc")
 		os.system("echo '' | sudo tee -a ~/.bashrc")
-		os.system("echo 'alias ss=\"python ~/RotorHazard/src/server/server.py\"   #  starts the server' | sudo tee -a ~/.bashrc")
+		os.system("echo 'alias ss=\"cd ~/RotorHazard/src/server && python server.py\"   #  starts the server' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias cfg=\"nano ~/RotorHazard/src/server/config.json\"   #  opens config.json file' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias rh=\"cd ~/RotorHazard/src/server\"   # goes to server file location' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias py=\"python\"  # pure laziness' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias sts=\"sudo systemctl stop rotorhazard\" # stops RH service' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias otadir=\"cd ~/RH-ota\"   # goes to server file location' | sudo tee -a ~/.bashrc")
-		os.system("echo 'alias ota=\"python ~/RH-ota/update.py\"  # opens updating script' | sudo tee -a ~/.bashrc")
+		os.system("echo 'alias ota=\"cd ~/RH-ota && python update.py\"  # opens updating script' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias als=\"nano ~/.bashrc\"   #  opens this file' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias rld=\"source ~/.bashrc\"   #  reloads aliases file' | sudo tee -a ~/.bashrc")
 		os.system("echo 'alias rcfg=\"sudo raspi-config\"   #  open raspberrys configs' | sudo tee -a ~/.bashrc")
@@ -793,7 +793,8 @@ def serverStart():
 	sleep(0.12)
 	print("\n\n\t\tPlease wait...\n\n")
 	print("\n")
-	os.system("python /home/"+user+"/RotorHazard/src/server/server.py")
+	os.system("python server.py")
+	os.chdir("/home/"+user+"/RotorHazard/src/server")
 
 def firstTime():
 	def secondPage():
