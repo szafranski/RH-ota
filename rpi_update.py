@@ -228,8 +228,10 @@ def update():
 		if os.path.exists("/home/"+user+"/backup_RH_data") == False:
 			os.system("sudo mkdir /home/"+user+"/backup_RH_data")
 		os.system("sudo chmod 777 /home/"+user+"/RotorHazard/src/server")
+		os.system("sudo chmod 777 /home/"+user+"/RotorHazard.old")
+		os.system("sudo chmod 777 /home/"+user+"/backup_RH_data")
 		os.system("cp /home/"+user+"/RotorHazard.old/src/server/config.json /home/"+user+"/RotorHazard/src/server/")
-		os.system("cp -r /home/"+user+"/RotorHazard.old/src/server/static/image /home/"+user+"/backup_RH_data/")
+		os.system("cp -r /home/"+user+"/RotorHazard.old/src/server/static/image /home/"+user+"/backup_RH_data")
 		os.system("cp -r /home/"+user+"/RotorHazard.old/src/server/static/image /home/"+user+"/RotorHazard/src/server/static")
 		os.system("cp /home/"+user+"/RotorHazard.old/src/server/config.json /home/"+user+"/backup_RH_data")
 		os.system("cp /home/"+user+"/RotorHazard.old/src/server/database.db /home/"+user+"/RotorHazard/src/server/")
