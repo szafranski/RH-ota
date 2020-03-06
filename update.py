@@ -142,7 +142,7 @@ def compatibility():               ### adds compatibility and fixes with previou
 			os.system("sed -i 's/starts the server/old alias/g' "+homedir+"/.bashrc")
 			os.system("echo 'alias ss=\"cd ~/RotorHazard/src/server && python server.py\"   #  starts the RH-server' | sudo tee -a ~/.bashrc")
 		if check_if_string_in_file(homedir+'/.bashrc', 'opens updating script'):
-			os.system("sed -i 's/alias ota/# alias ota/g' "+homedir+"/.bashrc")
+			os.system("sed -i 's/alias ota=/# alias ota=/g' "+homedir+"/.bashrc")
 			os.system("sed -i 's/opens updating script/old alias/g' "+homedir+"/.bashrc")
 			os.system("echo 'alias ota=\"cd ~/RH-ota && python update.py\"  # opens updating soft' | sudo tee -a ~/.bashrc")
 
