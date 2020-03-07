@@ -128,15 +128,16 @@ def installation():
 	os.system("sudo apt-get update && sudo apt-get upgrade -y")
 	os.system("sudo apt autoremove -y")
 	os.system("sudo apt install wget ntp libjpeg-dev i2c-tools python-dev libffi-dev python-smbus build-essential python-pip git scons swig zip -y")
-	if linux_testing == False:
-		os.system("sudo apt install python-rpi.gpio")
+	if linux_testing == True:      ### on Linux PC system
 		os.system("sudo apt dist-upgrade -y")
+	else:                          ### on Raspberry
+		os.system("sudo apt install python-rpi.gpio")
 		if conf_allowed == True:
 			sysConf()
 	os.system("sudo -H pip install cffi pillow")
 	if os.path.exists("/home/"+user+"/.old_RotorHazard.old") == False:
 		os.system("mkdir /home/"+user+"/.old_RotorHazard.old")
-	if os.path.exists("/home/"+user+"/RotorHazard-"+preffered_RH_version+"") == True:
+	if os.path.exists("/home/"+user+"/RotorHazard-"+preffered_RH_version"") == True:
 		os.system("cp -r /home/"+user+"/RotorHazard-"+preffered_RH_version+" /home/"+user+"/.old_RotorHazard.old/")
 		os.system("rm -r /home/"+user+"/RotorHazard-"+preffered_RH_version+"")
 	os.chdir("/home/"+user)
