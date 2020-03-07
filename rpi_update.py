@@ -130,6 +130,7 @@ def installation():
 	os.system("sudo apt install wget ntp libjpeg-dev i2c-tools python-dev libffi-dev python-smbus build-essential python-pip git scons swig zip -y")
 	if linux_testing == False:
 		os.system("sudo apt install python-rpi.gpio")
+		os.system("sudo apt dist-upgrade -y")
 	os.system("sudo pip install cffi ")
 	os.system("sudo pip install pillow")
 	if conf_allowed == True:
@@ -213,6 +214,8 @@ def update():
 		os.system("sudo -H pip install pillow")
 		os.system("sudo apt-get install libjpeg-dev ntp -y")
 		os.system("sudo apt-get update && sudo apt-get upgrade -y")
+		if linux_testing == False:
+			os.system("sudo apt dist-upgrade -y")
 		os.system("sudo apt autoremove -y")
 		if os.path.exists("/home/"+user+"/.old_RotorHazard.old") == False:
 			os.system("sudo mkdir /home/"+user+"/.old_RotorHazard.old")
