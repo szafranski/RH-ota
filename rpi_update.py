@@ -139,11 +139,11 @@ def installation():
 	if os.path.exists("/home/"+user+"/.old_RotorHazard.old") == False:
 		os.system("mkdir /home/"+user+"/.old_RotorHazard.old")
 	if os.path.exists("/home/"+user+"/RotorHazard") == True:
-		os.system("cp -r /home/"+user+"/RotorHazard /home/"+user+"/.old_RotorHazard.old/ >/dev/null 2>&1")   ### as above
-		os.system("rm -r /home/"+user+"/RotorHazard >/dev/null 2>&1")   ### as above
+		os.system("cp -r /home/"+user+"/RotorHazard /home/"+user+"/.old_RotorHazard.old/ >/dev/null 2>&1")   ### in case of forced installation
+		os.system("rm -r /home/"+user+"/RotorHazard >/dev/null 2>&1")   ### in case of forced installation
 	os.system("rm /home/"+user+"/temp >/dev/null 2>&1")     ### in case of forced installation
-	os.system("cp -r /home/"+user+"/RotorHazard-* /home/"+user+"/.old_RotorHazard.old/ >/dev/null 2>&1")   ### as above
-	os.system("rm -r /home/"+user+"/RotorHazard-* >/dev/null 2>&1")   ### as above
+	os.system("cp -r /home/"+user+"/RotorHazard-* /home/"+user+"/.old_RotorHazard.old/ >/dev/null 2>&1")   ### in case of forced installation
+	os.system("rm -r /home/"+user+"/RotorHazard-* >/dev/null 2>&1")   ### in case of forced installation
 	os.chdir("/home/"+user)
 	os.system("wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"+server_version+" -O temp.zip")
 	os.system("unzip temp.zip")
