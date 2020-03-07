@@ -137,7 +137,7 @@ def installation():
 	os.system("sudo -H pip install cffi pillow")
 	if os.path.exists("/home/"+user+"/.old_RotorHazard.old") == False:
 		os.system("mkdir /home/"+user+"/.old_RotorHazard.old")
-	if os.path.exists("/home/"+user+"/RotorHazard-"+preffered_RH_version"") == True:
+	if os.path.exists("/home/"+user+"/RotorHazard-"+preffered_RH_version) == True:
 		os.system("cp -r /home/"+user+"/RotorHazard-"+preffered_RH_version+" /home/"+user+"/.old_RotorHazard.old/")
 		os.system("rm -r /home/"+user+"/RotorHazard-"+preffered_RH_version+"")
 	os.chdir("/home/"+user)
