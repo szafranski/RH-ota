@@ -144,6 +144,9 @@ def compatibility():               ### adds compatibility and fixes with previou
 			os.system("sed -i 's/alias ota=/# alias ota=/g' "+homedir+"/.bashrc")
 			os.system("sed -i 's/opens updating script/old alias/g' "+homedir+"/.bashrc")
 			os.system("echo 'alias ota=\"cd ~/RH-ota && python update.py\"  # opens updating soft' | sudo tee -a ~/.bashrc >/dev/null")
+		if check_if_string_in_file(homedir+'/.bashrc', 'part of self-updater'):
+			os.system("sed -i 's/part of self-updater/part of self updater/g' "+homedir+"/.bashrc")
+			os.system("""echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | sudo tee -a ~/.bashrc""")
 
 def first ():
 	image ()
@@ -286,7 +289,7 @@ def selfUpdater():
 		print("""\n\n 
 		If you want to update this program and download new firmware, \n
 		prepared for Arduino nodes - so you can next flash them \n\t\t
-		- you have to type 'updateupdater' in the terminal window.\n\n\t\t
+		- you have to type 'updateupdater' or 'uu' in the terminal window.\n\n\t\t
 		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+""",\n\t\t
 		so you allways know what firmware version updater contains.\n\t\t
 		For example "2.2.5c" contains nodes firmware with "API level 22" etc.\n\t\t
@@ -301,7 +304,8 @@ def selfUpdater():
 		else :
 			selfUpdater()
 	else:
-		os.system("""echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self-updater' | sudo tee -a ~/.bashrc""")
+		os.system("""echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | sudo tee -a ~/.bashrc""")
+		os.system("""echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | sudo tee -a ~/.bashrc""")
 		sleep(0.1)
 		os.system("echo 'updater marker' | sudo tee -a ~/.ota_markers/.updater_self >/dev/null")
 		sleep(0.12)
