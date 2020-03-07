@@ -131,10 +131,9 @@ def installation():
 	if linux_testing == False:
 		os.system("sudo apt install python-rpi.gpio")
 		os.system("sudo apt dist-upgrade -y")
-	os.system("sudo pip install cffi ")
-	os.system("sudo pip install pillow")
-	if conf_allowed == True:
-		sysConf()
+		if conf_allowed == True:
+			sysConf()
+	os.system("sudo -H pip install cffi pillow")
 	if os.path.exists("/home/"+user+"/.old_RotorHazard.old") == False:
 		os.system("mkdir /home/"+user+"/.old_RotorHazard.old")
 	if os.path.exists("/home/"+user+"/RotorHazard-master") == True:
@@ -145,7 +144,7 @@ def installation():
 	os.system("unzip temp.zip")
 	os.system("rm temp.zip")
 	os.system("mv /home/"+user+"/RotorHazard-"+server_version+" /home/"+user+"/RotorHazard")
-	os.system("sudo pip install -r /home/"+user+"/RotorHazard/src/server/requirements.txt")
+	os.system("sudo -H pip install -r /home/"+user+"/RotorHazard/src/server/requirements.txt")
 	os.system("sudo chmod 777 -R /home/"+user+"/RotorHazard/src/server")
 	os.chdir("/home/"+user)
 	os.system("sudo git clone https://github.com/jgarff/rpi_ws281x.git")
