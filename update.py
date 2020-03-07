@@ -6,7 +6,7 @@ import os
 import sys
 import json
 
-updater_version = '2.2.8a'   ### version of THIS program - has nothing to do with the RH version
+updater_version = '2.2.8b'   ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
                             ### third number reffers to actual verion of the updater itself
 
@@ -146,7 +146,7 @@ def compatibility():               ### adds compatibility and fixes with previou
 			os.system("echo 'alias ota=\"cd ~/RH-ota && python update.py\"  # opens updating soft' | sudo tee -a ~/.bashrc >/dev/null")
 		if check_if_string_in_file(homedir+'/.bashrc', 'part of self-updater'):
 			os.system("sed -i 's/part of self-updater/part of self updater/g' "+homedir+"/.bashrc")
-			os.system("""echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | sudo tee -a ~/.bashrc""")
+			os.system("""echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | sudo tee -a ~/.bashrc >/dev/null""")
 
 def first ():
 	image ()
