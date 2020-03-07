@@ -6,7 +6,7 @@ import os
 import sys
 import json
 
-updater_version = '2.2.8'   ### version of THIS program - has nothing to do with the RH version
+updater_version = '2.2.8a'   ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
                             ### third number reffers to actual verion of the updater itself
 
