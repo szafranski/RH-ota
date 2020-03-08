@@ -92,7 +92,7 @@ def clearTheScreen():
 	if platform.system() == "Windows":
 		os.system("cls")
 	else:
-		clearTheScreen()
+		os.system("clear")
 
 if (linux_testing == False): 
 	import RPi.GPIO as GPIO
