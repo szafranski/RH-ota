@@ -62,7 +62,7 @@ def newVersionCheck():
 	os.system("sed -i 's/#.*/ /' ~/.ota_markers/.new_version")
 	f = open(""+myhomedir+"/.ota_markers/.new_version","r")
 	for line in f:
-		global new_version_name	
+		global new_version_name
 		new_version_name = line
 
 def main():
