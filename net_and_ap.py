@@ -36,9 +36,9 @@ def logoTop():
 	print("""\n	
 		#######################################################################
 		###                                                                 ###
-		###\t\t\t"""+bcolors.ORANGE+"""     RotorHazard        """+bcolors.ENDC+"""\t\t    ###
+		###\t\t\t"""+bcolors.ORANGE+"""     """+bcolors.BOLD+"""RotorHazard        """+bcolors.ENDC+"""\t\t    ###
 		###                                                                 ###
-		###                     OTA Updater and Manager                     ###
+		###                     """+bcolors.BOLD+"""OTA Updater and Manager"""+bcolors.ENDC+"""                     ###
 		###                                                                 ###
 		#######################################################################""")
 	if (linux_testing == True):
@@ -170,7 +170,7 @@ def stepZero():
 	You will still have ability to connect it to the Internet sharing device, \n
 	like router or PC via ethernet cable. You will also be able to connect with the timer\n
 	via Wifi from PC or mobile phone etc. - if you had range. \n
-	If during this process you would want to check detailed instructions,
+	If during this process you would want to check detailed instructions,\n
 	you can enter 'net_ap' folder from this repo, on your mobile phone etc.\n
 	This process will require few reboots. Do you want to continue?\n""")
 	print("""\n

@@ -232,13 +232,13 @@ def logoTop():
 	print("""\n	
 		#######################################################################
 		###                                                                 ###
-		###\t\t\t"""+bcolors.ORANGE+"""     RotorHazard        """+bcolors.ENDC+"""\t\t    ###
+		###\t\t\t"""+bcolors.ORANGE+"""     """+bcolors.BOLD+"""RotorHazard        """+bcolors.ENDC+"""\t\t    ###
 		###                                                                 ###
-		###                     OTA Updater and Manager                     ###
+		###                     """+bcolors.BOLD+"""OTA Updater and Manager"""+bcolors.ENDC+"""                     ###
 		###                                                                 ###
 		#######################################################################""")
 	if (linux_testing == True):
-		print("\t\t\t  Linux PC version\t"+"Pins assignment mode: "+str(pins_assignment))
+		print("\t\t\t  Linux PC version\t")
 	if os.path.exists("./updater-config.json") == False:
 		print("\t\t\t    Looks that you haven't set up config file yet!")
 
@@ -246,9 +246,9 @@ def logoUpdate():
 	print("""
 		#######################################################################
 		###                                                                 ###
-		###\t\tFlashing firmware onto """+str(nodes_number)+""" nodes - DONE\t\t    ###
+		###\t\t"""+bcolors.BOLD+"""Flashing firmware onto """+str(nodes_number)+""" nodes - DONE"""+bcolors.ENDC+"""\t\t    ###
 		###                                                                 ###
-		###                          Thank you!                             ###
+		###                          """+bcolors.BOLD+"""Thank you!"""+bcolors.ENDC+"""                             ###
 		###                                                                 ###
 		#######################################################################
 		\n\n""")
@@ -409,13 +409,13 @@ def flashEachNode():
 		sleep(0.12)
 		logoTop()
 		sleep(0.12)
-		print("\n\n\n\t\t\t\t\t    "+bcolors.RED+"NODES MENU"+bcolors.ENDC)
-		print("\n\t\t\t 1 - Flash node 1 \t\t 5 - Flash node 5")
-		print("\n\t\t\t 2 - Flash node 2 \t\t 6 - Flash node 6")
-		print("\n\t\t\t 3 - Flash node 3 \t\t 7 - Flash node 7")
-		print("\n\t\t\t 4 - Flash node 4 \t\t 8 - Flash node 8")
-		print("\n\t\t\t\t\t"+bcolors.YELLOW+"e - Exit to main menu"+bcolors.ENDC)
-		selection=str(raw_input("\n\n\t\t\tWhich node do you want to program: "))
+		print("\n\n\n\t\t\t\t\t    "+bcolors.RED+bcolors.BOLD+"NODES MENU"+bcolors.ENDC)
+		print("\n\t\t\t "+bcolors.BOLD+"1 - Flash node 1 \t\t 5 - Flash node 5"+bcolors.ENDC)
+		print("\n\t\t\t "+bcolors.BOLD+"2 - Flash node 2 \t\t 6 - Flash node 6"+bcolors.ENDC)
+		print("\n\t\t\t "+bcolors.BOLD+"3 - Flash node 3 \t\t 7 - Flash node 7"+bcolors.ENDC)
+		print("\n\t\t\t "+bcolors.BOLD+"4 - Flash node 4 \t\t 8 - Flash node 8")
+		print("\n\t\t\t\t\t"+bcolors.YELLOW+bcolors.BOLD+"e - Exit to main menu"+bcolors.ENDC)
+		selection=str(raw_input("\n\n\t\t\t"+bcolors.BOLD+"Which node do you want to program:"+bcolors.ENDC+" "))
 		print("\n\n")
 		if selection=='1':
 			def nodeOneMenu():
@@ -757,14 +757,14 @@ def nodesUpdate():
 	sleep(0.12)
 	logoTop()
 	sleep(0.12)
-	print("\n\n\t\t\t\t Choose flashing type:\n")
-	print("\t\t\t "+bcolors.GREEN+"1 - Every Node gets own dedicated firmware - recommended"+ bcolors.ENDC+"\n")
-	print("\t\t\t 2 - Nodes will use ground-auto selection firmware\n")
-	print("\t\t\t 3 - Flash 'Blink' on every node\n")
-	print("\t\t\t 4 - Flash each node individually\n")
-	print("\t\t\t 5 - I2C programming - early beta\n")
-	print("\t\t\t 6 - Fix GPIO pins state - obsolete\n")
-	print("\t\t\t "+bcolors.YELLOW+"e - Exit to main menu"+bcolors.ENDC+"\n")
+	print("\n\n\t\t\t\t "+bcolors.BOLD+"Choose flashing type:\n"+ bcolors.ENDC)
+	print("\t\t\t "+bcolors.GREEN+bcolors.BOLD+"1 - Every Node gets own dedicated firmware - recommended\n"+ bcolors.ENDC)
+	print("\t\t\t "+bcolors.BOLD+"2 - Nodes will use ground-auto selection firmware\n"+ bcolors.ENDC)
+	print("\t\t\t "+bcolors.BOLD+"3 - Flash 'Blink' on every node\n"+ bcolors.ENDC)
+	print("\t\t\t "+bcolors.BOLD+"4 - Flash each node individually\n"+ bcolors.ENDC)
+	print("\t\t\t "+bcolors.BOLD+"5 - I2C programming - early beta\n"+ bcolors.ENDC)
+	print("\t\t\t "+bcolors.BOLD+"6 - Fix GPIO pins state - obsolete\n"+ bcolors.ENDC)
+	print("\t\t\t "+bcolors.YELLOW+bcolors.BOLD+"e - Exit to main menu\n"+ bcolors.ENDC)
 	sleep(0.3)
 	selection=str(raw_input(""))
 	if selection=='1':

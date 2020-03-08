@@ -6,7 +6,7 @@ import os
 import sys
 import json
 
-updater_version = '2.2.8c'   ### version of THIS program - has nothing to do with the RH version
+updater_version = '2.2.8d'   ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
                             ### third number reffers to actual verion of the updater itself
 
@@ -91,9 +91,9 @@ def logoTop():
 	print("""\n	
 		#######################################################################
 		###                                                                 ###
-		###\t\t\t"""+bcolors.ORANGE+"""     RotorHazard        """+bcolors.ENDC+"""\t\t    ###
+		###\t\t\t"""+bcolors.ORANGE+"""     """+bcolors.BOLD+"""RotorHazard        """+bcolors.ENDC+"""\t\t    ###
 		###                                                                 ###
-		###                     OTA Updater and Manager                     ###
+		###                     """+bcolors.BOLD+"""OTA Updater and Manager"""+bcolors.ENDC+"""                     ###
 		###                                                                 ###
 		#######################################################################""")
 	if (linux_testing == True):
@@ -105,9 +105,9 @@ def logoUpdate():
 	print("""
 		#######################################################################
 		###                                                                 ###
-		###\t\tFlashing firmware onto """+str(nodes_number)+""" nodes - DONE\t\t    ###
+		###\t\t"""+bcolors.BOLD+"""Flashing firmware onto """+str(nodes_number)+""" nodes - DONE"""+bcolors.ENDC+"""\t\t    ###
 		###                                                                 ###
-		###                          Thank you!                             ###
+		###                          """+bcolors.BOLD+"""Thank you!"""+bcolors.ENDC+"""                             ###
 		###                                                                 ###
 		#######################################################################
 		\n\n""")
@@ -247,18 +247,18 @@ def aliasesMenu():
 	you can just type 'ss' (server start) etc. Aliases can be modified and added 
 	anytime you want. You just have to open '~./bashrc' file in text editor 
 	- like 'nano'. After that you have reboot or type 'source ~/.bashrc'. \n
-	Alias			Command					  What it does	\n
+	"""+bcolors.BOLD+"""Alias			Command					  What it does	\n
 	ss 	-->  cd ~/RotorH(...)server && python server.py  # starts the RH-server\t
 	cfg 	-->  nano ~/RotorHazard/src/server/config.json   # opens config.json file\t
 	rh  	-->  cd ~/RotorHazard/src/server   		 # goes to server file location\t
 	py  	-->  python  					 # pure laziness\t
 	sts  	-->  sudo systemctl stop rotorhazard 		 # stops RH service if was started\t
-	otadir  -->  cd ~/RH-ota   				 # goes to main server file locationt
+	otadir  -->  cd ~/RH-ota   				 # goes to main server file location\t
 	ota  	-->  cd ~/RH-ota && python update.py  		 # opens updating soft\t
 	als  	-->  nano ~/.bashrc   				 # opens this file\t
 	rld  	-->  source ~/.bashrc   			 # reloads aliases file \t
 	rcfg  	-->  sudo raspi-config   			 # open raspberry's configs\t
-	gitota	-->  git clone https://github.com/sza(...) 	 # clones ota repo\t\t\n
+	gitota	-->  git clone https://github.com/sza(...) 	 # clones ota repo\t\t\n"""+bcolors.ENDC+"""
 		Do you want to use above aliases in your system?\n
 		Reboot should be performed after adding those""")
 	selection=str(raw_input("\n\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
@@ -286,15 +286,15 @@ def selfUpdater():
 	logoTop()
 	sleep(0.12)
 	if os.path.exists("/home/"+user+"/.ota_markers/.updater_self") == True:
-		print("""\n\n 
+		print("""\n\n """+bcolors.BOLD+"""
 		If you want to update this program and download new firmware, \n
 		prepared for Arduino nodes - so you can next flash them \n\t\t
 		- you have to type 'updateupdater' or 'uu' in the terminal window.\n\n\t\t
-		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+""",\n\t\t
+		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+bcolors.BOLD+""",\n\t\t
 		so you allways know what firmware version updater contains.\n\t\t
 		For example "2.2.5c" contains nodes firmware with "API level 22" etc.\n\t\t
-		Be sure that you have internet connection established.\n\n """)
-		print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Exit program by pressing 'e' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
+		Be sure that you have internet connection established."""+bcolors.ENDC+"""\n\n """)
+		print("""\n\t\t\t\t"""+bcolors.GREEN+"""\tExit program by pressing 'e' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
 		+bcolors.YELLOW+"""\tGo back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
 		selection=str(raw_input(""))
 		if selection=='e':
@@ -313,17 +313,17 @@ def selfUpdater():
 		sleep(0.12)
 		logoTop()
 		sleep(0.12)
-		print("""\n\n 
+		print("""\n\n """+bcolors.BOLD+"""
 		If you want to update this program and download new firmware, \n
 		prepared for Arduino nodes - so you can next flash them  \n\t\t
 		- you have to reboot the Raspberry. Next step is to type  \n\t\t
 		'updateupdater' in the terminal window.\n\t\t
 		Next time you won't have to reboot before updating.\n\n\t\t
-		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+""",\n\t\t
+		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+bcolors.BOLD+""",\n\t\t
 		so you allways know what firmware version updater contains.\n\t\t
 		For example 2.2.1 contains nodes firmware with API 22 etc.\n\t\t
-		Be sure that you have internet connection established.\n\n """)
-		print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
+		Be sure that you have internet connection established."""+bcolors.ENDC+"""\n\n """)
+		print("""\n\t\t\t\t"""+bcolors.GREEN+"""\tReboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
 		+bcolors.YELLOW+"""\tGo back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
 		selection=str(raw_input(""))
 		if selection=='r':
@@ -339,13 +339,13 @@ def featuresMenu():
 	sleep(0.12)
 	logoTop()
 	sleep(0.12)
-	print("\n\n\n\t\t\t\t\t\t"+bcolors.RED+"FEATURES MENU\n"+bcolors.ENDC)
-	print("\t\t\t   "+bcolors.BLUE+"1 - Install avrdude\n"+bcolors.ENDC)
-	print("\t\t\t   "+bcolors.BLUE+"2 - Enable serial protocol"+bcolors.ENDC+"\n")
-	print("\t\t\t   3 - Access Point and Internet - new\n")
-	print("\t\t\t   4 - Useful aliases\n")
-	print("\t\t\t   5 - Self updater \n")
-	print("\t\t\t   "+bcolors.YELLOW+"e - Exit to main menu"+bcolors.ENDC)
+	print("\n\n\n\t\t\t\t\t"+bcolors.RED+bcolors.BOLD+"FEATURES MENU\n"+bcolors.ENDC)
+	print("\t\t\t   "+bcolors.BLUE+bcolors.BOLD+"1 - Install avrdude\n"+bcolors.ENDC)
+	print("\t\t\t   "+bcolors.BLUE+bcolors.BOLD+"2 - Enable serial protocol\n"+bcolors.ENDC)
+	print("\t\t\t   "+bcolors.BOLD+"3 - Access Point and Internet - new\n"+bcolors.ENDC)
+	print("\t\t\t   "+bcolors.BOLD+"4 - Useful aliases\n"+bcolors.ENDC)
+	print("\t\t\t   "+bcolors.BOLD+"5 - Self updater \n"+bcolors.ENDC)
+	print("\t\t\t   "+bcolors.YELLOW+bcolors.BOLD+"e - Exit to main menu"+bcolors.ENDC)
 	selection=str(raw_input(""))
 	if selection=='1':
 		avrDude()
@@ -429,13 +429,13 @@ def mainMenu():
 	sleep(0.12)
 	logoTop()
 	sleep(0.12)
-	print("\n\n\n\t\t\t\t\t "+bcolors.RED+"   MAIN MENU\n"+bcolors.ENDC)
-	print("\t\t\t   "+bcolors.BLUE+"1 - Server software installation and update\n	"+bcolors.ENDC)
-	print("\t\t\t   "+bcolors.BLUE+"2 - Nodes flash and update\n"+bcolors.ENDC)
-	print("\t\t\t   3 - Start the server now\n")
-	print("\t\t\t   4 - Additional features\n")
-	print("\t\t\t   5 - This is my first time - READ!\n")
-	print("\t\t\t   "+bcolors.YELLOW+"e - Exit"+bcolors.ENDC)
+	print("\n\n\n\t\t\t\t\t"+bcolors.RED+bcolors.BOLD+"MAIN MENU\n"+bcolors.ENDC)
+	print("\t\t\t   "+bcolors.BLUE+bcolors.BOLD+"1 - Server software installation and update\n	"+bcolors.ENDC)
+	print("\t\t\t   "+bcolors.BLUE+bcolors.BOLD+"2 - Nodes flash and update\n"+bcolors.ENDC)
+	print("\t\t\t   "+bcolors.BOLD+"3 - Start the server now\n"+bcolors.ENDC)
+	print("\t\t\t   "+bcolors.BOLD+"4 - Additional features\n"+bcolors.ENDC)
+	print("\t\t\t   "+bcolors.BOLD+"5 - This is my first time - READ!\n"+bcolors.ENDC)
+	print("\t\t\t   "+bcolors.YELLOW+bcolors.BOLD+"e - Exit"+bcolors.ENDC)
 	selection=str(raw_input(""))
 	if selection=='1':
 		os.system("python ./rpi_update.py")   ### opens raspberry updating file
