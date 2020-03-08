@@ -268,7 +268,7 @@ def main():
 	global server_version_name
 	clearTheScreen()
 	serverChecker()
-	sleep(0.5)
+	sleep(0.2)
 	print("""\n\n\t\t"""+bcolors.RED+bcolors.BOLD+"""AUTOMATIC UPDATE AND INSTALLATION OF ROTORHAZARD RACING TIMER SOFTWARE\n\n\t"""+bcolors.ENDC
 	+bcolors.BOLD+"""This script will automatically install or update RotorHazard software on your Raspberry Pi. \n\t
 	All additional software depedancies and libraries also will be installed or updated.\n\t
