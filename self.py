@@ -1,13 +1,22 @@
 from time import sleep
 import os
 import sys
-
-homedir = os.path.expanduser('~')
+import json
 
 if os.path.exists(homedir+"/RH-ota/updater-config.json") == True:
 	config_file_exists = True
+	if data['debug_mode'] == 1:
+		linux_testing = True
+	else:
+		linux_testing = False 
+	if linux_testing == True:
+		user = data['debug_user']
+	else:
+		user = data['pi_user']
+	homedir='/home/'+user+''
 else:
 	config_file_exists = False
+	homedir = os.path.expanduser('~')
 
 if config_file_exists == True:
 	if check_if_string_in_file(homedir+'/RH-ota/updater-config.json', 'updates_without_pdf'):
@@ -22,7 +31,7 @@ def oldVersionCheck():
 	os.system("grep 'updater_version =' ~/RH-ota/update.py > ~/.ota_markers/.old_version")
 	os.system("sed -i 's/updater_version = //' ~/.ota_markers/.old_version")
 	os.system("sed -i 's/#.*/ /' ~/.ota_markers/.old_version")
-	f = open(homedir+"/.ota_markers/.old_version","r")
+	f = open(""+homedir+"/.ota_markers/.old_version","r")
 	for line in f:
 		global old_version_name
 		old_version_name = line
@@ -31,7 +40,7 @@ def newVersionCheck():
 	os.system("grep 'updater_version =' ~/RH-ota/update.py > ~/.ota_markers/.new_version")
 	os.system("sed -i 's/updater_version = //' ~/.ota_markers/.new_version")
 	os.system("sed -i 's/#.*/ /' ~/.ota_markers/.new_version")
-	f = open(homedir+"/.ota_markers/.new_version","r")
+	f = open(""+homedir+"/.ota_markers/.new_version","r")
 	for line in f:
 		global new_version_name
 		new_version_name = line
