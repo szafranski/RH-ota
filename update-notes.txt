@@ -1,3 +1,9 @@
+2.2.8h
+
+Added:
+option to disable downloading PDF file with every update
+________________________________________________________
+
 2.2.8e
 
 Added:
