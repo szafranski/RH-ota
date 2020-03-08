@@ -5,5 +5,6 @@
 	"country" : "GB",
 	"nodes_number" : 8,
 	"debug_mode" : 0,
-	"pins_assignment" : "default"
+	"pins_assignment" : "default",
+	"updates_without_pdf" : "0"
 }
