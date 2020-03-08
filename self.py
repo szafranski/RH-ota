@@ -3,6 +3,22 @@ import os
 import sys
 import json
 
+homedir = os.path.expanduser('~')
+
+if os.path.exists(""+homedir+"/RH-ota/updater-config.json") == True:
+	with open(''+homedir+'/RH-ota/updater-config.json') as config_file:
+		data = json.load(config_file)
+else:
+	with open(''+homedir+'/RH-ota/updater-config.json') as config_file:
+		data = json.load(config_file)
+
+def check_if_string_in_file(file_name, string_to_search):
+	with open(file_name, 'r') as read_obj:
+		for line in read_obj:
+			if string_to_search in line:
+				return True
+	return False
+
 if os.path.exists(homedir+"/RH-ota/updater-config.json") == True:
 	config_file_exists = True
 	if data['debug_mode'] == 1:
@@ -13,25 +29,25 @@ if os.path.exists(homedir+"/RH-ota/updater-config.json") == True:
 		user = data['debug_user']
 	else:
 		user = data['pi_user']
-	homedir='/home/'+user+''
+	myhomedir='/home/'+user+''
 else:
 	config_file_exists = False
-	homedir = os.path.expanduser('~')
+	myhomedir = os.path.expanduser('~')
 
 if config_file_exists == True:
-	if check_if_string_in_file(homedir+'/RH-ota/updater-config.json', 'updates_without_pdf'):
+	if check_if_string_in_file(myhomedir+'/RH-ota/updater-config.json', 'updates_without_pdf'):
 		if data['updates_without_pdf'] == 1:
 			no_pdf_update = True
 		else:
 			pdf_update = False 
 	else:
-		pdf_update
+		pdf_update = True
 
 def oldVersionCheck():
 	os.system("grep 'updater_version =' ~/RH-ota/update.py > ~/.ota_markers/.old_version")
 	os.system("sed -i 's/updater_version = //' ~/.ota_markers/.old_version")
 	os.system("sed -i 's/#.*/ /' ~/.ota_markers/.old_version")
-	f = open(""+homedir+"/.ota_markers/.old_version","r")
+	f = open(""+myhomedir+"/.ota_markers/.old_version","r")
 	for line in f:
 		global old_version_name
 		old_version_name = line
@@ -40,7 +56,7 @@ def newVersionCheck():
 	os.system("grep 'updater_version =' ~/RH-ota/update.py > ~/.ota_markers/.new_version")
 	os.system("sed -i 's/updater_version = //' ~/.ota_markers/.new_version")
 	os.system("sed -i 's/#.*/ /' ~/.ota_markers/.new_version")
-	f = open(""+homedir+"/.ota_markers/.new_version","r")
+	f = open(""+myhomedir+"/.ota_markers/.new_version","r")
 	for line in f:
 		global new_version_name
 		new_version_name = line
