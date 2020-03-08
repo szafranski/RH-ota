@@ -49,8 +49,14 @@ else:
 	no_pdf_update = False
 
 def debugInfo():
-	print("config_file_exists"+config_file_exists)
-	print("no_pdf_update"+no_pdf_update)
+	if config_file_exists == True:
+		print("config_file_exists = True")
+	else:
+		print("config_file_exists = False")
+	if no_pdf_update == True:
+		print("no_pdf_update = True")
+	else:
+		print("no_pdf_update = False")
 	sleep(1)
 debugInfo()
 
