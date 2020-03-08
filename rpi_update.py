@@ -37,7 +37,7 @@ homedir = os.path.expanduser('~')
 class bcolors:
 	HEADER = '\033[95m'
 	BLUE = '\033[94m'
-	OKGREEN = '\033[92m'
+	GREEN = '\033[92m'
 	YELLOW = '\033[93m'
 	RED = '\033[91m'
 	ENDC = '\033[0m'
@@ -88,8 +88,8 @@ first()
 
 def serverChecker():
 	os.system("grep 'RELEASE_VERSION =' ~/RotorHazard/src/server/server.py > ~/.ota_markers/.server_version")
-	os.system("sed -i 's/RELEASE_VERSION = //' ~/.ota_markers/.server_version")
-	os.system("sed -i 's/ # Public release version code//' ~/.ota_markers/.server_version")
+	os.system("sed -i 's/RELEASE_VERSION = \"//' ~/.ota_markers/.server_version")
+	os.system("sed -i 's/\" # Public release version code//' ~/.ota_markers/.server_version")
 	f = open("/home/"+user+"/.ota_markers/.server_version","r")
 	for line in f:
 		global server_version_name
@@ -109,7 +109,7 @@ def sysConf():
 	os.system("sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
 
 def end():
-	print("\n\n\n\t\t"+bcolors.OKGREEN+"Type 'r' for reboot - recommended"+bcolors.ENDC+"\n")
+	print("\n\n\n\t\t"+bcolors.GREEN+"Type 'r' for reboot - recommended"+bcolors.ENDC+"\n")
 	print("\t\tType 's' to start the server now\n")
 	print("\t\t"+bcolors.YELLOW+"Type 'e' for exit\n"+bcolors.ENDC)
 	def endMenu():
@@ -201,7 +201,7 @@ def update():
 	if os.path.exists("/home/"+user+"/RotorHazard") == False:
 		print("""\n\t """+bcolors.BOLD+"""Looks like you don't have RotorHazard server software installed for now. \n\t\t
 	 If so please install your server software first or you won't be able to use the timer."""+bcolors.ENDC+""" """)
-	 	selection=str(raw_input("""\n\n\t\t"""+bcolors.OKGREEN+""" 'i' - Install the software - recommended """+ bcolors.ENDC+
+	 	selection=str(raw_input("""\n\n\t\t"""+bcolors.GREEN+""" 'i' - Install the software - recommended """+ bcolors.ENDC+
 		"""\n\n\t\t 'u' - Force update procedure   \n\n\t\t """+bcolors.YELLOW+"""'a' - Abort both  \n\n """+bcolors.ENDC+""" """))
 		if selection == 'i':
 			conf_allowed = True
@@ -278,7 +278,7 @@ def main():
 	If you prefer to use newest possible beta version - change the source accordingly.\n\t
 	Also make sure that you are logged as user '"""+bcolors.BLUE+user+bcolors.ENDC+bcolors.BOLD+"""'. \n\n\t
 	You can change those by editing file 'updater-config.json' in text editor - like 'nano'.
-	\n\tVersion of server installed right now:"""+bcolors.OKGREEN+""" """+server_version_name+""""""+bcolors.RED+"""
+	\n\tVersion of server installed right now:"""+bcolors.GREEN+""" """+server_version_name+""""""+bcolors.RED+"""
 	\n\t\t\t\t\t\t\t\t\tEnjoy!\n\n\t\t"""+bcolors.ENDC+"""
 	\t 'i' - Install software from skratch\n\t\t
 	\t 'u' - Update existing installation\n\t\t
@@ -289,7 +289,7 @@ def main():
 			clearTheScreen()
 			print("""\n\t """+bcolors.BOLD+"""Looks like you already have RotorHazard server software installed."""+bcolors.ENDC+""" \n
 	 If so please use update mode instead. """)
-			selection=str(raw_input("""\n\n\t\t"""+bcolors.OKGREEN+""" 'u' - Select update mode - recommended """+ bcolors.ENDC+
+			selection=str(raw_input("""\n\n\t\t"""+bcolors.GREEN+""" 'u' - Select update mode - recommended """+ bcolors.ENDC+
 			"""\n\n\t\t 'i' - Force installation anyway\n\n\t\t 'c' - Force installation and sys. config.\n\n\t\t """+bcolors.YELLOW+"""'a' - Abort both  \n\n """+bcolors.ENDC+""" """))
 			if selection == 'u':
 				update()
