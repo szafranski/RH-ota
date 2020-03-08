@@ -95,6 +95,7 @@ def serverChecker():
 		for line in f:
 			global server_version_name
 			server_version_name = line
+		sleep(2)
 	else:
 		server_version_name = 'uninstalled'
 
