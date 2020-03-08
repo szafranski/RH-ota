@@ -407,12 +407,6 @@ def flashAllBlink():
 	if nodes_number ==8:
 		return
 
-	if selection=='dev' : 
-		nodeOneReset()
-		os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/.dev/comm.hex:i ")
-		print(bcolors.BOLD+"\n\t Testing firmware on Node 1 flashed\n"+bcolors.ENDC)
-		sleep(1.5)
-
 def flashEachNode():
 	def nodeXMenu():
 		global X
@@ -446,6 +440,11 @@ def flashEachNode():
 			return
 		if selection=='4':
 			nodeMenu()
+		if selection=='dev' : 
+			nodeOneReset()
+			os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/.dev/node_"+str(X)+".hex:i ")
+			print(bcolors.BOLD+"\n\t Testing firmware on Node "+str(X)+" flashed\n"+bcolors.ENDC)
+			sleep(1.5)
 		else:
 			nodeXMenu()
 	def nodeMenu():
