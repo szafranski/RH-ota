@@ -434,7 +434,8 @@ def mainMenu():
 	if selection=='2':
 		os.system("python ./nodes_update.py")   ### opens nodes updating file
 	if selection=='3':
-		serverStart()
+#		serverStart()
+		os.system("python ./server_start.py")
 	if selection=='4':
 		featuresMenu()
 	if selection=='5':
