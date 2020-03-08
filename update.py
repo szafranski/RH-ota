@@ -284,8 +284,8 @@ def selfUpdater():
 		so you allways know what firmware version updater contains.\n\t\t
 		For example "2.2.5c" contains nodes firmware with "API level 22" etc.\n\t\t
 		Be sure that you have internet connection established."""+bcolors.ENDC+"""\n\n """)
-		print("""\n\t\t\t\t"""+bcolors.GREEN+"""\tExit program by pressing 'e' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
-		"""\tForce updater planting again by pressing 'f'\n\n"""
+		print("""\n\t\t\t"""+bcolors.GREEN+"""\tExit program by pressing 'e' """+bcolors.ENDC+"""\n\n\t\t\t"""
+		"""\t\t\tForce updater planting again by pressing 'f'\n\n"""
 		+bcolors.YELLOW+"""\tGo back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
 		selection=str(raw_input(""))
 		if selection=='e':
