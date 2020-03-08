@@ -151,9 +151,8 @@ def compatibility():               ### adds compatibility and fixes with previou
 			if os.path.exists(homedir+"/.ota_markers/.aliases2_added") == False:
 				os.system("echo 'alias otacfg=\"sudo nano ~/RH-ota/updater-config.json \"  # opens updater conf. file' | tee -a ~/.bashrc >/dev/null")
 				os.system("echo 'alias otacpcfg=\"cd ~/RH-ota && sudo cp distr-updater-config.json updater-config.json \"  # copies ota conf. file' | tee -a ~/.bashrc >/dev/null")
+				os.system("echo 'alias home=\"cd ~ \"  # go homedir (without ~ sign)' | tee -a ~/.bashrc >/dev/null")
 				os.system("echo 'functionality added - leave file here' | tee -a ~/.ota_markers/.aliases2_added >/dev/null")
-				os.system("echo 'alias home=\"cd ~ \"  # go homedir (without ~ sign)' | tee -a ~/.bashrc >/dev/null")
-				os.system("echo 'alias home=\"cd ~ \"  # go homedir (without ~ sign)' | tee -a ~/.bashrc >/dev/null")
 
 def first ():
 	image ()

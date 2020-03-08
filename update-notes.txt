@@ -4,7 +4,7 @@ Added:
 access point automatic configuration
 detailed explanation in Access Point menu
 features compatibility with previous installations
-new aliases
+new aliases (uu, otacfg, otacpcfg, home) - auto added
 
 Polished and very reliable:
 self-updater
