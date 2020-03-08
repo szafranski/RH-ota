@@ -3,13 +3,19 @@ import os
 import sys
 import json
 
-homedir = os.path.expanduser('~')
+global homedir
 
-if os.path.exists(""+homedir+"/RH-ota/updater-config.json") == True:
-	with open(''+homedir+'/RH-ota/updater-config.json') as config_file:
+os.system("pwd > .my_pwd")
+os.system("sed -i 's/\n//' .my_pwd")
+f = open(".my_pwd","r")
+for line in f:
+	homedir = line
+
+if os.path.exists(""+homedir+"/updater-config.json") == True:
+	with open(homedir+'/updater-config.json') as config_file:
 		data = json.load(config_file)
 else:
-	with open(''+homedir+'/RH-ota/updater-config.json') as config_file:
+	with open(homedir+'/distr-updater-config.json') as config_file:
 		data = json.load(config_file)
 
 def check_if_string_in_file(file_name, string_to_search):
