@@ -14,8 +14,8 @@ runs ok on Windows - just for a preview
 
 Improved:
 descriptions in the software
-Visual improvements:
 
+Visual improvements:
 menus and descriptions
 
 
