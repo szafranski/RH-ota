@@ -96,7 +96,7 @@ def serverChecker():
 			global server_version_name
 			server_version_name = line
 	else:
-		server_version_name = 'uninstalled right now'
+		server_version_name = 'uninstalled'
 
 def sysConf():
 	os.system("sudo systemctl enable ssh")
