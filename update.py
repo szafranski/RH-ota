@@ -268,6 +268,7 @@ def aliasesMenu():
 
 def selfUpdater():
 	def addUpdater():
+		os.system("sudo apt install zip unzip")
 		os.system("""echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc""")
 		os.system("""echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc""")
 	sleep(0.12)
