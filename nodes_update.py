@@ -428,7 +428,7 @@ def flashEachNode():
 			if linux_testing == False:
 				os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_"+str(X)+".hex:i ")
 			else:
-				print("\t\t/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_"+str(X)+".hex:i ")
+				print("\t\t\t/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_"+str(X)+".hex:i ")
 			print(bcolors.BOLD+"\n\t Node "+str(X)+" flashed\n"+bcolors.ENDC)
 			sleep(1.5)
 			return
