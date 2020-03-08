@@ -89,7 +89,7 @@ if no_pdf_update == False:
 	os.system("sudo rm -r ~/RH-ota")
 	os.system("git clone --depth=1 https://github.com/szafranski/RH-ota.git")
 else:
-	print("Update won't contains PDF file - may be changed in config file.")
+	print("Update won't contain PDF file - may be changed in config file.")
 	os.system("sudo rm -r ~/RH-ota")
 	os.system("git clone -b no_pdf --depth=1 https://github.com/szafranski/RH-ota.git")
 if config_file_exists == True:
