@@ -168,6 +168,7 @@ def compatibility():               ### adds compatibility and fixes with previou
 				os.system("sed -i 's/\"debug_mode\" : 0/\"debug_mode\" : 0,/g' "+homedir+"/RH-ota/updater-config.json")
 				os.system("sed -i 's/\"debug_mode\" : 1/\"debug_mode\" : 1,/g' "+homedir+"/RH-ota/updater-config.json")
 				os.system("sed -i 's/}/	\"pins_assignment\" : \"default\" /g' "+homedir+"/RH-ota/updater-config.json")
+				os.system("echo '}' | tee -a "+homedir+"/RH-ota/updater-config.json >/dev/null 2>&1")
 			if check_if_string_in_file(homedir+'/RH-ota/updater-config.json', '"pins_assignment"'):
 				if not check_if_string_in_file(homedir+'/RH-ota/updater-config.json', '"updates_without_pdf"'):
 					os.system("sed -i 's/\"pins_assignment\" : \"default\"/\"pins_assignment\" : \"default\",/g' "+homedir+"/RH-ota/updater-config.json")
