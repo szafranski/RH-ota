@@ -267,6 +267,9 @@ def aliasesMenu():
 		aliasesMenu()
 
 def selfUpdater():
+	def addUpdater():
+		os.system("""echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc""")
+		os.system("""echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc""")
 	sleep(0.12)
 	clearTheScreen()
 	sleep(0.12)
@@ -282,17 +285,19 @@ def selfUpdater():
 		For example "2.2.5c" contains nodes firmware with "API level 22" etc.\n\t\t
 		Be sure that you have internet connection established."""+bcolors.ENDC+"""\n\n """)
 		print("""\n\t\t\t\t"""+bcolors.GREEN+"""\tExit program by pressing 'e' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
+		"""\tForce updater planting again by pressing 'f'\n\n"""
 		+bcolors.YELLOW+"""\tGo back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
 		selection=str(raw_input(""))
 		if selection=='e':
 			sys.exit()
 		if selection=='b':
 			featuresMenu()
+		if selection=='f':
+			addUpdater()
 		else :
 			selfUpdater()
 	else:
-		os.system("""echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc""")
-		os.system("""echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc""")
+		addUpdater()
 		sleep(0.1)
 		os.system("echo 'updater marker' | tee -a ~/.ota_markers/.updater_self >/dev/null")
 		sleep(0.12)
