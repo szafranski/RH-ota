@@ -97,7 +97,6 @@ else:
 	os.system("wget https://codeload.github.com/szafranski/RH-ota/zip/no_pdf -O tempota.zip")
 	os.system("unzip tempota.zip")
 	os.system("rm tempota.zip")
-	os.system("rm tempota.zip")
 	os.system("mv RH-ota-* RH-ota")
 if config_file_exists == True:
 	os.system("cp ~/.ota_markers/updater-config.json ~/RH-ota/updater-config.json")
