@@ -3,19 +3,18 @@ import os
 import sys
 import json
 
-global homedir
+os.system("pwd >.my_pwd")
+with open('.my_pwd', 'r') as file:
+	myhomedir = file.read().replace('\n', '')
 
-os.system("pwd > .my_pwd")
-os.system("sed -i 's/\n//' .my_pwd")
-f = open(".my_pwd","r")
-for line in f:
-	homedir = line
+cfgdir1= str(myhomedir+'/RH-ota/updater-config.json')
+cfgdir2= str(myhomedir+'/RH-ota/distr-updater-config.json')
 
-if os.path.exists(""+homedir+"/updater-config.json") == True:
-	with open(homedir+'/updater-config.json') as config_file:
+if os.path.exists(myhomedir+"/RH-ota/updater-config.json") == True:
+	with open(cfgdir1) as config_file:
 		data = json.load(config_file)
 else:
-	with open(homedir+'/distr-updater-config.json') as config_file:
+	with open(cfgdir2) as config_file:
 		data = json.load(config_file)
 
 def check_if_string_in_file(file_name, string_to_search):
@@ -25,7 +24,7 @@ def check_if_string_in_file(file_name, string_to_search):
 				return True
 	return False
 
-if os.path.exists(homedir+"/RH-ota/updater-config.json") == True:
+if os.path.exists(cfgdir1) == True:
 	config_file_exists = True
 	if data['debug_mode'] == 1:
 		linux_testing = True
@@ -38,7 +37,6 @@ if os.path.exists(homedir+"/RH-ota/updater-config.json") == True:
 	myhomedir='/home/'+user+''
 else:
 	config_file_exists = False
-	myhomedir = os.path.expanduser('~')
 
 if config_file_exists == True:
 	if check_if_string_in_file(myhomedir+'/RH-ota/updater-config.json', 'updates_without_pdf'):
@@ -86,4 +84,5 @@ def main():
 	print("\n\n\n\t RotorHazard OTA Manager updated to version "+new_version_name+"\n\t\tYou may check update-notes.txt\n\n")
 	sleep(1.5)
 main()
+
 
