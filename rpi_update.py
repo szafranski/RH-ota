@@ -86,6 +86,15 @@ def first ():
 	sleep(0.5)
 first()
 
+def serverChecker():
+	os.system("grep 'RELEASE_VERSION =' ~/RotorHazard/src/server/server.py > ~/.ota_markers/.server_version")
+	os.system("sed -i 's/RELEASE_VERSION = //' ~/.ota_markers/.server_version")
+	os.system("sed -i 's/ # Public release version code//' ~/.ota_markers/.server_version")
+	f = open("/home/"+user+"/.ota_markers/.server_version","r")
+	for line in f:
+		global server_version_name
+		server_version_name = line
+
 def sysConf():
 	os.system("sudo systemctl enable ssh")
 	os.system("sudo systemctl start ssh ")
@@ -256,8 +265,10 @@ def update():
 
 def main():
 	global conf_allowed
+	global server_version_name
 	clearTheScreen()
-	sleep(0.2)
+	serverChecker()
+	sleep(0.5)
 	print("""\n\n\t\t"""+bcolors.RED+bcolors.BOLD+"""AUTOMATIC UPDATE AND INSTALLATION OF ROTORHAZARD RACING TIMER SOFTWARE\n\n\t"""+bcolors.ENDC
 	+bcolors.BOLD+"""This script will automatically install or update RotorHazard software on your Raspberry Pi. \n\t
 	All additional software depedancies and libraries also will be installed or updated.\n\t
@@ -267,7 +278,8 @@ def main():
 	If you prefer to use newest possible beta version - change the source accordingly.\n\t
 	Also make sure that you are logged as user '"""+bcolors.BLUE+user+bcolors.ENDC+bcolors.BOLD+"""'. \n\n\t
 	You can change those by editing file 'updater-config.json' in text editor - like 'nano'.
-	\n\n\n\t\t\t\t\t\t\t\t\tEnjoy!\n\n\t\t"""+bcolors.ENDC+"""
+	\n\tVersion of server installed right now:"""+bcolors.OKGREEN+""" """+server_version_name+""""""+bcolors.RED+"""
+	\n\t\t\t\t\t\t\t\t\tEnjoy!\n\n\t\t"""+bcolors.ENDC+"""
 	\t 'i' - Install software from skratch\n\t\t
 	\t 'u' - Update existing installation\n\t\t
 	\t"""+bcolors.YELLOW+""" 'a' - Abort \n"""+bcolors.ENDC+""" """)
