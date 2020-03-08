@@ -5,6 +5,9 @@ from time import sleep
 import os
 import sys
 import json
+import subprocess
+rldals = subprocess.Popen(["/bin/bash", "-i", "-c", "rld"])
+
 
 updater_version = '2.2.8e'   ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
@@ -154,7 +157,7 @@ def compatibility():               ### adds compatibility and fixes with previou
 				os.system("echo 'alias home=\"cd ~ \"  # go homedir (without ~ sign)' | tee -a ~/.bashrc >/dev/null")
 				os.system("echo 'functionality added - leave file here' | tee -a ~/.ota_markers/.aliases2_added >/dev/null")
 		if check_if_string_in_file(homedir+'/.bashrc', 'rld'):
-			os.system("rld")
+			rldals.communicate()
 
 def first ():
 	image ()
