@@ -87,13 +87,16 @@ def first ():
 first()
 
 def serverChecker():
-	os.system("grep 'RELEASE_VERSION =' ~/RotorHazard/src/server/server.py > ~/.ota_markers/.server_version")
-	os.system("sed -i 's/RELEASE_VERSION = \"//' ~/.ota_markers/.server_version")
-	os.system("sed -i 's/\" # Public release version code//' ~/.ota_markers/.server_version")
-	f = open("/home/"+user+"/.ota_markers/.server_version","r")
-	for line in f:
-		global server_version_name
-		server_version_name = line
+	if os.path.exists("/home/"+user+"/RotorHazard/src/server/server.py") == True:
+		os.system("grep 'RELEASE_VERSION =' ~/RotorHazard/src/server/server.py > ~/.ota_markers/.server_version")
+		os.system("sed -i 's/RELEASE_VERSION = \"//' ~/.ota_markers/.server_version")
+		os.system("sed -i 's/\" # Public release version code//' ~/.ota_markers/.server_version")
+		f = open("/home/"+user+"/.ota_markers/.server_version","r")
+		for line in f:
+			global server_version_name
+			server_version_name = line
+	else:
+		server_version_name = 'uninstalled right now'
 
 def sysConf():
 	os.system("sudo systemctl enable ssh")
