@@ -66,7 +66,7 @@ def clearTheScreen():
 	if platform.system() == "Windows":
 		os.system("cls")
 	else:
-		clearTheScreen()
+		os.system("clear")
 
 def image():
 	print("""
