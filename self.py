@@ -42,9 +42,11 @@ if config_file_exists == True:
 		if data['updates_without_pdf'] == 1:
 			no_pdf_update = True
 		else:
-			no_pdf_update = False 
+			no_pdf_update = False
 	else:
-		no_pdf_update = True
+		no_pdf_update = False
+else: 
+	no_pdf_update = False
 
 def oldVersionCheck():
 	os.system("grep 'updater_version =' ~/RH-ota/update.py > ~/.ota_markers/.old_version")
@@ -64,22 +66,21 @@ def newVersionCheck():
 		global new_version_name
 		new_version_name = line
 
-def main():
-	os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")   ### resolves compatibility issues
-	os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         ### resolves compatibility issues
-	oldVersionCheck()
-	print("\n\n\n\t Please wait: updating process from version "+old_version_name+"\n\n")
-	if config_file_exists == True:
-		os.system("cp ~/RH-ota/updater-config.json ~/.ota_markers/updater-config.json")
-	if no_pdf_update == False:
-		os.system("sudo rm -r ~/RH-ota")
-		os.system("git clone --depth=1 https://github.com/szafranski/RH-ota.git")
-	else:
-		os.system("sudo rm -r ~/RH-ota")
-		os.system("git clone -b no_pdf --depth=1 https://github.com/szafranski/RH-ota.git")
-	if config_file_exists == True:
-		os.system("cp ~/.ota_markers/updater-config.json ~/RH-ota/updater-config.json")
-	newVersionCheck()
-	print("\n\n\n\t RotorHazard OTA Manager updated to version "+new_version_name+"\n\t\tYou may check update-notes.txt\n\n")
-	sleep(1.5)
-main()
+os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")   ### resolves compatibility issues
+os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         ### resolves compatibility issues
+oldVersionCheck()
+print("\n\n\n\t Please wait: updating process from version "+old_version_name+"\n\n")
+if config_file_exists == True:
+	os.system("cp ~/RH-ota/updater-config.json ~/.ota_markers/updater-config.json")
+if no_pdf_update == False:
+	os.system("sudo rm -r ~/RH-ota")
+	os.system("git clone --depth=1 https://github.com/szafranski/RH-ota.git")
+else:
+	os.system("sudo rm -r ~/RH-ota")
+	os.system("git clone -b no_pdf --depth=1 https://github.com/szafranski/RH-ota.git")
+if config_file_exists == True:
+	os.system("cp ~/.ota_markers/updater-config.json ~/RH-ota/updater-config.json")
+newVersionCheck()
+print("\n\n\n\t RotorHazard OTA Manager updated to version "+new_version_name+"\n\t\tYou may check update-notes.txt\n\n")
+sleep(1.5)
+
