@@ -153,6 +153,8 @@ def compatibility():               ### adds compatibility and fixes with previou
 				os.system("echo 'alias otacpcfg=\"cd ~/RH-ota && sudo cp distr-updater-config.json updater-config.json \"  # copies ota conf. file' | tee -a ~/.bashrc >/dev/null")
 				os.system("echo 'alias home=\"cd ~ \"  # go homedir (without ~ sign)' | tee -a ~/.bashrc >/dev/null")
 				os.system("echo 'functionality added - leave file here' | tee -a ~/.ota_markers/.aliases2_added >/dev/null")
+		if check_if_string_in_file(homedir+'/.bashrc', 'rld'):
+			os.system("rld")
 
 def first ():
 	image ()
