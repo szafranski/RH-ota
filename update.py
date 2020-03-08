@@ -376,15 +376,15 @@ def firstTime():
 		sleep(0.12)
 		os.system("clear")
 		sleep(0.12)
-		print("""\n\n 
-		\t\t\tCONFIGURATION FILE:\n\n
-		Copy "distr-updater-config.json" from same folder to "updater-config.json". \n
+		print("""\n\n
+		"""+bcolors.BOLD+bcolors.UNDERLINE+"""\t\t\tCONFIGURATION FILE"""+bcolors.ENDC+"""\n\n
+		"""+bcolors.BOLD+"""Copy "distr-updater-config.json" from same folder to "updater-config.json". \n
 		Use: 'cp distr-updater-config.json updater-config.json'.\n
 		Next, edit new file using 'nano' command, make changes and save. \n\n
 		Possible RotorHazard versions:\n
-		> """+bcolors.BLUE+"""\"stable\""""+bcolors.ENDC+""" - last stable release (can be from before few months)\n
-		> """+bcolors.BLUE+"""\"beta\""""+bcolors.ENDC+"""   - last beta release (usually few weeks, quite stable)\n
-		> """+bcolors.BLUE+"""\"master\""""+bcolors.ENDC+""" - absolutely newest release (even if not well tested)\n
+		> """+bcolors.BLUE+"""\"stable\""""+bcolors.ENDC+bcolors.BOLD+""" - last stable release (can be from before few months)\n
+		> """+bcolors.BLUE+"""\"beta\""""+bcolors.ENDC+bcolors.BOLD+"""   - last beta release (usually few weeks, quite stable)\n
+		> """+bcolors.BLUE+"""\"master\""""+bcolors.ENDC+bcolors.BOLD+""" - absolutely newest release (even if not well tested)"""+bcolors.ENDC+"""\n
 		""")
 		selection=str(raw_input("\n\t\t\t"+bcolors.GREEN+"'f' - first page'"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - back to menu"+bcolors.ENDC+"\n"))
 		if selection=='f':
@@ -397,14 +397,14 @@ def firstTime():
 		sleep(0.12)
 		os.system("clear")
 		sleep(0.12)
-		print("""\n\n\n 
+		print(bcolors.BOLD+"""\n\n\n
 		You can use all implemened features, but if you want to be able to program\n
 		Arduino-based nodes - enter Features menu and begin with first 2 points.\n\n
 		Also remember about setting up config file - check second page.  \n\n
 		This program has ability to perform 'self-updates'. Check "Features menu".\n\n
 		More info here: https://www.instructables.com/id/RotorHazard-Updater/\n
 		and in how_to folder - look for PDF file.\n\n 
-		\t\n\t\t\tEnjoy!\n\t\t\t\t\t\t\t\tSzafran\n\n\n """)
+		\t\n\t\t\tEnjoy!\n\t\t\t\t\t\t\t\tSzafran\n\n\n """+bcolors.ENDC)
 		selection=str(raw_input("\t\t\t"+bcolors.GREEN+"'s' - second page'"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - go back"+bcolors.ENDC+"\n"))
 		if selection=='s':
 			secondPage()
