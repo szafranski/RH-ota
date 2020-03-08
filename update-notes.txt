@@ -1,3 +1,8 @@
+2.2.8k
+
+Much smaller updates sizes - another way of downloading
+No config file after server starts - fixed
+
 2.2.8h
 
 Added:
