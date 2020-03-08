@@ -75,9 +75,11 @@ if config_file_exists == True:
 if no_pdf_update == False:
 	os.system("sudo rm -r ~/RH-ota")
 	os.system("git clone --depth=1 https://github.com/szafranski/RH-ota.git")
+	print("update contains PDF file - may be changed")
 else:
 	os.system("sudo rm -r ~/RH-ota")
 	os.system("git clone -b no_pdf --depth=1 https://github.com/szafranski/RH-ota.git")
+	print("update contains no PDF file - may be changed")
 if config_file_exists == True:
 	os.system("cp ~/.ota_markers/updater-config.json ~/RH-ota/updater-config.json")
 newVersionCheck()
