@@ -72,11 +72,11 @@ def main():
 	if config_file_exists == True:
 		os.system("cp ~/RH-ota/updater-config.json ~/.ota_markers/updater-config.json")
 	# if pdf_update == True:
-		# os.system("sudo rm -r ~/RH-ota")
-		# os.system("git clone --depth=1 https://github.com/szafranski/RH-ota.git")
-	# else:
 	os.system("sudo rm -r ~/RH-ota")
-	os.system("git clone -b no_pdf --depth=1 https://github.com/szafranski/RH-ota.git")
+	os.system("git clone --depth=1 https://github.com/szafranski/RH-ota.git")
+	# else:
+		# os.system("sudo rm -r ~/RH-ota")
+		# os.system("git clone -b no_pdf --depth=1 https://github.com/szafranski/RH-ota.git")
 	if config_file_exists == True:
 		os.system("cp ~/.ota_markers/updater-config.json ~/RH-ota/updater-config.json")
 	newVersionCheck()
