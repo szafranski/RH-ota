@@ -1,3 +1,24 @@
+2.2.8c
+
+Added:
+access point automatic configuration
+detailed explanation in Access Point menu
+features compatibility with previous installations
+
+Polished and very reliable:
+self-updater
+general code
+no error messages if no folders were found
+
+Improved:
+descriptions in the software
+Visual improvements:
+
+menus and descriptions
+
+
+____________________________________________________
+
 2.2.5 and higher
 
 If you performed an update from 2.2.4 version or previous and you want to use custom pins as reset pins:
