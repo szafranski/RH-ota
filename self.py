@@ -48,6 +48,13 @@ if config_file_exists == True:
 else: 
 	no_pdf_update = False
 
+def debugInfo():
+	print("config_file"+config_file)
+	print("config_file_exists"+config_file_exists)
+	print("no_pdf_update"+no_pdf_update)
+	sleep(1)
+debugInfo()
+
 def oldVersionCheck():
 	os.system("grep 'updater_version =' ~/RH-ota/update.py > ~/.ota_markers/.old_version")
 	os.system("sed -i 's/updater_version = //' ~/.ota_markers/.old_version")
