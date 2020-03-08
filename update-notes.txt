@@ -10,6 +10,7 @@ Polished and very reliable:
 self-updater
 general code
 no error messages if no folders were found
+runs ok on Windows - just for a preview
 
 Improved:
 descriptions in the software
