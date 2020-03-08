@@ -38,8 +38,6 @@ else:
 	config_file_exists = False
 
 if config_file_exists == True:
-	print(homedir)
-	sleep(5)
 	if check_if_string_in_file(myhomedir+'/RH-ota/updater-config.json', 'updates_without_pdf'):
 		if data['updates_without_pdf'] == 1:
 			no_pdf_update = True
