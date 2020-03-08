@@ -131,7 +131,7 @@ def end():
 def installation():
 	clearTheScreen()
 	sleep(0.1)
-	print("\n\t\t Installation process started - please wait... \n")
+	print("\n\t\t "+bcolors.BOLD+"Installation process started - please wait..."+bcolors.ENDC+" \n")
 	os.system("sudo apt-get update && sudo apt-get upgrade -y")
 	os.system("sudo apt autoremove -y")
 	os.system("sudo apt install wget ntp libjpeg-dev i2c-tools python-dev libffi-dev python-smbus build-essential python-pip git scons swig zip -y")
@@ -192,7 +192,7 @@ def installation():
 	print("""\n\n\t
 	##############################################
 	##                                          ##
-	##         Installation completed!          ##
+	##         """+bcolors.BOLD+"""Installation completed!"""+bcolors.ENDC+"""          ##
 	##                                          ##
 	############################################## \n\n
 	After rebooting please check by typing 'sudo raspi-config' \n
@@ -202,8 +202,8 @@ def installation():
 def update():
 	clearTheScreen()
 	if os.path.exists("/home/"+user+"/RotorHazard") == False:
-		print("""\n\t Looks like you don't have RotorHazard server software installed for now. \n\t\t
-	 If so please install your server software first or you won't be able to use the timer. """)
+		print("""\n\t """+bcolors.BOLD+"""Looks like you don't have RotorHazard server software installed for now. \n\t\t
+	 If so please install your server software first or you won't be able to use the timer."""+bcolors.ENDC+""" """)
 	 	selection=str(raw_input("""\n\n\t\t"""+bcolors.OKGREEN+""" 'i' - Install the software - recommended """+ bcolors.ENDC+
 		"""\n\n\t\t 'u' - Force update procedure   \n\n\t\t """+bcolors.YELLOW+"""'a' - Abort both  \n\n """+bcolors.ENDC+""" """))
 		if selection == 'i':
@@ -220,9 +220,9 @@ def update():
 	else :
 		clearTheScreen()
 		sleep(0.1)
-		print("\n\t\t Updating existing installation - please wait... \n")
-		os.system("sudo -H python -m pip install --upgrade pip >/dev/null 2>&1")
-		os.system("sudo -H pip install pillow >/dev/null 2>&1")
+		print("\n\t\t "+bcolors.BOLD+"Updating existing installation - please wait..."+bcolors.ENDC+" \n")
+		os.system("sudo -H python -m pip install --upgrade pip ")
+		os.system("sudo -H pip install pillow ")
 		os.system("sudo apt-get install libjpeg-dev ntp -y")
 		os.system("sudo apt-get update && sudo apt-get upgrade -y")
 		if linux_testing == False:
@@ -261,7 +261,7 @@ def update():
 		print("""\n\n\t
 		##############################################
 		##                                          ##
-		##            Update completed!             ##
+		##            """+bcolors.BOLD+"""Update completed!"""+bcolors.ENDC+"""             ##
 		##                                          ##
 		##############################################""")
 		end()
@@ -270,16 +270,16 @@ def main():
 	global conf_allowed
 	clearTheScreen()
 	sleep(0.2)
-	print("""\n\n\t\t"""+bcolors.RED+"""AUTOMATIC UPDATE AND INSTALLATION OF ROTORHAZARD RACING TIMER SOFTWARE\n\n\t"""+bcolors.ENDC+"""
-	This script will automatically install or update RotorHazard software on your Raspberry Pi. \n\t
+	print("""\n\n\t\t"""+bcolors.RED+bcolors.BOLD+"""AUTOMATIC UPDATE AND INSTALLATION OF ROTORHAZARD RACING TIMER SOFTWARE\n\n\t"""+bcolors.ENDC
+	+bcolors.BOLD+"""This script will automatically install or update RotorHazard software on your Raspberry Pi. \n\t
 	All additional software depedancies and libraries also will be installed or updated.\n\t
 	Your current database, config file and custom bitmaps will stay on the updated software.\n\t
-	Source of the software will be '"""+bcolors.BLUE+server_version+bcolors.ENDC+"""' version from the RotorHazard repository.\n\t 
+	Source of the software will be '"""+bcolors.BLUE+server_version+bcolors.ENDC+bcolors.BOLD+"""' version from the RotorHazard repository.\n\t 
 	Remember to perform self-updating of this software, before updating server software.\n\t
 	If you prefer to use newest possible beta version - change the source accordingly.\n\t
-	Also make sure that you are logged as user '"""+bcolors.BLUE+user+bcolors.ENDC+"""'. \n\n\t
+	Also make sure that you are logged as user '"""+bcolors.BLUE+user+bcolors.ENDC+bcolors.BOLD+"""'. \n\n\t
 	You can change those by editing file 'updater-config.json' in text editor - like 'nano'.
-	\n\n\n\t\t\t\t\t\t\t\t\tEnjoy!\n\n\t\t
+	\n\n\n\t\t\t\t\t\t\t\t\tEnjoy!\n\n\t\t"""+bcolors.ENDC+"""
 	\t 'i' - Install software from skratch\n\t\t
 	\t 'u' - Update existing installation\n\t\t
 	\t"""+bcolors.YELLOW+""" 'a' - Abort \n"""+bcolors.ENDC+""" """)
@@ -287,7 +287,7 @@ def main():
 	if selection =='i':	
 		if (os.path.exists("/home/"+user+"/.ota_markers/.installation-check_file.txt") == True) or (os.path.exists("/home/"+user+"/RotorHazard") == True):
 			clearTheScreen()
-			print("""\n\t Looks like you already have RotorHazard server software installed. \n
+			print("""\n\t """+bcolors.BOLD+"""Looks like you already have RotorHazard server software installed."""+bcolors.ENDC+""" \n
 	 If so please use update mode instead. """)
 			selection=str(raw_input("""\n\n\t\t"""+bcolors.OKGREEN+""" 'u' - Select update mode - recommended """+ bcolors.ENDC+
 			"""\n\n\t\t 'i' - Force installation anyway\n\n\t\t 'c' - Force installation and sys. config.\n\n\t\t """+bcolors.YELLOW+"""'a' - Abort both  \n\n """+bcolors.ENDC+""" """))
