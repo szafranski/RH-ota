@@ -43,7 +43,6 @@ def main():
 	print("\n\n\n\t Please wait: updating process from version "+old_version_name+"\n\n")
 	if config_file_exists == True:
 		os.system("cp ~/RH-ota/updater-config.json ~/.ota_markers/updater-config.json")
-		os.system("sudo rm -r ~/RH-ota")
 	if pdf_update == True:
 		os.system("sudo rm -r ~/RH-ota")
 		os.system("git clone --depth=1 https://github.com/szafranski/RH-ota.git")
