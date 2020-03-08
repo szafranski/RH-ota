@@ -165,11 +165,12 @@ def compatibility():               ### adds compatibility and fixes with previou
 				os.system("echo 'functionality added - leave file here' | tee -a ~/.ota_markers/.aliases2_added >/dev/null")
 		if os.path.exists("./updater-config.json") == True:
 			if check_if_string_in_file(homedir+'/RH-ota/updater-config.json', '"pins_assignment"'):
-				os.system("sed -i 's/\"pins_assignment\" : \"default\"/\"pins_assignment\" : \"default\",/g' "+homedir+"/RH-ota/updater-config.json")
-				os.system("sed -i 's/\"pins_assignment\" : \"custom\"/\"pins_assignment\" : \"custom\",/g' "+homedir+"/RH-ota/updater-config.json")
-				os.system("sed -i 's/\"pins_assignment\" : \"PCB\"/\"pins_assignment\" : \"PCB\",/g' "+homedir+"/RH-ota/updater-config.json")
-				os.system("sed -i 's/}/	\"updates_without_pdf\" : 0 /g' "+homedir+"/RH-ota/updater-config.json")
-				os.system("echo '}' | tee -a "+homedir+"/RH-ota/updater-config.json >/dev/null 2>&1")
+				if not check_if_string_in_file(homedir+'/RH-ota/updater-config.json', '"updates_without_pdf"'):
+					os.system("sed -i 's/\"pins_assignment\" : \"default\"/\"pins_assignment\" : \"default\",/g' "+homedir+"/RH-ota/updater-config.json")
+					os.system("sed -i 's/\"pins_assignment\" : \"custom\"/\"pins_assignment\" : \"custom\",/g' "+homedir+"/RH-ota/updater-config.json")
+					os.system("sed -i 's/\"pins_assignment\" : \"PCB\"/\"pins_assignment\" : \"PCB\",/g' "+homedir+"/RH-ota/updater-config.json")
+					os.system("sed -i 's/}/	\"updates_without_pdf\" : 0 /g' "+homedir+"/RH-ota/updater-config.json")
+					os.system("echo '}' | tee -a "+homedir+"/RH-ota/updater-config.json >/dev/null 2>&1")
 #		if check_if_string_in_file(homedir+'/.bashrc', 'rld'):
 #			rldals.communicate()
 
