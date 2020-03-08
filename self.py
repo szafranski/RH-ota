@@ -58,7 +58,7 @@ def debugInfo():
 	else:
 		print("no_pdf_update = False")
 	sleep(1)
-debugInfo()
+#debugInfo()
 
 def oldVersionCheck():
 	os.system("grep 'updater_version =' ~/RH-ota/update.py > ~/.ota_markers/.old_version")
