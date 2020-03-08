@@ -42,9 +42,9 @@ if config_file_exists == True:
 		if data['updates_without_pdf'] == 1:
 			no_pdf_update = True
 		else:
-			pdf_update = False 
+			no_pdf_update = False 
 	else:
-		pdf_update = True
+		no_pdf_update = True
 
 def oldVersionCheck():
 	os.system("grep 'updater_version =' ~/RH-ota/update.py > ~/.ota_markers/.old_version")
@@ -71,9 +71,9 @@ def main():
 	print("\n\n\n\t Please wait: updating process from version "+old_version_name+"\n\n")
 	if config_file_exists == True:
 		os.system("cp ~/RH-ota/updater-config.json ~/.ota_markers/updater-config.json")
-	if pdf_update == True:
-	os.system("sudo rm -r ~/RH-ota")
-	os.system("git clone --depth=1 https://github.com/szafranski/RH-ota.git")
+	if no_pdf_update == False:
+		os.system("sudo rm -r ~/RH-ota")
+		os.system("git clone --depth=1 https://github.com/szafranski/RH-ota.git")
 	else:
 		os.system("sudo rm -r ~/RH-ota")
 		os.system("git clone -b no_pdf --depth=1 https://github.com/szafranski/RH-ota.git")
