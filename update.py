@@ -6,7 +6,7 @@ import os
 import sys
 import json
 
-updater_version = '2.2.8d'   ### version of THIS program - has nothing to do with the RH version
+updater_version = '2.2.8e'   ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
                             ### third number reffers to actual verion of the updater itself
 
@@ -135,18 +135,25 @@ def compatibility():               ### adds compatibility and fixes with previou
 		if check_if_string_in_file(homedir+'/.bashrc', 'RotorHazard OTA Manager updated'):
 			os.system("sed -i 's/alias updateupdater/# alias updateupdater/g' "+homedir+"/.bashrc")
 			os.system("sed -i 's/RotorHazard OTA Manager updated/old alias/g' "+homedir+"/.bashrc")
-			os.system("""echo 'alias updateupdater=\"cd ~ && sudo cp ~/RH-ota/self.py ~/.ota_markers/self.py && sudo python ~/.ota_markers/self.py \"  # part of self-updater' | sudo tee -a ~/.bashrc >/dev/null""")
+			os.system("echo 'alias updateupdater=\"cd ~ && sudo cp ~/RH-ota/self.py ~/.ota_markers/self.py && sudo python ~/.ota_markers/self.py \"  # part of self-updater' | tee -a ~/.bashrc >/dev/null")
 		if check_if_string_in_file(homedir+'/.bashrc', 'starts the server'):
 			os.system("sed -i 's/alias ss/# alias ss/g' "+homedir+"/.bashrc")
 			os.system("sed -i 's/starts the server/old alias/g' "+homedir+"/.bashrc")
-			os.system("echo 'alias ss=\"cd ~/RotorHazard/src/server && python server.py\"   #  starts the RH-server' | sudo tee -a ~/.bashrc >/dev/null")
+			os.system("echo 'alias ss=\"cd ~/RotorHazard/src/server && python server.py\"   #  starts the RH-server' | tee -a ~/.bashrc >/dev/null")
 		if check_if_string_in_file(homedir+'/.bashrc', 'opens updating script'):
 			os.system("sed -i 's/alias ota=/# alias ota=/g' "+homedir+"/.bashrc")
 			os.system("sed -i 's/opens updating script/old alias/g' "+homedir+"/.bashrc")
-			os.system("echo 'alias ota=\"cd ~/RH-ota && python update.py\"  # opens updating soft' | sudo tee -a ~/.bashrc >/dev/null")
+			os.system("echo 'alias ota=\"cd ~/RH-ota && python update.py\"  # opens updating soft' | tee -a ~/.bashrc >/dev/null")
 		if check_if_string_in_file(homedir+'/.bashrc', 'part of self-updater'):
 			os.system("sed -i 's/part of self-updater/part of self updater/g' "+homedir+"/.bashrc")
-			os.system("""echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | sudo tee -a ~/.bashrc >/dev/null""")
+			os.system("echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null")
+		if os.path.exists(homedir+"/.ota_markers/.aliases_added") == True:
+			if os.path.exists(homedir+"/.ota_markers/.aliases2_added") == False:
+				os.system("echo 'alias otacfg=\"sudo nano ~/RH-ota/updater-config.json \"  # opens updater conf. file' | tee -a ~/.bashrc >/dev/null")
+				os.system("echo 'alias otacpcfg=\"cd ~/RH-ota && sudo cp distr-updater-config.json updater-config.json \"  # copies ota conf. file' | tee -a ~/.bashrc >/dev/null")
+				os.system("echo 'functionality added - leave file here' | tee -a ~/.ota_markers/.aliases2_added >/dev/null")
+				os.system("echo 'alias home=\"cd ~ \"  # go homedir (without ~ sign)' | tee -a ~/.bashrc >/dev/null")
+				os.system("echo 'alias home=\"cd ~ \"  # go homedir (without ~ sign)' | tee -a ~/.bashrc >/dev/null")
 
 def first ():
 	image ()
@@ -183,8 +190,8 @@ def serialMenu():
 	logoTop()
 	sleep(0.12)
 	def serialContent():
-		os.system("echo 'functionality added' | sudo tee -a ~/.ota_markers/.serialok")
-		os.system("echo 'enable_uart=1'| sudo  tee -a /boot/config.txt")
+		os.system("echo 'functionality added' | tee -a ~/.ota_markers/.serialok")
+		os.system("echo 'enable_uart=1'| sudo tee -a /boot/config.txt")
 		os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
 		print("\n\n\t\t\t	Serial port enabled successfully")
 		print (" \n\t\t\t\tYou have to reboot Raspberry now. Ok?\n")
@@ -220,23 +227,27 @@ def aliasesMenu():
 	os.system("clear")
 	sleep(0.2)
 	def aliasesContent():
-		os.system("echo '' | sudo tee -a ~/.bashrc")
-		os.system("echo '### Shortcuts that can be used in terminal window ###' | sudo tee -a ~/.bashrc")
-		os.system("echo '' | sudo tee -a ~/.bashrc")
-		os.system("echo 'alias ss=\"cd ~/RotorHazard/src/server && python server.py\"   #  starts the RH-server' | sudo tee -a ~/.bashrc")
-		os.system("echo 'alias cfg=\"nano ~/RotorHazard/src/server/config.json\"   #  opens config.json file' | sudo tee -a ~/.bashrc")
-		os.system("echo 'alias rh=\"cd ~/RotorHazard/src/server\"   # goes to server file location' | sudo tee -a ~/.bashrc")
-		os.system("echo 'alias py=\"python\"  # pure laziness' | sudo tee -a ~/.bashrc")
-		os.system("echo 'alias sts=\"sudo systemctl stop rotorhazard\" # stops RH service' | sudo tee -a ~/.bashrc")
-		os.system("echo 'alias otadir=\"cd ~/RH-ota\"   # goes to server file location' | sudo tee -a ~/.bashrc")
-		os.system("echo 'alias ota=\"cd ~/RH-ota && python update.py\"  # opens updating soft' | sudo tee -a ~/.bashrc")
-		os.system("echo 'alias als=\"nano ~/.bashrc\"   #  opens this file' | sudo tee -a ~/.bashrc")
-		os.system("echo 'alias rld=\"source ~/.bashrc\"   #  reloads aliases file' | sudo tee -a ~/.bashrc")
-		os.system("echo 'alias rcfg=\"sudo raspi-config\"   #  open raspberrys configs' | sudo tee -a ~/.bashrc")
-		os.system("echo 'alias gitota=\"git clone --depth=1 https://github.com/szafranski/RH-ota.git\"   #  clones ota repo' | sudo tee -a ~/.bashrc")
-		os.system("echo '' | sudo tee -a ~/.bashrc")
-		os.system("echo '# After adding or changing aliases manually - reboot raspberry or type \"source ~/.bashrc\".' | sudo tee -a ~/.bashrc")
-		os.system("echo 'functionality added' | sudo tee -a ~/.ota_markers/.aliases_added >/dev/null")
+		os.system("echo '' | tee -a ~/.bashrc")
+		os.system("echo '### Shortcuts that can be used in terminal window ###' | tee -a ~/.bashrc")
+		os.system("echo '' | tee -a ~/.bashrc")
+		os.system("echo 'alias ss=\"cd ~/RotorHazard/src/server && python server.py\"   #  starts the RH-server' | tee -a ~/.bashrc")
+		os.system("echo 'alias cfg=\"nano ~/RotorHazard/src/server/config.json\"   #  opens config.json file' | tee -a ~/.bashrc")
+		os.system("echo 'alias rh=\"cd ~/RotorHazard/src/server\"   # goes to server file location' | tee -a ~/.bashrc")
+		os.system("echo 'alias py=\"python\"  # pure laziness' | tee -a ~/.bashrc")
+		os.system("echo 'alias sts=\"sudo systemctl stop rotorhazard\" # stops RH service' | tee -a ~/.bashrc")
+		os.system("echo 'alias otadir=\"cd ~/RH-ota\"   # goes to server file location' | tee -a ~/.bashrc")
+		os.system("echo 'alias ota=\"cd ~/RH-ota && python update.py\"  # opens updating soft' | tee -a ~/.bashrc")
+		os.system("echo 'alias als=\"nano ~/.bashrc\"   #  opens this file' | tee -a ~/.bashrc")
+		os.system("echo 'alias rld=\"source ~/.bashrc\"   #  reloads aliases file' | tee -a ~/.bashrc")
+		os.system("echo 'alias rcfg=\"sudo raspi-config\"   #  open raspberrys configs' | tee -a ~/.bashrc")
+		os.system("echo 'alias gitota=\"git clone --depth=1 https://github.com/szafranski/RH-ota.git\"   #  clones ota repo' | tee -a ~/.bashrc")
+		os.system("echo 'alias otacfg=\"sudo nano ~/RH-ota/updater-config.json \"  # opens updater conf. file' | tee -a ~/.bashrc")
+		os.system("echo 'alias otacpcfg=\"cd ~/RH-ota && sudo cp distr-updater-config.json updater-config.json \"  # copies ota conf. file' | tee -a ~/.bashrc")
+		os.system("echo 'alias home=\"cd ~ \"  # go homedir (without ~ sign)' | tee -a ~/.bashrc")
+		os.system("echo '' | tee -a ~/.bashrc")
+		os.system("echo '# After adding or changing aliases manually - reboot raspberry or type \"source ~/.bashrc\".' | tee -a ~/.bashrc")
+		os.system("echo 'functionality added - leave file here' | tee -a ~/.ota_markers/.aliases_added >/dev/null")
+		os.system("echo 'functionality added - leave file here' | tee -a ~/.ota_markers/.aliases2_added >/dev/null")
 		print("\n\n\t\t	Aliases added successfully")
 		sleep(2)
 		featuresMenu()
@@ -248,19 +259,23 @@ def aliasesMenu():
 	anytime you want. You just have to open '~./bashrc' file in text editor 
 	- like 'nano'. After that you have reboot or type 'source ~/.bashrc'. \n
 	"""+bcolors.BOLD+"""Alias			Command					  What it does	\n
-	ss 	-->  cd ~/RotorH(...)server && python server.py  # starts the RH-server\t
-	cfg 	-->  nano ~/RotorHazard/src/server/config.json   # opens config.json file\t
-	rh  	-->  cd ~/RotorHazard/src/server   		 # goes to server file location\t
-	py  	-->  python  					 # pure laziness\t
-	sts  	-->  sudo systemctl stop rotorhazard 		 # stops RH service if was started\t
-	otadir  -->  cd ~/RH-ota   				 # goes to main server file location\t
-	ota  	-->  cd ~/RH-ota && python update.py  		 # opens updating soft\t
-	als  	-->  nano ~/.bashrc   				 # opens this file\t
-	rld  	-->  source ~/.bashrc   			 # reloads aliases file \t
-	rcfg  	-->  sudo raspi-config   			 # open raspberry's configs\t
-	gitota	-->  git clone https://github.com/sza(...) 	 # clones ota repo\t\t\n"""+bcolors.ENDC+"""
-		Do you want to use above aliases in your system?\n
-		Reboot should be performed after adding those""")
+	ss  	 -->  cd ~/RotorH(...)server && python server.py # starts the RH-server\t
+	cfg  	 -->  nano ~/RotorHazard/src/server/config.json	 # opens config.json file\t
+	rh   	 -->  cd ~/RotorHazard/src/server   		 # goes to server file location\t
+	py   	 -->  python  					 # pure laziness\t
+	sts   	 -->  sudo systemctl stop rotorhazard 		 # stops RH service if was started\t
+	otadir   -->  cd ~/RH-ota   				 # goes to main server file location\t
+	ota   	 -->  cd ~/RH-ota && python update.py  		 # opens updating soft\t
+	als   	 -->  nano ~/.bashrc   				 # opens this file\t
+	rld   	 -->  source ~/.bashrc   			 # reloads aliases file \t
+	rcfg   	 -->  sudo raspi-config   			 # open raspberry's configs\t
+	gitota 	 -->  git clone https://github.com/sza(...) 	 # clones ota repo\t
+	otacfg   -->  sudo nano ~/RH-ota/updater-config.json 	 # opens updater conf. file\t
+	otacpcfg -->  cd (...) sudo cp distr (...) config.json 	 # copies ota cfg.\t
+	home	 -->  cd ~ 	 				 # go homedir (without ~ sign)\t\t\n
+	"""+bcolors.ENDC+"""
+		\tDo you want to use above aliases in your system?\n\t
+		\tReboot should be performed after adding those""")
 	selection=str(raw_input("\n\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 	if selection == 'y':
 		if os.path.exists("/home/"+user+"/.ota_markers/.aliases_added") == True:
@@ -304,10 +319,10 @@ def selfUpdater():
 		else :
 			selfUpdater()
 	else:
-		os.system("""echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | sudo tee -a ~/.bashrc""")
-		os.system("""echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | sudo tee -a ~/.bashrc""")
+		os.system("""echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc""")
+		os.system("""echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc""")
 		sleep(0.1)
-		os.system("echo 'updater marker' | sudo tee -a ~/.ota_markers/.updater_self >/dev/null")
+		os.system("echo 'updater marker' | tee -a ~/.ota_markers/.updater_self >/dev/null")
 		sleep(0.12)
 		os.system("clear")
 		sleep(0.12)

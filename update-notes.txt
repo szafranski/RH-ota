@@ -1,9 +1,10 @@
-2.2.8c
+2.2.8e
 
 Added:
 access point automatic configuration
 detailed explanation in Access Point menu
 features compatibility with previous installations
+new aliases
 
 Polished and very reliable:
 self-updater
