@@ -73,13 +73,13 @@ print("\n\n\n\t Please wait: updating process from version "+old_version_name+"\
 if config_file_exists == True:
 	os.system("cp ~/RH-ota/updater-config.json ~/.ota_markers/updater-config.json")
 if no_pdf_update == False:
+	print("update will contain PDF file - may be changed")
 	os.system("sudo rm -r ~/RH-ota")
 	os.system("git clone --depth=1 https://github.com/szafranski/RH-ota.git")
-	print("update contains PDF file - may be changed")
 else:
+	print("update won't contains PDF file - may be changed")
 	os.system("sudo rm -r ~/RH-ota")
 	os.system("git clone -b no_pdf --depth=1 https://github.com/szafranski/RH-ota.git")
-	print("update contains no PDF file - may be changed")
 if config_file_exists == True:
 	os.system("cp ~/.ota_markers/updater-config.json ~/RH-ota/updater-config.json")
 newVersionCheck()
