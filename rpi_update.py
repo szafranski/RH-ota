@@ -99,15 +99,6 @@ def sysConf():
 	os.system("sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
 	os.system("sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
 
-def serverStart():
-	sleep(0.12)
-	clearTheScreen()
-	sleep(0.12)
-	print("\n\n\t\tPlease wait...\n\n")
-	print("\n")
-	os.chdir("/home/"+user+"/RotorHazard/src/server")
-	os.system("python server.py")
-
 def end():
 	print("\n\n\n\t\t"+bcolors.OKGREEN+"Type 'r' for reboot - recommended"+bcolors.ENDC+"\n")
 	print("\t\tType 's' to start the server now\n")
@@ -117,12 +108,9 @@ def end():
 		if selection =='r':	
 			os.system("sudo reboot")
 		if selection =='e':	
-			sleep(1)
-			clearTheScreen()
 			sys.exit()
 		if selection =='s':	
-			serverStart()
-			sys.exit()
+			os.system("python ./server_start.py")
 		else: 
 			end()
 	endMenu()	

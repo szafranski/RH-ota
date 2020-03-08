@@ -354,15 +354,6 @@ def featuresMenu():
 	else:
 		featuresMenu()
 
-def serverStart():
-	sleep(0.12)
-	clearTheScreen()
-	sleep(0.12)
-	print("\n\n\t\tPlease wait...\n\n")
-	print("\n")
-	os.chdir("/home/"+user+"/RotorHazard/src/server")
-	os.system("python server.py")
-
 def firstTime():
 	def secondPage():
 		sleep(0.12)
@@ -434,7 +425,6 @@ def mainMenu():
 	if selection=='2':
 		os.system("python ./nodes_update.py")   ### opens nodes updating file
 	if selection=='3':
-#		serverStart()
 		os.system("python ./server_start.py")
 	if selection=='4':
 		featuresMenu()
