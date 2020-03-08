@@ -45,7 +45,7 @@ if config_file_exists == True:
 		else:
 			pdf_update = False 
 	else:
-		pdf_update = True
+		pdf_update == True
 
 def oldVersionCheck():
 	os.system("grep 'updater_version =' ~/RH-ota/update.py > ~/.ota_markers/.old_version")
@@ -84,5 +84,3 @@ def main():
 	print("\n\n\n\t RotorHazard OTA Manager updated to version "+new_version_name+"\n\t\tYou may check update-notes.txt\n\n")
 	sleep(1.5)
 main()
- 
-
