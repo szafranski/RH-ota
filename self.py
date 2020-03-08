@@ -34,7 +34,6 @@ if os.path.exists(cfgdir1) == True:
 		user = data['debug_user']
 	else:
 		user = data['pi_user']
-	myhomedir='/home/'+user+''
 else:
 	config_file_exists = False
 
@@ -45,7 +44,7 @@ if config_file_exists == True:
 		else:
 			pdf_update = False 
 	else:
-		pdf_update == True
+		pdf_update = True
 
 def oldVersionCheck():
 	os.system("grep 'updater_version =' ~/RH-ota/update.py > ~/.ota_markers/.old_version")
@@ -72,12 +71,12 @@ def main():
 	print("\n\n\n\t Please wait: updating process from version "+old_version_name+"\n\n")
 	if config_file_exists == True:
 		os.system("cp ~/RH-ota/updater-config.json ~/.ota_markers/updater-config.json")
-	if pdf_update == True:
-		os.system("sudo rm -r ~/RH-ota")
-		os.system("git clone --depth=1 https://github.com/szafranski/RH-ota.git")
-	else:
-		os.system("sudo rm -r ~/RH-ota")
-		os.system("git clone -b no_pdf --depth=1 https://github.com/szafranski/RH-ota.git")
+	# if pdf_update == True:
+		# os.system("sudo rm -r ~/RH-ota")
+		# os.system("git clone --depth=1 https://github.com/szafranski/RH-ota.git")
+	# else:
+	os.system("sudo rm -r ~/RH-ota")
+	os.system("git clone -b no_pdf --depth=1 https://github.com/szafranski/RH-ota.git")
 	if config_file_exists == True:
 		os.system("cp ~/.ota_markers/updater-config.json ~/RH-ota/updater-config.json")
 	newVersionCheck()
