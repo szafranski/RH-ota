@@ -34,7 +34,7 @@ ____________________________________________________
 
 If you performed an update from 2.2.4 version or previous and you want to use custom pins as reset pins:
 
-Add a following line to the updater-config.json file:
+Change line in updater-config.json file so it looks like:
 
 	"pins_assignment" : "custom"
 
@@ -50,12 +50,8 @@ So the file looks like this:
 	"pins_assignment" : "custom"
 }
 
-!!! Remember about adding "," sign to the end of the previous line.
-
 And than edit lines 60 to 67 in nodes_update.py file.
 
 nano nodes_update.py
-
-The default file that you can check so you have an example is 'distr-updater-config.json'.
 
 Thanks! Happy flyin'!
