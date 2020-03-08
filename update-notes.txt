@@ -2,6 +2,9 @@
 
 Added:
 option to disable downloading PDF file with every update
+updater-config.json 	
+add line: 
+	"updates_without_pdf" : 1
 ________________________________________________________
 
 2.2.8e
