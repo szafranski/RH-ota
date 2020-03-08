@@ -310,7 +310,7 @@ def selfUpdater():
 		If you want to update this program and download new firmware, \n
 		prepared for Arduino nodes - so you can next flash them  \n\t\t
 		- you have to reboot the Raspberry. Next step is to type  \n\t\t
-		'updateupdater' in the terminal window.\n\t\t
+		'updateupdater' or 'uu' in the terminal window.\n\t\t
 		Next time you won't have to reboot before updating.\n\n\t\t
 		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+bcolors.BOLD+""",\n\t\t
 		so you allways know what firmware version updater contains.\n\t\t
