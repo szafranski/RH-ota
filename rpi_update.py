@@ -1,6 +1,7 @@
 from time import sleep
 import os
 import sys
+import platform
 import json
 
 if os.path.exists("./updater-config.json") == True:
@@ -43,6 +44,12 @@ class bcolors:
 	BOLD = '\033[1m'
 	UNDERLINE = '\033[4m'
 
+def clearTheScreen():
+	if platform.system() == "Windows":
+		os.system("cls")
+	else:
+		clearTheScreen()
+
 def image():
 	print("""
 \t\t                               **/(((/**                              
@@ -73,7 +80,7 @@ def image():
 """)
 
 def first ():
-	os.system("clear")
+	clearTheScreen()
 	print("\n\n\n")
 	image()
 	sleep(0.5)
@@ -94,7 +101,7 @@ def sysConf():
 
 def serverStart():
 	sleep(0.12)
-	os.system("clear")
+	clearTheScreen()
 	sleep(0.12)
 	print("\n\n\t\tPlease wait...\n\n")
 	print("\n")
@@ -111,7 +118,7 @@ def end():
 			os.system("sudo reboot")
 		if selection =='e':	
 			sleep(1)
-			os.system("clear")
+			clearTheScreen()
 			sys.exit()
 		if selection =='s':	
 			serverStart()
@@ -119,10 +126,10 @@ def end():
 		else: 
 			end()
 	endMenu()	
-	os.system("clear")
+	clearTheScreen()
 
 def installation():
-	os.system("clear")
+	clearTheScreen()
 	sleep(0.1)
 	print("\n\t\t Installation process started - please wait... \n")
 	os.system("sudo apt-get update && sudo apt-get upgrade -y")
@@ -193,7 +200,7 @@ def installation():
 	end()
 
 def update():
-	os.system("clear")
+	clearTheScreen()
 	if os.path.exists("/home/"+user+"/RotorHazard") == False:
 		print("""\n\t Looks like you don't have RotorHazard server software installed for now. \n\t\t
 	 If so please install your server software first or you won't be able to use the timer. """)
@@ -206,12 +213,12 @@ def update():
 			update()
 		if selection == 'a':
 			sleep(0.5)
-			os.system("clear")
+			clearTheScreen()
 			sys.exit()
 		else:
 			main()
 	else :
-		os.system("clear")
+		clearTheScreen()
 		sleep(0.1)
 		print("\n\t\t Updating existing installation - please wait... \n")
 		os.system("sudo -H python -m pip install --upgrade pip >/dev/null 2>&1")
@@ -261,7 +268,7 @@ def update():
 
 def main():
 	global conf_allowed
-	os.system("clear")
+	clearTheScreen()
 	sleep(0.2)
 	print("""\n\n\t\t"""+bcolors.RED+"""AUTOMATIC UPDATE AND INSTALLATION OF ROTORHAZARD RACING TIMER SOFTWARE\n\n\t"""+bcolors.ENDC+"""
 	This script will automatically install or update RotorHazard software on your Raspberry Pi. \n\t
@@ -279,7 +286,7 @@ def main():
 	selection=str(raw_input(""))
 	if selection =='i':	
 		if (os.path.exists("/home/"+user+"/.ota_markers/.installation-check_file.txt") == True) or (os.path.exists("/home/"+user+"/RotorHazard") == True):
-			os.system("clear")
+			clearTheScreen()
 			print("""\n\t Looks like you already have RotorHazard server software installed. \n
 	 If so please use update mode instead. """)
 			selection=str(raw_input("""\n\n\t\t"""+bcolors.OKGREEN+""" 'u' - Select update mode - recommended """+ bcolors.ENDC+
@@ -293,10 +300,10 @@ def main():
 				conf_allowed = True
 				installation()
 			if selection == 'a':
-				os.system("clear")
+				clearTheScreen()
 				image()
 				sleep(0.5)
-				os.system("clear")
+				clearTheScreen()
 				sys.exit()
 			else:
 				main()
@@ -306,10 +313,10 @@ def main():
 	if selection =='u':	
 		update()
 	if selection =='a':	
-		os.system("clear")
+		clearTheScreen()
 		image()
 		sleep(0.5)
-		os.system("clear")
+		clearTheScreen()
 		sys.exit()
 	else :
 		main()

@@ -1,6 +1,7 @@
 from time import sleep
 import os
 import sys
+import platform
 import json
 
 if os.path.exists("./updater-config.json") == True:
@@ -86,6 +87,12 @@ class bcolors:
 	ENDC = '\033[0m'
 	BOLD = '\033[1m'
 	UNDERLINE = '\033[4m'
+
+def clearTheScreen():
+	if platform.system() == "Windows":
+		os.system("cls")
+	else:
+		clearTheScreen()
 
 if (linux_testing == False): 
 	import RPi.GPIO as GPIO
@@ -405,7 +412,7 @@ def flashAllBlink():
 def flashEachNode():
 	def nodeMenu():
 		sleep(0.12)
-		os.system("clear")
+		clearTheScreen()
 		sleep(0.12)
 		logoTop()
 		sleep(0.12)
@@ -692,7 +699,7 @@ def flashEachNode():
 	nodeMenu()
 
 def gpioState(): 
-	os.system("clear")
+	clearTheScreen()
 	logoTop()
 	print("\n\n\n")
 	os.system("echo "+str(reset_1)+" > /sys/class/GPIO/unexport")
@@ -753,7 +760,7 @@ def gpioState():
 
 def nodesUpdate():
 	sleep(0.12)
-	os.system("clear")
+	clearTheScreen()
 	sleep(0.12)
 	logoTop()
 	sleep(0.12)

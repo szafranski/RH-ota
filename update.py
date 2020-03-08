@@ -3,17 +3,18 @@
 
 from time import sleep
 import os
+import platform
 import sys
 import json
 import subprocess
-rldals = subprocess.Popen(["/bin/bash", "-i", "-c", "rld"])
 
-
-updater_version = '2.2.8e'   ### version of THIS program - has nothing to do with the RH version
+updater_version = '2.2.8e'  ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
                             ### third number reffers to actual verion of the updater itself
 
 homedir = os.path.expanduser('~')
+
+#rldals = subprocess.Popen(["/bin/bash", "-i", "-c", "source ~/.bashrc"])
 
 if os.path.exists("./updater-config.json") == True:
 	with open('updater-config.json') as config_file:
@@ -60,6 +61,12 @@ class bcolors:
 	ENDC = '\033[0m'
 	BOLD = '\033[1m'
 	UNDERLINE = '\033[4m'
+
+def clearTheScreen():
+	if platform.system() == "Windows":
+		os.system("cls")
+	else:
+		clearTheScreen()
 
 def image():
 	print("""
@@ -156,15 +163,14 @@ def compatibility():               ### adds compatibility and fixes with previou
 				os.system("echo 'alias otacpcfg=\"cd ~/RH-ota && sudo cp distr-updater-config.json updater-config.json \"  # copies ota conf. file' | tee -a ~/.bashrc >/dev/null")
 				os.system("echo 'alias home=\"cd ~ \"  # go homedir (without ~ sign)' | tee -a ~/.bashrc >/dev/null")
 				os.system("echo 'functionality added - leave file here' | tee -a ~/.ota_markers/.aliases2_added >/dev/null")
-		if check_if_string_in_file(homedir+'/.bashrc', 'rld'):
-			rldals.communicate()
+#		if check_if_string_in_file(homedir+'/.bashrc', 'rld'):
+#			rldals.communicate()
 
 def first ():
-	image ()
 	if linux_testing == False:
 		os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
 	compatibility()
-	os.system("clear")
+	clearTheScreen()
 	print("\n\n")
 	image()
 	print("\t\t\t\t\t Updater version: "+str(updater_version))
@@ -173,7 +179,7 @@ first()
 
 def avrDude():
 	sleep(0.12)
-	os.system("clear")
+	clearTheScreen()
 	sleep(0.12)
 	logoTop()
 	sleep(0.12)
@@ -189,7 +195,7 @@ def avrDude():
 
 def serialMenu():
 	sleep(0.12)
-	os.system("clear")
+	clearTheScreen()
 	sleep(0.12)
 	logoTop()
 	sleep(0.12)
@@ -228,7 +234,7 @@ def serialMenu():
 
 def aliasesMenu():
 	sleep(0.2)
-	os.system("clear")
+	clearTheScreen()
 	sleep(0.2)
 	def aliasesContent():
 		os.system("echo '' | tee -a ~/.bashrc")
@@ -300,7 +306,7 @@ def aliasesMenu():
 
 def selfUpdater():
 	sleep(0.12)
-	os.system("clear")
+	clearTheScreen()
 	sleep(0.12)
 	logoTop()
 	sleep(0.12)
@@ -328,7 +334,7 @@ def selfUpdater():
 		sleep(0.1)
 		os.system("echo 'updater marker' | tee -a ~/.ota_markers/.updater_self >/dev/null")
 		sleep(0.12)
-		os.system("clear")
+		clearTheScreen()
 		sleep(0.12)
 		logoTop()
 		sleep(0.12)
@@ -354,7 +360,7 @@ def selfUpdater():
 
 def featuresMenu():
 	sleep(0.12)
-	os.system("clear")
+	clearTheScreen()
 	sleep(0.12)
 	logoTop()
 	sleep(0.12)
@@ -383,7 +389,7 @@ def featuresMenu():
 
 def serverStart():
 	sleep(0.12)
-	os.system("clear")
+	clearTheScreen()
 	sleep(0.12)
 	print("\n\n\t\tPlease wait...\n\n")
 	print("\n")
@@ -393,7 +399,7 @@ def serverStart():
 def firstTime():
 	def secondPage():
 		sleep(0.12)
-		os.system("clear")
+		clearTheScreen()
 		sleep(0.12)
 		print("""\n\n
 		"""+bcolors.BOLD+bcolors.UNDERLINE+"""\t\t\tCONFIGURATION FILE"""+bcolors.ENDC+"""\n\n
@@ -414,7 +420,7 @@ def firstTime():
 			secondPage()
 	def firstPage():
 		sleep(0.12)
-		os.system("clear")
+		clearTheScreen()
 		sleep(0.12)
 		print(bcolors.BOLD+"""\n\n\n
 		You can use all implemened features, but if you want to be able to program\n
@@ -434,17 +440,17 @@ def firstTime():
 	firstPage()
 
 def end():
-		os.system("clear")
+		clearTheScreen()
 		print("\n\n")
 		image()
 		print("\t\t\t\t\t  Happy flyin'!\n")
 		sleep(1.3)
-		os.system("clear")
+		clearTheScreen()
 		sys.exit()
 
 def mainMenu():
 	sleep(0.12)
-	os.system("clear")
+	clearTheScreen()
 	sleep(0.12)
 	logoTop()
 	sleep(0.12)
