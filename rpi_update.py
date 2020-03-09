@@ -52,7 +52,7 @@ def clearTheScreen():
 
 def image():
 	with open('image.txt', 'r') as file:
-		f = file.read().replace('\t', '	')
+		f = file.read()
 		print(f)
 
 def first ():
