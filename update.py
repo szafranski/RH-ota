@@ -396,6 +396,13 @@ def mainMenu():
 	print("\t\t\t   "+bcolors.BOLD+"4 - Additional features\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BOLD+"5 - This is my first time - READ!\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.YELLOW+bcolors.BOLD+"e - Exit"+bcolors.ENDC)
+	# valid_options = ['1', '2', '3', '4', '5', 'e']
+	# while True:
+		# selection=raw_input().strip()
+		# if selection in valid_options:
+			# break
+		# else:
+			# print("too big fingers :( wrong command. focus and try again!")
 	selection=str(raw_input(""))
 	if selection=='1':
 		os.system("python ./rpi_update.py")   ### opens raspberry updating file
@@ -410,7 +417,7 @@ def mainMenu():
 	if selection=='e':
 		end()
 	if selection=='2dev':
-		os.system("python ./nodes_update2.py")   ### opens nodes updating file
-	else: 
+		os.system("python ./nodes_update_dev.py")   ### opens nodes updating file
+	else:
 		mainMenu()
 mainMenu()
