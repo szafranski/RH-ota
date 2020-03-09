@@ -99,7 +99,7 @@ def clearTheScreen():
 if (linux_testing == False): 
 	import RPi.GPIO as GPIO
 	GPIO.setwarnings(False)
-	GPIO.setmode(GPIO.BCM) # Use BCM pin numbering
+	GPIO.setmode(GPIO.BCM)   # Use BCM pin numbering
 	GPIO.setup(reset_1, GPIO.OUT, initial=GPIO.HIGH)
 	GPIO.setup(reset_2, GPIO.OUT, initial=GPIO.HIGH)
 	GPIO.setup(reset_3, GPIO.OUT, initial=GPIO.HIGH)
@@ -146,7 +146,7 @@ if (linux_testing == True):
 
 	for i in range(0, 8):
 		print("GPIO.setup("+(reset_list[i])+", GPIO.OUT, initial=GPIO.HIGH)")
-	sleep(1)
+	sleep(0.5)
 	
 	def allPinsReset():
 		print("\n\n\t\t\tallPinsReset")
@@ -360,7 +360,7 @@ def nodesUpdate():
 	sleep(0.12)
 	logoTop()
 	sleep(0.12)
-	print("\n\n\t\t\t\t "+bcolors.BOLD+"Choose flashing type:\n"+ bcolors.ENDC)
+	print("\n\n\t\t\t\t "+bcolors.BOLD+bcolors.UNDERLINE+"CHOOSE FLASHING TYPE:\n"+ bcolors.ENDC)
 	print("\t\t\t "+bcolors.GREEN+bcolors.BOLD+"1 - Every Node gets own dedicated firmware - recommended\n"+ bcolors.ENDC)
 	print("\t\t\t "+bcolors.BOLD+"2 - Nodes will use ground-auto selection firmware\n"+ bcolors.ENDC)
 	print("\t\t\t "+bcolors.BOLD+"3 - Flash 'Blink' on every node\n"+ bcolors.ENDC)
