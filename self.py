@@ -94,7 +94,7 @@ if no_pdf_update == False:
 else:
 	print("Update won't contain PDF file - may be changed in config file.")
 	os.system("sudo rm -r ~/RH-ota")
-	os.system("wget https://codeload.github.com/szafranski/RH-ota/zip/none_pdf -O tempota.zip")
+	os.system("wget https://codeload.github.com/szafranski/RH-ota/zip/n_pdf -O tempota.zip")
 	os.system("unzip tempota.zip")
 	os.system("rm tempota.zip")
 	os.system("mv RH-ota-* RH-ota")
