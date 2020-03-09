@@ -243,21 +243,21 @@ def flashEachNode():
 			else:
 				print("\t\t\t/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_"+str(X)+".hex:i ")
 			print(bcolors.BOLD+"\n\t Node "+str(X)+" flashed\n"+bcolors.ENDC)
-			sleep(1.5)
+			sleep(1)
 			return
 		if selection=='2' : 
 			allPinsHigh()
 			resetGPIO()
 			os.system("echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_0.hex:i")
 			print(bcolors.BOLD+"\n\t Node "+str(X)+" flashed\n"+bcolors.ENDC)
-			sleep(1.5)
+			sleep(1)
 			return
 		if selection=='3' : 
 			allPinsHigh()
 			resetGPIO()
 			os.system("echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/blink.hex:i ")
 			print(bcolors.BOLD+"\n\t Node "+str(X)+" flashed\n"+bcolors.ENDC)
-			sleep(1.5)
+			sleep(1)
 			return
 		if selection=='4':
 			nodeMenu()
@@ -266,7 +266,7 @@ def flashEachNode():
 			resetGPIO()
 			os.system("echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/.dev/node_"+str(X)+".hex:i ")
 			print(bcolors.BOLD+"\n\t Testing firmware on Node "+str(X)+" flashed\n"+bcolors.ENDC)
-			sleep(1.5)
+			sleep(1)
 		else:
 			nodeXMenu()
 	def nodeMenu():
