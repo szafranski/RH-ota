@@ -73,12 +73,6 @@ def image():
 		f = file.read().replace('\t', '	')
 		print(f)
 
-# with open('.my_pwd', 'r') as file:
-	# myhomedir = file.read().replace('\n', '')
-
-# replace('\t', '	')
-# # replace('\t', '	')
-
 def logoTop():
 	print("""\n	
 		#######################################################################
