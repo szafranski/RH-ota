@@ -48,7 +48,6 @@ if pins_assignment == 'PCB':
 	reset_6 = 13    ## node 6   # default 13
 	reset_7 = 19    ## node 7   # default 19
 	reset_8 = 26    ## node 8   # default 26
-	reset_list = [str(reset_1),str(reset_2),str(reset_3),str(reset_4),str(reset_5),str(reset_6),str(reset_7),str(reset_8)]
 if pins_assignment == 'default':
 	reset_1 = 12    ## node 1   # default 12
 	reset_2 = 16    ## node 2   # default 16
@@ -58,7 +57,6 @@ if pins_assignment == 'default':
 	reset_6 = 13    ## node 6   # default 13
 	reset_7 = 19    ## node 7   # default 19
 	reset_8 = 26    ## node 8   # default 26
-	reset_list = [str(reset_1),str(reset_2),str(reset_3),str(reset_4),str(reset_5),str(reset_6),str(reset_7),str(reset_8)]
 if pins_assignment == 'custom':
 	reset_1 = 0    ## node 1   # custom pin assignment
 	reset_2 = 0    ## node 2   # custom pin assignment
@@ -68,7 +66,8 @@ if pins_assignment == 'custom':
 	reset_6 = 0    ## node 6   # custom pin assignment
 	reset_7 = 0    ## node 7   # custom pin assignment
 	reset_8 = 0    ## node 8   # custom pin assignment
-	reset_list = [str(reset_1),str(reset_2),str(reset_3),str(reset_4),str(reset_5),str(reset_6),str(reset_7),str(reset_8)]
+
+reset_list = [str(reset_1),str(reset_2),str(reset_3),str(reset_4),str(reset_5),str(reset_6),str(reset_7),str(reset_8)]
 
 if data['debug_mode'] == 1:
 	linux_testing = True
@@ -285,11 +284,8 @@ def flashEachNode():
 		print("\n\t\t\t\t\t"+bcolors.YELLOW+bcolors.BOLD+"e - Exit to main menu"+bcolors.ENDC)
 		selection=str(raw_input("\n\n\t\t\t"+bcolors.BOLD+"Which node do you want to program:"+bcolors.ENDC+" "))
 		print("\n\n")
-		# print(str(selection)+" - your selection")
-		# sleep(0.5)
 		if(selection.isdigit()) and int(selection) <=8:
 			X=selection
-			print("X - selection")
 			sleep(0.5)
 			nodeXMenu()
 		if selection=='e':
