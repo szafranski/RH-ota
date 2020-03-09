@@ -409,6 +409,8 @@ def mainMenu():
 		firstTime()
 	if selection=='e':
 		end()
+	if selection=='2dev':
+		os.system("python ./nodes_update2.py")   ### opens nodes updating file
 	else: 
 		mainMenu()
 mainMenu()
