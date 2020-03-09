@@ -72,7 +72,7 @@ def serverChecker():
 			global server_version_name
 			server_version_name = line
 	else:
-		server_version_name = 'no installation found!'
+		server_version_name = 'no installation found'
 
 def sysConf():
 	os.system("sudo systemctl enable ssh")
