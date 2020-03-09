@@ -146,7 +146,7 @@ if (linux_testing == True):
 
 	for i in range(0, 8):
 		print("GPIO.setup("+(reset_list[i])+", GPIO.OUT, initial=GPIO.HIGH)")
-	sleep(1)
+	sleep(0.5)
 	
 	def allPinsReset():
 		print("\n\n\t\t\tallPinsReset")
