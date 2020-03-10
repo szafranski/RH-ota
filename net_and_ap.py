@@ -1,5 +1,6 @@
 from time import sleep
 import os
+import platform
 import sys
 import json
 
@@ -31,6 +32,12 @@ class bcolors:
 	ENDC = '\033[0m'
 	BOLD = '\033[1m'
 	UNDERLINE = '\033[4m'
+
+def clearTheScreen():
+	if platform.system() == "Windows":
+		os.system("cls")
+	else:
+		os.system("clear")
 
 def logoTop():
 	print("""\n	
@@ -65,7 +72,7 @@ Now you should be able to enter the network typing in the browser:
 172.20.20.20:5000 - using ethernet.""")
 
 	print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
-			+bcolors.YELLOW+"""    Exit by pressing 'e'"""+bcolors.ENDC+"""\n""")
+			+bcolors.YELLOW+"""    Exit by pressing 'e'"""+bcolors.ENDC)
 	selection=str(raw_input(""))
 	if selection=='r':
 		os.system("sudo reboot")
@@ -75,14 +82,15 @@ Now you should be able to enter the network typing in the browser:
 		main()
 
 def stepThree():
-
-	print("""\n\t\tStep 3.\n""")
 	os.system("sudo cp /etc/dhcpcd.conf /etc/dhcpcd.conf.ap")
-	print("""\n\tAfter rebooting you can connect to the timer, via Wifi or ethernet.\n 
-	WiFi: 10.10.10.10:5000 (10.10.10.10:5000 if connecting from a browser)
-	ethernet: 172.20.20.20 (172.20.20.20:5000 if connecting from a browser)\n\n
-	You can enter Access Point extra menu after rebooing
-	and check how you can connect to the internet.\n""")
+	clearTheScreen()
+	with open('./net_ap/net_steps.txt', 'rt') as f:
+		for line in f:
+			if '### step3' in line:
+				for line in f:
+					print line.replace('####', '')
+					if '####' in line:
+						break
 	print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
 			+bcolors.YELLOW+"""    Exit by pressing 'e'"""+bcolors.ENDC+"""\n""")
 	selection=str(raw_input(""))
@@ -94,41 +102,14 @@ def stepThree():
 		main()
 
 def stepTwo():
-	print("""\n\n
-	Step 2.\n
-Next step requires performing some actions in GUI.
-You may write those informations down or take a picture etc.
-You can also print file 'step_two.txt' from 'net_ap' folder.
-Remember to do it BEFORE rebooting.
-After performing step 2. and connecting to timer again, 
-come back to this menu and enter step 3.
-	
-connect PC to WiFi network: 
-name: raspi-webgui
-password: ChangeMe
-
-enter IP address: 10.3.141.1 in browser
-Username: admin
-Password: secret  
-
-Click:
-Configure hotspot -> SSID (enter name you want, eg. "RH-TIMER") 
-
-Wireless Mode (change to 802.11n - 2.4GHz)
-
-save settings 
-
-Click:
-Configure hotspot -> security tab
-
-PSK (enter password that you want to have, eg. "timerpass")
-
-save settings
-
-DON'T CHANGE OTHER SETTINGS IN GUI!  
-
-
-Read carefully whole instruction from above before rebooting!""")
+	clearTheScreen()
+	with open('./net_ap/net_steps.txt', 'rt') as f:
+		for line in f:
+			if '### step2' in line:
+				for line in f:
+					print line.replace('\n', '').replace('####', '')
+					if '####' in line:
+						break
 
 def confCopy():
 	os.system("echo 'alias netcfg=\"cp /etc/dhcpcd.conf.net /etc/dhcpcd.conf \"  # net conf' | sudo tee -a ~/.bashrc")
@@ -159,24 +140,21 @@ def stepOne():
 
 def stepZero():
 	sleep(0.12)
-	os.system("clear")
+	clearTheScreen()
 	sleep(0.12)
 	logoTop()
 	sleep(0.12)
-	print("""\n\n
-	After performing this process your Raspberry Pi can be used as standalone\n
-	Access Point. You won't need additional router for connecting with it. \n
-	You will loose ability of connecting Raspberry wirelessly to any router or hotspot.\n
-	You will still have ability to connect it to the Internet sharing device, \n
-	like router or PC via ethernet cable. You will also be able to connect with the timer\n
-	via Wifi from PC or mobile phone etc. - if you had range. \n
-	If during this process you would want to check detailed instructions,\n
-	you can enter 'net_ap' folder from this repo, on your mobile phone etc.\n
-	This process will require few reboots. Do you want to continue?\n""")
+	with open('./net_ap/net_steps.txt', 'rt') as f:
+		for line in f:
+			if '### step1' in line:
+				for line in f:
+					print line.replace('\n', '').replace('####', '')
+					if '####' in line:
+						break
 	print("""\n
 	\t\t"""+bcolors.GREEN+"""'y' - Yes, let's do it """+bcolors.ENDC+"""\n
 	\t\t'3' - enters "Step 3." - check it after first two steps\n
-	\t\t'x' - enters Access Point extra menu - check it after operation\n
+	\t\t'x' - enters Access Point extra menu - info after operation\n
 	\t\t"""+bcolors.YELLOW+"""'e' - exit to main menu"""+bcolors.ENDC+"""\n""")
 	selection=str(raw_input(""))
 	if selection=='y':
@@ -193,30 +171,15 @@ def stepZero():
 def apMenu():
 	def secondPage():
 		sleep(0.12)
-		os.system("clear")
+		clearTheScreen()
 		sleep(0.12)
-		print("""\n
-		When Raspberry configuration has been changed so it performs
-		as Access Point or as a DHCP client (normal mode),
-		configuration file is being copied with a proper name.
-		Next you have to reboot, so changes can be applied.
-		When you setup Pi as a client, you can just connect
-		it to the router. If you are using PC as a internet sharing
-		device, you have to enable that option in OS settings.
-		Instructions for Windows can be found in net_ap folder.\n
-		
-		If you want to connect to Raspberry via SSH or VNC,
-		when it's in client mode you have to know its IP address.
-		Check it in router settings page or using special program 
-		'Advanced IP Scanner' on a PC. If you are using Pi as a AP, 
-		its IP is always 172.20.20.20 (ethernet). Remember to disable
-		internet sharing functionality on your PC's OS, when Raspberry
-		is in Access Point mode. \n
-		Remember that you can always connect to the timer (eg. from yet 
-		another device) via WiFi. It's wireless IP is 10.10.10.10.\n
-		You can also read/print those instructions. File 'detailed.txt',
-		in net_ap folder.
-		\n""")
+		with open('./net_ap/net_steps.txt', 'rt') as f:
+			for line in f:
+				if '### step last - page 2' in line:
+					for line in f:
+						print line.replace('\n', '').replace('####', '')
+						if '####' in line:
+							break
 		selection=str(raw_input("\t\t\t"+bcolors.GREEN+"'k' - OK '"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - go back"+bcolors.ENDC+"\n"))
 		if selection=='k':
 			sys.exit()
@@ -226,24 +189,17 @@ def apMenu():
 			secondPage()
 	def firstPage():
 		sleep(0.12)
-		os.system("clear")
+		clearTheScreen()
 		sleep(0.12)
 		logoTop()
 		sleep(0.12)
-		print("""\n
-		Right now you have your Access Point configured. However,
-		there is still an option to mantain internet connection.
-		You will be able to connect the Pi via ethernet to the router 
-		or PC - with internet sharing option enbled. It requires chages
-		in configuration file. Those will be performed automatically,
-		after entering 'netcfg' or 'apcfg' in command line.
-		Remember to reboot the timer after every change. Instruction
-		can be also found in 'apconf.txt' file in net_ap folder.\n
-		Remember that regardless how you have your Raspberry configured
-		in a given moment, you can always connect to it using WiFi.
-		It can be helpful if you don't remember how your timer was configured
-		when you left it or when some troubleshooting is required.\n
-		Open second page, for detailed explanation.\n\n""")
+		with open('./net_ap/net_steps.txt', 'rt') as f:
+			for line in f:
+				if '### step last - page 1' in line:
+					for line in f:
+						print line.replace('\n', '').replace('####', '')
+						if '####' in line:
+							break
 		selection=str(raw_input("\t\t\t"+bcolors.GREEN+"'s' - second page'"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - go back"+bcolors.ENDC+"\n"))
 		if selection=='s':
 			secondPage()
