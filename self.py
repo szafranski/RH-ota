@@ -3,13 +3,10 @@ import os
 import sys
 import json
 
-# def myDirCheck():
-	# global myhomedir
 os.system("pwd >.my_pwd")
 with open('.my_pwd', 'r') as file:
 	myhomedir = file.read().replace('\n', '')
 os.system("rm ./.my_pwd")
-# myDirCheck()
 
 cfgdir1= str(myhomedir+'/RH-ota/updater-config.json')
 cfgdir2= str(myhomedir+'/RH-ota/distr-updater-config.json')
