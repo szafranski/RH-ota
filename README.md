@@ -2,7 +2,7 @@
 
 		Easy mange and update your RotorHazard installation. 
 		
-		Additional features also included.
+		Additional features like nodes flashing also included.
 		
 		
 		If you want all hardware functionalities - visit:
