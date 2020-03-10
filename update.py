@@ -385,7 +385,7 @@ def mainMenu():
 	print("\t\t\t   "+bcolors.BOLD+"4 - Additional features\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BOLD+"5 - Info + first time here - READ!\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.YELLOW+bcolors.BOLD+"e - Exit"+bcolors.ENDC)
-	# valid_options = ['1', '2', '3', '4', '5', 'e']
+	# valid_options = ['1', '2', '3', '4', '5', 'e']  ### another option
 	# while True:
 		# selection=raw_input().strip()
 		# if selection in valid_options:
