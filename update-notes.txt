@@ -1,6 +1,6 @@
 2.2.8k
 
-Much smaller updates sizes - another way of downloading
+Much smaller updates sizes - another way of handloing downloads
 No config file after server starts - fixed
 
 2.2.8h
@@ -8,7 +8,7 @@ No config file after server starts - fixed
 Added:
 option to disable downloading PDF file with every update
 updater-config.json 	
-add line: 
+change line to: 
 	"updates_without_pdf" : 1
 ________________________________________________________
 
@@ -32,8 +32,7 @@ descriptions in the software
 Visual improvements:
 menus and descriptions
 
-
-____________________________________________________
+________________________________________________________
 
 2.2.5 and higher
 

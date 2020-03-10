@@ -63,10 +63,12 @@ class bcolors:
 	UNDERLINE = '\033[4m'
 
 def clearTheScreen():
+	sleep(0.05)
 	if platform.system() == "Windows":
 		os.system("cls")
 	else:
 		os.system("clear")
+	sleep(0.05)
 
 def image():
 	with open('image.txt', 'r') as file:
@@ -86,6 +88,7 @@ def logoTop():
 		print("\t\t\t  Linux PC version\t")
 	if os.path.exists("./updater-config.json") == False:
 		print("\t\t\t    Looks that you haven't set up config file yet!")
+	sleep(0.05)
 
 def logoUpdate():
 	print("""
@@ -116,11 +119,8 @@ def first ():
 first()
 
 def avrDude():
-	sleep(0.12)
 	clearTheScreen()
-	sleep(0.12)
 	logoTop()
-	sleep(0.12)
 	print("\n\n\n\t\t\t\t\t\t"+bcolors.RED+"AVRDUDE MENU"+bcolors.ENDC+"\n")
 	print ("\t\t\t "+bcolors.BLUE+"1 - Install avrdude"+bcolors.ENDC)
 	print ("\t\t\t "+bcolors.YELLOW+"2 - Go back"+bcolors.ENDC)
@@ -132,11 +132,8 @@ def avrDude():
 		mainMenu()
 
 def serialMenu():
-	sleep(0.12)
 	clearTheScreen()
-	sleep(0.12)
 	logoTop()
-	sleep(0.12)
 	def serialContent():
 		os.system("echo 'functionality added' | tee -a ~/.ota_markers/.serialok")
 		os.system("echo 'enable_uart=1'| sudo tee -a /boot/config.txt")
@@ -171,9 +168,7 @@ def serialMenu():
 		serialMenu()
 
 def aliasesMenu():
-	sleep(0.2)
 	clearTheScreen()
-	sleep(0.2)
 	def aliasesContent():
 		os.system("echo '' | tee -a ~/.bashrc")
 		os.system("echo '### Shortcuts that can be used in terminal window ###' | tee -a ~/.bashrc")
@@ -277,11 +272,8 @@ def selfUpdater():
 		addUpdater()
 		sleep(0.1)
 		os.system("echo 'updater marker' | tee -a ~/.ota_markers/.updater_self >/dev/null")
-		sleep(0.12)
 		clearTheScreen()
-		sleep(0.12)
 		logoTop()
-		sleep(0.12)
 		print("""\n\n """+bcolors.BOLD+"""
 		If you want to update this program and download new firmware, \n
 		prepared for Arduino nodes - so you can next flash them  \n\t\t
@@ -303,11 +295,8 @@ def selfUpdater():
 			selfUpdater()
 
 def featuresMenu():
-	sleep(0.12)
 	clearTheScreen()
-	sleep(0.12)
 	logoTop()
-	sleep(0.12)
 	print("\n\n\n\t\t\t\t\t"+bcolors.RED+bcolors.BOLD+bcolors.UNDERLINE+"FEATURES MENU\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BLUE+bcolors.BOLD+"1 - Install avrdude\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BLUE+bcolors.BOLD+"2 - Enable serial protocol\n"+bcolors.ENDC)
@@ -332,10 +321,16 @@ def featuresMenu():
 		featuresMenu()
 
 def firstTime():
-	def secondPage():
-		sleep(0.12)
+	def UpdateNotes():
 		clearTheScreen()
-		sleep(0.12)
+		with open('./update-notes.txt', 'rt') as f:
+			for line in f:
+				print line.replace('\n', '').replace('####', '')
+		selection=str(raw_input(bcolors.GREEN+"\n\t\t'k' - OK - Main Menu'"+bcolors.ENDC))
+		if selection=='k':
+			mainMenu()
+	def secondPage():
+		clearTheScreen()
 		print("""\n\n
 		"""+bcolors.BOLD+bcolors.UNDERLINE+"""\t\t\tCONFIGURATION FILE"""+bcolors.ENDC+"""\n\n
 		"""+bcolors.BOLD+"""Copy "distr-updater-config.json" from same folder to "updater-config.json". \n
@@ -346,17 +341,17 @@ def firstTime():
 		> """+bcolors.BLUE+"""\"beta\""""+bcolors.ENDC+bcolors.BOLD+"""   - last beta release (usually few weeks, quite stable)\n
 		> """+bcolors.BLUE+"""\"master\""""+bcolors.ENDC+bcolors.BOLD+""" - absolutely newest release (even if not well tested)"""+bcolors.ENDC+"""\n
 		""")
-		selection=str(raw_input("\n\t\t\t"+bcolors.GREEN+"'f' - first page'"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - back to menu"+bcolors.ENDC+"\n"))
+		selection=str(raw_input("\n\t\t'f' - first page'"+bcolors.GREEN+"\t'u' - see update notes'"+bcolors.ENDC+bcolors.YELLOW+"\t\t'b' - back to menu"+bcolors.ENDC+"\n\n"))
 		if selection=='f':
 			firstPage()
 		if selection=='b':
 			mainMenu()
+		if selection=='u':
+			UpdateNotes()
 		else :
 			secondPage()
 	def firstPage():
-		sleep(0.12)
 		clearTheScreen()
-		sleep(0.12)
 		print(bcolors.BOLD+"""\n\n\n
 		You can use all implemened features, but if you want to be able to program\n
 		Arduino-based nodes - enter Features menu and begin with first 2 points.\n\n
@@ -384,17 +379,14 @@ def end():
 		sys.exit()
 
 def mainMenu():
-	sleep(0.12)
 	clearTheScreen()
-	sleep(0.12)
 	logoTop()
-	sleep(0.12)
 	print("\n\n\n\t\t\t\t\t"+bcolors.RED+bcolors.BOLD+bcolors.UNDERLINE+"MAIN MENU\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BLUE+bcolors.BOLD+"1 - Server software installation and update\n	"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BLUE+bcolors.BOLD+"2 - Nodes flash and update\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BOLD+"3 - Start the server now\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BOLD+"4 - Additional features\n"+bcolors.ENDC)
-	print("\t\t\t   "+bcolors.BOLD+"5 - This is my first time - READ!\n"+bcolors.ENDC)
+	print("\t\t\t   "+bcolors.BOLD+"5 - Info + first time here - READ!\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.YELLOW+bcolors.BOLD+"e - Exit"+bcolors.ENDC)
 	# valid_options = ['1', '2', '3', '4', '5', 'e']
 	# while True:
