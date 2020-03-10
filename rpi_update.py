@@ -110,7 +110,8 @@ def end():
 		if selection =='e':	
 			sys.exit()
 		if selection =='s':	
-			os.system("python ./server_start.py")
+			clearTheScreen()
+			os.system("sh ./server_start.sh")
 		else: 
 			end()
 	endMenu()	
