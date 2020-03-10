@@ -38,7 +38,7 @@ new aliases (uu, otacfg, otacpcfg, home) - auto added
 
 Polished and very reliable:
 self-updater
-general code
+general code look
 no error messages if no folders were found
 runs ok on Windows - just for a preview
 
