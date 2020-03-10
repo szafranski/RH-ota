@@ -2,8 +2,10 @@
 		UPDATE NOTES:
 
 2.2.9c
+
 Server start links as a sh scipts - simpler, 
 allows stopping server and coming back to ota program
+
 
 2.2.9a
 
