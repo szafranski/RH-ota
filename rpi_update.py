@@ -118,6 +118,8 @@ def end():
 	clearTheScreen()
 
 def installation():
+	if linux_testing == False:
+		os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
 	internetCheck()
 	if internet_FLAG==0:
 		print("Looks like you don't have internet connection. Update canceled.")
@@ -194,6 +196,8 @@ def installation():
 		end()
 
 def update():
+	if linux_testing == False:
+		os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
 	internetCheck()
 	if internet_FLAG==0:
 		print("Looks like you don't have internet connection. Update canceled.")

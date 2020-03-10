@@ -97,8 +97,6 @@ def compatibility():               ### adds compatibility and fixes with previou
 #			rldals.communicate()
 
 def first ():
-	if linux_testing == False:
-		os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
 	compatibility()
 	clearTheScreen()
 	print("\n\n")
@@ -228,6 +226,7 @@ def aliasesMenu():
 
 def selfUpdater():
 	def addUpdater():
+		print("\nPermissions required so 'zip' and 'unzip' program can be downloaded.")
 		os.system("sudo apt install zip unzip")
 		os.system("""echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc""")
 		os.system("""echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc""")
