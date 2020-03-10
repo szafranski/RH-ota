@@ -1,3 +1,9 @@
+2.2.8n
+
+Checking internet connection before performing self-update
+to prevent deleting RH-ota folder when no new version available
+Done in bash - waiting for python3 support
+
 2.2.8k
 
 Much smaller updates sizes - another way of handloing downloads
