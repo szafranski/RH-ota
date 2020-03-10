@@ -326,9 +326,9 @@ def firstTime():
 	Use: 'cp distr-updater-config.json updater-config.json'.\n
 	Next, edit new file using 'nano' command, make changes and save. \n\n
 	Possible RotorHazard versions:\n
-	> """+bcolors.BLUE+"""\"stable\""""+bcolors.ENDC+bcolors.BOLD+""" - last stable release (can be from before few months)\n
-	> """+bcolors.BLUE+"""\"beta\""""+bcolors.ENDC+bcolors.BOLD+"""   - last beta release (usually few weeks, quite stable)\n
-	> """+bcolors.BLUE+"""\"master\""""+bcolors.ENDC+bcolors.BOLD+""" - absolutely newest release (even if not well tested)"""+bcolors.ENDC+"""\n""")
+	> """+bcolors.BLUE+"""\"stable\""""+bcolors.ENDC+bcolors.BOLD+""" - last stable release (can be from before few days or few months)\n
+	> """+bcolors.BLUE+"""\"beta\""""+bcolors.ENDC+bcolors.BOLD+"""   - last 'beta' release (usually has about few weeks, quite stable)\n
+	> """+bcolors.BLUE+"""\"master\""""+bcolors.ENDC+bcolors.BOLD+""" - absolutely newest features implemented (even if not well tested)"""+bcolors.ENDC+"""\n""")
 		selection=str(raw_input("\n\t'f' - first page'"+bcolors.GREEN+"\t'u' - see update notes'"+bcolors.ENDC+bcolors.YELLOW+"\t\t'b' - back to menu"+bcolors.ENDC+"\n\n"))
 		if selection=='f':
 			firstPage()
@@ -348,7 +348,7 @@ def firstTime():
 	More info here: https://www.instructables.com/id/RotorHazard-Updater/\n
 	and in how_to folder - look for PDF file.\n\n 
 	\t\n\t\t\tEnjoy!\n\t\t\t\t\t\t\t\tSzafran\n """+bcolors.ENDC)
-		selection=str(raw_input("\n\t's' - second page'"+bcolors.GREEN+"\t'u' - see update notes'"+bcolors.ENDC+bcolors.YELLOW+"\t\t'b' - back to menu"+bcolors.ENDC+"\n\n"))
+		selection=str(raw_input("\n\t"+bcolors.GREEN+"'s' - second page'"+bcolors.ENDC+"\t'u' - see update notes'"+bcolors.YELLOW+"\t\t'b' - back to menu"+bcolors.ENDC+"\n\n"))
 		if selection=='s':
 			secondPage()
 		if selection=='u':

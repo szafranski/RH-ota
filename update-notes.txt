@@ -1,3 +1,5 @@
+# use arrows, pg up and pg down or space bar to navigate
+
 
 		UPDATE NOTES:
 
@@ -83,4 +85,4 @@ nano nodes_update.py
 Happy flyin'!
 ______________________________________________________________
 
-EXIT by hitting "q"
+# EXIT by hitting "q" 
