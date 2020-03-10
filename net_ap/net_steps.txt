@@ -63,6 +63,21 @@
 ####
 
 
+### step3
+
+				Step 4.
+		Connect PC to WiFi network:
+		name: RH-TIMER
+		password: timerpass
+		if you have any problems connecting wifi with new name - try "forgetting" 
+		the (old) network in PC's WiFi settings and than try again
+
+		Now you should be able to enter the network typing in the browser:
+		10.10.10.10:5000 - using WiFi
+		172.20.20.20:5000 - using ethernet
+####
+
+
 ### step last - page 1
 
 		Right now you have your Access Point configured. However,

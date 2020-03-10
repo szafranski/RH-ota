@@ -58,19 +58,13 @@ def logoTop():
 # ( 4. point -> I4 - Change WiFi country -> select -> enter -> finish )
 
 def stepFour():
-
-	print("""Step 4.""")
-
-	print("""
-Connect PC to WiFi network:
-name: RH-TIMER
-password: timerpass
-if you have any problems connecting wifi with new name - try "forgetting" the (old) network in PC's WiFi settings and than try again
-
-Now you should be able to enter the network typing in the browser:
-10.10.10.10:5000 - using WiFi
-172.20.20.20:5000 - using ethernet.""")
-
+	with open('./net_ap/net_steps.txt', 'rt') as f:
+		for line in f:
+			if '### step4' in line:
+				for line in f:
+					print line.replace('####', '')
+					if '####' in line:
+						break
 	print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
 			+bcolors.YELLOW+"""    Exit by pressing 'e'"""+bcolors.ENDC)
 	selection=str(raw_input(""))
