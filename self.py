@@ -3,11 +3,13 @@ import os
 import sys
 import json
 
-global new_version_name
-
-os.system("pwd >.my_pwd")
-with open('.my_pwd', 'r') as file:
-	myhomedir = file.read().replace('\n', '')
+def myDirCheck():
+	global myhomedir
+	os.system("pwd >.my_pwd")
+	with open('.my_pwd', 'r') as file:
+		myhomedir = file.read().replace('\n', '')
+	os.system("rm ./.my_pwd")
+myDirCheck()
 
 cfgdir1= str(myhomedir+'/RH-ota/updater-config.json')
 cfgdir2= str(myhomedir+'/RH-ota/distr-updater-config.json')
@@ -18,6 +20,17 @@ if os.path.exists(myhomedir+"/RH-ota/updater-config.json") == True:
 else:
 	with open(cfgdir2) as config_file:
 		data = json.load(config_file)
+
+def internetCheck():
+	global internet_FLAG
+	os.system("timeout 3s sh "+myhomedir+"/RH-ota/net_check.sh > /dev/null 2>&1")
+	sleep(3.2)
+	if os.path.exists("./index.html") == True:
+		internet_FLAG=1
+	else:
+		internet_FLAG=0
+	os.system("rm "+myhomedir+"/RH-ota/index.html > /dev/null 2>&1")
+	os.system("rm "+myhomedir+"/RH-ota/wget-log* > /dev/null 2>&1")
 
 def check_if_string_in_file(file_name, string_to_search):
 	with open(file_name, 'r') as read_obj:
@@ -80,30 +93,38 @@ def newVersionCheck():
 		global new_version_name
 		new_version_name = line
 
-os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")   ### resolves compatibility issues
-os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         ### resolves compatibility issues
-oldVersionCheck()
-print("\n\n\n\t Please wait: updating process from version "+old_version_name+"\n\n")
-if config_file_exists == True:
-	os.system("cp ~/RH-ota/updater-config.json ~/.ota_markers/updater-config.json")
-if no_pdf_update == False:
-	print("Update will contain PDF file - may be changed in config file.")
-	os.system("sudo rm -r ~/RH-ota")
-	os.system("wget https://codeload.github.com/szafranski/RH-ota/zip/master -O tempota.zip")
-	os.system("unzip tempota.zip")
-	os.system("rm tempota.zip")
-	os.system("mv RH-ota-* RH-ota")
-else:
-	print("Update won't contain PDF file - may be changed in config file.")
-	os.system("sudo rm -r ~/RH-ota")
-	os.system("wget https://codeload.github.com/szafranski/RH-ota/zip/no_pdf_included -O tempota.zip")
-	os.system("unzip tempota.zip")
-	os.system("rm tempota.zip")
-	os.system("mv RH-ota-* RH-ota")
-if config_file_exists == True:
-	os.system("cp ~/.ota_markers/updater-config.json ~/RH-ota/updater-config.json")
-newVersionCheck()
-print("\n\n\n\t RotorHazard OTA Manager updated to version "+new_version_name+"\n\t\tYou may check update-notes.\n\n")
-sleep(1.3)
-os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")   ### resolves compatibility issues
-os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         ### resolves compatibility issues
+def main():
+	print("\nPlease wait - checking internet connection state...\n")
+	internetCheck()
+	if internet_FLAG==1:
+		print("Internet connection - OK")
+		os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")   ### resolves compatibility issues
+		os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         ### resolves compatibility issues
+		oldVersionCheck()
+		print("\n\n\n\t Please wait: updating process from version "+old_version_name+"\n\n")
+		if config_file_exists == True:
+			os.system("cp ~/RH-ota/updater-config.json ~/.ota_markers/updater-config.json")
+		if no_pdf_update == False:
+			print("Update will contain PDF file - may be changed in config file.\n")
+			os.system("sudo rm -r ~/RH-ota")
+			os.system("wget https://codeload.github.com/szafranski/RH-ota/zip/master -O tempota.zip")
+			os.system("unzip tempota.zip")
+			os.system("rm tempota.zip")
+			os.system("mv RH-ota-* RH-ota")
+		else:
+			print("Update won't contain PDF file - may be changed in config file.\n")
+			os.system("sudo rm -r ~/RH-ota")
+			os.system("wget https://codeload.github.com/szafranski/RH-ota/zip/no_pdf_included -O tempota.zip")
+			os.system("unzip tempota.zip")
+			os.system("rm tempota.zip")
+			os.system("mv RH-ota-* RH-ota")
+		if config_file_exists == True:
+			os.system("cp ~/.ota_markers/updater-config.json ~/RH-ota/updater-config.json")
+		newVersionCheck()
+		print("\n\n\n\t RotorHazard OTA Manager updated to version "+new_version_name+"\n\t\tYou may check update-notes.\n\n")
+		sleep(1.3)
+		os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")   ### resolves compatibility issues
+		os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         ### resolves compatibility issues
+	else:
+		print("Looks like you don't have internet connection. Update canceled.")
+main()

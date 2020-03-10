@@ -9,7 +9,7 @@ import json
 import subprocess
 import socket
 
-updater_version = '2.2.8m'  ### version of THIS program - has nothing to do with the RH version
+updater_version = '2.2.8n'  ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
                             ### third number reffers to actual verion of the updater itself
 
@@ -85,12 +85,6 @@ def logoTop():
 		###                     """+bcolors.BOLD+"""OTA Updater and Manager"""+bcolors.ENDC+"""                     ###
 		###                                                                 ###
 		#######################################################################""")
-	if (linux_testing == True):
-		IPaddress=socket.gethostbyname(socket.gethostname())
-		if IPaddress.startswith('127'):
-			print("\t\t\tLooks that you don't have internet connection established.")
-		else:
-			print("\t\t\tConnected, with the IP address: "+ IPaddress )
 	if (linux_testing == True):
 		print("\t\t\t  Linux PC version\t")
 	if os.path.exists("./updater-config.json") == False:
