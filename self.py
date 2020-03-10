@@ -29,6 +29,8 @@ def internetCheck():
 		internet_FLAG=0
 	os.system("rm "+myhomedir+"/RH-ota/index.html > /dev/null 2>&1")
 	os.system("rm "+myhomedir+"/RH-ota/wget-log* > /dev/null 2>&1")
+	os.system("rm "+myhomedir+"/index.html > /dev/null 2>&1")
+	os.system("rm "+myhomedir+"/wget-log* > /dev/null 2>&1")
 
 def check_if_string_in_file(file_name, string_to_search):
 	with open(file_name, 'r') as read_obj:
