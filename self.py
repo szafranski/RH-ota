@@ -119,7 +119,7 @@ def main():
 			os.system("cp ~/.ota_markers/updater-config.json ~/RH-ota/updater-config.json")
 		newVersionCheck()
 		print("\n\n\n\t RotorHazard OTA Manager updated to version "+new_version_name+"\n\t\tYou may check update-notes.\n\n")
-		sleep(1.3)
+		sleep(0.3)
 		os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")   ### resolves compatibility issues
 		os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         ### resolves compatibility issues
 	else:

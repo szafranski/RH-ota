@@ -327,7 +327,7 @@ def firstTime():
 		with open('./update-notes.txt', 'rt') as f:
 			for line in f:
 				print line.replace('\n', '').replace('####', '')
-		selection=str(raw_input(bcolors.GREEN+"\n\t\t'k' - OK - Main Menu'"+bcolors.ENDC))
+		selection=str(raw_input(bcolors.GREEN+"\n\t\t'k' - OK, go to Main Menu"+bcolors.ENDC))
 		if selection=='k':
 			mainMenu()
 	def secondPage():
