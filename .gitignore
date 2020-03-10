@@ -1,9 +1,4 @@
 updater-config.json
-net
 check.py
 *.pyc
 .travis.yml
-yes
-yes.pub
-githubssh.pub
-githubssh
