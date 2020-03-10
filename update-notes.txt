@@ -36,7 +36,7 @@ detailed explanation in Access Point menu
 features compatibility with previous installations
 new aliases (uu, otacfg, otacpcfg, home) - auto added
 
-Polished and very reliable:
+Polished and much more reliable:
 self-updater
 general code look
 no error messages if no folders were found
