@@ -7,7 +7,7 @@
 Checking internet connection before performing server update
 or installation - prevents errors and config loss
 
-________________________________________________________
+___________________________________________________________
 
 2.2.8n
 
@@ -36,7 +36,7 @@ detailed explanation in Access Point menu
 features compatibility with previous installations
 new aliases (uu, otacfg, otacpcfg, home) - auto added
 
-Polished and very reliable:
+Polished and much more reliable:
 self-updater
 general code look
 no error messages if no folders were found
@@ -48,7 +48,7 @@ descriptions in the software
 Visual improvements:
 menus and descriptions
 
-________________________________________________________
+___________________________________________________________
 
 2.2.5 and higher
 
