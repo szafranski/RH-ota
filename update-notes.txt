@@ -7,7 +7,7 @@
 Checking internet connection before performing server update
 or installation - prevents errors and config loss
 
-________________________________________________________
+___________________________________________________________
 
 2.2.8n
 
@@ -48,7 +48,7 @@ descriptions in the software
 Visual improvements:
 menus and descriptions
 
-________________________________________________________
+___________________________________________________________
 
 2.2.5 and higher
 
