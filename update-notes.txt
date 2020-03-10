@@ -1,3 +1,11 @@
+2.2.9a
+
+
+Checking internet connection before performing server update
+or installation - prevent errors and config loss
+
+________________________________________________________
+
 2.2.8n
 
 Checking internet connection before performing self-update
@@ -16,7 +24,6 @@ option to disable downloading PDF file with every update
 updater-config.json 	
 change line to: 
 	"updates_without_pdf" : 1
-________________________________________________________
 
 2.2.8e
 
