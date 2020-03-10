@@ -103,7 +103,7 @@ def first ():
 	clearTheScreen()
 	print("\n\n")
 	image()
-	print("\t\t\t\t\t Updater version: "+str(updater_version))
+	print("\t\t\t\t Updater version: "+str(updater_version))
 	sleep(1.1)
 first()
 
@@ -362,7 +362,7 @@ def end():
 		clearTheScreen()
 		print("\n\n")
 		image()
-		print("\t\t\t\t\t  Happy flyin'!\n")
+		print("\t\t\t\tHappy flyin'!\n")
 		sleep(1.3)
 		clearTheScreen()
 		sys.exit()
