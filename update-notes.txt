@@ -57,7 +57,8 @@ ______________________________________________________________
 
 2.2.5 and higher
 
-If you performed an update from 2.2.4 version or previous and you want to use custom pins as reset pins:
+If you performed an update from 2.2.4 version or previous 
+and you want to use custom pins as reset pins:
 
 Change line in updater-config.json file so it looks like:
 
