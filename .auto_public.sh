@@ -1,7 +1,10 @@
-git checkout master && 
+git checkout no_pdf_included && 
 git add . &&
 git commit -m "new functions and fixes" -a && 
 git push && 
-git checkout no_pdf_included && 
+git fetch &&
+git checkout master && 
 git merge master -m "new functions and fixes" && 
+git pull &&
+git fetch &&
 git checkout master
