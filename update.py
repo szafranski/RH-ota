@@ -77,29 +77,18 @@ def image():
 
 def logoTop():
 	print("""\n	
-		#######################################################################
-		###                                                                 ###
-		###\t\t\t"""+bcolors.ORANGE+"""     """+bcolors.BOLD+"""RotorHazard        """+bcolors.ENDC+"""\t\t    ###
-		###                                                                 ###
-		###                     """+bcolors.BOLD+"""OTA Updater and Manager"""+bcolors.ENDC+"""                     ###
-		###                                                                 ###
-		#######################################################################""")
+	#######################################################################
+	###                                                                 ###
+	###\t\t\t"""+bcolors.ORANGE+"""     """+bcolors.BOLD+"""RotorHazard        """+bcolors.ENDC+"""\t\t    ###
+	###                                                                 ###
+	###                     """+bcolors.BOLD+"""OTA Updater and Manager"""+bcolors.ENDC+"""                     ###
+	###                                                                 ###
+	#######################################################################""")
 	if (linux_testing == True):
 		print("\t\t\t  Linux PC version\t")
 	if os.path.exists("./updater-config.json") == False:
 		print("\t\t\t    Looks that you haven't set up config file yet!")
 	sleep(0.05)
-
-def logoUpdate():
-	print("""
-		#######################################################################
-		###                                                                 ###
-		###\t\t"""+bcolors.BOLD+"""Flashing firmware onto """+str(nodes_number)+""" nodes - DONE"""+bcolors.ENDC+"""\t\t    ###
-		###                                                                 ###
-		###                          """+bcolors.BOLD+"""Thank you!"""+bcolors.ENDC+"""                             ###
-		###                                                                 ###
-		#######################################################################
-		\n\n""")
 
 def compatibility():               ### adds compatibility and fixes with previous versions
 	os.system("python ./prev_comp.py")
@@ -246,16 +235,17 @@ def selfUpdater():
 	logoTop()
 	if os.path.exists("/home/"+user+"/.ota_markers/.updater_self") == True:
 		print("""\n\n """+bcolors.BOLD+"""
-		If you want to update this program and download new firmware, \n
-		prepared for Arduino nodes - so you can next flash them \n\t\t
-		- you have to type 'updateupdater' or 'uu' in the terminal window.\n\n\t\t
-		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+bcolors.BOLD+""",\n\t\t
-		so you allways know what firmware version updater contains.\n\t\t
-		For example "2.2.5c" contains nodes firmware with "API level 22" etc.\n\t\t
-		Be sure that you have internet connection established."""+bcolors.ENDC+"""\n\n """)
-		print("""\n\t\t"""+bcolors.GREEN+"""\t\tExit program by pressing 'e' """+bcolors.ENDC+"""\n\n\t\t"""
-		"""\t\tForce updater planting again by pressing 'f'\n\n"""
-		+bcolors.YELLOW+"""\t\t\t\tGo back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
+	If you want to update this program and download new firmware, \n
+	prepared for Arduino nodes - so you can next flash them \n\t\t
+	- you have to type 'updateupdater' or 'uu' in the terminal window.\n\n\t\t
+	Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+bcolors.BOLD+""",\n\t\t
+	so you allways know what firmware version updater contains.\n\t\t
+	For example "2.2.5c" contains nodes firmware with "API level 22" etc.\n\t\t
+	Be sure that you have internet connection established."""+bcolors.ENDC+"""\n\n """)
+		print("""\n\t"""+bcolors.GREEN+"""\t\t
+		Exit program by pressing 'e' """+bcolors.ENDC+"""\n\t\t
+		Force updater planting again by pressing 'f'\n"""+bcolors.YELLOW+"""\t\t\t
+		Go back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
 		selection=str(raw_input(""))
 		if selection=='e':
 			sys.exit()
@@ -272,17 +262,18 @@ def selfUpdater():
 		clearTheScreen()
 		logoTop()
 		print("""\n\n """+bcolors.BOLD+"""
-		If you want to update this program and download new firmware, \n
-		prepared for Arduino nodes - so you can next flash them  \n\t\t
-		- you have to reboot the Raspberry. Next step is to type  \n\t\t
-		'updateupdater' or 'uu' in the terminal window.\n\t\t
-		Next time you won't have to reboot before updating.\n\n\t\t
-		Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+bcolors.BOLD+""",\n\t\t
-		so you allways know what firmware version updater contains.\n\t\t
-		For example 2.2.5c contains nodes firmware with API 22 etc.\n\t\t
-		Be sure that you have internet connection established."""+bcolors.ENDC+"""\n\n """)
-		print("""\n\t\t\t\t"""+bcolors.GREEN+"""\tReboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
-		+bcolors.YELLOW+"""\tGo back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
+	If you want to update this program and download new firmware, \n
+	prepared for Arduino nodes - so you can next flash them  \n\t\t
+	- you have to reboot the Raspberry. Next step is to type  \n\t\t
+	'updateupdater' or 'uu' in the terminal window.\n\t\t
+	Next time you won't have to reboot before updating.\n\n\t\t
+	Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+bcolors.BOLD+""",\n\t\t
+	so you allways know what firmware version updater contains.\n\t\t
+	For example 2.2.5c contains nodes firmware with API 22 etc.\n\t\t
+	Be sure that you have internet connection established."""+bcolors.ENDC+"""\n""")
+		print("""\n\t\t\t"""+bcolors.GREEN+"""\t
+		Reboot by pressing 'r' """+bcolors.ENDC+"""\n\t\t\t\t"""+bcolors.YELLOW+"""\t
+		Go back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
 		selection=str(raw_input(""))
 		if selection=='r':
 			os.system("sudo reboot")
@@ -294,13 +285,13 @@ def selfUpdater():
 def featuresMenu():
 	clearTheScreen()
 	logoTop()
-	print("\n\n\n\t\t\t\t\t"+bcolors.RED+bcolors.BOLD+bcolors.UNDERLINE+"FEATURES MENU\n"+bcolors.ENDC)
-	print("\t\t\t   "+bcolors.BLUE+bcolors.BOLD+"1 - Install avrdude\n"+bcolors.ENDC)
-	print("\t\t\t   "+bcolors.BLUE+bcolors.BOLD+"2 - Enable serial protocol\n"+bcolors.ENDC)
-	print("\t\t\t   "+bcolors.BOLD+"3 - Access Point and Internet - new\n"+bcolors.ENDC)
-	print("\t\t\t   "+bcolors.BOLD+"4 - Useful aliases\n"+bcolors.ENDC)
-	print("\t\t\t   "+bcolors.BOLD+"5 - Self updater \n"+bcolors.ENDC)
-	print("\t\t\t   "+bcolors.YELLOW+bcolors.BOLD+"e - Exit to main menu"+bcolors.ENDC)
+	print("\n\n\n\t\t\t\t"+bcolors.RED+bcolors.BOLD+bcolors.UNDERLINE+"FEATURES MENU\n"+bcolors.ENDC)
+	print("\t\t   "+bcolors.BLUE+bcolors.BOLD+"1 - Install avrdude\n"+bcolors.ENDC)
+	print("\t\t   "+bcolors.BLUE+bcolors.BOLD+"2 - Enable serial protocol\n"+bcolors.ENDC)
+	print("\t\t   "+bcolors.BOLD+"3 - Access Point and Internet - new\n"+bcolors.ENDC)
+	print("\t\t   "+bcolors.BOLD+"4 - Useful aliases\n"+bcolors.ENDC)
+	print("\t\t   "+bcolors.BOLD+"5 - Self updater \n"+bcolors.ENDC)
+	print("\t\t   "+bcolors.YELLOW+bcolors.BOLD+"e - Exit to main menu"+bcolors.ENDC)
 	selection=str(raw_input(""))
 	if selection=='1':
 		avrDude()
@@ -329,16 +320,15 @@ def firstTime():
 	def secondPage():
 		clearTheScreen()
 		print("""\n\n
-		"""+bcolors.BOLD+bcolors.UNDERLINE+"""\t\t\tCONFIGURATION FILE"""+bcolors.ENDC+"""\n\n
-		"""+bcolors.BOLD+"""Copy "distr-updater-config.json" from same folder to "updater-config.json". \n
-		Use: 'cp distr-updater-config.json updater-config.json'.\n
-		Next, edit new file using 'nano' command, make changes and save. \n\n
-		Possible RotorHazard versions:\n
-		> """+bcolors.BLUE+"""\"stable\""""+bcolors.ENDC+bcolors.BOLD+""" - last stable release (can be from before few months)\n
-		> """+bcolors.BLUE+"""\"beta\""""+bcolors.ENDC+bcolors.BOLD+"""   - last beta release (usually few weeks, quite stable)\n
-		> """+bcolors.BLUE+"""\"master\""""+bcolors.ENDC+bcolors.BOLD+""" - absolutely newest release (even if not well tested)"""+bcolors.ENDC+"""\n
-		""")
-		selection=str(raw_input("\n\t\t'f' - first page'"+bcolors.GREEN+"\t'u' - see update notes'"+bcolors.ENDC+bcolors.YELLOW+"\t\t'b' - back to menu"+bcolors.ENDC+"\n\n"))
+		"""+bcolors.BOLD+bcolors.UNDERLINE+"""\t\tCONFIGURATION FILE"""+bcolors.ENDC+"""\n\n
+	"""+bcolors.BOLD+"""Copy "distr-updater-config.json" from same folder to "updater-config.json". \n
+	Use: 'cp distr-updater-config.json updater-config.json'.\n
+	Next, edit new file using 'nano' command, make changes and save. \n\n
+	Possible RotorHazard versions:\n
+	> """+bcolors.BLUE+"""\"stable\""""+bcolors.ENDC+bcolors.BOLD+""" - last stable release (can be from before few months)\n
+	> """+bcolors.BLUE+"""\"beta\""""+bcolors.ENDC+bcolors.BOLD+"""   - last beta release (usually few weeks, quite stable)\n
+	> """+bcolors.BLUE+"""\"master\""""+bcolors.ENDC+bcolors.BOLD+""" - absolutely newest release (even if not well tested)"""+bcolors.ENDC+"""\n""")
+		selection=str(raw_input("\n\t'f' - first page'"+bcolors.GREEN+"\t'u' - see update notes'"+bcolors.ENDC+bcolors.YELLOW+"\t\t'b' - back to menu"+bcolors.ENDC+"\n\n"))
 		if selection=='f':
 			firstPage()
 		if selection=='b':
@@ -350,16 +340,18 @@ def firstTime():
 	def firstPage():
 		clearTheScreen()
 		print(bcolors.BOLD+"""\n\n\n
-		You can use all implemened features, but if you want to be able to program\n
-		Arduino-based nodes - enter Features menu and begin with first 2 points.\n\n
-		Also remember about setting up config file - check second page.  \n\n
-		This program has ability to perform 'self-updates'. Check "Features menu".\n\n
-		More info here: https://www.instructables.com/id/RotorHazard-Updater/\n
-		and in how_to folder - look for PDF file.\n\n 
-		\t\n\t\t\tEnjoy!\n\t\t\t\t\t\t\t\tSzafran\n\n\n """+bcolors.ENDC)
-		selection=str(raw_input("\t\t\t"+bcolors.GREEN+"'s' - second page'"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - go back"+bcolors.ENDC+"\n"))
+	You can use all implemened features, but if you want to be able to program\n
+	Arduino-based nodes - enter Features menu and begin with first 2 points.\n\n
+	Also remember about setting up config file - check second page.  \n\n
+	This program has ability to perform 'self-updates'. Check "Features menu".\n\n
+	More info here: https://www.instructables.com/id/RotorHazard-Updater/\n
+	and in how_to folder - look for PDF file.\n\n 
+	\t\n\t\t\tEnjoy!\n\t\t\t\t\t\t\t\tSzafran\n """+bcolors.ENDC)
+		selection=str(raw_input("\n\t's' - second page'"+bcolors.GREEN+"\t'u' - see update notes'"+bcolors.ENDC+bcolors.YELLOW+"\t\t'b' - back to menu"+bcolors.ENDC+"\n\n"))
 		if selection=='s':
 			secondPage()
+		if selection=='u':
+			UpdateNotes()
 		if selection=='b':
 			mainMenu()
 		else :
@@ -378,13 +370,13 @@ def end():
 def mainMenu():
 	clearTheScreen()
 	logoTop()
-	print("\n\n\n\t\t\t\t\t"+bcolors.RED+bcolors.BOLD+bcolors.UNDERLINE+"MAIN MENU\n"+bcolors.ENDC)
-	print("\t\t\t   "+bcolors.BLUE+bcolors.BOLD+"1 - Server software installation and update\n	"+bcolors.ENDC)
-	print("\t\t\t   "+bcolors.BLUE+bcolors.BOLD+"2 - Nodes flash and update\n"+bcolors.ENDC)
-	print("\t\t\t   "+bcolors.BOLD+"3 - Start the server now\n"+bcolors.ENDC)
-	print("\t\t\t   "+bcolors.BOLD+"4 - Additional features\n"+bcolors.ENDC)
-	print("\t\t\t   "+bcolors.BOLD+"5 - Info + first time here - READ!\n"+bcolors.ENDC)
-	print("\t\t\t   "+bcolors.YELLOW+bcolors.BOLD+"e - Exit"+bcolors.ENDC)
+	print("\n\n\n\t\t\t\t"+bcolors.RED+bcolors.BOLD+bcolors.UNDERLINE+"MAIN MENU\n"+bcolors.ENDC)
+	print("\t\t   "+bcolors.BLUE+bcolors.BOLD+"1 - Server software installation and update\n	"+bcolors.ENDC)
+	print("\t\t   "+bcolors.BLUE+bcolors.BOLD+"2 - Nodes flash and update\n"+bcolors.ENDC)
+	print("\t\t   "+bcolors.BOLD+"3 - Start the server now\n"+bcolors.ENDC)
+	print("\t\t   "+bcolors.BOLD+"4 - Additional features\n"+bcolors.ENDC)
+	print("\t\t   "+bcolors.BOLD+"5 - Info + first time here - READ!\n"+bcolors.ENDC)
+	print("\t\t   "+bcolors.YELLOW+bcolors.BOLD+"e - Exit"+bcolors.ENDC)
 	# valid_options = ['1', '2', '3', '4', '5', 'e']  ### another option for error catching
 	# while True:
 		# selection=raw_input().strip()
