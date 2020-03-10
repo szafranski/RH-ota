@@ -12,7 +12,7 @@ allows stopping server and coming back to ota program
 Checking internet connection before performing server update
 or installation - prevents errors and config loss
 
-___________________________________________________________
+______________________________________________________________
 
 2.2.8n
 
@@ -53,7 +53,7 @@ descriptions in the software
 Visual improvements:
 menus and descriptions
 
-___________________________________________________________
+______________________________________________________________
 
 2.2.5 and higher
 
