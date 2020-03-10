@@ -121,6 +121,7 @@ def installation():
 		print("Looks like you don't have internet connection. Update canceled.")
 	else:
 		print("Internet connection - OK")
+		sleep(0.2)
 		clearTheScreen()
 		sleep(0.1)
 		print("\n\t\t "+bcolors.BOLD+"Installation process started - please wait..."+bcolors.ENDC+" \n")
@@ -197,6 +198,7 @@ def update():
 		print("Looks like you don't have internet connection. Update canceled.")
 	else:
 		print("Internet connection - OK")
+		sleep(0.2)
 		clearTheScreen()
 		if os.path.exists("/home/"+user+"/RotorHazard") == False:
 			print("""\n\t """+bcolors.BOLD+"""Looks like you don't have RotorHazard server software installed for now. \n\t\t
