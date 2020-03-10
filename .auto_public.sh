@@ -1,3 +1,5 @@
+git checkout master &&
+git pull &&
 git checkout no_pdf_included && 
 git add . &&
 git commit -m "new functions and fixes" -a && 
