@@ -19,6 +19,7 @@ else:
 		data = json.load(config_file)
 
 def internetCheck():
+	print("\nPlease wait - checking internet connection state...\n")
 	global internet_FLAG
 	os.system("timeout 3s sh "+myhomedir+"/RH-ota/net_check.sh > /dev/null 2>&1")
 	sleep(3.2)
@@ -91,9 +92,10 @@ def newVersionCheck():
 		new_version_name = line
 
 def main():
-	print("\nPlease wait - checking internet connection state...\n")
 	internetCheck()
-	if internet_FLAG==1:
+	if internet_FLAG==0
+		print("Looks like you don't have internet connection. Update canceled.")
+	else:
 		print("Internet connection - OK")
 		os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")   ### resolves compatibility issues
 		os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         ### resolves compatibility issues
@@ -122,6 +124,4 @@ def main():
 		sleep(0.3)
 		os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")   ### resolves compatibility issues
 		os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         ### resolves compatibility issues
-	else:
-		print("Looks like you don't have internet connection. Update canceled.")
 main()

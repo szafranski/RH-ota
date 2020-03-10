@@ -9,7 +9,7 @@ import json
 import subprocess
 import socket
 
-updater_version = '2.2.8n'  ### version of THIS program - has nothing to do with the RH version
+updater_version = '2.2.8o'  ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
                             ### third number reffers to actual verion of the updater itself
 
@@ -243,11 +243,8 @@ def selfUpdater():
 		os.system("sudo apt install zip unzip")
 		os.system("""echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc""")
 		os.system("""echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc""")
-	sleep(0.12)
 	clearTheScreen()
-	sleep(0.12)
 	logoTop()
-	sleep(0.12)
 	if os.path.exists("/home/"+user+"/.ota_markers/.updater_self") == True:
 		print("""\n\n """+bcolors.BOLD+"""
 		If you want to update this program and download new firmware, \n
