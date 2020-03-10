@@ -23,14 +23,14 @@ else:
 	user = data['pi_user']
 
 def clearTheScreen():
+	sleep(0.05)
 	if platform.system() == "Windows":
 		os.system("cls")
 	else:
 		os.system("clear")
+	sleep(0.05)
 
-sleep(0.12)
 clearTheScreen()
-sleep(0.12)
 print("\n\n\t\tPlease wait...\n\n")
 print("\n")
 os.chdir("/home/"+user+"/RotorHazard/src/server")
