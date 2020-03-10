@@ -21,8 +21,9 @@ else:
 def internetCheck():
 	print("\nPlease wait - checking internet connection state...\n")
 	global internet_FLAG
-	os.system("timeout 3s sh "+myhomedir+"/RH-ota/net_check.sh > /dev/null 2>&1")
-	sleep(3.2)
+	#os.system("python net_check.py")
+	os.system("timeout 2s sh "+myhomedir+"/RH-ota/net_check.sh > /dev/null 2>&1")
+	sleep(2.2)
 	if os.path.exists("./index.html") == True:
 		internet_FLAG=1
 	else:
