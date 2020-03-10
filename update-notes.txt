@@ -5,7 +5,7 @@
 
 
 Checking internet connection before performing server update
-or installation - prevent errors and config loss
+or installation - prevents errors and config loss
 
 ________________________________________________________
 
