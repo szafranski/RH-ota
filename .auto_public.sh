@@ -7,7 +7,7 @@ git fetch &&
 git merge master -m "new functions and fixes" && 
 git pull &&
 git add . &&
-git push
+git push &&
 git commit -m "new functions and fixes" -a && 
 git push && 
 git checkout master && 
