@@ -328,7 +328,8 @@ def firstTime():
 	> """+bcolors.BLUE+"""\"stable\""""+bcolors.ENDC+bcolors.BOLD+""" - last stable release (can be from before few days or few months)\n
 	> """+bcolors.BLUE+"""\"beta\""""+bcolors.ENDC+bcolors.BOLD+"""   - last 'beta' release (usually has about few weeks, quite stable)\n
 	> """+bcolors.BLUE+"""\"master\""""+bcolors.ENDC+bcolors.BOLD+""" - absolutely newest features implemented (even if not well tested)"""+bcolors.ENDC+"""\n""")
-		selection=str(raw_input("\n\t'f' - first page'"+bcolors.GREEN+"\t'u' - see update notes'"+bcolors.ENDC+bcolors.YELLOW+"\t\t'b' - back to menu"+bcolors.ENDC+"\n\n"))
+		print("\n\n\t'f' - first page'"+bcolors.GREEN+"\t'u' - see update notes'"+bcolors.ENDC+bcolors.YELLOW+"\t\t'b' - back to menu"+bcolors.ENDC+"\n\n")
+		selection=str(raw_input(""))
 		if selection=='f':
 			firstPage()
 		if selection=='b':
@@ -348,7 +349,8 @@ def firstTime():
 	and in how_to folder - look for PDF file.\n\n 
 	If you found any bug - please report via GitHub or Facebook.\n\n
 	\t\tEnjoy!\n\t\t\t\t\t\t\t\tSzafran\n """+bcolors.ENDC)
-		selection=str(raw_input("\n\t"+bcolors.GREEN+"'s' - second page'"+bcolors.ENDC+"\t'u' - see update notes'"+bcolors.YELLOW+"\t\t'b' - back to menu"+bcolors.ENDC+"\n\n"))
+		print("\n\t"+bcolors.GREEN+"'s' - second page'"+bcolors.ENDC+"\t'u' - see update notes'"+bcolors.YELLOW+"\t\t'b' - back to menu"+bcolors.ENDC+"\n\n")
+		selection=str(raw_input(""))
 		if selection=='s':
 			secondPage()
 		if selection=='u':
