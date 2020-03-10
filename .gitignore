@@ -3,3 +3,4 @@ check.py
 *.pyc
 .travis.yml
 /how_to
+.auto_public.sh
