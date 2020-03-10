@@ -7,7 +7,6 @@ import platform
 import sys
 import json
 import subprocess
-import socket
 
 updater_version = '2.2.9a'  ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
@@ -386,7 +385,7 @@ def mainMenu():
 	print("\t\t\t   "+bcolors.BOLD+"4 - Additional features\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.BOLD+"5 - Info + first time here - READ!\n"+bcolors.ENDC)
 	print("\t\t\t   "+bcolors.YELLOW+bcolors.BOLD+"e - Exit"+bcolors.ENDC)
-	# valid_options = ['1', '2', '3', '4', '5', 'e']
+	# valid_options = ['1', '2', '3', '4', '5', 'e']  ### another option for error catching
 	# while True:
 		# selection=raw_input().strip()
 		# if selection in valid_options:

@@ -1,5 +1,4 @@
 updater-config.json
-net
 check.py
 *.pyc
 .travis.yml

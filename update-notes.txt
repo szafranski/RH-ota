@@ -1,3 +1,14 @@
+		
+		UPDATE NOTES:
+
+2.2.9a
+
+
+Checking internet connection before performing server update
+or installation - prevents errors and config loss
+
+________________________________________________________
+
 2.2.8n
 
 Checking internet connection before performing self-update
@@ -14,9 +25,8 @@ No config file after server starts - fixed
 Added:
 option to disable downloading PDF file with every update
 updater-config.json 	
-change line to: 
+change the line to: 
 	"updates_without_pdf" : 1
-________________________________________________________
 
 2.2.8e
 
@@ -28,7 +38,7 @@ new aliases (uu, otacfg, otacpcfg, home) - auto added
 
 Polished and very reliable:
 self-updater
-general code
+general code look
 no error messages if no folders were found
 runs ok on Windows - just for a preview
 
