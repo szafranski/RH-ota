@@ -1,4 +1,6 @@
+
 updater-config.json
 check.py
 *.pyc
 .travis.yml
+/how_to
