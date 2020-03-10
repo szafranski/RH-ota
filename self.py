@@ -93,7 +93,7 @@ def newVersionCheck():
 
 def main():
 	internetCheck()
-	if internet_FLAG==0
+	if internet_FLAG==0:
 		print("Looks like you don't have internet connection. Update canceled.")
 	else:
 		print("Internet connection - OK")
