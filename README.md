@@ -17,9 +17,9 @@
 		
 		Commands to download the repo onto Raspberry Pi or Linux system:
 		
-		cd ~
-		sudo apt install zip unzip
-		wget https://codeload.github.com/szafranski/RH-ota/zip/master -O tempota.zip
-		unzip tempota.zip
-		rm tempota.zip
-		mv RH-ota-* RH-ota
+			cd ~
+			sudo apt install zip unzip
+			wget https://codeload.github.com/szafranski/RH-ota/zip/master -O tempota.zip
+			unzip tempota.zip
+			rm tempota.zip
+			mv RH-ota-* RH-ota
