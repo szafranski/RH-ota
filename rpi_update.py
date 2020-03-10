@@ -54,12 +54,13 @@ def internetCheck():
 	os.system("rm /home/"+user+"/RH-ota/index.html > /dev/null 2>&1")
 	os.system("rm /home/"+user+"/RH-ota/wget-log* > /dev/null 2>&1")
 
-
 def clearTheScreen():
+	sleep(0.05)
 	if platform.system() == "Windows":
 		os.system("cls")
 	else:
 		os.system("clear")
+	sleep(0.05)
 
 def image():
 	with open('image.txt', 'r') as file:
@@ -123,7 +124,6 @@ def installation():
 		print("Internet connection - OK")
 		sleep(0.2)
 		clearTheScreen()
-		sleep(0.1)
 		print("\n\t\t "+bcolors.BOLD+"Installation process started - please wait..."+bcolors.ENDC+" \n")
 		os.system("sudo apt-get update && sudo apt-get upgrade -y")
 		os.system("sudo apt autoremove -y")
@@ -218,7 +218,6 @@ def update():
 				main()
 		else :
 			clearTheScreen()
-			sleep(0.1)
 			print("\n\t\t "+bcolors.BOLD+"Updating existing installation - please wait..."+bcolors.ENDC+" \n")
 			os.system("sudo -H python -m pip install --upgrade pip ")
 			os.system("sudo -H pip install pillow ")
@@ -269,7 +268,7 @@ def main():
 	global server_version_name
 	clearTheScreen()
 	serverChecker()
-	sleep(0.2)
+	sleep(0.1)
 	print("""\n\n\t\t"""+bcolors.RED+bcolors.BOLD+"""AUTOMATIC UPDATE AND INSTALLATION OF ROTORHAZARD RACING TIMER SOFTWARE\n\n\t"""+bcolors.ENDC
 	+bcolors.BOLD+"""This script will automatically install or update RotorHazard software on your Raspberry Pi. \n\t
 	All additional software depedancies and libraries also will be installed or updated.\n\t
