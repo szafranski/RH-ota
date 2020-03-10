@@ -81,5 +81,6 @@ And than edit lines 60 to 67 in nodes_update.py file.
 nano nodes_update.py
 
 Happy flyin'!
+______________________________________________________________
 
 EXIT by hitting "q"
