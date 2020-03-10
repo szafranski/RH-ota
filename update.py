@@ -7,7 +7,6 @@ import platform
 import sys
 import json
 import subprocess
-import socket
 
 updater_version = '2.2.9a'  ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
