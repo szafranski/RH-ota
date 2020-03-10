@@ -6,5 +6,6 @@ git fetch &&
 git checkout master && 
 git merge no_pdf_included -m "new functions and fixes" && 
 git pull &&
+git push &&
 git fetch &&
-git checkout master
+git checkout master 
