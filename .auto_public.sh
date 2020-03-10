@@ -11,7 +11,7 @@ git push &&
 git commit -m "new functions and fixes" -a && 
 git push && 
 git checkout master && 
-git merge no_pdf_included --no-commit --no-ff  no_pdf_included -m "new functions and fixes" && 
+git merge no_pdf_included -m "new functions and fixes" && 
 git fetch &&
 git push &&
 git checkout master 
