@@ -3,6 +3,8 @@ import os
 import sys
 import json
 
+global new_version_name
+
 os.system("pwd >.my_pwd")
 with open('.my_pwd', 'r') as file:
 	myhomedir = file.read().replace('\n', '')
