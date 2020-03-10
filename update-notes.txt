@@ -7,7 +7,7 @@
 Checking internet connection before performing server update
 or installation - prevents errors and config loss
 
-________________________________________________________
+___________________________________________________________
 
 2.2.8n
 
@@ -48,7 +48,7 @@ descriptions in the software
 Visual improvements:
 menus and descriptions
 
-________________________________________________________
+___________________________________________________________
 
 2.2.5 and higher
 
@@ -74,4 +74,4 @@ And than edit lines 60 to 67 in nodes_update.py file.
 
 nano nodes_update.py
 
-Thanks! Happy flyin'!
+Happy flyin'!
