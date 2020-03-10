@@ -40,7 +40,7 @@ Polished and much more reliable:
 self-updater
 general code look
 no error messages if no folders were found
-runs ok on Windows - just for a preview
+runs ok on Windows - just for a preview 
 
 Improved:
 descriptions in the software
