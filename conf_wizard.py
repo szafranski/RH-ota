@@ -7,9 +7,8 @@ import subprocess
 
 homedir = os.path.expanduser('~')
 
-wizard=True
-
-while wizard==True:
+while True:
+	print("\nPlease enter your configuration data. May be changed later.\n") 
 	os.system("rm updater-config-wizarded.json >/dev/null 2>&1")
 	name = raw_input("\nWhat is your user name on Raspberry Pi? [default: pi]\t")
 	os.system("echo '{' | tee -a "+homedir+"/RH-ota/updater-config-wizarded.json >/dev/null 2>&1")
@@ -24,23 +23,23 @@ while wizard==True:
 	os.system("echo '	\"nodes_number\" : "+nodes+",' | tee -a "+homedir+"/RH-ota/updater-config-wizarded.json >/dev/null 2>&1")
 	debug_mode = raw_input("\nWill you use debug mode? [1 - yes | 0 - just a normal mode]\t")
 	os.system("echo '	\"debug_mode\" : "+debug_mode+",' | tee -a "+homedir+"/RH-ota/updater-config-wizarded.json >/dev/null 2>&1")
-	pins_assign = raw_input("\nPins assignment? [default: default]\t")
+	pins_assign = raw_input("\nPins assignment? [default | custom | PCB; default: default]\t")
 	os.system("echo '	\"pins_assignment\" : \""+pins_assign+"\",' | tee -a "+homedir+"/RH-ota/updater-config-wizarded.json >/dev/null 2>&1")
-	no_pdf = raw_input("\nUpdates without PDF? [1 - yes | 0 - no; default:1]\t")
+	no_pdf = raw_input("\nUpdates without PDF? [1 - yes | 0 - no; default: 1]\t")
 	os.system("echo '	\"updates_without_pdf\" : "+no_pdf+"' | tee -a "+homedir+"/RH-ota/updater-config-wizarded.json >/dev/null 2>&1")
 	os.system("echo '}' | tee -a "+homedir+"/RH-ota/updater-config-wizarded.json >/dev/null 2>&1")
 
-	print("""\n\tCONFIGURATION:\n\t
-	Name: """+name+"""
-	Version: """+version+"""
-	Debug user: """+debug_user+"""
+	print("""\n\n\tCONFIGURATION:\n\t
+	User name: """+name+"""
+	RotorHazard version: """+version+"""
+	Debug user name: """+debug_user+"""
 	Country code: """+code+"""
 	Nodes amount: """+nodes+"""
 	Debug mode: """+debug_mode+"""
 	Pins assignment: """+pins_assign+"""
 	Updates without PDF: """+no_pdf+"""\n\n""")
 
-	print("Confirm?\n")
+	print("Please check. Confirm? [yes/no]\n")
 	valid_options = ['y', 'yes', 'n', 'no']
 	while True:
 		selection=raw_input().strip()
@@ -51,6 +50,7 @@ while wizard==True:
 
 	if selection == 'y' or selection ==  'yes':
 		os.system("mv updater-config-wizarded.json test.json")
+		print("Configuration saved.")
 		break
 	if selection == 'n' or selection == 'no':
 		continue
