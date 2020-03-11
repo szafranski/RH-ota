@@ -334,7 +334,7 @@ def end():
 		clearTheScreen()
 		print("\n\n")
 		image()
-		print("\t\t\t\tHappy flyin'!\n")
+		print("\t\t\t\t   Happy flyin'!\n")
 		sleep(1.3)
 		clearTheScreen()
 		sys.exit()

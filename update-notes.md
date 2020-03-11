@@ -4,6 +4,12 @@
 
 		UPDATE NOTES:
 
+
+2.2.9e
+
+Added functions and modules
+
+
 2.2.9c
 
 Server start links as a sh scipts - simpler, 
