@@ -46,7 +46,7 @@ while True:
 		if selection in valid_options:
 			break
 		else:
-			print("too big fingers :( wrong command. focus and try again!")
+			print("too big fingers :( wrong command. try again! :)")
 
 	if selection == 'y' or selection ==  'yes':
 		os.system("mv updater-config-wizarded.json test.json")
