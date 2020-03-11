@@ -85,9 +85,11 @@ def logoTop():
 	###                                                                 ###
 	#######################################################################""")
 	if (linux_testing == True):
-		print("\t\t\t  Linux PC version\t")
+		print("\t\t\t  Linux PC version\t\n")
 	if os.path.exists("./updater-config.json") == False:
-		print("\t\t\t    Looks that you haven't set up config file yet!")
+		print("""\t\tLooks that you haven't set up config file yet.
+		Please read about configuration process - point 5
+		and next enter configuration wizard - point 6.""")
 	sleep(0.05)
 
 def compatibility():               ### adds compatibility and fixes with previous versions
@@ -320,11 +322,13 @@ def firstTime():
 	def secondPage():
 		clearTheScreen()
 		print("""\n\n
-		"""+bcolors.BOLD+bcolors.UNDERLINE+"""\t\tCONFIGURATION FILE"""+bcolors.ENDC+"""\n\n
-	"""+bcolors.BOLD+"""Copy "distr-updater-config.json" from same folder to "updater-config.json". \n
-	Use: 'cp distr-updater-config.json updater-config.json'.\n
-	Next, edit new file using 'nano' command, make changes and save. \n\n
-	Possible RotorHazard versions:\n
+		"""+bcolors.BOLD+bcolors.UNDERLINE+"""\t\tCONFIGURATION PROCESS"""+bcolors.ENDC+"""\n\n
+	"""+bcolors.BOLD+"""Configuration process can be assisted with a wizard. 
+	You have to enter point 5. of Main Menu and apply right values.\n
+	It will configure this software, not RotorHazard server itself. \n
+	Thing like amount of used LEDs or password to admin page of RH
+	should be configured separately.\n\n
+	Possible RotorHazard server versions:\n
 	> """+bcolors.BLUE+"""\"stable\""""+bcolors.ENDC+bcolors.BOLD+""" - last stable release (can be from before few days or few months)\n
 	> """+bcolors.BLUE+"""\"beta\""""+bcolors.ENDC+bcolors.BOLD+"""   - last 'beta' release (usually has about few weeks, quite stable)\n
 	> """+bcolors.BLUE+"""\"master\""""+bcolors.ENDC+bcolors.BOLD+""" - absolutely newest features implemented (even if not well tested)"""+bcolors.ENDC+"""\n""")
