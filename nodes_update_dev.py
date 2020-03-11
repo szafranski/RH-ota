@@ -41,7 +41,7 @@ if preffered_RH_version == 'custom':
 
 nodes_number = data['nodes_number']
 
-if pins_assignment == 'PCB':
+if pins_assignment == 'PCB' or pins_assignment == 'pcb':
 	reset_1 = 12    ## node 1   # default 12
 	reset_2 = 16    ## node 2   # default 16
 	reset_3 = 4     ## node 3   # default 4

@@ -40,7 +40,7 @@ if preffered_RH_version == 'custom':
 
 nodes_number = data['nodes_number']
 
-if pins_assignment == 'PCB':
+if pins_assignment == 'PCB' or pins_assignment == 'pcb':
 	reset_1 = 12    ## node 1   # default 12
 	reset_2 = 16    ## node 2   # default 16
 	reset_3 = 4     ## node 3   # default 4
@@ -187,35 +187,35 @@ if (linux_testing == True):
 		print("\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.3)
 	def nodeOneReset():
-		print("\n\n\t\t\t/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_"+str(X)+".hex")
+		print("\n\n\t\t\t/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_1.hex")
 		print("\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.3)
 	def nodeTwoReset():
-		print("\n\n\t\t\t/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_"+str(X)+".hex")
+		print("\n\n\t\t\t/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_2.hex")
 		print("\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.3)
 	def nodeThreeReset():
-		print("\n\n\t\t\t/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_"+str(X)+".hex")
+		print("\n\n\t\t\t/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_3.hex")
 		print("\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.3)
 	def nodeFourReset():
-		print("\n\n\t\t\t/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_"+str(X)+".hex")
+		print("\n\n\t\t\t/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_4.hex")
 		print("\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.3)
 	def nodeFiveReset():
-		print("\n\n\t\t\t/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_"+str(X)+".hex")
+		print("\n\n\t\t\t/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_5.hex")
 		print("\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.3)
 	def nodeSixReset():
-		print("\n\n\t\t\t/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_"+str(X)+".hex")
+		print("\n\n\t\t\t/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_6.hex")
 		print("\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.3)
 	def nodeSevenReset():
-		print("\n\n\t\t\t/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_"+str(X)+".hex")
+		print("\n\n\t\t\t/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_7.hex")
 		print("\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.3)
 	def nodeEightReset():
-		print("\n\n\t\t\t/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_"+str(X)+".hex")
+		print("\n\n\t\t\t/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_8.hex")
 		print("\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.3)
 
