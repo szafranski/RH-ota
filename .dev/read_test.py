@@ -1,9 +1,3 @@
-# from time import sleep
-# import os
-# import platform
-# import sys
-# import json
-# import subprocess
 
 with open('./net_ap/net_steps.txt', 'rt') as f:
 	for line in f:
