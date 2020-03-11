@@ -4,6 +4,7 @@ import sys
 import platform
 import json
 from modules import clearTheScreen, bcolors, logoTop, image
+import time
 
 if os.path.exists("./updater-config.json") == True:
 	with open('updater-config.json') as config_file:
@@ -36,14 +37,21 @@ if preffered_RH_version =='custom':
 def internetCheck():
 	print("\nPlease wait - checking internet connection state...\n")
 	global internet_FLAG
-	os.system("timeout 2s sh /home/"+user+"/RH-ota/net_check.sh > /dev/null 2>&1")
-	sleep(2.05)
-	if os.path.exists("./index.html") == True:
-		internet_FLAG=1
-	else:
-		internet_FLAG=0
+	before_millis = int(round(time.time() * 1000))
+	os.system("timeout 3s sh /home/"+user+"/RH-ota/net_check.sh > /dev/null 2>&1")
+	while True:
+		now_millis = int(round(time.time() * 1000))
+		time_passed = (now_millis - before_millis)
+		if os.path.exists("./index.html") == True:
+			internet_FLAG=1
+			break
+		elif (time_passed > 3100):
+			internet_FLAG=0
+			break
 	os.system("rm /home/"+user+"/RH-ota/index.html > /dev/null 2>&1")
 	os.system("rm /home/"+user+"/RH-ota/wget-log* > /dev/null 2>&1")
+	os.system("rm /home/"+user+"/index.html > /dev/null 2>&1")
+	os.system("rm /home/"+user+"/wget-log* > /dev/null 2>&1")
 
 def first ():
 	clearTheScreen()
@@ -260,7 +268,7 @@ def main():
 	Remember to perform self-updating of this software, before updating server software.\n\t
 	If you prefer to use newest possible beta version - change the source accordingly.\n\t
 	Also make sure that you are logged as user '"""+bcolors.BLUE+user+bcolors.ENDC+bcolors.BOLD+"""'. \n\n\t
-	You can change those by editing file 'updater-config.json' in text editor - like 'nano'.
+	You can change those in configuration wizard in Main Menu.
 	\n\tServer installed right now:"""+bcolors.GREEN+""" """+server_version_name+""""""+bcolors.RED+"""
 	\n\t\t\t\t\t\t\t\t\tEnjoy!\n\n\t\t"""+bcolors.ENDC+"""
 	\t 'i' - Install software from skratch\n\t\t
