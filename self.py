@@ -23,7 +23,7 @@ def internetCheck():
 	global internet_FLAG
 	#os.system("python net_check.py")
 	os.system("timeout 2s sh "+myhomedir+"/RH-ota/net_check.sh > /dev/null 2>&1")
-	sleep(2.2)
+	sleep(2.05)
 	if os.path.exists("./index.html") == True:
 		internet_FLAG=1
 	else:

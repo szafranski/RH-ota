@@ -37,7 +37,7 @@ def internetCheck():
 	print("\nPlease wait - checking internet connection state...\n")
 	global internet_FLAG
 	os.system("timeout 2s sh /home/"+user+"/RH-ota/net_check.sh > /dev/null 2>&1")
-	sleep(2.2)
+	sleep(2.05)
 	if os.path.exists("./index.html") == True:
 		internet_FLAG=1
 	else:
