@@ -4,3 +4,4 @@ check.py
 .travis.yml
 /how_to
 .auto_public.sh
+index.html
