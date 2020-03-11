@@ -45,7 +45,7 @@ def confCheck():
 		print("\t\tLooks that you already have software configured")
 		valid_options = ['y', 'yes', 'n', 'no']
 		while True:
-			cont_conf = raw_input("\n\t\tContinue anyway? [yes/no] ").strip()
+			cont_conf = raw_input("\n\t\tOverwrite and continue anyway? [yes/no] ").strip()
 			if cont_conf in valid_options:
 				break
 			else:
