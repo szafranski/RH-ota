@@ -378,12 +378,12 @@ def mainMenu():
 	clearTheScreen()
 	logoTop()
 	print("\n\n\t\t\t\t"+bcolors.RED+bcolors.BOLD+bcolors.UNDERLINE+"MAIN MENU\n"+bcolors.ENDC)
-	print("			"+bcolors.BLUE+bcolors.BOLD+"1 - Server software installation and update\n"+bcolors.ENDC)
+	print("			"+bcolors.BLUE+bcolors.BOLD+"1 - RH server - install and update\n"+bcolors.ENDC)
 	print("			"+bcolors.BLUE+bcolors.BOLD+"2 - Nodes flash and update\n"+bcolors.ENDC)
 	print("			"+bcolors.BOLD+"3 - Start the server now\n"+bcolors.ENDC)
 	print("			"+bcolors.BOLD+"4 - Additional features\n"+bcolors.ENDC)
-	print("			"+bcolors.BOLD+"5 - Info + first time here - READ!\n"+bcolors.ENDC)
-	print("			"+bcolors.BOLD+"6 - Enter configuration wizard\n"+bcolors.ENDC)
+	print("			"+bcolors.BOLD+"5 - Info + first time here\n"+bcolors.ENDC)
+	print("			"+bcolors.BOLD+"6 - Configuration wizard\n"+bcolors.ENDC)
 	print("			"+bcolors.YELLOW+bcolors.BOLD+"e - Exit"+bcolors.ENDC)
 	# valid_options = ['1', '2', '3', '4', '5', 'e']  ### another option for error catching
 	# while True:
