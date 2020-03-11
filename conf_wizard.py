@@ -42,7 +42,7 @@ logoTop()
 def confCheck():
 	global conf_now_FLAG
 	if os.path.exists("./updater-config.json") == True:
-		print("\t\tLooks that you already have software configured")
+		print("\t\tLooks that you already have software configured.")
 		valid_options = ['y', 'yes', 'n', 'no']
 		while True:
 			cont_conf = raw_input("\n\t\tOverwrite and continue anyway? [yes/no] ").strip()
