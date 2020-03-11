@@ -9,7 +9,7 @@
 
 Added functions and modules
 Beter configuration handling
-
+Faster internet checker
 
 2.2.9c
 
