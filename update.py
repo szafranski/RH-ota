@@ -8,7 +8,7 @@ import sys
 import json
 import subprocess
 
-updater_version = '2.2.9c'  ### version of THIS program - has nothing to do with the RH version
+updater_version = '2.2.9d'  ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
                             ### third number reffers to actual verion of the updater itself
 
@@ -379,6 +379,7 @@ def mainMenu():
 	print("			"+bcolors.BOLD+"3 - Start the server now\n"+bcolors.ENDC)
 	print("			"+bcolors.BOLD+"4 - Additional features\n"+bcolors.ENDC)
 	print("			"+bcolors.BOLD+"5 - Info + first time here - READ!\n"+bcolors.ENDC)
+	print("			"+bcolors.BOLD+"6 - Enter configuration wizard\n"+bcolors.ENDC)
 	print("			"+bcolors.YELLOW+bcolors.BOLD+"e - Exit"+bcolors.ENDC)
 	# valid_options = ['1', '2', '3', '4', '5', 'e']  ### another option for error catching
 	# while True:
@@ -400,6 +401,8 @@ def mainMenu():
 		featuresMenu()
 	if selection=='5':
 		firstTime()
+	if selection=='6':
+		os.system("python ./conf_wizard.py")
 	if selection=='e':
 		end()
 	if selection=='2dev':
