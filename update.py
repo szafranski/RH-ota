@@ -105,7 +105,6 @@ def first ():
 	image()
 	print("\t\t\t\t Updater version: "+str(updater_version))
 	sleep(1.1)
-first()
 
 def avrDude():
 	clearTheScreen()
@@ -413,4 +412,7 @@ def mainMenu():
 		os.system("python ./nodes_update_dev.py")   ### opens nodes updating file
 	else:
 		mainMenu()
-mainMenu()
+
+if __name__ == "__main__":
+	first()
+	mainMenu()

@@ -3,41 +3,13 @@ import os
 import platform
 import sys
 import json
+import update
 
 homedir = os.path.expanduser('~')
 
-class bcolors:
-	HEADER = '\033[95m'
-	ORANGE = '\033[33m'
-	BLUE = '\033[94m'
-	GREEN = '\033[92m'
-	YELLOW = '\033[93m'
-	RED = '\033[91m'
-	ENDC = '\033[0m'
-	BOLD = '\033[1m'
-	UNDERLINE = '\033[4m'
-
-def clearTheScreen():
-	sleep(0.05)
-	if platform.system() == "Windows":
-		os.system("cls")
-	else:
-		os.system("clear")
-	sleep(0.05)
-
-def logoTop():
-	print("""\n	
-	#######################################################################
-	###                                                                 ###
-	###\t\t\t"""+bcolors.ORANGE+"""     """+bcolors.BOLD+"""RotorHazard        """+bcolors.ENDC+"""\t\t    ###
-	###                                                                 ###
-	###                     """+bcolors.BOLD+"""OTA Updater and Manager"""+bcolors.ENDC+"""                     ###
-	###                                                                 ###
-	#######################################################################\n\n\n""")
-	sleep(0.05)
-
-clearTheScreen()
-logoTop()
+update.bcolors
+update.clearTheScreen()
+update.logoTop()
 
 def confCheck():
 	global conf_now_FLAG
