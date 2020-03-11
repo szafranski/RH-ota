@@ -2,6 +2,7 @@ from time import sleep
 import os
 import sys
 import json
+from update import clearTheScreen, bcolors, logoTop
 
 if os.path.exists("./updater-config.json") == True:
 	with open('updater-config.json') as config_file:
@@ -21,30 +22,6 @@ else:
 
 myPlace = data['country']
 
-class bcolors:
-	HEADER = '\033[95m'
-	ORANGE = '\033[33m'
-	BLUE = '\033[94m'
-	GREEN = '\033[92m'
-	YELLOW = '\033[93m'
-	RED = '\033[91m'
-	ENDC = '\033[0m'
-	BOLD = '\033[1m'
-	UNDERLINE = '\033[4m'
-
-def logoTop():
-	print("""\n	
-		#######################################################################
-		###                                                                 ###
-		###\t\t\t"""+bcolors.ORANGE+"""     """+bcolors.BOLD+"""RotorHazard        """+bcolors.ENDC+"""\t\t    ###
-		###                                                                 ###
-		###                     """+bcolors.BOLD+"""OTA Updater and Manager"""+bcolors.ENDC+"""                     ###
-		###                                                                 ###
-		#######################################################################""")
-	if (linux_testing == True):
-		print("\t\t\t\t\t  Linux PC version")
-	if os.path.exists("./updater-config.json") == False:
-		print("\t\t\t    Looks that you haven't set up config file yet!")
 
 # Set the WiFi country in raspi-config's Localisation Options:
 # sudo raspi-config
@@ -158,10 +135,7 @@ def stepOne():
 		main()
 
 def stepZero():
-	sleep(0.12)
-	os.system("clear")
-	sleep(0.12)
-	logoTop()
+	clearTheScreen()
 	sleep(0.12)
 	print("""\n\n
 	After performing this process your Raspberry Pi can be used as standalone\n
@@ -192,31 +166,29 @@ def stepZero():
 
 def apMenu():
 	def secondPage():
-		sleep(0.12)
-		os.system("clear")
-		sleep(0.12)
+		clearTheScreen()
 		print("""\n
-		When Raspberry configuration has been changed so it performs
-		as Access Point or as a DHCP client (normal mode),
-		configuration file is being copied with a proper name.
-		Next you have to reboot, so changes can be applied.
-		When you setup Pi as a client, you can just connect
-		it to the router. If you are using PC as a internet sharing
-		device, you have to enable that option in OS settings.
-		Instructions for Windows can be found in net_ap folder.\n
-		
-		If you want to connect to Raspberry via SSH or VNC,
-		when it's in client mode you have to know its IP address.
-		Check it in router settings page or using special program 
-		'Advanced IP Scanner' on a PC. If you are using Pi as a AP, 
-		its IP is always 172.20.20.20 (ethernet). Remember to disable
-		internet sharing functionality on your PC's OS, when Raspberry
-		is in Access Point mode. \n
-		Remember that you can always connect to the timer (eg. from yet 
-		another device) via WiFi. It's wireless IP is 10.10.10.10.\n
-		You can also read/print those instructions. File 'detailed.txt',
-		in net_ap folder.
-		\n""")
+	When Raspberry configuration has been changed so it performs
+	as Access Point or as a DHCP client (normal mode),
+	configuration file is being copied with a proper name.
+	Next you have to reboot, so changes can be applied.
+	When you setup Pi as a client, you can just connect
+	it to the router. If you are using PC as a internet sharing
+	device, you have to enable that option in OS settings.
+	Instructions for Windows can be found in net_ap folder.\n
+	
+	If you want to connect to Raspberry via SSH or VNC,
+	when it's in client mode you have to know its IP address.
+	Check it in router settings page or using special program 
+	'Advanced IP Scanner' on a PC. If you are using Pi as a AP, 
+	its IP is always 172.20.20.20 (ethernet). Remember to disable
+	internet sharing functionality on your PC's OS, when Raspberry
+	is in Access Point mode. \n
+	Remember that you can always connect to the timer (eg. from yet 
+	another device) via WiFi. It's wireless IP is 10.10.10.10.\n
+	You can also read/print those instructions. File 'detailed.txt',
+	in net_ap folder.
+	\n""")
 		selection=str(raw_input("\t\t\t"+bcolors.GREEN+"'k' - OK '"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - go back"+bcolors.ENDC+"\n"))
 		if selection=='k':
 			sys.exit()
@@ -225,25 +197,23 @@ def apMenu():
 		else :
 			secondPage()
 	def firstPage():
-		sleep(0.12)
-		os.system("clear")
-		sleep(0.12)
+		clearTheScreen()
 		logoTop()
 		sleep(0.12)
 		print("""\n
-		Right now you have your Access Point configured. However,
-		there is still an option to mantain internet connection.
-		You will be able to connect the Pi via ethernet to the router 
-		or PC - with internet sharing option enbled. It requires chages
-		in configuration file. Those will be performed automatically,
-		after entering 'netcfg' or 'apcfg' in command line.
-		Remember to reboot the timer after every change. Instruction
-		can be also found in 'apconf.txt' file in net_ap folder.\n
-		Remember that regardless how you have your Raspberry configured
-		in a given moment, you can always connect to it using WiFi.
-		It can be helpful if you don't remember how your timer was configured
-		when you left it or when some troubleshooting is required.\n
-		Open second page, for detailed explanation.\n\n""")
+	Right now you have your Access Point configured. However,
+	there is still an option to mantain internet connection.
+	You will be able to connect the Pi via ethernet to the router 
+	or PC - with internet sharing option enbled. It requires chages
+	in configuration file. Those will be performed automatically,
+	after entering 'netcfg' or 'apcfg' in command line.
+	Remember to reboot the timer after every change. Instruction
+	can be also found in 'apconf.txt' file in net_ap folder.\n
+	Remember that regardless how you have your Raspberry configured
+	in a given moment, you can always connect to it using WiFi.
+	It can be helpful if you don't remember how your timer was configured
+	when you left it or when some troubleshooting is required.\n
+	Open second page, for detailed explanation.\n\n""")
 		selection=str(raw_input("\t\t\t"+bcolors.GREEN+"'s' - second page'"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - go back"+bcolors.ENDC+"\n"))
 		if selection=='s':
 			secondPage()

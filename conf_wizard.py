@@ -3,13 +3,12 @@ import os
 import platform
 import sys
 import json
-import update
+from update import clearTheScreen, bcolors, logoTop
 
 homedir = os.path.expanduser('~')
 
-update.bcolors
-update.clearTheScreen()
-update.logoTop()
+clearTheScreen()
+logoTop()
 
 def confCheck():
 	global conf_now_FLAG

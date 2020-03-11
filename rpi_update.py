@@ -3,6 +3,7 @@ import os
 import sys
 import platform
 import json
+from update import clearTheScreen, bcolors, logoTop
 
 if os.path.exists("./updater-config.json") == True:
 	with open('updater-config.json') as config_file:
@@ -32,16 +33,6 @@ if preffered_RH_version == 'stable':
 if preffered_RH_version =='custom':
 	server_version = 'X.X.X'           ### paste custom version number here if you want to declare it manually
 
-class bcolors:
-	HEADER = '\033[95m'
-	BLUE = '\033[94m'
-	GREEN = '\033[92m'
-	YELLOW = '\033[93m'
-	RED = '\033[91m'
-	ENDC = '\033[0m'
-	BOLD = '\033[1m'
-	UNDERLINE = '\033[4m'
-
 def internetCheck():
 	print("\nPlease wait - checking internet connection state...\n")
 	global internet_FLAG
@@ -53,14 +44,6 @@ def internetCheck():
 		internet_FLAG=0
 	os.system("rm /home/"+user+"/RH-ota/index.html > /dev/null 2>&1")
 	os.system("rm /home/"+user+"/RH-ota/wget-log* > /dev/null 2>&1")
-
-def clearTheScreen():
-	sleep(0.05)
-	if platform.system() == "Windows":
-		os.system("cls")
-	else:
-		os.system("clear")
-	sleep(0.05)
 
 def image():
 	with open('image.txt', 'r') as file:
@@ -311,7 +294,7 @@ def main():
 				sys.exit()
 			else:
 				main()
-		else :
+		else:
 			conf_allowed = True
 			installation()
 	if selection =='u':	
@@ -321,6 +304,6 @@ def main():
 		image()
 		clearTheScreen()
 		sys.exit()
-	else :
+	else:
 		main()
 main()
