@@ -24,3 +24,9 @@
 			rm tempota.zip
 			mv RH-ota-* RH-ota
 		
+		Commands to open the software:
+			
+			sudo apt install python --> if needed
+			
+			cd RH-ota
+			python update.py
