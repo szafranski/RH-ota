@@ -86,11 +86,13 @@ def logoTop():
 	#######################################################################""")
 	if (linux_testing == True):
 		print("\t\t\t  Linux PC version\t\n")
+	sleep(0.05)
+
+def configCheck():
 	if os.path.exists("./updater-config.json") == False:
 		print("""\t\tLooks that you haven't set up config file yet.
 		Please read about configuration process - point 5
 		and next enter configuration wizard - point 6.""")
-	sleep(0.05)
 
 def compatibility():               ### adds compatibility and fixes with previous versions
 	os.system("python ./prev_comp.py")
@@ -376,6 +378,7 @@ def end():
 def mainMenu():
 	clearTheScreen()
 	logoTop()
+	configCheck()
 	print("\n\n\t\t\t\t"+bcolors.RED+bcolors.BOLD+bcolors.UNDERLINE+"MAIN MENU\n"+bcolors.ENDC)
 	print("			"+bcolors.BLUE+bcolors.BOLD+"1 - RH server - install and update\n"+bcolors.ENDC)
 	print("			"+bcolors.BLUE+bcolors.BOLD+"2 - Nodes flash and update\n"+bcolors.ENDC)

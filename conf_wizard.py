@@ -33,7 +33,7 @@ confCheck()
 
 if conf_now_FLAG ==1:
 	while True:
-		print("""
+		print("""\n
 Please type your configuration data. It can be modified later.
 Default values are not automatically applied. Type them if needed.\n""") 
 		os.system("rm .wizarded-updater-config.json >/dev/null 2>&1")
