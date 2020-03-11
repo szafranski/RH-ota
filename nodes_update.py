@@ -3,6 +3,7 @@ import os
 import sys
 import platform
 import json
+from modules import clearTheScreen, bcolors, logoTop
 
 if os.path.exists("./updater-config.json") == True:
 	with open('updater-config.json') as config_file:
@@ -76,25 +77,6 @@ if linux_testing == True:
 	user = data['debug_user']
 else:
 	user = data['pi_user']
-
-class bcolors:
-	HEADER = '\033[95m'
-	ORANGE = '\033[33m'
-	BLUE = '\033[94m'
-	GREEN = '\033[92m'
-	YELLOW = '\033[93m'
-	RED = '\033[91m'
-	ENDC = '\033[0m'
-	BOLD = '\033[1m'
-	UNDERLINE = '\033[4m'
-
-def clearTheScreen():
-	sleep(0.05)
-	if platform.system() == "Windows":
-		os.system("cls")
-	else:
-		os.system("clear")
-	sleep(0.05)
 
 if (linux_testing == False): 
 	import RPi.GPIO as GPIO
@@ -236,20 +218,6 @@ if (linux_testing == True):
 		print("\n\n\t\t\t/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_"+str(X)+".hex")
 		print("\n\t\t\t\t\t Linux - PC\n\n")
 		sleep(0.3)
-
-def logoTop():
-	print("""\n	
-	#######################################################################
-	###                                                                 ###
-	###\t\t\t"""+bcolors.ORANGE+"""     """+bcolors.BOLD+"""RotorHazard        """+bcolors.ENDC+"""\t\t    ###
-	###                                                                 ###
-	###                     """+bcolors.BOLD+"""OTA Updater and Manager"""+bcolors.ENDC+"""                     ###
-	###                                                                 ###
-	#######################################################################""")
-	if (linux_testing == True):
-		print("\t\t\t  Linux PC version\t")
-	if os.path.exists("./updater-config.json") == False:
-		print("\t\t\t    Looks that you haven't set up config file yet!")
 
 def logoUpdate():
 	print("""
