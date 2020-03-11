@@ -39,13 +39,13 @@ Default values are not automatically applied. Type them if needed.\n""")
 		name = raw_input("\nWhat is your user name on Raspberry Pi? [default: pi]\t\t\t")
 		os.system("echo '{' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
 		os.system("echo '	\"pi_user\" : \""+name+"\",' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
-		version = raw_input("\nWhat is your preffered RotorHazard version? ["+bcolors.UNDERLINE+"stable"+bcolors.ENDC+" | beta | master]\t")
+		version = raw_input("\nWhat RotorHazard version will you use? ["+bcolors.UNDERLINE+"stable"+bcolors.ENDC+" | beta | master]\t\t")
 		os.system("echo '	\"RH_version\" : \""+version+"\",' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
-		debug_user = raw_input("\nWhat is you user name on debugging OS? [default: n/a]\t\t\t")
+		debug_user = raw_input("\nWhat is you user name on debugging OS? [default: racer]\t\t\t")
 		os.system("echo '	\"debug_user\" : \""+debug_user+"\",' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
 		code = raw_input("\nWhat is your country code? [default: GB]\t\t\t\t")
 		os.system("echo '	\"country\" : \""+code+"\",' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
-		nodes = raw_input("\nHow many nodes will you use in your system? [default: 4 | max: 8]\t")
+		nodes = raw_input("\nHow many nodes will you use in your system? [min: 1 | max: 8]\t\t")
 		os.system("echo '	\"nodes_number\" : "+nodes+",' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
 		debug_mode = raw_input("\nWill you use debug mode? [0 - no | 1 - yes; default: 0]\t\t\t")
 		os.system("echo '	\"debug_mode\" : "+debug_mode+",' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
@@ -55,18 +55,18 @@ Default values are not automatically applied. Type them if needed.\n""")
 		os.system("echo '	\"updates_without_pdf\" : "+no_pdf+"' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
 		os.system("echo '}' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
 
-		print("""\n\n\tCONFIGURATION:\n\t
-		User name: """+name+"""
-		RotorHazard version: """+version+"""
-		Debug user name: """+debug_user+"""
-		Country code: """+code+"""
-		Nodes amount: """+nodes+"""
-		Debug mode: """+debug_mode+"""
-		Pins assignment: """+pins_assign+"""
-		Updates without PDF: """+no_pdf+"""\n\n""")
+		print("""\n\n\t\t\t"""+bcolors.UNDERLINE+"""CONFIGURATION"""+bcolors.ENDC+""":\n\t
+		User name: \t\t"""+name+"""
+		RotorHazard version: \t"""+version+"""
+		Debug user name: \t"""+debug_user+"""
+		Country code: \t\t"""+code+"""
+		Nodes amount: \t\t"""+nodes+"""
+		Debug mode: \t\t"""+debug_mode+"""
+		Pins assignment: \t"""+pins_assign+"""
+		Updates without PDF: \t"""+no_pdf+"""\n\n""")
 
-		print("Please check. Confirm? [yes/no]\n")
-		valid_options = ['y', 'yes', 'n', 'no']
+		print("Please check. Confirm? [yes/no/abort]\n")
+		valid_options = ['y', 'yes', 'n', 'no', 'abort']
 		while True:
 			selection=raw_input().strip()
 			if selection in valid_options:
@@ -77,8 +77,13 @@ Default values are not automatically applied. Type them if needed.\n""")
 		if selection == 'y' or selection ==  'yes':
 			os.system("mv .wizarded-updater-config.json updater-config.json")
 			print("Configuration saved.")
+			sleep(0.5)
 			break
 		if selection == 'n' or selection == 'no':
 			continue
+		if selection == 'abort':
+			print("Configuration aborted.")
+			sleep(0.5)
+			break
 else:
 	os.system("exit")
