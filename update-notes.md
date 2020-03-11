@@ -1,4 +1,5 @@
 # use arrows, pg up and pg down or space bar to navigate
+# hit 'q' to exit now
 
 
 		UPDATE NOTES:
