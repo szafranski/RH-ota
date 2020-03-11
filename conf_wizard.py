@@ -3,7 +3,6 @@ import os
 import platform
 import sys
 import json
-import subprocess
 
 homedir = os.path.expanduser('~')
 
