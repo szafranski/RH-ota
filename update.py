@@ -6,6 +6,7 @@ import os
 import platform
 import sys
 import json
+from modules import clearTheScreen, bcolors, logoTop, image 
 #import subprocess
 
 updater_version = '2.2.9d'  ### version of THIS program - has nothing to do with the RH version
@@ -50,43 +51,6 @@ if linux_testing == True:
 	user = data['debug_user']
 else:
 	user = data['pi_user']
-
-class bcolors:
-	HEADER = '\033[95m'
-	ORANGE = '\033[33m'
-	BLUE = '\033[94m'
-	GREEN = '\033[92m'
-	YELLOW = '\033[93m'
-	RED = '\033[91m'
-	ENDC = '\033[0m'
-	BOLD = '\033[1m'
-	UNDERLINE = '\033[4m'
-
-def clearTheScreen():
-	sleep(0.05)
-	if platform.system() == "Windows":
-		os.system("cls")
-	else:
-		os.system("clear")
-	sleep(0.05)
-
-def image():
-	with open('image.txt', 'r') as file:
-		f = file.read()
-		print(f)
-
-def logoTop():
-	print("""\n	
-	#######################################################################
-	###                                                                 ###
-	###\t\t\t"""+bcolors.ORANGE+"""     """+bcolors.BOLD+"""RotorHazard        """+bcolors.ENDC+"""\t\t    ###
-	###                                                                 ###
-	###                     """+bcolors.BOLD+"""OTA Updater and Manager"""+bcolors.ENDC+"""                     ###
-	###                                                                 ###
-	#######################################################################""")
-	if (linux_testing == True):
-		print("\t\t\t  Linux PC version\t\n")
-	sleep(0.05)
 
 def configCheck():
 	if os.path.exists("./updater-config.json") == False:

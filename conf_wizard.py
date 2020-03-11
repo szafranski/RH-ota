@@ -3,7 +3,7 @@ import os
 import platform
 import sys
 import json
-from update import clearTheScreen, bcolors, logoTop
+from modules import clearTheScreen, bcolors, logoTop
 
 homedir = os.path.expanduser('~')
 

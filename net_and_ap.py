@@ -2,7 +2,7 @@ from time import sleep
 import os
 import sys
 import json
-from update import clearTheScreen, bcolors, logoTop
+from modules import clearTheScreen, bcolors, logoTop
 
 if os.path.exists("./updater-config.json") == True:
 	with open('updater-config.json') as config_file:
