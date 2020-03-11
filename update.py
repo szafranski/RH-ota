@@ -286,10 +286,10 @@ def selfUpdater():
 def featuresMenu():
 	clearTheScreen()
 	logoTop()
-	print("\n\n\n\t\t\t\t"+bcolors.RED+bcolors.BOLD+bcolors.UNDERLINE+"FEATURES MENU\n"+bcolors.ENDC)
+	print("\n\n\t\t\t\t"+bcolors.RED+bcolors.BOLD+bcolors.UNDERLINE+"FEATURES MENU\n"+bcolors.ENDC)
 	print("			"+bcolors.BLUE+bcolors.BOLD+"1 - Install avrdude\n"+bcolors.ENDC)
 	print("			"+bcolors.BLUE+bcolors.BOLD+"2 - Enable serial protocol\n"+bcolors.ENDC)
-	print("			"+bcolors.BOLD+"3 - Access Point and Internet - new\n"+bcolors.ENDC)
+	print("			"+bcolors.BOLD+"3 - Access Point and Internet\n"+bcolors.ENDC)
 	print("			"+bcolors.BOLD+"4 - Useful aliases\n"+bcolors.ENDC)
 	print("			"+bcolors.BOLD+"5 - Self updater \n"+bcolors.ENDC)
 	print("			"+bcolors.YELLOW+bcolors.BOLD+"e - Exit to main menu"+bcolors.ENDC)
@@ -377,7 +377,7 @@ def end():
 def mainMenu():
 	clearTheScreen()
 	logoTop()
-	print("\n\n\n\t\t\t\t"+bcolors.RED+bcolors.BOLD+bcolors.UNDERLINE+"MAIN MENU\n"+bcolors.ENDC)
+	print("\n\n\t\t\t\t"+bcolors.RED+bcolors.BOLD+bcolors.UNDERLINE+"MAIN MENU\n"+bcolors.ENDC)
 	print("			"+bcolors.BLUE+bcolors.BOLD+"1 - Server software installation and update\n"+bcolors.ENDC)
 	print("			"+bcolors.BLUE+bcolors.BOLD+"2 - Nodes flash and update\n"+bcolors.ENDC)
 	print("			"+bcolors.BOLD+"3 - Start the server now\n"+bcolors.ENDC)
