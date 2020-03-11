@@ -6,7 +6,7 @@ import os
 import platform
 import sys
 import json
-import subprocess
+#import subprocess
 
 updater_version = '2.2.9d'  ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
