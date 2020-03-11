@@ -28,5 +28,5 @@
 			
 			sudo apt install python --> if needed
 			
-			cd RH-ota
+			cd ~/RH-ota
 			python update.py
