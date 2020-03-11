@@ -6,7 +6,7 @@ import os
 import platform
 import sys
 import json
-from modules import clearTheScreen, bcolors, logoTop, image 
+from modules import clearTheScreen, bcolors, logoTop, image
 #import subprocess
 
 updater_version = '2.2.9d'  ### version of THIS program - has nothing to do with the RH version

@@ -3,7 +3,7 @@ import os
 import sys
 import platform
 import json
-from modules import clearTheScreen, bcolors, logoTop
+from modules import clearTheScreen, bcolors, logoTop, image
 
 if os.path.exists("./updater-config.json") == True:
 	with open('updater-config.json') as config_file:
@@ -44,11 +44,6 @@ def internetCheck():
 		internet_FLAG=0
 	os.system("rm /home/"+user+"/RH-ota/index.html > /dev/null 2>&1")
 	os.system("rm /home/"+user+"/RH-ota/wget-log* > /dev/null 2>&1")
-
-def image():
-	with open('image.txt', 'r') as file:
-		f = file.read()
-		print(f)
 
 def first ():
 	clearTheScreen()
