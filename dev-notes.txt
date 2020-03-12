@@ -17,6 +17,9 @@ have same, good experiences with this software.
 
 Directory '/.dev' contains pieces of software which are not accessible by usual users, like test files etc.
 
+You can enable debugging mode in wizard or in updater-config.json file so it can be evaluated on a PC.
+Linux or WSL will be probably most compatible. 
+
 Update notes may be read for new features description. 
 
 Feedback is welcome. Use GitHub or contact me via Facebook.
