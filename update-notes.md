@@ -11,6 +11,13 @@ Added functions and modules
 Beter configuration handling
 Faster internet checker
 
+
+2.2.9d
+
+BIG: No need to manuall changing config file anymore.
+Configuration wizard implemented.
+
+
 2.2.9c
 
 Server start links as a sh scipts - simpler, 

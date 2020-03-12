@@ -1,8 +1,6 @@
 updater-config.json
-check.py
 *.pyc
 .travis.yml
 /how_to
 index.html
-test.json
 .wizarded-updater-config.json
