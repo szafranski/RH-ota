@@ -15,7 +15,10 @@
 		Will be updated to be python 3 friendly, when
 		RotorHazard software will be converted as well.
 		
-		You may see "update notes": [UPDATE NOTES](update-notes.md)
+		You may see "update notes": 
+		[UPDATE NOTES](update-notes.md)
+		[doc/Software Setup.md](doc/Software%20Setup.md)
+
 		
 		Commands to download the repo onto Raspberry Pi or Linux system:
 		
