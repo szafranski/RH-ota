@@ -359,7 +359,6 @@ def mainMenu():
 	if selection=='3':
 		clearTheScreen()
 		os.system("sh ./server_start.sh")
-		#os.system("python ./server_start.py")
 	if selection=='4':
 		featuresMenu()
 	if selection=='5':
