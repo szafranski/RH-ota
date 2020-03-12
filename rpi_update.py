@@ -61,6 +61,7 @@ def first ():
 first()
 
 def serverChecker():
+	global serv_installed_FLAG 
 	if os.path.exists("/home/"+user+"/RotorHazard/src/server/server.py") == True:
 		os.system("grep 'RELEASE_VERSION =' ~/RotorHazard/src/server/server.py > ~/.ota_markers/.server_version")
 		os.system("sed -i 's/RELEASE_VERSION = \"//' ~/.ota_markers/.server_version")
@@ -68,9 +69,19 @@ def serverChecker():
 		f = open("/home/"+user+"/.ota_markers/.server_version","r")
 		for line in f:
 			global server_version_name
-			server_version_name = line
+			server_version_name = bcolors.GREEN+line+bcolors.ENDC
+		serv_installed_FLAG = True
 	else:
-		server_version_name = 'no installation found.'
+		server_version_name = bcolors.YELLOW+"""no installation found\n"""+bcolors.ENDC
+		serv_installed_FLAG = False
+
+def configChecker():
+	global config_soft
+	if os.path.exists("/home/"+user+"/RotorHazard/src/server/config.json") == True:
+		config_soft = bcolors.GREEN+"""configured"""+bcolors.ENDC
+	else:
+		config_soft = bcolors.YELLOW+bcolors.UNDERLINE+"""not configured"""+bcolors.ENDC
+configChecker()
 
 def sysConf():
 	os.system("sudo systemctl enable ssh")
@@ -259,29 +270,35 @@ def update():
 			end()
 
 def main():
+	global serv_installed_FLAG 
 	global conf_allowed
+	global config_soft
 	global server_version_name
 	clearTheScreen()
 	serverChecker()
 	sleep(0.1)
 	print("""\n\n\t\t"""+bcolors.RED+bcolors.BOLD+"""AUTOMATIC UPDATE AND INSTALLATION OF ROTORHAZARD RACING TIMER SOFTWARE\n\n\t"""+bcolors.ENDC
-	+bcolors.BOLD+"""This script will automatically install or update RotorHazard software on your Raspberry Pi. \n\t
-	All additional software depedancies and libraries also will be installed or updated.\n\t
-	Your current database, config file and custom bitmaps will stay on the updated software.\n\t
-	Source of the software will be '"""+bcolors.BLUE+server_version+bcolors.ENDC+bcolors.BOLD+"""' version from the RotorHazard repository.\n\t 
-	Remember to perform self-updating of this software, before updating server software.\n\t
-	If you prefer to use newest possible beta version - change the source accordingly.\n\t
-	Also make sure that you are logged as user '"""+bcolors.BLUE+user+bcolors.ENDC+bcolors.BOLD+"""'. \n\n\t
-	You can change those in configuration wizard in Main Menu.
-	\n\tServer installed right now:"""+bcolors.GREEN+""" """+server_version_name+""""""+bcolors.RED+"""
-	\n\t\t\t\t\t\t\t\t\tEnjoy!\n\n\t\t"""+bcolors.ENDC+"""
+	+bcolors.BOLD+"""This script can automatically install and update RotorHazard software on your Raspberry. 
+	All additional software depedancies and libraries also will be installed or updated.
+	Your current database, config file and custom bitmaps will stay on the updated software.
+	Source of the software will be '"""+bcolors.BLUE+server_version+bcolors.ENDC+bcolors.BOLD+"""' version from the RotorHazard repository. 
+	Remember to perform self-updating of this software, before updating server software.
+	Also make sure that you are logged as user '"""+bcolors.BLUE+user+bcolors.ENDC+bcolors.BOLD+"""'. \n
+	You can change those in configuration wizard in Main Menu.\n
+	Server installed right now: """+server_version_name+bcolors.BOLD+"""
+	RotorHazard configuration state: """+config_soft+bcolors.RED+bcolors.BOLD+"""
+	\n\t\t\t\t\t\t\t\tEnjoy!\n\n\t\t"""+bcolors.ENDC+"""
 		'c' - Configure RotorHazard server\n
 		'i' - Install software from skratch\n
 		'u' - Update existing installation\n"""+bcolors.YELLOW+""" 
 		'a' - Abort \n"""+bcolors.ENDC+""" """)
 	selection=str(raw_input(""))
 	if selection =='c':
-		os.system("python ./conf_wizard_rh.py")
+		if serv_installed_FLAG == True:
+			os.system("python ./conf_wizard_rh.py")
+		else:
+			print("\n\t\tPlease install server software first")
+			sleep (1.5)
 	if selection =='i':	
 		if (os.path.exists("/home/"+user+"/.ota_markers/.installation-check_file.txt") == True) or (os.path.exists("/home/"+user+"/RotorHazard") == True):
 			clearTheScreen()

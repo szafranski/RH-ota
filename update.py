@@ -5,7 +5,7 @@ import sys
 import json
 from modules import clearTheScreen, bcolors, logoTop, image, check_if_string_in_file
 
-updater_version = '2.2.9e'  ### version of THIS program - has nothing to do with the RH version
+updater_version = '2.2.9f'  ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
                             ### third number reffers to actual verion of the updater itself
 

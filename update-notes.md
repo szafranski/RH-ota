@@ -5,6 +5,13 @@
 		UPDATE NOTES:
 		^^^^^^^^^^^^
 
+
+2.2.9f
+
+Added configuration wizard for RotorHazard server
+Reorganized first page of RH updater 
+
+
 2.2.9e
 
 Added functions and modules
