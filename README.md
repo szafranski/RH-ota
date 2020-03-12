@@ -3,7 +3,7 @@
 # Easy mange and update your RotorHazard installation. 
 
 </br>
-_Additional features like **nodes flashing** are included._
+Additional features like nodes flashing are included.
 </br></br>
 
 If you want all hardware functionalities - visit: [Instructables page](https://www.instructables.com/id/RotorHazard-Updater/)
