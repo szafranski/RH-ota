@@ -10,7 +10,7 @@ If you want all hardware functionalities - visit: [Instructables page](https://w
 or check the [RotorHazard-Updater.pdf](/how_to/RotorHazard-Updater.pdf).
 
 You may also read [update notes](update-notes.md).
-</br>
+</br></br>
 Commands to download the repo onto Raspberry Pi or Linux system:
 
 	cd ~
