@@ -11,7 +11,7 @@ or check the [RotorHazard-Updater.pdf](/how_to/RotorHazard-Updater.pdf).
 
 You may also read [update notes](update-notes.md).
 </br></br>
-## Commands to download the repo onto Raspberry Pi or Linux system:
+### Commands to download the repo onto Raspberry Pi or Linux system:
 
 	cd ~
 	sudo apt install zip unzip
@@ -20,7 +20,7 @@ You may also read [update notes](update-notes.md).
 	rm tempota.zip
 	mv RH-ota-* RH-ota
 
-## Commands to open the software:
+### Commands to open the software:
 	
 	sudo apt install python --> if needed
 	
