@@ -12,7 +12,6 @@ or check the [RotorHazard-Updater.pdf](/how_to/RotorHazard-Updater.pdf).
 You may also read [update notes](update-notes.md).
 </br></br>
 #### Commands to download the repo onto Raspberry Pi or Linux system:
-
 	cd ~
 	sudo apt install zip unzip
 	wget https://codeload.github.com/szafranski/RH-ota/zip/master -O tempota.zip
@@ -21,7 +20,6 @@ You may also read [update notes](update-notes.md).
 	mv RH-ota-* RH-ota
 
 #### Commands to open the software:
-	
 	sudo apt install python --> if needed
 	
 	cd ~/RH-ota
