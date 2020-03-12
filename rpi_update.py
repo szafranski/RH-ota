@@ -97,6 +97,7 @@ def end():
 			sys.exit()
 		if selection =='s':	
 			clearTheScreen()
+			os.chdir("/home/"+user+"/RH-ota")
 			os.system("sh ./server_start.sh")
 		else: 
 			end()
@@ -304,6 +305,7 @@ def main():
 		update()
 	if selection =='a':	
 		clearTheScreen()
+		os.chdir("/home/"+user+"/RH-ota")
 		image()
 		sleep(0.5)
 		sys.exit()
