@@ -249,7 +249,7 @@ def selfUpdater():
 def featuresMenu():
 	clearTheScreen()
 	logoTop()
-	print("\n\n\t\t\t\t"+bcolors.RED+bcolors.BOLD+bcolors.UNDERLINE+"FEATURES MENU\n"+bcolors.ENDC)
+	print("\n\n\t\t\t\t"+bcolors.RED+bcolors.BOLD+bcolors.UNDERLINE+"FEATURES MENU"+bcolors.ENDC+"\n")
 	print("			"+bcolors.BLUE+bcolors.BOLD+"1 - Install avrdude\n"+bcolors.ENDC)
 	print("			"+bcolors.BLUE+bcolors.BOLD+"2 - Enable serial protocol\n"+bcolors.ENDC)
 	print("			"+bcolors.BOLD+"3 - Access Point and Internet\n"+bcolors.ENDC)
@@ -341,7 +341,7 @@ def mainMenu():
 	clearTheScreen()
 	logoTop()
 	configCheck()
-	print("\n\n\t\t\t\t"+bcolors.RED+bcolors.BOLD+bcolors.UNDERLINE+"MAIN MENU\n"+bcolors.ENDC)
+	print("\n\n\t\t\t\t"+bcolors.RED+bcolors.BOLD+bcolors.UNDERLINE+"MAIN MENU"+bcolors.ENDC+"\n")
 	print("			"+bcolors.BLUE+bcolors.BOLD+"1 - RH server - install and update\n"+bcolors.ENDC)
 	print("			"+bcolors.BLUE+bcolors.BOLD+"2 - Nodes flash and update\n"+bcolors.ENDC)
 	print("			"+bcolors.BOLD+"3 - Start the server now\n"+bcolors.ENDC)
