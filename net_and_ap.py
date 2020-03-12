@@ -136,7 +136,7 @@ def stepOne():
 
 def stepZero():
 	clearTheScreen()
-	sleep(0.12)
+	sleep(0.05)
 	print("""\n\n
 	After performing this process your Raspberry Pi can be used as standalone\n
 	Access Point. You won't need additional router for connecting with it. \n
@@ -199,7 +199,7 @@ def apMenu():
 	def firstPage():
 		clearTheScreen()
 		logoTop()
-		sleep(0.12)
+		sleep(0.05)
 		print("""\n
 	Right now you have your Access Point configured. However,
 	there is still an option to mantain internet connection.

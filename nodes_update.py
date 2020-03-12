@@ -413,7 +413,7 @@ def flashEachNode():
 		global X
 		clearTheScreen()
 		logoTop()
-		sleep(0.12)
+		sleep(0.05)
 		print("\n\n\n\t\t\t\t    "+bcolors.RED+bcolors.BOLD+"NODES MENU"+bcolors.ENDC)
 		print("\n\t\t "+bcolors.BOLD+"1 - Flash node 1 \t\t 5 - Flash node 5"+bcolors.ENDC)
 		print("\n\t\t "+bcolors.BOLD+"2 - Flash node 2 \t\t 6 - Flash node 6"+bcolors.ENDC)
@@ -515,7 +515,7 @@ def gpioState():
 def nodesUpdate():
 	clearTheScreen()
 	logoTop()
-	sleep(0.12)
+	sleep(0.05)
 	print("\n\n\t\t\t "+bcolors.BOLD+bcolors.UNDERLINE+"CHOOSE FLASHING TYPE:\n"+ bcolors.ENDC)
 	print("\t\t "+bcolors.GREEN+bcolors.BOLD+"1 - Every Node gets own dedicated firmware - recommended\n"+ bcolors.ENDC)
 	print("\t\t "+bcolors.BOLD+"2 - Nodes will use ground-auto selection firmware\n"+ bcolors.ENDC)

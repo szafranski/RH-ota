@@ -133,11 +133,11 @@ def stepOne():
 		main()
 
 def stepZero():
-	sleep(0.12)
+	sleep(0.05)
 	clearTheScreen()
-	sleep(0.12)
+	sleep(0.05)
 	logoTop()
-	sleep(0.12)
+	sleep(0.05)
 	with open('./net_ap/net_steps.txt', 'rt') as f:
 		for line in f:
 			if '### step1' in line:
@@ -164,9 +164,9 @@ def stepZero():
 
 def apMenu():
 	def secondPage():
-		sleep(0.12)
+		sleep(0.05)
 		clearTheScreen()
-		sleep(0.12)
+		sleep(0.05)
 		with open('./net_ap/net_steps.txt', 'rt') as f:
 			for line in f:
 				if '### step last - page 2' in line:
@@ -182,11 +182,11 @@ def apMenu():
 		else :
 			secondPage()
 	def firstPage():
-		sleep(0.12)
+		sleep(0.05)
 		clearTheScreen()
-		sleep(0.12)
+		sleep(0.05)
 		logoTop()
-		sleep(0.12)
+		sleep(0.05)
 		with open('./net_ap/net_steps.txt', 'rt') as f:
 			for line in f:
 				if '### step last - page 1' in line:
