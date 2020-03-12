@@ -4,18 +4,11 @@ import platform
 import sys
 import json
 import subprocess
+from modules import check_if_string_in_file
 
 homedir = os.path.expanduser('~')
 
-def check_if_string_in_file(file_name, string_to_search):
-	with open(file_name, 'r') as read_obj:
-		for line in read_obj:
-			if string_to_search in line:
-				return True
-	return False
-
-
-def compatibility():               ### adds compatibility and fixes with previous versions
+def TwoTwoNine():               ### adds compatibility and fixes with previous versions
 	if os.path.exists(homedir+"/.ota_markers") == False:
 		os.system("mkdir "+homedir+"/.ota_markers")
 	if os.path.exists(homedir+"/.aliases_added") == True:
@@ -69,4 +62,4 @@ def compatibility():               ### adds compatibility and fixes with previou
 					os.system("sed -i 's/\"pins_assignment\" : \"PCB\"/\"pins_assignment\" : \"PCB\",/g' "+homedir+"/RH-ota/updater-config.json")
 					os.system("sed -i 's/}/	\"updates_without_pdf\" : 0 /g' "+homedir+"/RH-ota/updater-config.json")
 					os.system("echo '}' | tee -a "+homedir+"/RH-ota/updater-config.json >/dev/null 2>&1")
-compatibility()
+TwoTwoNine()

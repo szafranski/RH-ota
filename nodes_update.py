@@ -3,7 +3,7 @@ import os
 import sys
 import platform
 import json
-from modules import clearTheScreen, bcolors, logoTop
+from modules import clearTheScreen, bcolors, logoTop, check_if_string_in_file
 
 if os.path.exists("./updater-config.json") == True:
 	with open('updater-config.json') as config_file:
@@ -11,13 +11,6 @@ if os.path.exists("./updater-config.json") == True:
 else:
 	with open('distr-updater-config.json') as config_file:
 		data = json.load(config_file)
-
-def check_if_string_in_file(file_name, string_to_search):
-	with open(file_name, 'r') as read_obj:
-		for line in read_obj:
-			if string_to_search in line:
-				return True
-	return False
 
 if os.path.exists("./updater-config.json") == True:
 	if check_if_string_in_file('updater-config.json', 'assignment'):

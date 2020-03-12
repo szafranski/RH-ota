@@ -3,6 +3,7 @@ import os
 import sys
 import json
 import time
+from modules import check_if_string_in_file
 
 os.system("pwd >.my_pwd")
 with open('.my_pwd', 'r') as file:
@@ -37,13 +38,6 @@ def internetCheck():
 	os.system("rm "+myhomedir+"/RH-ota/wget-log* > /dev/null 2>&1")
 	os.system("rm "+myhomedir+"/index.html > /dev/null 2>&1")
 	os.system("rm "+myhomedir+"/wget-log* > /dev/null 2>&1")
-
-def check_if_string_in_file(file_name, string_to_search):
-	with open(file_name, 'r') as read_obj:
-		for line in read_obj:
-			if string_to_search in line:
-				return True
-	return False
 
 if os.path.exists(cfgdir1) == True:
 	config_file_exists = True

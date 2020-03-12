@@ -3,7 +3,7 @@ import os
 import sys
 import platform
 import json
-from modules import clearTheScreen, bcolors, logoTop, image
+from modules import clearTheScreen, bcolors, logoTop, image, check_if_string_in_file
 import time
 
 if os.path.exists("./updater-config.json") == True:
@@ -202,7 +202,6 @@ def update():
 			if selection == 'u':
 				update()
 			if selection == 'a':
-				sleep(0.5)
 				clearTheScreen()
 				sys.exit()
 			else:
@@ -293,7 +292,7 @@ def main():
 			if selection == 'a':
 				clearTheScreen()
 				image()
-				clearTheScreen()
+				sleep(0.5)
 				sys.exit()
 			else:
 				main()
@@ -305,7 +304,7 @@ def main():
 	if selection =='a':	
 		clearTheScreen()
 		image()
-		clearTheScreen()
+		sleep(0.5)
 		sys.exit()
 	else:
 		main()

@@ -6,7 +6,7 @@ import os
 import platform
 import sys
 import json
-from modules import clearTheScreen, bcolors, logoTop, image
+from modules import clearTheScreen, bcolors, logoTop, image, check_if_string_in_file
 #import subprocess
 
 updater_version = '2.2.9e'  ### version of THIS program - has nothing to do with the RH version
@@ -34,13 +34,6 @@ if preffered_RH_version == 'stable':
 	firmware_version = 'stable'
 if preffered_RH_version == 'custom':
 	firmware_version = 'stable'
-
-def check_if_string_in_file(file_name, string_to_search):
-	with open(file_name, 'r') as read_obj:
-		for line in read_obj:
-			if string_to_search in line:
-				return True
-	return False
 
 if data['debug_mode'] == 1:
 	linux_testing = True
@@ -365,7 +358,7 @@ def mainMenu():
 		os.system("python ./nodes_update.py")   ### opens nodes updating file
 	if selection=='3':
 		clearTheScreen()
-		os.system("sh server_start.sh")
+		os.system("sh ./server_start.sh")
 		#os.system("python ./server_start.py")
 	if selection=='4':
 		featuresMenu()
