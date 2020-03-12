@@ -13,6 +13,13 @@ os.system("rm ./.my_pwd")
 cfgdir1= str(myhomedir+'/RH-ota/updater-config.json')
 cfgdir2= str(myhomedir+'/RH-ota/distr-updater-config.json')
 
+def check_if_string_in_file(file_name, string_to_search):
+	with open(file_name, 'r') as read_obj:
+		for line in read_obj:
+			if string_to_search in line:
+				return True
+	return False
+
 if os.path.exists(myhomedir+"/RH-ota/updater-config.json") == True:
 	with open(cfgdir1) as config_file:
 		data = json.load(config_file)
