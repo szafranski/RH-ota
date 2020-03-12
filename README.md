@@ -26,6 +26,6 @@ Commands to open the software:
 	cd ~/RH-ota
 	python update.py
 
->This software is designed to run using python 2.7.</br>
->Will be updated to be python 3 friendly, when</br>
->RotorHazard software will be converted as well.
+>This software is designed to run using python 2.7.
+>Will be updated to be python 3 friendly, </br>
+>when RotorHazard software will be converted as well.
