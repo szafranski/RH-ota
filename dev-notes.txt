@@ -1,6 +1,16 @@
-This software is based on python 2.7.
+Developers notes:
+
+This software is designed to work with python 2.7.
 Will be converted to python 3 when RotorHazard will be converted as well. 
 
-Some actions on system files are being performed during operations.
+Some actions on system files are being performed during operations like UART enabling etc.
 Admin privileges are only used when needed or to ensure smooth operation.
 
+Software operates in user's home folder most of the time. It contains some code
+that can change content of that folder. Some directories may be deleted to ensure smooth operation
+in the future - eg. any "leftovers" from previous installation attempts like "RotorHazard-master"
+or "temp.zip" may be deleted. No actuall installation or configuration files are intended to be deleted. 
+
+Update notes may be read for new features descriptions. 
+
+Feedback is welcome. Use GitHub or contact me via Facebook.
