@@ -368,7 +368,7 @@ def mainMenu():
 	if selection=='5':
 		firstTime()
 	if selection=='6':
-		os.system("python ./conf_wizard.py")
+		os.system("python ./conf_wizard_ota.py")
 	if selection=='e':
 		end()
 	if selection=='2dev':
