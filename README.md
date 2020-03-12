@@ -11,10 +11,6 @@
 		
 		or check how_to folder - look for PDF file.
 		
-		You may see "update notes": 
-		[UPDATE NOTES](./update-notes.md)
-		[doc/Software Setup.md](doc/Software%20Setup.md)
-
 		Software is designed to run using python 2.7.
 		Will be updated to be python 3 friendly, when
 		RotorHazard software will be converted as well.
