@@ -1,7 +1,7 @@
 {
 	"pi_user" : "pi",
 	"RH_version" : "stable",
-	"debug_user" : "pfabi",
+	"debug_user" : "racer",
 	"country" : "GB",
 	"nodes_number" : 8,
 	"debug_mode" : 0,
