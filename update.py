@@ -372,7 +372,7 @@ def mainMenu():
 	if selection=='e':
 		end()
 	if selection=='2dev':
-		os.system("python ./nodes_update_dev.py")   ### opens nodes updating file
+		os.system("python ./.dev/done_nodes_update_dev.py")   ### opens nodes updating file
 	else:
 		mainMenu()
 
