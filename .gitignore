@@ -3,4 +3,4 @@ updater-config.json
 .travis.yml
 /how_to
 index.html
-.wizarded-updater-config.json
+.wizarded*
