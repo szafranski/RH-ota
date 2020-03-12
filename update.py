@@ -68,15 +68,18 @@ def first ():
 def avrDude():
 	clearTheScreen()
 	logoTop()
-	print("\n\n\n\t\t\t\t\t\t"+bcolors.RED+"AVRDUDE MENU"+bcolors.ENDC+"\n")
+	print("\n\n\n\t\t\t\t"+bcolors.RED+"AVRDUDE MENU"+bcolors.ENDC+"\n")
 	print ("\t\t\t "+bcolors.BLUE+"1 - Install avrdude"+bcolors.ENDC)
 	print ("\t\t\t "+bcolors.YELLOW+"2 - Go back"+bcolors.ENDC)
 	selection=str(raw_input(""))
 	if selection=='1' : 
 		os.system("sudo apt-get update")
 		os.system("sudo apt-get install avrdude -y")
+		print "\nDone\n"
 	if selection=='2' : 
 		mainMenu()
+	else:
+		avrDude()
 
 def serialMenu():
 	clearTheScreen()
@@ -85,22 +88,24 @@ def serialMenu():
 		os.system("echo 'functionality added' | tee -a ~/.ota_markers/.serialok")
 		os.system("echo 'enable_uart=1'| sudo tee -a /boot/config.txt")
 		os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
-		print("\n\n\t\t\t	Serial port enabled successfully")
-		print (" \n\t\t\t\tYou have to reboot Raspberry now. Ok?\n")
-		print (" \t\t\t\t\t'r' - Reboot now\n")
-		print (" \t\t\t\t\t"+bcolors.YELLOW+"'b' - Go back\n\n"+bcolors.ENDC)
+		print("""\n\n\t\tSerial port enabled successfully\n\t\t\t\t
+		You have to reboot Raspberry now. Ok?\n\t\t\t\t\t
+		'r' - Reboot now\t"""
+		+bcolors.YELLOW+"""'b' - Go back\n\n"""+bcolors.ENDC)
 		selection=str(raw_input(""))
 		if selection=='r':
 			os.system("sudo reboot")
 		if selection== 'b':
 			featuresMenu()
-	print("""\n\n\t\tSerial port has to be enabled. Without it Arduinos cannot be programmed.
-			\n\t\tDo you want to enable it now?""")
-	selection=str(raw_input("\n\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+	print("""\n\n\t\t
+		Serial port has to be enabled. 
+		Without it Arduinos cannot be programmed.\n\t\t
+		Do you want to enable it now?""")
+	selection=str(raw_input("\n\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 	if selection == 'y':
 		if os.path.exists("/home/"+user+"/.ota_markers/.serialok") == True:
-			print("\n\n\t\tLooks like you already enabled Serial port. Do you want to continue anyway?\n")
-			selection=str(raw_input("\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+			print("\n\n\t\tLooks like you already enabled Serial port. \n\t\tDo you want to continue anyway?\n")
+			selection=str(raw_input("\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 			if selection=='y':
 				serialContent()
 			if selection =='a':

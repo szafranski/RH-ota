@@ -60,7 +60,7 @@ def stepThree():
 	ethernet: 172.20.20.20 (172.20.20.20:5000 if connecting from a browser)\n\n
 	You can enter Access Point extra menu after rebooing
 	and check how you can connect to the internet.\n""")
-	print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
+	print("""\n\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t"""
 			+bcolors.YELLOW+"""    Exit by pressing 'e'"""+bcolors.ENDC+"""\n""")
 	selection=str(raw_input(""))
 	if selection=='r':
@@ -124,7 +124,7 @@ def stepOne():
 	os.system("sudo apt install curl -y")
 	os.system("curl -sL https://install.raspap.com | bash -s -- -y")
 	stepTwo()
-	print("""\n\t\t\t\t"""+bcolors.GREEN+"""Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
+	print("""\n\t\t\t"""+bcolors.GREEN+"""Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t"""
 			+bcolors.YELLOW+"""Exit by pressing 'e'"""+bcolors.ENDC+"""\n""")
 	selection=str(raw_input(""))
 	if selection=='r':
@@ -148,10 +148,10 @@ def stepZero():
 	you can enter 'net_ap' folder from this repo, on your mobile phone etc.\n
 	This process will require few reboots. Do you want to continue?\n""")
 	print("""\n
-	\t\t"""+bcolors.GREEN+"""'y' - Yes, let's do it """+bcolors.ENDC+"""\n
-	\t\t'3' - enters "Step 3." - check it after first two steps\n
-	\t\t'x' - enters Access Point extra menu - check it after operation\n
-	\t\t"""+bcolors.YELLOW+"""'e' - exit to main menu"""+bcolors.ENDC+"""\n""")
+	\t"""+bcolors.GREEN+"""'y' - Yes, let's do it """+bcolors.ENDC+"""\n
+	\t'3' - enters "Step 3." - check it after first two steps\n
+	\t'x' - enters Access Point extra menu - check it after operation\n
+	\t"""+bcolors.YELLOW+"""'e' - exit to main menu"""+bcolors.ENDC+"""\n""")
 	selection=str(raw_input(""))
 	if selection=='y':
 		stepOne()
@@ -189,7 +189,7 @@ def apMenu():
 	You can also read/print those instructions. File 'detailed.txt',
 	in net_ap folder.
 	\n""")
-		selection=str(raw_input("\t\t\t"+bcolors.GREEN+"'k' - OK '"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - go back"+bcolors.ENDC+"\n"))
+		selection=str(raw_input("\t\t"+bcolors.GREEN+"'k' - OK '"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - go back"+bcolors.ENDC+"\n"))
 		if selection=='k':
 			sys.exit()
 		if selection=='b':
@@ -214,7 +214,7 @@ def apMenu():
 	It can be helpful if you don't remember how your timer was configured
 	when you left it or when some troubleshooting is required.\n
 	Open second page, for detailed explanation.\n\n""")
-		selection=str(raw_input("\t\t\t"+bcolors.GREEN+"'s' - second page'"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - go back"+bcolors.ENDC+"\n"))
+		selection=str(raw_input("\t\t"+bcolors.GREEN+"'s' - second page'"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - go back"+bcolors.ENDC+"\n"))
 		if selection=='s':
 			secondPage()
 		if selection=='b':
