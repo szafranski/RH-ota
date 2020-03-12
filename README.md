@@ -11,8 +11,8 @@ or check the [RotorHazard-Updater.pdf](/how_to/RotorHazard-Updater.pdf)
 
 You may also read [update-notes](update-notes.md)
 
->This software is designed to run using python 2.7.
->Will be updated to be python 3 friendly, when
+>This software is designed to run using python 2.7.</br>
+>Will be updated to be python 3 friendly, when</br>
 >RotorHazard software will be converted as well.
 
 Commands to download the repo onto Raspberry Pi or Linux system:
