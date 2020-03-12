@@ -5,7 +5,7 @@ This software is designed to work with python 2.7.
 Will be converted to python 3 when RotorHazard will be converted as well. 
 
 Some actions on system files are being performed during operations like UART enabling etc.
-Admin privileges are only used when needed or to ensure smooth operation.
+Admin privileges are only used when needed (eg. avrdude installation) or to ensure smooth operation.
 
 Software operates in user's home folder most of the time. It contains some code
 that can change content of that folder. Some directories may be deleted to ensure smooth operation
