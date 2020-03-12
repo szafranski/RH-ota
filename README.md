@@ -1,6 +1,6 @@
 
 
-#Easy mange and update your RotorHazard installation. 
+# Easy mange and update your RotorHazard installation. 
 
 Additional features like nodes flashing also included.
 </br>
