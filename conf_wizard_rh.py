@@ -149,7 +149,6 @@ Default values are not automatically applied. Type them if needed.\n""")
 				break
 			else:
 				print("too big fingers :( wrong command. try again! :)")
-
 		if selection == 'y' or selection ==  'yes':
 			os.system("mv .wizarded-rh-config.json /home/"+user+"/RotorHazard/src/server/config.json")
 			print("Configuration saved.\n")
