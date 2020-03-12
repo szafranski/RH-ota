@@ -1,6 +1,3 @@
-####To do:####
-# avrdude test - maybe
-
 from time import sleep
 import os
 import platform
@@ -341,7 +338,7 @@ def mainMenu():
 	logoTop()
 	configCheck()
 	print("\n\n\t\t\t\t"+bcolors.RED+bcolors.BOLD+bcolors.UNDERLINE+"MAIN MENU"+bcolors.ENDC+"\n")
-	print("			"+bcolors.BLUE+bcolors.BOLD+"1 - RH server - install and update\n"+bcolors.ENDC)
+	print("			"+bcolors.BLUE+bcolors.BOLD+"1 - RotorHazard Manager\n"+bcolors.ENDC)
 	print("			"+bcolors.BLUE+bcolors.BOLD+"2 - Nodes flash and update\n"+bcolors.ENDC)
 	print("			"+bcolors.BOLD+"3 - Start the server now\n"+bcolors.ENDC)
 	print("			"+bcolors.BOLD+"4 - Additional features\n"+bcolors.ENDC)
