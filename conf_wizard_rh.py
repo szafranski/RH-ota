@@ -47,8 +47,6 @@ def confCheck():
 		conf_now_FLAG =1
 confCheck()
 
-#		os.system("sed -i 's/console=serial0,115200//g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
-
 if conf_now_FLAG ==1:
 	while True:
 		print("""\n
@@ -60,10 +58,17 @@ Default values are not automatically applied. Type them if needed.\n""")
 		os.system("sed -i 's/\"ADMIN_USERNAME\": \"admin\"/\"ADMIN_USERNAME\": \""+admin_name+"\"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
 		admin_pass = raw_input("\nWhat will be admin password on RotorHazard page? [default: rotorhazard]\t")
 		os.system("sed -i 's/\"ADMIN_PASSWORD\": \"rotorhazard\"/\"ADMIN_PASSWORD\": \""+admin_pass+"\"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
-		print("\nWill you use LEDs in your system? [yes | no]\n")
+		while True:
+			port = raw_input("\nWhich port will you use with RotorHazard? [default: 5000]\t\t")
+			if (port.isdigit()==False) or (int(port) <0):
+				print("\nPlease enter correct value!")
+			else:
+				os.system("sed -i 's/\"HTTP_PORT\": 5000/\"HTTP_PORT\": "+port+"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
+				break
+		print("\nAre you planning to use LEDs in your system? [yes | no]\n")
 		valid_options = ['y', 'yes', 'n', 'no']
 		while True:
-			selection=raw_input().strip()
+			selection=raw_input("\t").strip()
 			if selection in valid_options:
 				break
 			else:
@@ -122,12 +127,13 @@ Default values are not automatically applied. Type them if needed.\n""")
 			led_channel = '0'
 			panel_rot = '0'
 			inv_rows = 'false'
-			print("\nLED configuration set to default values\n")
+			print("\nLED configuration set to default values.\n")
 			sleep(1)
 
 		print("""\n\n\t\t\t"""+bcolors.UNDERLINE+"""CONFIGURATION"""+bcolors.ENDC+""":\n\t
 		Admin name: \t\t"""+admin_name+"""
 		Admin password: \t"""+admin_pass+"""
+		RotorHazard port: \t"""+port+"""
 		Led amount: \t\t"""+led_count+"""
 		LED pin: \t\t"""+led_pin+"""
 		LED inverted: \t\t"""+led_inv+"""
