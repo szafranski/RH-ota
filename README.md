@@ -9,9 +9,6 @@ If you want all hardware functionalities - visit:
 
 [Instructables page](https://www.instructables.com/id/RotorHazard-Updater/)
 
-Link:
-https://www.instructables.com/id/RotorHazard-Updater/
-
 or check how_to folder - look for PDF file.
 
 Yo may also check [update-notes](update-notes.md)
