@@ -1,3 +1,4 @@
+
 		Developer notes:
 
 This software is designed to work with python 2.7.
@@ -14,3 +15,4 @@ or "temp.zip" may be deleted. No actuall installation or configuration files are
 Update notes may be read for new features descriptions. 
 
 Feedback is welcome. Use GitHub or contact me via Facebook.
+
