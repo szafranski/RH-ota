@@ -4,6 +4,11 @@ import platform
 import sys
 import json
 import time
+import subprocess
+
+def print_centered(s):
+	terminal_width = int(subprocess.check_output(['stty', 'size']).split()[1])
+	print s.center(terminal_width)
 
 if os.path.exists("./updater-config.json") == True:
 	with open('updater-config.json') as config_file:
