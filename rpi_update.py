@@ -81,7 +81,6 @@ def configChecker():
 		config_soft = bcolors.GREEN+"""configured"""+bcolors.ENDC
 	else:
 		config_soft = bcolors.YELLOW+bcolors.UNDERLINE+"""not configured"""+bcolors.ENDC
-configChecker()
 
 def sysConf():
 	os.system("sudo systemctl enable ssh")
@@ -276,6 +275,7 @@ def main():
 	global server_version_name
 	clearTheScreen()
 	serverChecker()
+	configChecker()
 	sleep(0.1)
 	print("""\n\n\t\t"""+bcolors.RED+bcolors.BOLD+"""AUTOMATIC UPDATE AND INSTALLATION OF ROTORHAZARD RACING TIMER SOFTWARE\n\n\t"""+bcolors.ENDC
 	+bcolors.BOLD+"""This script can automatically install and update RotorHazard software on your Raspberry. 
