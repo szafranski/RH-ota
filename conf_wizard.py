@@ -103,13 +103,13 @@ Default values are not automatically applied. Type them if needed.\n""")
 
 		if selection == 'y' or selection ==  'yes':
 			os.system("mv .wizarded-updater-config.json updater-config.json")
-			print("Configuration saved.")
+			print("Configuration saved.\n")
 			sleep(0.5)
 			break
 		if selection == 'n' or selection == 'no':
 			continue
 		if selection == 'abort':
-			print("Configuration aborted.")
+			print("Configuration aborted.\n")
 			sleep(0.5)
 			break
 else:
