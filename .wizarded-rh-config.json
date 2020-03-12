@@ -1,0 +1,22 @@
+{
+	"GENERAL": {
+		"HTTP_PORT": 5000,
+		"ADMIN_USERNAME": "admin",
+		"ADMIN_PASSWORD": "rotorhazard",
+		"DEBUG": false,
+		"CORS_ALLOWED_HOSTS": "*"
+	},
+	"SENSORS": {
+	},
+	"SERIAL_PORTS": [],
+	"LED": {
+		"LED_COUNT": 0,
+		"LED_PIN": 10,
+		"LED_FREQ_HZ": 800000,
+		"LED_DMA": 10,
+		"LED_INVERT": false,
+		"LED_CHANNEL": 0,
+		"PANEL_ROTATE": 0,
+		"INVERTED_PANEL_ROWS": false
+	}
+}
