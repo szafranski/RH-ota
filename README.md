@@ -27,8 +27,5 @@ You may also read [update notes](update-notes.md) - new features are present.
 
 </br>
 
->This software is designed to run using python 2.7. Will be updated to be python 3 friendly, </br>
->when RotorHazard software will be converted as well.
-
-If you want detailed description of this software and actions that are being performed during operations,</br>
-you may read [developer notes](dev-notes.txt).
+>If you want detailed description of this software and actions that are being performed during operations,</br>
+>you may read [developer notes](dev-notes.txt).
