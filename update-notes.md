@@ -26,7 +26,7 @@ allows stopping server and coming back to ota program
 
 2.2.9a
 
-Checking internet connection before performing server update
+BIG: Checking internet connection before performing server update
 or installation - prevents errors and config loss
 
 ______________________________________________________________
