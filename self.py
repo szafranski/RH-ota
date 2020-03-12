@@ -3,7 +3,6 @@ import os
 import sys
 import json
 import time
-from modules import check_if_string_in_file
 
 os.system("pwd >.my_pwd")
 with open('.my_pwd', 'r') as file:
