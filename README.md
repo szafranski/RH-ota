@@ -6,13 +6,9 @@ Additional features like nodes flashing also included.
 </br>
 </br>
 If you want all hardware functionalities - visit: [Instructables page](https://www.instructables.com/id/RotorHazard-Updater/)
-or check the [RotorHazard-Updater.pdf](/how_to/RotorHazard-Updater.pdf)
+or check the [RotorHazard-Updater.pdf](/how_to/RotorHazard-Updater.pdf).
 
 You may also read [update notes](update-notes.md).
-
->This software is designed to run using python 2.7.</br>
->Will be updated to be python 3 friendly, when</br>
->RotorHazard software will be converted as well.
 
 Commands to download the repo onto Raspberry Pi or Linux system:
 
@@ -29,3 +25,7 @@ Commands to open the software:
 	
 	cd ~/RH-ota
 	python update.py
+
+>This software is designed to run using python 2.7.</br>
+>Will be updated to be python 3 friendly, when</br>
+>RotorHazard software will be converted as well.
