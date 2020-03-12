@@ -9,8 +9,9 @@ If you want all hardware functionalities - visit: [Instructables page](https://w
 
 or check the [RotorHazard-Updater.pdf](/how_to/RotorHazard-Updater.pdf)
 
-Yo may also check [update-notes](update-notes.md)
-Software is designed to run using python 2.7.
+You may also check [update-notes](update-notes.md)
+
+This software is designed to run using python 2.7.
 
 Will be updated to be python 3 friendly, when
 RotorHazard software will be converted as well.
