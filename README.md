@@ -1,15 +1,15 @@
 
 
 # Easy mange and update your RotorHazard installation. 
-
-Additional features like nodes flashing also included.
+</br>
+Additional features like nodes flashing are included.
 </br>
 </br>
 If you want all hardware functionalities - visit: [Instructables page](https://www.instructables.com/id/RotorHazard-Updater/)
 or check the [RotorHazard-Updater.pdf](/how_to/RotorHazard-Updater.pdf).
 
 You may also read [update notes](update-notes.md).
-
+</br>
 Commands to download the repo onto Raspberry Pi or Linux system:
 
 	cd ~
