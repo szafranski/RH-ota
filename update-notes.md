@@ -10,6 +10,7 @@
 
 Added configuration wizard for RotorHazard server
 Reorganized first page of RH updater 
+Real time checking the state of RH configuration
 
 
 2.2.9e
