@@ -192,8 +192,9 @@ def update():
 		sleep(0.2)
 		clearTheScreen()
 		if os.path.exists("/home/"+user+"/RotorHazard") == False:
-			print("""\n\t """+bcolors.BOLD+"""Looks like you don't have RotorHazard server software installed for now. \n\t\t
-		 If so please install your server software first or you won't be able to use the timer."""+bcolors.ENDC+""" """)
+			print("""\n\t """+bcolors.BOLD+"""
+		Looks like you don't have RotorHazard server software installed for now. \n\t\t
+		If so please install your server software first or you won't be able to use the timer."""+bcolors.ENDC+""" """)
 			selection=str(raw_input("""\n\n\t\t"""+bcolors.GREEN+""" 'i' - Install the software - recommended """+ bcolors.ENDC+
 			"""\n\n\t\t 'u' - Force update procedure   \n\n\t\t """+bcolors.YELLOW+"""'a' - Abort both  \n\n """+bcolors.ENDC+""" """))
 			if selection == 'i':
