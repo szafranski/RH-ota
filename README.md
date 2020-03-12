@@ -25,7 +25,7 @@ You may also read [update notes](update-notes.md) - new features are present.
 	cd ~/RH-ota
 	python update.py
 
-</br></br>
+</br>
 >This software is designed to run using python 2.7.
 >Will be updated to be python 3 friendly, </br>
 >when RotorHazard software will be converted as well.
