@@ -13,9 +13,11 @@ in the future - eg. any "leftovers" from previous installation attempts like "Ro
 or "temp.zip" may be deleted. No actuall installation or configuration files are intended to be deleted. 
 
 Software also contains some compatibility-ensuring code in prev_comp.py file so first users 
-would have same, good experiences with this software.
+have same, good experiences with this software.
 
-Update notes may be read for new features descriptions. 
+.dev folder contains pieces of software which are not accessible by usual users, like test files etc.
+
+Update notes may be read for new features description. 
 
 Feedback is welcome. Use GitHub or contact me via Facebook.
 
