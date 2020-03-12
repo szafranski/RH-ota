@@ -93,21 +93,21 @@ Default values are not automatically applied. Type them if needed.\n""")
 					os.system("sed -i 's/\"LED_PIN\": 10/\"LED_PIN\": "+led_pin+"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
 					break
 			while True:
-				led_inv = raw_input("\nLED invert? [false | true; default: false]\t\t")
+				led_inv = raw_input("\nIs LED data pin output inverted? [false | true; default: false]\t\t")
 				if led_inv != 'false' and led_inv !='true':
 					print("\nPlease enter correct value!")
 				else:
 					os.system("sed -i 's/\"LED_INVERT\": false/\"LED_INVERT\": "+led_inv+"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
 					break
 			while True:
-				led_channel = raw_input("\nWhat channel will be used for your LEDs? [default: 0]\t\t\t")
-				if (led_channel.isdigit()==False) or (int(led_channel) <0) or (int(led_channel) >5):
+				led_channel = raw_input("\nWhat channel (not pin!) will be used with your LEDs? [default: 0]\t")
+				if (led_channel.isdigit()==False) or (int(led_channel) <0) or (int(led_channel) >1):
 					print("\nPlease enter correct value!")
 				else:
 					os.system("sed -i 's/\"LED_CHANNEL\": 0/\"LED_CHANNEL\": "+led_channel+"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
 					break
 			while True:
-				panel_rot = raw_input("\nIs your LED panel rotated? [1/2/3/4 | default: 0]\t\t\t")
+				panel_rot = raw_input("\nIs your LED panel rotated? [0/1/2/3 | default: 0]\t\t\t")
 				if (panel_rot.isdigit()==False) or (int(panel_rot) <0) or (int(panel_rot) >4):
 					print("\nPlease enter correct value!")
 				else:
