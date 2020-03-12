@@ -282,11 +282,11 @@ def firstTime():
 		clearTheScreen()
 		print("""\n\n
 		"""+bcolors.BOLD+bcolors.UNDERLINE+"""\t\tCONFIGURATION PROCESS"""+bcolors.ENDC+"""\n\n
-	"""+bcolors.BOLD+"""Configuration process can be assisted with a wizard. 
+	"""+bcolors.BOLD+"""Software configuration process can be assisted with a wizard. 
 	You have to enter point 5. of Main Menu and apply right values.\n
 	It will configure this software, not RotorHazard server itself. \n
-	Thing like amount of used LEDs or password to admin page of RH
-	should be configured separately.\n\n
+	Thing like amount of used LEDs or password to admin page of RotorHazard
+	should be configured separately - check RotorHazard Manager in Main Menu.\n\n
 	Possible RotorHazard server versions:\n
 	> """+bcolors.BLUE+"""\"stable\""""+bcolors.ENDC+bcolors.BOLD+""" - last stable release (can be from before few days or few months)\n
 	> """+bcolors.BLUE+"""\"beta\""""+bcolors.ENDC+bcolors.BOLD+"""   - last 'beta' release (usually has about few weeks, quite stable)\n
