@@ -3,13 +3,13 @@
 #Easy mange and update your RotorHazard installation. 
 
 Additional features like nodes flashing also included.
-
-
+</br>
+</br>
 If you want all hardware functionalities - visit: [Instructables page](https://www.instructables.com/id/RotorHazard-Updater/)
 
 or check the [RotorHazard-Updater.pdf](/how_to/RotorHazard-Updater.pdf)
 
-You may also read [update-notes](update-notes.md)
+You may also read [update notes](update-notes.md).
 
 >This software is designed to run using python 2.7.</br>
 >Will be updated to be python 3 friendly, when</br>
