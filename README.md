@@ -1,6 +1,6 @@
 
 
-Easy mange and update your RotorHazard installation. 
+#Easy mange and update your RotorHazard installation. 
 
 Additional features like nodes flashing also included.
 
@@ -12,7 +12,6 @@ or check the [RotorHazard-Updater.pdf](/how_to/RotorHazard-Updater.pdf)
 You may also read [update-notes](update-notes.md)
 
 >This software is designed to run using python 2.7.
-
 >Will be updated to be python 3 friendly, when
 >RotorHazard software will be converted as well.
 
