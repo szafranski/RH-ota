@@ -1,0 +1,6 @@
+This software is based on python 2.7.
+Will be converted to python 3 when RotorHazard will be converted as well. 
+
+Some actions on system files are being performed during operations.
+Admin privileges are only used when needed or to ensure smooth operation.
+
