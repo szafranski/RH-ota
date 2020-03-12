@@ -22,6 +22,8 @@ Linux or WSL will be probably most compatible.
 
 Update notes may be read for new features description. 
 
+Branches 'master' and 'no_pdf_included' are always up-to-date and valid to be used.
+
 Feedback is welcome. Use GitHub or contact me via Facebook.
 
 Link to my GitHub page: https://github.com/szafranski with a contact links.
