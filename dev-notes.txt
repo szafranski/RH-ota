@@ -15,7 +15,7 @@ or "temp.zip" may be deleted. No actuall installation or configuration files are
 Software also contains some compatibility-ensuring code in prev_comp.py file so first users 
 have same, good experiences with this software.
 
-.dev folder contains pieces of software which are not accessible by usual users, like test files etc.
+Directory '/.dev' contains pieces of software which are not accessible by usual users, like test files etc.
 
 Update notes may be read for new features description. 
 
