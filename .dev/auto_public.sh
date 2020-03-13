@@ -1,3 +1,4 @@
+git pull
 cd ~/RH-ota
 git status
 git add .
