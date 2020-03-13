@@ -329,9 +329,19 @@ def main():
 			if selection == 'i':
 				conf_allowed = False
 				installation()
-			if selection == 's':
-				conf_allowed = True
-				installation()
+			if selection == 'c':
+				confirm_valid_options = ['y', 'yes','n','no','abort','a']
+				while True:
+					confirm = raw_input("\n\t\tAre you sure? [yes/abort]\t").strip()
+					if confirm in confirm_valid_options:
+						break
+					else:
+						print("too big fingers :( wrong command. try again! :)")
+				if confirm == 'y' or confirm ==  'yes':
+					conf_allowed = True
+					installation()
+				if confirm in ['n','no','abort','a']:
+					pass
 			if selection == 'a':
 				clearTheScreen()
 				image()
