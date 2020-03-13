@@ -33,7 +33,7 @@ def confCheck():
 		print("\t\tLooks that you already have RotorHazard server configured.")
 		valid_options = ['y', 'yes', 'n', 'no']
 		while True:
-			cont_conf = raw_input("\n\t\tOverwrite and continue anyway? [yes/no]\t").strip()
+			cont_conf = raw_input("\n\t\tOverwrite and continue anyway? [yes/no]\t\t").strip()
 			if cont_conf in valid_options:
 				break
 			else:
