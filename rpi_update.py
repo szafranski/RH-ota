@@ -96,7 +96,8 @@ def sysConf():
 	os.system("sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
 
 def end():
-	print("\n\n\n\t\t"+bcolors.GREEN+"Type 'r' for reboot - recommended"+bcolors.ENDC+"\n")
+	print("\n\n\n\t\t"+bcolors.GREEN+"Type 'c' to configure the server now - recommended"+bcolors.ENDC+"\n")
+	print("\t\t"+bcolors.GREEN+"Type 'r' for reboot - recommended after configuring"+bcolors.ENDC+"\n")
 	print("\t\tType 's' to start the server now\n")
 	print("\t\t"+bcolors.YELLOW+"Type 'e' for exit\n"+bcolors.ENDC)
 	def endMenu():
@@ -105,6 +106,8 @@ def end():
 			os.system("sudo reboot")
 		if selection =='e':	
 			sys.exit()
+		if selection =='c':	
+			os.system("cd /home/"+user+"/RH-ota/ && python conf_wizard_rh.py")
 		if selection =='s':	
 			clearTheScreen()
 			os.chdir("/home/"+user+"/RH-ota")
@@ -146,7 +149,7 @@ def installation():
 		os.system("rm -r /home/"+user+"/RotorHazard-* >/dev/null 2>&1")   ### in case of forced installation
 		os.chdir("/home/"+user)
 		os.system("wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"+server_version+" -O temp.zip")
-		os.system("unzip temp.zip")
+		os.system("unzip temp.zip >/dev/null ")
 		os.system("rm temp.zip")
 		os.system("mv /home/"+user+"/RotorHazard-"+server_version+" /home/"+user+"/RotorHazard")
 		os.system("sudo -H pip install -r /home/"+user+"/RotorHazard/src/server/requirements.txt")
@@ -242,7 +245,7 @@ def update():
 			os.system("sudo mv /home/"+user+"/RotorHazard /home/"+user+"/RotorHazard.old")
 			os.chdir("/home/"+user)
 			os.system("wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"+server_version+" -O temp.zip")
-			os.system("unzip temp.zip")
+			os.system("unzip temp.zip >/dev/null ")
 			os.system("mv /home/"+user+"/RotorHazard-"+server_version+" /home/"+user+"/RotorHazard")
 			os.system("sudo rm temp.zip")
 			if os.path.exists("/home/"+user+"/backup_RH_data") == False:

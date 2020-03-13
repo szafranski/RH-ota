@@ -141,7 +141,7 @@ Default values are not automatically applied. Type them if needed.\n""")
 			panel_rot = '0'
 			inv_rows = 'false'
 			print("\nLED configuration set to default values.\n\n")
-			sleep(0.8)
+			sleep(1.2)
 			
 		print("\nDo you want to enter advanced wizard? [yes/no]\n")
 		valid_options = ['y', 'yes', 'n', 'no']
@@ -214,7 +214,7 @@ Default values are not automatically applied. Type them if needed.\n""")
 			dma = '10'
 			freq = '800000'
 			print("\nAdvanced configuration set to default values.\n\n")
-			sleep(0.8)
+			sleep(1.2)
 
 		print("""\n\n\t\t\t"""+bcolors.UNDERLINE+"""CONFIGURATION"""+bcolors.ENDC+""":\n\t
 		Admin name: \t\t"""+admin_name+"""
