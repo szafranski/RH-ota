@@ -59,7 +59,7 @@ Default values are not automatically applied. Type them if needed.\n""")
 				os.system("echo '	\"nodes_number\" : "+nodes+",' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
 				break
 		while True:
-			debug_mode = raw_input("\nWill you use debug mode? [yes/no | default: no]\t\t\t\t")
+			debug_mode = raw_input("\nWill you use \"OTA\" software in a debug mode? [yes/no | default: no]\t")
 			debug_mode_allowed_values = ['yes','no','1','0','y','n']
 			if not debug_mode in debug_mode_allowed_values:
 				print("\nPlease enter correct value!")
