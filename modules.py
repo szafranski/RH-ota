@@ -40,7 +40,7 @@ def clearTheScreen():
 	sleep(0.05)
 
 def image():
-	with open('image.txt', 'r') as file:
+	with open('./resources/image.txt', 'r') as file:
 		f = file.read()
 		print(f)
 
