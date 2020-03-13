@@ -1,7 +1,6 @@
 import os
 import platform
 import sys
-import json
 from modules import check_if_string_in_file
 
 homedir = os.path.expanduser('~')
