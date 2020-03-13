@@ -94,13 +94,13 @@ Default values are not automatically applied. Type them if needed.\n""")
 					break
 			while True:
 				led_inv = raw_input("\nIs LED data pin output inverted? [yes/no | default: no]\t\t\t")
-				led_inv_allowed_values = ['yes','no','false','true']
+				led_inv_allowed_values = ['yes','no','false','true','y','n']
 				if not led_inv in led_inv_allowed_values:
 					print("\nPlease enter correct value!")
 				else:
-					if led_inv == 'yes' or led_inv == 'true':
+					if led_inv in ['yes','1','y']:
 						led_inv_val = 'true'
-					elif led_inv == 'no' or led_inv == 'false':
+					elif led_inv in ['no','0','n']:
 						led_inv_val = 'true'
 					os.system("sed -i 's/\"LED_INVERT\": false/\"LED_INVERT\": "+led_inv_val+"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
 					break
@@ -122,13 +122,13 @@ Default values are not automatically applied. Type them if needed.\n""")
 					break
 			while True:
 				inv_rows = raw_input("\nAre your panel rows inverted? [yes/no | default: no]\t\t\t")
-				inv_rows_allowed_values = ['yes','no','false','true']
+				inv_rows_allowed_values = ['yes','no','false','true','y','n']
 				if not inv_rows in inv_rows_allowed_values:
 					print("\nPlease enter correct value!")
 				else:
-					if inv_rows == 'yes' or inv_rows == 'true':
+					if inv_rows in ['yes','1','y']:
 						inv_rows_val = 'true'
-					elif inv_rows == 'no' or inv_rows == 'false':
+					elif inv_rows in ['no','0','n']:
 						inv_rows_val = 'true'
 					os.system("sed -i 's/\"INVERTED_PANEL_ROWS\": \"false\"/\"INVERTED_PANEL_ROWS\": \""+inv_rows_val+"\"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
 					break

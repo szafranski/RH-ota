@@ -60,13 +60,13 @@ Default values are not automatically applied. Type them if needed.\n""")
 				break
 		while True:
 			debug_mode = raw_input("\nWill you use debug mode? [yes/no | default: no]\t\t\t\t")
-			debug_mode_allowed_values = ['yes','no','1','0']
+			debug_mode_allowed_values = ['yes','no','1','0','y','n']
 			if not debug_mode in debug_mode_allowed_values:
 				print("\nPlease enter correct value!")
 			else:
-				if debug_mode == 'yes' or debug_mode == '1':
+				if debug_mode in ['yes','1','y']:
 					debug_mode_val = '1'
-				if debug_mode == 'no' or debug_mode == '0':
+				elif debug_mode in ['no','0','n']:
 					debug_mode_val = '0'
 				os.system("echo '	\"debug_mode\" : "+debug_mode_val+",' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
 				break
@@ -80,13 +80,13 @@ Default values are not automatically applied. Type them if needed.\n""")
 				break
 		while True:
 			no_pdf = raw_input("\nUpdates without PDF? [yes/no | default: yes]\t\t\t\t")
-			no_pdf_allowed_values = ['yes','no','1','0']
+			no_pdf_allowed_values = ['yes','no','1','0','y','n']
 			if not no_pdf in no_pdf_allowed_values:
 				print("\nPlease enter correct value!")
 			else:
-				if no_pdf == 'yes' or no_pdf == '1':
+				if no_pdf in ['yes','1','y']:
 					no_pdf_val = '1'
-				if no_pdf == 'no' or no_pdf == '0':
+				elif no_pdf in ['no','0','n']:
 					no_pdf_val = '0'
 				os.system("echo '	\"updates_without_pdf\" : "+no_pdf_val+"' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
 				break
@@ -102,7 +102,7 @@ Default values are not automatically applied. Type them if needed.\n""")
 		Pins assignment: \t"""+pins_assign+"""
 		Updates without PDF: \t"""+no_pdf+"""\n\n""")
 
-		print("Please check. Confirm? [yes/no/abort]\n")
+		print("Please check. Confirm? [yes/change/abort]\n")
 		valid_options = ['y', 'yes', 'n', 'no', 'abort']
 		while True:
 			selection=raw_input().strip()
@@ -116,7 +116,7 @@ Default values are not automatically applied. Type them if needed.\n""")
 			print("Configuration saved.\n")
 			sleep(0.5)
 			break
-		if selection == 'n' or selection == 'no':
+		if selection == 'change':
 			continue
 		if selection == 'abort':
 			print("Configuration aborted.\n")
