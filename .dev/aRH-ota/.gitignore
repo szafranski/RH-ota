@@ -1,0 +1,6 @@
+updater-config.json
+*.pyc
+.travis.yml
+/how_to
+index.html
+.wizarded*
