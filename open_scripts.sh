@@ -29,7 +29,7 @@ timeout 3s wget www.google.com
 	# sleep 0.5
 # }
 
-# script like this ensures that files are being executed in right directory but main program
+# scripts like those ensures that files are being executed in right directory but main program
 # istelf can be continued from previous directory after such a script was executed or stopped
 # eg. after hittind Ctrl+C after server was started etc.
 
