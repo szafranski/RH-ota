@@ -10,7 +10,7 @@
 
 Internet checking, server booting and RH configuration 
 moved into one script - . command used
-
+Added license file and tweaked README.md
 
 2.2.9f
 
