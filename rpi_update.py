@@ -41,7 +41,7 @@ def internetCheck():
 	print("\nPlease wait - checking internet connection state...\n")
 	global internet_FLAG
 	before_millis = int(round(time.time() * 1000))
-	os.system(". /home/"+user+"/RH-ota/open_scripts.sh; net_check")
+	os.system(". /home/"+user+"/RH-ota/open_scripts.sh; net_check ")
 	while True:
 		now_millis = int(round(time.time() * 1000))
 		time_passed = (now_millis - before_millis)
@@ -99,10 +99,10 @@ def sysConf():
 	os.system("sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
 
 def end():
-	print("\n\n\n\t\t"+bcolors.GREEN+"Type 'c' to configure the server now - recommended"+bcolors.ENDC+"\n")
-	print("\t\t"+bcolors.GREEN+"Type 'r' for reboot - recommended after configuring"+bcolors.ENDC+"\n")
-	print("\t\tType 's' to start the server now\n")
-	print("\t\t"+bcolors.YELLOW+"Type 'e' for exit\n"+bcolors.ENDC)
+	print("\n\n\n\t\t"+bcolors.GREEN+"'c' - configure the server now - recommended"+bcolors.ENDC+"\n")
+	print("\t\t"+bcolors.GREEN+"'r' - reboot - recommended after configuring"+bcolors.ENDC+"\n")
+	print("\t\t's' - start the server now\n")
+	print("\t\t"+bcolors.YELLOW+"'e' - exit now\n"+bcolors.ENDC)
 	def endMenu():
 		selection=str(raw_input(""))
 		if selection =='r':	
@@ -131,7 +131,7 @@ def installation():
 		sleep(2)
 	else:
 		print("Internet connection - OK")
-		sleep(1)
+		sleep(2)
 		clearTheScreen()
 		print("\n\t\t "+bcolors.BOLD+"Installation process started - please wait..."+bcolors.ENDC+" \n")
 		os.system("sudo apt-get update && sudo apt-get upgrade -y")
@@ -210,7 +210,7 @@ def update():
 		sleep(2)
 	else:
 		print("Internet connection - OK")
-		sleep(1)
+		sleep(2)
 		clearTheScreen()
 		if os.path.exists("/home/"+user+"/RotorHazard") == False:
 			print("""\n\t """+bcolors.BOLD+"""
@@ -271,11 +271,11 @@ def update():
 			os.chdir("/home/"+user+"/RotorHazard/src/server")
 			os.system("sudo -H pip install --upgrade --no-cache-dir -r requirements.txt")
 			print("""\n\n\t
-			##############################################
-			##                                          ##
-			##            """+bcolors.BOLD+"""Update completed!"""+bcolors.ENDC+"""             ##
-			##                                          ##
-			##############################################""")
+		##############################################
+		##                                          ##
+		##            """+bcolors.BOLD+"""Update completed!"""+bcolors.ENDC+"""             ##
+		##                                          ##
+		##############################################""")
 			end()
 
 def main():
