@@ -112,7 +112,7 @@ Default values are not automatically applied. Type them if needed.\n""")
 					os.system("sed -i 's/\"LED_CHANNEL\": 0/\"LED_CHANNEL\": "+led_channel+"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
 					break
 			while True:
-				panel_rot = raw_input("\nIs your LED panel rotated? [0/90/180/270 | default: 0]\t\t\t")
+				panel_rot = raw_input("\nBy how many degrees is your panel rotated? [0/90/180/270 | default: 0]\t")
 				panel_rot_values_allowed = ['0','90','180','270']
 				if not panel_rot in panel_rot_values_allowed:
 					print("\nPlease enter correct value!")
