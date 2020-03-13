@@ -28,4 +28,4 @@ You may also read [update notes](update-notes.md) - new features are present.
 </br>
 
 >If you want detailed description of this software and actions that are being performed during operations,</br>
->you may read [developer notes](/resources/dev-notes.txt). You may check [license file](LICESNE) as well.
+>you may read [developer notes](/resources/dev-notes.txt). You may want to check [license file](LICENSE) as well.
