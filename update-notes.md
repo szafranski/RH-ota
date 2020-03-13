@@ -11,6 +11,7 @@
 Internet checking, server booting and RH configuration 
 moved into one script - . command used
 
+
 2.2.9f
 
 Added configuration wizard for RotorHazard server
