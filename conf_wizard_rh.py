@@ -154,8 +154,8 @@ Default values are not automatically applied. Type them if needed.\n""")
 		LED panel rotate: \t"""+panel_rot+"""
 		LED rows inverted: \t"""+inv_rows+"""\n\n""")
 
-		print("Please check. Confirm? [yes/no/abort]\n")
-		valid_options = ['y', 'yes', 'n', 'no', 'abort']
+		print("Please check. Confirm? [yes/change/abort]\n")
+		valid_options = ['y', 'yes', 'n', 'no', 'change', 'abort']
 		while True:
 			selection=raw_input().strip()
 			if selection in valid_options:
@@ -167,7 +167,7 @@ Default values are not automatically applied. Type them if needed.\n""")
 			print("Configuration saved.\n")
 			sleep(0.5)
 			break
-		if selection == 'n' or selection == 'no':
+		if selection in ['change','n','no']:
 			continue
 		if selection == 'abort':
 			print("Configuration aborted.\n")

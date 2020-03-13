@@ -103,20 +103,19 @@ Default values are not automatically applied. Type them if needed.\n""")
 		Updates without PDF: \t"""+no_pdf+"""\n\n""")
 
 		print("Please check. Confirm? [yes/change/abort]\n")
-		valid_options = ['y', 'yes', 'n', 'no', 'abort']
+		valid_options = ['y', 'yes', 'n', 'no', 'change', 'abort']
 		while True:
 			selection=raw_input().strip()
 			if selection in valid_options:
 				break
 			else:
 				print("too big fingers :( wrong command. try again! :)")
-
 		if selection == 'y' or selection ==  'yes':
 			os.system("mv .wizarded-updater-config.json updater-config.json")
 			print("Configuration saved.\n")
 			sleep(0.5)
 			break
-		if selection == 'change':
+		if selection in ['change','n','no']:
 			continue
 		if selection == 'abort':
 			print("Configuration aborted.\n")
