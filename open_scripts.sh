@@ -2,6 +2,7 @@
 
 server_start () 
 {
+#	printf "Server booting, please wait...\n\n" | pv -qL 10
 	printf "Server booting, please wait...\n\n"
 	cd ~/RotorHazard/src/server
 	python server.py

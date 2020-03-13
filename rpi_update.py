@@ -128,9 +128,10 @@ def installation():
 	internetCheck()
 	if internet_FLAG==0:
 		print("Looks like you don't have internet connection. Installation canceled.")
+		sleep(2)
 	else:
 		print("Internet connection - OK")
-		sleep(0.2)
+		sleep(1)
 		clearTheScreen()
 		print("\n\t\t "+bcolors.BOLD+"Installation process started - please wait..."+bcolors.ENDC+" \n")
 		os.system("sudo apt-get update && sudo apt-get upgrade -y")
@@ -299,7 +300,7 @@ def main():
 		'c' - Configure RotorHazard server\n
 		'i' - Install software from skratch\n
 		'u' - Update existing installation\n"""+bcolors.YELLOW+""" 
-		'a' - Abort \n"""+bcolors.ENDC+""" """)
+		'e' - Exit to Main Menu \n"""+bcolors.ENDC+""" """)
 	selection=str(raw_input(""))
 	if selection =='c':
 		if serv_installed_FLAG == True:
@@ -342,7 +343,7 @@ def main():
 			installation()
 	if selection =='u':	
 		update()
-	if selection =='a':	
+	if selection =='e':	
 		clearTheScreen()
 		os.chdir("/home/"+user+"/RH-ota")
 		image()
