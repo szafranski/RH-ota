@@ -30,7 +30,8 @@ def internetCheck():
 	print("\nPlease wait - checking internet connection state...\n")
 	global internet_FLAG
 	before_millis = int(round(time.time() * 1000))
-	os.system("timeout 3s sh "+myhomedir+"/RH-ota/net_check.sh > /dev/null 2>&1")
+	os.system(". /home/"+myhomedir+"/RH-ota/open_scripts.sh; net_check")
+	#os.system("timeout 3s sh "+myhomedir+"/RH-ota/net_check.sh > /dev/null 2>&1")
 	while True:
 		now_millis = int(round(time.time() * 1000))
 		time_passed = (now_millis - before_millis)

@@ -1,10 +1,11 @@
 from time import sleep
+import time
 import os
 import sys
 import platform
 import json
-from modules import clearTheScreen, bcolors, logoTop, image, check_if_string_in_file
-import time
+from modules import clearTheScreen, bcolors, logoTop, image, check_if_string_in_file#, internetCheck
+# import importlib
 
 if os.path.exists("./updater-config.json") == True:
 	with open('updater-config.json') as config_file:
@@ -34,11 +35,13 @@ if preffered_RH_version == 'stable':
 if preffered_RH_version =='custom':
 	server_version = 'X.X.X'           ### paste custom version number here if you want to declare it manually
 
+#global internet_FLAG
+
 def internetCheck():
 	print("\nPlease wait - checking internet connection state...\n")
 	global internet_FLAG
 	before_millis = int(round(time.time() * 1000))
-	os.system("timeout 3s sh /home/"+user+"/RH-ota/net_check.sh > /dev/null 2>&1")
+	os.system(". /home/"+user+"/RH-ota/open_scripts.sh; net_check")
 	while True:
 		now_millis = int(round(time.time() * 1000))
 		time_passed = (now_millis - before_millis)
@@ -60,7 +63,7 @@ def first ():
 	sleep(0.5)
 first()
 
-def serverChecker():
+def serverChecker():	
 	global serv_installed_FLAG 
 	if os.path.exists("/home/"+user+"/RotorHazard/src/server/server.py") == True:
 		os.system("grep 'RELEASE_VERSION =' ~/RotorHazard/src/server/server.py > ~/.ota_markers/.server_version")
@@ -107,11 +110,13 @@ def end():
 		if selection =='e':	
 			sys.exit()
 		if selection =='c':	
-			os.system("cd /home/"+user+"/RH-ota/ && python conf_wizard_rh.py")
+			os.system(". ./open_scripts.sh; configuraton_start")
+			#os.system("cd /home/"+user+"/RH-ota/ && python conf_wizard_rh.py")
 		if selection =='s':	
 			clearTheScreen()
 			os.chdir("/home/"+user+"/RH-ota")
-			os.system("sh ./server_start.sh")
+			os.system(". ./open_scripts.sh; server_start")
+			#os.system("sh ./server_start.sh")
 		else: 
 			end()
 	endMenu()	
@@ -122,7 +127,7 @@ def installation():
 		os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
 	internetCheck()
 	if internet_FLAG==0:
-		print("Looks like you don't have internet connection. Update canceled.")
+		print("Looks like you don't have internet connection. Installation canceled.")
 	else:
 		print("Internet connection - OK")
 		sleep(0.2)
@@ -298,18 +303,22 @@ def main():
 	selection=str(raw_input(""))
 	if selection =='c':
 		if serv_installed_FLAG == True:
-			os.system("python ./conf_wizard_rh.py")
+			os.system(". ./open_scripts.sh; configuraton_start")
+			#os.system("python ./conf_wizard_rh.py")
 		else:
 			print("\n\t\tPlease install server software first")
 			sleep (1.5)
 	if selection =='i':	
-		if (os.path.exists("/home/"+user+"/.ota_markers/.installation-check_file.txt") == True) or (os.path.exists("/home/"+user+"/RotorHazard") == True):
+		if (os.path.exists("/home/"+user+"/.ota_markers/.installation-check_file.txt") == True):
 			clearTheScreen()
-			print("""\n\t """+bcolors.BOLD+"""Looks like you already have RotorHazard server software installed."""+bcolors.ENDC+""" \n
-	 If so please use update mode instead. """)
+			print("""\n"""+bcolors.BOLD+"""
+	Looks like you already have RotorHazard server installed
+	(or at least that your system was once configured)."""+bcolors.ENDC+"""\n
+	If that's the case please use """+bcolors.UNDERLINE+"""update mode"""+bcolors.ENDC+""" - 'u'
+	or force installation """+bcolors.UNDERLINE+"""without"""+bcolors.ENDC+""" sys. config. - 'i'.""")
 			print("""\n\n\t"""+bcolors.GREEN+""" 
 		'u' - Select update mode - recommended """+ bcolors.ENDC+"""\n 
-		'i' - Force installation anyway\n
+		'i' - Force installation without sys. config.\n
 		'c' - Force installation and sys. config.\n """+bcolors.YELLOW+"""
 		'a' - Abort both  \n """+bcolors.ENDC+""" """)
 			selection=str(raw_input())
@@ -318,7 +327,7 @@ def main():
 			if selection == 'i':
 				conf_allowed = False
 				installation()
-			if selection == 'c':
+			if selection == 's':
 				conf_allowed = True
 				installation()
 			if selection == 'a':

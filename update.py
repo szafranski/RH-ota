@@ -140,6 +140,8 @@ def aliasesMenu():
 		os.system("echo 'functionality added - leave file here' | tee -a ~/.ota_markers/.aliases_added >/dev/null")
 		os.system("echo 'functionality added - leave file here' | tee -a ~/.ota_markers/.aliases2_added >/dev/null")
 		print("\n\n\t\t	Aliases added successfully")
+		#os.system(". ~/.bashrc && alias*")
+		#os.system("cd /home/"+user+"/RH-ota && . ./open_scripts.sh; aliases_reload")
 		sleep(2)
 		featuresMenu()
 	print("""\n\n\t\t
@@ -359,7 +361,8 @@ def mainMenu():
 		os.system("python ./nodes_update.py")   ### opens nodes updating file
 	if selection=='3':
 		clearTheScreen()
-		os.system("sh ./server_start.sh")
+		os.system(". ./open_scripts.sh; server_start")
+		#os.system("sh ./server_start.sh")
 	if selection=='4':
 		featuresMenu()
 	if selection=='5':
