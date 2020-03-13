@@ -110,7 +110,7 @@ def end():
 		if selection =='e':	
 			sys.exit()
 		if selection =='c':	
-			os.system(". ./open_scripts.sh; configuraton_start")
+			os.system(". /home/"+user+"/RH-ota/open_scripts.sh; configuraton_start")
 			#os.system("cd /home/"+user+"/RH-ota/ && python conf_wizard_rh.py")
 		if selection =='s':	
 			clearTheScreen()
