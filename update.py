@@ -274,7 +274,7 @@ def featuresMenu():
 def firstTime():
 	def UpdateNotes():
 		clearTheScreen()
-		os.system("less ./docs/update-notes.md")
+		os.system("less ./docs/update-notes.txt")
 		#with open('./update-notes.txt', 'rt') as f:
 		#	for line in f:
 		#		print line.replace('\n', '').replace('####', '')
