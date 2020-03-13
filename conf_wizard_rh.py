@@ -183,29 +183,34 @@ Default values are not automatically applied. Type them if needed.\n""")
 						debug = 'true'
 					elif debug_mode in ['no','0','n']:
 						debug = 'false'
-					os.system("sed -i 's/\"\"DEBUG\": false/\"DEBUG\": "+str(debug)+"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
+					os.system("sed -i 's/\"DEBUG\": false/\"DEBUG\": "+str(debug)+"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
 					break
 			while True:
 				cores = raw_input("\nHome many cores will be available for hosts? [1/2/3/all | default: all]\t")
-				cores_values_allowed = ['1','2','3','4','all']
+				cores_values_allowed = ['1','2','3','4','all','*']
 				if not cores in cores_values_allowed:
 					print("\nPlease enter correct value!")
 				else:
 					if cores in ['1','2','3']:
 						cores_val = str(cores)
+						os.system("sed -i 's/\"CORS_ALLOWED_HOSTS\": \"\*\"/\"CORS_ALLOWED_HOSTS\": \""+str(cores_val)+"\"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
+					elif cores == 'all':
+						cores_val='all'
 					else:
 						cores_val='*'
-					os.system("sed -i 's/\"CORS_ALLOWED_HOSTS\": \"\*\"/\"CORS_ALLOWED_HOSTS\": \""+str(cores_val)+"\"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
 					break
 			while True:
-				serial_ports = raw_input("\nWhich serial ports will you use? [default: <leave blank>]\t\t").strip()
-				os.system("sed -i 's/\"SERIAL_PORTS\": [],/\"SERIAL_PORTS\": ["+str(serial_ports)+"],/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
-				break
+				serial_ports = raw_input("\nWhich serial ports will you use? [default: 'none']\t\t\t").strip()
+				if serial_ports in ['none','0','no']:
+					break
+				else:
+					os.system("sed -i 's/\"SERIAL_PORTS\": [],/\"SERIAL_PORTS\": ["+str(serial_ports)+"],/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
+					break
 
 		if adv_wiz_FLAG==False:
 			debug = 'no'
-			cores_val = '*'
-			serial_ports = '[]'
+			cores_val = 'all'
+			serial_ports = 'none'
 			dma = '10'
 			freq = '800000'
 			print("\nAdvanced configuration set to default values.\n\n")
@@ -219,12 +224,12 @@ Default values are not automatically applied. Type them if needed.\n""")
 		LED pin: \t\t"""+led_pin+"""
 		LED inverted: \t\t"""+led_inv+"""
 		LED channel: \t\t"""+led_channel+"""
-		LED panel rotate: \t\t"""+panel_rot+"""
-		LED rows inverted: \t\t"""+inv_rows+"""
+		LED panel rotate: \t"""+panel_rot+"""
+		LED rows inverted: \t"""+inv_rows+"""
 		LED DMA: \t\t"""+dma+"""
 		LED frequency: \t\t"""+freq+"""
 		Debug mode: \t\t"""+debug+"""
-		Cores allowed: \t\t"""+cores+"""
+		Cores allowed: \t\t"""+cores_val+"""
 		Serial ports: \t\t"""+serial_ports+"""
 		
 		\n\n""")
