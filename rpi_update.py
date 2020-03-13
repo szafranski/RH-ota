@@ -207,9 +207,10 @@ def update():
 	internetCheck()
 	if internet_FLAG==0:
 		print("Looks like you don't have internet connection. Update canceled.")
+		sleep(2)
 	else:
 		print("Internet connection - OK")
-		sleep(0.2)
+		sleep(1)
 		clearTheScreen()
 		if os.path.exists("/home/"+user+"/RotorHazard") == False:
 			print("""\n\t """+bcolors.BOLD+"""

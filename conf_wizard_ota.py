@@ -13,7 +13,7 @@ logoTop()
 def confCheck():
 	global conf_now_FLAG
 	if os.path.exists("./updater-config.json") == True:
-		print("\t\tLooks that you have OTA software already configured.")
+		print("\n\t\tLooks that you have OTA software already configured.")
 		valid_options = ['y', 'yes', 'n', 'no']
 		while True:
 			cont_conf = raw_input("\n\t\tOverwrite and continue anyway? [yes/no]\t\t").strip()

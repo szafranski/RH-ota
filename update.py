@@ -43,7 +43,7 @@ else:
 
 def configCheck():
 	if os.path.exists("./updater-config.json") == False:
-		print("""\t\tLooks that you haven't set up config file yet.
+		print("""\n\t\tLooks that you haven't set up config file yet.
 		Please read about configuration process - point 5
 		and next enter configuration wizard - point 6.""")
 
