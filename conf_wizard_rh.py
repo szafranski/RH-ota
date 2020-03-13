@@ -171,7 +171,7 @@ Default values are not automatically applied. Type them if needed.\n""")
 				elif freq == 'def':
 					break
 				else:
-					os.system("sed -i 's/\"LED_FREQ_HZ\": 800000/\"LED_PIN\": "+str(freq)+"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
+					os.system("sed -i 's/\"LED_FREQ_HZ\": 800000/\"LED_FREQ_HZ\": "+str(freq)+"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
 					break
 			while True:
 				debug_mode = raw_input("\nWill you use RotorHazard in debug mode? [yes/no | default: no]\t\t")
@@ -195,10 +195,10 @@ Default values are not automatically applied. Type them if needed.\n""")
 						cores_val = str(cores)
 					else:
 						cores_val='*'
-					os.system("sed -i 's/\"CORS_ALLOWED_HOSTS\": \"*\"/\"CORS_ALLOWED_HOSTS\": \""+str(cores_val)+"\"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
+					os.system("sed -i 's/\"CORS_ALLOWED_HOSTS\": \"\*\"/\"CORS_ALLOWED_HOSTS\": \""+str(cores_val)+"\"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
 					break
 			while True:
-				serial_ports = raw_input("\nWhich serial ports will you use? [default: <leave blank>]>\t\t")
+				serial_ports = raw_input("\nWhich serial ports will you use? [default: <leave blank>]\t\t").strip()
 				os.system("sed -i 's/\"SERIAL_PORTS\": [],/\"SERIAL_PORTS\": ["+str(serial_ports)+"],/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
 				break
 
@@ -221,12 +221,12 @@ Default values are not automatically applied. Type them if needed.\n""")
 		LED channel: \t\t"""+led_channel+"""
 		LED panel rotate: \t\t"""+panel_rot+"""
 		LED rows inverted: \t\t"""+inv_rows+"""
+		LED DMA: \t\t"""+dma+"""
+		LED frequency: \t\t"""+freq+"""
 		Debug mode: \t\t"""+debug+"""
 		Cores allowed: \t\t"""+cores+"""
 		Serial ports: \t\t"""+serial_ports+"""
-		LED DMA: \t\t"""+dma+"""
-		LED frequency: \t\t"""+freq+"""
-
+		
 		\n\n""")
 		print("Please check. Confirm? [yes/change/abort]\n")
 		valid_options = ['y', 'yes', 'n', 'no', 'change', 'abort']
