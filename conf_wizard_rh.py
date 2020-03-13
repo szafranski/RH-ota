@@ -33,7 +33,7 @@ def confCheck():
 		print("\t\tLooks that you already have RotorHazard server configured.")
 		valid_options = ['y', 'yes', 'n', 'no']
 		while True:
-			cont_conf = raw_input("\n\t\tOverwrite and continue anyway? [yes/no] ").strip()
+			cont_conf = raw_input("\n\t\tOverwrite and continue anyway? [yes/no]\t").strip()
 			if cont_conf in valid_options:
 				break
 			else:
@@ -147,7 +147,7 @@ Default values are not automatically applied. Type them if needed.\n""")
 		Admin name: \t\t"""+admin_name+"""
 		Admin password: \t"""+admin_pass+"""
 		RotorHazard port: \t"""+port+"""
-		Led amount: \t\t"""+led_count+"""
+		LED amount: \t\t"""+led_count+"""
 		LED pin: \t\t"""+led_pin+"""
 		LED inverted: \t\t"""+led_inv+"""
 		LED channel: \t\t"""+led_channel+"""

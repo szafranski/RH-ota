@@ -1,9 +1,6 @@
-from time import sleep
 import os
 import platform
 import sys
-import json
-import subprocess
 from modules import check_if_string_in_file
 
 homedir = os.path.expanduser('~')
