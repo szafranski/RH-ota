@@ -79,11 +79,14 @@ def serverChecker():
 		serv_installed_FLAG = False
 
 def configChecker():
+	global config_FLAG
 	global config_soft
 	if os.path.exists("/home/"+user+"/RotorHazard/src/server/config.json") == True:
 		config_soft = bcolors.GREEN+"""configured"""+bcolors.ENDC
+		config_FLAG = True
 	else:
 		config_soft = bcolors.YELLOW+bcolors.UNDERLINE+"""not configured"""+bcolors.ENDC
+		config_FLAG = False
 
 def sysConf():
 	os.system("sudo systemctl enable ssh")
@@ -279,6 +282,7 @@ def update():
 			end()
 
 def main():
+	global config_FLAG
 	global serv_installed_FLAG 
 	global conf_allowed
 	global config_soft
@@ -297,11 +301,15 @@ def main():
 	You can change those in configuration wizard in Main Menu.\n
 	Server installed right now: """+server_version_name+bcolors.BOLD+"""
 	RotorHazard configuration state: """+config_soft+bcolors.RED+bcolors.BOLD+"""
-	\n\t\t\t\t\t\t\t\tEnjoy!\n\n\t\t"""+bcolors.ENDC+"""
-		'c' - Configure RotorHazard server\n
+	\n\t\t\t\t\t\t\t\tEnjoy!\n\n\t\t"""+bcolors.ENDC)
+	if config_FLAG == False:
+		print(bcolors.GREEN+"""\t\t'c' - Configure RotorHazard server"""+bcolors.ENDC)
+	else:
+		print("""\t\t'c' - Configure RotorHazard server""")
+	print("""
 		'i' - Install software from skratch\n
 		'u' - Update existing installation\n"""+bcolors.YELLOW+""" 
-		'e' - Exit to Main Menu \n"""+bcolors.ENDC+""" """)
+		'e' - Exit to Main Menu \n"""+bcolors.ENDC)
 	selection=str(raw_input(""))
 	if selection =='c':
 		if serv_installed_FLAG == True:
