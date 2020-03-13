@@ -44,6 +44,11 @@ def image():
 		f = file.read()
 		print(f)
 
+def ota_image():
+	with open('./resources/ota_image.txt', 'r') as file:
+		f = file.read()
+		print(f)
+
 def check_if_string_in_file(file_name, string_to_search):
 	with open(file_name, 'r') as read_obj:
 		for line in read_obj:

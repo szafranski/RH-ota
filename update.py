@@ -3,7 +3,7 @@ import os
 import platform
 import sys
 import json
-from modules import clearTheScreen, bcolors, logoTop, image, check_if_string_in_file
+from modules import clearTheScreen, bcolors, logoTop, image, check_if_string_in_file, ota_image
 
 updater_version = '2.2.9g'  ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
@@ -58,7 +58,7 @@ def first ():
 	clearTheScreen()
 	print("\n\n")
 	image()
-	print("\t\t\t\t Updater version: "+str(updater_version))
+	print("\t\t\t\t "+bcolors.BOLD+"Updater version: "+str(updater_version)+bcolors.ENDC)
 	sleep(1.1)
 
 def avrDude():
@@ -330,8 +330,8 @@ def firstTime():
 def end():
 		clearTheScreen()
 		print("\n\n")
-		image()
-		print("\t\t\t\t   Happy flyin'!\n")
+		ota_image()
+		print("\t\t\t\t   "+bcolors.BOLD+"Happy flyin'!"+bcolors.ENDC+"\n")
 		sleep(1.3)
 		clearTheScreen()
 		sys.exit()
