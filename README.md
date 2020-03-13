@@ -1,6 +1,6 @@
 ![OTA Logo](/resources/ota_logo.png)
 
-# Easy mange and update your RotorHazard installation. 
+# Easy mange and update your [RotorHazard](https://github.com/RotorHazard/RotorHazard) installation. 
 
 </br>
 Additional features like nodes flashing are included.
