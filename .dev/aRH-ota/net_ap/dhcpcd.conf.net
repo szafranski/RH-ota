@@ -1,9 +1,0 @@
-interface wlan0
-static ip_address=10.10.10.10/24
-static routers=10.10.10.10
-static domain_name_server=1.1.1.1 8.8.8.8
-
-interface eth0
-#static ip_address=172.20.20.20/20
-#static routers=172.20.20.20
-#static domain_name_server=1.1.1.1 8.8.8.8
