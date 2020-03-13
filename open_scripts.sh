@@ -18,7 +18,7 @@ net_check()
 {
 rm index* > /dev/null 2>&1
 #[ "$(ping -c 2 8.8.8.8 | grep '100% packet loss' )" != "" ]
-timeout 3s wget www.google.com
+timeout 10s wget www.google.com
 #sleep 2
 #exit
 }

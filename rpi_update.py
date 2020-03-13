@@ -48,7 +48,7 @@ def internetCheck():
 		if os.path.exists("./index.html") == True:
 			internet_FLAG=1
 			break
-		elif (time_passed > 3100):
+		elif (time_passed > 10100):
 			internet_FLAG=0
 			break
 	os.system("rm /home/"+user+"/RH-ota/index.html > /dev/null 2>&1")
@@ -130,10 +130,10 @@ def installation():
 		os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
 	internetCheck()
 	if internet_FLAG==0:
-		print("Looks like you don't have internet connection. Installation canceled.")
+		print("\nLooks like you don't have internet connection. Installation canceled.")
 		sleep(2)
 	else:
-		print("Internet connection - OK")
+		print("\nInternet connection - OK")
 		sleep(2)
 		clearTheScreen()
 		print("\n\t\t "+bcolors.BOLD+"Installation process started - please wait..."+bcolors.ENDC+" \n")
@@ -209,10 +209,10 @@ def update():
 		os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
 	internetCheck()
 	if internet_FLAG==0:
-		print("Looks like you don't have internet connection. Update canceled.")
+		print("\nLooks like you don't have internet connection. Update canceled.")
 		sleep(2)
 	else:
-		print("Internet connection - OK")
+		print("\nInternet connection - OK")
 		sleep(2)
 		clearTheScreen()
 		if os.path.exists("/home/"+user+"/RotorHazard") == False:

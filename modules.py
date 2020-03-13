@@ -111,7 +111,7 @@ def internetCheck():
 		if os.path.exists("./index.html") == True:
 			internet_FLAG=1
 			break
-		elif (time_passed > 3100):
+		elif (time_passed > 10100):
 			internet_FLAG=0
 			break
 	os.system("rm /home/"+user+"/RH-ota/index.html > /dev/null 2>&1")
