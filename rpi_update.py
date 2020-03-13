@@ -200,8 +200,8 @@ def installation():
 		##         """+bcolors.BOLD+"""Installation completed!"""+bcolors.ENDC+"""          ##
 		##                                          ##
 		############################################## \n\n
-		After rebooting please check by typing 'sudo raspi-config' \n
-		if I2C, SPI and SSH protocols are active.\n""")
+	After rebooting please check by typing 'sudo raspi-config' \n
+	if I2C, SPI and SSH protocols are active.\n""")
 		end()
 
 def update():
@@ -302,12 +302,15 @@ def main():
 	Server installed right now: """+server_version_name+bcolors.BOLD+"""
 	RotorHazard configuration state: """+config_soft+bcolors.RED+bcolors.BOLD+"""
 	\n\t\t\t\t\t\t\t\tEnjoy!\n\n\t\t"""+bcolors.ENDC)
-	if config_FLAG == False:
-		print(bcolors.GREEN+"""\t\t'c' - Configure RotorHazard server"""+bcolors.ENDC)
+	if config_FLAG == False and serv_installed_FLAG == True:
+		print(bcolors.GREEN+"""\t\t'c' - Configure RotorHazard server\n"""+bcolors.ENDC)
 	else:
-		print("""\t\t'c' - Configure RotorHazard server""")
+		print("""\t\t'c' - Configure RotorHazard server\n""")
+	if serv_installed_FLAG == False:
+		print(bcolors.GREEN+"""\t\t'i' - Install software from skratch"""+bcolors.ENDC)
+	else:
+		print("""\t\t'i' - Install software from skratch""")
 	print("""
-		'i' - Install software from skratch\n
 		'u' - Update existing installation\n"""+bcolors.YELLOW+""" 
 		'e' - Exit to Main Menu \n"""+bcolors.ENDC)
 	selection=str(raw_input(""))
