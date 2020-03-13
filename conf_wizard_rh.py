@@ -65,7 +65,7 @@ Default values are not automatically applied. Type them if needed.\n""")
 			else:
 				os.system("sed -i 's/\"HTTP_PORT\": 5000/\"HTTP_PORT\": "+port+"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
 				break
-		print("\nAre you planning to use LEDs in your system? [yes | no]\n")
+		print("\nAre you planning to use LEDs in your system? [yes/no]\n")
 		valid_options = ['y', 'yes', 'n', 'no']
 		while True:
 			selection=raw_input("\t").strip()
@@ -132,7 +132,7 @@ Default values are not automatically applied. Type them if needed.\n""")
 						inv_rows_val = 'true'
 					os.system("sed -i 's/\"INVERTED_PANEL_ROWS\": \"false\"/\"INVERTED_PANEL_ROWS\": \""+inv_rows_val+"\"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
 					break
-					
+
 		if led_present_FLAG==False:
 			led_count = '0'
 			led_pin = '10'
@@ -140,7 +140,75 @@ Default values are not automatically applied. Type them if needed.\n""")
 			led_channel = '0'
 			panel_rot = '0'
 			inv_rows = 'false'
-			print("\nLED configuration set to default values.\n")
+			print("\nLED configuration set to default values.\n\n")
+			sleep(0.8)
+			
+		print("\nDo you want to enter advanced wizard? [yes/no]\n")
+		valid_options = ['y', 'yes', 'n', 'no']
+		while True:
+			selection=raw_input("\t").strip()
+			if selection in valid_options:
+				break
+			else:
+				print("too big fingers :( wrong command. try again! :)")
+		if selection == 'y' or selection ==  'yes':
+			adv_wiz_FLAG=True
+		if selection == 'n' or selection == 'no':
+			adv_wiz_FLAG=False
+
+		if adv_wiz_FLAG==True:
+			while True:
+				dma = raw_input("\nLED DMA you will use in your system? [default: 10]\t\t\t")
+				if (dma.isdigit()==False) or (int(dma) <0):
+					print("\nPlease enter correct value!")
+				else:
+					os.system("sed -i 's/\"LED_DMA\": 10/\"LED_DMA\": "+dma+"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
+					break
+			while True:
+				freq = raw_input("\nWhat LED frequency will you use? [default: 800000 - you can type 'def']\t")
+				if ((freq.isdigit()==False) or (int(freq) <0) or (int(freq) > 800000)) and (freq != 'def'):
+					print("\nPlease enter correct value!")
+				elif freq == 'def':
+					break
+				else:
+					os.system("sed -i 's/\"LED_FREQ_HZ\": 800000/\"LED_PIN\": "+str(freq)+"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
+					break
+			while True:
+				debug_mode = raw_input("\nWill you use RotorHazard in debug mode? [yes/no | default: no]\t\t")
+				debug_mode_allowed_values = ['yes','no','1','0','y','n']
+				if not debug_mode in debug_mode_allowed_values:
+					print("\nPlease enter correct value!")
+				else:
+					if debug_mode in ['yes','1','y']:
+						debug = 'true'
+					elif debug_mode in ['no','0','n']:
+						debug = 'false'
+					os.system("sed -i 's/\"\"DEBUG\": false/\"DEBUG\": "+str(debug)+"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
+					break
+			while True:
+				cores = raw_input("\nHome many cores will be available for hosts? [1/2/3/all | default: all]\t")
+				cores_values_allowed = ['1','2','3','4','all']
+				if not cores in cores_values_allowed:
+					print("\nPlease enter correct value!")
+				else:
+					if cores in ['1','2','3']:
+						cores_val = str(cores)
+					else:
+						cores_val='*'
+					os.system("sed -i 's/\"CORS_ALLOWED_HOSTS\": \"*\"/\"CORS_ALLOWED_HOSTS\": \""+str(cores_val)+"\"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
+					break
+			while True:
+				serial_ports = raw_input("\nWhich serial ports will you use? [default: <leave blank>]>\t\t")
+				os.system("sed -i 's/\"SERIAL_PORTS\": [],/\"SERIAL_PORTS\": ["+str(serial_ports)+"],/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
+				break
+
+		if adv_wiz_FLAG==False:
+			debug = 'no'
+			cores_val = '*'
+			serial_ports = '[]'
+			dma = '10'
+			freq = '800000'
+			print("\nAdvanced configuration set to default values.\n\n")
 			sleep(0.8)
 
 		print("""\n\n\t\t\t"""+bcolors.UNDERLINE+"""CONFIGURATION"""+bcolors.ENDC+""":\n\t
@@ -151,9 +219,15 @@ Default values are not automatically applied. Type them if needed.\n""")
 		LED pin: \t\t"""+led_pin+"""
 		LED inverted: \t\t"""+led_inv+"""
 		LED channel: \t\t"""+led_channel+"""
-		LED panel rotate: \t"""+panel_rot+"""
-		LED rows inverted: \t"""+inv_rows+"""\n\n""")
+		LED panel rotate: \t\t"""+panel_rot+"""
+		LED rows inverted: \t\t"""+inv_rows+"""
+		Debug mode: \t\t"""+debug+"""
+		Cores allowed: \t\t"""+cores+"""
+		Serial ports: \t\t"""+serial_ports+"""
+		LED DMA: \t\t"""+dma+"""
+		LED frequency: \t\t"""+freq+"""
 
+		\n\n""")
 		print("Please check. Confirm? [yes/change/abort]\n")
 		valid_options = ['y', 'yes', 'n', 'no', 'change', 'abort']
 		while True:
