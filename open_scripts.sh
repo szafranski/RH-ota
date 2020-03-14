@@ -25,7 +25,7 @@ timeout 10s wget www.google.com
 
 dots20()
 {
-for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
 do
 printf "."
 sleep 0.08
@@ -43,9 +43,9 @@ sleep 1
 sudo echo
 printf "\n\nUpdating process will be started soon.\n\n"
 sleep 1
-kill -9 $(pidof python update.py)
 printf "\n\nUpdating process started...\n\n"
 dots20
+kill -9 $(pidof python update.py)
 cd ~
 cp ~/RH-ota/self.py ~/.ota_markers/self.py 
 python ~/.ota_markers/self.py
@@ -63,6 +63,7 @@ printf "\n\nUpdate completed, hit 'Enter' to continue \n\n"
 # scripts like those ensures that files are being executed in right directory but main program
 # istelf can be continued from previous directory after such a script was executed or stopped
 # eg. after hittind Ctrl+C after server was started etc.
+
 
 
 
