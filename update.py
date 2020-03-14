@@ -216,10 +216,9 @@ def selfUpdater():
 			sys.exit()
 		if selection=='b':
 			featuresMenu()
-		if selection=='uu':      #   hidden test funtion
-			os.system("echo 0 > .update_now_flag")
-			os.system(". ~/RH-ota/open_scripts.sh; updater_from_ota")
-			os.system("echo 1 > .update_now_flag")
+		if selection=='uu':
+			os.system("cp ~/RH-ota/open_scripts.sh ~/.ota_markers/open_scripts.sh 
+			os.system(". ~/.ota_markers/open_scripts.sh; updater_from_ota")
 		if selection=='f':
 			addUpdater()
 		else :
