@@ -33,7 +33,7 @@ cd ~
 cp ~/RH-ota/self.py ~/.ota_markers/self.py 
 timeout 10 python ~/.ota_markers/self.py
 kill -2 $(pidof python self.py)
-#sudo killall python #self.py
+sleep 2
 sudo kill -2  $(pidof python update.py) 
 }
 
