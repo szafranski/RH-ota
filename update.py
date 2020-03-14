@@ -191,16 +191,21 @@ def aliasesMenu():
 
 def selfUpdater():
 	def addUpdater():
-		print("\nPermissions required so 'zip' and 'unzip' program can be downloaded.\n")
-		os.system("sudo apt install zip unzip")
+		clearTheScreen()
+		logoTop()
+		print("""\n
+	Permissions required so 'zip' and 'unzip' program can be downloaded.
+	Performed only during first instance of entering this sub-menu\n""")
 		sleep(2)
-		os.system("""echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc""")
-		os.system("""echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc""")
+		os.system("sudo echo")
+		os.system("sudo apt install zip unzip")
+		os.system("""echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null""")
+		os.system("""echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null""")
 		os.system("echo 'updater marker' | tee -a ~/.ota_markers/.updater_self >/dev/null")
-	clearTheScreen()
-	logoTop()
 	if not os.path.exists("/home/"+user+"/.ota_markers/.updater_self") == True:
 		addUpdater()
+	clearTheScreen()
+	logoTop()
 	print(bcolors.BOLD+"""
 	If you want to update this program and download new firmware, 
 	prepared for Arduino nodes - so you can next flash them 
@@ -208,16 +213,16 @@ def selfUpdater():
 	or 'uu' in the terminal window.\n
 	Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+bcolors.BOLD+""",
 	so you allways know what firmware version updater contains.
-	For example "2.2.5c" contains nodes firmware with "API level 22" etc.
+	For example "2.2.5c" contains nodes firmware with "API level 22".
 	Be sure that you have internet connection established."""+bcolors.ENDC+"""\n""")
-	print(bcolors.GREEN+"""\n
-		Update now by pressing 'u'"""+bcolors.ENDC+"""\n
-		Exit program by pressing 'e' \n
-		Force updater planting again by pressing 'f'\n"""+bcolors.YELLOW+"""
-		Go back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
+	print(bcolors.GREEN+"""
+		Update now by pressing 'u'"""+bcolors.ENDC+"""\n""")
+#		Exit program by pressing 'e' \n
+#		Force updater planting again by pressing 'f'\n"""+bcolors.YELLOW+"""
+	print(bcolors.YELLOW+"""\t\tGo back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
 	selection=str(raw_input(""))
-	if selection=='e':
-		sys.exit()
+#	if selection=='e':
+#		sys.exit()
 	if selection=='b':
 		featuresMenu()
 	if selection=='u':
@@ -225,8 +230,8 @@ def selfUpdater():
 			#os.system("cp ~/RH-ota/open_scripts.sh ~/.ota_markers/open_scripts.sh")
 			#os.system(". ~/.ota_markers/open_scripts.sh; updater_from_ota")
 		os.system(". ./open_scripts.sh; updater_from_ota")
-	if selection=='f':
-		addUpdater()
+#	if selection=='f':
+#		addUpdater()
 	else :
 		selfUpdater()
 #	else:
