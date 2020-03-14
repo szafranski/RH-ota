@@ -210,25 +210,25 @@ def selfUpdater():
 	so you allways know what firmware version updater contains.
 	For example "2.2.5c" contains nodes firmware with "API level 22" etc.
 	Be sure that you have internet connection established."""+bcolors.ENDC+"""\n""")
-		print(bcolors.GREEN+"""\n
+	print(bcolors.GREEN+"""\n
 		Update now by pressing 'u'"""+bcolors.ENDC+"""\n
 		Exit program by pressing 'e' \n
 		Force updater planting again by pressing 'f'\n"""+bcolors.YELLOW+"""
 		Go back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
-		selection=str(raw_input(""))
-		if selection=='e':
-			sys.exit()
-		if selection=='b':
-			featuresMenu()
-		if selection=='u':
+	selection=str(raw_input(""))
+	if selection=='e':
+		sys.exit()
+	if selection=='b':
+		featuresMenu()
+	if selection=='u':
 			#os.chdir("/home/"+user)
 			#os.system("cp ~/RH-ota/open_scripts.sh ~/.ota_markers/open_scripts.sh")
 			#os.system(". ~/.ota_markers/open_scripts.sh; updater_from_ota")
-			os.system(". ./open_scripts.sh; updater_from_ota")
-		if selection=='f':
-			addUpdater()
-		else :
-			selfUpdater()
+		os.system(". ./open_scripts.sh; updater_from_ota")
+	if selection=='f':
+		addUpdater()
+	else :
+		selfUpdater()
 #	else:
 #		addUpdater()
 #		sleep(0.1)
