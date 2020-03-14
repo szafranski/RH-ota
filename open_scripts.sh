@@ -25,13 +25,14 @@ timeout 10s wget www.google.com
 
 updater_from_ota()
 {
-sudo killall python update.py 
+sudo killall python #update.py 
 sleep 1
 printf "\n\nUpdating process will be started soon...\n\n"
 sleep 5
 cd ~ 
 cp ~/RH-ota/self.py ~/.ota_markers/self.py 
 timeout 10 python ~/.ota_markers/self.py
+sudo killall python #self.py
 }
 
 # aliases_reload () 
