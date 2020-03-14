@@ -25,7 +25,8 @@ timeout 10s wget www.google.com
 
 updater_from_ota()
 {
-sleep 2
+sudo killall python update.py 
+sleep 1
 printf "\n\nUpdating process will be started soon...\n\n"
 sleep 5
 cd ~ 
