@@ -5,7 +5,7 @@ dots5()
 for i in 1 2 3 4 5
 do
 printf "."
-sleep 0.2
+sleep 0.5
 done
 printf "\n\n"
 }
