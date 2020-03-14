@@ -28,9 +28,10 @@ updater_from_ota()
 sudo 
 printf "\n\nSoftware will be automatically closed.\n\n"
 printf "\n\nPlease enter the 'sudo' password.\n\n"
+sleep 1
 sudo echo
 printf "\n\nUpdating process will be started soon.\n\n"
-sleep 2
+sleep 1
 kill -9 $(pidof python update.py)
 printf "\n\nUpdating process started...\n\n"
 sleep 2
