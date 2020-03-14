@@ -23,6 +23,16 @@ timeout 10s wget www.google.com
 #exit
 }
 
+dots20()
+{
+for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+do
+printf "."
+sleep 0.08
+done
+printf "\n\n"
+}
+
 updater_from_ota()
 {
 printf "\n\nSoftware will be automatically closed.\n"
@@ -35,11 +45,7 @@ printf "\n\nUpdating process will be started soon.\n\n"
 sleep 1
 kill -9 $(pidof python update.py)
 printf "\n\nUpdating process started...\n\n"
-for i in {0..20..}
-do
-printf "."
-done
-printf "\n\n"
+dots20
 cd ~
 cp ~/RH-ota/self.py ~/.ota_markers/self.py 
 python ~/.ota_markers/self.py
