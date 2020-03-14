@@ -26,7 +26,7 @@ timeout 10s wget www.google.com
 updater_from_ota()
 {
 printf "\n\nSoftware will be automatically closed.\n"
-printf "\n\nPlease enter the 'sudo' password.\n\n"
+printf "\n\nEnter the 'sudo' password if prompted.\n\n"
 sleep 1
 sudo echo
 printf "\n\nUpdating process will be started soon.\n\n"
@@ -38,8 +38,7 @@ cd ~
 cp ~/RH-ota/self.py ~/.ota_markers/self.py 
 python ~/.ota_markers/self.py
 cd ~/RH-ota
-printf "\n\nUpdate completed, hit any to open the software\n\n"
-python update.py
+printf "\n\nUpdate completed, hit any key\n\n"
 }
 
 # aliases_reload () 
