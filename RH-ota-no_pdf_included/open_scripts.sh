@@ -25,9 +25,7 @@ timeout 10s wget www.google.com
 
 updater_from_ota()
 {
-printf "\n\nSoftware will be automatically closed.\n\n"
-sleep 1
-printf "\n\nUpdating process will be started soon.\n\n"
+printf "\n\nUpdating process will be started soon...\n\n"
 sleep 2
 kill -9 $(pidof python update.py)
 printf "\n\nUpdating process started...\n\n"
