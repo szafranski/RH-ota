@@ -31,8 +31,7 @@ cd ~
 cp ~/RH-ota/self.py ~/.ota_markers/self.py 
 #timeout 10 
 python ~/.ota_markers/self.py
-sudo kill -9 $(pidof python self.py)
-
+printf "test message"
 #sudo killall bash
 #exit
 #kill -2 $(pidof python self.py)
