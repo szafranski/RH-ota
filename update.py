@@ -202,13 +202,15 @@ def selfUpdater():
 		print(bcolors.BOLD+"""
 	If you want to update this program and download new firmware, 
 	prepared for Arduino nodes - so you can next flash them 
-	- you have to type 'updateupdater' or 'uu' in the terminal window.\n
+	- you can just hit 'u' now. You can also type 'updateupdater' or 'uu' 
+	in the terminal window.\n
 	Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+bcolors.BOLD+""",
 	so you allways know what firmware version updater contains.
 	For example "2.2.5c" contains nodes firmware with "API level 22" etc.
 	Be sure that you have internet connection established."""+bcolors.ENDC+"""\n""")
 		print(bcolors.GREEN+"""\n
-		Exit program by pressing 'e' """+bcolors.ENDC+"""\n
+		Update now by pressing 'u'"""+bcolors.ENDC+"""\n
+		Exit program by pressing 'e' \n
 		Force updater planting again by pressing 'f'\n"""+bcolors.YELLOW+"""
 		Go back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
 		selection=str(raw_input(""))
@@ -216,7 +218,7 @@ def selfUpdater():
 			sys.exit()
 		if selection=='b':
 			featuresMenu()
-		if selection=='uu':
+		if selection=='u':
 			#os.chdir("/home/"+user)
 			#os.system("cp ~/RH-ota/open_scripts.sh ~/.ota_markers/open_scripts.sh")
 			#os.system(". ~/.ota_markers/open_scripts.sh; updater_from_ota")
