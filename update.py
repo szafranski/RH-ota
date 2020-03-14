@@ -202,8 +202,8 @@ def selfUpdater():
 		print(bcolors.BOLD+"""
 	If you want to update this program and download new firmware, 
 	prepared for Arduino nodes - so you can next flash them 
-	- you can just hit 'u' now. You can also type 'updateupdater' or 'uu' 
-	in the terminal window.\n
+	- you can just hit 'u' now. You can also type 'updateupdater'
+	or 'uu' in the terminal window.\n
 	Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+bcolors.BOLD+""",
 	so you allways know what firmware version updater contains.
 	For example "2.2.5c" contains nodes firmware with "API level 22" etc.
