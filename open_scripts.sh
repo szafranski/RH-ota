@@ -23,12 +23,14 @@ timeout 10s wget www.google.com
 #exit
 }
 
+update_now_FLAG=$(cat .update_now_flag)
+
 updater_agent()
 {
-while [True]
+while true 
 do
 
-if [update_now_FLAG == True]
+if [[ $update_now_FLAG -eq 1 ]]
 then
 
 printf "sudo kill -2  $(pidof python update.py)\n"
@@ -45,7 +47,7 @@ cp ~/RH-ota/self.py ~/.ota_markers/self.py
 printf "timeout 20 python ~/.ota_markers/self.py\n"
 sleep 1
 timeout 20 python ~/.ota_markers/self.py
-
+echo 0 > update_now_flag
 fi
 
 done
@@ -86,3 +88,20 @@ timeout 20 python ~/.ota_markers/self.py
 # scripts like those ensures that files are being executed in right directory but main program
 # istelf can be continued from previous directory after such a script was executed or stopped
 # eg. after hittind Ctrl+C after server was started etc.
+
+#test_FLAG=$(python update.py)
+
+# test_agent()
+# {
+# while true 
+# test_FLAG=$(cat .up_flag)
+# do
+# if [[ $test_FLAG -eq 0 ]]
+# then
+# printf "hello, it is okok?\n"
+# else
+# printf "lol\n"
+# fi
+# sleep 2
+# done
+# }
