@@ -191,15 +191,17 @@ def aliasesMenu():
 
 def selfUpdater():
 	def addUpdater():
-		print("\nPermissions required so 'zip' and 'unzip' program can be downloaded.")
+		print("\nPermissions required so 'zip' and 'unzip' program can be downloaded.\n")
 		os.system("sudo apt install zip unzip")
 		sleep(2)
 		os.system("""echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc""")
 		os.system("""echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc""")
+		os.system("echo 'updater marker' | tee -a ~/.ota_markers/.updater_self >/dev/null")
 	clearTheScreen()
 	logoTop()
-	if os.path.exists("/home/"+user+"/.ota_markers/.updater_self") == True:
-		print(bcolors.BOLD+"""
+	if not os.path.exists("/home/"+user+"/.ota_markers/.updater_self") == True:
+		addUpdater()
+	print(bcolors.BOLD+"""
 	If you want to update this program and download new firmware, 
 	prepared for Arduino nodes - so you can next flash them 
 	- you can just hit 'u' now. You can also type 'updateupdater'
@@ -227,32 +229,32 @@ def selfUpdater():
 			addUpdater()
 		else :
 			selfUpdater()
-	else:
-		addUpdater()
-		sleep(0.1)
-		os.system("echo 'updater marker' | tee -a ~/.ota_markers/.updater_self >/dev/null")
-		clearTheScreen()
-		logoTop()
-		print(bcolors.BOLD+"""
-	If you want to update this program and download new firmware,
-	prepared for Arduino nodes - so you can next flash them
-	- you have to reboot the Raspberry. Next step is to type
-	'updateupdater' or 'uu' in the terminal window.
-	"""+bcolors.UNDERLINE+"""Next time you won't have to reboot before updating."""+bcolors.ENDC+"""\n
-	Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+bcolors.BOLD+""",
-	so you allways know what firmware version updater contains.
-	For example 2.2.5c contains nodes firmware with API 22 etc.
-	Be sure that you have internet connection established."""+bcolors.ENDC)
-		print(bcolors.GREEN+"""\n
-		Reboot by pressing 'r' """+bcolors.ENDC+"""\n\t\t\t\t"""+bcolors.YELLOW+"""
-		Go back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
-		selection=str(raw_input(""))
-		if selection=='r':
-			os.system("sudo reboot")
-		if selection=='b':
-			featuresMenu()
-		else :
-			selfUpdater()
+#	else:
+#		addUpdater()
+#		sleep(0.1)
+#		os.system("echo 'updater marker' | tee -a ~/.ota_markers/.updater_self >/dev/null")
+#		clearTheScreen()
+#		logoTop()
+#		print(bcolors.BOLD+"""
+#	If you want to update this program and download new firmware,
+#	prepared for Arduino nodes - so you can next flash them
+#	- you have to reboot the Raspberry. Next step is to type
+#	'updateupdater' or 'uu' in the terminal window.
+#	"""+bcolors.UNDERLINE+"""Next time you won't have to reboot before updating."""+bcolors.ENDC+"""\n
+#	Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+bcolors.BOLD+""",
+#	so you allways know what firmware version updater contains.
+#	For example 2.2.5c contains nodes firmware with API 22 etc.
+#	Be sure that you have internet connection established."""+bcolors.ENDC)
+#		print(bcolors.GREEN+"""\n
+#		Reboot by pressing 'r' """+bcolors.ENDC+"""\n\t\t\t\t"""+bcolors.YELLOW+"""
+#		Go back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
+#		selection=str(raw_input(""))
+#		if selection=='r':
+#			os.system("sudo reboot")
+#		if selection=='b':
+#			featuresMenu()
+#		else :
+#			selfUpdater()
 
 def featuresMenu():
 	clearTheScreen()
