@@ -53,7 +53,7 @@ sleep 1.2
 sudo echo
 printf "\n\nUpdating process will be started soon.\n\n"
 sleep 1
-printf "\n\nUpdating process started...\n\n"
+printf "\n\nUpdating process started\n\n"
 dots20
 kill -9 $(pidof python update.py)
 cd ~
