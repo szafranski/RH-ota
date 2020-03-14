@@ -2,26 +2,26 @@
 
 dots5()
 {
-	for i in 1 2 3 4 5
-	do
-		printf "."
-		sleep 0.08
-	done
-	printf "\n\n"
+for i in 1 2 3 4 5
+do
+printf "."
+sleep 0.2
+done
+printf "\n\n"
 }
 
 server_start () 
 {
-	printf "Server booting, please wait"
-	dots5
-	cd ~/RotorHazard/src/server
-	python server.py
+printf "Server booting, please wait"
+dots5
+cd ~/RotorHazard/src/server
+python server.py
 }
 
 configuraton_start () 
 {
-	cd ~/RH-ota
-	python ./conf_wizard_rh.py
+cd ~/RH-ota
+python ./conf_wizard_rh.py
 }
 
 net_check()
@@ -35,12 +35,12 @@ timeout 10s wget www.google.com
 
 dots20()
 {
-	for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
-		do
-			printf "."
-			sleep 0.08
-		done
-	printf "\n\n"
+for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+do
+printf "."
+sleep 0.08
+done
+printf "\n\n"
 }
 
 updater_from_ota()
