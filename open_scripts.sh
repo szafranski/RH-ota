@@ -26,15 +26,15 @@ timeout 10s wget www.google.com
 updater_from_ota()
 {
 printf "\n\nUpdating process will be started soon...\n\n"
-sleep(2)
+sleep 2
 kill -9 $(pidof python update.py)
 printf "\n\nUpdating process started...\n\n"
-sleep(2)
+sleep 2
 cd ~
 cp ~/RH-ota/self.py ~/.ota_markers/self.py 
 python ~/.ota_markers/self.py
 cd ~/RH-ota
-printf "\n\nUpdate completed, hit any to open the software"
+printf "\n\nUpdate completed, hit any to open the software\n\n"
 }
 
 # aliases_reload () 
