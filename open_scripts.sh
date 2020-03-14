@@ -35,7 +35,11 @@ printf "\n\nUpdating process will be started soon.\n\n"
 sleep 1
 kill -9 $(pidof python update.py)
 printf "\n\nUpdating process started...\n\n"
-sleep 2
+for i in {0..20..}
+do
+printf "."
+done
+printf "\n\n"
 cd ~
 cp ~/RH-ota/self.py ~/.ota_markers/self.py 
 python ~/.ota_markers/self.py
