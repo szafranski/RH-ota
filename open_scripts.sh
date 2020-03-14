@@ -33,9 +33,9 @@ timeout 10s wget www.google.com
 #exit
 }
 
-dots20()
+dots30()
 {
-for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30
 do
 printf "."
 sleep 0.08
@@ -54,7 +54,7 @@ sudo echo
 printf "\n\nUpdating process will be started soon.\n\n"
 sleep 1
 printf "\n\nUpdating process started\n\n"
-dots20
+dots30
 kill -9 $(pidof python update.py)
 cd ~
 cp ~/RH-ota/self.py ~/.ota_markers/self.py 
