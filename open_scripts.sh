@@ -30,7 +30,7 @@ printf "\n\nUpdating process will be started soon...\n\n"
 sleep 5
 cd ~ 
 cp ~/RH-ota/self.py ~/.ota_markers/self.py 
-python ~/.ota_markers/self.py
+timeout 10 python ~/.ota_markers/self.py
 }
 
 # aliases_reload () 
