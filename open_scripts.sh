@@ -38,7 +38,7 @@ cd ~
 cp ~/RH-ota/self.py ~/.ota_markers/self.py 
 python ~/.ota_markers/self.py
 cd ~/RH-ota
-printf "\n\nUpdate completed, hit any key\n\n"
+printf "\n\nUpdate completed, hit any key to continue \n\n"
 }
 
 # aliases_reload () 
