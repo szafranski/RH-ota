@@ -39,6 +39,7 @@ cp ~/RH-ota/self.py ~/.ota_markers/self.py
 python ~/.ota_markers/self.py
 cd ~/RH-ota
 printf "\n\nUpdate completed, hit any to open the software\n\n"
+python update.py
 }
 
 # aliases_reload () 
@@ -51,4 +52,5 @@ printf "\n\nUpdate completed, hit any to open the software\n\n"
 # scripts like those ensures that files are being executed in right directory but main program
 # istelf can be continued from previous directory after such a script was executed or stopped
 # eg. after hittind Ctrl+C after server was started etc.
+
 
