@@ -27,7 +27,6 @@ updater_from_ota()
 {
 sudo killall python
 printf "\n\nUpdating process will be started soon...\n\n"
-cd ~ 
 cp ~/RH-ota/self.py ~/.ota_markers/self.py 
 #timeout 10 
 python ~/.ota_markers/self.py
