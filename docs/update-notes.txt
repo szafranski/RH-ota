@@ -6,6 +6,11 @@
 		^^^^^^^^^^^^
 
 
+2.2.9h
+Self-updater doesn't require a reboot anymore
+and can be performed from within the software now 
+
+
 2.2.9g
 
 Internet checking, server booting and RH configuration 
