@@ -29,9 +29,11 @@ sudo kill -9 $(pidof python update.py)
 printf "\n\nUpdating process will be started soon...\n\n"
 cd ~
 cp ~/RH-ota/self.py ~/.ota_markers/self.py 
+sleep 2
 #timeout 10 
-python ~/.ota_markers/self.py
-printf "test message"
+#python ~/.ota_markers/self.py
+cd ~/RH-ota
+python update.py
 #sudo killall bash
 #exit
 #kill -2 $(pidof python self.py)

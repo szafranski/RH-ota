@@ -361,7 +361,7 @@ def mainMenu():
 			# break
 		# else:
 			# print("too big fingers :( wrong command. focus and try again!")
-	selection=str(raw_input(""))
+	selection=str(raw_input())
 	if selection=='1':
 		os.system("python ./rpi_update.py")   ### opens raspberry updating file
 	if selection=='2':
