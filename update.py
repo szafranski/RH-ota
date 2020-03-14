@@ -153,21 +153,21 @@ def aliasesMenu():
 	anytime you want. You just have to open '~./bashrc' file in text editor 
 	- like 'nano'. After that you have reboot or type 'source ~/.bashrc'. \n
 	"""+bcolors.BOLD+"""
-                Alias		    What it does	\n
-                ss  	 -->    starts the RotorHazard server
-                cfg  	 -->    opens RH config.json file
-                rh   	 -->    goes to server file directory
-                py   	 -->    insted of 'python' - pure laziness
-                sts   	 -->    stops RH service if was started
-                otadir   -->    goes to RH server file directory
-                ota   	 -->    opens this software
-                als   	 -->    opens the file that containes aliases
-                rld   	 -->    reloads aliases file 
-                rcfg   	 -->    opens raspberry's configuration 
-                gitota 	 -->    clones OTA repository
-                otacfg   -->    opens updater conf. file
-                otacpcfg -->    copies ota conf. file.
-                home	 -->    go to the home directory (without ~ sign)\n
+				Alias			What it does	\n
+				ss  	 -->	starts the RotorHazard server
+				cfg  	 -->	opens RH config.json file
+				rh   	 -->	goes to server file directory
+				py   	 -->	insted of 'python' - pure laziness
+				sts   	 -->	stops RH service if was started
+				otadir   -->	goes to RH server file directory
+				ota   	 -->	opens this software
+				als   	 -->	opens the file that containes aliases
+				rld   	 -->	reloads aliases file 
+				rcfg   	 -->	opens raspberry's configuration 
+				gitota 	 -->	clones OTA repository
+				otacfg   -->	opens updater conf. file
+				otacpcfg -->	copies ota conf. file.
+				home	 -->	go to the home directory (without ~ sign)\n
 	"""+bcolors.ENDC+"""
 		\tDo you want to use above aliases in your system?\n
 		\tReboot should be performed after adding those""")
@@ -216,6 +216,8 @@ def selfUpdater():
 			sys.exit()
 		if selection=='b':
 			featuresMenu()
+		if selection=='uu':
+			os.system(". ~/RH-ota/open_scripts.sh; updater_from_ota")
 		if selection=='f':
 			addUpdater()
 		else :
@@ -231,7 +233,7 @@ def selfUpdater():
 	prepared for Arduino nodes - so you can next flash them
 	- you have to reboot the Raspberry. Next step is to type
 	'updateupdater' or 'uu' in the terminal window.
-	Next time you won't have to reboot before updating.\n
+	"""+bcolors.UNDERLINE+"""Next time you won't have to reboot before updating."""+bcolors.ENDC+"""\n
 	Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+bcolors.BOLD+""",
 	so you allways know what firmware version updater contains.
 	For example 2.2.5c contains nodes firmware with API 22 etc.
