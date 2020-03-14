@@ -101,11 +101,41 @@ def sysConf():
 	os.system("sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
 	os.system("sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
 
-def end():
-	print("\n\n\n\t\t"+bcolors.GREEN+"'c' - configure the server now - recommended"+bcolors.ENDC+"\n")
-	print("\t\t"+bcolors.GREEN+"'r' - reboot - recommended after configuring"+bcolors.ENDC+"\n")
-	print("\t\t's' - start the server now\n")
-	print("\t\t"+bcolors.YELLOW+"'e' - exit now\n"+bcolors.ENDC)
+def endInstallation():
+	print("""\n\n"""+bcolors.GREEN+"""
+		'c' - configure the server now - recommended\n
+		'r' - reboot - recommended after configuring"""+bcolors.ENDC+"""\n
+		's' - start the server now\n"""+bcolors.YELLOW+"""
+		'e' - exit now\n"""+bcolors.ENDC)
+	def endMenu():
+		selection=str(raw_input(""))
+		if selection =='r':	
+			os.system("sudo reboot")
+		if selection =='e':	
+			sys.exit()
+		if selection =='c':	
+			os.system(". /home/"+user+"/RH-ota/open_scripts.sh; configuraton_start")
+			#os.system("cd /home/"+user+"/RH-ota/ && python conf_wizard_rh.py")
+		if selection =='s':	
+			clearTheScreen()
+			os.chdir("/home/"+user+"/RH-ota")
+			os.system(". ./open_scripts.sh; server_start")
+			#os.system("sh ./server_start.sh")
+		else: 
+			end()
+	endMenu()	
+	clearTheScreen()
+
+def endUpdate():
+	print("\n\n")
+	if config_FLAG == False and serv_installed_FLAG == True:
+		print(bcolors.GREEN+"""\t\t'c' - configure the server now"""+bcolors.ENDC)
+	else:
+		print("""\t\t'c' - Reconfigure RotorHazard server""")
+	print("""
+		'r' - reboot - recommended after updating\n
+		's' - start the server now\n"""+bcolors.YELLOW+"""
+		'e' - exit now\n"""+bcolors.ENDC)
 	def endMenu():
 		selection=str(raw_input(""))
 		if selection =='r':	
@@ -136,7 +166,7 @@ def installation():
 		print("\nInternet connection - OK")
 		sleep(2)
 		clearTheScreen()
-		print("\n\t\t "+bcolors.BOLD+"Installation process started - please wait..."+bcolors.ENDC+" \n")
+		print("\n\t"+bcolors.BOLD+"Installation process started - please wait..."+bcolors.ENDC+" \n")
 		os.system("sudo apt-get update && sudo apt-get upgrade -y")
 		os.system("sudo apt autoremove -y")
 		os.system("sudo apt install wget ntp libjpeg-dev i2c-tools python-dev libffi-dev python-smbus build-essential python-pip git scons swig zip -y")
@@ -202,7 +232,7 @@ def installation():
 		############################################## \n\n
 	After rebooting please check by typing 'sudo raspi-config' \n
 	if I2C, SPI and SSH protocols are active.\n""")
-		end()
+		endInstallation()
 
 def update():
 	if linux_testing == False:
@@ -236,7 +266,7 @@ def update():
 				main()
 		else :
 			clearTheScreen()
-			print("\n\t\t "+bcolors.BOLD+"Updating existing installation - please wait..."+bcolors.ENDC+" \n")
+			print("\n\t"+bcolors.BOLD+"Updating existing installation - please wait..."+bcolors.ENDC+" \n")
 			os.system("sudo -H python -m pip install --upgrade pip ")
 			os.system("sudo -H pip install pillow ")
 			os.system("sudo apt-get install libjpeg-dev ntp -y")
@@ -279,7 +309,7 @@ def update():
 		##            """+bcolors.BOLD+"""Update completed!"""+bcolors.ENDC+"""             ##
 		##                                          ##
 		##############################################""")
-			end()
+			endUpdate()
 
 def main():
 	global config_FLAG
@@ -300,8 +330,8 @@ def main():
 	Also make sure that you are logged as user '"""+bcolors.BLUE+user+bcolors.ENDC+bcolors.BOLD+"""'. \n
 	You can change those in configuration wizard in Main Menu.\n
 	Server installed right now: """+server_version_name+bcolors.BOLD+"""
-	RotorHazard configuration state: """+config_soft+bcolors.RED+bcolors.BOLD+"""
-	\n\t\t\t\t\t\t\t\tEnjoy!\n\n\t\t"""+bcolors.ENDC)
+	RotorHazard configuration state: """+config_soft+bcolors.RED+bcolors.BOLD+"""\n
+								Enjoy!\n\n"""+bcolors.ENDC)
 	if config_FLAG == False and serv_installed_FLAG == True:
 		print(bcolors.GREEN+"""\t\t'c' - Configure RotorHazard server\n"""+bcolors.ENDC)
 	else:
