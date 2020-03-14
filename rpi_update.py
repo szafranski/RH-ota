@@ -291,12 +291,12 @@ def main():
 	serverChecker()
 	configChecker()
 	sleep(0.1)
-	print("""\n\n\t\t"""+bcolors.RED+bcolors.BOLD+"""AUTOMATIC UPDATE AND INSTALLATION OF ROTORHAZARD RACING TIMER SOFTWARE\n\n\t"""+bcolors.ENDC
-	+bcolors.BOLD+"""This script can automatically install and update RotorHazard software on your Raspberry. 
-	All additional software depedancies and libraries also will be installed or updated.
-	Your current database, config file and custom bitmaps will stay on the updated software.
-	Source of the software will be '"""+bcolors.BLUE+server_version+bcolors.ENDC+bcolors.BOLD+"""' version from the RotorHazard repository. 
-	Remember to perform self-updating of this software, before updating server software.
+	print("""\n\n\t"""+bcolors.RED+bcolors.BOLD+"""AUTOMATIC UPDATE AND INSTALLATION OF ROTORHAZARD RACING TIMER SOFTWARE\n\n\t"""+bcolors.ENDC
+	+bcolors.BOLD+"""You can automatically install and update RotorHazard timing software. 
+	Additional depedancies and libraries also will be installed or updated.
+	Current database, configs and custom bitmaps will stay on their place.
+	Source of the software is set to '"""+bcolors.BLUE+server_version+bcolors.ENDC+bcolors.BOLD+"""' version from the RH repository. 
+	Perform self-updating of this software, before updating server software.
 	Also make sure that you are logged as user '"""+bcolors.BLUE+user+bcolors.ENDC+bcolors.BOLD+"""'. \n
 	You can change those in configuration wizard in Main Menu.\n
 	Server installed right now: """+server_version_name+bcolors.BOLD+"""
@@ -305,7 +305,7 @@ def main():
 	if config_FLAG == False and serv_installed_FLAG == True:
 		print(bcolors.GREEN+"""\t\t'c' - Configure RotorHazard server\n"""+bcolors.ENDC)
 	else:
-		print("""\t\t'c' - Configure RotorHazard server\n""")
+		print("""\t\t'c' - Reconfigure RotorHazard server\n""")
 	if serv_installed_FLAG == False:
 		print(bcolors.GREEN+"""\t\t'i' - Install software from skratch"""+bcolors.ENDC)
 	else:
