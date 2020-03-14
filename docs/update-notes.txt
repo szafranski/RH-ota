@@ -9,6 +9,7 @@
 
 Self-updater doesn't require a reboot anymore
 and can be performed from within the software now 
+Added some visual effects
 
 
 2.2.9g
