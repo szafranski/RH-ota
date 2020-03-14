@@ -25,11 +25,12 @@ timeout 10s wget www.google.com
 
 updater_agent()
 {
-while True
-{
-if update_now_FLAG == True
+while [True]
+do
+
+if [update_now_FLAG == True]
 then
-{
+
 printf "sudo kill -2  $(pidof python update.py)\n"
 sleep 1
 sudo kill -2  $(pidof python update.py) 
@@ -44,10 +45,10 @@ cp ~/RH-ota/self.py ~/.ota_markers/self.py
 printf "timeout 20 python ~/.ota_markers/self.py\n"
 sleep 1
 timeout 20 python ~/.ota_markers/self.py
-}
-fi
-}
 
+fi
+
+done
 }
 
 updater_from_ota()
