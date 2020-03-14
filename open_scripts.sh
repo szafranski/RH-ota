@@ -26,8 +26,9 @@ timeout 10s wget www.google.com
 updater_from_ota()
 {
 printf "\n\nSoftware will be automatically closed.\n"
-printf "Word 'Terminated' may be shown.\n"
-printf "\n\nEnter the 'sudo' password if prompted.\n\n"
+printf "\nWord 'Terminated' may be shown.\n"
+sleep 1
+printf "\n\nEnter 'sudo' password if prompted.\n"
 sleep 1
 sudo echo
 printf "\n\nUpdating process will be started soon.\n\n"
@@ -39,7 +40,7 @@ cd ~
 cp ~/RH-ota/self.py ~/.ota_markers/self.py 
 python ~/.ota_markers/self.py
 cd ~/RH-ota
-printf "\n\nUpdate completed, hit any key to continue \n\n"
+printf "\n\nUpdate completed, hit 'Enter' to continue \n\n"
 }
 
 # aliases_reload () 
@@ -52,5 +53,6 @@ printf "\n\nUpdate completed, hit any key to continue \n\n"
 # scripts like those ensures that files are being executed in right directory but main program
 # istelf can be continued from previous directory after such a script was executed or stopped
 # eg. after hittind Ctrl+C after server was started etc.
+
 
 
