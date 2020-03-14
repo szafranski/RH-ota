@@ -101,6 +101,35 @@ def sysConf():
 	os.system("sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
 	os.system("sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
 
+def endUpdate():
+	print("\n\n")
+	if config_FLAG == False and serv_installed_FLAG == True:
+		print(bcolors.GREEN+"""\t\t'c' - configure the server now"""+bcolors.ENDC)
+	else:
+		print("""\t\t'c' - Reconfigure RotorHazard server""")
+	print("""
+		'r' - reboot - recommended when configured\n
+		's' - start the server now\n"""+bcolors.YELLOW+"""
+		'e' - exit now\n"""+bcolors.ENDC)
+	def endMenu():
+		selection=str(raw_input(""))
+		if selection =='r':	
+			os.system("sudo reboot")
+		if selection =='e':	
+			sys.exit()
+		if selection =='c':	
+			os.system(". /home/"+user+"/RH-ota/open_scripts.sh; configuraton_start")
+			endUpdate()
+		if selection =='s':	
+			clearTheScreen()
+			os.chdir("/home/"+user+"/RH-ota")
+			os.system(". ./open_scripts.sh; server_start")
+			#os.system("sh ./server_start.sh")
+		else: 
+			end()
+	endMenu()	
+	clearTheScreen()
+
 def endInstallation():
 	print("""\n\n"""+bcolors.GREEN+"""
 		'c' - configure the server now - recommended\n
@@ -115,36 +144,7 @@ def endInstallation():
 			sys.exit()
 		if selection =='c':	
 			os.system(". /home/"+user+"/RH-ota/open_scripts.sh; configuraton_start")
-			#os.system("cd /home/"+user+"/RH-ota/ && python conf_wizard_rh.py")
-		if selection =='s':	
-			clearTheScreen()
-			os.chdir("/home/"+user+"/RH-ota")
-			os.system(". ./open_scripts.sh; server_start")
-			#os.system("sh ./server_start.sh")
-		else: 
-			end()
-	endMenu()	
-	clearTheScreen()
-
-def endUpdate():
-	print("\n\n")
-	if config_FLAG == False and serv_installed_FLAG == True:
-		print(bcolors.GREEN+"""\t\t'c' - configure the server now"""+bcolors.ENDC)
-	else:
-		print("""\t\t'c' - Reconfigure RotorHazard server""")
-	print("""
-		'r' - reboot - recommended after updating\n
-		's' - start the server now\n"""+bcolors.YELLOW+"""
-		'e' - exit now\n"""+bcolors.ENDC)
-	def endMenu():
-		selection=str(raw_input(""))
-		if selection =='r':	
-			os.system("sudo reboot")
-		if selection =='e':	
-			sys.exit()
-		if selection =='c':	
-			os.system(". /home/"+user+"/RH-ota/open_scripts.sh; configuraton_start")
-			#os.system("cd /home/"+user+"/RH-ota/ && python conf_wizard_rh.py")
+			endUpdate()
 		if selection =='s':	
 			clearTheScreen()
 			os.chdir("/home/"+user+"/RH-ota")
@@ -227,7 +227,7 @@ def installation():
 		print("""\n\n\t
 		##############################################
 		##                                          ##
-		##         """+bcolors.BOLD+"""Installation completed!"""+bcolors.ENDC+"""          ##
+		##         """+bcolors.BOLD+bcolors.GREEN+"""Installation completed"""+bcolors.ENDC+"""           ##
 		##                                          ##
 		############################################## \n\n
 	After rebooting please check by typing 'sudo raspi-config' \n
@@ -306,7 +306,7 @@ def update():
 			print("""\n\n\t
 		##############################################
 		##                                          ##
-		##            """+bcolors.BOLD+"""Update completed!"""+bcolors.ENDC+"""             ##
+		##            """+bcolors.BOLD+bcolors.GREEN+"""Update completed"""+bcolors.ENDC+"""              ##
 		##                                          ##
 		##############################################""")
 			endUpdate()
