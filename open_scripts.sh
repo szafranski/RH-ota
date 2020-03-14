@@ -23,6 +23,16 @@ timeout 10s wget www.google.com
 #exit
 }
 
+updater_from_ota()
+{
+sleep 2
+printf "\n\nUpdating process will be started soon...\n\n"
+sleep 5
+cd ~ 
+cp ~/RH-ota/self.py ~/.ota_markers/self.py 
+python ~/.ota_markers/self.py
+}
+
 # aliases_reload () 
 # {
 	# . ~/.bashrc
