@@ -25,7 +25,7 @@ timeout 10s wget www.google.com
 
 updater_from_ota()
 {
-printf "\n\nSoftware will be automatically closed.\n\n"
+printf "\n\nSoftware will be automatically closed.\n"
 printf "\n\nPlease enter the 'sudo' password.\n\n"
 sleep 1
 sudo echo
