@@ -25,8 +25,10 @@ timeout 10s wget www.google.com
 
 updater_from_ota()
 {
+sudo 
 printf "\n\nSoftware will be automatically closed.\n\n"
-sleep 1
+printf "\n\nPlease enter the 'sudo' password.\n\n"
+sudo echo
 printf "\n\nUpdating process will be started soon.\n\n"
 sleep 2
 kill -9 $(pidof python update.py)
