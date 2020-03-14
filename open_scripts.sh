@@ -37,9 +37,9 @@ updater_from_ota()
 {
 printf "\n\nSoftware will be automatically closed.\n"
 printf "\nWord 'Terminated' may be shown.\n"
-sleep 1
+sleep 1.2
 printf "\n\nEnter 'sudo' password if prompted.\n"
-sleep 1
+sleep 1.2
 sudo echo
 printf "\n\nUpdating process will be started soon.\n\n"
 sleep 1
