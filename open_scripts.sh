@@ -25,13 +25,13 @@ server_start ()
 printf "Server booting, please wait"
 dots5
 cd ~/RotorHazard/src/server
-python3 server.py
+python server.py
 }
 
 configuraton_start () 
 {
 cd ~/RH-ota
-python3 ./conf_wizard_rh.py
+python ./conf_wizard_rh.py
 }
 
 net_check()
@@ -55,10 +55,10 @@ printf "\n\nUpdating process will be started soon.\n\n"
 sleep 1
 printf "\n\nUpdating process started\n\n"
 dots30
-kill -9 $(pidof python3 update.py)
+kill -9 $(pidof python update.py)
 cd ~
 cp ~/RH-ota/self.py ~/.ota_markers/self.py 
-python3 ~/.ota_markers/self.py
+python ~/.ota_markers/self.py
 cd ~/RH-ota
 printf "\n\nUpdate completed, hit 'Enter' to continue \n\n"
 }
