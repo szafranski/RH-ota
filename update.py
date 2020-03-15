@@ -174,28 +174,28 @@ def aliasesMenu():
 	anytime you want. You just have to open '~./bashrc' file in text editor 
 	- like 'nano'. After that you have reboot or type 'source ~/.bashrc'. \n
 	"""+bcolors.BOLD+"""
-				Alias			What it does	\n
-				ss  	 -->	starts the RotorHazard server
-				cfg  	 -->	opens RH config.json file
-				rh   	 -->	goes to server file directory
-				py   	 -->	insted of 'python' - pure laziness
-				sts   	 -->	stops RH service if was started
-				otadir   -->	goes to RH server file directory
-				ota   	 -->	opens this software
-				als   	 -->	opens the file that containes aliases
-				rld   	 -->	reloads aliases file 
-				rcfg   	 -->	opens raspberry's configuration 
-				gitota 	 -->	clones OTA repository
-				otacfg   -->	opens updater conf. file
-				otacpcfg -->	copies ota conf. file.
-				home	 -->	go to the home directory (without '~' sign)\n
+		Alias			What it does	\n
+		ss  	 -->	starts the RotorHazard server
+		cfg  	 -->	opens RH config.json file
+		rh   	 -->	goes to server file directory
+		py   	 -->	insted of 'python' - pure laziness
+		sts   	 -->	stops RH service if was started
+		otadir   -->	goes to RH server file directory
+		ota   	 -->	opens this software
+		als   	 -->	opens the file that containes aliases
+		rld   	 -->	reloads aliases file 
+		rcfg   	 -->	opens raspberry's configuration 
+		gitota 	 -->	clones OTA repository
+		otacfg   -->	opens updater conf. file
+		otacpcfg -->	copies ota conf. file.
+		home	 -->	go to the home directory (without '~' sign)\n
 	"""+bcolors.ENDC+"""
-			Do you want to use above aliases in your system?\n
-			Reboot should be performed after adding those""")
-	selection=str(raw_input("\n\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+		Do you want to use above aliases in your system?\n
+		Reboot should be performed after adding those""")
+	selection=str(raw_input("\n\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 	if selection == 'y':
 		if os.path.exists("/home/"+user+"/.ota_markers/.aliases_added") == True:
-			print("\n\n\t\tLooks like you already have aliases added. Do you want to continue anyway?\n")
+			print("\n\n\tLooks like you already have aliases added. Do you want to continue anyway?\n")
 			selection=str(raw_input("\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 			if selection=='y':
 				aliasesContent()
@@ -367,6 +367,6 @@ def mainMenu():
 	else:
 		mainMenu()
 
-#f __name__ == "__main__":
+#if __name__ == "__main__":
 first()
 mainMenu()
