@@ -5,6 +5,7 @@ git add .
 git commit -a
 git push
 git checkout no_pdf_included
+git pull
 git status
 git merge master -m "up-to-date with master"
 git push
