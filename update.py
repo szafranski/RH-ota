@@ -102,9 +102,9 @@ def serialMenu():
 	clearTheScreen()
 	logoTop()
 	def serialContent():
-		os.system("echo 'functionality added' | tee -a ~/.ota_markers/.serialok")
 		os.system("echo 'enable_uart=1'| sudo tee -a /boot/config.txt")
 		os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
+		os.system("echo 'functionality added' | tee -a ~/.ota_markers/.serialok")
 		print("""\n\n\t\tSerial port enabled successfully\n\t\t\t\t
 		You have to reboot Raspberry now. Ok?\n\t\t\t\t\t
 		'r' - Reboot now\t"""
