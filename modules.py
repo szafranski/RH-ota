@@ -80,26 +80,6 @@ class bcolors:
 	BOLD = '\033[1m'
 	UNDERLINE = '\033[4m'
 
-# def internetCheck():
-	# print("\nPlease wait - checking internet connection state...\n")
-	# global internet_FLAG
-	# before_millis = int(round(time.time() * 1000))
-	# os.system(". /home/"+myhomedir+"/RH-ota/open_scripts.sh; net_check")
-	# #os.system("timeout 3s sh "+myhomedir+"/RH-ota/net_check.sh > /dev/null 2>&1")
-	# while True:
-		# now_millis = int(round(time.time() * 1000))
-		# time_passed = (now_millis - before_millis)
-		# if os.path.exists("./index.html") == True:
-			# internet_FLAG=1
-			# break
-		# elif (time_passed > 3100):
-			# internet_FLAG=0
-			# break
-	# os.system("rm "+myhomedir+"/RH-ota/index.html > /dev/null 2>&1")
-	# os.system("rm "+myhomedir+"/RH-ota/wget-log* > /dev/null 2>&1")
-	# os.system("rm "+myhomedir+"/index.html > /dev/null 2>&1")
-	# os.system("rm "+myhomedir+"/wget-log* > /dev/null 2>&1")
-
 def internetCheck():
 	print("\nPlease wait - checking internet connection state...\n")
 	global internet_FLAG

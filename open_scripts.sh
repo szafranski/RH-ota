@@ -10,6 +10,16 @@ done
 printf "\n\n"
 }
 
+dots30()
+{
+for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30
+do
+printf "."
+sleep 0.08
+done
+printf "\n\n"
+}
+
 server_start () 
 {
 printf "Server booting, please wait"
@@ -31,16 +41,6 @@ net_check()
 timeout 10s wget www.google.com
 #sleep 2
 #exit
-}
-
-dots30()
-{
-for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30
-do
-printf "."
-sleep 0.08
-done
-printf "\n\n"
 }
 
 updater_from_ota()

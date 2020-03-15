@@ -377,7 +377,7 @@ def main():
 					if confirm in confirm_valid_options:
 						break
 					else:
-						print("too big fingers :( wrong command. try again! :)")
+						print("\ntoo big fingers :( wrong command. try again! :)")
 				if confirm == 'y' or confirm ==  'yes':
 					conf_allowed = True
 					installation()

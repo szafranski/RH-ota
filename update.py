@@ -214,7 +214,7 @@ def selfUpdater():
 	Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+bcolors.BOLD+""",
 	so you allways know what firmware version updater contains.
 	For example "2.2.5c" contains nodes firmware with "API level 22".
-	Be sure that you have internet connection established."""+bcolors.ENDC+"""\n""")
+	Self-updater will test your internet connection during every update."""+bcolors.ENDC+"""\n""")
 	print(bcolors.GREEN+"""
 		Update now by pressing 'u'"""+bcolors.ENDC+"""\n""")
 #		Exit program by pressing 'e' \n
@@ -358,13 +358,6 @@ def mainMenu():
 	print("			"+bcolors.BOLD+"5 - Info + first time here\n"+bcolors.ENDC)
 	print("			"+bcolors.BOLD+"6 - Configuration wizard\n"+bcolors.ENDC)
 	print("			"+bcolors.YELLOW+bcolors.BOLD+"e - Exit"+bcolors.ENDC)
-	# valid_options = ['1', '2', '3', '4', '5', 'e']  ### another option for error catching
-	# while True:
-		# selection=raw_input().strip()
-		# if selection in valid_options:
-			# break
-		# else:
-			# print("too big fingers :( wrong command. focus and try again!")
 	selection=str(raw_input())
 	if selection=='1':
 		os.system("python ./rpi_update.py")   ### opens raspberry updating file

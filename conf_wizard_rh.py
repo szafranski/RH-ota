@@ -37,7 +37,7 @@ def confCheck():
 			if cont_conf in valid_options:
 				break
 			else:
-				print("too big fingers :( wrong command. try again! :)")
+				print("\ntoo big fingers :( wrong command. try again! :)")
 		if cont_conf == 'y' or cont_conf ==  'yes':
 			conf_now_FLAG =1
 			pass
@@ -72,7 +72,7 @@ Default values are not automatically applied. Type them if needed.\n""")
 			if selection in valid_options:
 				break
 			else:
-				print("too big fingers :( wrong command. try again! :)")
+				print("\ntoo big fingers :( wrong command. try again! :)")
 		if selection == 'y' or selection ==  'yes':
 			led_present_FLAG=True
 		if selection == 'n' or selection == 'no':
@@ -150,7 +150,7 @@ Default values are not automatically applied. Type them if needed.\n""")
 			if selection in valid_options:
 				break
 			else:
-				print("too big fingers :( wrong command. try again! :)")
+				print("\ntoo big fingers :( wrong command. try again! :)")
 		if selection == 'y' or selection ==  'yes':
 			adv_wiz_FLAG=True
 		if selection == 'n' or selection == 'no':
@@ -240,7 +240,7 @@ Default values are not automatically applied. Type them if needed.\n""")
 			if selection in valid_options:
 				break
 			else:
-				print("too big fingers :( wrong command. try again! :)")
+				print("\ntoo big fingers :( wrong command. try again! :)")
 		if selection == 'y' or selection ==  'yes':
 			os.system("mv .wizarded-rh-config.json /home/"+user+"/RotorHazard/src/server/config.json")
 			print("Configuration saved.\n")
