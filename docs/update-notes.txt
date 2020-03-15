@@ -5,6 +5,11 @@
 		UPDATE NOTES:
 		^^^^^^^^^^^^
 
+2.2.9i
+Update notes prompt added
+Minor code improvements
+
+
 2.2.9h
 
 Self-updater doesn't require a reboot anymore
