@@ -167,10 +167,10 @@ def aliasesMenu():
 				gitota 	 -->	clones OTA repository
 				otacfg   -->	opens updater conf. file
 				otacpcfg -->	copies ota conf. file.
-				home	 -->	go to the home directory (without ~ sign)\n
+				home	 -->	go to the home directory (without '~' sign)\n
 	"""+bcolors.ENDC+"""
-		\tDo you want to use above aliases in your system?\n
-		\tReboot should be performed after adding those""")
+			Do you want to use above aliases in your system?\n
+			Reboot should be performed after adding those""")
 	selection=str(raw_input("\n\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 	if selection == 'y':
 		if os.path.exists("/home/"+user+"/.ota_markers/.aliases_added") == True:
@@ -234,6 +234,7 @@ def selfUpdater():
 #		addUpdater()
 	else :
 		selfUpdater()
+####      old self updater: 
 #	else:
 #		addUpdater()
 #		sleep(0.1)
