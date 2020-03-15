@@ -1,8 +1,8 @@
-To do list:
+    To do list:
 
-Update notes at the opening
-Better AP configuring
-AVRdude test
-Code check
-Python 3 friendly version
-Screen center
+ x Update notes at the opening
+  Better AP configuring
+  AVRdude test
+ wip Code check
+ ? Python 3 friendly version
+  Screen center
