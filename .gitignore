@@ -1,4 +1,4 @@
-updater-config.json
+/updater-config.json
 *.pyc
 .travis.yml
 /how_to
