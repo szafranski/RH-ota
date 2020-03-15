@@ -46,7 +46,7 @@ printf "\n\n"
 updater_from_ota()
 {
 printf "\n\nSoftware will be automatically closed.\n"
-printf "\nWord 'Terminated' may be shown.\n"
+printf "\nWord 'Killed' may be shown.\n"
 sleep 1.2
 printf "\n\nEnter 'sudo' password if prompted.\n"
 sleep 1.2
