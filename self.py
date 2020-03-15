@@ -138,4 +138,6 @@ def main():
 		sleep(1)
 		os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")   ### resolves compatibility issues
 		os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         ### resolves compatibility issues
+		if new_version_name != old_version_name:
+			os.system("echo OTA was updated > ~/.ota_markers/.was_updated")
 main()

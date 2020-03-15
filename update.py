@@ -53,13 +53,34 @@ def compatibility():               ### adds compatibility and fixes with previou
 #		if check_if_string_in_file(homedir+'/.bashrc', 'rld'):
 #			rldals.communicate()
 
+def updatedCheck():
+	if os.path.exists("/home/"+user+"/.ota_markers/.was_updated"):
+		clearTheScreen()
+		logoTop()
+		print("""\n\n"""+bcolors.BOLD+"""
+		Software was updated recently to the new version.\n
+		You can read update notes now or check them later.
+		\n\n\n"""+bcolors.ENDC+bcolors.GREEN+"""
+		'r' - read update notes"""+bcolors.ENDC+"""\n
+		's' - skip and don't show again
+		\n""")
+		selection = str(raw_input())
+		if selection == 'r':
+			os.system("less ./docs/update-notes.txt")
+		if selection == 's':
+			pass
+		else:
+			updatedCheck()
+		os.system("rm /home/"+user+"/.ota_markers/.was_updated >/dev/null 2>&1")
+
 def first ():
 	compatibility()
 	clearTheScreen()
 	print("\n\n")
 	image()
 	print("\t\t\t\t "+bcolors.BOLD+"Updater version: "+str(updater_version)+bcolors.ENDC)
-	sleep(1.1)
+	sleep(1)
+	updatedCheck()
 
 def avrDude():
 	clearTheScreen()
@@ -346,6 +367,6 @@ def mainMenu():
 	else:
 		mainMenu()
 
-if __name__ == "__main__":
-	first()
-	mainMenu()
+#f __name__ == "__main__":
+first()
+mainMenu()
