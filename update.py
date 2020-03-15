@@ -317,14 +317,16 @@ def firstTime():
 	def firstPage():
 		clearTheScreen()
 		print(bcolors.BOLD+"""\n\n
-	You can use all implemened features, but if you want to be able to program\n
-	Arduino-based nodes - enter Features menu and begin with first 2 points.\n\n
-	Also remember about setting up config file - check second page.  \n\n
-	This program has ability to perform 'self-updates'. Check "Features menu".\n\n
-	More info here: https://www.instructables.com/id/RotorHazard-Updater/\n
-	and in how_to folder - look for PDF file.\n\n 
-	If you found any bug - please report via GitHub or Facebook.\n\n
-	\t\tEnjoy!\n\t\t\t\t\t\t\t\tSzafran\n """+bcolors.ENDC)
+	You can use all implemened features, but if you want to be able to program
+	Arduino-based nodes - enter Features menu and begin with first 2 points.\n
+	Also remember about setting up config file - check second page.  \n
+	This program has ability to perform 'self-updates'. Check "Features menu".\n
+	More info about whole poject that this software is a part of: 
+	https://www.instructables.com/id/RotorHazard-Updater/
+	and in how_to folder - look for PDF file.\n
+	New features and changes - see update notes section.
+	If you found any bug - please report via GitHub or Facebook.\n
+			Enjoy!\n\t\t\t\t\t\t\t\tSzafran\n """+bcolors.ENDC)
 		print("\n\t"+bcolors.GREEN+"'s' - second page'"+bcolors.ENDC+"\t'u' - update notes'"+bcolors.YELLOW+"\t'b' - back to menu"+bcolors.ENDC+"\n\n")
 		selection=str(raw_input(""))
 		if selection=='s':
