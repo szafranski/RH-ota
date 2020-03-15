@@ -220,15 +220,12 @@ def selfUpdater():
 #		Exit program by pressing 'e' \n
 #		Force updater planting again by pressing 'f'\n"""+bcolors.YELLOW+"""
 	print(bcolors.YELLOW+"""\t\tGo back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
-	selection=str(input(""))
+	selection = str(input())
 #	if selection=='e':
 #		sys.exit()
 	if selection=='b':
 		featuresMenu()
 	if selection=='u':
-			#os.chdir("/home/"+user)
-			#os.system("cp ~/RH-ota/open_scripts.sh ~/.ota_markers/open_scripts.sh")
-			#os.system(". ~/.ota_markers/open_scripts.sh; updater_from_ota")
 		os.system(". ./open_scripts.sh; updater_from_ota")
 #	if selection=='f':
 #		addUpdater()
