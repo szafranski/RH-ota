@@ -67,7 +67,7 @@ def avrDude():
 	print("\n\n\n\t\t\t\t"+bcolors.RED+"AVRDUDE MENU"+bcolors.ENDC+"\n")
 	print ("\t\t\t "+bcolors.BLUE+"1 - Install avrdude"+bcolors.ENDC)
 	print ("\t\t\t "+bcolors.YELLOW+"2 - Go back"+bcolors.ENDC)
-	selection=str(raw_input(""))
+	selection=str(input(""))
 	if selection=='1' : 
 		os.system("sudo apt-get update")
 		os.system("sudo apt-get install avrdude -y")
@@ -88,7 +88,7 @@ def serialMenu():
 		You have to reboot Raspberry now. Ok?\n\t\t\t\t\t
 		'r' - Reboot now\t"""
 		+bcolors.YELLOW+"""'b' - Go back\n\n"""+bcolors.ENDC)
-		selection=str(raw_input(""))
+		selection=str(input(""))
 		if selection=='r':
 			os.system("sudo reboot")
 		if selection== 'b':
@@ -97,11 +97,11 @@ def serialMenu():
 		Serial port has to be enabled. 
 		Without it Arduinos cannot be programmed.\n\t\t
 		Do you want to enable it now?""")
-	selection=str(raw_input("\n\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+	selection=str(input("\n\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 	if selection == 'y':
 		if os.path.exists("/home/"+user+"/.ota_markers/.serialok") == True:
 			print("\n\n\t\tLooks like you already enabled Serial port. \n\t\tDo you want to continue anyway?\n")
-			selection=str(raw_input("\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+			selection=str(input("\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 			if selection=='y':
 				serialContent()
 			if selection =='a':
@@ -171,11 +171,11 @@ def aliasesMenu():
 	"""+bcolors.ENDC+"""
 			Do you want to use above aliases in your system?\n
 			Reboot should be performed after adding those""")
-	selection=str(raw_input("\n\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+	selection=str(input("\n\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 	if selection == 'y':
 		if os.path.exists("/home/"+user+"/.ota_markers/.aliases_added") == True:
 			print("\n\n\t\tLooks like you already have aliases added. Do you want to continue anyway?\n")
-			selection=str(raw_input("\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+			selection=str(input("\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 			if selection=='y':
 				aliasesContent()
 			if selection =='a':
@@ -220,7 +220,7 @@ def selfUpdater():
 #		Exit program by pressing 'e' \n
 #		Force updater planting again by pressing 'f'\n"""+bcolors.YELLOW+"""
 	print(bcolors.YELLOW+"""\t\tGo back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
-	selection=str(raw_input(""))
+	selection=str(input(""))
 #	if selection=='e':
 #		sys.exit()
 	if selection=='b':
@@ -254,7 +254,7 @@ def selfUpdater():
 #		print(bcolors.GREEN+"""\n
 #		Reboot by pressing 'r' """+bcolors.ENDC+"""\n\t\t\t\t"""+bcolors.YELLOW+"""
 #		Go back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
-#		selection=str(raw_input(""))
+#		selection=str(input(""))
 #		if selection=='r':
 #			os.system("sudo reboot")
 #		if selection=='b':
@@ -272,7 +272,7 @@ def featuresMenu():
 	print("			"+bcolors.BOLD+"4 - Useful aliases\n"+bcolors.ENDC)
 	print("			"+bcolors.BOLD+"5 - Self updater \n"+bcolors.ENDC)
 	print("			"+bcolors.YELLOW+bcolors.BOLD+"e - Exit to main menu"+bcolors.ENDC)
-	selection=str(raw_input(""))
+	selection=str(input(""))
 	if selection=='1':
 		avrDude()
 	if selection== '2':
@@ -306,7 +306,7 @@ def firstTime():
 	> """+bcolors.BLUE+"""\"beta\""""+bcolors.ENDC+bcolors.BOLD+"""   - last 'beta' release (usually has about few weeks, quite stable)\n
 	> """+bcolors.BLUE+"""\"master\""""+bcolors.ENDC+bcolors.BOLD+""" - absolutely newest features implemented (even if not well tested)"""+bcolors.ENDC+"""\n""")
 		print("\n\n\t'f' - first page'"+bcolors.GREEN+"\t'u' - update notes'"+bcolors.ENDC+bcolors.YELLOW+"\t'b' - back to menu"+bcolors.ENDC+"\n\n")
-		selection=str(raw_input(""))
+		selection=str(input(""))
 		if selection=='f':
 			firstPage()
 		if selection=='b':
@@ -329,7 +329,7 @@ def firstTime():
 	If you found any bug - please report via GitHub or Facebook.\n
 			Enjoy!\n\t\t\t\t\t\t\t\tSzafran\n """+bcolors.ENDC)
 		print("\n\t"+bcolors.GREEN+"'s' - second page'"+bcolors.ENDC+"\t'u' - update notes'"+bcolors.YELLOW+"\t'b' - back to menu"+bcolors.ENDC+"\n\n")
-		selection=str(raw_input(""))
+		selection=str(input(""))
 		if selection=='s':
 			secondPage()
 		if selection=='u':
@@ -361,7 +361,7 @@ def mainMenu():
 	print("			"+bcolors.BOLD+"5 - Info + first time here\n"+bcolors.ENDC)
 	print("			"+bcolors.BOLD+"6 - Configuration wizard\n"+bcolors.ENDC)
 	print("			"+bcolors.YELLOW+bcolors.BOLD+"e - Exit"+bcolors.ENDC)
-	selection=str(raw_input())
+	selection=str(input())
 	if selection=='1':
 		os.system("python ./rpi_update.py")   ### opens raspberry updating file
 	if selection=='2':
