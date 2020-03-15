@@ -39,6 +39,25 @@ def clearTheScreen():
 		print("\n" * 200)
 	sleep(0.05)
 
+def dots2sec():
+	for i in range (30):
+		sys.stdout.write(".")
+		sys.stdout.flush()
+		sleep(0.0666)
+	sys.stdout.write("\n")
+
+
+def percentCount():
+	def backspace(n):
+		sys.stdout.write((b'\x08' * n).decode()) # use \x08 char to go back   
+
+	for i in range(101):                        # for 0 to 100
+		s = str(i) + '%'                        # string for output
+		sys.stdout.write(s)                     # just print
+		sys.stdout.flush()                      # needed for flush when using \x08
+		backspace(len(s))                       # back n chars    
+		time.sleep(0.05)        
+
 def image():
 	with open('./resources/image.txt', 'r') as file:
 		f = file.read()
