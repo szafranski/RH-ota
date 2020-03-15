@@ -10,4 +10,4 @@ git status
 git merge master -m "up-to-date with master"
 git push
 git checkout master
-
+git status
