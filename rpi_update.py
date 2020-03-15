@@ -330,8 +330,7 @@ def main():
 	Also make sure that you are logged as user '"""+bcolors.BLUE+user+bcolors.ENDC+bcolors.BOLD+"""'. \n
 	You can change those in configuration wizard in Main Menu.\n
 	Server installed right now: """+server_version_name+bcolors.BOLD+"""
-	RotorHazard configuration state: """+config_soft+bcolors.RED+bcolors.BOLD+"""\n
-								Enjoy!\n\n"""+bcolors.ENDC)
+	RotorHazard configuration state: """+config_soft+"""\n\n\n""")
 	if config_FLAG == False and serv_installed_FLAG == True:
 		print(bcolors.GREEN+"""\t\t'c' - Configure RotorHazard server\n"""+bcolors.ENDC)
 	else:
