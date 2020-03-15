@@ -30,10 +30,10 @@ else:
 def confCheck():
 	global conf_now_FLAG
 	if os.path.exists("/home/"+user+"/RotorHazard/src/server/config.json") == True:
-		print("\n\t\tLooks that you already have RotorHazard server configured.")
+		print("\n\tLooks that you already have RotorHazard server configured.")
 		valid_options = ['y', 'yes', 'n', 'no']
 		while True:
-			cont_conf = raw_input("\n\t\tOverwrite and continue anyway? [yes/no]\t\t").strip()
+			cont_conf = raw_input("\n\tOverwrite and continue anyway? [yes/no]\t\t").strip()
 			if cont_conf in valid_options:
 				break
 			else:
