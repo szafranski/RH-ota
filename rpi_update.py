@@ -166,7 +166,7 @@ def installation():
 		print("\nInternet connection - OK")
 		sleep(2)
 		clearTheScreen()
-		print("\n\t"+bcolors.BOLD+"Installation process started - please wait..."+bcolors.ENDC+" \n")
+		print("\n\t"+bcolors.BOLD+"Installation process has been started - please wait..."+bcolors.ENDC+" \n")
 		os.system("sudo apt-get update && sudo apt-get upgrade -y")
 		os.system("sudo apt autoremove -y")
 		os.system("sudo apt install wget ntp libjpeg-dev i2c-tools python-dev libffi-dev python-smbus build-essential python-pip git scons swig zip -y")

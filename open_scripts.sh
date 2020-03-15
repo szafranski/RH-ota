@@ -53,7 +53,7 @@ sleep 1.2
 sudo echo
 printf "\n\nUpdating process will be started soon.\n\n"
 sleep 1
-printf "\n\nUpdating process started\n\n"
+printf "\n\nUpdating process has been started\n\n"
 dots30
 kill -9 $(pidof python update.py)
 cd ~
@@ -72,5 +72,5 @@ printf "\n\nUpdate completed, hit 'Enter' to continue \n\n"
 
 # scripts like those ensures that files are being executed in right directory but main program
 # istelf can be continued from previous directory after such a script was executed or stopped
-# eg. after hittind Ctrl+C after server was started etc.
+# eg. after hitting Ctrl+C after server was started etc.
 
