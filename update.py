@@ -217,47 +217,14 @@ def selfUpdater():
 	Self-updater will test your internet connection during every update."""+bcolors.ENDC+"""\n""")
 	print(bcolors.GREEN+"""
 		Update now by pressing 'u'"""+bcolors.ENDC+"""\n""")
-#		Exit program by pressing 'e' \n
-#		Force updater planting again by pressing 'f'\n"""+bcolors.YELLOW+"""
 	print(bcolors.YELLOW+"""\t\tGo back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
 	selection=str(raw_input(""))
-#	if selection=='e':
-#		sys.exit()
 	if selection=='b':
 		featuresMenu()
 	if selection=='u':
 		os.system(". ./open_scripts.sh; updater_from_ota")
-#	if selection=='f':
-#		addUpdater()
 	else :
 		selfUpdater()
-####      old self updater: 
-#	else:
-#		addUpdater()
-#		sleep(0.1)
-#		os.system("echo 'updater marker' | tee -a ~/.ota_markers/.updater_self >/dev/null")
-#		clearTheScreen()
-#		logoTop()
-#		print(bcolors.BOLD+"""
-#	If you want to update this program and download new firmware,
-#	prepared for Arduino nodes - so you can next flash them
-#	- you have to reboot the Raspberry. Next step is to type
-#	'updateupdater' or 'uu' in the terminal window.
-#	"""+bcolors.UNDERLINE+"""Next time you won't have to reboot before updating."""+bcolors.ENDC+"""\n
-#	Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+bcolors.BOLD+""",
-#	so you allways know what firmware version updater contains.
-#	For example 2.2.5c contains nodes firmware with API 22 etc.
-#	Be sure that you have internet connection established."""+bcolors.ENDC)
-#		print(bcolors.GREEN+"""\n
-#		Reboot by pressing 'r' """+bcolors.ENDC+"""\n\t\t\t\t"""+bcolors.YELLOW+"""
-#		Go back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
-#		selection=str(raw_input(""))
-#		if selection=='r':
-#			os.system("sudo reboot")
-#		if selection=='b':
-#			featuresMenu()
-#		else :
-#			selfUpdater()
 
 def featuresMenu():
 	clearTheScreen()
@@ -366,7 +333,6 @@ def mainMenu():
 	if selection=='3':
 		clearTheScreen()
 		os.system(". ./open_scripts.sh; server_start")
-		#os.system("sh ./server_start.sh")
 	if selection=='4':
 		featuresMenu()
 	if selection=='5':
