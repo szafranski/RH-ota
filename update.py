@@ -55,9 +55,7 @@ def compatibility():               ### adds compatibility and fixes with previou
 #		if check_if_string_in_file(homedir+'/.bashrc', 'rld'):
 #			rldals.communicate()
 
-
 parser.read('/home/'+user+'/.ota_markers/ota_config.txt')
-
 
 def updatedCheck():
 	if os.path.exists("/home/"+user+"/.ota_markers/.was_updated"):
@@ -206,8 +204,8 @@ def aliasesMenu():
 	if selection == 'y':
 		#if os.path.exists("/home/"+user+"/.ota_markers/.aliases_added") == True:
 		if parser.getint('added_functions','aliases_1') == 1:
-			print("\n\n\tLooks like you already have aliases added. Do you want to continue anyway?\n")
-			selection=str(raw_input("\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+			print("\n\n\t\tLooks like you already have aliases added. \n\t\tDo you want to continue anyway?\n")
+			selection=str(raw_input("\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 			if selection=='y':
 				aliasesContent()
 			if selection =='a':
