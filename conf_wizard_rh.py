@@ -206,7 +206,6 @@ Default values are not automatically applied. Type them if needed.\n""")
 				else:
 					os.system("sed -i 's/\"SERIAL_PORTS\": [],/\"SERIAL_PORTS\": ["+str(serial_ports)+"],/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
 					break
-
 		if adv_wiz_FLAG==False:
 			debug = 'no'
 			cores_val = 'all'
@@ -215,7 +214,6 @@ Default values are not automatically applied. Type them if needed.\n""")
 			freq = '800000'
 			print("\nAdvanced configuration set to default values.\n\n")
 			sleep(1.2)
-
 		print("""\n\n\t\t\t"""+bcolors.UNDERLINE+"""CONFIGURATION"""+bcolors.ENDC+""":\n\t
 		Admin name: \t\t"""+admin_name+"""
 		Admin password: \t"""+admin_pass+"""
@@ -230,9 +228,7 @@ Default values are not automatically applied. Type them if needed.\n""")
 		LED frequency: \t\t"""+freq+"""
 		Debug mode: \t\t"""+debug+"""
 		Cores allowed: \t\t"""+cores_val+"""
-		Serial ports: \t\t"""+serial_ports+"""
-		
-		\n\n""")
+		Serial ports: \t\t"""+serial_ports+"""\n\n\n""")
 		print("Please check. Confirm? [yes/change/abort]\n")
 		valid_options = ['y', 'yes', 'n', 'no', 'change', 'abort']
 		while True:

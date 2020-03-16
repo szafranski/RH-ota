@@ -4,8 +4,7 @@ import os
 import sys
 import platform
 import json
-from modules import clearTheScreen, bcolors, logoTop, image, check_if_string_in_file#, internetCheck
-# import importlib
+from modules import clearTheScreen, bcolors, logoTop, image, check_if_string_in_file
 
 if os.path.exists("./updater-config.json") == True:
 	with open('updater-config.json') as config_file:
@@ -303,7 +302,7 @@ def update():
 			os.system("cp /home/"+user+"/RotorHazard.old/src/server/database.db /home/"+user+"/backup_RH_data >/dev/null 2>&1 &")
 			os.chdir("/home/"+user+"/RotorHazard/src/server")
 			os.system("sudo -H pip install --upgrade --no-cache-dir -r requirements.txt")
-			print("""\n\n\t
+			print("""\n\n
 		##############################################
 		##                                          ##
 		##            """+bcolors.BOLD+bcolors.GREEN+"""Update completed"""+bcolors.ENDC+"""              ##

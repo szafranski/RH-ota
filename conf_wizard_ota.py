@@ -91,7 +91,6 @@ Default values are not automatically applied. Type them if needed.\n""")
 				os.system("echo '	\"updates_without_pdf\" : "+no_pdf_val+"' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
 				break
 		os.system("echo '}' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
-
 		print("""\n\n\t\t\t"""+bcolors.UNDERLINE+"""CONFIGURATION"""+bcolors.ENDC+""":\n\t
 		User name: \t\t"""+name+"""
 		RotorHazard version: \t"""+version+"""
@@ -100,8 +99,7 @@ Default values are not automatically applied. Type them if needed.\n""")
 		Nodes amount: \t\t"""+nodes+"""
 		Debug mode: \t\t"""+debug_mode+"""
 		Pins assignment: \t"""+pins_assign+"""
-		Updates without PDF: \t"""+no_pdf+"""\n\n""")
-
+		Updates without PDF: \t"""+no_pdf+"""\n\n\n""")
 		print("Please check. Confirm? [yes/change/abort]\n")
 		valid_options = ['y', 'yes', 'n', 'no', 'change', 'abort']
 		while True:
@@ -123,3 +121,4 @@ Default values are not automatically applied. Type them if needed.\n""")
 			break
 else:
 	os.system("exit")
+
