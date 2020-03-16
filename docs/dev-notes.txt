@@ -29,6 +29,8 @@ Linux or WSL will be probably most compatible.
 
 Update notes may be read for new features description. 
 
+For now (Q1/2020) new release of the software may be quite often, cause lot of features and code cleaning is processed.
+
 Branches 'master' and 'no_pdf_included' are always up-to-date and valid to be used.
 
 Feedback is welcome. Use GitHub or contact me via Facebook.
