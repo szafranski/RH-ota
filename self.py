@@ -103,10 +103,10 @@ def newVersionCheck():
 def main():
 	internetCheck()
 	if internet_FLAG==0:
-		print("\nLooks like you don't have internet connection. Update canceled.")
+		print("\nLooks like you don't have internet connection. Update canceled.\n")
 		sleep(2)
 	else:
-		print("\nInternet connection - OK")
+		print("\nInternet connection - OK\n")
 		sleep(1.5)
 		os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")   ### resolves compatibility issues
 		os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         ### resolves compatibility issues
