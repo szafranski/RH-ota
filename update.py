@@ -281,7 +281,7 @@ def featuresMenu():
 					continue
 		if os.path.exists("/home/"+user+"/.ota_markers/.pinout_added"):
 			os.system("pinout")
-			selection = str(raw_input("Done? Hit 'Enter"))
+			selection = str(raw_input("\nDone? Hit 'Enter'\n"))
 		else:
 			print("Additional software needed. Please re-enter this menu.")
 			sleep(3)
