@@ -6,3 +6,4 @@
  wip Code check
  ? Python 3 friendly version
   Screen center
+  Config flile instead of creating check files
