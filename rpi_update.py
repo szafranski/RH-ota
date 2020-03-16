@@ -5,6 +5,8 @@ import sys
 import platform
 import json
 from modules import clearTheScreen, bcolors, logoTop, image, check_if_string_in_file
+from ConfigParser import ConfigParser
+parser = ConfigParser()
 
 if os.path.exists("./updater-config.json") == True:
 	with open('updater-config.json') as config_file:
@@ -34,7 +36,7 @@ if preffered_RH_version == 'stable':
 if preffered_RH_version =='custom':
 	server_version = 'X.X.X'           ### paste custom version number here if you want to declare it manually
 
-#global internet_FLAG
+parser.read('/home/'+user+'/.ota_markers/ota_config.txt')
 
 def internetCheck():
 	print("\nPlease wait - checking internet connection state...\n")
@@ -206,7 +208,8 @@ def installation():
 		os.system("sudo git clone https://github.com/rm-hull/bme280.git")
 		os.chdir("/home/"+user+"/bme280")
 		os.system("sudo python setup.py install")
-		os.system("echo 'leave this file here' | sudo tee -a /home/"+user+"/.ota_markers/.installation-check_file.txt")
+		#os.system("echo 'leave this file here' | sudo tee -a /home/"+user+"/.ota_markers/.installation-check_file.txt")
+		parser.set('added_functions','installation_done','1')
 		os.system("sudo apt-get install openjdk-8-jdk-headless -y")
 		os.system("sudo rm /lib/systemd/system/rotorhazard.service")
 		os.system("echo ' ' | sudo tee -a /lib/systemd/system/rotorhazard.service")
@@ -350,7 +353,8 @@ def main():
 			print("\n\t\tPlease install server software first")
 			sleep (1.5)
 	if selection =='i':	
-		if (os.path.exists("/home/"+user+"/.ota_markers/.installation-check_file.txt") == True):
+		#if (os.path.exists("/home/"+user+"/.ota_markers/.installation-check_file.txt") == True):
+		if parser.getint('added_functions','installation_done') == 1:
 			clearTheScreen()
 			print("""\n"""+bcolors.BOLD+"""
 	Looks like you already have RotorHazard server installed
@@ -401,4 +405,6 @@ def main():
 		sys.exit()
 	else:
 		main()
+	with open(''+homedir+'/.ota_markers/ota_config.txt', 'wb') as configfile:
+		parser.write(configfile)
 main()
