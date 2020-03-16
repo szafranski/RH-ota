@@ -1,11 +1,12 @@
 from time import sleep 
 import os
 
-selection = str(raw_input("Do you have 'xterm' and 'expect' installed? [hit 'n' if not or any other key to dismiss]\n"))
+selection = str(raw_input("Do you have 'xterm' installed? [hit 'n' if not or any other key to dismiss]\n"))
+#selection = str(raw_input("Do you have 'xterm' and 'expect' installed? [hit 'n' if not or any other key to dismiss]\n"))
 if selection == 'n':
 	print("Please install it now.\n")
 	os.system("sudo apt install xterm")
-	os.system("sudo apt install expect")
+#	os.system("sudo apt install expect")
 
 pi_user = 'pi'
 ip_first = '10.42.0.'
