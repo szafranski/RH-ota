@@ -271,8 +271,9 @@ def featuresMenu():
 			while True:
 				selection = str(raw_input())
 				if selection == 'y' or selection == 'yes':
-					os.system("sudo apt install python3-gpiozero")
-					os.system("echo 'pinout added' | tee -a ~/.ota_markers/.pinout_added >/dev/null")
+					os.system("sudo apt install python3-gpiozero && echo 'pinout added' | tee -a ~/.ota_markers/.pinout_added >/dev/null")
+					#os.system("sudo apt install python3-gpiozero")
+					#os.system("echo 'pinout added' | tee -a ~/.ota_markers/.pinout_added >/dev/null")
 					break
 				if selection == 'n' or selection == 'no':
 					break
