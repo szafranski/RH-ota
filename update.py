@@ -268,6 +268,7 @@ def featuresMenu():
 	if selection=='4':
 		os.system("sudo apt install python3-gpiozero")
 		os.system("pinout")
+		selection = str(raw_input("Done? Hit 'Enter""))
 	if selection=='5':
 		aliasesMenu()
 	if selection=='6':
