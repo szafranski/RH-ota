@@ -266,9 +266,24 @@ def featuresMenu():
 	if selection=='3':
 		os.system("python ./net_and_ap.py")
 	if selection=='4':
-		os.system("sudo apt install python3-gpiozero")
-		os.system("pinout")
-		selection = str(raw_input("Done? Hit 'Enter"))
+		if not os.path.exists("/home/"+user+"/ota_markers/.pinout_added"):
+			print("Some additional software has to be added so action can be performed. Ok?\n[yes/no]\n")
+			while True:
+				selection = str(raw_input())
+				if selection == 'y' or selection == 'yes':
+					os.system("sudo apt install python3-gpiozero")
+					os.system("echo 'pinout added' | tee -a ~/.ota_markers/.pinout_added >/dev/null")
+					break
+				if selection == 'n' or selection == 'no':
+					break
+				else:
+					continue
+		if os.path.exists("/home/"+user+"/ota_markers/.pinout_added"):
+			os.system("pinout")
+			selection = str(raw_input("Done? Hit 'Enter"))
+		else:
+			print("Additional software needed. Please re-enter this menu.")
+			sleep(3)
 	if selection=='5':
 		aliasesMenu()
 	if selection=='6':
