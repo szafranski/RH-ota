@@ -28,4 +28,4 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
 </br>
 
 >If you want detailed description of this software and actions that are being performed during operations</br>
->or you have some programming experience you may read [developer notes](/docs/dev-notes.txt). You may want to check [license file](/docs/LICENSE.txt) as well.
+>or you have some programming experience you may read [developer notes](/docs/dev-notes.txt). Legal stuff - here: [license file](/docs/LICENSE.txt).
