@@ -254,8 +254,9 @@ def featuresMenu():
 	print("			"+bcolors.BLUE+bcolors.BOLD+"1 - Install AVRDUDE\n"+bcolors.ENDC)
 	print("			"+bcolors.BLUE+bcolors.BOLD+"2 - Enable serial protocol\n"+bcolors.ENDC)
 	print("			"+bcolors.BOLD+"3 - Access Point and Internet\n"+bcolors.ENDC)
-	print("			"+bcolors.BOLD+"4 - Useful aliases\n"+bcolors.ENDC)
-	print("			"+bcolors.BOLD+"5 - Update OTA software\n"+bcolors.ENDC)
+	print("			"+bcolors.BOLD+"4 - Show actuall Pi GPIO\n"+bcolors.ENDC)
+	print("			"+bcolors.BOLD+"5 - Useful aliases\n"+bcolors.ENDC)
+	print("			"+bcolors.BOLD+"6 - Update OTA software\n"+bcolors.ENDC)
 	print("			"+bcolors.YELLOW+bcolors.BOLD+"e - Exit to main menu"+bcolors.ENDC)
 	selection=str(raw_input(""))
 	if selection=='1':
@@ -265,8 +266,11 @@ def featuresMenu():
 	if selection=='3':
 		os.system("python ./net_and_ap.py")
 	if selection=='4':
-		aliasesMenu()
+		os.system("sudo apt install python3-gpiozero")
+		os.system("pinout")
 	if selection=='5':
+		aliasesMenu()
+	if selection=='6':
 		selfUpdater()
 	if selection=='e':
 		mainMenu()

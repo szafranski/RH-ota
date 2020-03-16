@@ -8,3 +8,4 @@ Python 3 friendly version - in the way
 Screen center - python 3 related
 Config file instead of creating check files - config parser?
 Nodes update as function - done, testing
+Pinout shown in terminal (using python3-gpiozero)
