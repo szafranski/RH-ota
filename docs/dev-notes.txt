@@ -8,7 +8,10 @@ Some actions on system files are being performed during operations like UART ena
 Admin privileges are only used when needed (eg. avrdude installation) or to ensure smooth operation.
 
 Big part of this software acts like simple scripts. Automated actions like 'cp dir1 dir2' are being performed,
-so user don't have to do it manually.
+so user don't have to do it manually. 
+
+'> /dev/null 2>&1' parts are added sometimes to prevent error messages in parts where they can be exected,
+but don't have any impact on user experience due to nature of the rest of a command. 
 
 Software operates in user's home folder most of the time. It contains some code
 that can change content of that folder. Some directories may be deleted to ensure smooth operation
@@ -18,6 +21,8 @@ or "temp.zip" may be deleted. No actuall installation or configuration files are
 Software also contains some compatibility-ensuring code in prev_comp.py file so first users have same, good experiences with this software.
 
 Directory '/.dev' contains pieces of software which are not accessible by usual users, like test files etc.
+There also the file named "to_do_list.txt" with functions that I think may be provided in the software.
+If you can somehow help - feel free to do it. 
 
 You can enable debugging mode in wizard or in updater-config.json file so it can be evaluated on a PC.
 Linux or WSL will be probably most compatible. 
