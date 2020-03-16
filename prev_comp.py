@@ -66,7 +66,7 @@ if os.path.exists(homedir+"/.bashrc") == True:
 				os.system("echo '}' | tee -a "+homedir+"/RH-ota/updater-config.json >/dev/null 2>&1")
 if os.path.exists(homedir+"/.ota_markers/.serialok") == True:
 	serial_FLAG=True
-if os.path.exists(homedir+"/.old_RotorHazard.old/.installation-check_file.txt") == True:
+if os.path.exists(homedir+"/.ota_markers/.installation-check_file.txt") == True:
 	installation_FLAG = True
 if os.path.exists(homedir+"/.ota_markers/.pinout_added"):
 	pinout_FLAG=True
@@ -74,7 +74,7 @@ if os.path.exists(homedir+"/.ota_markers/.aliases_added") == True:
 	aliases_1_FLAG=True
 if os.path.exists(homedir+"/.ota_markers/.aliases2_added"):
 	aliases_2_FLAG=True
-if os.path.exists(homedir+"/.updater_self") == True:
+if os.path.exists(homedir+"/.ota_markers/.updater_self") == True:
 	updater_FLAG=True
 if not os.path.exists(homedir+"/.ota_markers/ota_config.txt"):
 	os.system("cp "+homedir+"/RH-ota/ota_config.txt "+homedir+"/.ota_markers/ota_config.txt")
@@ -93,3 +93,4 @@ if serial_FLAG==True:
 	parser.set('added_functions','serial_added','1')
 with open(''+homedir+'/.ota_markers/ota_config.txt', 'wb') as configfile:
 	parser.write(configfile)
+os.system("rm "+homedir+"/.ota_markers/.* >/dev/null 2>&1")
