@@ -1,9 +1,10 @@
     To do list:
 
- x Update notes at the opening
-  Better AP configuring
-  AVRdude test
- wip Code check
- ? Python 3 friendly version
-  Screen center
-  Config flile instead of creating check files
+Update notes at the opening - done 
+Better AP configuring - in the way
+AVRdude test - in the way
+Code check - help needed
+Python 3 friendly version - in the way
+Screen center - python 3 related
+Config file instead of creating check files - config parser?
+Nodes update as function - done, testing
