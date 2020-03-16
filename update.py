@@ -254,7 +254,7 @@ def featuresMenu():
 	print("			"+bcolors.BLUE+bcolors.BOLD+"1 - Install AVRDUDE\n"+bcolors.ENDC)
 	print("			"+bcolors.BLUE+bcolors.BOLD+"2 - Enable serial protocol\n"+bcolors.ENDC)
 	print("			"+bcolors.BOLD+"3 - Access Point and Internet\n"+bcolors.ENDC)
-	print("			"+bcolors.BOLD+"4 - Show actuall Pi GPIO\n"+bcolors.ENDC)
+	print("			"+bcolors.BOLD+"4 - Show actuall Pi's GPIO\n"+bcolors.ENDC)
 	print("			"+bcolors.BOLD+"5 - Useful aliases\n"+bcolors.ENDC)
 	print("			"+bcolors.BOLD+"6 - Update OTA software\n"+bcolors.ENDC)
 	print("			"+bcolors.YELLOW+bcolors.BOLD+"e - Exit to main menu"+bcolors.ENDC)
@@ -266,7 +266,7 @@ def featuresMenu():
 	if selection=='3':
 		os.system("python ./net_and_ap.py")
 	if selection=='4':
-		if not os.path.exists("/home/"+user+"/ota_markers/.pinout_added"):
+		if not os.path.exists("/home/"+user+"/.ota_markers/.pinout_added"):
 			print("Some additional software has to be added so action can be performed. Ok?\n[yes/no]\n")
 			while True:
 				selection = str(raw_input())
@@ -278,7 +278,7 @@ def featuresMenu():
 					break
 				else:
 					continue
-		if os.path.exists("/home/"+user+"/ota_markers/.pinout_added"):
+		if os.path.exists("/home/"+user+"/.ota_markers/.pinout_added"):
 			os.system("pinout")
 			selection = str(raw_input("Done? Hit 'Enter"))
 		else:
