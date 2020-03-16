@@ -10,9 +10,9 @@ if selection == 'n':
 
 terminal_used = 'xterm'    ## may be changd to 'default' - not recommended
 
-pi_user = 'pi'
+pi_user = 'pi'                # user name on the pi
 ip_first = '10.42.0.'
-port = 22    # default port used for ssh
+port = 22                      # default port used for ssh
 
 pi_pwsd='raspberry'
 
