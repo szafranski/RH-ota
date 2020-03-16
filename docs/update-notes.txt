@@ -5,11 +5,18 @@
 		UPDATE NOTES:
 		^^^^^^^^^^^^
 
+2.2.9l
+
+Added CongfigParser features instead of hidden files
+Auto convertions from previous approach
+
+
 2.2.9k
 
 Pinout showing feature added to menu 
 
 2.2.9i
+
 Update notes prompt added
 Minor code improvements
 
