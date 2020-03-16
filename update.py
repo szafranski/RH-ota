@@ -4,6 +4,8 @@ import platform
 import sys
 import json
 from modules import clearTheScreen, bcolors, logoTop, image, check_if_string_in_file, ota_image
+from ConfigParser import ConfigParser
+parser = ConfigParser()
 
 updater_version = '2.2.9k'  ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
@@ -52,6 +54,10 @@ def compatibility():               ### adds compatibility and fixes with previou
 
 #		if check_if_string_in_file(homedir+'/.bashrc', 'rld'):
 #			rldals.communicate()
+
+
+parser.read('/home/'+user+'/.ota_markers/ota_config.txt')
+
 
 def updatedCheck():
 	if os.path.exists("/home/"+user+"/.ota_markers/.was_updated"):
@@ -104,7 +110,8 @@ def serialMenu():
 	def serialContent():
 		os.system("echo 'enable_uart=1'| sudo tee -a /boot/config.txt")
 		os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
-		os.system("echo 'functionality added' | tee -a ~/.ota_markers/.serialok")
+		#os.system("echo 'functionality added' | tee -a ~/.ota_markers/.serialok")
+		parser.set('added_functions','serial_added','1')
 		print("""\n\n\t\tSerial port enabled successfully\n\t\t\t\t
 		You have to reboot Raspberry now. Ok?\n\t\t\t\t\t
 		'r' - Reboot now\t"""
@@ -120,7 +127,8 @@ def serialMenu():
 		Do you want to enable it now?""")
 	selection=str(raw_input("\n\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 	if selection == 'y':
-		if os.path.exists("/home/"+user+"/.ota_markers/.serialok") == True:
+		#if os.path.exists("/home/"+user+"/.ota_markers/.serialok") == True:
+		if parser.getint('added_functions','serial_added') == 1:
 			print("\n\n\t\tLooks like you already enabled Serial port. \n\t\tDo you want to continue anyway?\n")
 			selection=str(raw_input("\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 			if selection=='y':
@@ -159,8 +167,10 @@ def aliasesMenu():
 		os.system("echo 'alias home=\"cd ~ \"  # go homedir (without ~ sign)' | tee -a ~/.bashrc")
 		os.system("echo '' | tee -a ~/.bashrc")
 		os.system("echo '# After adding or changing aliases manually - reboot raspberry or type \"source ~/.bashrc\".' | tee -a ~/.bashrc")
-		os.system("echo 'functionality added - leave file here' | tee -a ~/.ota_markers/.aliases_added >/dev/null")
-		os.system("echo 'functionality added - leave file here' | tee -a ~/.ota_markers/.aliases2_added >/dev/null")
+		#os.system("echo 'functionality added - leave file here' | tee -a ~/.ota_markers/.aliases_added >/dev/null")
+		parser.set('added_functions','aliases_1','1')
+		#os.system("echo 'functionality added - leave file here' | tee -a ~/.ota_markers/.aliases2_added >/dev/null")
+		parser.set('added_functions','aliases_2','1')
 		print("\n\n\t\t	Aliases added successfully")
 		#os.system(". ~/.bashrc && alias*")
 		#os.system("cd /home/"+user+"/RH-ota && . ./open_scripts.sh; aliases_reload")
@@ -194,7 +204,8 @@ def aliasesMenu():
 		Reboot should be performed after adding those""")
 	selection=str(raw_input("\n\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 	if selection == 'y':
-		if os.path.exists("/home/"+user+"/.ota_markers/.aliases_added") == True:
+		#if os.path.exists("/home/"+user+"/.ota_markers/.aliases_added") == True:
+		if parser.getint('added_functions','aliases_1') == 1:
 			print("\n\n\tLooks like you already have aliases added. Do you want to continue anyway?\n")
 			selection=str(raw_input("\t\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 			if selection=='y':
@@ -223,7 +234,8 @@ def selfUpdater():
 		os.system("""echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null""")
 		os.system("""echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null""")
 		os.system("echo 'updater marker' | tee -a ~/.ota_markers/.updater_self >/dev/null")
-	if not os.path.exists("/home/"+user+"/.ota_markers/.updater_self") == True:
+	#if not os.path.exists("/home/"+user+"/.ota_markers/.updater_self") == True:
+	if parser.getint('added_functions','updater_planted') == 0:
 		addUpdater()
 	clearTheScreen()
 	logoTop()
@@ -266,18 +278,21 @@ def featuresMenu():
 	if selection=='3':
 		os.system("python ./net_and_ap.py")
 	if selection=='4':
-		if not os.path.exists("/home/"+user+"/.ota_markers/.pinout_added"):
+		#if not os.path.exists("/home/"+user+"/.ota_markers/.pinout_added"):
+		if parser.getint('added_functions','pinout_installed') == 0:
 			print("Some additional software has to be added so action can be performed. Ok?\n[yes/no]\n")
 			while True:
 				selection = str(raw_input())
 				if selection == 'y' or selection == 'yes':
-					os.system("sudo apt install python3-gpiozero && echo 'pinout added' | tee -a ~/.ota_markers/.pinout_added >/dev/null")
+					os.system("sudo apt install python3-gpiozero") ## && echo 'pinout added' | tee -a ~/.ota_markers/.pinout_added >/dev/null")
+					parser.set('added_functions','pinout_installed','1')
 					break
 				if selection == 'n' or selection == 'no':
 					break
 				else:
 					continue
-		if os.path.exists("/home/"+user+"/.ota_markers/.pinout_added"):
+		#if os.path.exists("/home/"+user+"/.ota_markers/.pinout_added"):
+		if parser.getint('added_functions','pinout_installed') == 1:
 			os.system("pinout")
 			selection = str(raw_input("\nDone? Hit 'Enter'\n"))
 		else:
@@ -385,6 +400,8 @@ def mainMenu():
 		os.system("python ./.dev/done_nodes_update_dev.py")   ### opens nodes updating file
 	else:
 		mainMenu()
+	with open(''+homedir+'/.ota_markers/ota_config.txt', 'wb') as configfile:
+		parser.write(configfile)
 
 #if __name__ == "__main__":
 first()
