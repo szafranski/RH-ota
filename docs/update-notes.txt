@@ -10,7 +10,7 @@
 
 Added logging with an option of uploading results
 to the developer + developer tools for downloading
-
+Raspberry Pi 4 friendly configuration
 
 2.2.9l
 
