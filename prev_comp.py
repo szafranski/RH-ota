@@ -93,4 +93,4 @@ if serial_FLAG==True:
 	parser.set('added_functions','serial_added','1')
 with open(''+homedir+'/.ota_markers/ota_config.txt', 'wb') as configfile:
 	parser.write(configfile)
-os.system("rm "+homedir+"/.ota_markers/.* >/dev/null 2>&1")
+#os.system("rm "+homedir+"/.ota_markers/.* >/dev/null 2>&1")
