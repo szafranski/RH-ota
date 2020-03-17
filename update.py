@@ -402,7 +402,7 @@ def mainMenu():
 		os.system("python ./.dev/done_nodes_update_dev.py")   ### opens nodes updating file
 	else:
 		mainMenu()
-	with open(''+homedir+'/.ota_markers/ota_config.txt', 'wb') as configfile:
+	with open('/home/'+user+'/.ota_markers/ota_config.txt', 'wb') as configfile:
 		parser.write(configfile)
 
 #if __name__ == "__main__":
