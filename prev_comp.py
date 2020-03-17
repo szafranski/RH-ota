@@ -67,6 +67,8 @@ for i in range (3):
 					os.system("sed -i 's/\"pins_assignment\" : \"PCB\"/\"pins_assignment\" : \"PCB\",/g' "+homedir+"/RH-ota/updater-config.json")
 					os.system("sed -i 's/}/	\"updates_without_pdf\" : 0 /g' "+homedir+"/RH-ota/updater-config.json")
 					os.system("echo '}' | tee -a "+homedir+"/RH-ota/updater-config.json >/dev/null 2>&1")
+	if not check_if_string_in_file(homedir+'/.ota_markers/ota_config.txt', 'curl_installed'):
+		os.system("echo curl_installed = 0 | tee -a "+homedir+"/.ota_markers/ota_config.txt > /dev/null ")
 	if os.path.exists(homedir+"/.ota_markers/.serialok") == True:
 		serial_FLAG=True
 	if os.path.exists(homedir+"/.ota_markers/.installation-check_file.txt") == True:
@@ -97,7 +99,6 @@ for i in range (3):
 	with open(homedir+'/.ota_markers/ota_config.txt', 'wb') as configfile:
 		parser.write(configfile)
 	#os.system("rm "+homedir+"/.ota_markers/.* >/dev/null 2>&1")
-
 	if os.stat(homedir+'/.ota_markers/ota_config.txt').st_size == 0:
 		os.system("rm "+homedir+"/.ota_markers/ota_config.txt")
 		continue

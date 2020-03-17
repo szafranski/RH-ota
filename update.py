@@ -54,11 +54,30 @@ def compatibility():               ### adds compatibility and fixes with previou
 if not os.path.exists(homedir+"/.ota_markers/ota_config.txt"):
 	os.system("cp "+homedir+"/RH-ota/resources/ota_config.txt "+homedir+"/.ota_markers/ota_config.txt")
 
-parser.read('/home/'+user+'/.ota_markers/ota_config.txt')
 
 def parser_write():
 	with open('/home/'+user+'/.ota_markers/ota_config.txt', 'wb') as configfile:
 		parser.write(configfile)
+
+def log_send():
+	selection = str(raw_input("\n\n\tDo you want to send a log file for a review to the developer? [yes/no]\n\n\t"))
+	if selection=='y' or selection =='yes':
+		if parser.getint('added_functions','curl_installed') == 0:
+			if not os.system("sudo apt install curl"):
+				parser.set('added_functions','curl_installed','1')
+				parser_write()
+		log_name = str(raw_input("\n\tPlease enter your name so we know who sent a log file: "))
+		print("\n\tPlease wait, file is being uploaded...\n")
+		os.system("curl --upload-file ./log.txt https://transfer.sh/"+log_name+"_log.txt")
+		raw_input("\n\nHit 'enter' to continue\n\n")
+		main_menu()
+	if selection=='n' or selection =='no':
+		print("\n\n\tOK - you log file is stored under 'log.txt' name in RH-ota directory.")
+		raw_input("\n\n\tHit 'Enter' to continue\n\n")
+		main_menu()
+	else:
+		log_send()
+
 
 def updated_check():
 	if os.path.exists("/home/"+user+"/.ota_markers/.was_updated"):
@@ -82,6 +101,7 @@ def updated_check():
 
 def first ():
 	compatibility()
+	parser.read('/home/'+user+'/.ota_markers/ota_config.txt')
 	clear_the_screen()
 	print("\n\n")
 	image_show()
@@ -386,6 +406,7 @@ def main_menu():
 		os.system("python ./conf_wizard_ota.py")
 	if selection == 'logme':
 		os.system(". ./open_scripts.sh; log_me")
+		log_send()
 	if selection=='e':
 		end()
 	if selection=='2dev':

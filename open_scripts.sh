@@ -85,10 +85,10 @@ cat ~/.ota_markers/ota_config.txt | tee -a  ./log.txt
 echo | tee -a  ./log.txt
 
 echo LOGGING TO FILE - DONE
-
-sleep 2
-
+sleep 1.5
 }
+
+
 
 # aliases_reload () 
 # {
