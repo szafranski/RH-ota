@@ -26,7 +26,7 @@ else:
 	with open(cfgdir2) as config_file:
 		data = json.load(config_file)
 
-def internetCheck():
+def internet_check():
 	print("\nPlease wait - checking internet connection state...\n")
 	global internet_FLAG
 	before_millis = int(round(time.time() * 1000))
@@ -70,7 +70,7 @@ if config_file_exists == True:
 else: 
 	no_pdf_update = False
 
-def debugInfo():
+def debug_info():
 	if config_file_exists == True:
 		print("config_file_exists = True")
 	else:
@@ -80,9 +80,9 @@ def debugInfo():
 	else:
 		print("no_pdf_update = False")
 	sleep(1)
-#debugInfo()
+#debug_info()
 
-def oldVersionCheck():
+def old_version_check():
 	os.system("grep 'updater_version =' ~/RH-ota/update.py > ~/.ota_markers/.old_version")
 	os.system("sed -i 's/updater_version = //' ~/.ota_markers/.old_version")
 	os.system("sed -i 's/#.*/ /' ~/.ota_markers/.old_version")
@@ -91,7 +91,7 @@ def oldVersionCheck():
 		global old_version_name
 		old_version_name = line
 
-def newVersionCheck():
+def new_version_check():
 	os.system("grep 'updater_version =' ~/RH-ota/update.py > ~/.ota_markers/.new_version")
 	os.system("sed -i 's/updater_version = //' ~/.ota_markers/.new_version")
 	os.system("sed -i 's/#.*/ /' ~/.ota_markers/.new_version")
@@ -101,7 +101,7 @@ def newVersionCheck():
 		new_version_name = line
 
 def main():
-	internetCheck()
+	internet_check()
 	if internet_FLAG==0:
 		print("\nLooks like you don't have internet connection. Update canceled.\n")
 		sleep(2)
@@ -110,7 +110,7 @@ def main():
 		sleep(1.5)
 		os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")   ### resolves compatibility issues
 		os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         ### resolves compatibility issues
-		oldVersionCheck()
+		old_version_check()
 		print("\n\n\n\t Please wait: updating process from version "+old_version_name+"\n\n")
 		sleep(2)
 		if config_file_exists == True:
@@ -133,7 +133,7 @@ def main():
 			os.system("mv RH-ota-* RH-ota")
 		if config_file_exists == True:
 			os.system("cp ~/.ota_markers/updater-config.json ~/RH-ota/updater-config.json")
-		newVersionCheck()
+		new_version_check()
 		print("\n\n\n\t RotorHazard OTA Manager updated to version "+new_version_name+"\n\t\tYou may check update-notes.\n\n")
 		sleep(1)
 		os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")   ### resolves compatibility issues

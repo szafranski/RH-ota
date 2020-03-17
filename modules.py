@@ -30,7 +30,7 @@ if linux_testing == True:
 else:
 	user = data['pi_user']
 
-def clearTheScreen():
+def clear_the_screen():
 	sleep(0.05)
 	if platform.system() == "Windows":
 		os.system("cls")
@@ -47,7 +47,7 @@ def dots2sec():
 		sleep(0.0666)
 	sys.stdout.write("\n")
 
-def percentCount():
+def percent_count():
 	def backspace(n):
 		sys.stdout.write((b'\x08' * n).decode()) # use \x08 char to go back   
 
@@ -58,7 +58,7 @@ def percentCount():
 		backspace(len(s))                       # back n chars    
 		time.sleep(0.05)        
 
-def image():
+def image_show():
 	with open('./resources/image.txt', 'r') as file:
 		f = file.read()
 		print(f)
@@ -75,7 +75,7 @@ def check_if_string_in_file(file_name, string_to_search):
 				return True
 	return False
 
-def logoTop():
+def logo_top():
 	print("""\n	
 	#######################################################################
 	###                                                                 ###
@@ -99,7 +99,7 @@ class bcolors:
 	BOLD = '\033[1m'
 	UNDERLINE = '\033[4m'
 
-def internetCheck():
+def internet_check():
 	print("\nPlease wait - checking internet connection state...\n")
 	global internet_FLAG
 	before_millis = int(round(time.time() * 1000))

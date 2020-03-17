@@ -3,14 +3,14 @@ import os
 import platform
 import sys
 import json
-from modules import clearTheScreen, bcolors, logoTop
+from modules import clear_the_screen, bcolors, logo_top
 
 homedir = os.path.expanduser('~')
 
-clearTheScreen()
-logoTop()
+clear_the_screen()
+logo_top()
 
-def confCheck():
+def conf_check():
 	global conf_now_FLAG
 	if os.path.exists("./updater-config.json") == True:
 		print("\n\tLooks that you have OTA software already configured.")
@@ -28,7 +28,7 @@ def confCheck():
 			conf_now_FLAG =0
 	else:
 		conf_now_FLAG =1
-confCheck()
+conf_check()
 
 if conf_now_FLAG ==1:
 	while True:

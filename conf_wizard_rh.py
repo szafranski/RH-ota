@@ -3,12 +3,12 @@ import os
 import platform
 import sys
 import json
-from modules import clearTheScreen, bcolors, logoTop
+from modules import clear_the_screen, bcolors, logo_top
 
 homedir = os.path.expanduser('~')
 
-clearTheScreen()
-logoTop()
+clear_the_screen()
+logo_top()
 
 if os.path.exists("./updater-config.json") == True:
 	with open('updater-config.json') as config_file:
@@ -27,7 +27,7 @@ if linux_testing == True:
 else:
 	user = data['pi_user']
 
-def confCheck():
+def conf_check():
 	global conf_now_FLAG
 	if os.path.exists("/home/"+user+"/RotorHazard/src/server/config.json") == True:
 		print("\n\tLooks that you already have RotorHazard server configured.")
@@ -45,7 +45,7 @@ def confCheck():
 			conf_now_FLAG =0
 	else:
 		conf_now_FLAG =1
-confCheck()
+conf_check()
 
 if conf_now_FLAG ==1:
 	while True:

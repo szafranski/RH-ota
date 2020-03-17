@@ -4,6 +4,7 @@ import platform
 import sys
 from modules import check_if_string_in_file
 from ConfigParser import ConfigParser
+
 parser = ConfigParser()
 
 homedir = os.path.expanduser('~')
