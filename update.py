@@ -63,7 +63,7 @@ def log_send():
 	selection = str(raw_input("\n\n\tDo you want to send a log file for a review to the developer? [y/n] "))
 	if selection=='y' or selection =='yes':
 		if parser.getint('added_functions','curl_installed') == 0:
-			if not os.system("sudo apt install curl"):
+			if not os.system("sudo apt install curl cowsay"):
 				parser.set('added_functions','curl_installed','1')
 				parser_write()
 		log_name = str(raw_input("\n\tPlease enter your name so we know who sent a log file: "))
@@ -82,6 +82,8 @@ def log_send():
 		print("\nUser code: "+code)
 		print("\n___________________________\n") 
 		raw_input("\n\nHit 'Enter' to continue\n\n")
+		os.system("cowsay You are awesome! Fly safe.")
+		sleep(3)
 		main_menu()
 	if selection=='n' or selection =='no':
 		print("\n\n\tOK - you log file is stored under 'log.txt' name in RH-ota directory.")
