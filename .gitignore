@@ -7,3 +7,4 @@ index.html
 RH-ota
 nohup*
 /log_data
+/.dev/*_log.txt
