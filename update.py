@@ -109,7 +109,7 @@ def updated_check():
 			updated_check()
 		os.system("rm /home/"+user+"/.ota_markers/.was_updated >/dev/null 2>&1")
 
-def first ():
+def first():
 	compatibility()
 	parser.read('/home/'+user+'/.ota_markers/ota_config.txt')
 	clear_the_screen()
@@ -118,6 +118,7 @@ def first ():
 	print("\t\t\t\t "+bcolors.BOLD+"Updater version: "+str(updater_version)+bcolors.ENDC)
 	sleep(1)
 	updated_check()
+	os.system("sudo systemctl stop rotorhazard > /dev/null 2>&1")
 
 def avr_dude():
 	clear_the_screen()
