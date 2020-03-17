@@ -38,6 +38,10 @@ if preffered_RH_version =='custom':
 
 parser.read('/home/'+user+'/.ota_markers/ota_config.txt')
 
+def parserWrite():
+	with open('/home/'+user+'/.ota_markers/ota_config.txt', 'wb') as configfile:
+		parser.write(configfile)
+
 def internetCheck():
 	print("\nPlease wait - checking internet connection state...\n")
 	global internet_FLAG
@@ -116,7 +120,8 @@ def endUpdate():
 		selection=str(raw_input(""))
 		if selection =='r':	
 			os.system("sudo reboot")
-		if selection =='e':	
+		if selection =='e':
+			parserWrite()
 			sys.exit()
 		if selection =='c':	
 			os.system(". /home/"+user+"/RH-ota/open_scripts.sh; configuraton_start")
@@ -127,7 +132,7 @@ def endUpdate():
 			os.system(". ./open_scripts.sh; server_start")
 			#os.system("sh ./server_start.sh")
 		else: 
-			end()
+			endMenu()
 	endMenu()	
 	clearTheScreen()
 
@@ -142,6 +147,7 @@ def endInstallation():
 		if selection =='r':	
 			os.system("sudo reboot")
 		if selection =='e':	
+			parserWrite()
 			sys.exit()
 		if selection =='c':	
 			os.system(". /home/"+user+"/RH-ota/open_scripts.sh; configuraton_start")
@@ -405,6 +411,4 @@ def main():
 		sys.exit()
 	else:
 		main()
-	with open(''+homedir+'/.ota_markers/ota_config.txt', 'wb') as configfile:
-		parser.write(configfile)
 main()

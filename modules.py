@@ -4,6 +4,7 @@ import platform
 import sys
 import json
 import time
+
 #from rpi_update import internetCheck
 
 # import subprocess
@@ -45,7 +46,6 @@ def dots2sec():
 		sys.stdout.flush()
 		sleep(0.0666)
 	sys.stdout.write("\n")
-
 
 def percentCount():
 	def backspace(n):

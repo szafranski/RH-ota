@@ -57,6 +57,10 @@ def compatibility():               ### adds compatibility and fixes with previou
 
 parser.read('/home/'+user+'/.ota_markers/ota_config.txt')
 
+def parserWrite():
+	with open('/home/'+user+'/.ota_markers/ota_config.txt', 'wb') as configfile:
+		parser.write(configfile)
+
 def updatedCheck():
 	if os.path.exists("/home/"+user+"/.ota_markers/.was_updated"):
 		clearTheScreen()
@@ -231,7 +235,8 @@ def selfUpdater():
 		os.system("sudo apt install zip unzip")
 		os.system("""echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null""")
 		os.system("""echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null""")
-		os.system("echo 'updater marker' | tee -a ~/.ota_markers/.updater_self >/dev/null")
+		#os.system("echo 'updater marker' | tee -a ~/.ota_markers/.updater_self >/dev/null")
+		parser.set('added_functions','updater_planted','1')
 	#if not os.path.exists("/home/"+user+"/.ota_markers/.updater_self") == True:
 	if parser.getint('added_functions','updater_planted') == 0:
 		addUpdater()
@@ -282,7 +287,7 @@ def featuresMenu():
 			while True:
 				selection = str(raw_input())
 				if selection == 'y' or selection == 'yes':
-					if not os.system("sudo apt install python3-gpiozero"):
+					if not os.system("sudo apt-get install python3-gpiozero"):
 						parser.set('added_functions','pinout_installed','1')
 						break
 					else:
@@ -362,6 +367,7 @@ def firstTime():
 	firstPage()
 
 def end():
+		parserWrite()
 		clearTheScreen()
 		print("\n\n")
 		ota_image()
@@ -402,9 +408,9 @@ def mainMenu():
 		os.system("python ./.dev/done_nodes_update_dev.py")   ### opens nodes updating file
 	else:
 		mainMenu()
-	with open('/home/'+user+'/.ota_markers/ota_config.txt', 'wb') as configfile:
-		parser.write(configfile)
 
 #if __name__ == "__main__":
 first()
 mainMenu()
+
+
