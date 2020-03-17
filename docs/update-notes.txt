@@ -5,11 +5,19 @@
 		UPDATE NOTES:
 		^^^^^^^^^^^^
 
+
+2.2.9m
+
+Added logging with an option of uploading results
+to the developer + developer tools for downloading
+
+
 2.2.9l
 
 Added CongfigParser features instead of hidden files
 Auto convertions from previous approach
 
+Just in case:
 Importand: if after performing an update you saw
 that config file (not json) in directory:
 '~/.ota_markers/ota_config.txt' is empty and you find

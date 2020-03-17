@@ -8,7 +8,7 @@ from ConfigParser import ConfigParser
 
 parser = ConfigParser()
 
-updater_version = '2.2.9l'  ### version of THIS program - has nothing to do with the RH version
+updater_version = '2.2.9m'  ### version of THIS program - has nothing to do with the RH version
                             ### it reffers to the API level of newest contained nodes firmware 
                             ### third number reffers to actual verion of the updater itself
 
