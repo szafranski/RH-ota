@@ -19,7 +19,7 @@ else:
 if data['debug_mode'] == 1:
 	linux_testing = True
 else:
-	linux_testing = False 
+	linux_testing = False
 
 if linux_testing == True:
 	user = data['debug_user']
@@ -75,7 +75,7 @@ def first ():
 first()
 
 def server_checker():
-	global serv_installed_FLAG 
+	global serv_installed_FLAG
 	if os.path.exists("/home/"+user+"/RotorHazard/src/server/server.py") == True:
 		os.system("grep 'RELEASE_VERSION =' ~/RotorHazard/src/server/server.py > ~/.ota_markers/.server_version")
 		os.system("sed -i 's/RELEASE_VERSION = \"//' ~/.ota_markers/.server_version")
@@ -106,7 +106,7 @@ def sys_conf():
 	if pi_4_FLAG == True:
 		os.system("echo 'core_freq=250' | sudo tee -a /boot/config.txt")
 		os.system("sed -i 's/core_freq=250/#core_freq=250/' /boot/config.txt > /dev/null 2>&1")
-	os.system("echo 'dtparam=spi=on' | sudo sudo tee -a /boot/config.txt  ")  
+	os.system("echo 'dtparam=spi=on' | sudo sudo tee -a /boot/config.txt  ")
 	os.system("echo 'i2c-bcm2708' | sudo tee -a /boot/config.txt")
 	os.system("echo 'i2c-dev' | sudo tee -a /boot/config.txt")
 	os.system("echo 'dtparam=i2c1=on' | sudo tee -a /boot/config.txt")
@@ -126,22 +126,22 @@ def end_update():
 		'e' - exit now\n"""+bcolors.ENDC)
 	def end_menu():
 		selection=str(raw_input(""))
-		if selection =='r':	
+		if selection =='r':
 			os.system("sudo reboot")
 		if selection =='e':
 			parser_write()
 			sys.exit()
-		if selection =='c':	
+		if selection =='c':
 			os.system(". /home/"+user+"/RH-ota/open_scripts.sh; configuraton_start")
 			end_update()
-		if selection =='s':	
+		if selection =='s':
 			clear_the_screen()
 			os.chdir("/home/"+user+"/RH-ota")
 			os.system(". ./open_scripts.sh; server_start")
 			#os.system("sh ./server_start.sh")
-		else: 
+		else:
 			end_menu()
-	end_menu()	
+	end_menu()
 	clear_the_screen()
 
 def end_installation():
@@ -152,22 +152,22 @@ def end_installation():
 		'e' - exit now\n"""+bcolors.ENDC)
 	def end_menu():
 		selection=str(raw_input(""))
-		if selection =='r':	
+		if selection =='r':
 			os.system("sudo reboot")
-		if selection =='e':	
+		if selection =='e':
 			parser_write()
 			sys.exit()
-		if selection =='c':	
+		if selection =='c':
 			os.system(". /home/"+user+"/RH-ota/open_scripts.sh; configuraton_start")
 			end_update()
-		if selection =='s':	
+		if selection =='s':
 			clear_the_screen()
 			os.chdir("/home/"+user+"/RH-ota")
 			os.system(". ./open_scripts.sh; server_start")
 			#os.system("sh ./server_start.sh")
-		else: 
+		else:
 			end()
-	end_menu()	
+	end_menu()
 	clear_the_screen()
 
 def installation():
@@ -330,7 +330,7 @@ def update():
 
 def main():
 	global config_FLAG
-	global serv_installed_FLAG 
+	global serv_installed_FLAG
 	global conf_allowed
 	global config_soft
 	global server_version_name
@@ -367,7 +367,7 @@ def main():
 		else:
 			print("\n\t\tPlease install server software first")
 			sleep (1.5)
-	if selection =='i':	
+	if selection =='i':
 		#if (os.path.exists("/home/"+user+"/.ota_markers/.installation-check_file.txt") == True):
 		if parser.getint('added_functions','installation_done') == 1:
 			clear_the_screen()
@@ -410,9 +410,9 @@ def main():
 		else:
 			conf_allowed = True
 			installation()
-	if selection =='u':	
+	if selection =='u':
 		update()
-	if selection =='e':	
+	if selection =='e':
 		clear_the_screen()
 		os.chdir("/home/"+user+"/RH-ota")
 		image_show()
