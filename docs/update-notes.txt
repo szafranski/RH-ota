@@ -18,7 +18,7 @@ just remove that file entirely:
 ' rm ~/.ota_markers/ota_config.txt '
 and than just open OTA again.
 You can input config values manually in this file 
-- just once.
+- just once, if you want to be well organised :)
 
 Options: 1 means "true"
 
