@@ -51,7 +51,7 @@ def compatibility():               ### adds compatibility and fixes with previou
 	os.system("python ./prev_comp.py")
 
 if not os.path.exists(homedir+"/.ota_markers/ota_config.txt"):
-	os.system("cp "+homedir+"/RH-ota/ota_config.txt "+homedir+"/.ota_markers/ota_config.txt
+	os.system("cp "+homedir+"/RH-ota/ota_config.txt "+homedir+"/.ota_markers/ota_config.txt")
 
 parser.read('/home/'+user+'/.ota_markers/ota_config.txt')
 
