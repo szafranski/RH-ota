@@ -1,4 +1,4 @@
-![OTA Logo](/resources/ota_logo.png)
+![OTA Logo](./resources/ota_logo.png)
 
 # Easy mange and update your [RotorHazard](https://github.com/RotorHazard/RotorHazard) installation. 
 
