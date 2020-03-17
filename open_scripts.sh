@@ -66,24 +66,26 @@ printf "\n\nUpdate completed, hit 'Enter' to continue \n\n"
 
 log_me()
 {
-rm ./log.txt > /dev/null 2>&1
-echo > ./log.txt
-echo FILE /boot/config.txt | tee -a  ./log.txt
-echo | tee -a  ./log.txt
-cat /boot/config.txt | tee -a  ./log.txt
-echo | tee -a  ./log.txt
-echo FILE /boot/cmdline.txt | tee -a  ./log.txt
-echo | tee -a  ./log.txt
-cat /boot/cmdline.txt | tee -a  ./log.txt
-echo | tee -a  ./log.txt
-echo FILE updater-config.json | tee -a  ./log.txt
-echo | tee -a  ./log.txt
-cat ~/RH-ota/updater-config.json | tee -a  ./log.txt
-echo | tee -a  ./log.txt
-echo FILE ~/.ota_markers/ota_config.txt | tee -a  ./log.txt
-echo | tee -a  ./log.txt
-cat ~/.ota_markers/ota_config.txt | tee -a  ./log.txt
-echo | tee -a  ./log.txt
+cd ~/RH-ota
+mkdir log_data
+rm log_data/log.txt > /dev/null 2>&1
+echo > ./log_data/log.txt
+echo FILE /boot/config.txt | tee -a  ./log_data/log.txt
+echo | tee -a  ./log_data/log.txt
+cat /boot/config.txt | tee -a  ./log_data/log.txt
+echo | tee -a  ./log_data/log.txt
+echo FILE /boot/cmdline.txt | tee -a  ./log_data/log.txt
+echo | tee -a  ./log_data/log.txt
+cat /boot/cmdline.txt | tee -a  ./log_data/log.txt
+echo | tee -a  ./log_data/log.txt
+echo FILE updater-config.json | tee -a  ./log_data/log.txt
+echo | tee -a  ./log_data/log.txt
+cat ~/RH-ota/updater-config.json | tee -a  ./log_data/log.txt
+echo | tee -a  ./log_data/log.txt
+echo FILE ~/.ota_markers/ota_config.txt | tee -a  ./log_data/log.txt
+echo | tee -a  ./log_data/log.txt
+cat ~/.ota_markers/ota_config.txt | tee -a ./log_data/log.txt
+echo | tee -a  ./log_data/log.txt
 
 echo LOGGING TO FILE - DONE
 sleep 1.5

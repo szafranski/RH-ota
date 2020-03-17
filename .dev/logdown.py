@@ -3,8 +3,9 @@ import sys
 
 print("\n")
 user_name = str(raw_input("User name: "))
-
+print("\n")
 user_code = str(raw_input("User code: "))
+print("\n")
 
 os.system("rm "+user_name+"_log_old.txt > /dev/null 2>&1")
 os.system("cp "+user_name+"_log.txt "+user_name+"_log_old.txt > /dev/null 2>&1")
