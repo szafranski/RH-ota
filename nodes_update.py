@@ -3,7 +3,7 @@ import os
 import sys
 import platform
 import json
-from modules import clearTheScreen, bcolors, logoTop, check_if_string_in_file
+from modules import clear_the_screen, bcolors, logo_top, check_if_string_in_file
 
 if os.path.exists("./updater-config.json") == True:
 	with open('updater-config.json') as config_file:
@@ -411,8 +411,8 @@ def flashEachNode():
 			nodeXMenu()
 	def nodeMenu():
 		global X
-		clearTheScreen()
-		logoTop()
+		clear_the_screen()
+		logo_top()
 		sleep(0.05)
 		print("\n\n\n\t\t\t\t    "+bcolors.RED+bcolors.BOLD+"NODES MENU"+bcolors.ENDC)
 		print("\n\t\t "+bcolors.BOLD+"1 - Flash node 1 \t\t 5 - Flash node 5"+bcolors.ENDC)
@@ -453,8 +453,8 @@ def flashEachNode():
 	nodeMenu()
 
 def gpioState(): 
-	clearTheScreen()
-	logoTop()
+	clear_the_screen()
+	logo_top()
 	print("\n\n\n")
 	os.system("echo "+str(reset_1)+" > /sys/class/GPIO/unexport")
 	os.system("echo "+str(reset_2)+" > /sys/class/GPIO/unexport")
@@ -513,8 +513,8 @@ def gpioState():
 		# return
 
 def nodesUpdate():
-	clearTheScreen()
-	logoTop()
+	clear_the_screen()
+	logo_top()
 	sleep(0.05)
 	print("\n\n\t\t\t "+bcolors.BOLD+bcolors.UNDERLINE+"CHOOSE FLASHING TYPE:\n"+ bcolors.ENDC)
 	print("\t\t "+bcolors.GREEN+bcolors.BOLD+"1 - Every Node gets own dedicated firmware - recommended\n"+ bcolors.ENDC)
