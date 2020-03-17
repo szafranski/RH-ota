@@ -69,10 +69,11 @@ def log_send():
 		log_name = str(raw_input("\n\tPlease enter your name so we know who sent a log file: "))
 		print("\n\tPlease wait, file is being uploaded...\n")
 		os.system("rm ./log_data/log_code.txt > /dev/null 2>&1")
-		os.system("curl --upload-file ./log_data/log.txt https://transfer.sh/"+log_name+"_log.txt > ./log_data/log_code.txt")
+		os.system("curl --upload-file ./log_data/log.txt https://transfer.sh/"+log_name+"_log.txt | tee -a ./log_data/log_code.txt")
+		print("\n")
 		os.system("sed -i 's/https:\/\/transfer.sh\///g' ./log_data/log_code.txt")
 		os.system("sed -i 's/\/"+log_name+"_log.txt//g' ./log_data/log_code.txt")
-		print("\n\n___________________________\n") 
+		print("\n___________________________\n")
 		print("\nTell your favourite developer those:\n")
 		print("User name: "+log_name)
 		f = open("./log_data/log_code.txt","r")
@@ -80,7 +81,7 @@ def log_send():
 			code = line
 		print("\nUser code: "+code)
 		print("\n___________________________\n") 
-		raw_input("\n\nHit 'enter' to continue\n\n")
+		raw_input("\n\nHit 'Enter' to continue\n\n")
 		main_menu()
 	if selection=='n' or selection =='no':
 		print("\n\n\tOK - you log file is stored under 'log.txt' name in RH-ota directory.")
@@ -118,7 +119,7 @@ def first():
 	print("\t\t\t\t "+bcolors.BOLD+"Updater version: "+str(updater_version)+bcolors.ENDC)
 	sleep(1)
 	updated_check()
-	os.system("sudo systemctl stop rotorhazard > /dev/null 2>&1")
+	#os.system("sudo systemctl stop rotorhazard > /dev/null 2>&1")
 
 def avr_dude():
 	clear_the_screen()
