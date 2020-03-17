@@ -404,6 +404,8 @@ def mainMenu():
 		firstTime()
 	if selection=='6':
 		os.system("python ./conf_wizard_ota.py")
+	if selection == 'logme':
+		os.system(". ./open_scripts.sh; log_me")
 	if selection=='e':
 		end()
 	if selection=='2dev':

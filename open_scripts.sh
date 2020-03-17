@@ -64,6 +64,32 @@ cd ~/RH-ota
 printf "\n\nUpdate completed, hit 'Enter' to continue \n\n"
 }
 
+log_me()
+{
+echo > ./log.txt
+echo FILE /boot/config.txt | tee -a  ./log.txt
+echo | tee -a  ./log.txt
+cat /boot/config.txt | tee -a  ./log.txt
+echo | tee -a  ./log.txt
+echo FILE /boot/cmdline.txt | tee -a  ./log.txt
+echo | tee -a  ./log.txt
+cat /boot/cmdline.txt | tee -a  ./log.txt
+echo | tee -a  ./log.txt
+echo FILE updater-config.json | tee -a  ./log.txt
+echo | tee -a  ./log.txt
+cat ~/RH-ota/updater-config.json | tee -a  ./log.txt
+echo | tee -a  ./log.txt
+echo FILE ~/.ota_markers/ota_config.txt | tee -a  ./log.txt
+echo | tee -a  ./log.txt
+cat ~/.ota_markers/ota_config.txt | tee -a  ./log.txt
+echo | tee -a  ./log.txt
+
+echo LOGGING TO FILE - DONE
+
+sleep 2
+
+}
+
 # aliases_reload () 
 # {
 	# . ~/.bashrc
