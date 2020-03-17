@@ -67,6 +67,12 @@ for i in range (3):
 					os.system("sed -i 's/\"pins_assignment\" : \"PCB\"/\"pins_assignment\" : \"PCB\",/g' "+homedir+"/RH-ota/updater-config.json")
 					os.system("sed -i 's/}/	\"updates_without_pdf\" : 0 /g' "+homedir+"/RH-ota/updater-config.json")
 					os.system("echo '}' | tee -a "+homedir+"/RH-ota/updater-config.json >/dev/null 2>&1")
+			if check_if_string_in_file(homedir+'/RH-ota/updater-config.json', '"updates_without_pdf"'):
+				if not check_if_string_in_file(homedir+'/RH-ota/updater-config.json', '"pi_4_cfg"'):
+					os.system("sed -i 's/\"updates_without_pdf\" : 0/\"updates_without_pdf\" : 0,/g' "+homedir+"/RH-ota/updater-config.json")
+					os.system("sed -i 's/\"updates_without_pdf\" : 1/\"updates_without_pdf\" : 1,/g' "+homedir+"/RH-ota/updater-config.json")
+					os.system("sed -i 's/}/	\"pi_4_cfg\" : 0 /g' "+homedir+"/RH-ota/updater-config.json")
+					os.system("echo '}' | tee -a "+homedir+"/RH-ota/updater-config.json >/dev/null 2>&1")
 	if not check_if_string_in_file(homedir+'/.ota_markers/ota_config.txt', 'curl_installed'):
 		os.system("echo curl_installed = 0 | tee -a "+homedir+"/.ota_markers/ota_config.txt > /dev/null ")
 	if os.path.exists(homedir+"/.ota_markers/.serialok") == True:

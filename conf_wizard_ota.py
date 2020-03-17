@@ -88,7 +88,19 @@ Default values are not automatically applied. Type them if needed.\n""")
 					no_pdf_val = '1'
 				elif no_pdf in ['no','0','n']:
 					no_pdf_val = '0'
-				os.system("echo '	\"updates_without_pdf\" : "+no_pdf_val+"' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+				os.system("echo '	\"updates_without_pdf\" : "+no_pdf_val+",' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+				break
+		while True:
+			pi_4 = raw_input("\nAre you using Raspberry Pi 4? [yes/no | default: no]\t\t\t")
+			pi_4_allowed_values = ['yes','no','1','0','y','n']
+			if not pi_4 in pi_4_allowed_values:
+				print("\nPlease enter correct value!")
+			else:
+				if pi_4 in ['yes','1','y']:
+					pi_4_val = '1'
+				elif pi_4 in ['no','0','n']:
+					pi_4_val = '0'
+				os.system("echo '	\"pi_4_cfg\" : "+pi_4_val+"' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
 				break
 		os.system("echo '}' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
 		print("""\n\n\t\t\t"""+bcolors.UNDERLINE+"""CONFIGURATION"""+bcolors.ENDC+""":\n\t
@@ -99,7 +111,8 @@ Default values are not automatically applied. Type them if needed.\n""")
 		Nodes amount: \t\t"""+nodes+"""
 		Debug mode: \t\t"""+debug_mode+"""
 		Pins assignment: \t"""+pins_assign+"""
-		Updates without PDF: \t"""+no_pdf+"""\n\n\n""")
+		Updates without PDF: \t"""+no_pdf+"""
+		Pi 4 user: \t\t"""+pi_4+"""\n\n\n""")
 		print("Please check. Confirm? [yes/change/abort]\n")
 		valid_options = ['y', 'yes', 'n', 'no', 'change', 'abort']
 		while True:
