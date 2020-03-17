@@ -51,7 +51,7 @@ def compatibility():               ### adds compatibility and fixes with previou
 	os.system("python ./prev_comp.py")
 
 if not os.path.exists(homedir+"/.ota_markers/ota_config.txt"):
-	os.system("cp "+homedir+"/RH-ota/ota_config.txt "+homedir+"/.ota_markers/ota_config.txt")
+	os.system("cp "+homedir+"/RH-ota/resources/ota_config.txt "+homedir+"/.ota_markers/ota_config.txt")
 
 parser.read('/home/'+user+'/.ota_markers/ota_config.txt')
 
@@ -148,26 +148,7 @@ def serialMenu():
 def aliasesMenu():
 	clearTheScreen()
 	def aliasesContent():
-		os.system("echo '' | tee -a ~/.bashrc")
-		os.system("echo '### Shortcuts that can be used in terminal window ###' | tee -a ~/.bashrc")
-		os.system("echo '' | tee -a ~/.bashrc")
-		os.system("echo 'alias ss=\"cd ~/RotorHazard/src/server && python server.py\"   #  starts the RH-server' | tee -a ~/.bashrc")
-		os.system("echo 'alias cfg=\"nano ~/RotorHazard/src/server/config.json\"   #  opens config.json file' | tee -a ~/.bashrc")
-		os.system("echo 'alias rh=\"cd ~/RotorHazard/src/server\"   # goes to server file location' | tee -a ~/.bashrc")
-		os.system("echo 'alias py=\"python\"  # pure laziness' | tee -a ~/.bashrc")
-		os.system("echo 'alias sts=\"sudo systemctl stop rotorhazard\" # stops RH service' | tee -a ~/.bashrc")
-		os.system("echo 'alias otadir=\"cd ~/RH-ota\"   # goes to server file location' | tee -a ~/.bashrc")
-		os.system("echo 'alias ota=\"cd ~/RH-ota && python update.py\"  # opens updating soft' | tee -a ~/.bashrc")
-		os.system("echo 'alias als=\"nano ~/.bashrc\"   #  opens this file' | tee -a ~/.bashrc")
-		os.system("echo 'alias rld=\"source ~/.bashrc\"   #  reloads aliases file' | tee -a ~/.bashrc")
-		os.system("echo 'alias rcfg=\"sudo raspi-config\"   #  open raspberrys configs' | tee -a ~/.bashrc")
-		os.system("echo 'alias gitota=\"git clone https://github.com/szafranski/RH-ota.git\"   #  clones ota repo' | tee -a ~/.bashrc")
-		os.system("echo 'alias gitotassh=\"git clone git@github.com:szafranski/RH-ota.git && cd ~/RH-ota\"   #  clones ota repo - ssh")
-		os.system("echo 'alias otacfg=\"nano ~/RH-ota/updater-config.json \"  # opens updater conf. file' | tee -a ~/.bashrc")
-		os.system("echo 'alias otacpcfg=\"cd ~/RH-ota && cp distr-updater-config.json updater-config.json \"  # copies ota conf. file' | tee -a ~/.bashrc")
-		os.system("echo 'alias home=\"cd ~ \"  # go homedir (without ~ sign)' | tee -a ~/.bashrc")
-		os.system("echo '' | tee -a ~/.bashrc")
-		os.system("echo '# After adding or changing aliases manually - reboot raspberry or type \"source ~/.bashrc\".' | tee -a ~/.bashrc")
+		os.system("cat ./resources/aliases.txt | tee -a ~/.bashrc")
 		#os.system("echo 'functionality added - leave file here' | tee -a ~/.ota_markers/.aliases_added >/dev/null")
 		parser.set('added_functions','aliases_1','1')
 		#os.system("echo 'functionality added - leave file here' | tee -a ~/.ota_markers/.aliases2_added >/dev/null")

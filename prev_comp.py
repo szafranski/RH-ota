@@ -79,7 +79,7 @@ for i in range (3):
 	if os.path.exists(homedir+"/.ota_markers/.updater_self") == True:
 		updater_FLAG=True
 	if not os.path.exists(homedir+"/.ota_markers/ota_config.txt"):
-		os.system("cp "+homedir+"/RH-ota/ota_config.txt "+homedir+"/.ota_markers/ota_config.txt")
+		os.system("cp "+homedir+"/RH-ota/resources/ota_config.txt "+homedir+"/.ota_markers/ota_config.txt")
 	parser.read(homedir+'/.ota_markers/ota_config.txt')
 	if aliases_1_FLAG==True:
 		parser.set('added_functions','aliases_1','1')
