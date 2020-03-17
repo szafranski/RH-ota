@@ -82,8 +82,8 @@ def log_send():
 		print("\nUser code: "+code)
 		print("\n___________________________\n") 
 		raw_input("\n\nHit 'Enter' to continue\n\n")
-		os.system("cowsay You are awesome! Fly safe.")
-		sleep(3)
+		if not os.system("cowsay You are awesome! Fly safe."):
+			sleep(3)
 		main_menu()
 	if selection=='n' or selection =='no':
 		print("\n\n\tOK - you log file is stored under 'log.txt' name in RH-ota directory.")
