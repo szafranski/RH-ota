@@ -68,7 +68,18 @@ def log_send():
 				parser_write()
 		log_name = str(raw_input("\n\tPlease enter your name so we know who sent a log file: "))
 		print("\n\tPlease wait, file is being uploaded...\n")
-		os.system("curl --upload-file ./log.txt https://transfer.sh/"+log_name+"_log.txt")
+		os.system("rm ./log_code.txt > /dev/null 2>&1")
+		os.system("curl --upload-file ./log.txt https://transfer.sh/"+log_name+"_log.txt > ./log_code.txt")
+		os.system("sudo sed -i 's/https:\/\/transfer.sh\///g' ./log_code.txt")
+		os.system("sudo sed -i 's/\/"+log_name+"_log.txt//g' ./log_code.txt")
+		print("\n\n___________________________\n") 
+		print("\nTell your favourite developer those :\n")
+		print("User name: "+log_name)
+		f = open("./log_code.txt","r")
+		for line in f:
+			code = line
+		print("\nUser code: "+code)
+		print("\n___________________________\n") 
 		raw_input("\n\nHit 'enter' to continue\n\n")
 		main_menu()
 	if selection=='n' or selection =='no':
@@ -77,7 +88,6 @@ def log_send():
 		main_menu()
 	else:
 		log_send()
-
 
 def updated_check():
 	if os.path.exists("/home/"+user+"/.ota_markers/.was_updated"):

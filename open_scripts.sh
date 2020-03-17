@@ -66,6 +66,7 @@ printf "\n\nUpdate completed, hit 'Enter' to continue \n\n"
 
 log_me()
 {
+rm ./log.txt > /dev/null 2>&1
 echo > ./log.txt
 echo FILE /boot/config.txt | tee -a  ./log.txt
 echo | tee -a  ./log.txt
