@@ -430,8 +430,8 @@ def main_menu():
 	else:
 		main_menu()
 
-#if __name__ == "__main__":
-first()
-main_menu()
+if __name__ == "__main__":
+	first()
+	main_menu()
 
 
