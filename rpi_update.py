@@ -25,7 +25,7 @@ if linux_testing == True:
 else:
 	user = data['pi_user']
 
-preffered_RH_version = data['RH_version']   #### can be 'beta'or 'master' or 'user_defined' - default 'stable'
+preffered_RH_version = data['RH_version']
 
 if preffered_RH_version == 'master':
 	server_version = 'master'

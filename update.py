@@ -13,8 +13,6 @@ updater_version = '2.2.9l'  ### version of THIS program - has nothing to do with
 
 homedir = os.path.expanduser('~')
 
-#rldals = subprocess.Popen(["/bin/bash", "-i", "-c", "source ~/.bashrc"])
-
 if os.path.exists("./updater-config.json") == True:
 	with open('updater-config.json') as config_file:
 		data = json.load(config_file)
@@ -52,8 +50,8 @@ def configCheck():
 def compatibility():               ### adds compatibility and fixes with previous versions
 	os.system("python ./prev_comp.py")
 
-#		if check_if_string_in_file(homedir+'/.bashrc', 'rld'):
-#			rldals.communicate()
+if not os.path.exists(homedir+"/.ota_markers/ota_config.txt"):
+	os.system("cp "+homedir+"/RH-ota/ota_config.txt "+homedir+"/.ota_markers/ota_config.txt
 
 parser.read('/home/'+user+'/.ota_markers/ota_config.txt')
 
