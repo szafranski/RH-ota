@@ -114,6 +114,7 @@ def serialMenu():
 		os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
 		#os.system("echo 'functionality added' | tee -a ~/.ota_markers/.serialok")
 		parser.set('added_functions','serial_added','1')
+		parserWrite()
 		print("""\n\n\t\tSerial port enabled successfully\n\t\t\t\t
 		You have to reboot Raspberry now. Ok?\n\t\t\t\t\t
 		'r' - Reboot now\t"""
@@ -173,6 +174,7 @@ def aliasesMenu():
 		parser.set('added_functions','aliases_1','1')
 		#os.system("echo 'functionality added - leave file here' | tee -a ~/.ota_markers/.aliases2_added >/dev/null")
 		parser.set('added_functions','aliases_2','1')
+		parserWrite()
 		print("\n\n\t\t	Aliases added successfully")
 		#os.system(". ~/.bashrc && alias*")
 		#os.system("cd /home/"+user+"/RH-ota && . ./open_scripts.sh; aliases_reload")
@@ -237,6 +239,7 @@ def selfUpdater():
 		os.system("""echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null""")
 		#os.system("echo 'updater marker' | tee -a ~/.ota_markers/.updater_self >/dev/null")
 		parser.set('added_functions','updater_planted','1')
+		parserWrite()
 	#if not os.path.exists("/home/"+user+"/.ota_markers/.updater_self") == True:
 	if parser.getint('added_functions','updater_planted') == 0:
 		addUpdater()
@@ -289,6 +292,7 @@ def featuresMenu():
 				if selection == 'y' or selection == 'yes':
 					if not os.system("sudo apt-get install python3-gpiozero"):
 						parser.set('added_functions','pinout_installed','1')
+						parserWrite()
 						break
 					else:
 						print("\nFailed to install required package.\n")

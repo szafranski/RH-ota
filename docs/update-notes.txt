@@ -10,6 +10,15 @@
 Added CongfigParser features instead of hidden files
 Auto convertions from previous approach
 
+Importand: if after performing an update you saw
+that config file (not json) in directory:
+'~/.ota_markers/ota_config.txt' is empty and you find
+occasional errors during normal using of the software 
+just remove that file entirely:
+' rm ~/.ota_markers/ota_config.txt '
+and than just open OTA again.
+You can input config values manually in this file - just once.
+Options: 1 means "true"
 
 2.2.9k
 

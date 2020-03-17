@@ -216,6 +216,7 @@ def installation():
 		os.system("sudo python setup.py install")
 		#os.system("echo 'leave this file here' | sudo tee -a /home/"+user+"/.ota_markers/.installation-check_file.txt")
 		parser.set('added_functions','installation_done','1')
+		parserWrite()
 		os.system("sudo apt-get install openjdk-8-jdk-headless -y")
 		os.system("sudo rm /lib/systemd/system/rotorhazard.service")
 		os.system("echo ' ' | sudo tee -a /lib/systemd/system/rotorhazard.service")
