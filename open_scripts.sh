@@ -86,6 +86,10 @@ echo FILE ~/.ota_markers/ota_config.txt | tee -a  ./log_data/log.txt
 echo | tee -a  ./log_data/log.txt
 cat ~/.ota_markers/ota_config.txt | tee -a ./log_data/log.txt
 echo | tee -a  ./log_data/log.txt
+#echo INSTALED PKGS | tee -a  ./log_data/log.txt
+#echo | tee -a  ./log_data/log.txt
+#apt list --installed | tee -a ./log_data/log.txt
+#echo | tee -a  ./log_data/log.txt
 
 echo LOGGING TO FILE - DONE
 sleep 1.5
