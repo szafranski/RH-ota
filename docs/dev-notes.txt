@@ -35,6 +35,8 @@ is being  processed.
 
 Branches 'main_stable' and 'no_pdf' are always up-to-date and valid to be used.
 
+Branch 'master' is ongoing work in progress.
+
 Feedback is welcome. Use GitHub or contact me via Facebook.
 
 Disclaimer: 
