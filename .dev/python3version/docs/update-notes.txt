@@ -2,8 +2,8 @@
 # hit 'q' to exit now
 
 
-		UPDATE NOTES:
-		^^^^^^^^^^^^
+        UPDATE NOTES:
+        ^^^^^^^^^^^^
 
 2.2.9h
 
@@ -69,7 +69,7 @@ Added:
 option to disable downloading PDF file with every update
 updater-config.json
 change the line to: 
-	"updates_without_pdf" : 1
+    "updates_without_pdf" : 1
 
 2.2.8e
 
@@ -101,18 +101,18 @@ and you want to use custom pins as reset pins:
 
 Change line in updater-config.json file so it looks like:
 
-	"pins_assignment" : "custom"
+    "pins_assignment" : "custom"
 
 So the file looks like this:
 
 {
-	"pi_user" : (...),
-	"RH_version" : (...),
-	"debug_user" : (...),
-	"country" : (...),
-	"nodes_number" : (...),
-	"debug_mode" : 0,
-	"pins_assignment" : "custom"
+    "pi_user" : (...),
+    "RH_version" : (...),
+    "debug_user" : (...),
+    "country" : (...),
+    "nodes_number" : (...),
+    "debug_mode" : 0,
+    "pins_assignment" : "custom"
 }
 
 And than edit lines 60 to 67 in nodes_update.py file.

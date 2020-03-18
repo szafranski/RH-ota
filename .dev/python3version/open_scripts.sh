@@ -36,7 +36,7 @@ python3 ./conf_wizard_rh.py
 
 net_check()
 {
-	rm index* > /dev/null 2>&1
+    rm index* > /dev/null 2>&1
 #[ "$(ping -c 2 8.8.8.8 | grep '100% packet loss' )" != "" ]
 timeout 10s wget www.google.com
 #sleep 2
@@ -65,9 +65,9 @@ printf "\n\nUpdate completed, hit 'Enter' to continue \n\n"
 
 # aliases_reload () 
 # {
-	# . ~/.bashrc
-	# printf "aliases reloaded"
-	# sleep 0.5
+    # . ~/.bashrc
+    # printf "aliases reloaded"
+    # sleep 0.5
 # }
 
 # scripts like those ensures that files are being executed in right directory but main program
