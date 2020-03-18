@@ -388,7 +388,7 @@ def first_time():
         print(("""
 
 
-                {underline}{bold}CONFIGURATION PROCESS{endc}
+                {bold}CONFIGURATION PROCESS{endc}
 
 
             {bold} 
@@ -401,11 +401,11 @@ def first_time():
 
             Possible RotorHazard server versions:
 
-            >  {blue}  'stable' {endc} {bold}- last stable release (can be from before few days or few months) {endc}
+            >  {blue}  'stable'{endc}{bold}- last stable release (can be from before few days or few months) {endc}
             
-            >  {blue}  'beta'   {endc} {bold}- last 'beta' release (usually has about few weeks, quite stable) {endc}
+            >  {blue}  'beta'  {endc}{bold}- last 'beta' release (usually has about few weeks, quite stable) {endc}
             
-            >  {blue}  'master' {endc} {bold}- absolutely newest features implemented (even if not well tested)  {endc}  
+            >  {blue}  'master'{endc}{bold}- absolutely newest features implemented (even if not well tested)  {endc}  
 
             """.format(bold=bcolors.BOLD_S, underline=bcolors.UNDERLINE_S
                        , endc=bcolors.ENDC, blue=bcolors.BLUE

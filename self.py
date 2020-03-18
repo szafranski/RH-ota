@@ -113,7 +113,7 @@ def main():
         old_version_check()
         print("\nThis time update process may take longer due to python3 implementation\n")
         if not parser.getint('added_functions','python3_installed'):
-            if not os.system("sudo apt install python3")
+            if not os.system("sudo apt install python3 python3-pip")
                 parser.set('added_functions','python3_installed','1')
                 parser_write()
             else:
@@ -121,7 +121,7 @@ def main():
                 print("Also change 'python3_installed' to value 1 in ~/.ota_markers/ota_config.txt.\n\n")
                 input("\nOK? Press 'Enter'")
         if not parser.getint('added_functions','configparser_installed'):
-            if not os.system("pip install configparser")
+            if not os.system("pip3 install configparser"):
                 parser.set('added_functions','configparser_installed','1')
                 parser_write()
             else:
