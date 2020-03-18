@@ -9,6 +9,8 @@
 2.2.9n
 
 Small fixes
+New branches naming scheme with according 
+changes in files
 Indication of last stable release with python 2 support
 
 
