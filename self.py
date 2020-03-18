@@ -118,7 +118,7 @@ def main():
                 parser_write()
             else:
                 print("\n\nPlease install python3 manually and start updating process again\n\n")
-                print("Also change 'python3_installed' to value 1 in ~/.ota_markers/ota-config.txt.\n\n")
+                print("Also change 'python3_installed' to value 1 in ~/.ota_markers/ota_config.txt.\n\n")
                 input("\nOK? Press 'Enter'")
         if not parser.getint('added_functions','configparser_installed'):
             if not os.system("pip install configparser")
@@ -126,7 +126,7 @@ def main():
                 parser_write()
             else:
                 print("\n\nPlease install configparser manually via pip and start updating process again\n")
-                print("Also change 'configparser_installed' to value 1 in ~/.ota_markers/ota-config.txt.\n\n")
+                print("Also change 'configparser_installed' to value 1 in ~/.ota_markers/ota_config.txt.\n\n")
                 input("\nOK? Press 'Enter'")
                 main()
         print("\n\n\n\t Please wait: updating process from version "+old_version_name+"\n\n")
