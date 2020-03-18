@@ -60,7 +60,7 @@ def parser_write():
 	try:
 		with open('/home/'+user+'/.ota_markers/ota_config.txt', 'wb') as configfile:
 			parser.write(configfile)
-	except Exception as up :
+	except IOError as up :
 		print("Config file does not exist and could not be created.")
 
 def log_send():
@@ -173,10 +173,18 @@ def serial_menu():
 		#os.system("echo 'functionality added' | tee -a ~/.ota_markers/.serialok")
 		parser.set('added_functions','serial_added','1')
 		parser_write()
-		print("""\n\n\t\tSerial port enabled successfully\n\t\t\t\t
-		You have to reboot Raspberry now. Ok?\n\t\t\t\t\t
-		'r' - Reboot now\t"""
-		+bcolors.YELLOW+"""'b' - Go back\n\n"""+bcolors.ENDC)
+		print("""
+		
+		Serial port enabled successfully
+		You have to reboot Raspberry now. Ok?
+		
+		r - Reboot now{yellow}
+		b - Go back{endc}""".format(bold=bcolors.BOLD, underline=bcolors.UNDERLINE
+		   , endc=bcolors.ENDC, blue=bcolors.BLUE
+		   , yellow=bcolors.YELLOW
+		   , red=bcolors.RED
+		   , green=bcolors.GREEN
+		   , orange=bcolors.ORANGE_S))
 		selection=str(raw_input(""))
 		if selection=='r':
 			os.system("sudo reboot")
@@ -219,15 +227,19 @@ def aliases_menu():
 		print("\n\n\t\t	Aliases added successfully")
 		sleep(3)
 		features_menu()
-	print("""\n\n\t\t
+	print("""
+	
+	
 	Aliases in Linux act like shortcuts or referances to another commands. 
 	You can use them every time when you operates in the terminal window. 
 	For example instead of typing 'python ~/RotorHazard/src/server/server.py' 
 	you can just type 'ss' (server start) etc. Aliases can be modified and added 
 	anytime you want. You just have to open '~./bashrc' file in text editor 
-	- like 'nano'. After that you have reboot or type 'source ~/.bashrc'. \n
-	"""+bcolors.BOLD+"""
-		Alias			What it does	\n
+	- like 'nano'. After that you have reboot or type 'source ~/.bashrc'. 
+	
+	{bold}
+		Alias			What it does	
+		
 		ss  	 -->	starts the RotorHazard server
 		cfg  	 -->	opens RH config.json file
 		rh   	 -->	goes to server file directory
@@ -242,9 +254,9 @@ def aliases_menu():
 		otacfg   -->	opens updater conf. file
 		otacpcfg -->	copies ota conf. file.
 		home	 -->	go to the home directory (without '~' sign)\n
-	"""+bcolors.ENDC+"""
-		Do you want to use above aliases in your system?\n
-		Reboot should be performed after adding those""")
+	{endc}
+		Do you want to use above aliases in your system?
+		Reboot should be performed after adding those""".format(bold=bcolors.BOLD, endc=bcolors.ENDC))
 	selection=str(raw_input("\n\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 	if selection == 'y':
 		#if os.path.exists("/home/"+user+"/.ota_markers/.aliases_added") == True:
