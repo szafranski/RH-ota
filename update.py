@@ -147,6 +147,7 @@ def avr_dude():
                         AVRDUDE MENU
             {blue}    
                 1 - Install avrdude {endc}{yellow}
+                
                 2 - Go back {endc}
         """.format(bold=bcolors.BOLD, underline=bcolors.UNDERLINE_S
                    , endc=bcolors.ENDC_S, blue=bcolors.BLUE
@@ -160,6 +161,7 @@ def avr_dude():
         os.system("sudo apt-get update")
         os.system("sudo apt-get install avrdude -y")
         print ("\nDone\n")
+        sleep(2)
     if selection=='2' : 
         main_menu()
     else:
@@ -400,11 +402,11 @@ def first_time():
 
             Possible RotorHazard server versions:
 
-            >  {blue}  'stable'{endc}{bold}- last stable release (can be from before few days or few months) {endc}
+            > {blue}'stable'{endc}{bold}- last stable release (can be from before few days or few months) {endc}
             
-            >  {blue}  'beta'  {endc}{bold}- last 'beta' release (usually has about few weeks, quite stable) {endc}
+            > {blue}'beta'  {endc}{bold}- last 'beta' release (usually has about few weeks, quite stable) {endc}
             
-            >  {blue}  'master'{endc}{bold}- absolutely newest features implemented (even if not well tested)  {endc}  
+            > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested)  {endc}  
 
             """.format(bold=bcolors.BOLD_S, underline=bcolors.UNDERLINE_S
                        , endc=bcolors.ENDC, blue=bcolors.BLUE
@@ -430,7 +432,7 @@ def first_time():
 
         Also remember about setting up config file - check second page.  
 
-        This program has ability to perform 'self-updates'. Check "Features menu".
+        This program has ability to perform 'self-updates' - in "Features Menu".
 
         More info about whole poject that this software is a part of: 
         https://www.instructables.com/id/RotorHazard-Updater/

@@ -189,7 +189,7 @@ def installation():
             if conf_allowed:
                 sys_conf()
         os.system("sudo -H pip install cffi pillow")
-        os.chdir(f"/home/{user}")
+        os.chdir("/home/"+user)
         if not os.path.exists(f"/home/{user}/.old_RotorHazard.old"):
             os.system(f"mkdir /home/{user}/.old_RotorHazard.old")
         if os.path.exists(f"/home/{user}/RotorHazard"):
@@ -198,9 +198,9 @@ def installation():
         os.system(f"rm /home/{user}/temp >/dev/null 2>&1")     ### in case of forced installation
         os.system(f"cp -r /home/{user}/RotorHazard-* /home/{user}/.old_RotorHazard.old/ >/dev/null 2>&1")   ### in case of forced installation
         os.system(f"rm -r /home/{user}/RotorHazard-* >/dev/null 2>&1")   ### in case of forced installation
-        os.chdir(f"/home/{user}")
-        os.system("wget https://codeload.github.com/RotorHazard/RotorHazard/zip/{server_version} -O temp.zip")
-        os.system("unzip temp.zip >/dev/null ")
+        os.chdir("/home/"+user)
+        os.system(f"wget https://codeload.github.com/RotorHazard/RotorHazard/zip/{server_version} -O temp.zip")
+        os.system("unzip temp.zip")
         os.system("rm temp.zip")
         os.system(f"mv /home/{user}/RotorHazard-{server_version} /home/{user}/RotorHazard")
         os.system(f"sudo -H pip install -r /home/{user}/RotorHazard/src/server/requirements.txt")
@@ -296,13 +296,12 @@ def update():
                 os.system(f"sudo cp -r /home/{user}/RotorHazard.old /home/{user}/.old_RotorHazard.old/")
                 os.system(f"sudo rm -r /home/{user}/RotorHazard.old")
             os.system(f"sudo mv /home/{user}/RotorHazard /home/{user}/RotorHazard.old")
-            os.chdir(f"/home/{user}")
+            os.chdir("/home/"+user)
             os.system(f"wget https://codeload.github.com/RotorHazard/RotorHazard/zip/{server_version} -O temp.zip")
-            os.system("unzip temp.zip >/dev/null ")
+            os.system("unzip temp.zip")
             os.system(f"mv /home/{user}/RotorHazard-{server_version} /home/{user}/RotorHazard")
             os.system("sudo rm temp.zip")
-            if not os.path.exists(f"/home/{user}/backup_RH_data"):
-                os.system(f"sudo mkdir /home/{user}/backup_RH_data")
+            os.system(f"sudo mkdir /home/{user}/backup_RH_data >/dev/null 2>&1")
             os.system(f"sudo chmod 777 -R /home/{user}/RotorHazard/src/server")
             os.system(f"sudo chmod 777 -R /home/{user}/RotorHazard.old")
             os.system(f"sudo chmod 777 -R /home/{user}/.old_RotorHazard.old")
