@@ -51,7 +51,7 @@ def config_check():
         and next enter configuration wizard - point 6.""")
 
 def compatibility():               ### adds compatibility and fixes with previous versions
-    os.system("python ./prev_comp.py")
+    os.system("python3 ./prev_comp.py")
 
 if not os.path.exists(homedir+"/.ota_markers/ota_config.txt"):
     os.system("cp "+homedir+"/RH-ota/resources/ota_config.txt "+homedir+"/.ota_markers/ota_config.txt")
@@ -59,7 +59,7 @@ if not os.path.exists(homedir+"/.ota_markers/ota_config.txt"):
 
 def parser_write():
     try:
-        with open('/home/'+user+'/.ota_markers/ota_config.txt', 'wb') as configfile:
+        with open('/home/'+user+'/.ota_markers/ota_config.txt', 'w') as configfile:
             parser.write(configfile)
     except IOError as up :
         print("Config file does not exist and could not be created.")
@@ -345,7 +345,7 @@ def features_menu():
     if selection== '2':
         serial_menu()
     if selection=='3':
-        os.system("python ./net_and_ap.py")
+        os.system("python3 ./net_and_ap.py")
     if selection=='4':
         if not parser.getint('added_functions','pinout_installed'):
             print("Some additional software has to be added so action can be performed. Ok?\n[yes/no]\n")
@@ -462,7 +462,7 @@ def first_time():
     first_page()
 
 def end():
-        parser_write()
+        #parser_write()
         clear_the_screen()
         print("\n\n")
         ota_image()
@@ -502,9 +502,9 @@ def main_menu():
     print(menu)
     selection=str(input())
     if selection=='1':
-        os.system("python ./rpi_update.py")   ### opens raspberry updating file
+        os.system("python3 ./rpi_update.py")   ### opens raspberry updating file
     if selection=='2':
-        os.system("python ./nodes_update.py")   ### opens nodes updating file
+        os.system("python3 ./nodes_update.py")   ### opens nodes updating file
     if selection=='3':
         clear_the_screen()
         os.system(". ./open_scripts.sh; server_start")
@@ -513,14 +513,14 @@ def main_menu():
     if selection=='5':
         first_time()
     if selection=='6':
-        os.system("python ./conf_wizard_ota.py")
+        os.system("python3 ./conf_wizard_ota.py")
     if selection == 'logme':
         os.system(". ./open_scripts.sh; log_me")
         log_send()
     if selection=='e':
         end()
     if selection=='2dev':
-        os.system("python ./.dev/done_nodes_update_dev.py")   ### opens nodes updating file
+        os.system("python3 ./.dev/done_nodes_update_dev.py")   ### opens nodes updating file
     else:
         main_menu()
 

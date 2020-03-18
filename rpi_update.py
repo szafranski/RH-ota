@@ -44,7 +44,7 @@ if preffered_RH_version =='custom':
 parser.read('/home/'+user+'/.ota_markers/ota_config.txt')
 
 def parser_write():
-    with open('/home/'+user+'/.ota_markers/ota_config.txt', 'wb') as configfile:
+    with open('/home/'+user+'/.ota_markers/ota_config.txt', 'w') as configfile:
         parser.write(configfile)
 
 def internet_check():
