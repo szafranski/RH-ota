@@ -302,7 +302,7 @@ def self_updater():
     For example "2.2.5c" contains nodes firmware with "API level 22".
     Self-updater will test your internet connection during every update."""+bcolors.ENDC+"""\n"""))
     print((bcolors.GREEN+"""
-        Update now by pressing 'u'"""+bcolors.ENDC+"""\n"""))
+                Update now by pressing 'u'"""+bcolors.ENDC+"""\n"""))
     print((bcolors.YELLOW+"""\t\tGo back by pressing 'b'"""+bcolors.ENDC+"""\n\n"""))
     selection=str(input(""))
     if selection=='b':
