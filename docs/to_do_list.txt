@@ -6,6 +6,6 @@ AVRdude test - in the way
 Code check - help needed
 Python 3 friendly version - in the way
 Screen center - python 3 related
-Config file instead of creating check files - config parser?
+Config file instead of creating check files - config parser - done
 Nodes update as function - done, testing
 Pinout shown in terminal (using python3-gpiozero) - done

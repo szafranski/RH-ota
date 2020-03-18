@@ -4,6 +4,7 @@ import platform
 import sys
 import json
 import time
+
 #from rpi_update import internetCheck
 
 # import subprocess
@@ -29,7 +30,7 @@ if linux_testing == True:
 else:
 	user = data['pi_user']
 
-def clearTheScreen():
+def clear_the_screen():
 	sleep(0.05)
 	if platform.system() == "Windows":
 		os.system("cls")
@@ -46,8 +47,7 @@ def dots2sec():
 		sleep(0.0666)
 	sys.stdout.write("\n")
 
-
-def percentCount():
+def percent_count():
 	def backspace(n):
 		sys.stdout.write((b'\x08' * n).decode()) # use \x08 char to go back   
 
@@ -58,7 +58,7 @@ def percentCount():
 		backspace(len(s))                       # back n chars    
 		time.sleep(0.05)        
 
-def image():
+def image_show():
 	with open('./resources/image.txt', 'r') as logo:
 		f = logo.read()
 		print(f)
@@ -75,7 +75,7 @@ def check_if_string_in_file(file_name, string_to_search):
 				return True
 	return False
 
-def logoTop():
+def logo_top():
 	logo = '''
 	\n	
 	#######################################################################
@@ -122,7 +122,7 @@ class bcolors:
 	BOLD_S = '\033[1m'+ (' '* 6)
 	UNDERLINE_S = '\033[4m'+ (' '* 11)
 
-def internetCheck():
+def internet_check():
 	print("\nPlease wait - checking internet connection state...\n")
 	global internet_FLAG
 	before_millis = int(round(time.time() * 1000))

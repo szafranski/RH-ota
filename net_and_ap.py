@@ -2,7 +2,7 @@ from time import sleep
 import os
 import sys
 import json
-from modules import clearTheScreen, bcolors, logoTop
+from modules import clear_the_screen, bcolors, logo_top
 
 if os.path.exists("./updater-config.json") == True:
 	with open('updater-config.json') as config_file:
@@ -22,12 +22,11 @@ else:
 
 myPlace = data['country']
 
-
 # Set the WiFi country in raspi-config's Localisation Options:
 # sudo raspi-config
 # ( 4. point -> I4 - Change WiFi country -> select -> enter -> finish )
 
-def stepFour():
+def step_four():
 
 	print("""Step 4.""")
 
@@ -51,7 +50,7 @@ Now you should be able to enter the network typing in the browser:
 	else :
 		main()
 
-def stepThree():
+def step_three():
 
 	print("""\n\t\tStep 3.\n""")
 	os.system("sudo cp /etc/dhcpcd.conf /etc/dhcpcd.conf.ap")
@@ -70,7 +69,7 @@ def stepThree():
 	else :
 		main()
 
-def stepTwo():
+def step_two():
 	print("""\n\n
 	Step 2.\n
 Next step requires performing some actions in GUI.
@@ -107,7 +106,7 @@ DON'T CHANGE OTHER SETTINGS IN GUI!
 
 Read carefully whole instruction from above before rebooting!""")
 
-def confCopy():
+def conf_copy():
 	os.system("echo 'alias netcfg=\"cp /etc/dhcpcd.conf.net /etc/dhcpcd.conf \"  # net conf' | sudo tee -a ~/.bashrc")
 	os.system("echo 'alias apcfg=\"cp /etc/dhcpcd.conf.ap /etc/dhcpcd.conf \"  # net conf' | sudo tee -a ~/.bashrc")
 	os.system("sudo cp ./net_ap/dhcpcd.conf.net /etc/dhcpcd.conf.net")
@@ -116,14 +115,14 @@ def confCopy():
 	os.system("sudo cp /etc/dnsmasq.conf /etc/dnsmasq.conf.orig")
 	os.system("sudo cp ./net_ap/dnsmasq.conf.net /etc/dnsmasq.conf.net")
 
-def stepOne():
-	confCopy()
+def step_one():
+	conf_copy()
 	os.system("sudo sed -i 's/country/# country/g' /etc/wpa_supplicant/wpa_supplicant.conf")
 	os.system("echo 'country="+myPlace+"'| sudo  tee -a /boot/config.txt")
 	os.system("sudo apt-get update && sudo apt-get upgrade -y")
 	os.system("sudo apt install curl -y")
 	os.system("curl -sL https://install.raspap.com | bash -s -- -y")
-	stepTwo()
+	step_two()
 	print("""\n\t\t\t"""+bcolors.GREEN+"""Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t"""
 			+bcolors.YELLOW+"""Exit by pressing 'e'"""+bcolors.ENDC+"""\n""")
 	selection=str(raw_input(""))
@@ -134,8 +133,8 @@ def stepOne():
 	else :
 		main()
 
-def stepZero():
-	clearTheScreen()
+def step_zero():
+	clear_the_screen()
 	sleep(0.05)
 	print("""\n\n
 	After performing this process your Raspberry Pi can be used as standalone\n
@@ -154,19 +153,19 @@ def stepZero():
 	\t"""+bcolors.YELLOW+"""'e' - exit to main menu"""+bcolors.ENDC+"""\n""")
 	selection=str(raw_input(""))
 	if selection=='y':
-		stepOne()
+		step_one()
 	if selection=='3':
-		stepThree()
+		step_three()
 	if selection=='x':
-		apMenu()
+		ap_menu()
 	if selection=='e':
 		sys.exit()
 	else :
 		main()
 
-def apMenu():
-	def secondPage():
-		clearTheScreen()
+def ap_menu():
+	def second_page():
+		clear_the_screen()
 		print("""\n
 	When Raspberry configuration has been changed so it performs
 	as Access Point or as a DHCP client (normal mode),
@@ -193,12 +192,12 @@ def apMenu():
 		if selection=='k':
 			sys.exit()
 		if selection=='b':
-			firstPage()
+			first_page()
 		else :
-			secondPage()
-	def firstPage():
-		clearTheScreen()
-		logoTop()
+			second_page()
+	def first_page():
+		clear_the_screen()
+		logo_top()
 		sleep(0.05)
 		print("""\n
 	Right now you have your Access Point configured. However,
@@ -220,10 +219,10 @@ def apMenu():
 		if selection=='b':
 			main()
 		else :
-			firstPage()
-	firstPage()
+			first_page()
+	first_page()
 
 def main():
-	stepZero()
-	stepOne()
+	step_zero()
+	step_one()
 main()

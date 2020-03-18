@@ -1,0 +1,20 @@
+
+### Shortcuts that can be used in terminal window ###
+
+alias ss="cd ~/RotorHazard/src/server && python server.py"   #  starts the RH-server
+alias cfg="nano ~/RotorHazard/src/server/config.json"   #  opens config.json file
+alias rh="cd ~/RotorHazard/src/server"   # goes to server file location
+alias py="python"  # pure laziness
+alias sts="sudo systemctl stop rotorhazard" # stops RH service
+alias otadir="cd ~/RH-ota"   # goes to server file location
+alias ota="cd ~/RH-ota && python update.py"  # opens updating soft
+alias als="nano ~/.bashrc"   #  opens this file
+alias rld="source ~/.bashrc"   #  reloads aliases file
+alias rcfg="sudo raspi-config"   #  open raspberrys configs
+alias gitota="git clone https://github.com/szafranski/RH-ota.git"   #  clones ota repo
+alias otacfg="nano ~/RH-ota/updater-config.json "  # opens updater conf. file
+alias otacpcfg="cd ~/RH-ota && cp distr-updater-config.json updater-config.json "  # copies ota conf. file
+alias home="cd ~ "  # go homedir (without ~ sign)
+
+# After adding or changing aliases manually - reboot raspberry or type "source ~/.bashrc".
+

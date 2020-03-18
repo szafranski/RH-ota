@@ -1,0 +1,9 @@
+
+[added_functions]
+aliases_1 = 0
+aliases_2 = 0
+installation_done = 0
+serial_added = 0
+updater_planted = 0
+pinout_installed = 0
+curl_installed = 0
