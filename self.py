@@ -118,7 +118,7 @@ def main():
             print("Update will contain PDF file - may be changed in config file.\n")
             os.system("sudo rm -rf ~/RH-ota*")
             os.system("rm tempota.zip > /dev/null  > /dev/null 2>&1")
-            os.system("wget https://codeload.github.com/szafranski/RH-ota/zip/master -O tempota.zip")
+            os.system("wget https://codeload.github.com/szafranski/RH-ota/zip/main_stable -O tempota.zip")
             os.system("unzip tempota.zip")
             os.system("rm tempota.zip")
             os.system("mv RH-ota-* RH-ota")
