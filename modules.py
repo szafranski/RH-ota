@@ -29,7 +29,7 @@ def clear_the_screen():
     if platform.system() == "Linux":
         os.system("clear")
     else:
-        print("\n" * 200)
+        print(("\n" * 200))
     sleep(0.05)
 
 def dots2sec():

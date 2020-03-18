@@ -3,13 +3,15 @@ import os
 import sys
 import json
 from modules import clear_the_screen, bcolors, logo_top, image_show, ota_image
-from ConfigParser import ConfigParser
+from configparser import ConfigParser
 
 parser = ConfigParser()
 
-updater_version = '2.2.9n'  ### version of THIS program - has nothing to do with the RH version
-                            ### it reffers to the API level of newest contained nodes firmware 
-                            ### third number reffers to actual verion of the updater itself
+updater_version = '2.2.9n'  
+
+### version of THIS program - has nothing to do with the RH version
+### it reffers to the API level of newest contained nodes firmware 
+### third number reffers to actual verion of the updater itself
 
 homedir = os.path.expanduser('~')
 
@@ -63,13 +65,13 @@ def parser_write():
         print("Config file does not exist and could not be created.")
 
 def log_send():
-    selection = str(raw_input("\n\n\tDo you want to send a log file for a review to the developer? [y/n] "))
+    selection = str(input("\n\n\tDo you want to send a log file for a review to the developer? [y/n] "))
     if selection=='y' or selection =='yes':
         if not parser.getint('added_functions','curl_installed'):
             if not os.system("sudo apt install curl cowsay"):
                 parser.set('added_functions','curl_installed','1')
                 parser_write()
-        log_name = str(raw_input("\n\tPlease enter your name so we know who sent a log file: "))
+        log_name = str(input("\n\tPlease enter your name so we know who sent a log file: "))
         print("\n\tPlease wait, file is being uploaded...\n")
         os.system("rm ./log_data/log_name.txt > /dev/null 2>&1")
         os.system("rm ./log_data/log_code.txt > /dev/null 2>&1")
@@ -80,19 +82,19 @@ def log_send():
         os.system("sed -i 's/\/"+log_name+"_log.txt//g' ./log_data/log_code.txt")
         print("\n___________________________\n")
         print("\nTell your favourite developer those:\n")
-        print("User name: "+log_name)
+        print(("User name: "+log_name))
         f = open("./log_data/log_code.txt","r")
         for line in f:
             code = line
-        print("\nUser code: "+code)
+        print(("\nUser code: "+code))
         print("\n___________________________\n") 
-        raw_input("\n\nHit 'Enter' to continue\n\n")
+        input("\n\nHit 'Enter' to continue\n\n")
         if not os.system("cowsay You are awesome! Fly safe."):
             sleep(3)
         main_menu()
     if selection=='n' or selection =='no':
         print("\n\n\tOK - you log file is stored under 'log.txt' name in RH-ota directory.")
-        raw_input("\n\n\tHit 'Enter' to continue\n\n")
+        input("\n\n\tHit 'Enter' to continue\n\n")
         main_menu()
     else:
         log_send()
@@ -101,7 +103,7 @@ def updated_check():
     if os.path.exists("/home/"+user+"/.ota_markers/.was_updated"):
         clear_the_screen()
         logo_top()
-        print(""" {bold}
+        print((""" {bold}
         Software was updated recently to the new version.
 
         You can read update notes now or check them later.
@@ -116,8 +118,8 @@ def updated_check():
                    , yellow=bcolors.YELLOW_S
                    , red=bcolors.RED_S
                    , green=bcolors.GREEN
-                   , orange=bcolors.ORANGE_S))
-        selection = str(raw_input())
+                   , orange=bcolors.ORANGE_S)))
+        selection = str(input())
         if selection == 'r':
             os.system("less ./docs/update-notes.txt")
         if selection == 's':
@@ -132,7 +134,7 @@ def first():
     clear_the_screen()
     print("\n\n")
     image_show()
-    print("\t\t\t "+bcolors.BOLD+"Updater version: "+str(updater_version)+bcolors.ENDC)
+    print(("\t\t\t "+bcolors.BOLD+"Updater version: "+str(updater_version)+bcolors.ENDC))
     sleep(1)
     updated_check()
     #os.system("sudo systemctl stop rotorhazard > /dev/null 2>&1")
@@ -153,7 +155,7 @@ def avr_dude():
                    , green=bcolors.GREEN
                    , orange=bcolors.ORANGE_S)
     print(menu)
-    selection=str(raw_input(""))
+    selection=str(input(""))
     if selection=='1' : 
         os.system("sudo apt-get update")
         os.system("sudo apt-get install avrdude -y")
@@ -172,7 +174,7 @@ def serial_menu():
         #os.system("echo 'functionality added' | tee -a ~/.ota_markers/.serialok")
         parser.set('added_functions','serial_added','1')
         parser_write()
-        print("""
+        print(("""
         
         Serial port enabled successfully
         You have to reboot Raspberry now. Ok?
@@ -183,8 +185,8 @@ def serial_menu():
            , yellow=bcolors.YELLOW
            , red=bcolors.RED
            , green=bcolors.GREEN
-           , orange=bcolors.ORANGE_S))
-        selection=str(raw_input(""))
+           , orange=bcolors.ORANGE_S)))
+        selection=str(input(""))
         if selection=='r':
             os.system("sudo reboot")
         if selection== 'b':
@@ -195,11 +197,11 @@ def serial_menu():
         Serial port has to be enabled. 
         Without it Arduinos cannot be programmed.
         Do you want to enable it now?""")
-    selection=str(raw_input("\n\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+    selection=str(input("\n\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
     if selection == 'y':
         if parser.getint('added_functions','serial_added'):
             print("\n\n\t\tLooks like you already enabled Serial port. \n\t\tDo you want to continue anyway?\n")
-            selection=str(raw_input("\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+            selection=str(input("\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
             if selection=='y':
                 serial_content()
             if selection =='a':
@@ -223,7 +225,7 @@ def aliases_menu():
         print("\n\n\t\t    Aliases added successfully")
         sleep(3)
         features_menu()
-    print("""
+    print(("""
     
     
     Aliases in Linux act like shortcuts or referances to another commands. 
@@ -252,12 +254,12 @@ def aliases_menu():
         home     -->    go to the home directory (without '~' sign)\n
     {endc}
         Do you want to use above aliases in your system?
-        Reboot should be performed after adding those""".format(bold=bcolors.BOLD, endc=bcolors.ENDC))
-    selection=str(raw_input("\n\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+        Reboot should be performed after adding those""".format(bold=bcolors.BOLD, endc=bcolors.ENDC)))
+    selection=str(input("\n\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
     if selection == 'y':
         if parser.getint('added_functions','aliases_1'):
             print("\n\n\t\tLooks like you already have aliases added. \n\t\tDo you want to continue anyway?\n")
-            selection=str(raw_input("\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+            selection=str(input("\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
             if selection=='y':
                 aliases_content()
             if selection =='a':
@@ -289,7 +291,7 @@ def self_updater():
         add_updater()
     clear_the_screen()
     logo_top()
-    print(bcolors.BOLD+"""
+    print((bcolors.BOLD+"""
     If you want to update this program and download new firmware, 
     prepared for Arduino nodes - so you can next flash them 
     - you can just hit 'u' now. You can also type 'updateupdater'
@@ -297,11 +299,11 @@ def self_updater():
     Version of the updater is related to """+bcolors.BLUE+"""nodes firmware API number"""+bcolors.ENDC+bcolors.BOLD+""",
     so you allways know what firmware version updater contains.
     For example "2.2.5c" contains nodes firmware with "API level 22".
-    Self-updater will test your internet connection during every update."""+bcolors.ENDC+"""\n""")
-    print(bcolors.GREEN+"""
-        Update now by pressing 'u'"""+bcolors.ENDC+"""\n""")
-    print(bcolors.YELLOW+"""\t\tGo back by pressing 'b'"""+bcolors.ENDC+"""\n\n""")
-    selection=str(raw_input(""))
+    Self-updater will test your internet connection during every update."""+bcolors.ENDC+"""\n"""))
+    print((bcolors.GREEN+"""
+        Update now by pressing 'u'"""+bcolors.ENDC+"""\n"""))
+    print((bcolors.YELLOW+"""\t\tGo back by pressing 'b'"""+bcolors.ENDC+"""\n\n"""))
+    selection=str(input(""))
     if selection=='b':
         features_menu()
     if selection=='u':
@@ -337,7 +339,7 @@ def features_menu():
                    , red=bcolors.RED)
 
     print(features)
-    selection=str(raw_input(""))
+    selection=str(input(""))
     if selection=='1':
         avr_dude()
     if selection== '2':
@@ -348,7 +350,7 @@ def features_menu():
         if not parser.getint('added_functions','pinout_installed'):
             print("Some additional software has to be added so action can be performed. Ok?\n[yes/no]\n")
             while True:
-                selection = str(raw_input())
+                selection = str(input())
                 if selection == 'y' or selection == 'yes':
                     if not os.system("sudo apt-get install python3-gpiozero"):
                         parser.set('added_functions','pinout_installed','1')
@@ -364,7 +366,7 @@ def features_menu():
                     continue
         if parser.getint('added_functions','pinout_installed'):
             os.system("pinout")
-            selection = str(raw_input("\nDone? Hit 'Enter'\n"))
+            selection = str(input("\nDone? Hit 'Enter'\n"))
         else:
             print("\nAdditional software needed. Please re-enter this menu.\n")
             sleep(3)
@@ -383,7 +385,7 @@ def first_time():
         os.system("less ./docs/update-notes.txt")
     def second_page():
         clear_the_screen()
-        print("""
+        print(("""
 
 
                 {underline}{bold}CONFIGURATION PROCESS{endc}
@@ -409,9 +411,9 @@ def first_time():
                        , endc=bcolors.ENDC, blue=bcolors.BLUE
                        , yellow=bcolors.YELLOW_S
                        , red=bcolors.RED_S
-                       , orange=bcolors.ORANGE_S))
-        print("\n\n\t\t'f' - first page'"+bcolors.GREEN+"\t'u' - update notes'"+bcolors.ENDC+bcolors.YELLOW+"\t'b' - back to menu"+bcolors.ENDC+"\n\n")
-        selection=str(raw_input(""))
+                       , orange=bcolors.ORANGE_S)))
+        print(("\n\n\t\t'f' - first page'"+bcolors.GREEN+"\t'u' - update notes'"+bcolors.ENDC+bcolors.YELLOW+"\t'b' - back to menu"+bcolors.ENDC+"\n\n"))
+        selection=str(input(""))
         if selection=='f':
             first_page()
         if selection=='b':
@@ -422,7 +424,7 @@ def first_time():
             second_page()
     def first_page():
         clear_the_screen()
-        print(bcolors.BOLD + """
+        print((bcolors.BOLD + """
 
         You can use all implemented features, but if you want to be able to program
         Arduino-based nodes - enter Features menu and begin with first 2 points.
@@ -438,7 +440,7 @@ def first_time():
         If you found any bug - please report via GitHub or Facebook.\n
                 Enjoy!
                                             Szafran
-        """ + bcolors.ENDC)
+        """ + bcolors.ENDC))
 
         menu = '''{green}
             s - second page {endc}
@@ -448,7 +450,7 @@ def first_time():
             b - back to main menu {endc}
         '''.format(green=bcolors.GREEN, endc=bcolors.ENDC, yellow=bcolors.YELLOW)
         print(menu)
-        selection=str(raw_input(""))
+        selection=str(input(""))
         if selection=='s':
             second_page()
         if selection=='u':
@@ -464,7 +466,7 @@ def end():
         clear_the_screen()
         print("\n\n")
         ota_image()
-        print("\t\t\t\t   "+bcolors.BOLD+"Happy flyin'!"+bcolors.ENDC+"\n")
+        print(("\t\t\t\t   "+bcolors.BOLD+"Happy flyin'!"+bcolors.ENDC+"\n"))
         sleep(1.3)
         clear_the_screen()
         sys.exit()
@@ -498,7 +500,7 @@ def main_menu():
                        , red=bcolors.RED
                        , orange=bcolors.ORANGE)
     print(menu)
-    selection=str(raw_input())
+    selection=str(input())
     if selection=='1':
         os.system("python ./rpi_update.py")   ### opens raspberry updating file
     if selection=='2':

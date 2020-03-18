@@ -100,6 +100,7 @@ def new_version_check():
         new_version_name = line
 
 def main():
+    parser.read(myhomedir+'/.ota_markers/ota_config.txt')
     internet_check()
     if not internet_FLAG:
         print("\nLooks like you don't have internet connection. Update canceled.\n")
@@ -110,6 +111,24 @@ def main():
         os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")   ### resolves compatibility issues
         os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         ### resolves compatibility issues
         old_version_check()
+        print("\nThis time update process may take longer due to python3 implementation\n")
+        if not parser.getint('added_functions','python3_installed'):
+            if not os.system("sudo apt install python3")
+                parser.set('added_functions','python3_installed','1')
+                parser_write()
+            else:
+                print("\n\nPlease install python3 manually and start updating process again\n\n")
+                print("Also change 'python3_installed' to value 1 in ~/.ota_markers/ota-config.txt.\n\n")
+                input("\nOK? Press 'Enter'")
+        if not parser.getint('added_functions','configparser_installed'):
+            if not os.system("pip install configparser")
+                parser.set('added_functions','configparser_installed','1')
+                parser_write()
+            else:
+                print("\n\nPlease install configparser manually via pip and start updating process again\n")
+                print("Also change 'configparser_installed' to value 1 in ~/.ota_markers/ota-config.txt.\n\n")
+                input("\nOK? Press 'Enter'")
+                main()
         print("\n\n\n\t Please wait: updating process from version "+old_version_name+"\n\n")
         sleep(2)
         if config_file_exists:
@@ -133,7 +152,7 @@ def main():
         if config_file_exists:
             os.system("cp ~/.ota_markers/updater-config.json ~/RH-ota/updater-config.json")
         new_version_check()
-        print("\n\n\n\t RotorHazard OTA Manager updated to version "+new_version_name+"\n\t\tYou may check update-notes.\n\n")
+        print(("\n\n\n\t RotorHazard OTA Manager updated to version "+new_version_name+"\n\t\tYou may check update-notes.\n\n"))
         sleep(1)
         os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")   ### resolves compatibility issues
         os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         ### resolves compatibility issues

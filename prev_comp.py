@@ -1,6 +1,6 @@
 import os
 from modules import check_if_string_in_file
-from ConfigParser import ConfigParser
+from configparser import ConfigParser
 
 parser = ConfigParser()
 
@@ -72,6 +72,8 @@ for i in range (3):
                     os.system("echo '}' | tee -a "+homedir+"/RH-ota/updater-config.json >/dev/null 2>&1")
     if not check_if_string_in_file(homedir+'/.ota_markers/ota_config.txt', 'curl_installed'):
         os.system("echo curl_installed = 0 | tee -a "+homedir+"/.ota_markers/ota_config.txt > /dev/null ")
+    if not check_if_string_in_file(homedir+'/.ota_markers/ota_config.txt', 'configparser_installed'):
+        os.system("echo configparser_installed = 0 | tee -a "+homedir+"/.ota_markers/ota_config.txt > /dev/null ")
     if os.path.exists(homedir+"/.ota_markers/.serialok"):
         serial_FLAG=True
     if os.path.exists(homedir+"/.ota_markers/.installation-check_file.txt"):
