@@ -1,5 +1,6 @@
 # Run this scripit with a command 'sh ./install.sh'.
 # Next just open the software using simple 'python3 update.py'.
+# Make sure that you have internet connection when installing.
 
 sudo apt install python3
 sudo apt install pip
