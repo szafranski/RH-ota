@@ -7,4 +7,5 @@ serial_added = 0
 updater_planted = 0
 pinout_installed = 0
 curl_installed = 0
+python3_installed = 0
 configparser_installed = 0

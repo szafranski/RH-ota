@@ -97,3 +97,5 @@ if not check_if_string_in_file(homedir+'/.ota_markers/ota_config.txt', 'curl_ins
     os.system("echo curl_installed = 0 | tee -a "+homedir+"/.ota_markers/ota_config.txt > /dev/null ")
 if not check_if_string_in_file(homedir+'/.ota_markers/ota_config.txt', 'configparser_installed'):
     os.system("echo configparser_installed = 0 | tee -a "+homedir+"/.ota_markers/ota_config.txt > /dev/null ")
+if not check_if_string_in_file(homedir+'/.ota_markers/ota_config.txt', 'python3_installed'):
+    os.system("echo python3_installed = 0 | tee -a "+homedir+"/.ota_markers/ota_config.txt > /dev/null ")
