@@ -6,5 +6,6 @@ index.html
 .wizarded*
 RH-ota
 nohup*
+.idea
 /log_data
 /.dev/*_log.txt

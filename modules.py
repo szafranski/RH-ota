@@ -59,8 +59,8 @@ def percent_count():
 		time.sleep(0.05)        
 
 def image_show():
-	with open('./resources/image.txt', 'r') as file:
-		f = file.read()
+	with open('./resources/image.txt', 'r') as logo:
+		f = logo.read()
 		print(f)
 
 def ota_image():
@@ -76,15 +76,24 @@ def check_if_string_in_file(file_name, string_to_search):
 	return False
 
 def logo_top():
-	print("""\n	
+	logo = '''
+	\n	
 	#######################################################################
 	###                                                                 ###
-	###\t\t\t"""+bcolors.ORANGE+"""     """+bcolors.BOLD+"""RotorHazard        """+bcolors.ENDC+"""\t\t    ###
+	###               {orange}{bold} RotorHazard {endc}                 ###
 	###                                                                 ###
-	###                     """+bcolors.BOLD+"""OTA Updater and Manager"""+bcolors.ENDC+"""                     ###
+	###                {bold}OTA Updater and Manager{endc}              ###
 	###                                                                 ###
-	#######################################################################""")
-	if (linux_testing == True):
+	#######################################################################
+	{endc}
+	'''.format(bold=bcolors.BOLD_S, underline=bcolors.UNDERLINE_S
+               , endc=bcolors.ENDC_S, blue=bcolors.BLUE_S
+               , yellow=bcolors.YELLOW_S
+               , red=bcolors.RED_S
+			   , orange=bcolors.ORANGE_S)
+
+	print(logo)
+	if linux_testing:
 		print("\t\t\t  Linux PC version\t\n")
 	sleep(0.05)
 
@@ -98,6 +107,20 @@ class bcolors:
 	ENDC = '\033[0m'
 	BOLD = '\033[1m'
 	UNDERLINE = '\033[4m'
+	'''
+	the following are designed to be used in formatted strings
+	they each have enough spaces appended so that {value}
+	will be replaced with an equal number of spaces.
+	'''
+	HEADER_S = '\033[95m' + (' '* 9)
+	ORANGE_S = '\033[33m'+ (' '* 8)
+	BLUE_S = '\033[94m'+ (' '* 6)
+	GREEN_S = '\033[92m'+ (' '* 7)
+	YELLOW_S = '\033[93m'+ (' '* 8)
+	RED_S = '\033[91m'+ (' '* 5)
+	ENDC_S = '\033[0m'+ (' '* 6)
+	BOLD_S = '\033[1m'+ (' '* 6)
+	UNDERLINE_S = '\033[4m'+ (' '* 11)
 
 def internet_check():
 	print("\nPlease wait - checking internet connection state...\n")

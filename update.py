@@ -14,7 +14,7 @@ updater_version = '2.2.9m'  ### version of THIS program - has nothing to do with
 
 homedir = os.path.expanduser('~')
 
-if os.path.exists("./updater-config.json") == True:
+if os.path.exists("./updater-config.json"):
 	with open('updater-config.json') as config_file:
 		data = json.load(config_file)
 else:
@@ -43,8 +43,9 @@ else:
 	user = data['pi_user']
 
 def config_check():
-	if os.path.exists("./updater-config.json") == False:
-		print("""\n\t\tLooks that you haven't set up config file yet.
+	if not os.path.exists("./updater-config.json"):
+		print("""
+		Looks that you haven't set up config file yet.
 		Please read about configuration process - point 5
 		and next enter configuration wizard - point 6.""")
 
@@ -56,8 +57,11 @@ if not os.path.exists(homedir+"/.ota_markers/ota_config.txt"):
 
 
 def parser_write():
-	with open('/home/'+user+'/.ota_markers/ota_config.txt', 'wb') as configfile:
-		parser.write(configfile)
+	try:
+		with open('/home/'+user+'/.ota_markers/ota_config.txt', 'wb') as configfile:
+			parser.write(configfile)
+	except IOError as up :
+		print("Config file does not exist and could not be created.")
 
 def log_send():
 	selection = str(raw_input("\n\n\tDo you want to send a log file for a review to the developer? [y/n] "))
@@ -98,13 +102,22 @@ def updated_check():
 	if os.path.exists("/home/"+user+"/.ota_markers/.was_updated"):
 		clear_the_screen()
 		logo_top()
-		print("""\n\n"""+bcolors.BOLD+"""
-		Software was updated recently to the new version.\n
+		print(""" {bold}
+		Software was updated recently to the new version.
+
 		You can read update notes now or check them later.
-		\n\n\n"""+bcolors.ENDC+bcolors.GREEN+"""
-		'r' - read update notes"""+bcolors.ENDC+"""\n
+
+
+		 {endc}  {green} 
+		'r' - read update notes {endc}
+
 		's' - skip and don't show again
-		\n""")
+		""".format(bold=bcolors.BOLD, underline=bcolors.UNDERLINE_S
+				   , endc=bcolors.ENDC_S, blue=bcolors.BLUE_S
+				   , yellow=bcolors.YELLOW_S
+				   , red=bcolors.RED_S
+				   , green=bcolors.GREEN
+				   , orange=bcolors.ORANGE_S))
 		selection = str(raw_input())
 		if selection == 'r':
 			os.system("less ./docs/update-notes.txt")
@@ -128,9 +141,19 @@ def first():
 def avr_dude():
 	clear_the_screen()
 	logo_top()
-	print("\n\n\n\t\t\t\t"+bcolors.RED+"AVRDUDE MENU"+bcolors.ENDC+"\n")
-	print ("\t\t\t "+bcolors.BLUE+"1 - Install avrdude"+bcolors.ENDC)
-	print ("\t\t\t "+bcolors.YELLOW+"2 - Go back"+bcolors.ENDC)
+	menu = """
+	        {red}
+	                    AVRDUDE MENU
+	        {blue}    
+	            1 - Install avrdude {endc}{yellow}
+	            2 - Go back {endc}
+	    """.format(bold=bcolors.BOLD, underline=bcolors.UNDERLINE_S
+				   , endc=bcolors.ENDC_S, blue=bcolors.BLUE
+				   , yellow=bcolors.YELLOW
+				   , red=bcolors.RED
+				   , green=bcolors.GREEN
+				   , orange=bcolors.ORANGE_S)
+	print(menu)
 	selection=str(raw_input(""))
 	if selection=='1' : 
 		os.system("sudo apt-get update")
@@ -150,19 +173,29 @@ def serial_menu():
 		#os.system("echo 'functionality added' | tee -a ~/.ota_markers/.serialok")
 		parser.set('added_functions','serial_added','1')
 		parser_write()
-		print("""\n\n\t\tSerial port enabled successfully\n\t\t\t\t
-		You have to reboot Raspberry now. Ok?\n\t\t\t\t\t
-		'r' - Reboot now\t"""
-		+bcolors.YELLOW+"""'b' - Go back\n\n"""+bcolors.ENDC)
+		print("""
+		
+		Serial port enabled successfully
+		You have to reboot Raspberry now. Ok?
+		
+		r - Reboot now{yellow}
+		b - Go back{endc}""".format(bold=bcolors.BOLD, underline=bcolors.UNDERLINE
+		   , endc=bcolors.ENDC, blue=bcolors.BLUE
+		   , yellow=bcolors.YELLOW
+		   , red=bcolors.RED
+		   , green=bcolors.GREEN
+		   , orange=bcolors.ORANGE_S))
 		selection=str(raw_input(""))
 		if selection=='r':
 			os.system("sudo reboot")
 		if selection== 'b':
 			features_menu()
-	print("""\n\n\t\t
-		Serial port has to be enabled. 
-		Without it Arduinos cannot be programmed.\n\t\t
-		Do you want to enable it now?""")
+	print("""
+    
+    
+        Serial port has to be enabled. 
+        Without it Arduinos cannot be programmed.
+        Do you want to enable it now?""")
 	selection=str(raw_input("\n\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 	if selection == 'y':
 		#if os.path.exists("/home/"+user+"/.ota_markers/.serialok") == True:
@@ -194,15 +227,19 @@ def aliases_menu():
 		print("\n\n\t\t	Aliases added successfully")
 		sleep(3)
 		features_menu()
-	print("""\n\n\t\t
+	print("""
+	
+	
 	Aliases in Linux act like shortcuts or referances to another commands. 
 	You can use them every time when you operates in the terminal window. 
 	For example instead of typing 'python ~/RotorHazard/src/server/server.py' 
 	you can just type 'ss' (server start) etc. Aliases can be modified and added 
 	anytime you want. You just have to open '~./bashrc' file in text editor 
-	- like 'nano'. After that you have reboot or type 'source ~/.bashrc'. \n
-	"""+bcolors.BOLD+"""
-		Alias			What it does	\n
+	- like 'nano'. After that you have reboot or type 'source ~/.bashrc'. 
+	
+	{bold}
+		Alias			What it does	
+		
 		ss  	 -->	starts the RotorHazard server
 		cfg  	 -->	opens RH config.json file
 		rh   	 -->	goes to server file directory
@@ -217,9 +254,9 @@ def aliases_menu():
 		otacfg   -->	opens updater conf. file
 		otacpcfg -->	copies ota conf. file.
 		home	 -->	go to the home directory (without '~' sign)\n
-	"""+bcolors.ENDC+"""
-		Do you want to use above aliases in your system?\n
-		Reboot should be performed after adding those""")
+	{endc}
+		Do you want to use above aliases in your system?
+		Reboot should be performed after adding those""".format(bold=bcolors.BOLD, endc=bcolors.ENDC))
 	selection=str(raw_input("\n\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
 	if selection == 'y':
 		#if os.path.exists("/home/"+user+"/.ota_markers/.aliases_added") == True:
@@ -282,14 +319,26 @@ def self_updater():
 def features_menu():
 	clear_the_screen()
 	logo_top()
-	print("\n\n\t\t\t\t"+bcolors.RED+bcolors.BOLD+bcolors.UNDERLINE+"FEATURES MENU"+bcolors.ENDC+"\n")
-	print("			"+bcolors.BLUE+bcolors.BOLD+"1 - Install AVRDUDE\n"+bcolors.ENDC)
-	print("			"+bcolors.BLUE+bcolors.BOLD+"2 - Enable serial protocol\n"+bcolors.ENDC)
-	print("			"+bcolors.BOLD+"3 - Access Point and Internet\n"+bcolors.ENDC)
-	print("			"+bcolors.BOLD+"4 - Show actuall Pi's GPIO\n"+bcolors.ENDC)
-	print("			"+bcolors.BOLD+"5 - Useful aliases\n"+bcolors.ENDC)
-	print("			"+bcolors.BOLD+"6 - Update OTA software\n"+bcolors.ENDC)
-	print("			"+bcolors.YELLOW+bcolors.BOLD+"e - Exit to main menu"+bcolors.ENDC)
+	features = '''
+
+	                    {red}{bold}{underline} FEATURES MENU {endc}
+
+
+	    {blue}{bold} 
+	            1 - Install AVRDUDE
+	            2 - Enable serial protocol {endc} {bold}
+	            3 - Access Point and Internet 
+	            4 - Show actual Pi's GPIO
+	            5 - Useful aliases
+	            6 - Update OTA software {endc} {yellow}{bold}
+	            e - Exit to main menu {endc}
+
+	    '''.format(bold=bcolors.BOLD, underline=bcolors.UNDERLINE
+				   , endc=bcolors.ENDC, blue=bcolors.BLUE
+				   , yellow=bcolors.YELLOW
+				   , red=bcolors.RED)
+
+	print(features)
 	selection=str(raw_input(""))
 	if selection=='1':
 		avr_dude()
@@ -338,17 +387,31 @@ def first_time():
 		os.system("less ./docs/update-notes.txt")
 	def second_page():
 		clear_the_screen()
-		print("""\n\n
-		"""+bcolors.BOLD+bcolors.UNDERLINE+"""\t\tCONFIGURATION PROCESS"""+bcolors.ENDC+"""\n\n
-	"""+bcolors.BOLD+"""Software configuration process can be assisted with a wizard. 
-	You have to enter point 5. of Main Menu and apply right values.\n
-	It will configure this software, not RotorHazard server itself. \n
-	Thing like amount of used LEDs or password to admin page of RotorHazard
-	should be configured separately - check RotorHazard Manager in Main Menu.\n\n
-	Possible RotorHazard server versions:\n
-	> """+bcolors.BLUE+"""\"stable\""""+bcolors.ENDC+bcolors.BOLD+""" - last stable release (can be from before few days or few months)\n
-	> """+bcolors.BLUE+"""\"beta\""""+bcolors.ENDC+bcolors.BOLD+"""   - last 'beta' release (usually has about few weeks, quite stable)\n
-	> """+bcolors.BLUE+"""\"master\""""+bcolors.ENDC+bcolors.BOLD+""" - absolutely newest features implemented (even if not well tested)"""+bcolors.ENDC+"""\n""")
+		print("""
+
+
+		        {bold}  {underline} CONFIGURATION PROCESS {endc} 
+
+
+		    {bold} 
+		    Software configuration process can be assisted with a wizard. 
+		    You have to enter point 5. of Main Menu and apply right values.
+		    It will configure this software, not RotorHazard server itself. 
+		    Thing like amount of used LEDs or password to admin page of RotorHazard
+		    should be configured separately - check RotorHazard Manager in Main Menu.
+
+
+		    Possible RotorHazard server versions:
+
+		    >   {blue}  'stable'  {endc}  {bold}    - last stable release (can be from before few days or few months) {endc}
+		    >   {blue}  'beta'    {endc}  {bold}    - last 'beta' release (usually has about few weeks, quite stable) {endc}
+		    >   {blue}  'master'  {endc}  {bold}    - absolutely newest features implemented (even if not well tested)  {endc}  
+
+		    """.format(bold=bcolors.BOLD_S, underline=bcolors.UNDERLINE_S
+					   , endc=bcolors.ENDC, blue=bcolors.BLUE
+					   , yellow=bcolors.YELLOW_S
+					   , red=bcolors.RED_S
+					   , orange=bcolors.ORANGE_S))
 		print("\n\n\t'f' - first page'"+bcolors.GREEN+"\t'u' - update notes'"+bcolors.ENDC+bcolors.YELLOW+"\t'b' - back to menu"+bcolors.ENDC+"\n\n")
 		selection=str(raw_input(""))
 		if selection=='f':
@@ -361,18 +424,30 @@ def first_time():
 			second_page()
 	def first_page():
 		clear_the_screen()
-		print(bcolors.BOLD+"""\n\n
-	You can use all implemened features, but if you want to be able to program
-	Arduino-based nodes - enter Features menu and begin with first 2 points.\n
-	Also remember about setting up config file - check second page.  \n
-	This program has ability to perform 'self-updates'. Check "Features menu".\n
-	More info about whole poject that this software is a part of: 
-	https://www.instructables.com/id/RotorHazard-Updater/
-	and in how_to folder - look for PDF file.\n
-	New features and changes - see update notes section.
-	If you found any bug - please report via GitHub or Facebook.\n
-			Enjoy!\n\t\t\t\t\t\t\t\tSzafran\n """+bcolors.ENDC)
-		print("\n\t"+bcolors.GREEN+"'s' - second page'"+bcolors.ENDC+"\t'u' - update notes'"+bcolors.YELLOW+"\t'b' - back to menu"+bcolors.ENDC+"\n\n")
+		print(bcolors.BOLD + """
+
+		You can use all implemented features, but if you want to be able to program
+		Arduino-based nodes - enter Features menu and begin with first 2 points.
+
+		Also remember about setting up config file - check second page.  
+
+		This program has ability to perform 'self-updates'. Check "Features menu".
+
+		More info about whole poject that this software is a part of: 
+		https://www.instructables.com/id/RotorHazard-Updater/
+		and in how_to folder - look for PDF file.\n
+		New features and changes - see update notes section.
+		If you found any bug - please report via GitHub or Facebook.\n
+				Enjoy!
+							Szafran
+		""" + bcolors.ENDC)
+
+		menu = '''{green}
+		s - second page {endc}
+		u -  update notes {yellow}
+		b - back to main menu {endc}
+		'''.format(green=bcolors.GREEN, endc=bcolors.ENDC, yellow=bcolors.YELLOW)
+		print(menu)
 		selection=str(raw_input(""))
 		if selection=='s':
 			second_page()
@@ -397,15 +472,26 @@ def end():
 def main_menu():
 	clear_the_screen()
 	logo_top()
-	config_check
-	print("\n\n\t\t\t\t"+bcolors.RED+bcolors.BOLD+bcolors.UNDERLINE+"MAIN MENU"+bcolors.ENDC+"\n")
-	print("			"+bcolors.BLUE+bcolors.BOLD+"1 - RotorHazard Manager\n"+bcolors.ENDC)
-	print("			"+bcolors.BLUE+bcolors.BOLD+"2 - Nodes flash and update\n"+bcolors.ENDC)
-	print("			"+bcolors.BOLD+"3 - Start the server now\n"+bcolors.ENDC)
-	print("			"+bcolors.BOLD+"4 - Additional features\n"+bcolors.ENDC)
-	print("			"+bcolors.BOLD+"5 - Info + first time here\n"+bcolors.ENDC)
-	print("			"+bcolors.BOLD+"6 - Configuration wizard\n"+bcolors.ENDC)
-	print("			"+bcolors.YELLOW+bcolors.BOLD+"e - Exit"+bcolors.ENDC)
+	config_check()
+	menu = """
+	
+				{red}{bold}{underline}MAIN MENU{endc}
+				
+	{blue}{bold} 
+		1 - RotorHazard Manager
+		2 - Nodes flash and update {endc} {bold}
+		3 - Start the server now
+		4 - Additional features
+		5 - Info + first time here
+		6 - Configuration wizard {endc}{yellow}
+		e - Exit {endc}
+	
+	""".format(bold=bcolors.BOLD, underline=bcolors.UNDERLINE
+					   , endc=bcolors.ENDC, blue=bcolors.BLUE
+					   , yellow=bcolors.YELLOW
+					   , red=bcolors.RED
+					   , orange=bcolors.ORANGE)
+	print(menu)
 	selection=str(raw_input())
 	if selection=='1':
 		os.system("python ./rpi_update.py")   ### opens raspberry updating file
