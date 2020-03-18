@@ -6,6 +6,12 @@
         ^^^^^^^^^^^^
 
 
+2.2.9n
+
+Small fixes
+Indication of last stable release with python 2 support
+
+
 2.2.9m
 
 Added logging with an option of uploading results
