@@ -51,20 +51,20 @@ def internet_check():
     print("\nPlease wait - checking internet connection state...\n")
     global internet_FLAG
     before_millis = int(round(time.time() * 1000))
-    os.system(". /home/"+user+"/RH-ota/open_scripts.sh; net_check ")
+    os.system(f". /home/{user}/RH-ota/open_scripts.sh; net_check ")
     while True:
         now_millis = int(round(time.time() * 1000))
-        time_passed = (now_millis - before_millis)
-        if os.path.exists("./index.html") == True:
+        time_passed = now_millis - before_millis
+        if os.path.exists("./index.html"):
             internet_FLAG=1
             break
-        elif (time_passed > 10100):
+        elif time_passed > 10100:
             internet_FLAG=0
             break
-    os.system("rm /home/"+user+"/RH-ota/index.html > /dev/null 2>&1")
-    os.system("rm /home/"+user+"/RH-ota/wget-log* > /dev/null 2>&1")
-    os.system("rm /home/"+user+"/index.html > /dev/null 2>&1")
-    os.system("rm /home/"+user+"/wget-log* > /dev/null 2>&1")
+    os.system(f"rm /home/{user}/RH-ota/index.html > /dev/null 2>&1")
+    os.system(f"rm /home/{user}/RH-ota/wget-log* > /dev/null 2>&1")
+    os.system(f"rm /home/{user}/index.html > /dev/null 2>&1")
+    os.system(f"rm /home/{user}/wget-log* > /dev/null 2>&1")
 
 def first ():
     clear_the_screen()
@@ -75,11 +75,11 @@ first()
 
 def server_checker():
     global serv_installed_FLAG
-    if os.path.exists("/home/"+user+"/RotorHazard/src/server/server.py"):
+    if os.path.exists(f"/home/{user}/RotorHazard/src/server/server.py"):
         os.system("grep 'RELEASE_VERSION =' ~/RotorHazard/src/server/server.py > ~/.ota_markers/.server_version")
         os.system("sed -i 's/RELEASE_VERSION = \"//' ~/.ota_markers/.server_version")
         os.system("sed -i 's/\" # Public release version code//' ~/.ota_markers/.server_version")
-        f = open("/home/"+user+"/.ota_markers/.server_version","r")
+        f = open(f"/home/{user}/.ota_markers/.server_version","r")
         for line in f:
             global server_version_name
             server_version_name = bcolors.GREEN+line+bcolors.ENDC
@@ -91,7 +91,7 @@ def server_checker():
 def config_checker():
     global config_FLAG
     global config_soft
-    if os.path.exists("/home/"+user+"/RotorHazard/src/server/config.json") == True:
+    if os.path.exists(f"/home/{user}/RotorHazard/src/server/config.json"):
         config_soft = bcolors.GREEN+"""configured"""+bcolors.ENDC
         config_FLAG = True
     else:
@@ -124,20 +124,19 @@ def end_update():
                 's' - start the server now\n"""+bcolors.YELLOW+"""
                 'e' - exit now\n"""+bcolors.ENDC))
     def end_menu():
-        selection=str(input(""))
+        selection=input()
         if selection =='r':
             os.system("sudo reboot")
         if selection =='e':
             parser_write()
             sys.exit()
         if selection =='c':
-            os.system(". /home/"+user+"/RH-ota/open_scripts.sh; configuraton_start")
+            os.system(f". /home/{user}/RH-ota/open_scripts.sh; configuraton_start")
             end_update()
         if selection =='s':
             clear_the_screen()
-            os.chdir("/home/"+user+"/RH-ota")
+            os.chdir(f"/home/{user}/RH-ota")
             os.system(". ./open_scripts.sh; server_start")
-            #os.system("sh ./server_start.sh")
         else:
             end_menu()
     end_menu()
@@ -157,13 +156,12 @@ def end_installation():
             parser_write()
             sys.exit()
         if selection =='c':
-            os.system(". /home/"+user+"/RH-ota/open_scripts.sh; configuraton_start")
+            os.system(f". /home/{user}/RH-ota/open_scripts.sh; configuraton_start")
             end_update()
         if selection =='s':
             clear_the_screen()
-            os.chdir("/home/"+user+"/RH-ota")
+            os.chdir(f"/home/{user}/RH-ota")
             os.system(". ./open_scripts.sh; server_start")
-            #os.system("sh ./server_start.sh")
         else:
             end()
     end_menu()
@@ -191,37 +189,36 @@ def installation():
             if conf_allowed:
                 sys_conf()
         os.system("sudo -H pip install cffi pillow")
-        os.chdir("/home/"+user)
-        if not os.path.exists("/home/"+user+"/.old_RotorHazard.old"):
-            os.system("mkdir /home/"+user+"/.old_RotorHazard.old")
-        if os.path.exists("/home/"+user+"/RotorHazard"):
-            os.system("cp -r /home/"+user+"/RotorHazard /home/"+user+"/.old_RotorHazard.old/ >/dev/null 2>&1")   ### in case of forced installation
-            os.system("rm -r /home/"+user+"/RotorHazard >/dev/null 2>&1")   ### in case of forced installation
-        os.system("rm /home/"+user+"/temp >/dev/null 2>&1")     ### in case of forced installation
-        os.system("cp -r /home/"+user+"/RotorHazard-* /home/"+user+"/.old_RotorHazard.old/ >/dev/null 2>&1")   ### in case of forced installation
-        os.system("rm -r /home/"+user+"/RotorHazard-* >/dev/null 2>&1")   ### in case of forced installation
-        os.chdir("/home/"+user)
-        os.system("wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"+server_version+" -O temp.zip")
+        os.chdir(f"/home/{user}")
+        if not os.path.exists(f"/home/{user}/.old_RotorHazard.old"):
+            os.system(f"mkdir /home/{user}/.old_RotorHazard.old")
+        if os.path.exists(f"/home/{user}/RotorHazard"):
+            os.system(f"cp -r /home/{user}/RotorHazard /home/{user}/.old_RotorHazard.old/ >/dev/null 2>&1")   ### in case of forced installation
+            os.system(f"rm -r /home/{user}/RotorHazard >/dev/null 2>&1")   ### in case of forced installation
+        os.system(f"rm /home/{user}/temp >/dev/null 2>&1")     ### in case of forced installation
+        os.system(f"cp -r /home/{user}/RotorHazard-* /home/{user}/.old_RotorHazard.old/ >/dev/null 2>&1")   ### in case of forced installation
+        os.system(f"rm -r /home/{user}/RotorHazard-* >/dev/null 2>&1")   ### in case of forced installation
+        os.chdir(f"/home/{user}")
+        os.system("wget https://codeload.github.com/RotorHazard/RotorHazard/zip/{server_version} -O temp.zip")
         os.system("unzip temp.zip >/dev/null ")
         os.system("rm temp.zip")
-        os.system("mv /home/"+user+"/RotorHazard-"+server_version+" /home/"+user+"/RotorHazard")
-        os.system("sudo -H pip install -r /home/"+user+"/RotorHazard/src/server/requirements.txt")
-        os.system("sudo chmod 777 -R /home/"+user+"/RotorHazard/src/server")
-        os.chdir("/home/"+user)
+        os.system(f"mv /home/{user}/RotorHazard-{server_version} /home/{user}/RotorHazard")
+        os.system(f"sudo -H pip install -r /home/{user}/RotorHazard/src/server/requirements.txt")
+        os.system(f"sudo chmod 777 -R /home/{user}/RotorHazard/src/server")
+        os.chdir(f"/home/{user}")
         os.system("sudo git clone https://github.com/jgarff/rpi_ws281x.git")
-        os.chdir("/home/"+user+"/rpi_ws281x")
+        os.chdir(f"/home/{user}/rpi_ws281x")
         os.system("sudo scons")
-        os.chdir("/home/"+user+"/rpi_ws281x/python")
+        os.chdir(f"/home/{user}/rpi_ws281x/python")
         os.system("sudo python setup.py install")
-        os.chdir("/home/"+user)
+        os.chdir(f"/home/{user}")
         os.system("sudo git clone https://github.com/chrisb2/pi_ina219.git")
-        os.chdir("/home/"+user+"/pi_ina219")
+        os.chdir(f"/home/{user}/pi_ina219")
         os.system("sudo python setup.py install")
-        os.chdir("/home/"+user)
+        os.chdir(f"/home/{user}")
         os.system("sudo git clone https://github.com/rm-hull/bme280.git")
-        os.chdir("/home/"+user+"/bme280")
+        os.chdir(f"/home/{user}/bme280")
         os.system("sudo python setup.py install")
-        #os.system("echo 'leave this file here' | sudo tee -a /home/"+user+"/.ota_markers/.installation-check_file.txt")
         parser.set('added_functions','installation_done','1')
         parser_write()
         os.system("sudo apt-get install openjdk-8-jdk-headless -y")
@@ -232,7 +229,7 @@ def installation():
         os.system("echo 'After=multi-user.target' | sudo tee -a /lib/systemd/system/rotorhazard.service")
         os.system("echo ' ' | sudo tee -a /lib/systemd/system/rotorhazard.service")
         os.system("echo '[Service]' | sudo tee -a /lib/systemd/system/rotorhazard.service")
-        os.system("echo 'WorkingDirectory=/home/"+user+"/RotorHazard/src/server' | sudo tee -a /lib/systemd/system/rotorhazard.service")
+        os.system(f"echo 'WorkingDirectory=/home/{user}/RotorHazard/src/server' | sudo tee -a /lib/systemd/system/rotorhazard.service")
         os.system("echo 'ExecStart=/usr/bin/python server.py' | sudo tee -a /lib/systemd/system/rotorhazard.service")
         os.system("echo ' ' | sudo tee -a /lib/systemd/system/rotorhazard.service")
         os.system("echo '[Install]' | sudo tee -a /lib/systemd/system/rotorhazard.service")
@@ -254,22 +251,22 @@ def update():
     if not linux_testing:
         os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
     internet_check()
-    if internet_FLAG==0:
+    if not internet_FLAG:
         print("\nLooks like you don't have internet connection. Update canceled.")
         sleep(2)
     else:
         print("\nInternet connection - OK")
         sleep(2)
         clear_the_screen()
-        if not os.path.exists("/home/"+user+"/RotorHazard"):
+        if not os.path.exists(f"/home/{user}/RotorHazard"):
             print(("""\n\t """+bcolors.BOLD+"""
     Looks like you don't have RotorHazard server software installed for now. \n\t\t
     If so please install your server software first or you won't be able to use the timer."""+bcolors.ENDC+""" """))
             print(("""\n\n\t\t"""+bcolors.GREEN+""" 
-        'i' - Install the software - recommended """+ bcolors.ENDC+"""\n\t\t 
+        'i' - Install the software - recommended """+bcolors.ENDC+"""\n\t\t 
         'u' - Force update procedure\n\t\t """+bcolors.YELLOW+"""
         'a' - Abort both  \n\n """+bcolors.ENDC+""" """))
-            selection=str(input())
+            selection=input()
             if selection == 'i':
                 conf_allowed = True
                 installation()
@@ -290,34 +287,34 @@ def update():
             if not linux_testing:
                 os.system("sudo apt dist-upgrade -y")
             os.system("sudo apt autoremove -y")
-            if not os.path.exists("/home/"+user+"/.old_RotorHazard.old"):
-                os.system("sudo mkdir /home/"+user+"/.old_RotorHazard.old")
-            os.system("sudo cp -r /home/"+user+"/RotorHazard-* /home/"+user+"/.old_RotorHazard.old/ >/dev/null 2>&1")   ### just in case of weird sys config
-            os.system("sudo rm -r /home/"+user+"/RotorHazard-master >/dev/null 2>&1")   ### just in case of weird sys config
-            os.system("sudo rm -r /home/"+user+"/temp.zip >/dev/null 2>&1")   ### just in case of weird sys config
-            if os.path.exists("/home/"+user+"/RotorHazard.old"):
-                os.system("sudo cp -r /home/"+user+"/RotorHazard.old /home/"+user+"/.old_RotorHazard.old/")
-                os.system("sudo rm -r /home/"+user+"/RotorHazard.old")
-            os.system("sudo mv /home/"+user+"/RotorHazard /home/"+user+"/RotorHazard.old")
-            os.chdir("/home/"+user)
-            os.system("wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"+server_version+" -O temp.zip")
+            if not os.path.exists(f"/home/{user}/.old_RotorHazard.old"):
+                os.system(f"sudo mkdir /home/{user}/.old_RotorHazard.old")
+            os.system(f"sudo cp -r /home/{user}/RotorHazard-* /home/{user}/.old_RotorHazard.old/ >/dev/null 2>&1")   ### just in case of weird sys config
+            os.system(f"sudo rm -r /home/{user}/RotorHazard-master >/dev/null 2>&1")   ### just in case of weird sys config
+            os.system(f"sudo rm -r /home/{user}/temp.zip >/dev/null 2>&1")   ### just in case of weird sys config
+            if os.path.exists(f"/home/{user}/RotorHazard.old"):
+                os.system(f"sudo cp -r /home/{user}/RotorHazard.old /home/{user}/.old_RotorHazard.old/")
+                os.system(f"sudo rm -r /home/{user}/RotorHazard.old")
+            os.system(f"sudo mv /home/{user}/RotorHazard /home/{user}/RotorHazard.old")
+            os.chdir(f"/home/{user}")
+            os.system(f"wget https://codeload.github.com/RotorHazard/RotorHazard/zip/{server_version} -O temp.zip")
             os.system("unzip temp.zip >/dev/null ")
-            os.system("mv /home/"+user+"/RotorHazard-"+server_version+" /home/"+user+"/RotorHazard")
+            os.system(f"mv /home/{user}/RotorHazard-{server_version} /home/{user}/RotorHazard")
             os.system("sudo rm temp.zip")
-            if not os.path.exists("/home/"+user+"/backup_RH_data"):
-                os.system("sudo mkdir /home/"+user+"/backup_RH_data")
-            os.system("sudo chmod 777 -R /home/"+user+"/RotorHazard/src/server")
-            os.system("sudo chmod 777 -R /home/"+user+"/RotorHazard.old")
-            os.system("sudo chmod 777 -R /home/"+user+"/.old_RotorHazard.old")
-            os.system("sudo chmod 777 -R /home/"+user+"/backup_RH_data")
-            os.system("sudo chmod 777 -R /home/"+user+"/.ota_markers")
-            os.system("cp /home/"+user+"/RotorHazard.old/src/server/config.json /home/"+user+"/RotorHazard/src/server/ >/dev/null 2>&1 &")
-            os.system("cp -r /home/"+user+"/RotorHazard.old/src/server/static/image /home/"+user+"/backup_RH_data")
-            os.system("cp -r /home/"+user+"/RotorHazard.old/src/server/static/image /home/"+user+"/RotorHazard/src/server/static")
-            os.system("cp /home/"+user+"/RotorHazard.old/src/server/config.json /home/"+user+"/backup_RH_data >/dev/null 2>&1 &")
-            os.system("cp /home/"+user+"/RotorHazard.old/src/server/database.db /home/"+user+"/RotorHazard/src/server/ >/dev/null 2>&1 &")
-            os.system("cp /home/"+user+"/RotorHazard.old/src/server/database.db /home/"+user+"/backup_RH_data >/dev/null 2>&1 &")
-            os.chdir("/home/"+user+"/RotorHazard/src/server")
+            if not os.path.exists(f"/home/{user}/backup_RH_data"):
+                os.system(f"sudo mkdir /home/{user}/backup_RH_data")
+            os.system(f"sudo chmod 777 -R /home/{user}/RotorHazard/src/server")
+            os.system(f"sudo chmod 777 -R /home/{user}/RotorHazard.old")
+            os.system(f"sudo chmod 777 -R /home/{user}/.old_RotorHazard.old")
+            os.system(f"sudo chmod 777 -R /home/{user}/backup_RH_data")
+            os.system(f"sudo chmod 777 -R /home/{user}/.ota_markers")
+            os.system(f"cp /home/{user}/RotorHazard.old/src/server/config.json /home/{user}/RotorHazard/src/server/ >/dev/null 2>&1 &")
+            os.system(f"cp -r /home/{user}/RotorHazard.old/src/server/static/image /home/{user}/backup_RH_data")
+            os.system(f"cp -r /home/{user}/RotorHazard.old/src/server/static/image /home/{user}/RotorHazard/src/server/static")
+            os.system(f"cp /home/{user}/RotorHazard.old/src/server/config.json /home/{user}/backup_RH_data >/dev/null 2>&1 &")
+            os.system(f"cp /home/{user}/RotorHazard.old/src/server/database.db /home/{user}/RotorHazard/src/server/ >/dev/null 2>&1 &")
+            os.system(f"cp /home/{user}/RotorHazard.old/src/server/database.db /home/{user}/backup_RH_data >/dev/null 2>&1 &")
+            os.chdir(f"/home/{user}/RotorHazard/src/server")
             os.system("sudo -H pip install --upgrade --no-cache-dir -r requirements.txt")
             print(("""\n\n
         ##############################################
@@ -349,26 +346,24 @@ def main():
         Server installed right now: """+server_version_name+bcolors.BOLD+"""
         RotorHazard configuration state: """+config_soft+"""\n\n\n"""))
     if not config_FLAG and serv_installed_FLAG:
-        print((bcolors.GREEN+"""\t\t'c' - Configure RotorHazard server\n"""+bcolors.ENDC))
+        print(bcolors.GREEN+"""\t\t'c' - Configure RotorHazard server\n"""+bcolors.ENDC)
     else:
         print("""\t\t'c' - Reconfigure RotorHazard server\n""")
     if not serv_installed_FLAG:
-        print((bcolors.GREEN+"""\t\t'i' - Install software from skratch"""+bcolors.ENDC))
+        print(bcolors.GREEN+"""\t\t'i' - Install software from skratch"""+bcolors.ENDC)
     else:
         print("""\t\t'i' - Install software from skratch""")
     print(("""
                 'u' - Update existing installation\n"""+bcolors.YELLOW+""" 
                 'e' - Exit to Main Menu \n"""+bcolors.ENDC))
-    selection=str(input(""))
+    selection=input()
     if selection =='c':
         if serv_installed_FLAG:
             os.system(". ./open_scripts.sh; configuraton_start")
-            #os.system("python ./conf_wizard_rh.py")
         else:
             print("\n\t\tPlease install server software first")
             sleep (1.5)
     if selection =='i':
-        #if (os.path.exists("/home/"+user+"/.ota_markers/.installation-check_file.txt") == True):
         if parser.getint('added_functions','installation_done'):
             clear_the_screen()
             print(("""\n"""+bcolors.BOLD+"""
@@ -377,11 +372,11 @@ def main():
     If that's the case please use """+bcolors.UNDERLINE+"""update mode"""+bcolors.ENDC+""" - 'u'
     or force installation """+bcolors.UNDERLINE+"""without"""+bcolors.ENDC+""" sys. config. - 'i'."""))
             print(("""\n\n\t"""+bcolors.GREEN+""" 
-        'u' - Select update mode - recommended """+ bcolors.ENDC+"""\n 
+        'u' - Select update mode - recommended """+bcolors.ENDC+"""\n 
         'i' - Force installation without sys. config.\n
         'c' - Force installation and sys. config.\n """+bcolors.YELLOW+"""
         'a' - Abort both  \n """+bcolors.ENDC+""" """))
-            selection=str(input())
+            selection=input()
             if selection == 'u':
                 update()
             if selection == 'i':
@@ -395,7 +390,7 @@ def main():
                         break
                     else:
                         print("\ntoo big fingers :( wrong command. try again! :)")
-                if confirm == 'y' or confirm ==  'yes':
+                if confirm == 'y' or confirm == 'yes':
                     conf_allowed = True
                     installation()
                 if confirm in ['n','no','abort','a']:
@@ -414,7 +409,7 @@ def main():
         update()
     if selection =='e':
         clear_the_screen()
-        os.chdir("/home/"+user+"/RH-ota")
+        os.chdir(f"/home/{user}/RH-ota")
         image_show()
         sleep(0.5)
         sys.exit()

@@ -42,18 +42,18 @@ Default values are not automatically applied. Type them if needed.\n""")
             if not version in version_valid_options:
                 print("\nPlease enter correct value!")
             else:
-                os.system("echo '    \"RH_version\" : \""+version+"\",' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+                os.system(f"echo '    \"RH_version\" : \"{version}\",' | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
         debug_user = input("\nWhat is you user name on debugging OS? [default: racer]\t\t\t")
-        os.system("echo '    \"debug_user\" : \""+debug_user+"\",' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+        os.system(f"echo '    \"debug_user\" : \"{debug_user}\",' | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
         code = input("\nWhat is your country code? [default: GB]\t\t\t\t")
-        os.system("echo '    \"country\" : \""+code+"\",' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+        os.system(f"echo '    \"country\" : \"{code}\",' | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
         while True:
             nodes = input("\nHow many nodes will you use in your system? [min: 0/1 | max: 8]\t\t")
             if not nodes.isdigit() or int(nodes) >8:
                 print("\nPlease enter correct value!")
             else:
-                os.system("echo '    \"nodes_number\" : "+nodes+",' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+                os.system(f"echo '    \"nodes_number\" : {nodes},' | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
         while True:
             debug_mode = input("\nWill you use \"OTA\" software in a debug mode? [yes/no | default: no]\t")
@@ -65,7 +65,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                     debug_mode_val = '1'
                 elif debug_mode in ['no','0','n']:
                     debug_mode_val = '0'
-                os.system("echo '    \"debug_mode\" : "+debug_mode_val+",' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+                os.system(f"echo '    \"debug_mode\" : {debug_mode_val},' | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
         while True:
             pins_assign = input("\nPins assignment? [default/custom/PCB | default: default]\t\t")
@@ -73,7 +73,7 @@ Default values are not automatically applied. Type them if needed.\n""")
             if not pins_assign in pins_valid_options:
                 print("\nPlease enter correct value!")
             else:
-                os.system("echo '    \"pins_assignment\" : \""+pins_assign+"\",' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+                os.system(f"echo '    \"pins_assignment\" : \"{pins_assign}\",' | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
         while True:
             no_pdf = input("\nUpdates without PDF? [yes/no | default: yes]\t\t\t\t")
@@ -85,7 +85,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                     no_pdf_val = '1'
                 elif no_pdf in ['no','0','n']:
                     no_pdf_val = '0'
-                os.system("echo '    \"updates_without_pdf\" : "+no_pdf_val+",' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+                os.system(f"echo '    \"updates_without_pdf\" : {no_pdf_val},' | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
         while True:
             pi_4 = input("\nAre you using Raspberry Pi 4? [yes/no | default: no]\t\t\t")
@@ -97,10 +97,10 @@ Default values are not automatically applied. Type them if needed.\n""")
                     pi_4_val = '1'
                 elif pi_4 in ['no','0','n']:
                     pi_4_val = '0'
-                os.system("echo '    \"pi_4_cfg\" : "+pi_4_val+"' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+                os.system(f"echo '    \"pi_4_cfg\" : {pi_4_val}' | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
         os.system("echo '}' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
-        print(("""\n\n\t\t\t"""+bcolors.UNDERLINE+"""CONFIGURATION"""+bcolors.ENDC+""":\n\t
+        print("""\n\n\t\t\t"""+bcolors.UNDERLINE+"""CONFIGURATION"""+bcolors.ENDC+""":\n\t
         User name: \t\t"""+name+"""
         RotorHazard version: \t"""+version+"""
         Debug user name: \t"""+debug_user+"""
@@ -109,7 +109,7 @@ Default values are not automatically applied. Type them if needed.\n""")
         Debug mode: \t\t"""+debug_mode+"""
         Pins assignment: \t"""+pins_assign+"""
         Updates without PDF: \t"""+no_pdf+"""
-        Pi 4 user: \t\t"""+pi_4+"""\n\n\n"""))
+        Pi 4 user: \t\t"""+pi_4+"""\n\n\n""")
         print("Please check. Confirm? [yes/change/abort]\n")
         valid_options = ['y', 'yes', 'n', 'no', 'change', 'abort']
         while True:
@@ -118,7 +118,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                 break
             else:
                 print("\ntoo big fingers :( wrong command. try again! :)")
-        if selection == 'y' or selection ==  'yes':
+        if selection == 'y' or selection == 'yes':
             os.system("mv .wizarded-updater-config.json updater-config.json")
             print("Configuration saved.\n")
             sleep(0.5)
@@ -131,4 +131,3 @@ Default values are not automatically applied. Type them if needed.\n""")
             break
 else:
     os.system("exit")
-

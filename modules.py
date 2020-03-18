@@ -125,8 +125,8 @@ def internet_check():
         if os.path.exists("./index.html"):
             internet_FLAG=1
             break
-        elif (time_passed > 10100):
-            internet_FLAG=0
+        elif time_passed > 10100:
+            internet_FLAG = 0
             break
     os.system("rm /home/"+user+"/RH-ota/index.html > /dev/null 2>&1")
     os.system("rm /home/"+user+"/RH-ota/wget-log* > /dev/null 2>&1")

@@ -43,7 +43,7 @@ Now you should be able to enter the network typing in the browser:
 
     print(("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
             +bcolors.YELLOW+"""    Exit by pressing 'e'"""+bcolors.ENDC+"""\n"""))
-    selection=str(input(""))
+    selection=input()
     if selection=='r':
         os.system("sudo reboot")
     if selection=='e':
@@ -119,14 +119,14 @@ def conf_copy():
 def step_one():
     conf_copy()
     os.system("sudo sed -i 's/country/# country/g' /etc/wpa_supplicant/wpa_supplicant.conf")
-    os.system("echo 'country="+myPlace+"'| sudo  tee -a /boot/config.txt")
+    os.system(f"echo 'country={myPlace}'| sudo  tee -a /boot/config.txt")
     os.system("sudo apt-get update && sudo apt-get upgrade -y")
     os.system("sudo apt install curl -y")
     os.system("curl -sL https://install.raspap.com | bash -s -- -y")
     step_two()
     print(("""\n\t\t\t"""+bcolors.GREEN+"""Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t"""
             +bcolors.YELLOW+"""Exit by pressing 'e'"""+bcolors.ENDC+"""\n"""))
-    selection=str(input(""))
+    selection=input()
     if selection=='r':
         os.system("sudo reboot")
     if selection=='e':
@@ -152,7 +152,7 @@ def step_zero():
     \t'3' - enters "Step 3." - check it after first two steps\n
     \t'x' - enters Access Point extra menu - check it after operation\n
     \t"""+bcolors.YELLOW+"""'e' - exit to main menu"""+bcolors.ENDC+"""\n"""))
-    selection=str(input(""))
+    selection=input()
     if selection=='y':
         step_one()
     if selection=='3':

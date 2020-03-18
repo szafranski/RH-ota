@@ -40,17 +40,18 @@ def internet_check():
         elif (time_passed > 10100):
             internet_FLAG=0
             break
-    os.system("rm "+myhomedir+"/RH-ota/index.html > /dev/null 2>&1")
-    os.system("rm "+myhomedir+"/RH-ota/wget-log* > /dev/null 2>&1")
-    os.system("rm "+myhomedir+"/index.html > /dev/null 2>&1")
-    os.system("rm "+myhomedir+"/wget-log* > /dev/null 2>&1")
+    os.system(f"rm {homedir}/RH-ota/index.html > /dev/null 2>&1")
+    os.system(f"rm {homedir}/RH-ota/wget-log* > /dev/null 2>&1")
+    os.system(f"rm {homedir}/index.html > /dev/null 2>&1")
+    os.system(f"rm {homedir}/wget-log* > /dev/null 2>&1")
 
 if os.path.exists(cfgdir1):
     config_file_exists = True
     if data['debug_mode']:
         linux_testing = True
     else:
-        linux_testing = False 
+        linux_testing = False
+
     if linux_testing:
         user = data['debug_user']
     else:
@@ -85,7 +86,7 @@ def old_version_check():
     os.system("grep 'updater_version =' ~/RH-ota/update.py > ~/.ota_markers/.old_version")
     os.system("sed -i 's/updater_version = //' ~/.ota_markers/.old_version")
     os.system("sed -i 's/#.*/ /' ~/.ota_markers/.old_version")
-    f = open(""+myhomedir+"/.ota_markers/.old_version","r")
+    f = open(f"{myhomedir}/.ota_markers/.old_version","r")
     for line in f:
         global old_version_name
         old_version_name = line
@@ -94,7 +95,7 @@ def new_version_check():
     os.system("grep 'updater_version =' ~/RH-ota/update.py > ~/.ota_markers/.new_version")
     os.system("sed -i 's/updater_version = //' ~/.ota_markers/.new_version")
     os.system("sed -i 's/#.*/ /' ~/.ota_markers/.new_version")
-    f = open(""+myhomedir+"/.ota_markers/.new_version","r")
+    f = open(f"{myhomedir}/.ota_markers/.new_version","r")
     for line in f:
         global new_version_name
         new_version_name = line
@@ -129,7 +130,7 @@ def main():
                 print("Also change 'configparser_installed' to value 1 in ~/.ota_markers/ota_config.txt.\n\n")
                 input("\nOK? Press 'Enter'")
                 main()
-        print("\n\n\n\t Please wait: updating process from version "+old_version_name+"\n\n")
+        print(f"\n\n\n\t Please wait: updating process from version {old_version_name}\n\n")
         sleep(2)
         if config_file_exists:
             os.system("cp ~/RH-ota/updater-config.json ~/.ota_markers/updater-config.json")
@@ -152,7 +153,7 @@ def main():
         if config_file_exists:
             os.system("cp ~/.ota_markers/updater-config.json ~/RH-ota/updater-config.json")
         new_version_check()
-        print(("\n\n\n\t RotorHazard OTA Manager updated to version "+new_version_name+"\n\t\tYou may check update-notes.\n\n"))
+        print(f"\n\n\n\t RotorHazard OTA Manager updated to version {new_version_name}\n\t\tYou may check update-notes.\n\n")
         sleep(1)
         os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")   ### resolves compatibility issues
         os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         ### resolves compatibility issues

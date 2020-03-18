@@ -54,39 +54,39 @@ def compatibility():               ### adds compatibility and fixes with previou
     os.system("python3 ./prev_comp.py")
 
 if not os.path.exists(homedir+"/.ota_markers/ota_config.txt"):
-    os.system("cp "+homedir+"/RH-ota/resources/ota_config.txt "+homedir+"/.ota_markers/ota_config.txt")
+    os.system(f"cp {homedir}/RH-ota/resources/ota_config.txt {homedir}/.ota_markers/ota_config.txt")
 
 
 def parser_write():
     try:
-        with open('/home/'+user+'/.ota_markers/ota_config.txt', 'w') as configfile:
+        with open(f'/home/{user}/.ota_markers/ota_config.txt', 'w') as configfile:
             parser.write(configfile)
     except IOError as up :
         print("Config file does not exist and could not be created.")
 
 def log_send():
-    selection = str(input("\n\n\tDo you want to send a log file for a review to the developer? [y/n] "))
+    selection = input("\n\n\tDo you want to send a log file for a review to the developer? [y/n] ")
     if selection=='y' or selection =='yes':
         if not parser.getint('added_functions','curl_installed'):
             if not os.system("sudo apt install curl cowsay"):
                 parser.set('added_functions','curl_installed','1')
                 parser_write()
-        log_name = str(input("\n\tPlease enter your name so we know who sent a log file: "))
+        log_name = input("\n\tPlease enter your name so we know who sent a log file: ")
         print("\n\tPlease wait, file is being uploaded...\n")
         os.system("rm ./log_data/log_name.txt > /dev/null 2>&1")
         os.system("rm ./log_data/log_code.txt > /dev/null 2>&1")
-        os.system("echo "+log_name+" > ./log_data/log_name.txt")
-        os.system("curl --upload-file ./log_data/log.txt https://transfer.sh/"+log_name+"_log.txt | tee -a ./log_data/log_code.txt")
+        os.system(f"echo {log_name} > ./log_data/log_name.txt")
+        os.system(f"curl --upload-file ./log_data/log.txt https://transfer.sh/{log_name}_log.txt | tee -a ./log_data/log_code.txt")
         print("\n")
         os.system("sed -i 's/https:\/\/transfer.sh\///g' ./log_data/log_code.txt")
-        os.system("sed -i 's/\/"+log_name+"_log.txt//g' ./log_data/log_code.txt")
+        os.system(f"sed -i 's/\/{log_name}_log.txt//g' ./log_data/log_code.txt")
         print("\n___________________________\n")
         print("\nTell your favourite developer those:\n")
-        print(("User name: "+log_name))
+        print(f"User name: {log_name}")
         f = open("./log_data/log_code.txt","r")
         for line in f:
             code = line
-        print(("\nUser code: "+code))
+        print(f"\nUser code: {code}")
         print("\n___________________________\n") 
         input("\n\nHit 'Enter' to continue\n\n")
         if not os.system("cowsay You are awesome! Fly safe."):
@@ -100,7 +100,7 @@ def log_send():
         log_send()
 
 def updated_check():
-    if os.path.exists("/home/"+user+"/.ota_markers/.was_updated"):
+    if os.path.exists(f"/home/"+user+"/.ota_markers/.was_updated"):
         clear_the_screen()
         logo_top()
         print((""" {bold}
@@ -126,11 +126,11 @@ def updated_check():
             pass
         else:
             updated_check()
-        os.system("rm /home/"+user+"/.ota_markers/.was_updated >/dev/null 2>&1")
+        os.system(f"rm /home/"+user+"/.ota_markers/.was_updated >/dev/null 2>&1")
 
 def first():
     compatibility()
-    parser.read('/home/'+user+'/.ota_markers/ota_config.txt')
+    parser.read(f'/home/{user}/.ota_markers/ota_config.txt')
     clear_the_screen()
     print("\n\n")
     image_show()
@@ -155,7 +155,7 @@ def avr_dude():
                    , green=bcolors.GREEN
                    , orange=bcolors.ORANGE_S)
     print(menu)
-    selection=str(input(""))
+    selection = input()
     if selection=='1' : 
         os.system("sudo apt-get update")
         os.system("sudo apt-get install avrdude -y")
@@ -171,7 +171,6 @@ def serial_menu():
     def serial_content():
         os.system("echo 'enable_uart=1'| sudo tee -a /boot/config.txt")
         os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
-        #os.system("echo 'functionality added' | tee -a ~/.ota_markers/.serialok")
         parser.set('added_functions','serial_added','1')
         parser_write()
         print(("""
@@ -186,7 +185,7 @@ def serial_menu():
            , red=bcolors.RED
            , green=bcolors.GREEN
            , orange=bcolors.ORANGE_S)))
-        selection=str(input(""))
+        selection = input()
         if selection=='r':
             os.system("sudo reboot")
         if selection== 'b':
@@ -197,7 +196,7 @@ def serial_menu():
         Serial port has to be enabled. 
         Without it Arduinos cannot be programmed.
         Do you want to enable it now?""")
-    selection=str(input("\n\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+    selection = input("\n\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n")
     if selection == 'y':
         if parser.getint('added_functions','serial_added'):
             print("\n\n\t\tLooks like you already enabled Serial port. \n\t\tDo you want to continue anyway?\n")
@@ -255,7 +254,7 @@ def aliases_menu():
     {endc}
         Do you want to use above aliases in your system?
         Reboot should be performed after adding those""".format(bold=bcolors.BOLD, endc=bcolors.ENDC)))
-    selection=str(input("\n\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n"))
+    selection = input("\n\t\t\t"+bcolors.YELLOW+"Press 'y' for yes or 'a' for abort"+bcolors.ENDC+"\n")
     if selection == 'y':
         if parser.getint('added_functions','aliases_1'):
             print("\n\n\t\tLooks like you already have aliases added. \n\t\tDo you want to continue anyway?\n")
@@ -287,7 +286,7 @@ def self_updater():
         os.system("""echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null""")
         parser.set('added_functions','updater_planted','1')
         parser_write()
-    if parser.getint('added_functions','updater_planted') == 0:
+    if not parser.getint('added_functions','updater_planted'):
         add_updater()
     clear_the_screen()
     logo_top()
@@ -350,7 +349,7 @@ def features_menu():
         if not parser.getint('added_functions','pinout_installed'):
             print("Some additional software has to be added so action can be performed. Ok?\n[yes/no]\n")
             while True:
-                selection = str(input())
+                selection = input()
                 if selection == 'y' or selection == 'yes':
                     if not os.system("sudo apt-get install python3-gpiozero"):
                         parser.set('added_functions','pinout_installed','1')
@@ -413,7 +412,7 @@ def first_time():
                        , red=bcolors.RED_S
                        , orange=bcolors.ORANGE_S)))
         print(("\n\n\t\t'f' - first page'"+bcolors.GREEN+"\t'u' - update notes'"+bcolors.ENDC+bcolors.YELLOW+"\t'b' - back to menu"+bcolors.ENDC+"\n\n"))
-        selection=str(input(""))
+        selection = input()
         if selection=='f':
             first_page()
         if selection=='b':
@@ -450,12 +449,12 @@ def first_time():
             b - back to main menu {endc}
         '''.format(green=bcolors.GREEN, endc=bcolors.ENDC, yellow=bcolors.YELLOW)
         print(menu)
-        selection=str(input(""))
-        if selection=='s':
+        selection = input()
+        if selection =='s':
             second_page()
-        if selection=='u':
+        if selection =='u':
             update_notes()
-        if selection=='b':
+        if selection =='b':
             main_menu()
         else :
             first_page()
@@ -500,7 +499,7 @@ def main_menu():
                        , red=bcolors.RED
                        , orange=bcolors.ORANGE)
     print(menu)
-    selection=str(input())
+    selection = input()
     if selection=='1':
         os.system("python3 ./rpi_update.py")   ### opens raspberry updating file
     if selection=='2':
