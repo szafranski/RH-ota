@@ -6,7 +6,7 @@ from modules import clear_the_screen, bcolors, logo_top
 homedir = os.path.expanduser('~')
 
 clear_the_screen()
-logo_top()
+logo_top(false)
 
 if os.path.exists("./updater-config.json"):
     with open('updater-config.json') as config_file:
@@ -25,7 +25,7 @@ if linux_testing:
 else:
     user = data['pi_user']
 
-
+conf_now_FLAG = '0'
 def conf_check():
     global conf_now_FLAG
     if os.path.exists("/home/" + user + "/RotorHazard/src/server/config.json"):
@@ -78,11 +78,11 @@ Default values are not automatically applied. Type them if needed.\n""")
                 break
             else:
                 print("\ntoo big fingers :( wrong command. try again! :)")
-        if selection == 'y' or selection == 'yes':
-            led_present_FLAG = True
-        if selection == 'n' or selection == 'no':
-            led_present_FLAG = False
-        if led_present_FLAG:
+            if selection == 'y' or selection == 'yes':
+                led_present_FLAG = True
+            if selection == 'n' or selection == 'no':
+                led_present_FLAG = False
+            if led_present_FLAG:
             while True:
                 led_count = input("\nHow many LEDs will you use in your system? [default: 0]\t\t\t")
                 if not led_count.isdigit() or int(led_count) < 0:

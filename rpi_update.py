@@ -1,10 +1,10 @@
-from time import sleep
-import time
+import json
 import os
 import sys
-import json
-from modules import clear_the_screen, bcolors, image_show
 from configparser import ConfigParser
+from time import sleep
+
+from modules import clear_the_screen, bcolors, image_show, internet_check
 
 parser = ConfigParser()
 
@@ -25,20 +25,20 @@ if linux_testing:
 else:
     user = data['pi_user']
 
-preffered_RH_version = data['RH_version']
+preferred_RH_version = data['RH_version']
 
 if data['pi_4_cfg']:
     pi_4_FLAG = True
 else:
     pi_4_FLAG = False
 
-if preffered_RH_version == 'master':
+if preferred_RH_version == 'master':
     server_version = 'master'
-if preffered_RH_version == 'beta':
+if preferred_RH_version == 'beta':
     server_version = '2.1.0-beta.3'
-if preffered_RH_version == 'stable':
+if preferred_RH_version == 'stable':
     server_version = '2.1.0'
-if preffered_RH_version == 'custom':
+if preferred_RH_version == 'custom':
     server_version = 'X.X.X'           # paste custom version number here if you want to declare it manually
 
 parser.read('/home/'+user+'/.ota_markers/ota_config.txt')
@@ -47,26 +47,6 @@ parser.read('/home/'+user+'/.ota_markers/ota_config.txt')
 def parser_write():
     with open('/home/'+user+'/.ota_markers/ota_config.txt', 'w') as configfile:
         parser.write(configfile)
-
-
-def internet_check():
-    print("\nPlease wait - checking internet connection state...\n")
-    global internet_FLAG
-    before_millis = int(round(time.time() * 1000))
-    os.system(f". /home/{user}/RH-ota/open_scripts.sh; net_check ")
-    while True:
-        now_millis = int(round(time.time() * 1000))
-        time_passed = now_millis - before_millis
-        if os.path.exists("./index.html"):
-            internet_FLAG = 1
-            break
-        elif time_passed > 10100:
-            internet_FLAG = 0
-            break
-    os.system(f"rm /home/{user}/RH-ota/index.html > /dev/null 2>&1")
-    os.system(f"rm /home/{user}/RH-ota/wget-log* > /dev/null 2>&1")
-    os.system(f"rm /home/{user}/index.html > /dev/null 2>&1")
-    os.system(f"rm /home/{user}/wget-log* > /dev/null 2>&1")
 
 
 def first():
@@ -183,7 +163,7 @@ def end_installation():
 def installation():
     if not linux_testing:
         os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
-    internet_check()
+    internet_FLAG = internet_check(user)
     if not internet_FLAG:
         print("\nLooks like you don't have internet connection. Installation canceled.")
         sleep(2)
@@ -264,7 +244,7 @@ def installation():
 def update():
     if not linux_testing:
         os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
-    internet_check()
+    internet_FLAG = internet_check(user)
     if not internet_FLAG:
         print("\nLooks like you don't have internet connection. Update canceled.")
         sleep(2)

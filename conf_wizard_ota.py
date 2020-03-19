@@ -5,8 +5,11 @@ from modules import clear_the_screen, bcolors, logo_top
 homedir = os.path.expanduser('~')
 
 clear_the_screen()
-logo_top()
 
+logo_top(False)
+
+#Always define variables before using them.
+conf_now_FLAG = 0
 
 def conf_check():
     global conf_now_FLAG
@@ -19,10 +22,10 @@ def conf_check():
                 break
             else:
                 print("\ntoo big fingers :( wrong command. try again! :)")
-        if cont_conf == 'y' or cont_conf == 'yes':
+        if cont_conf[0] == 'y' :
             conf_now_FLAG = 1
             pass
-        if cont_conf == 'n' or cont_conf == 'no':
+        if cont_conf[0] == 'n' :
             conf_now_FLAG = 0
     else:
         conf_now_FLAG = 1
@@ -63,6 +66,7 @@ Default values are not automatically applied. Type them if needed.\n""")
             if debug_mode not in debug_mode_allowed_values:
                 print("\nPlease enter correct value!")
             else:
+                debug_mode_val = '0'
                 if debug_mode in ['yes', '1', 'y']:
                     debug_mode_val = '1'
                 elif debug_mode in ['no', '0', 'n']:
@@ -78,6 +82,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                 os.system(f"echo '    \"pins_assignment\" : \"{pins_assign}\",' | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
         while True:
+            no_pdf_val = '0'
             no_pdf = input("\nUpdates without PDF? [yes/no | default: yes]\t\t\t\t")
             no_pdf_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']
             if no_pdf not in no_pdf_allowed_values:
@@ -95,6 +100,7 @@ Default values are not automatically applied. Type them if needed.\n""")
             if pi_4 not in pi_4_allowed_values:
                 print("\nPlease enter correct value!")
             else:
+                pi_4_val = '0'
                 if pi_4 in ['yes', '1', 'y']:
                     pi_4_val = '1'
                 elif pi_4 in ['no', '0', 'n']:

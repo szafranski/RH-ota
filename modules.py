@@ -1,27 +1,10 @@
+from configparser import ConfigParser
 from time import sleep
 import os
 import platform
 import sys
 import json
 import time
-
-if os.path.exists("./updater-config.json"):
-    with open('updater-config.json') as config_file:
-        data = json.load(config_file)
-else:
-    with open('distr-updater-config.json') as config_file:
-        data = json.load(config_file)
-
-if data['debug_mode']:
-    linux_testing = True
-else:
-    linux_testing = False 
-
-if linux_testing:
-    user = data['debug_user']
-else:
-    user = data['pi_user']
-
 
 def clear_the_screen():
     sleep(0.05)
@@ -74,7 +57,7 @@ def check_if_string_in_file(file_name, string_to_search):
     return False
 
 
-def logo_top():
+def logo_top(linux_testing):
     logo = '''
     \n    
     #######################################################################
@@ -123,9 +106,8 @@ class bcolors:
     UNDERLINE_S = '\033[4m' + (' ' * 11)
 
 
-def internet_check():
+def internet_check(user):
     print("\nPlease wait - checking internet connection state...\n")
-    global internet_FLAG
     before_millis = int(round(time.time() * 1000))
     os.system(". /home/"+user+"/RH-ota/open_scripts.sh; net_check")
     while True:
@@ -141,3 +123,46 @@ def internet_check():
     os.system("rm /home/"+user+"/RH-ota/wget-log* > /dev/null 2>&1")
     os.system("rm /home/"+user+"/index.html > /dev/null 2>&1")
     os.system("rm /home/"+user+"/wget-log* > /dev/null 2>&1")
+
+    return internet_FLAG
+
+
+def load_config():
+    parser = ConfigParser()
+
+    if os.path.exists("./updater-config.json"):
+        with open('updater-config.json') as config_file:
+            data = json.load(config_file)
+    else:
+        with open('distr-updater-config.json') as config_file:
+            data = json.load(config_file)
+
+    if data['debug_mode']:
+        linux_testing = True
+    else:
+        linux_testing = False
+
+    if linux_testing:
+        user = data['debug_user']
+    else:
+        user = data['pi_user']
+
+    preferred_RH_version = data['RH_version']
+
+    if data['pi_4_cfg']:
+        pi_4_FLAG = True
+    else:
+        pi_4_FLAG = False
+
+    if preferred_RH_version == 'master':
+        server_version = 'master'
+    if preferred_RH_version == 'beta':
+        server_version = '2.1.0-beta.3'
+    if preferred_RH_version == 'stable':
+        server_version = '2.1.0'
+    if preferred_RH_version == 'custom':
+        server_version = 'X.X.X'  # paste custom version number here if you want to declare it manually
+
+    parser.read('/home/' + user + '/.ota_markers/ota_config.txt')
+
+    return parser
