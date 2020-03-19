@@ -54,21 +54,21 @@ if conf_now_FLAG:
 Please type your configuration data. It can be modified later.
 Default values are not automatically applied. Type them if needed.\n""")
         os.system("rm /home/" + user + "/.wizarded-rh-config.json >/dev/null 2>&1")
-        os.system(
-            "cp /home/" + user + "/RotorHazard/src/server/config-dist.json /home/" + user + "/RH-ota/.wizarded-rh-config.json")
+        os.system("cp /home/" + user + "/RotorHazard/src/server/config-dist.json /home/" + user +
+                  "/RH-ota/.wizarded-rh-config.json")
         admin_name = input("\nWhat will be admin user name on RotorHazard page? [default: admin]\t")
-        os.system(
-            "sed -i 's/\"ADMIN_USERNAME\": \"admin\"/\"ADMIN_USERNAME\": \"" + admin_name + "\"/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
+        os.system("sed -i 's/\"ADMIN_USERNAME\": \"admin\"/\"ADMIN_USERNAME\": \"" + admin_name + "\"/g' /home/"
+                  + user + "/RH-ota/.wizarded-rh-config.json")
         admin_pass = input("\nWhat will be admin password on RotorHazard page? [default: rotorhazard]\t")
-        os.system(
-            "sed -i 's/\"ADMIN_PASSWORD\": \"rotorhazard\"/\"ADMIN_PASSWORD\": \"" + admin_pass + "\"/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
+        os.system("sed -i 's/\"ADMIN_PASSWORD\": \"rotorhazard\"/\"ADMIN_PASSWORD\": \"" + admin_pass +
+                  "\"/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
         while True:
             port = input("\nWhich port will you use with RotorHazard? [default: 5000]\t\t")
             if not port.isdigit() or int(port) < 0:
                 print("\nPlease enter correct value!")
             else:
-                os.system(
-                    "sed -i 's/\"HTTP_PORT\": 5000/\"HTTP_PORT\": " + port + "/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
+                os.system("sed -i 's/\"HTTP_PORT\": 5000/\"HTTP_PORT\": " + port + "/g' /home/" + user +
+                          "/RH-ota/.wizarded-rh-config.json")
                 break
         print("\nAre you planning to use LEDs in your system? [yes/no]\n")
         valid_options = ['y', 'yes', 'n', 'no']
@@ -88,16 +88,16 @@ Default values are not automatically applied. Type them if needed.\n""")
                 if not led_count.isdigit() or int(led_count) < 0:
                     print("\nPlease enter correct value!")
                 else:
-                    os.system(
-                        "sed -i 's/\"LED_COUNT\": 0/\"LED_COUNT\": " + led_count + "/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
+                    os.system("sed -i 's/\"LED_COUNT\": 0/\"LED_COUNT\": " + led_count + "/g' /home/" + user +
+                              "/RH-ota/.wizarded-rh-config.json")
                     break
             while True:
                 led_pin = input("\nWhich GPIO pin is connected to your LEDs data pin? [default: 10]\t")
                 if not led_pin.isdigit() or int(led_pin) < 0 or int(led_pin) > 40:
                     print("\nPlease enter correct value!")
                 else:
-                    os.system(
-                        "sed -i 's/\"LED_PIN\": 10/\"LED_PIN\": " + led_pin + "/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
+                    os.system("sed -i 's/\"LED_PIN\": 10/\"LED_PIN\": " + led_pin + "/g' /home/" + user +
+                              "/RH-ota/.wizarded-rh-config.json")
                     break
             while True:
                 led_inv = input("\nIs LED data pin output inverted? [yes/no | default: no]\t\t\t")
@@ -109,16 +109,16 @@ Default values are not automatically applied. Type them if needed.\n""")
                         led_inv_val = 'true'
                     elif led_inv in ['no', '0', 'n']:
                         led_inv_val = 'true'
-                    os.system(
-                        "sed -i 's/\"LED_INVERT\": false/\"LED_INVERT\": " + led_inv_val + "/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
+                    os.system("sed -i 's/\"LED_INVERT\": false/\"LED_INVERT\": " + led_inv_val + "/g' /home/" + user +
+                              "/RH-ota/.wizarded-rh-config.json")
                     break
             while True:
                 led_channel = input("\nWhat channel (not pin!) will be used with your LEDs? [default: 0]\t")
                 if not led_channel.isdigit() or int(led_channel) < 0 or int(led_channel) > 1:
                     print("\nPlease enter correct value!")
                 else:
-                    os.system(
-                        "sed -i 's/\"LED_CHANNEL\": 0/\"LED_CHANNEL\": " + led_channel + "/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
+                    os.system("sed -i 's/\"LED_CHANNEL\": 0/\"LED_CHANNEL\": " + led_channel + "/g' /home/" + user +
+                              "/RH-ota/.wizarded-rh-config.json")
                     break
             while True:
                 panel_rot = input("\nBy how many degrees is your panel rotated? [0/90/180/270 | default: 0]\t")
@@ -140,8 +140,8 @@ Default values are not automatically applied. Type them if needed.\n""")
                         inv_rows_val = 'true'
                     elif inv_rows in ['no', '0', 'n']:
                         inv_rows_val = 'true'
-                    os.system(
-                        "sed -i 's/\"INVERTED_PANEL_ROWS\": \"false\"/\"INVERTED_PANEL_ROWS\": \"" + inv_rows_val + "\"/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
+                    os.system("sed -i 's/\"INVERTED_PANEL_ROWS\": \"false\"/\"INVERTED_PANEL_ROWS\": \""
+                              + inv_rows_val + "\"/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
                     break
 
         if not led_present_FLAG:
@@ -173,8 +173,8 @@ Default values are not automatically applied. Type them if needed.\n""")
                 if not dma.isdigit() or int(dma) < 0:
                     print("\nPlease enter correct value!")
                 else:
-                    os.system(
-                        "sed -i 's/\"LED_DMA\": 10/\"LED_DMA\": " + dma + "/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
+                    os.system("sed -i 's/\"LED_DMA\": 10/\"LED_DMA\": " + dma + "/g' /home/" + user +
+                              "/RH-ota/.wizarded-rh-config.json")
                     break
             while True:
                 freq = input("\nWhat LED frequency will you use? [default: 800000 - you can type 'def']\t")

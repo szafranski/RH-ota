@@ -6,6 +6,7 @@ from configparser import ConfigParser
 
 parser = ConfigParser()
 
+
 def parser_write():
     try:
         with open(f'/home/{user}/.ota_markers/ota_config.txt', 'w') as configfile:
@@ -191,7 +192,8 @@ def main():
         if config_file_exists:
             os.system("cp ~/.ota_markers/updater-config.json ~/RH-ota/updater-config.json")
         new_version_check()
-        print(f"\n\n\n\t RotorHazard OTA Manager updated to version {new_version_name}\n\t\tYou may check update-notes.\n\n")
+        print(f"\n\n\n\t RotorHazard OTA Manager updated to version {new_version_name}\
+        \n\t\tYou may check update-notes.\n\n")
         sleep(1)
         os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")   # resolves compatibility issues
         os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         # resolves compatibility issues

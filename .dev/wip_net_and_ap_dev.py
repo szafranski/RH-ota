@@ -47,7 +47,8 @@ def logo_top():
     print("""\n    
         #######################################################################
         ###                                                                 ###
-        ###\t\t\t""" + bcolors.ORANGE + """     """ + bcolors.BOLD + """RotorHazard        """ + bcolors.ENDC + """\t\t    ###
+        ###\t\t\t""" + bcolors.ORANGE + """     """ + bcolors.BOLD + """RotorHazard        """
+          + bcolors.ENDC + """\t\t    ###
         ###                                                                 ###
         ###                     """ + bcolors.BOLD + """OTA Updater and Manager""" + bcolors.ENDC + """                     ###
         ###                                                                 ###
@@ -185,8 +186,8 @@ def ap_menu():
                         line.replace('\n', '').replace('####', '')
                         if '####' in line:
                             break
-        selection = str(input(
-            "\t\t\t" + bcolors.GREEN + "'k' - OK '" + bcolors.ENDC + "\t\t" + bcolors.YELLOW + "'b' - go back" + bcolors.ENDC + "\n"))
+        selection = input("\t\t\t" + bcolors.GREEN + "'k' - OK '" + bcolors.ENDC
+                          + "\t\t" + bcolors.YELLOW + "'b' - go back" + bcolors.ENDC + "\n")
         if selection == 'k':
             sys.exit()
         if selection == 'b':
@@ -207,8 +208,8 @@ def ap_menu():
                         line.replace('\n', '').replace('####', '')
                         if '####' in line:
                             break
-        selection = str(input(
-            "\t\t\t" + bcolors.GREEN + "'s' - second page'" + bcolors.ENDC + "\t\t" + bcolors.YELLOW + "'b' - go back" + bcolors.ENDC + "\n"))
+        selection = input("\t\t\t" + bcolors.GREEN + "'s' - second page'" + bcolors.ENDC + "\t\t"
+                          + bcolors.YELLOW + "'b' - go back" + bcolors.ENDC + "\n")
         if selection == 's':
             second_page()
         if selection == 'b':

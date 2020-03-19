@@ -36,7 +36,8 @@ def step_four():
 Connect PC to WiFi network:
 name: RH-TIMER
 password: timerpass
-if you have any problems connecting wifi with new name - try "forgetting" the (old) network in PC's WiFi settings and than try again
+if you have any problems connecting wifi with new name - try "forgetting" the (old) network in PC's WiFi settings 
+and than try again
 
 Now you should be able to enter the network typing in the browser:
 10.10.10.10:5000 - using WiFi
@@ -195,8 +196,8 @@ def ap_menu():
     You can also read/print those instructions. File 'detailed.txt',
     in net_ap folder.
     \n""")
-        selection = str(input(
-            "\t\t" + bcolors.GREEN + "'k' - OK '" + bcolors.ENDC + "\t\t" + bcolors.YELLOW + "'b' - go back" + bcolors.ENDC + "\n"))
+        selection = input("\t\t" + bcolors.GREEN + "'k' - OK '" + bcolors.ENDC + "\t\t" + bcolors.YELLOW +
+                          "'b' - go back" + bcolors.ENDC + "\n")
         if selection == 'k':
             sys.exit()
         if selection == 'b':
@@ -222,8 +223,8 @@ def ap_menu():
     It can be helpful if you don't remember how your timer was configured
     when you left it or when some troubleshooting is required.\n
     Open second page, for detailed explanation.\n\n""")
-        selection = input(
-            "\t\t" + bcolors.GREEN + "'s' - second page'" + bcolors.ENDC + "\t\t" + bcolors.YELLOW + "'b' - go back" + bcolors.ENDC + "\n")
+        selection = input("\t\t" + bcolors.GREEN + "'s' - second page'" + bcolors.ENDC + "\t\t" + bcolors.YELLOW +
+                          "'b' - go back" + bcolors.ENDC + "\n")
         if selection == 's':
             second_page()
         if selection == 'b':

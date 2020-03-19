@@ -196,8 +196,8 @@ def installation():
         print("\n\t" + bcolors.BOLD + "Installation process has been started - please wait..." + bcolors.ENDC + " \n")
         os.system("sudo apt-get update && sudo apt-get upgrade -y")
         os.system("sudo apt autoremove -y")
-        os.system(
-            "sudo apt install wget ntp libjpeg-dev i2c-tools python-dev libffi-dev python-smbus build-essential python-pip git scons swig zip -y")
+        os.system("sudo apt install wget ntp libjpeg-dev i2c-tools python-dev libffi-dev python-smbus \
+        build-essential python-pip git scons swig zip -y")
         if linux_testing:  # on Linux PC system
             os.system("sudo apt dist-upgrade -y")
         else:  # on Raspberry
@@ -209,12 +209,12 @@ def installation():
         if not os.path.exists(f"/home/{user}/.old_RotorHazard.old"):
             os.system(f"mkdir /home/{user}/.old_RotorHazard.old")
         if os.path.exists(f"/home/{user}/RotorHazard"):
-            os.system(
-                f"cp -r /home/{user}/RotorHazard /home/{user}/.old_RotorHazard.old/ >/dev/null 2>&1")  # in case of forced installation
+            os.system(f"cp -r /home/{user}/RotorHazard /home/{user}/.old_RotorHazard.old/ >/dev/null 2>&1")
+            #  in case of forced installation
             os.system(f"rm -r /home/{user}/RotorHazard >/dev/null 2>&1")  # in case of forced installation
         os.system(f"rm /home/{user}/temp >/dev/null 2>&1")  # in case of forced installation
-        os.system(
-            f"cp -r /home/{user}/RotorHazard-* /home/{user}/.old_RotorHazard.old/ >/dev/null 2>&1")  # in case of forced installation
+        os.system(f"cp -r /home/{user}/RotorHazard-* /home/{user}/.old_RotorHazard.old/ >/dev/null 2>&1")
+        # in case of forced installation
         os.system(f"rm -r /home/{user}/RotorHazard-* >/dev/null 2>&1")  # in case of forced installation
         os.chdir("/home/" + user)
         os.system(f"wget https://codeload.github.com/RotorHazard/RotorHazard/zip/{server_version} -O temp.zip")
@@ -247,8 +247,8 @@ def installation():
         os.system("echo 'After=multi-user.target' | sudo tee -a /lib/systemd/system/rotorhazard.service")
         os.system("echo ' ' | sudo tee -a /lib/systemd/system/rotorhazard.service")
         os.system("echo '[Service]' | sudo tee -a /lib/systemd/system/rotorhazard.service")
-        os.system(
-            f"echo 'WorkingDirectory=/home/{user}/RotorHazard/src/server' | sudo tee -a /lib/systemd/system/rotorhazard.service")
+        os.system(f"echo 'WorkingDirectory=/home/{user}/RotorHazard/src/server' \
+        | sudo tee -a /lib/systemd/system/rotorhazard.service")
         os.system("echo 'ExecStart=/usr/bin/python server.py' | sudo tee -a /lib/systemd/system/rotorhazard.service")
         os.system("echo ' ' | sudo tee -a /lib/systemd/system/rotorhazard.service")
         os.system("echo '[Install]' | sudo tee -a /lib/systemd/system/rotorhazard.service")
@@ -327,19 +327,21 @@ def update():
             os.system(f"sudo chmod 777 -R /home/{user}/.old_RotorHazard.old")
             os.system(f"sudo chmod 777 -R /home/{user}/backup_RH_data")
             os.system(f"sudo chmod 777 -R /home/{user}/.ota_markers")
-            os.system(
-                f"cp /home/{user}/RotorHazard.old/src/server/config.json /home/{user}/RotorHazard/src/server/ >/dev/null 2>&1 &")
-            os.system(f"cp -r /home/{user}/RotorHazard.old/src/server/static/image /home/{user}/backup_RH_data")
-            os.system(
-                f"cp -r /home/{user}/RotorHazard.old/src/server/static/image /home/{user}/RotorHazard/src/server/static")
-            os.system(
-                f"cp /home/{user}/RotorHazard.old/src/server/config.json /home/{user}/backup_RH_data >/dev/null 2>&1 &")
-            os.system(
-                f"cp /home/{user}/RotorHazard.old/src/server/database.db /home/{user}/RotorHazard/src/server/ >/dev/null 2>&1 &")
-            os.system(
-                f"cp /home/{user}/RotorHazard.old/src/server/database.db /home/{user}/backup_RH_data >/dev/null 2>&1 &")
+            os.system(f"cp /home/{user}/RotorHazard.old/src/server/config.json \
+            /home/{user}/RotorHazard/src/server/ >/dev/null 2>&1 &")
+            os.system(f"cp -r /home/{user}/RotorHazard.old/src/server/static/image \
+            /home/{user}/backup_RH_data")
+            os.system(f"cp -r /home/{user}/RotorHazard.old/src/server/static/image \
+            /home/{user}/RotorHazard/src/server/static")
+            os.system(f"cp /home/{user}/RotorHazard.old/src/server/config.json \
+            /home/{user}/backup_RH_data >/dev/null 2>&1 &")
+            os.system(f"cp /home/{user}/RotorHazard.old/src/server/database.db \
+            /home/{user}/RotorHazard/src/server/ >/dev/null 2>&1 &")
+            os.system(f"cp /home/{user}/RotorHazard.old/src/server/database.db \
+            /home/{user}/backup_RH_data >/dev/null 2>&1 &")
             os.chdir(f"/home/{user}/RotorHazard/src/server")
-            os.system("sudo -H pip install --upgrade --no-cache-dir -r requirements.txt")  # todo errors due to p3 setuptools
+            os.system("sudo -H pip install --upgrade --no-cache-dir -r requirements.txt")
+            # todo errors due to p3 setuptools
             print("""\n\n
         #
         #                                          #
@@ -366,11 +368,13 @@ def main():
         You can automatically install and update RotorHazard timing software. 
         Additional depedancies and libraries also will be installed or updated.
         Current database, configs and custom bitmaps will stay on their place.
-        Source of the software is set to '""" + bcolors.BLUE + server_version + bcolors.ENDC + bcolors.BOLD + """' version from the official 
+        Source of the software is set to '""" + bcolors.BLUE + server_version
+        + bcolors.ENDC + bcolors.BOLD + """' version from the official 
         RotorHazard repository.
          
         Perform self-updating of this software, before updating server software.
-        Also make sure that you are logged as user '""" + bcolors.BLUE + user + bcolors.ENDC + bcolors.BOLD + """'. \n
+        Also make sure that you are logged as user '""" + bcolors.BLUE + user + bcolors.ENDC + bcolors.BOLD
+        + """'. \n
         You can change those in configuration wizard in Main Menu.\n
         Server installed right now: """ + server_version_name + bcolors.BOLD + """
         RotorHazard configuration state: """ + config_soft + """\n\n\n""")
@@ -381,10 +385,9 @@ def main():
     if not serv_installed_FLAG:
         print(bcolors.GREEN + """       'i' - Install software from skratch""" + bcolors.ENDC)
     else:
-        print("""\t\t'i' - Install software from skratch""")
-    print("""
-                'u' - Update existing installation\n""" + bcolors.YELLOW + """ 
-                'e' - Exit to Main Menu \n""" + bcolors.ENDC)
+        print("""\t\t'i' - Install software from skratch\n""")
+    print("""\t\t'u' - Update existing installation\n\n""" + bcolors.YELLOW
+          + """\t\t'e' - Exit to Main Menu \n""" + bcolors.ENDC)
     selection = input()
     if selection == 'c':
         if serv_installed_FLAG:

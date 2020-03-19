@@ -116,8 +116,8 @@ def log_send():
         os.system("rm ./log_data/log_name.txt > /dev/null 2>&1")
         os.system("rm ./log_data/log_code.txt > /dev/null 2>&1")
         os.system(f"echo {log_name} > ./log_data/log_name.txt")
-        os.system(
-            f"curl --upload-file ./log_data/log.txt https://transfer.sh/{log_name}_log.txt | tee -a ./log_data/log_code.txt")
+        os.system(f"curl --upload-file ./log_data/log.txt https://transfer.sh/{log_name}_log.txt \
+             | tee -a ./log_data/log_code.txt")
         print("\n")
         os.system("sed -i 's/https:\/\/transfer.sh\///g' ./log_data/log_code.txt")
         os.system(f"sed -i 's/\/{log_name}_log.txt//g' ./log_data/log_code.txt")
@@ -332,10 +332,10 @@ def self_updater():
         sleep(2)
         os.system("sudo echo")
         os.system("sudo apt install zip unzip")
-        os.system(
-            "echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null")
-        os.system(
-            "echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null")
+        os.system("echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && \
+         python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null")
+        os.system("echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python \
+         ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null")
         parser.set('added_functions', 'updater_planted', '1')
         parser_write()
 
@@ -348,11 +348,12 @@ def self_updater():
     prepared for Arduino nodes - so you can next flash them 
     - you can just hit 'u' now. You can also type 'updateupdater'
     or 'uu' in the terminal window.\n
-    Version of the updater is related to """ + bcolors.BLUE + """nodes firmware API number""" + bcolors.ENDC + bcolors.BOLD + """,
-    so you always know what firmware version updater contains.
+    Version of the updater is related to """ + bcolors.BLUE + """nodes firmware API number"""
+          + bcolors.ENDC + bcolors.BOLD + """
+    ,so you always know what firmware version updater contains.
     For example "2.2.5c" contains nodes firmware with "API level 22".
-    Self-updater will test your internet connection during every update.""" + bcolors.ENDC + """\n
-    Updating script is currently set to mode: """+bcolors.GREEN+update_mode+bcolors.ENDC+""".\n""")
+    Self-updater will test your internet connection during every update.\n
+    Updating script is currently set to mode: """+bcolors.GREEN+update_mode+bcolors.ENDC+""".\n\n""")
     print(bcolors.GREEN + """\t\tUpdate now by pressing 'u'""" + bcolors.ENDC + """\n""")
     print(bcolors.YELLOW + """\t\tGo back by pressing 'b'""" + bcolors.ENDC + """\n\n""")
     selection = input()
@@ -467,8 +468,8 @@ def first_time():
                        , yellow=bcolors.YELLOW_S
                        , red=bcolors.RED_S
                        , orange=bcolors.ORANGE_S))
-        print(
-            "\n\n\t\t'f' - first page'" + bcolors.GREEN + "\t'u' - update notes'" + bcolors.ENDC + bcolors.YELLOW + "\t'b' - back to menu" + bcolors.ENDC + "\n\n")
+        print("\n\n\t\t'f' - first page'" + bcolors.GREEN + "\t'u' - update notes'" + bcolors.ENDC
+              + bcolors.YELLOW + "\t'b' - back to menu" + bcolors.ENDC + "\n\n")
         selection = input()
         if selection == 'f':
             first_page()

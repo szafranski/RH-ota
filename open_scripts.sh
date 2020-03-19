@@ -1,6 +1,6 @@
 #!/bin/bash
 
-reload_ota()
+reload_ota() #  doesn't work
 {
 kill -9 $(pidof python3 update.py)
 python3 update.py

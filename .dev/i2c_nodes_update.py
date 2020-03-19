@@ -155,8 +155,8 @@ def test():
         test()
     if selection == '2':
         node_two_reset()
-        os.system(
-            "sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/" + user + "/RH-ota/comm.hex:i ")
+        os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"
+                  + user + "/RH-ota/comm.hex:i ")
         print("\n\t Node flashed using I2C resetting - blink\n")
         sleep(1.5)
         test()
