@@ -22,27 +22,21 @@ else:
     with open('distr-updater-config.json') as config_file:
         data = json.load(config_file)
 
-preffered_RH_version = data['RH_version']
+preferred_RH_version = data['RH_version']
 
-if preffered_RH_version == 'master':
+if preferred_RH_version == 'master':
     firmware_version = 'master'
-if preffered_RH_version == 'beta':
+if preferred_RH_version == 'beta':
     firmware_version = 'beta'
-if preffered_RH_version == 'stable':
+if preferred_RH_version == 'stable':
     firmware_version = 'stable'
-if preffered_RH_version == 'custom':
+if preferred_RH_version == 'custom':
     firmware_version = 'stable'
 
 if data['debug_mode']:
-    linux_testing = True
-else:
-    linux_testing = False 
-
-if linux_testing:
     user = data['debug_user']
 else:
     user = data['pi_user']
-
 
 def config_check():
     if not os.path.exists("./updater-config.json"):
@@ -249,20 +243,20 @@ def aliases_menu():
     {bold}
         Alias            What it does    
         
-        ss       -->    starts the RotorHazard server
-        cfg       -->    opens RH config.json file
-        rh        -->    goes to server file directory
-        py        -->    instead of 'python' - pure laziness
+        ss         -->    starts the RotorHazard server
+        cfg        -->    opens RH config.json file
+        rh         -->    goes to server file directory
+        py         -->    instead of 'python' - pure laziness
         sts        -->    stops RH service if was started
-        otadir   -->    goes to RH server file directory
+        otadir     -->    goes to RH server file directory
         ota        -->    opens this software
         als        -->    opens the file that contains aliases
         rld        -->    reloads aliases file 
-        rcfg        -->    opens raspberry's configuration 
-        gitota      -->    clones OTA repository
-        otacfg   -->    opens updater conf. file
-        otacpcfg -->    copies ota conf. file.
-        home     -->    go to the home directory (without '~' sign)\n
+        rcfg       -->    opens raspberry's configuration 
+        gitota     -->    clones OTA repository
+        otacfg     -->    opens updater conf. file
+        otacpcfg   -->    copies ota conf. file.
+        home       -->    go to the home directory (without '~' sign)\n
     {endc}
         Do you want to use above aliases in your system?
         Reboot should be performed after adding those""".format(bold=bcolors.BOLD, endc=bcolors.ENDC))
