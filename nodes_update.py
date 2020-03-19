@@ -19,15 +19,15 @@ if os.path.exists("./updater-config.json"):
 else:
     pins_assignment = 'default'
 
-prefered_RH_version = data['RH_version']
+preferred_RH_version = data['RH_version']
 
-if prefered_RH_version == 'master':
+if preferred_RH_version == 'master':
     firmware_version = 'master'
-if prefered_RH_version == 'beta':
+if preferred_RH_version == 'beta':
     firmware_version = 'beta'
-if prefered_RH_version == 'stable':
+if preferred_RH_version == 'stable':
     firmware_version = 'stable'
-if prefered_RH_version == 'custom':
+if preferred_RH_version == 'custom':
     firmware_version = 'stable'
 
 nodes_number = data['nodes_number']

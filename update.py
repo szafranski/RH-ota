@@ -7,7 +7,7 @@ from configparser import ConfigParser
 
 parser = ConfigParser()
 
-updater_version = '2.2.9n'
+updater_version = '2.2.10a'
 
 # version of THIS program - has nothing to do with the RH version
 # it refers to the API level of newest contained nodes firmware
@@ -22,15 +22,15 @@ else:
     with open('distr-updater-config.json') as config_file:
         data = json.load(config_file)
 
-preffered_RH_version = data['RH_version']
+preferred_RH_version = data['RH_version']
 
-if preffered_RH_version == 'master':
+if preferred_RH_version == 'master':
     firmware_version = 'master'
-if preffered_RH_version == 'beta':
+if preferred_RH_version == 'beta':
     firmware_version = 'beta'
-if preffered_RH_version == 'stable':
+if preferred_RH_version == 'stable':
     firmware_version = 'stable'
-if preffered_RH_version == 'custom':
+if preferred_RH_version == 'custom':
     firmware_version = 'stable'
 
 if data['debug_mode']:
