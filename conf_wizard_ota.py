@@ -118,9 +118,9 @@ Default values are not automatically applied. Type them if needed.\n""")
             if beta_tester not in beta_tester_allowed_values:
                 print("\nPlease enter correct value!")
             else:
-                if pi_4 in ['yes', '1', 'y']:
+                if beta_tester in ['yes', '1', 'y']:
                     beta_tester_val = '1'
-                elif pi_4 in ['no', '0', 'n']:
+                elif beta_tester in ['no', '0', 'n']:
                     beta_tester_val = '0'
                 os.system(
                     f"echo '    \"beta_tester\" : {beta_tester_val}' | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")

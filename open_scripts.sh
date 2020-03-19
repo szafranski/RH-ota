@@ -1,5 +1,11 @@
 #!/bin/bash
 
+reload_ota()
+{
+kill -9 $(pidof python3 update.py)
+python3 update.py
+}
+
 dots5()
 {
 for i in {1..5}
@@ -50,7 +56,7 @@ sleep 1.2
 sudo echo
 printf "\n\nUpdating process has been started\n\n"
 dots30
-kill -9 $(pidof python update.py)
+kill -9 $(pidof python3 update.py)
 cd ~
 cp ~/RH-ota/self.py ~/.ota_markers/self.py 
 python ~/.ota_markers/self.py
