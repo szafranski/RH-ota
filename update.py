@@ -68,6 +68,34 @@ def parser_write():
         print("Config file does not exist and could not be created.")
 
 
+def log_write():
+    os.system("mkdir log_data > /dev/null 2>&1")
+    os.system("rm log_data/log.txt > /dev/null 2>&1")
+    os.system("echo >./ log_data / log.txt")
+    os.system("echo FILE /boot/config.txt | tee -a  ./log_data/log.txt")
+    os.system("echo -------------------------------------------- | tee -a  ./log_data/log.txt")
+    os.system("echo | tee -a  ./log_data/log.txt")
+    os.system("cat /boot/config.txt | tee -a  ./log_data/log.txt")
+    os.system("echo | tee -a  ./log_data/log.txt")
+    os.system("echo FILE /boot/cmdline.txt | tee -a  ./log_data/log.txt")
+    os.system("echo -------------------------------------------- | tee -a  ./log_data/log.txt")
+    os.system("echo | tee -a  ./log_data/log.txt")
+    os.system("cat /boot/cmdline.txt | tee -a  ./log_data/log.txt")
+    os.system("echo | tee -a  ./log_data/log.txt")
+    os.system("echo FILE updater-config.json | tee -a  ./log_data/log.txt")
+    os.system("echo -------------------------------------------- | tee -a  ./log_data/log.txt")
+    os.system("echo | tee -a  ./log_data/log.txt")
+    os.system("cat ~/RH-ota/updater-config.json | tee -a  ./log_data/log.txt")
+    os.system("echo | tee -a  ./log_data/log.txt")
+    os.system("echo FILE ~/.ota_markers/ota_config.txt | tee -a  ./log_data/log.txt")
+    os.system("echo -------------------------------------------- | tee -a  ./log_data/log.txt")
+    os.system("echo | tee -a  ./log_data/log.txt")
+    os.system("cat ~/.ota_markers/ota_config.txt | tee -a ./log_data/log.txt")
+    os.system("echo | tee -a  ./log_data/log.txt")
+    print("LOGGING TO FILE - DONE")
+    sleep(1.5)
+
+
 def log_send():
     selection = input("\n\n\tDo you want to send a log file for a review to the developer? [y/n] ")
     if selection == 'y' or selection == 'yes':
@@ -538,7 +566,7 @@ def main_menu():
     if selection == '6':
         os.system("python3 ./conf_wizard_ota.py")
     if selection == 'logme':
-        os.system(". ./open_scripts.sh; log_me")
+        log_write()
         log_send()
     if selection == 'e':
         end()

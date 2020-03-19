@@ -36,11 +36,8 @@ python ./conf_wizard_rh.py
 
 net_check()
 {
-    rm index* > /dev/null 2>&1
-#[ "$(ping -c 2 8.8.8.8 | grep '100% packet loss' )" != "" ]
+rm index* > /dev/null 2>&1
 timeout 10s wget www.google.com
-#sleep 2
-#exit
 }
 
 updater_from_ota()
@@ -62,40 +59,40 @@ cd ~/RH-ota
 printf "\n\nUpdate completed, hit 'Enter' to continue \n\n"
 }
 
-log_me()
-{
-cd ~/RH-ota
-mkdir log_data
-rm log_data/log.txt > /dev/null 2>&1
-echo > ./log_data/log.txt
-echo FILE /boot/config.txt | tee -a  ./log_data/log.txt
-echo -------------------------------------------- | tee -a  ./log_data/log.txt
-echo | tee -a  ./log_data/log.txt
-cat /boot/config.txt | tee -a  ./log_data/log.txt
-echo | tee -a  ./log_data/log.txt
-echo FILE /boot/cmdline.txt | tee -a  ./log_data/log.txt
-echo -------------------------------------------- | tee -a  ./log_data/log.txt
-echo | tee -a  ./log_data/log.txt
-cat /boot/cmdline.txt | tee -a  ./log_data/log.txt
-echo | tee -a  ./log_data/log.txt
-echo FILE updater-config.json | tee -a  ./log_data/log.txt
-echo -------------------------------------------- | tee -a  ./log_data/log.txt
-echo | tee -a  ./log_data/log.txt
-cat ~/RH-ota/updater-config.json | tee -a  ./log_data/log.txt
-echo | tee -a  ./log_data/log.txt
-echo FILE ~/.ota_markers/ota_config.txt | tee -a  ./log_data/log.txt
-echo -------------------------------------------- | tee -a  ./log_data/log.txt
-echo | tee -a  ./log_data/log.txt
-cat ~/.ota_markers/ota_config.txt | tee -a ./log_data/log.txt
-echo | tee -a  ./log_data/log.txt
-#echo INSTALED PKGS | tee -a  ./log_data/log.txt
+#log_me()
+#{
+#cd ~/RH-ota
+#mkdir log_data
+#rm log_data/log.txt > /dev/null 2>&1
+#echo > ./log_data/log.txt
+#echo FILE /boot/config.txt | tee -a  ./log_data/log.txt
+#echo -------------------------------------------- | tee -a  ./log_data/log.txt
 #echo | tee -a  ./log_data/log.txt
-#apt list --installed | tee -a ./log_data/log.txt
+#cat /boot/config.txt | tee -a  ./log_data/log.txt
 #echo | tee -a  ./log_data/log.txt
-
-echo LOGGING TO FILE - DONE
-sleep 1.5
-}
+#echo FILE /boot/cmdline.txt | tee -a  ./log_data/log.txt
+#echo -------------------------------------------- | tee -a  ./log_data/log.txt
+#echo | tee -a  ./log_data/log.txt
+#cat /boot/cmdline.txt | tee -a  ./log_data/log.txt
+#echo | tee -a  ./log_data/log.txt
+#echo FILE updater-config.json | tee -a  ./log_data/log.txt
+#echo -------------------------------------------- | tee -a  ./log_data/log.txt
+#echo | tee -a  ./log_data/log.txt
+#cat ~/RH-ota/updater-config.json | tee -a  ./log_data/log.txt
+#echo | tee -a  ./log_data/log.txt
+#echo FILE ~/.ota_markers/ota_config.txt | tee -a  ./log_data/log.txt
+#echo -------------------------------------------- | tee -a  ./log_data/log.txt
+#echo | tee -a  ./log_data/log.txt
+#cat ~/.ota_markers/ota_config.txt | tee -a ./log_data/log.txt
+#echo | tee -a  ./log_data/log.txt
+##echo INSTALED PKGS | tee -a  ./log_data/log.txt
+##echo | tee -a  ./log_data/log.txt
+##apt list --installed | tee -a ./log_data/log.txt
+##echo | tee -a  ./log_data/log.txt
+#
+#echo LOGGING TO FILE - DONE
+#sleep 1.5
+#}
 
 # aliases_reload () 
 # {
