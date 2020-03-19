@@ -43,6 +43,14 @@ if linux_testing:
 else:
     user = data['pi_user']
 
+if data['beta_tester']:
+    update_mode = 'beta tester'
+else:
+    if data['updates_without_pdf']:
+        update_mode = 'without PDF'
+    else:
+        update_mode = 'with PDF'
+
 
 def config_check():
     if not os.path.exists("./updater-config.json"):
@@ -343,7 +351,8 @@ def self_updater():
     Version of the updater is related to """ + bcolors.BLUE + """nodes firmware API number""" + bcolors.ENDC + bcolors.BOLD + """,
     so you always know what firmware version updater contains.
     For example "2.2.5c" contains nodes firmware with "API level 22".
-    Self-updater will test your internet connection during every update.""" + bcolors.ENDC + """\n""")
+    Self-updater will test your internet connection during every update.""" + bcolors.ENDC + """\n
+    Updating script is currently set to mode: """+bcolors.GREEN+update_mode+bcolors.ENDC+""".\n""")
     print(bcolors.GREEN + """\t\tUpdate now by pressing 'u'""" + bcolors.ENDC + """\n""")
     print(bcolors.YELLOW + """\t\tGo back by pressing 'b'""" + bcolors.ENDC + """\n\n""")
     selection = input()
