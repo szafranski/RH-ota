@@ -1,20 +1,19 @@
-    To do list:
+        To do list:
 
-Update notes at the opening - done 
 Better AP configuring - in the way
 AVRdude test - in the way
 Code check - help needed
-Python 3 friendly version - in the way
-Screen center - python 3 related
+Python 3 friendly version - in the way on master release
+Screen center showing - python 3 related
 Config file instead of creating check files - config parser - done
 Nodes update as function - done, testing
 Pinout shown in terminal (using python3-gpiozero) - done
 Mentioning contributors in instruction and on the project page
 Confirm that logging is 100% reliable - need testing
 Implement new way of node resetting - IMPORTANT!! (Michael FPV)
-AP auto-switching - David
+AP / WiFi client auto-switching - David's request
 Implement easy python 3 conversion for existing users
-Starting/installing script - easy
-Navigation without hitting 'enter'
+Starting/installing script - easy, 80% done
+Navigation without hitting 'enter' - python 3 relate
 rpi_update - convert to python3?
-What about pip?
+What about pip installing / updating 
