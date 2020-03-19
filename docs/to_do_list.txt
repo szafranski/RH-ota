@@ -9,3 +9,9 @@ Screen center - python 3 related
 Config file instead of creating check files - config parser - done
 Nodes update as function - done, testing
 Pinout shown in terminal (using python3-gpiozero) - done
+Mentioning contributors in instruction and on the project page
+Confirm that logging is 100% reliable - need testing
+Implement new way of node resetting - IMPORTANT!! (Michael FPV)
+AP autoswitching - David
+Implement easy python 3 conversion for existing users
+Starting/installing script - easy
