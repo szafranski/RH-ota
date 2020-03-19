@@ -9,7 +9,7 @@ fi;
 
 #printf "\nchecking pip installation\n\n"
 
-which pip > /dev/null
+which pip > /dev/null  # proper way of checking?
 if [ $? -gt 0 ]; 
 	then echo pip package has to be installed && sudo apt install python3-pip
 fi;

@@ -16,3 +16,5 @@ AP auto-switching - David
 Implement easy python 3 conversion for existing users
 Starting/installing script - easy
 Navigation without hitting 'enter'
+rpi_update - convert to python3?
+What about pip?

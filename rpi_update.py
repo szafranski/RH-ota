@@ -300,7 +300,7 @@ def update():
         else:
             clear_the_screen()
             print("\n\t" + bcolors.BOLD + "Updating existing installation - please wait..." + bcolors.ENDC + " \n")
-            os.system("sudo -H python -m pip install --upgrade pip ")
+            os.system("sudo -H python -m pip install --upgrade pip")
             os.system("sudo -H pip install pillow ")
             os.system("sudo apt-get install libjpeg-dev ntp -y")
             os.system("sudo apt-get update && sudo apt-get upgrade -y")
@@ -309,9 +309,8 @@ def update():
             os.system("sudo apt autoremove -y")
             if not os.path.exists(f"/home/{user}/.old_RotorHazard.old"):
                 os.system(f"sudo mkdir /home/{user}/.old_RotorHazard.old")
-            os.system(
-                f"sudo cp -r /home/{user}/RotorHazard-* /home/{user}/.old_RotorHazard.old/ >/dev/null 2>&1")  # just in case of weird sys config
-            os.system(f"sudo rm -r /home/{user}/RotorHazard-master >/dev/null 2>&1")  # just in case of weird sys config
+            os.system(f"sudo cp -r /home/{user}/RotorHazard-* /home/{user}/.old_RotorHazard.old/ >/dev/null 2>&1")
+            os.system(f"sudo rm -r /home/{user}/RotorHazard-master >/dev/null 2>&1")  # just in case of weird sys cfg
             os.system(f"sudo rm -r /home/{user}/temp.zip >/dev/null 2>&1")  # just in case of weird sys config
             if os.path.exists(f"/home/{user}/RotorHazard.old"):
                 os.system(f"sudo cp -r /home/{user}/RotorHazard.old /home/{user}/.old_RotorHazard.old/")
@@ -340,7 +339,7 @@ def update():
             os.system(
                 f"cp /home/{user}/RotorHazard.old/src/server/database.db /home/{user}/backup_RH_data >/dev/null 2>&1 &")
             os.chdir(f"/home/{user}/RotorHazard/src/server")
-            os.system("sudo -H pip install --upgrade --no-cache-dir -r requirements.txt")
+            os.system("sudo -H pip install --upgrade --no-cache-dir -r requirements.txt")  # todo errors due to p3 setuptools
             print("""\n\n
         #
         #                                          #
