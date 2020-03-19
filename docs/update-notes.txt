@@ -24,7 +24,7 @@ Raspberry Pi 4 friendly configuration
 2.2.9l
 
 Added ConfigParser features instead of hidden files
-Auto convertion from previous approach
+Auto conversion from previous approach
 
 Just in case:
 Important: if after performing an update you saw
@@ -105,7 +105,7 @@ Done in bash - waiting for python3 support
 
 2.2.8k
 
-Much smaller updates sizes - another way of handloing downloads
+Much smaller updates sizes - another way of handling downloads
 No config file after server starts - fixed
 
 2.2.8h

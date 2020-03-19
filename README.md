@@ -4,13 +4,15 @@
 
 </br>
 Additional features like nodes flashing are included.
-</br></br>
+</br>
+</br>
 
 If you want all hardware functionalities - visit: [Instructables page](https://www.instructables.com/id/RotorHazard-Updater/)
 or check the [RotorHazard-Updater.pdf](/how_to/RotorHazard-Updater.pdf).
 
 You may also read [update notes](/docs/update-notes.txt) - new features are present.
-</br></br>
+</br>
+</br>
 #### Commands to download the repo onto Raspberry Pi (or Linux):
     cd ~
     sudo apt install zip unzip

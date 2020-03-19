@@ -12,6 +12,7 @@ Pinout shown in terminal (using python3-gpiozero) - done
 Mentioning contributors in instruction and on the project page
 Confirm that logging is 100% reliable - need testing
 Implement new way of node resetting - IMPORTANT!! (Michael FPV)
-AP autoswitching - David
+AP auto-switching - David
 Implement easy python 3 conversion for existing users
 Starting/installing script - easy
+Navigation without hitting 'enter'

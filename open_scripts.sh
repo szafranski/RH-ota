@@ -2,7 +2,7 @@
 
 dots5()
 {
-for i in 1 2 3 4 5
+for i in {1..5}
 do
 printf "."
 sleep 0.5
@@ -12,7 +12,7 @@ printf "\n\n"
 
 dots30()
 {
-for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30
+for i in {1..30}
 do
 printf "."
 sleep 0.08
@@ -28,7 +28,7 @@ cd ~/RotorHazard/src/server
 python server.py
 }
 
-configuraton_start () 
+configuration_start ()
 {
 cd ~/RH-ota
 python ./conf_wizard_rh.py
@@ -51,8 +51,6 @@ sleep 1.2
 printf "\n\nEnter 'sudo' password if prompted.\n"
 sleep 1.2
 sudo echo
-printf "\n\nUpdating process will be started soon.\n\n"
-sleep 1
 printf "\n\nUpdating process has been started\n\n"
 dots30
 kill -9 $(pidof python update.py)
@@ -98,8 +96,6 @@ echo | tee -a  ./log_data/log.txt
 echo LOGGING TO FILE - DONE
 sleep 1.5
 }
-
-
 
 # aliases_reload () 
 # {

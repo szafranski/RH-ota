@@ -52,7 +52,7 @@ if not linux_testing:
     GPIO.setup(reset_1, GPIO.OUT, initial=GPIO.HIGH)
 
 
-    def allPinsLow():
+    def all_pins_low():
         GPIO.output(reset_1, GPIO.LOW)
         # GPIO.output(reset_2, GPIO.LOW)
         # GPIO.output(reset_3,   GPIO.LOW)

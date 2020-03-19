@@ -18,7 +18,7 @@
                 Step 2.
 
         Next step requires performing some actions in GUI.
-        You may write those informations down or take a picture etc.
+        You may write those information down or take a picture etc.
         You can also print file 'step_two.txt' from 'net_ap' folder.
         Remember to do it BEFORE rebooting.
         After performing step 2. and connecting to timer again,
@@ -81,7 +81,7 @@
 ### step last - page 1
 
         Right now you have your Access Point configured. However,
-        there is still an option to mantain internet connection.
+        there is still an option to maintain internet connection.
         You will be able to connect the Pi via ethernet to the router
         or PC - with internet sharing option enbled. It requires chages
         in configuration file. Those will be performed automatically,

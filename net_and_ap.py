@@ -23,13 +23,13 @@ else:
 
 myPlace = data['country']
 
+
 # Set the WiFi country in raspi-config's Localisation Options:
 # sudo raspi-config
 # ( 4. point -> I4 - Change WiFi country -> select -> enter -> finish )
 
 
 def step_four():
-
     print("""Step 4.""")
 
     print("""
@@ -42,8 +42,8 @@ Now you should be able to enter the network typing in the browser:
 10.10.10.10:5000 - using WiFi
 172.20.20.20:5000 - using ethernet.""")
 
-    print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
-    +bcolors.YELLOW+"""    Exit by pressing 'e'"""+bcolors.ENDC+"""\n""")
+    print("""\n\t\t\t\t""" + bcolors.GREEN + """    Reboot by pressing 'r' """ + bcolors.ENDC + """\n\n\t\t\t\t"""
+          + bcolors.YELLOW + """    Exit by pressing 'e'""" + bcolors.ENDC + """\n""")
     selection = input()
     if selection == 'r':
         os.system("sudo reboot")
@@ -54,17 +54,16 @@ Now you should be able to enter the network typing in the browser:
 
 
 def step_three():
-
     print("""\n\t\tStep 3.\n""")
     os.system("sudo cp /etc/dhcpcd.conf /etc/dhcpcd.conf.ap")
     print("""\n\tAfter rebooting you can connect to the timer, via Wifi or ethernet.\n 
     WiFi: 10.10.10.10:5000 (10.10.10.10:5000 if connecting from a browser)
     ethernet: 172.20.20.20 (172.20.20.20:5000 if connecting from a browser)\n\n
-    You can enter Access Point extra menu after rebooing
+    You can enter Access Point extra menu after rebooting
     and check how you can connect to the internet.\n""")
-    print("""\n\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t"""
-    +bcolors.YELLOW+"""    Exit by pressing 'e'"""+bcolors.ENDC+"""\n""")
-    selection = str(input(""))
+    print("""\n\t\t\t""" + bcolors.GREEN + """    Reboot by pressing 'r' """ + bcolors.ENDC + """\n\n\t\t\t"""
+          + bcolors.YELLOW + """    Exit by pressing 'e'""" + bcolors.ENDC + """\n""")
+    selection = input()
     if selection == 'r':
         os.system("sudo reboot")
     if selection == 'e':
@@ -129,8 +128,8 @@ def step_one():
     os.system("sudo apt install curl -y")
     os.system("curl -sL https://install.raspap.com | bash -s -- -y")
     step_two()
-    print("""\n\t\t\t"""+bcolors.GREEN+"""Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t"""
-    +bcolors.YELLOW+"""Exit by pressing 'e'"""+bcolors.ENDC+"""\n""")
+    print("""\n\t\t\t""" + bcolors.GREEN + """Reboot by pressing 'r' """ + bcolors.ENDC + """\n\n\t\t\t"""
+          + bcolors.YELLOW + """Exit by pressing 'e'""" + bcolors.ENDC + """\n""")
     selection = input()
     if selection == 'r':
         os.system("sudo reboot")
@@ -154,10 +153,10 @@ def step_zero():
     you can enter 'net_ap' folder from this repo, on your mobile phone etc.\n
     This process will require few reboots. Do you want to continue?\n""")
     print(("""\n
-    \t"""+bcolors.GREEN+"""'y' - Yes, let's do it """+bcolors.ENDC+"""\n
+    \t""" + bcolors.GREEN + """'y' - Yes, let's do it """ + bcolors.ENDC + """\n
     \t'3' - enters "Step 3." - check it after first two steps\n
     \t'x' - enters Access Point extra menu - check it after operation\n
-    \t"""+bcolors.YELLOW+"""'e' - exit to main menu"""+bcolors.ENDC+"""\n"""))
+    \t""" + bcolors.YELLOW + """'e' - exit to main menu""" + bcolors.ENDC + """\n"""))
     selection = input()
     if selection == 'y':
         step_one()
@@ -172,7 +171,6 @@ def step_zero():
 
 
 def ap_menu():
-
     def second_page():
         clear_the_screen()
         print("""\n
@@ -197,7 +195,8 @@ def ap_menu():
     You can also read/print those instructions. File 'detailed.txt',
     in net_ap folder.
     \n""")
-        selection=str(input("\t\t"+bcolors.GREEN+"'k' - OK '"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - go back"+bcolors.ENDC+"\n"))
+        selection = str(input(
+            "\t\t" + bcolors.GREEN + "'k' - OK '" + bcolors.ENDC + "\t\t" + bcolors.YELLOW + "'b' - go back" + bcolors.ENDC + "\n"))
         if selection == 'k':
             sys.exit()
         if selection == 'b':
@@ -211,7 +210,7 @@ def ap_menu():
         sleep(0.05)
         print("""\n
     Right now you have your Access Point configured. However,
-    there is still an option to mantain internet connection.
+    there is still an option to maintain internet connection.
     You will be able to connect the Pi via ethernet to the router 
     or PC - with internet sharing option enbled. It requires chages
     in configuration file. Those will be performed automatically,
@@ -223,17 +222,21 @@ def ap_menu():
     It can be helpful if you don't remember how your timer was configured
     when you left it or when some troubleshooting is required.\n
     Open second page, for detailed explanation.\n\n""")
-        selection = input("\t\t"+bcolors.GREEN+"'s' - second page'"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - go back"+bcolors.ENDC+"\n")
+        selection = input(
+            "\t\t" + bcolors.GREEN + "'s' - second page'" + bcolors.ENDC + "\t\t" + bcolors.YELLOW + "'b' - go back" + bcolors.ENDC + "\n")
         if selection == 's':
             second_page()
         if selection == 'b':
             main()
         else:
             first_page()
+
     first_page()
 
 
 def main():
     step_zero()
     step_one()
+
+
 main()

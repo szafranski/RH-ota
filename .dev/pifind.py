@@ -18,7 +18,6 @@ selection = input("Do you have 'xterm' installed? \n[hit 'n' if not, 'c' - to ca
 if selection == 'n':
     print("Please install it now.\n")
     os.system("sudo apt install xterm")
-#    os.system("sudo apt install expect")
 if selection == 'c':
     sys.exit()
 

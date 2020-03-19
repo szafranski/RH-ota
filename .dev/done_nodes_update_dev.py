@@ -19,15 +19,15 @@ if os.path.exists("./updater-config.json"):
 else:
     pins_assignment = 'default'
 
-preffered_RH_version = data['RH_version']
+prefered_RH_version = data['RH_version']
 
-if preffered_RH_version == 'master':
+if prefered_RH_version == 'master':
     firmware_version = 'master'
-if preffered_RH_version == 'beta':
+if prefered_RH_version == 'beta':
     firmware_version = 'beta'
-if preffered_RH_version == 'stable':
+if prefered_RH_version == 'stable':
     firmware_version = 'stable'
-if preffered_RH_version == 'custom':
+if prefered_RH_version == 'custom':
     firmware_version = 'stable'
 
 nodes_number = data['nodes_number']
@@ -60,9 +60,10 @@ if pins_assignment == 'custom':
     reset_7 = 0  # node 7   # custom pin assignment
     reset_8 = 0  # node 8   # custom pin assignment
 
-reset_list = [str(reset_1),str(reset_2),str(reset_3),str(reset_4),str(reset_5),str(reset_6),str(reset_7),str(reset_8)]
+reset_list = [str(reset_1), str(reset_2), str(reset_3), str(reset_4), str(reset_5), str(reset_6), str(reset_7),
+              str(reset_8)]
 
-if data['debug_mode'] == 1:
+if data['debug_mode']:
     linux_testing = True
 else:
     linux_testing = False
@@ -72,7 +73,7 @@ if linux_testing:
 else:
     user = data['pi_user']
 
-if not linux_testing
+if not linux_testing:
     import RPi.GPIO as GPIO  # only for Raspberry
 
     GPIO.setwarnings(False)
@@ -86,6 +87,7 @@ if not linux_testing
     GPIO.setup(reset_7, GPIO.OUT, initial=GPIO.HIGH)
     GPIO.setup(reset_8, GPIO.OUT, initial=GPIO.HIGH)
 
+
     def all_pins_low():
         GPIO.output(reset_1, GPIO.LOW)
         GPIO.output(reset_2, GPIO.LOW)
@@ -96,6 +98,7 @@ if not linux_testing
         GPIO.output(reset_7, GPIO.LOW)
         GPIO.output(reset_8, GPIO.LOW)
         sleep(0.05)
+
 
     def all_pins_high():
         GPIO.output(reset_1, GPIO.HIGH)
@@ -108,10 +111,12 @@ if not linux_testing
         GPIO.output(reset_8, GPIO.HIGH)
         sleep(0.05)
 
+
     def all_pins_reset():
         all_pins_low()
         sleep(0.1)
         all_pins_high()
+
 
     def reset_gpio():
         all_pins_reset()
@@ -135,17 +140,22 @@ if linux_testing:
     def all_pins_low():
         print("\n\n\t\t\tallPinsLow")
         for i in range(0, 8):
-            print("GPIO.output("+(reset_list[i])+", GPIO.LOW")
+            print("GPIO.output(" + (reset_list[i]) + ", GPIO.LOW")
         sleep(3)
+
+
     def all_pins_high():
         print("\n\n\tallPinsHigh:")
         for i in range(0, 8):
-            print("GPIO.output("+(reset_list[i])+", GPIO.HIGH")
+            print("GPIO.output(" + (reset_list[i]) + ", GPIO.HIGH")
         sleep(3)
+
+
     def reset_gpio():
-        print("GPIO.output("+(reset_list[i])+", GPIO.LOW)")
+        print("GPIO.output(" + (reset_list[i]) + ", GPIO.LOW)")
         sleep(0.5)
-        print("GPIO.output("+(reset_list[i])+", GPIO.HIGH)")
+        print("GPIO.output(" + (reset_list[i]) + ", GPIO.HIGH)")
+
 
 def logo_update():
     print("""
@@ -158,6 +168,7 @@ def logo_update():
         #                                                                 #
         #
         \n\n""")
+
 
 def flash_all_nodes():
     global i
@@ -174,6 +185,7 @@ def flash_all_nodes():
         print("\n\n\t\t\t\t" + bcolors.BOLD + "Node " + str(i + 1) + " - flashed" + bcolors.ENDC + "\n\n")
         sleep(1)
 
+
 def flash_all_gnd():
     global i
     for i in range(0, nodes_number):
@@ -187,6 +199,7 @@ def flash_all_gnd():
         print("\n\n\t\t\t\t" + bcolors.BOLD + "Node " + str(i + 1) + " - flashed" + bcolors.ENDC + "\n\n")
         sleep(1)
 
+
 def flash_all_blink():
     global i
     for i in range(0, nodes_number):
@@ -199,6 +212,7 @@ def flash_all_blink():
             "echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/" + user + "/RH-ota/firmware/blink.hex:i ")
         print("\n\n\t\t\t\t" + bcolors.BOLD + "Node " + str(i + 1) + " - flashed" + bcolors.ENDC + "\n\n")
         sleep(1)
+
 
 def flash_each_node():
     def node_x_menu():
@@ -250,88 +264,92 @@ def flash_each_node():
             sleep(1)
         else:
             node_x_menu()
+
     def node_menu():
         global X
         clear_the_screen()
         logo_top()
         sleep(0.05)
-        print("\n\n\n\t\t\t\t    "+bcolors.RED+bcolors.BOLD+"NODES MENU"+bcolors.ENDC)
-        print("\n\t\t "+bcolors.BOLD+"1 - Flash node 1 \t\t 5 - Flash node 5"+bcolors.ENDC)
-        print("\n\t\t "+bcolors.BOLD+"2 - Flash node 2 \t\t 6 - Flash node 6"+bcolors.ENDC)
-        print("\n\t\t "+bcolors.BOLD+"3 - Flash node 3 \t\t 7 - Flash node 7"+bcolors.ENDC)
-        print("\n\t\t "+bcolors.BOLD+"4 - Flash node 4 \t\t 8 - Flash node 8")
-        print("\n\t\t\t\t"+bcolors.YELLOW+bcolors.BOLD+"e - Exit to main menu"+bcolors.ENDC)
+        print("\n\n\n\t\t\t\t    " + bcolors.RED + bcolors.BOLD + "NODES MENU" + bcolors.ENDC)
+        print("\n\t\t " + bcolors.BOLD + "1 - Flash node 1 \t\t 5 - Flash node 5" + bcolors.ENDC)
+        print("\n\t\t " + bcolors.BOLD + "2 - Flash node 2 \t\t 6 - Flash node 6" + bcolors.ENDC)
+        print("\n\t\t " + bcolors.BOLD + "3 - Flash node 3 \t\t 7 - Flash node 7" + bcolors.ENDC)
+        print("\n\t\t " + bcolors.BOLD + "4 - Flash node 4 \t\t 8 - Flash node 8")
+        print("\n\t\t\t\t" + bcolors.YELLOW + bcolors.BOLD + "e - Exit to main menu" + bcolors.ENDC)
         selection = str(input("\n\n\t\t" + bcolors.BOLD + "Which node do you want to program:" + bcolors.ENDC + " "))
         print("\n\n")
-        if(selection.isdigit()) and int(selection) <=8:
-            X=selection
+        if (selection.isdigit()) and int(selection) <= 8:
+            X = selection
             sleep(0.5)
             node_x_menu()
         if selection == 'e':
             nodes_update()
         else:
             node_menu()
+
     node_menu()
+
 
 def gpio_state():
     clear_the_screen()
     logo_top()
     print("\n\n\n")
-    os.system("echo "+str(reset_1)+" > /sys/class/GPIO/unexport")
-    os.system("echo "+str(reset_2)+" > /sys/class/GPIO/unexport")
-    os.system("echo "+str(reset_3)+" > /sys/class/GPIO/unexport")
-    os.system("echo "+str(reset_4)+" > /sys/class/GPIO/unexport")
-    os.system("echo "+str(reset_5)+" > /sys/class/GPIO/unexport")
-    os.system("echo "+str(reset_6)+" > /sys/class/GPIO/unexport")
-    os.system("echo "+str(reset_7)+" > /sys/class/GPIO/unexport")
-    os.system("echo "+str(reset_8)+" > /sys/class/GPIO/unexport")
+    os.system("echo " + str(reset_1) + " > /sys/class/GPIO/unexport")
+    os.system("echo " + str(reset_2) + " > /sys/class/GPIO/unexport")
+    os.system("echo " + str(reset_3) + " > /sys/class/GPIO/unexport")
+    os.system("echo " + str(reset_4) + " > /sys/class/GPIO/unexport")
+    os.system("echo " + str(reset_5) + " > /sys/class/GPIO/unexport")
+    os.system("echo " + str(reset_6) + " > /sys/class/GPIO/unexport")
+    os.system("echo " + str(reset_7) + " > /sys/class/GPIO/unexport")
+    os.system("echo " + str(reset_8) + " > /sys/class/GPIO/unexport")
     os.system("echo 19 > /sys/class/GPIO/unexport")
     os.system("echo 20 > /sys/class/GPIO/unexport")
-    os.system("echo 21 > /sys/class/GPIO/unexport") 
+    os.system("echo 21 > /sys/class/GPIO/unexport")
     print("\n\n        DONE\n\n")
     sleep(0.3)
 
-# def connectionTest(): 
-    # nodeOneReset()
-    # os.system("echo no_sudo &&  avrdude -c arduino -p m328p -v")
-    # sleep(2)
-    # if nodes_number == 1:
-        # return
-    # nodeTwoReset()
-    # os.system("echo no_sudo &&  avrdude -c arduino -p m328p -v")
-    # sleep(2)
-    # if nodes_number == 2:
-        # return
-    # nodeThreeReset()
-    # os.system("echo no_sudo &&  avrdude -c arduino -p m328p -v")
-    # sleep(2)
-    # if nodes_number == 3:
-        # return
-    # nodeFourReset()
-    # os.system("echo no_sudo &&  avrdude -c arduino -p m328p -v")
-    # sleep(2)
-    # if nodes_number == 4:
-        # return
-    # nodeFiveReset()
-    # os.system("echo no_sudo &&  avrdude -c arduino -p m328p -v")
-    # sleep(2)
-    # if nodes_number == 5:
-        # return
-    # nodeSixReset()
-    # os.system("echo no_sudo &&  avrdude -c arduino -p m328p -v")
-    # sleep(2)
-    # if nodes_number == 6:
-        # return
-    # nodeSevenReset()
-    # os.system("echo no_sudo &&  avrdude -c arduino -p m328p -v")
-    # sleep(2)
-    # if nodes_number == 7:
-        # return
-    # nodeEightReset()
-    # os.system("echo no_sudo &&  avrdude -c arduino -p m328p -v")
-    # sleep(2)
-    # if nodes_number == 8:
-        # return
+
+# def connectionTest():
+# nodeOneReset()
+# os.system("echo no_sudo &&  avrdude -c arduino -p m328p -v")
+# sleep(2)
+# if nodes_number == 1:
+# return
+# nodeTwoReset()
+# os.system("echo no_sudo &&  avrdude -c arduino -p m328p -v")
+# sleep(2)
+# if nodes_number == 2:
+# return
+# nodeThreeReset()
+# os.system("echo no_sudo &&  avrdude -c arduino -p m328p -v")
+# sleep(2)
+# if nodes_number == 3:
+# return
+# nodeFourReset()
+# os.system("echo no_sudo &&  avrdude -c arduino -p m328p -v")
+# sleep(2)
+# if nodes_number == 4:
+# return
+# nodeFiveReset()
+# os.system("echo no_sudo &&  avrdude -c arduino -p m328p -v")
+# sleep(2)
+# if nodes_number == 5:
+# return
+# nodeSixReset()
+# os.system("echo no_sudo &&  avrdude -c arduino -p m328p -v")
+# sleep(2)
+# if nodes_number == 6:
+# return
+# nodeSevenReset()
+# os.system("echo no_sudo &&  avrdude -c arduino -p m328p -v")
+# sleep(2)
+# if nodes_number == 7:
+# return
+# nodeEightReset()
+# os.system("echo no_sudo &&  avrdude -c arduino -p m328p -v")
+# sleep(2)
+# if nodes_number == 8:
+# return
 
 def nodes_update():
     clear_the_screen()
@@ -370,4 +388,6 @@ def nodes_update():
         sys.exit()
     else:
         nodes_update()
+
+
 nodes_update()
