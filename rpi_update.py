@@ -3,7 +3,7 @@ import time
 import os
 import sys
 import json
-from modules import clear_the_screen, bcolors, logo_top, image_show, check_if_string_in_file
+from modules import clear_the_screen, bcolors, image_show
 from configparser import ConfigParser
 
 parser = ConfigParser()
@@ -38,14 +38,16 @@ if preffered_RH_version == 'beta':
     server_version = '2.1.0-beta.3'
 if preffered_RH_version == 'stable':
     server_version = '2.1.0'
-if preffered_RH_version =='custom':
-    server_version = 'X.X.X'           ### paste custom version number here if you want to declare it manually
+if preffered_RH_version == 'custom':
+    server_version = 'X.X.X'           # paste custom version number here if you want to declare it manually
 
 parser.read('/home/'+user+'/.ota_markers/ota_config.txt')
+
 
 def parser_write():
     with open('/home/'+user+'/.ota_markers/ota_config.txt', 'w') as configfile:
         parser.write(configfile)
+
 
 def internet_check():
     print("\nPlease wait - checking internet connection state...\n")
@@ -56,22 +58,26 @@ def internet_check():
         now_millis = int(round(time.time() * 1000))
         time_passed = now_millis - before_millis
         if os.path.exists("./index.html"):
-            internet_FLAG=1
+            internet_FLAG = 1
             break
         elif time_passed > 10100:
-            internet_FLAG=0
+            internet_FLAG = 0
             break
     os.system(f"rm /home/{user}/RH-ota/index.html > /dev/null 2>&1")
     os.system(f"rm /home/{user}/RH-ota/wget-log* > /dev/null 2>&1")
     os.system(f"rm /home/{user}/index.html > /dev/null 2>&1")
     os.system(f"rm /home/{user}/wget-log* > /dev/null 2>&1")
 
-def first ():
+
+def first():
     clear_the_screen()
     print("\n\n\n")
     image_show()
     sleep(0.5)
+
+
 first()
+
 
 def server_checker():
     global serv_installed_FLAG
@@ -79,7 +85,7 @@ def server_checker():
         os.system("grep 'RELEASE_VERSION =' ~/RotorHazard/src/server/server.py > ~/.ota_markers/.server_version")
         os.system("sed -i 's/RELEASE_VERSION = \"//' ~/.ota_markers/.server_version")
         os.system("sed -i 's/\" # Public release version code//' ~/.ota_markers/.server_version")
-        f = open(f"/home/{user}/.ota_markers/.server_version","r")
+        f = open(f"/home/{user}/.ota_markers/.server_version", "r")
         for line in f:
             global server_version_name
             server_version_name = bcolors.GREEN+line+bcolors.ENDC
@@ -87,6 +93,7 @@ def server_checker():
     else:
         server_version_name = bcolors.YELLOW+"""no installation found\n"""+bcolors.ENDC
         serv_installed_FLAG = False
+
 
 def config_checker():
     global config_FLAG
@@ -97,6 +104,7 @@ def config_checker():
     else:
         config_soft = bcolors.YELLOW+bcolors.UNDERLINE+"""not configured"""+bcolors.ENDC
         config_FLAG = False
+
 
 def sys_conf():
     os.system("sudo systemctl enable ssh")
@@ -113,6 +121,7 @@ def sys_conf():
     os.system("sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
     os.system("sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
 
+
 def end_update():
     print("\n\n")
     if not config_FLAG and serv_installed_FLAG:
@@ -123,17 +132,18 @@ def end_update():
                 'r' - reboot - recommended when configured\n
                 's' - start the server now\n"""+bcolors.YELLOW+"""
                 'e' - exit now\n"""+bcolors.ENDC))
+
     def end_menu():
-        selection=input()
-        if selection =='r':
+        selection = input()
+        if selection == 'r':
             os.system("sudo reboot")
-        if selection =='e':
+        if selection == 'e':
             parser_write()
             sys.exit()
-        if selection =='c':
+        if selection == 'c':
             os.system(f". /home/{user}/RH-ota/open_scripts.sh; configuraton_start")
             end_update()
-        if selection =='s':
+        if selection == 's':
             clear_the_screen()
             os.chdir(f"/home/{user}/RH-ota")
             os.system(". ./open_scripts.sh; server_start")
@@ -142,30 +152,33 @@ def end_update():
     end_menu()
     clear_the_screen()
 
+
 def end_installation():
     print(("""\n\n"""+bcolors.GREEN+"""
         'c' - configure the server now - recommended\n
         'r' - reboot - recommended after configuring"""+bcolors.ENDC+"""\n
         's' - start the server now\n"""+bcolors.YELLOW+"""
         'e' - exit now\n"""+bcolors.ENDC))
+
     def end_menu():
-        selection=str(input(""))
-        if selection =='r':
+        selection = input()
+        if selection == 'r':
             os.system("sudo reboot")
-        if selection =='e':
+        if selection == 'e':
             parser_write()
             sys.exit()
-        if selection =='c':
+        if selection == 'c':
             os.system(f". /home/{user}/RH-ota/open_scripts.sh; configuraton_start")
             end_update()
-        if selection =='s':
+        if selection == 's':
             clear_the_screen()
             os.chdir(f"/home/{user}/RH-ota")
             os.system(". ./open_scripts.sh; server_start")
         else:
-            end()
+            end_menu()
     end_menu()
     clear_the_screen()
+
 
 def installation():
     if not linux_testing:
@@ -182,9 +195,9 @@ def installation():
         os.system("sudo apt-get update && sudo apt-get upgrade -y")
         os.system("sudo apt autoremove -y")
         os.system("sudo apt install wget ntp libjpeg-dev i2c-tools python-dev libffi-dev python-smbus build-essential python-pip git scons swig zip -y")
-        if linux_testing:            ### on Linux PC system
+        if linux_testing:            # on Linux PC system
             os.system("sudo apt dist-upgrade -y")
-        else:                                ### on Raspberry
+        else:                                # on Raspberry
             os.system("sudo apt install python-rpi.gpio")
             if conf_allowed:
                 sys_conf()
@@ -193,11 +206,11 @@ def installation():
         if not os.path.exists(f"/home/{user}/.old_RotorHazard.old"):
             os.system(f"mkdir /home/{user}/.old_RotorHazard.old")
         if os.path.exists(f"/home/{user}/RotorHazard"):
-            os.system(f"cp -r /home/{user}/RotorHazard /home/{user}/.old_RotorHazard.old/ >/dev/null 2>&1")   ### in case of forced installation
-            os.system(f"rm -r /home/{user}/RotorHazard >/dev/null 2>&1")   ### in case of forced installation
-        os.system(f"rm /home/{user}/temp >/dev/null 2>&1")     ### in case of forced installation
-        os.system(f"cp -r /home/{user}/RotorHazard-* /home/{user}/.old_RotorHazard.old/ >/dev/null 2>&1")   ### in case of forced installation
-        os.system(f"rm -r /home/{user}/RotorHazard-* >/dev/null 2>&1")   ### in case of forced installation
+            os.system(f"cp -r /home/{user}/RotorHazard /home/{user}/.old_RotorHazard.old/ >/dev/null 2>&1")   # in case of forced installation
+            os.system(f"rm -r /home/{user}/RotorHazard >/dev/null 2>&1")   # in case of forced installation
+        os.system(f"rm /home/{user}/temp >/dev/null 2>&1")     # in case of forced installation
+        os.system(f"cp -r /home/{user}/RotorHazard-* /home/{user}/.old_RotorHazard.old/ >/dev/null 2>&1")   # in case of forced installation
+        os.system(f"rm -r /home/{user}/RotorHazard-* >/dev/null 2>&1")   # in case of forced installation
         os.chdir("/home/"+user)
         os.system(f"wget https://codeload.github.com/RotorHazard/RotorHazard/zip/{server_version} -O temp.zip")
         os.system("unzip temp.zip")
@@ -219,7 +232,7 @@ def installation():
         os.system("sudo git clone https://github.com/rm-hull/bme280.git")
         os.chdir(f"/home/{user}/bme280")
         os.system("sudo python setup.py install")
-        parser.set('added_functions','installation_done','1')
+        parser.set('added_functions', 'installation_done', '1')
         parser_write()
         os.system("sudo apt-get install openjdk-8-jdk-headless -y")
         os.system("sudo rm /lib/systemd/system/rotorhazard.service")
@@ -238,14 +251,15 @@ def installation():
         os.system("sudo systemctl daemon-reload")
         os.system("sudo systemctl enable rotorhazard.service")
         print(("""\n\n\t
-        ##############################################
-        ##                                          ##
-        ##         """+bcolors.BOLD+bcolors.GREEN+"""Installation completed"""+bcolors.ENDC+"""           ##
-        ##                                          ##
-        ############################################## \n\n
+        #
+        #                                          #
+        #         """+bcolors.BOLD+bcolors.GREEN+"""Installation completed"""+bcolors.ENDC+"""           #
+        #                                          #
+        # \n\n
     After rebooting please check by typing 'sudo raspi-config' \n
     if I2C, SPI and SSH protocols are active.\n"""))
         end_installation()
+
 
 def update():
     if not linux_testing:
@@ -266,7 +280,7 @@ def update():
         'i' - Install the software - recommended """+bcolors.ENDC+"""\n\t\t 
         'u' - Force update procedure\n\t\t """+bcolors.YELLOW+"""
         'a' - Abort both  \n\n """+bcolors.ENDC+""" """))
-            selection=input()
+            selection = input()
             if selection == 'i':
                 conf_allowed = True
                 installation()
@@ -277,7 +291,7 @@ def update():
                 sys.exit()
             else:
                 main()
-        else :
+        else:
             clear_the_screen()
             print(("\n\t"+bcolors.BOLD+"Updating existing installation - please wait..."+bcolors.ENDC+" \n"))
             os.system("sudo -H python -m pip install --upgrade pip ")
@@ -289,9 +303,9 @@ def update():
             os.system("sudo apt autoremove -y")
             if not os.path.exists(f"/home/{user}/.old_RotorHazard.old"):
                 os.system(f"sudo mkdir /home/{user}/.old_RotorHazard.old")
-            os.system(f"sudo cp -r /home/{user}/RotorHazard-* /home/{user}/.old_RotorHazard.old/ >/dev/null 2>&1")   ### just in case of weird sys config
-            os.system(f"sudo rm -r /home/{user}/RotorHazard-master >/dev/null 2>&1")   ### just in case of weird sys config
-            os.system(f"sudo rm -r /home/{user}/temp.zip >/dev/null 2>&1")   ### just in case of weird sys config
+            os.system(f"sudo cp -r /home/{user}/RotorHazard-* /home/{user}/.old_RotorHazard.old/ >/dev/null 2>&1")   # just in case of weird sys config
+            os.system(f"sudo rm -r /home/{user}/RotorHazard-master >/dev/null 2>&1")   # just in case of weird sys config
+            os.system(f"sudo rm -r /home/{user}/temp.zip >/dev/null 2>&1")   # just in case of weird sys config
             if os.path.exists(f"/home/{user}/RotorHazard.old"):
                 os.system(f"sudo cp -r /home/{user}/RotorHazard.old /home/{user}/.old_RotorHazard.old/")
                 os.system(f"sudo rm -r /home/{user}/RotorHazard.old")
@@ -316,12 +330,13 @@ def update():
             os.chdir(f"/home/{user}/RotorHazard/src/server")
             os.system("sudo -H pip install --upgrade --no-cache-dir -r requirements.txt")
             print(("""\n\n
-        ##############################################
-        ##                                          ##
-        ##            """+bcolors.BOLD+bcolors.GREEN+"""Update completed"""+bcolors.ENDC+"""              ##
-        ##                                          ##
-        ##############################################"""))
+        #
+        #                                          #
+        #            """+bcolors.BOLD+bcolors.GREEN+"""Update completed"""+bcolors.ENDC+"""              #
+        #                                          #
+        #"""))
             end_update()
+
 
 def main():
     global config_FLAG
@@ -355,15 +370,15 @@ def main():
     print(("""
                 'u' - Update existing installation\n"""+bcolors.YELLOW+""" 
                 'e' - Exit to Main Menu \n"""+bcolors.ENDC))
-    selection=input()
-    if selection =='c':
+    selection = input()
+    if selection == 'c':
         if serv_installed_FLAG:
             os.system(". ./open_scripts.sh; configuraton_start")
         else:
             print("\n\t\tPlease install server software first")
-            sleep (1.5)
-    if selection =='i':
-        if parser.getint('added_functions','installation_done'):
+            sleep(1.5)
+    if selection == 'i':
+        if parser.getint('added_functions', 'installation_done'):
             clear_the_screen()
             print(("""\n"""+bcolors.BOLD+"""
     Looks like you already have RotorHazard server installed
@@ -375,14 +390,14 @@ def main():
         'i' - Force installation without sys. config.\n
         'c' - Force installation and sys. config.\n """+bcolors.YELLOW+"""
         'a' - Abort both  \n """+bcolors.ENDC+""" """))
-            selection=input()
+            selection = input()
             if selection == 'u':
                 update()
             if selection == 'i':
                 conf_allowed = False
                 installation()
             if selection == 'c':
-                confirm_valid_options = ['y', 'yes','n','no','abort','a']
+                confirm_valid_options = ['y', 'yes', 'n', 'no', 'abort', 'a']
                 while True:
                     confirm = input("\n\t\tAre you sure? [yes/abort]\t").strip()
                     if confirm in confirm_valid_options:
@@ -392,7 +407,7 @@ def main():
                 if confirm == 'y' or confirm == 'yes':
                     conf_allowed = True
                     installation()
-                if confirm in ['n','no','abort','a']:
+                if confirm in ['n', 'no', 'abort', 'a']:
                     pass
             if selection == 'a':
                 clear_the_screen()
@@ -404,9 +419,9 @@ def main():
         else:
             conf_allowed = True
             installation()
-    if selection =='u':
+    if selection == 'u':
         update()
-    if selection =='e':
+    if selection == 'e':
         clear_the_screen()
         os.chdir(f"/home/{user}/RH-ota")
         image_show()
@@ -414,4 +429,6 @@ def main():
         sys.exit()
     else:
         main()
+
+
 main()

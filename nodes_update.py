@@ -33,32 +33,32 @@ if preffered_RH_version == 'custom':
 nodes_number = data['nodes_number']
 
 if pins_assignment == 'PCB' or pins_assignment == 'pcb':
-    reset_1 = 12    ## node 1   # default 12
-    reset_2 = 16    ## node 2   # default 16
-    reset_3 = 4     ## node 3   # default 4
-    reset_4 = 21    ## node 4   # default 21
-    reset_5 = 6     ## node 5   # default 6
-    reset_6 = 13    ## node 6   # default 13
-    reset_7 = 19    ## node 7   # default 19
-    reset_8 = 26    ## node 8   # default 26
+    reset_1 = 12    # node 1   # default 12
+    reset_2 = 16    # node 2   # default 16
+    reset_3 = 4     # node 3   # default 4
+    reset_4 = 21    # node 4   # default 21
+    reset_5 = 6     # node 5   # default 6
+    reset_6 = 13    # node 6   # default 13
+    reset_7 = 19    # node 7   # default 19
+    reset_8 = 26    # node 8   # default 26
 if pins_assignment == 'default':
-    reset_1 = 12    ## node 1   # default 12
-    reset_2 = 16    ## node 2   # default 16
-    reset_3 = 20    ## node 3   # default 20
-    reset_4 = 21    ## node 4   # default 21
-    reset_5 = 6     ## node 5   # default 6
-    reset_6 = 13    ## node 6   # default 13
-    reset_7 = 19    ## node 7   # default 19
-    reset_8 = 26    ## node 8   # default 26
+    reset_1 = 12    # node 1   # default 12
+    reset_2 = 16    # node 2   # default 16
+    reset_3 = 20    # node 3   # default 20
+    reset_4 = 21    # node 4   # default 21
+    reset_5 = 6     # node 5   # default 6
+    reset_6 = 13    # node 6   # default 13
+    reset_7 = 19    # node 7   # default 19
+    reset_8 = 26    # node 8   # default 26
 if pins_assignment == 'custom':
-    reset_1 = 0    ## node 1   # custom pin assignment
-    reset_2 = 0    ## node 2   # custom pin assignment
-    reset_3 = 0    ## node 3   # custom pin assignment
-    reset_4 = 0    ## node 4   # custom pin assignment
-    reset_5 = 0    ## node 5   # custom pin assignment
-    reset_6 = 0    ## node 6   # custom pin assignment
-    reset_7 = 0    ## node 7   # custom pin assignment
-    reset_8 = 0    ## node 8   # custom pin assignment
+    reset_1 = 0    # node 1   # custom pin assignment
+    reset_2 = 0    # node 2   # custom pin assignment
+    reset_3 = 0    # node 3   # custom pin assignment
+    reset_4 = 0    # node 4   # custom pin assignment
+    reset_5 = 0    # node 5   # custom pin assignment
+    reset_6 = 0    # node 6   # custom pin assignment
+    reset_7 = 0    # node 7   # custom pin assignment
+    reset_8 = 0    # node 8   # custom pin assignment
 
 if data['debug_mode']:
     linux_testing = True
@@ -207,19 +207,19 @@ if linux_testing:
         print("\n\t\t\t\t\t Linux - PC\n\n")
         sleep(0.3)
     def node_eight_reset():
-        print(("\n\n\t\t\t/home/{user}/RH-ota/firmware/{firmware_version}/node_8.hex"))
+        print("\n\n\t\t\t/home/{user}/RH-ota/firmware/{firmware_version}/node_8.hex")
         print("\n\t\t\t\t\t Linux - PC\n\n")
         sleep(0.3)
 
 def logo_update():
     print("""
-    #######################################################################
-    ###                                                                 ###
-    ###\t\t\t"""+bcolors.BOLD+"""Flashing firmware onto """+str(nodes_number)+""" nodes - DONE"""+bcolors.ENDC+"""\t\t###
-    ###                                                                 ###
-    ###                          """+bcolors.BOLD+"""Thank you!"""+bcolors.ENDC+"""                             ###
-    ###                                                                 ###
-    #######################################################################\n\n""")
+    #
+    #                                                                 #
+    #\t\t\t"""+bcolors.BOLD+"""Flashing firmware onto """+str(nodes_number)+""" nodes - DONE"""+bcolors.ENDC+"""\t\t#
+    #                                                                 #
+    #                          """+bcolors.BOLD+"""Thank you!"""+bcolors.ENDC+"""                             #
+    #                                                                 #
+    #\n\n""")
 
 def flash_all_nodes():
     node_one_reset()
@@ -371,16 +371,16 @@ def flash_all_blink():
 def flash_each_node():
     def node_x_menu():
         global X
-        print((bcolors.BOLD+"\n\t\t\t Node "+str(X)+" selected"+bcolors.ENDC))
-        print((bcolors.BOLD+"\n\n\t\t Choose flashing type:\n"+bcolors.ENDC))
+        print(bcolors.BOLD+"\n\t\t\t Node "+str(X)+" selected"+bcolors.ENDC)
+        print(bcolors.BOLD+"\n\n\t\t Choose flashing type:\n"+bcolors.ENDC)
         print("\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
         print("\t\t 2 - Node ground-auto selection firmware")
         print("\t\t 3 - Flashes 'Blink' on the node")
         print("\t\t 4 - Abort")
         selection = input()
-        if selection=='1' :
+        if selection == '1':
             node_one_reset()
-            if linux_testing == False:
+            if not linux_testing:
                 os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/node_"+str(X)+".hex:i ")
             else:
                 print(f"\t\t\t/home/{user}/RH-ota/firmware/{firmware_version}/node_"+str(X)+".hex:i ")

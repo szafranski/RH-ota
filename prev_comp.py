@@ -13,8 +13,8 @@ updater_FLAG = False
 serial_FLAG = False
 pinout_FLAG = False
 
-#if os.stat(homedir+'/.ota_markers/ota_config.txt').st_size == 0:
- #   os.system("rm {homedir}/.ota_markers/ota_config.txt > /dev/null 2>&1")
+# if os.stat(homedir+'/.ota_markers/ota_config.txt').st_size == 0:
+#    os.system("rm {homedir}/.ota_markers/ota_config.txt > /dev/null 2>&1")
 
 if not os.path.exists(f"{homedir}/.ota_markers"):
     os.system(f"mkdir {homedir}/.ota_markers")
@@ -65,32 +65,32 @@ if os.path.exists(homedir+"/.bashrc"):         # aliases compatibility
                 os.system("sed -i 's/}/    \"pi_4_cfg\" : 0 /g' "+homedir+"/RH-ota/updater-config.json")
                 os.system("echo '}' | tee -a "+homedir+"/RH-ota/updater-config.json >/dev/null 2>&1")
 if os.path.exists(homedir+"/.ota_markers/.serialok"):
-    serial_FLAG=True
+    serial_FLAG = True
 if os.path.exists(homedir+"/.ota_markers/.installation-check_file.txt"):
     installation_FLAG = True
 if os.path.exists(homedir+"/.ota_markers/.pinout_added"):
-    pinout_FLAG=True
+    pinout_FLAG = True
 if os.path.exists(homedir+"/.ota_markers/.aliases_added"):
-    aliases_1_FLAG=True
+    aliases_1_FLAG = True
 if os.path.exists(homedir+"/.ota_markers/.aliases2_added"):
-    aliases_2_FLAG=True
+    aliases_2_FLAG = True
 if os.path.exists(homedir+"/.ota_markers/.updater_self"):
-    updater_FLAG=True
+    updater_FLAG = True
 if not os.path.exists(homedir+"/.ota_markers/ota_config.txt"):
     os.system(f"cp {homedir}/RH-ota/resources/ota_config.txt {homedir}/.ota_markers/ota_config.txt")
 parser.read(homedir+'/.ota_markers/ota_config.txt')
 if aliases_1_FLAG:
-    parser.set('added_functions','aliases_1','1')
+    parser.set('added_functions', 'aliases_1', '1')
 if aliases_2_FLAG:
-    parser.set('added_functions','aliases_2','1')
+    parser.set('added_functions', 'aliases_2', '1')
 if installation_FLAG:
-    parser.set('added_functions','installation_done','1')
+    parser.set('added_functions', 'installation_done', '1')
 if updater_FLAG:
-    parser.set('added_functions','updater_planted','1')
+    parser.set('added_functions', 'updater_planted', '1')
 if pinout_FLAG:
-    parser.set('added_functions','pinout_installed','1')
+    parser.set('added_functions', 'pinout_installed', '1')
 if serial_FLAG:
-    parser.set('added_functions','serial_added','1')
+    parser.set('added_functions', 'serial_added', '1')
 with open(homedir+'/.ota_markers/ota_config.txt', 'w') as configfile:
     parser.write(configfile)
 if not check_if_string_in_file(homedir+'/.ota_markers/ota_config.txt', 'curl_installed'):
@@ -98,4 +98,5 @@ if not check_if_string_in_file(homedir+'/.ota_markers/ota_config.txt', 'curl_ins
 if not check_if_string_in_file(homedir+'/.ota_markers/ota_config.txt', 'configparser_installed'):
     os.system(f"echo configparser_installed = 0 | tee -a {homedir}/.ota_markers/ota_config.txt > /dev/null ")
 if not check_if_string_in_file(homedir+'/.ota_markers/ota_config.txt', 'python3_installed'):
-    os.system(f"echo python3_installed = 0 | tee -a {homedir}/.ota_markers/ota_config.txt > /dev/null ")
+    os.system(f"echo python3_installed = 0 | tee -a {homedir}/.ota_markers/ota_config.txt > /dev/null")
+

@@ -17,10 +17,11 @@ if data['debug_mode']:
 else:
     linux_testing = False 
 
-if linux_testing == True:
+if linux_testing:
     user = data['debug_user']
 else:
     user = data['pi_user']
+
 
 def clear_the_screen():
     sleep(0.05)
@@ -32,16 +33,18 @@ def clear_the_screen():
         print(("\n" * 200))
     sleep(0.05)
 
+
 def dots2sec():
-    for i in range (30):
+    for i in range(30):
         sys.stdout.write(".")
         sys.stdout.flush()
         sleep(0.0666)
     sys.stdout.write("\n")
 
+
 def percent_count():
     def backspace(n):
-        sys.stdout.write((b'\x08' * n).decode()) # use \x08 char to go back   
+        sys.stdout.write((b'\x08' * n).decode())  # use \x08 char to go back
 
     for i in range(101):                        # for 0 to 100
         s = str(i) + '%'                        # string for output
@@ -50,15 +53,18 @@ def percent_count():
         backspace(len(s))                       # back n chars    
         time.sleep(0.05)        
 
+
 def image_show():
     with open('./resources/image.txt', 'r') as logo:
         f = logo.read()
         print(f)
 
+
 def ota_image():
     with open('./resources/ota_image.txt', 'r') as file:
         f = file.read()
         print(f)
+
 
 def check_if_string_in_file(file_name, string_to_search):
     with open(file_name, 'r') as read_obj:
@@ -66,6 +72,7 @@ def check_if_string_in_file(file_name, string_to_search):
             if string_to_search in line:
                 return True
     return False
+
 
 def logo_top():
     logo = '''
@@ -89,6 +96,7 @@ def logo_top():
         print("\t\t\t  Linux PC version\t\n")
     sleep(0.05)
 
+
 class bcolors:
     HEADER = '\033[95m'
     ORANGE = '\033[33m'
@@ -104,15 +112,16 @@ class bcolors:
     they each have enough spaces appended so that {value}
     will be replaced with an equal number of spaces.
     '''
-    HEADER_S = '\033[95m' + (' '* 9)
-    ORANGE_S = '\033[33m'+ (' '* 8)
-    BLUE_S = '\033[94m'+ (' '* 6)
-    GREEN_S = '\033[92m'+ (' '* 7)
-    YELLOW_S = '\033[93m'+ (' '* 8)
-    RED_S = '\033[91m'+ (' '* 5)
-    ENDC_S = '\033[0m'+ (' '* 6)
-    BOLD_S = '\033[1m'+ (' '* 6)
-    UNDERLINE_S = '\033[4m'+ (' '* 11)
+    HEADER_S = '\033[95m' + (' ' * 9)
+    ORANGE_S = '\033[33m' + (' ' * 8)
+    BLUE_S = '\033[94m' + (' ' * 6)
+    GREEN_S = '\033[92m' + (' ' * 7)
+    YELLOW_S = '\033[93m' + (' ' * 8)
+    RED_S = '\033[91m' + (' ' * 5)
+    ENDC_S = '\033[0m' + (' ' * 6)
+    BOLD_S = '\033[1m' + (' ' * 6)
+    UNDERLINE_S = '\033[4m' + (' ' * 11)
+
 
 def internet_check():
     print("\nPlease wait - checking internet connection state...\n")
@@ -123,7 +132,7 @@ def internet_check():
         now_millis = int(round(time.time() * 1000))
         time_passed = (now_millis - before_millis)
         if os.path.exists("./index.html"):
-            internet_FLAG=1
+            internet_FLAG = 1
             break
         elif time_passed > 10100:
             internet_FLAG = 0

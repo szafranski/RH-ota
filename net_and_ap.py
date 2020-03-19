@@ -27,6 +27,7 @@ myPlace = data['country']
 # sudo raspi-config
 # ( 4. point -> I4 - Change WiFi country -> select -> enter -> finish )
 
+
 def step_four():
 
     print("""Step 4.""")
@@ -41,15 +42,16 @@ Now you should be able to enter the network typing in the browser:
 10.10.10.10:5000 - using WiFi
 172.20.20.20:5000 - using ethernet.""")
 
-    print(("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
-            +bcolors.YELLOW+"""    Exit by pressing 'e'"""+bcolors.ENDC+"""\n"""))
-    selection=input()
-    if selection=='r':
+    print("""\n\t\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t\t"""
+    +bcolors.YELLOW+"""    Exit by pressing 'e'"""+bcolors.ENDC+"""\n""")
+    selection = input()
+    if selection == 'r':
         os.system("sudo reboot")
-    if selection=='e':
+    if selection == 'e':
         sys.exit()
-    else :
+    else:
         main()
+
 
 def step_three():
 
@@ -60,15 +62,16 @@ def step_three():
     ethernet: 172.20.20.20 (172.20.20.20:5000 if connecting from a browser)\n\n
     You can enter Access Point extra menu after rebooing
     and check how you can connect to the internet.\n""")
-    print(("""\n\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t"""
-            +bcolors.YELLOW+"""    Exit by pressing 'e'"""+bcolors.ENDC+"""\n"""))
-    selection=str(input(""))
-    if selection=='r':
+    print("""\n\t\t\t"""+bcolors.GREEN+"""    Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t"""
+    +bcolors.YELLOW+"""    Exit by pressing 'e'"""+bcolors.ENDC+"""\n""")
+    selection = str(input(""))
+    if selection == 'r':
         os.system("sudo reboot")
-    if selection=='e':
+    if selection == 'e':
         sys.exit()
-    else :
+    else:
         main()
+
 
 def step_two():
     print("""\n\n
@@ -107,6 +110,7 @@ DON'T CHANGE OTHER SETTINGS IN GUI!
 
 Read carefully whole instruction from above before rebooting!""")
 
+
 def conf_copy():
     os.system("echo 'alias netcfg=\"cp /etc/dhcpcd.conf.net /etc/dhcpcd.conf \"  # net conf' | sudo tee -a ~/.bashrc")
     os.system("echo 'alias apcfg=\"cp /etc/dhcpcd.conf.ap /etc/dhcpcd.conf \"  # net conf' | sudo tee -a ~/.bashrc")
@@ -116,6 +120,7 @@ def conf_copy():
     os.system("sudo cp /etc/dnsmasq.conf /etc/dnsmasq.conf.orig")
     os.system("sudo cp ./net_ap/dnsmasq.conf.net /etc/dnsmasq.conf.net")
 
+
 def step_one():
     conf_copy()
     os.system("sudo sed -i 's/country/# country/g' /etc/wpa_supplicant/wpa_supplicant.conf")
@@ -124,15 +129,16 @@ def step_one():
     os.system("sudo apt install curl -y")
     os.system("curl -sL https://install.raspap.com | bash -s -- -y")
     step_two()
-    print(("""\n\t\t\t"""+bcolors.GREEN+"""Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t"""
-            +bcolors.YELLOW+"""Exit by pressing 'e'"""+bcolors.ENDC+"""\n"""))
-    selection=input()
-    if selection=='r':
+    print("""\n\t\t\t"""+bcolors.GREEN+"""Reboot by pressing 'r' """+bcolors.ENDC+"""\n\n\t\t\t"""
+    +bcolors.YELLOW+"""Exit by pressing 'e'"""+bcolors.ENDC+"""\n""")
+    selection = input()
+    if selection == 'r':
         os.system("sudo reboot")
-    if selection=='e':
+    if selection == 'e':
         sys.exit()
-    else :
+    else:
         main()
+
 
 def step_zero():
     clear_the_screen()
@@ -152,19 +158,21 @@ def step_zero():
     \t'3' - enters "Step 3." - check it after first two steps\n
     \t'x' - enters Access Point extra menu - check it after operation\n
     \t"""+bcolors.YELLOW+"""'e' - exit to main menu"""+bcolors.ENDC+"""\n"""))
-    selection=input()
-    if selection=='y':
+    selection = input()
+    if selection == 'y':
         step_one()
-    if selection=='3':
+    if selection == '3':
         step_three()
-    if selection=='x':
+    if selection == 'x':
         ap_menu()
-    if selection=='e':
+    if selection == 'e':
         sys.exit()
-    else :
+    else:
         main()
 
+
 def ap_menu():
+
     def second_page():
         clear_the_screen()
         print("""\n
@@ -190,12 +198,13 @@ def ap_menu():
     in net_ap folder.
     \n""")
         selection=str(input("\t\t"+bcolors.GREEN+"'k' - OK '"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - go back"+bcolors.ENDC+"\n"))
-        if selection=='k':
+        if selection == 'k':
             sys.exit()
-        if selection=='b':
+        if selection == 'b':
             first_page()
-        else :
+        else:
             second_page()
+
     def first_page():
         clear_the_screen()
         logo_top()
@@ -214,14 +223,15 @@ def ap_menu():
     It can be helpful if you don't remember how your timer was configured
     when you left it or when some troubleshooting is required.\n
     Open second page, for detailed explanation.\n\n""")
-        selection=str(input("\t\t"+bcolors.GREEN+"'s' - second page'"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - go back"+bcolors.ENDC+"\n"))
-        if selection=='s':
-            secondPage()
-        if selection=='b':
+        selection = input("\t\t"+bcolors.GREEN+"'s' - second page'"+bcolors.ENDC+"\t\t"+bcolors.YELLOW+"'b' - go back"+bcolors.ENDC+"\n")
+        if selection == 's':
+            second_page()
+        if selection == 'b':
             main()
-        else :
+        else:
             first_page()
     first_page()
+
 
 def main():
     step_zero()
