@@ -6,7 +6,6 @@ from configparser import ConfigParser
 
 parser = ConfigParser()
 
-
 def parser_write():
     try:
         with open(f'/home/{user}/.ota_markers/ota_config.txt', 'w') as configfile:
@@ -86,6 +85,18 @@ else:
     no_pdf_update = False
 
 
+if config_file_exists:
+    if check_if_string_in_file(myhomedir+'/RH-ota/updater-config.json', 'beta_tester'):
+        if data['beta_tester']:
+            beta_tester_update = True
+        else:
+            beta_tester_update = False
+    else:
+        beta_tester_update = False
+else:
+    beta_tester_update = False
+
+
 def debug_info():
     if config_file_exists:
         print("config_file_exists = True")
@@ -161,11 +172,19 @@ def main():
             os.system("unzip tempota.zip")
             os.system("rm tempota.zip")
             os.system("mv RH-ota-* RH-ota")
-        else:
+        if no_pdf_update:
             print("Update won't contain PDF file - may be changed in config file.\n")
             os.system("sudo rm -rf ~/RH-ota*")
             os.system("rm tempota.zip > /dev/null  > /dev/null 2>&1")
             os.system("wget https://codeload.github.com/szafranski/RH-ota/zip/no_pdf -O tempota.zip")
+            os.system("unzip tempota.zip")
+            os.system("rm tempota.zip")
+            os.system("mv RH-ota-* RH-ota")
+        if beta_tester_update:
+            print("Update won't contain PDF file - may be changed in config file.\n")
+            os.system("sudo rm -rf ~/RH-ota*")
+            os.system("rm tempota.zip > /dev/null  > /dev/null 2>&1")
+            os.system("wget https://codeload.github.com/szafranski/RH-ota/zip/master -O tempota.zip")
             os.system("unzip tempota.zip")
             os.system("rm tempota.zip")
             os.system("mv RH-ota-* RH-ota")

@@ -46,7 +46,7 @@ if os.path.exists(homedir+"/.bashrc"):         # aliases compatibility
         os.system(f"sed -i 's/opens updating script/old alias/g' {homedir}/.bashrc")
         os.system("echo 'alias ota=\"cd ~/RH-ota && python3 update.py\"  # opens ota soft' | tee -a ~/.bashrc >/dev/null")
 
-        # todo CHANGE?????????????!!!!!!!!!!!!!!!!
+        # todo CHANGE?!
 
     if check_if_string_in_file(homedir+'/.bashrc', 'part of self-updater'):
         os.system(f"sed -i 's/part of self-updater/part of self updater/g' {homedir}/.bashrc")
@@ -74,6 +74,12 @@ if os.path.exists(homedir+"/.bashrc"):         # aliases compatibility
                 os.system(f"sed -i 's/\"updates_without_pdf\" : 0/\"updates_without_pdf\" : 0,/g' {homedir}/RH-ota/updater-config.json")
                 os.system(f"sed -i 's/\"updates_without_pdf\" : 1/\"updates_without_pdf\" : 1,/g' {homedir}/RH-ota/updater-config.json")
                 os.system("sed -i 's/}/    \"pi_4_cfg\" : 0 /g' "+homedir+"/RH-ota/updater-config.json")
+                os.system("echo '}' | tee -a "+homedir+"/RH-ota/updater-config.json >/dev/null 2>&1")
+        if check_if_string_in_file(homedir+'/RH-ota/updater-config.json', '"pi_4_cfg"'):
+            if not check_if_string_in_file(homedir+'/RH-ota/updater-config.json', '"beta_tester"'):
+                os.system(f"sed -i 's/\"pi_4_cfg\" : 0/\"pi_4_cfg\" : 0,/g' {homedir}/RH-ota/updater-config.json")
+                os.system(f"sed -i 's/\"pi_4_cfg\" : 1/\"pi_4_cfg\" : 1,/g' {homedir}/RH-ota/updater-config.json")
+                os.system("sed -i 's/}/    \"beta_tester\" : 0 /g' "+homedir+"/RH-ota/updater-config.json")
                 os.system("echo '}' | tee -a "+homedir+"/RH-ota/updater-config.json >/dev/null 2>&1")
 if os.path.exists(homedir+"/.ota_markers/.serialok"):
     serial_FLAG = True

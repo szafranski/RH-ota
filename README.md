@@ -10,9 +10,9 @@ Additional features like nodes flashing are included.
 If you want all hardware functionalities - visit: [Instructables page](https://www.instructables.com/id/RotorHazard-Updater/)
 or check the [RotorHazard-Updater.pdf](/how_to/RotorHazard-Updater.pdf).</br>
 </br>
-Facebook discussion on the [group](https://www.facebook.com/groups/207159263704015).</br>
+Facebook discussion on the [GROUP](https://www.facebook.com/groups/207159263704015).</br>
 </br>
-You may also read [update notes](/docs/update-notes.txt) - new features are present.</br>
+You may also read [update notes](/docs/update-notes.txt) - new features are present.
 </br>
 
 #### Commands to download the repo onto Raspberry Pi (or Linux):
@@ -23,7 +23,7 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
     rm tempota.zip
     mv RH-ota-* RH-ota
 
-#### Commands to open the software:
+#### Commands to open the software (only on 'master' release):
     cd ~/RH-ota
     sh ./ota.sh
 

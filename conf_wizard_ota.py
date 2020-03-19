@@ -110,7 +110,20 @@ Default values are not automatically applied. Type them if needed.\n""")
                 elif pi_4 in ['no', '0', 'n']:
                     pi_4_val = '0'
                 os.system(
-                    f"echo '    \"pi_4_cfg\" : {pi_4_val}' | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+                    f"echo '    \"pi_4_cfg\" : {pi_4_val},' | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+                break
+        while True:
+            beta_tester = input("\nAre you a beta tester? [yes/no | default: no]\t\t\t\t")
+            beta_tester_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']
+            if beta_tester not in beta_tester_allowed_values:
+                print("\nPlease enter correct value!")
+            else:
+                if pi_4 in ['yes', '1', 'y']:
+                    beta_tester_val = '1'
+                elif pi_4 in ['no', '0', 'n']:
+                    beta_tester_val = '0'
+                os.system(
+                    f"echo '    \"beta_tester\" : {beta_tester_val}' | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
         os.system("echo '}' | tee -a " + homedir + "/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
         print("""\n\n\t\t\t""" + bcolors.UNDERLINE + """CONFIGURATION""" + bcolors.ENDC + """:\n\t
@@ -122,7 +135,8 @@ Default values are not automatically applied. Type them if needed.\n""")
         Debug mode: \t\t""" + debug_mode + """
         Pins assignment: \t""" + pins_assign + """
         Updates without PDF: \t""" + no_pdf + """
-        Pi 4 user: \t\t""" + pi_4 + """\n\n\n""")
+        Pi 4 user: \t\t""" + pi_4 + """
+        Beta tester: \t\t""" + beta_tester + """\n\n\n""")
         print("Please check. Confirm? [yes/change/abort]\n")
         valid_options = ['y', 'yes', 'n', 'no', 'change', 'abort']
         while True:
