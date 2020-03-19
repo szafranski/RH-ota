@@ -125,13 +125,13 @@ def sys_conf():
 def end_update():
     print("\n\n")
     if not config_FLAG and serv_installed_FLAG:
-        print((bcolors.GREEN + """\t\t'c' - configure the server now""" + bcolors.ENDC))
+        print(bcolors.GREEN + """\t\t'c' - configure the server now""" + bcolors.ENDC)
     else:
         print("""\t\t'c' - Reconfigure RotorHazard server""")
-    print(("""
+    print("""
                 'r' - reboot - recommended when configured\n
                 's' - start the server now\n""" + bcolors.YELLOW + """
-                'e' - exit now\n""" + bcolors.ENDC))
+                'e' - exit now\n""" + bcolors.ENDC)
 
     def end_menu():
         selection = input()
@@ -155,11 +155,11 @@ def end_update():
 
 
 def end_installation():
-    print(("""\n\n""" + bcolors.GREEN + """
+    print("""\n\n""" + bcolors.GREEN + """
         'c' - configure the server now - recommended\n
         'r' - reboot - recommended after configuring""" + bcolors.ENDC + """\n
         's' - start the server now\n""" + bcolors.YELLOW + """
-        'e' - exit now\n""" + bcolors.ENDC))
+        'e' - exit now\n""" + bcolors.ENDC)
 
     def end_menu():
         selection = input()
@@ -193,7 +193,7 @@ def installation():
         print("\nInternet connection - OK")
         sleep(2)
         clear_the_screen()
-        print(("\n\t" + bcolors.BOLD + "Installation process has been started - please wait..." + bcolors.ENDC + " \n"))
+        print("\n\t" + bcolors.BOLD + "Installation process has been started - please wait..." + bcolors.ENDC + " \n")
         os.system("sudo apt-get update && sudo apt-get upgrade -y")
         os.system("sudo apt autoremove -y")
         os.system(
@@ -256,14 +256,14 @@ def installation():
         os.system("sudo chmod 644 /lib/systemd/system/rotorhazard.service")
         os.system("sudo systemctl daemon-reload")
         os.system("sudo systemctl enable rotorhazard.service")
-        print(("""\n\n\t
+        print("""\n\n\t
         #
         #                                          #
         #         """ + bcolors.BOLD + bcolors.GREEN + """Installation completed""" + bcolors.ENDC + """           #
         #                                          #
         # \n\n
     After rebooting please check by typing 'sudo raspi-config' \n
-    if I2C, SPI and SSH protocols are active.\n"""))
+    if I2C, SPI and SSH protocols are active.\n""")
         end_installation()
 
 
@@ -279,13 +279,13 @@ def update():
         sleep(2)
         clear_the_screen()
         if not os.path.exists(f"/home/{user}/RotorHazard"):
-            print(("""\n\t """ + bcolors.BOLD + """
+            print("""\n\t """ + bcolors.BOLD + """
     Looks like you don't have RotorHazard server software installed for now. \n\t\t
-    If so please install your server software first or you won't be able to use the timer.""" + bcolors.ENDC + """ """))
-            print(("""\n\n\t\t""" + bcolors.GREEN + """ 
+    If so please install your server software first or you won't be able to use the timer.""" + bcolors.ENDC)
+            print("""\n\n\t\t""" + bcolors.GREEN + """ 
         'i' - Install the software - recommended """ + bcolors.ENDC + """\n\t\t 
         'u' - Force update procedure\n\t\t """ + bcolors.YELLOW + """
-        'a' - Abort both  \n\n """ + bcolors.ENDC + """ """))
+        'a' - Abort both  \n\n """ + bcolors.ENDC)
             selection = input()
             if selection == 'i':
                 conf_allowed = True
@@ -299,7 +299,7 @@ def update():
                 main()
         else:
             clear_the_screen()
-            print(("\n\t" + bcolors.BOLD + "Updating existing installation - please wait..." + bcolors.ENDC + " \n"))
+            print("\n\t" + bcolors.BOLD + "Updating existing installation - please wait..." + bcolors.ENDC + " \n")
             os.system("sudo -H python -m pip install --upgrade pip ")
             os.system("sudo -H pip install pillow ")
             os.system("sudo apt-get install libjpeg-dev ntp -y")
@@ -341,12 +341,12 @@ def update():
                 f"cp /home/{user}/RotorHazard.old/src/server/database.db /home/{user}/backup_RH_data >/dev/null 2>&1 &")
             os.chdir(f"/home/{user}/RotorHazard/src/server")
             os.system("sudo -H pip install --upgrade --no-cache-dir -r requirements.txt")
-            print(("""\n\n
+            print("""\n\n
         #
         #                                          #
         #            """ + bcolors.BOLD + bcolors.GREEN + """Update completed""" + bcolors.ENDC + """              #
         #                                          #
-        #"""))
+        #""")
             end_update()
 
 
@@ -367,43 +367,45 @@ def main():
         You can automatically install and update RotorHazard timing software. 
         Additional depedancies and libraries also will be installed or updated.
         Current database, configs and custom bitmaps will stay on their place.
-        Source of the software is set to '""" + bcolors.BLUE + server_version + bcolors.ENDC + bcolors.BOLD + """' version from the RH repository. 
+        Source of the software is set to '""" + bcolors.BLUE + server_version + bcolors.ENDC + bcolors.BOLD + """' version from the official 
+        RotorHazard repository.
+         
         Perform self-updating of this software, before updating server software.
         Also make sure that you are logged as user '""" + bcolors.BLUE + user + bcolors.ENDC + bcolors.BOLD + """'. \n
         You can change those in configuration wizard in Main Menu.\n
         Server installed right now: """ + server_version_name + bcolors.BOLD + """
         RotorHazard configuration state: """ + config_soft + """\n\n\n""")
     if not config_FLAG and serv_installed_FLAG:
-        print(bcolors.GREEN + """       'c' - Configure RotorHazard server\n""" + bcolors.ENDC)
+        print(bcolors.GREEN + """\t\t'c' - Configure RotorHazard server\n""" + bcolors.ENDC)
     else:
-        print("""       'c' - Reconfigure RotorHazard server\n""")
+        print("""\t\t'c' - Reconfigure RotorHazard server\n""")
     if not serv_installed_FLAG:
         print(bcolors.GREEN + """       'i' - Install software from skratch""" + bcolors.ENDC)
     else:
         print("""\t\t'i' - Install software from skratch""")
-    print(("""
+    print("""
                 'u' - Update existing installation\n""" + bcolors.YELLOW + """ 
-                'e' - Exit to Main Menu \n""" + bcolors.ENDC))
+                'e' - Exit to Main Menu \n""" + bcolors.ENDC)
     selection = input()
     if selection == 'c':
         if serv_installed_FLAG:
-            os.system(". ./open_scripts.sh; configuraton_start")
+            os.system(". ./open_scripts.sh; configuration_start")
         else:
             print("\n\t\tPlease install server software first")
             sleep(1.5)
     if selection == 'i':
         if parser.getint('added_functions', 'installation_done'):
             clear_the_screen()
-            print(("""\n""" + bcolors.BOLD + """
+            print("""\n""" + bcolors.BOLD + """
     Looks like you already have RotorHazard server installed
     (or at least that your system was once configured).""" + bcolors.ENDC + """\n
     If that's the case please use """ + bcolors.UNDERLINE + """update mode""" + bcolors.ENDC + """ - 'u'
-    or force installation """ + bcolors.UNDERLINE + """without""" + bcolors.ENDC + """ sys. config. - 'i'."""))
-            print(("""\n\n\t""" + bcolors.GREEN + """ 
+    or force installation """ + bcolors.UNDERLINE + """without""" + bcolors.ENDC + """ sys. config. - 'i'.""")
+            print("""\n\n\t""" + bcolors.GREEN + """ 
         'u' - Select update mode - recommended """ + bcolors.ENDC + """\n 
         'i' - Force installation without sys. config.\n
         'c' - Force installation and sys. config.\n """ + bcolors.YELLOW + """
-        'a' - Abort both  \n """ + bcolors.ENDC + """ """))
+        'a' - Abort both  \n """ + bcolors.ENDC)
             selection = input()
             if selection == 'u':
                 update()

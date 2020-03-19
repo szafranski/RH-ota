@@ -41,6 +41,10 @@ if os.path.exists(homedir+"/.bashrc"):         # aliases compatibility
         os.system(f"sed -i 's/alias ota=/# alias ota=/g' {homedir}/.bashrc")
         os.system(f"sed -i 's/opens updating script/old alias/g' {homedir}/.bashrc")
         os.system("echo 'alias ota=\"cd ~/RH-ota && python3 update.py\"  # opens updating soft' | tee -a ~/.bashrc >/dev/null")
+    if check_if_string_in_file(homedir + '/.bashrc', 'opens updating soft'):
+        os.system(f"sed -i 's/alias ota=/# alias ota=/g' {homedir}/.bashrc")
+        os.system(f"sed -i 's/opens updating script/old alias/g' {homedir}/.bashrc")
+        os.system("echo 'alias ota=\"cd ~/RH-ota && python3 update.py\"  # opens ota soft' | tee -a ~/.bashrc >/dev/null")
 
         # todo CHANGE?????????????!!!!!!!!!!!!!!!!
 

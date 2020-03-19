@@ -9,3 +9,4 @@ nohup*
 .idea
 /log_data
 /.dev/*_log.txt
+/venv

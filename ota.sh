@@ -1,15 +1,20 @@
+#!/bin/bash
 
-#!/bin/bash 
+#printf "\nchecking python3 installation\n\n"
 
-which python3
+which python3 > /dev/null
 if [ $? -gt 0 ]; 
-	then echo not installed 
+	then echo python3 has to be installed && sudo apt install python3
 fi;
 
-which python3-pip
+#printf "\nchecking pip installation\n\n"
+
+which pip > /dev/null
 if [ $? -gt 0 ]; 
-	then echo not installed 
+	then echo pip package has to be installed && sudo apt install python3-pip
 fi;
+
+python3 update.py
 
 #python3_exists
 # printf "Please enter 'sudo pswd'\n"
