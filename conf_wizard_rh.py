@@ -202,7 +202,7 @@ Default values are not automatically applied. Type them if needed.\n""")
             while True:
                 cores = input("\nHome many cores will be available for hosts? [1/2/3/all | default: all]\t")
                 cores_values_allowed = ['1', '2', '3', '4', 'all', '*']
-                if cores not  in cores_values_allowed:
+                if cores not in cores_values_allowed:
                     print("\nPlease enter correct value!")
                 else:
                     if cores in ['1', '2', '3']:

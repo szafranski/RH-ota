@@ -1,18 +1,17 @@
 from time import sleep
 import os
 import sys
-import platform
 import json
 from modules import clear_the_screen, bcolors, logo_top, check_if_string_in_file
 
-if os.path.exists("./updater-config.json") == True:
+if os.path.exists("./updater-config.json"):
     with open('updater-config.json') as config_file:
         data = json.load(config_file)
 else:
     with open('distr-updater-config.json') as config_file:
         data = json.load(config_file)
 
-if os.path.exists("./updater-config.json") == True:
+if os.path.exists("./updater-config.json"):
     if check_if_string_in_file('updater-config.json', 'assignment'):
         pins_assignment = data['pins_assignment']
     else:
@@ -34,49 +33,50 @@ if preffered_RH_version == 'custom':
 nodes_number = data['nodes_number']
 
 if pins_assignment == 'PCB' or pins_assignment == 'pcb':
-    reset_1 = 12    ## node 1   # default 12
-    reset_2 = 16    ## node 2   # default 16
-    reset_3 = 4     ## node 3   # default 4
-    reset_4 = 21    ## node 4   # default 21
-    reset_5 = 6     ## node 5   # default 6
-    reset_6 = 13    ## node 6   # default 13
-    reset_7 = 19    ## node 7   # default 19
-    reset_8 = 26    ## node 8   # default 26
+    reset_1 = 12  # node 1   # default 12
+    reset_2 = 16  # node 2   # default 16
+    reset_3 = 4  # node 3   # default 4
+    reset_4 = 21  # node 4   # default 21
+    reset_5 = 6  # node 5   # default 6
+    reset_6 = 13  # node 6   # default 13
+    reset_7 = 19  # node 7   # default 19
+    reset_8 = 26  # node 8   # default 26
 if pins_assignment == 'default':
-    reset_1 = 12    ## node 1   # default 12
-    reset_2 = 16    ## node 2   # default 16
-    reset_3 = 20    ## node 3   # default 20
-    reset_4 = 21    ## node 4   # default 21
-    reset_5 = 6     ## node 5   # default 6
-    reset_6 = 13    ## node 6   # default 13
-    reset_7 = 19    ## node 7   # default 19
-    reset_8 = 26    ## node 8   # default 26
+    reset_1 = 12  # node 1   # default 12
+    reset_2 = 16  # node 2   # default 16
+    reset_3 = 20  # node 3   # default 20
+    reset_4 = 21  # node 4   # default 21
+    reset_5 = 6  # node 5   # default 6
+    reset_6 = 13  # node 6   # default 13
+    reset_7 = 19  # node 7   # default 19
+    reset_8 = 26  # node 8   # default 26
 if pins_assignment == 'custom':
-    reset_1 = 0    ## node 1   # custom pin assignment
-    reset_2 = 0    ## node 2   # custom pin assignment
-    reset_3 = 0    ## node 3   # custom pin assignment
-    reset_4 = 0    ## node 4   # custom pin assignment
-    reset_5 = 0    ## node 5   # custom pin assignment
-    reset_6 = 0    ## node 6   # custom pin assignment
-    reset_7 = 0    ## node 7   # custom pin assignment
-    reset_8 = 0    ## node 8   # custom pin assignment
+    reset_1 = 0  # node 1   # custom pin assignment
+    reset_2 = 0  # node 2   # custom pin assignment
+    reset_3 = 0  # node 3   # custom pin assignment
+    reset_4 = 0  # node 4   # custom pin assignment
+    reset_5 = 0  # node 5   # custom pin assignment
+    reset_6 = 0  # node 6   # custom pin assignment
+    reset_7 = 0  # node 7   # custom pin assignment
+    reset_8 = 0  # node 8   # custom pin assignment
 
 reset_list = [str(reset_1),str(reset_2),str(reset_3),str(reset_4),str(reset_5),str(reset_6),str(reset_7),str(reset_8)]
 
 if data['debug_mode'] == 1:
     linux_testing = True
 else:
-    linux_testing = False 
+    linux_testing = False
 
-if linux_testing == True:
+if linux_testing:
     user = data['debug_user']
 else:
     user = data['pi_user']
 
-if (linux_testing == False): 
-    import RPi.GPIO as GPIO
+if not linux_testing
+    import RPi.GPIO as GPIO  # only for Raspberry
+
     GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BCM)   # Use BCM pin numbering
+    GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
     GPIO.setup(reset_1, GPIO.OUT, initial=GPIO.HIGH)
     GPIO.setup(reset_2, GPIO.OUT, initial=GPIO.HIGH)
     GPIO.setup(reset_3, GPIO.OUT, initial=GPIO.HIGH)
@@ -119,16 +119,19 @@ if (linux_testing == False):
         sleep(0.1)
         GPIO.output((reset_list[i]), GPIO.HIGH)
 
-if (linux_testing == True): 
+if linux_testing:
 
     for i in range(0, 8):
-        print("GPIO.setup("+(reset_list[i])+", GPIO.OUT, initial=GPIO.HIGH)")
+        print("GPIO.setup(" + (reset_list[i]) + ", GPIO.OUT, initial=GPIO.HIGH)")
     sleep(0.5)
-    
+
+
     def all_pins_reset():
         print("\n\n\t\t\tallPinsReset")
         print("\n\t\t\t\t\t Linux - PC\n\n")
         sleep(0.3)
+
+
     def all_pins_low():
         print("\n\n\t\t\tallPinsLow")
         for i in range(0, 8):
@@ -146,89 +149,104 @@ if (linux_testing == True):
 
 def logo_update():
     print("""
-        #######################################################################
-        ###                                                                 ###
-        ###\t\t"""+bcolors.BOLD+"""Flashing firmware onto """+str(nodes_number)+""" nodes - DONE"""+bcolors.ENDC+"""\t\t    ###
-        ###                                                                 ###
-        ###                          """+bcolors.BOLD+"""Thank you!"""+bcolors.ENDC+"""                             ###
-        ###                                                                 ###
-        #######################################################################
+        #
+        #                                                                 #
+        #\t\t""" + bcolors.BOLD + """Flashing firmware onto """ + str(
+        nodes_number) + """ nodes - DONE""" + bcolors.ENDC + """\t\t    #
+        #                                                                 #
+        #                          """ + bcolors.BOLD + """Thank you!""" + bcolors.ENDC + """                             #
+        #                                                                 #
+        #
         \n\n""")
 
 def flash_all_nodes():
     global i
-    for i in range(0, (nodes_number)):
+    for i in range(0, nodes_number):
         all_pins_high()
         reset_gpio()
         print(reset_list[i])
-        os.system("echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_"+str(i+1)+".hex:i ")
-        print("echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_"+str(i+1)+".hex:i ")
-        print("\n\n\t\t\t\t"+bcolors.BOLD+"Node "+str(i+1)+" - flashed"+bcolors.ENDC+"\n\n")
+        os.system(
+            "echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/" + user + "/RH-ota/firmware/" + firmware_version + "/node_" + str(
+                i + 1) + ".hex:i ")
+        print(
+            "echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/" + user + "/RH-ota/firmware/" + firmware_version + "/node_" + str(
+                i + 1) + ".hex:i ")
+        print("\n\n\t\t\t\t" + bcolors.BOLD + "Node " + str(i + 1) + " - flashed" + bcolors.ENDC + "\n\n")
         sleep(1)
 
 def flash_all_gnd():
     global i
-    for i in range(0, (nodes_number)):
+    for i in range(0, nodes_number):
         all_pins_high()
         reset_gpio()
         print(reset_list[i])
-        os.system("echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_0.hex:i ")
-        print("echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_0.hex:i ")
-        print("\n\n\t\t\t\t"+bcolors.BOLD+"Node "+str(i+1)+" - flashed"+bcolors.ENDC+"\n\n")
+        os.system(
+            "echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/" + user + "/RH-ota/firmware/" + firmware_version + "/node_0.hex:i ")
+        print(
+            "echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/" + user + "/RH-ota/firmware/" + firmware_version + "/node_0.hex:i ")
+        print("\n\n\t\t\t\t" + bcolors.BOLD + "Node " + str(i + 1) + " - flashed" + bcolors.ENDC + "\n\n")
         sleep(1)
 
 def flash_all_blink():
     global i
-    for i in range(0, (nodes_number)):
+    for i in range(0, nodes_number):
         all_pins_high()
         reset_gpio()
         print(reset_list[i])
-        os.system("echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/blink.hex:i ")
-        print("echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/blink.hex:i ")
-        print("\n\n\t\t\t\t"+bcolors.BOLD+"Node "+str(i+1)+" - flashed"+bcolors.ENDC+"\n\n")
+        os.system(
+            "echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/" + user + "/RH-ota/firmware/blink.hex:i ")
+        print(
+            "echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/" + user + "/RH-ota/firmware/blink.hex:i ")
+        print("\n\n\t\t\t\t" + bcolors.BOLD + "Node " + str(i + 1) + " - flashed" + bcolors.ENDC + "\n\n")
         sleep(1)
 
 def flash_each_node():
     def node_x_menu():
         global X
-        print(bcolors.BOLD+"\n\t\t\t\t Node "+str(X)+" selected"+bcolors.ENDC)
-        print(bcolors.BOLD+"\n\n\t\t Choose flashing type:\n"+bcolors.ENDC)
-        print("\t\t 1 - "+bcolors.GREEN+"Node gets own dedicated firmware - recommended"+bcolors.ENDC)
+        print(bcolors.BOLD + "\n\t\t\t\t Node " + str(X) + " selected" + bcolors.ENDC)
+        print(bcolors.BOLD + "\n\n\t\t Choose flashing type:\n" + bcolors.ENDC)
+        print("\t\t 1 - " + bcolors.GREEN + "Node gets own dedicated firmware - recommended" + bcolors.ENDC)
         print("\t\t 2 - Node ground-auto selection firmware")
         print("\t\t 3 - Flashes 'Blink' on the node")
         print("\t\t 4 - Abort")
-        selection=str(raw_input(""))
-        if selection=='1' :
+        selection = input()
+        if selection == '1':
             all_pins_high()
             reset_gpio()
-            if linux_testing == False:
-                os.system("echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_"+str(X)+".hex:i ")
+            if not linux_testing:
+                os.system(
+                    "echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/" + user + "/RH-ota/firmware/" + firmware_version + "/node_" + str(
+                        X) + ".hex:i ")
             else:
-                print("\t\t\t/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_"+str(X)+".hex:i ")
-            print(bcolors.BOLD+"\n\t Node "+str(X)+" flashed\n"+bcolors.ENDC)
+                print("\t\t\t/home/" + user + "/RH-ota/firmware/" + firmware_version + "/node_" + str(X) + ".hex:i ")
+            print(bcolors.BOLD + "\n\t Node " + str(X) + " flashed\n" + bcolors.ENDC)
             sleep(1)
             return
-        if selection=='2' : 
+        if selection == '2':
             all_pins_high()
             reset_gpio()
-            os.system("echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/node_0.hex:i")
-            print(bcolors.BOLD+"\n\t Node "+str(X)+" flashed\n"+bcolors.ENDC)
+            os.system(
+                "echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/" + user + "/RH-ota/firmware/" + firmware_version + "/node_0.hex:i")
+            print(bcolors.BOLD + "\n\t Node " + str(X) + " flashed\n" + bcolors.ENDC)
             sleep(1)
             return
-        if selection=='3' : 
+        if selection == '3':
             all_pins_high()
             reset_gpio()
-            os.system("echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/"+firmware_version+"/blink.hex:i ")
-            print(bcolors.BOLD+"\n\t Node "+str(X)+" flashed\n"+bcolors.ENDC)
+            os.system(
+                "echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/" + user + "/RH-ota/firmware/" + firmware_version + "/blink.hex:i ")
+            print(bcolors.BOLD + "\n\t Node " + str(X) + " flashed\n" + bcolors.ENDC)
             sleep(1)
             return
-        if selection=='4':
+        if selection == '4':
             node_menu()
-        if selection=='dev' : 
+        if selection == 'dev':
             all_pins_high()
             reset_gpio()
-            os.system("echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/.dev/node_"+str(X)+".hex:i ")
-            print(bcolors.BOLD+"\n\t Testing firmware on Node "+str(X)+" flashed\n"+bcolors.ENDC)
+            os.system(
+                "echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/" + user + "/RH-ota/.dev/node_" + str(
+                    X) + ".hex:i ")
+            print(bcolors.BOLD + "\n\t Testing firmware on Node " + str(X) + " flashed\n" + bcolors.ENDC)
             sleep(1)
         else:
             node_x_menu()
@@ -243,13 +261,13 @@ def flash_each_node():
         print("\n\t\t "+bcolors.BOLD+"3 - Flash node 3 \t\t 7 - Flash node 7"+bcolors.ENDC)
         print("\n\t\t "+bcolors.BOLD+"4 - Flash node 4 \t\t 8 - Flash node 8")
         print("\n\t\t\t\t"+bcolors.YELLOW+bcolors.BOLD+"e - Exit to main menu"+bcolors.ENDC)
-        selection=str(raw_input("\n\n\t\t"+bcolors.BOLD+"Which node do you want to program:"+bcolors.ENDC+" "))
+        selection = str(input("\n\n\t\t" + bcolors.BOLD + "Which node do you want to program:" + bcolors.ENDC + " "))
         print("\n\n")
         if(selection.isdigit()) and int(selection) <=8:
             X=selection
             sleep(0.5)
             node_x_menu()
-        if selection=='e':
+        if selection == 'e':
             nodes_update()
         else:
             node_menu()
@@ -319,35 +337,36 @@ def nodes_update():
     clear_the_screen()
     logo_top()
     sleep(0.05)
-    print("\n\n\t\t\t "+bcolors.BOLD+bcolors.UNDERLINE+"CHOOSE FLASHING TYPE:\n"+ bcolors.ENDC)
-    print("\t\t "+bcolors.GREEN+bcolors.BOLD+"1 - Every Node gets own dedicated firmware - recommended\n"+ bcolors.ENDC)
-    print("\t\t "+bcolors.BOLD+"2 - Nodes will use ground-auto selection firmware\n"+ bcolors.ENDC)
-    print("\t\t "+bcolors.BOLD+"3 - Flash 'Blink' on every node\n"+ bcolors.ENDC)
-    print("\t\t "+bcolors.BOLD+"4 - Flash each node individually\n"+ bcolors.ENDC)
-    print("\t\t "+bcolors.BOLD+"5 - I2C programming - early beta\n"+ bcolors.ENDC)
-    print("\t\t "+bcolors.BOLD+"6 - Fix GPIO pins state - obsolete\n"+ bcolors.ENDC)
-    print("\t\t "+bcolors.YELLOW+bcolors.BOLD+"e - Exit to main menu\n"+ bcolors.ENDC)
+    print("\n\n\t\t\t " + bcolors.BOLD + bcolors.UNDERLINE + "CHOOSE FLASHING TYPE:\n" + bcolors.ENDC)
+    print(
+        "\t\t " + bcolors.GREEN + bcolors.BOLD + "1 - Every Node gets own dedicated firmware - recommended\n" + bcolors.ENDC)
+    print("\t\t " + bcolors.BOLD + "2 - Nodes will use ground-auto selection firmware\n" + bcolors.ENDC)
+    print("\t\t " + bcolors.BOLD + "3 - Flash 'Blink' on every node\n" + bcolors.ENDC)
+    print("\t\t " + bcolors.BOLD + "4 - Flash each node individually\n" + bcolors.ENDC)
+    print("\t\t " + bcolors.BOLD + "5 - I2C programming - early beta\n" + bcolors.ENDC)
+    print("\t\t " + bcolors.BOLD + "6 - Fix GPIO pins state - obsolete\n" + bcolors.ENDC)
+    print("\t\t " + bcolors.YELLOW + bcolors.BOLD + "e - Exit to main menu\n" + bcolors.ENDC)
     sleep(0.3)
-    selection=str(raw_input(""))
-    if selection=='1':
+    selection = input()
+    if selection == '1':
         flash_all_nodes()
         logo_update()
         sleep(3)
-    if selection=='2':
+    if selection == '2':
         flash_all_gnd()
         logo_update()
         sleep(3)
-    if selection=='3':
+    if selection == '3':
         flash_all_blink()
         logo_update()
         sleep(3)
-    if selection=='4':
+    if selection == '4':
         flash_each_node()
-    if selection=='5':
+    if selection == '5':
         os.system("python ./.dev/i2c_nodes_py")
-    if selection=='6':
+    if selection == '6':
         gpio_state()
-    if selection=='e':
+    if selection == 'e':
         sys.exit()
     else:
         nodes_update()
