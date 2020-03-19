@@ -37,6 +37,13 @@ if os.path.exists(homedir+"/.bashrc"):         # aliases compatibility
         os.system(f"sed -i 's/alias ota=/# alias ota=/g' {homedir}/.bashrc")
         os.system(f"sed -i 's/opens updating script/old alias/g' {homedir}/.bashrc")
         os.system("echo 'alias ota=\"cd ~/RH-ota && python update.py\"  # opens updating soft' | tee -a ~/.bashrc >/dev/null")
+    if check_if_string_in_file(homedir+'/.bashrc', 'opens updating script'):
+        os.system(f"sed -i 's/alias ota=/# alias ota=/g' {homedir}/.bashrc")
+        os.system(f"sed -i 's/opens updating script/old alias/g' {homedir}/.bashrc")
+        os.system("echo 'alias ota=\"cd ~/RH-ota && python3 update.py\"  # opens updating soft' | tee -a ~/.bashrc >/dev/null")
+
+        # CHANGE?????????????!!!!!!!!!!!!!!!!
+
     if check_if_string_in_file(homedir+'/.bashrc', 'part of self-updater'):
         os.system(f"sed -i 's/part of self-updater/part of self updater/g' {homedir}/.bashrc")
         os.system("echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null")
