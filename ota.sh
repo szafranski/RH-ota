@@ -14,11 +14,13 @@ if [ $? -gt 0 ];
 	then echo pip package has to be installed && sudo apt install python3-pip
 fi;
 
-python3 update.py
 
 sudo apt-get install python3-dev python3-rpi.gpio
 
 #  todo has to be added for checking and pyhon3-pip is not being recognized - attempt to install every time
+
+
+python3 update.py
 
 
 #  old:
