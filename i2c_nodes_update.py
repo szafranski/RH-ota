@@ -153,7 +153,7 @@ def flash_all_nodes():
 flash_all_nodes()
 
 
-## testing leftovers
+## testing leftovers:
 
 def flashing():
     input("Ok?")

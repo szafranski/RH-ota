@@ -78,6 +78,7 @@ def parser_write():
     except IOError as up:
         print("Config file does not exist and could not be created.")
 
+
 def log_to_dev():
 
     def log_write():
@@ -144,9 +145,9 @@ def log_to_dev():
         else:
             log_send()
 
-
     log_write()
     log_send()
+
 
 def log_write():
     os.chdir("/home/" + user + "/RH-ota")
