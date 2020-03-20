@@ -80,7 +80,7 @@ def parser_write():
 
 
 def log_write():
-    os.chdir("home/" + user + "/RH-ota")
+    os.chdir("/home/" + user + "/RH-ota")
     os.system("mkdir log_data > /dev/null 2>&1")
     os.system("rm log_data/log.txt > /dev/null 2>&1")
     os.system("echo >./ log_data / log.txt")
