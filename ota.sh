@@ -16,6 +16,13 @@ fi;
 
 python3 update.py
 
+sudo apt-get install python3-dev python3-rpi.gpio
+
+#  todo has to be added for checking and pyhon3-pip is not being recognized - attempt to install every time
+
+
+#  old:
+
 #python3_exists
 # printf "Please enter 'sudo pswd'\n"
 # sudo apt install python3
