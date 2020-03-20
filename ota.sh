@@ -9,12 +9,21 @@ fi;
 
 #printf "\nchecking pip installation\n\n"
 
-which pip > /dev/null  # proper way of checking?
+which python3-pip > /dev/null  # proper way of checking?
 if [ $? -gt 0 ]; 
 	then echo pip package has to be installed && sudo apt install python3-pip
 fi;
 
+
+sudo apt-get install python3-dev python3-rpi.gpio
+
+#  todo has to be added for checking and pyhon3-pip is not being recognized - attempt to install every time
+
+
 python3 update.py
+
+
+#  old:
 
 #python3_exists
 # printf "Please enter 'sudo pswd'\n"
