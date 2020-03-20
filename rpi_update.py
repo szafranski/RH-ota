@@ -141,7 +141,7 @@ def end_update():
             parser_write()
             sys.exit()
         if selection == 'c':
-            os.system(f". /home/{user}/RH-ota/open_scripts.sh; configuraton_start")
+            os.system(f". /home/{user}/RH-ota/open_scripts.sh; rh_configuraton_start")
             end_update()
         if selection == 's':
             clear_the_screen()
