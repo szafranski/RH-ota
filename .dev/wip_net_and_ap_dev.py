@@ -50,7 +50,8 @@ def logo_top():
         ###\t\t\t""" + bcolors.ORANGE + """     """ + bcolors.BOLD + """RotorHazard        """
           + bcolors.ENDC + """\t\t    ###
         ###                                                                 ###
-        ###                     """ + bcolors.BOLD + """OTA Updater and Manager""" + bcolors.ENDC + """                     ###
+        ###                     """ + bcolors.BOLD + """OTA Updater and Manager""" + bcolors.ENDC
+          + """                     ###
         ###                                                                 ###
         #######################################################################""")
     if linux_testing:

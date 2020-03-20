@@ -155,12 +155,8 @@ def updated_check():
         'r' - read update notes {endc}
 
         's' - skip and don't show again
-        """.format(bold=bcolors.BOLD, underline=bcolors.UNDERLINE_S
-                   , endc=bcolors.ENDC_S, blue=bcolors.BLUE_S
-                   , yellow=bcolors.YELLOW_S
-                   , red=bcolors.RED_S
-                   , green=bcolors.GREEN
-                   , orange=bcolors.ORANGE_S))
+            """.format(bold=bcolors.BOLD_S, underline=bcolors.UNDERLINE, endc=bcolors.ENDC,
+                       blue=bcolors.BLUE, yellow=bcolors.YELLOW_S, red=bcolors.RED_S, orange=bcolors.ORANGE_S))
         selection = input()
         if selection == 'r':
             os.system("less ./docs/update-notes.txt")
@@ -192,12 +188,8 @@ def avr_dude():
                 1 - Install avrdude {endc}{yellow}
                 
                 2 - Go back {endc}
-        """.format(bold=bcolors.BOLD, underline=bcolors.UNDERLINE_S
-                   , endc=bcolors.ENDC_S, blue=bcolors.BLUE
-                   , yellow=bcolors.YELLOW
-                   , red=bcolors.RED
-                   , green=bcolors.GREEN
-                   , orange=bcolors.ORANGE_S)
+            """.format(bold=bcolors.BOLD_S, underline=bcolors.UNDERLINE, endc=bcolors.ENDC,
+                       blue=bcolors.BLUE, yellow=bcolors.YELLOW_S, red=bcolors.RED_S, orange=bcolors.ORANGE_S)
     print(menu)
     selection = input()
     if selection == '1':
@@ -226,12 +218,9 @@ def serial_menu():
         You have to reboot Raspberry now. Ok?
         
         r - Reboot now{yellow}
-        b - Go back{endc}""".format(bold=bcolors.BOLD, underline=bcolors.UNDERLINE
-                                    , endc=bcolors.ENDC, blue=bcolors.BLUE
-                                    , yellow=bcolors.YELLOW
-                                    , red=bcolors.RED
-                                    , green=bcolors.GREEN
-                                    , orange=bcolors.ORANGE_S))
+        b - Go back{endc}
+            """.format(bold=bcolors.BOLD_S, underline=bcolors.UNDERLINE, endc=bcolors.ENDC,
+                       blue=bcolors.BLUE, yellow=bcolors.YELLOW_S, red=bcolors.RED_S, orange=bcolors.ORANGE_S))
         selection = input()
         if selection == 'r':
             os.system("sudo reboot")
@@ -286,20 +275,20 @@ def aliases_menu():
     {bold}
         Alias            What it does    
         
-        ss       -->    starts the RotorHazard server
+        ss        -->    starts the RotorHazard server
         cfg       -->    opens RH config.json file
         rh        -->    goes to server file directory
         py        -->    instead of 'python' - pure laziness
-        sts        -->    stops RH service if was started
-        otadir   -->    goes to RH server file directory
-        ota        -->    opens this software
-        als        -->    opens the file that contains aliases
-        rld        -->    reloads aliases file 
-        rcfg        -->    opens raspberry's configuration 
-        gitota      -->    clones OTA repository
-        otacfg   -->    opens updater conf. file
-        otacpcfg -->    copies ota conf. file.
-        home     -->    go to the home directory (without '~' sign)\n
+        sts       -->    stops RH service if was started
+        otadir    -->    goes to RH server file directory
+        ota       -->    opens this software
+        als       -->    opens the file that contains aliases
+        rld       -->    reloads aliases file 
+        rcfg      -->    opens raspberry's configuration 
+        gitota    -->    clones OTA repository
+        otacfg    -->    opens updater conf. file
+        otacpcfg  -->    copies ota conf. file.
+        home      -->    go to the home directory (without '~' sign)\n
     {endc}
         Do you want to use above aliases in your system?
         Reboot should be performed after adding those""".format(bold=bcolors.BOLD, endc=bcolors.ENDC))
@@ -353,7 +342,7 @@ def self_updater():
     ,so you always know what firmware version updater contains.
     For example "2.2.5c" contains nodes firmware with "API level 22".
     Self-updater will test your internet connection during every update.\n
-    Updating script is currently set to mode: """+bcolors.GREEN+update_mode+bcolors.ENDC+""".\n\n""")
+    Updating script is currently set to mode: """ + bcolors.GREEN + update_mode + bcolors.ENDC + """.\n\n""")
     print(bcolors.GREEN + """\t\tUpdate now by pressing 'u'""" + bcolors.ENDC + """\n""")
     print(bcolors.YELLOW + """\t\tGo back by pressing 'b'""" + bcolors.ENDC + """\n\n""")
     selection = input()
@@ -368,9 +357,9 @@ def self_updater():
 def features_menu():
     clear_the_screen()
     logo_top()
-    features = '''
+    features = """
 
-                              {red}{bold}{underline}FEATURES MENU{endc}
+                        {red}{bold}{underline}FEATURES MENU{endc}
 
         {blue}{bold} 
                         1 - Install AVRDUDE
@@ -387,11 +376,8 @@ def features_menu():
                             
                         e - Exit to main menu {endc}
 
-        '''.format(bold=bcolors.BOLD, underline=bcolors.UNDERLINE
-                   , endc=bcolors.ENDC, blue=bcolors.BLUE
-                   , yellow=bcolors.YELLOW
-                   , red=bcolors.RED)
-
+             """.format(bold=bcolors.BOLD_S, underline=bcolors.UNDERLINE, endc=bcolors.ENDC,
+                        blue=bcolors.BLUE, yellow=bcolors.YELLOW_S, red=bcolors.RED_S, orange=bcolors.ORANGE_S)
     print(features)
     selection = input()
     if selection == '1':
@@ -444,7 +430,7 @@ def first_time():
         print("""
 
 
-                        {bold}CONFIGURATION PROCESS{endc}
+                            {bold}{underline}CONFIGURATION PROCESS{endc}
 
 
             {bold} 
@@ -463,11 +449,8 @@ def first_time():
             
             > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested)  {endc}  
 
-            """.format(bold=bcolors.BOLD_S, underline=bcolors.UNDERLINE_S
-                       , endc=bcolors.ENDC, blue=bcolors.BLUE
-                       , yellow=bcolors.YELLOW_S
-                       , red=bcolors.RED_S
-                       , orange=bcolors.ORANGE_S))
+            """.format(bold=bcolors.BOLD, underline=bcolors.UNDERLINE, endc=bcolors.ENDC,
+                       blue=bcolors.BLUE, yellow=bcolors.YELLOW_S, red=bcolors.RED_S, orange=bcolors.ORANGE_S))
         print("\n\n\t\t'f' - first page'" + bcolors.GREEN + "\t'u' - update notes'" + bcolors.ENDC
               + bcolors.YELLOW + "\t'b' - back to menu" + bcolors.ENDC + "\n\n")
         selection = input()
@@ -538,28 +521,25 @@ def main_menu():
     config_check()
     menu = """
     
-                              {red}{bold}{underline}MAIN MENU{endc}
+                        {red}{bold}{underline}MAIN MENU{endc}
                 
     {blue}{bold}
                         1 - RotorHazard Manager
                         
-                        2 - Nodes flash and update {endc} {bold}
-                        
+                        2 - Nodes flash and update {endc} 
+                        {bold}
                         3 - Start the server now
                         
                         4 - Additional features
                         
                         5 - Info + first time here
                         
-                        6 - Configuration wizard {endc}{yellow}
-                        
+                        6 - Configuration wizard {endc}
+                        {yellow}
                         e - Exit {endc}
                         
-    """.format(bold=bcolors.BOLD, underline=bcolors.UNDERLINE
-               , endc=bcolors.ENDC, blue=bcolors.BLUE
-               , yellow=bcolors.YELLOW
-               , red=bcolors.RED
-               , orange=bcolors.ORANGE)
+            """.format(bold=bcolors.BOLD_S, underline=bcolors.UNDERLINE, endc=bcolors.ENDC,
+                       blue=bcolors.BLUE, yellow=bcolors.YELLOW_S, red=bcolors.RED_S, orange=bcolors.ORANGE_S)
     print(menu)
     selection = input()
     if selection == '1':

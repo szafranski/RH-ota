@@ -161,13 +161,13 @@ def logo_update():
     print("""
     ###################################################################
     #                                                                 #
-    #\t\t\t""" + bcolors.BOLD + """Flashing firmware onto """ + str(nodes_number) + """ nodes - DONE"""
-          + bcolors.ENDC + """\t\t#
+    #{bold}Flashing firmware onto {nodes_number} nodes - DONE{endc}   #
     #                                                                 #
-    #                          """ + bcolors.BOLD + """Thank you!""" + bcolors.ENDC + """                             #
+    #                          {bold}Thank you!{endc}                 #
     #                                                                 #
-    ###################################################################\n\n""")
-
+    ###################################################################\n\n
+                """.format(nodes_number=nodes_number, bold=bcolors.BOLD_S, underline=bcolors.UNDERLINE_S, endc=bcolors.ENDC_S,
+                       blue=bcolors.BLUE, yellow=bcolors.YELLOW_S, red=bcolors.RED_S, orange=bcolors.ORANGE_S))
 
 def flash_all_nodes():
     global i

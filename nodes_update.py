@@ -255,14 +255,13 @@ def logo_update():
     print("""
     ###################################################################
     #                                                                 #
-    #\t\t\t""" + bcolors.BOLD + """Flashing firmware onto """ + str(nodes_number)
-          + """ nodes - DONE""" + bcolors.ENDC + """         #
+    #{bold}Flashing firmware onto {nodes_number} nodes - DONE{endc}   #
     #                                                                 #
-    #                          """ + bcolors.BOLD + """Thank you!""" + bcolors.ENDC
-          + """                             #
+    #                          {bold}Thank you!{endc}                 #
     #                                                                 #
-    ###################################################################\n\n""")
-
+    ###################################################################\n\n
+                """.format(bold=bcolors.BOLD_S, underline=bcolors.UNDERLINE_S, endc=bcolors.ENDC_S,
+                       blue=bcolors.BLUE, yellow=bcolors.YELLOW_S, red=bcolors.RED_S, orange=bcolors.ORANGE_S))
 
 def flash_all_nodes():
     node_one_reset()
@@ -595,8 +594,8 @@ def nodes_update():
     sleep(0.05)
     print("\n\n\t\t\t " + bcolors.BOLD + bcolors.UNDERLINE + "CHOOSE FLASHING TYPE:\n" + bcolors.ENDC)
     print(
-            "\t\t " + bcolors.GREEN + bcolors.BOLD + "1 - Every Node gets own dedicated firmware - recommended\n" 
-            + bcolors.ENDC)
+        "\t\t " + bcolors.GREEN + bcolors.BOLD + "1 - Every Node gets own dedicated firmware - recommended\n"
+        + bcolors.ENDC)
     print("\t\t " + bcolors.BOLD + "2 - Nodes will use ground-auto selection firmware\n" + bcolors.ENDC)
     print("\t\t " + bcolors.BOLD + "3 - Flash 'Blink' on every node\n" + bcolors.ENDC)
     print("\t\t " + bcolors.BOLD + "4 - Flash each node individually\n" + bcolors.ENDC)
