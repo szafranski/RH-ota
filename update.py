@@ -144,10 +144,10 @@ def log_to_dev():
         else:
             log_send()
 
-<<<<<<< HEAD
+
     log_write()
     log_send()
-=======
+
 def log_write():
     os.chdir("/home/" + user + "/RH-ota")
     os.system("mkdir log_data > /dev/null 2>&1")
@@ -213,7 +213,6 @@ def log_send():
     else:
         log_send()
 
->>>>>>> baff8945c241cb876d2515a15e07672fd5f3d4ae
 
 def updated_check():
     if os.path.exists(f"/home/" + user + "/.ota_markers/.was_updated"):
