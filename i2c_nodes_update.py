@@ -150,6 +150,7 @@ def flash_all_nodes():
     flash_numbered_node()
 
 
+flash_all_nodes()
 
 
 ## testing leftovers
