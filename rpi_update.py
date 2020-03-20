@@ -169,7 +169,7 @@ def end_installation():
             parser_write()
             sys.exit()
         if selection == 'c':
-            os.system(f". /home/{user}/RH-ota/open_scripts.sh; rh_configuration_start")
+            os.system(f". ./open_scripts.sh; rh_configuration_start")
             end_update()
         if selection == 's':
             clear_the_screen()

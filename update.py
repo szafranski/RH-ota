@@ -559,7 +559,7 @@ def main_menu():
     if selection == '5':
         first_time()
     if selection == '6':
-        os.system(f". /home/{user}/RH-ota/open_scripts.sh; ota_configuration_start")
+        os.system(f". ./open_scripts.sh; ota_configuration_start")
     if selection == 'logme':
         log_write()
         log_send()
