@@ -3,6 +3,7 @@ import os
 import platform
 import sys
 import json
+from modules import Bcolors
 
 if os.path.exists("./updater-config.json"):
     with open('updater-config.json') as config_file:

@@ -143,8 +143,8 @@ def main():
         os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")   # resolves compatibility issues
         os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         # resolves compatibility issues
         old_version_check()
-        print("\nThis time update process may take longer due to python3 implementation\n")
         if not parser.getint('added_functions', 'python3_installed'):
+            print("\nThis time update process may take longer due to python3 implementation\n")
             if not os.system("sudo apt install python3 python3-pip"):
                 parser.set('added_functions', 'python3_installed', '1')
                 parser_write()
@@ -165,7 +165,16 @@ def main():
         sleep(2)
         if config_file_exists:
             os.system("cp ~/RH-ota/updater-config.json ~/.ota_markers/updater-config.json")
-        if not no_pdf_update:
+        if beta_tester_update:
+            print("Update won't contain PDF file - may be changed in config file.\n")
+            os.system("sudo rm -rf ~/RH-ota*")
+            os.system("rm tempota.zip > /dev/null  > /dev/null 2>&1")
+            os.system("wget https://codeload.github.com/szafranski/RH-ota/zip/master -O tempota.zip")
+            os.system("unzip tempota.zip")
+            os.system("rm tempota.zip")
+            os.system("mv RH-ota-* RH-ota")
+            beta_update_flag = True
+        if not no_pdf_update and not beta_update_flag:
             print("Update will contain PDF file - may be changed in config file.\n")
             os.system("sudo rm -rf ~/RH-ota*")
             os.system("rm tempota.zip > /dev/null  > /dev/null 2>&1")
@@ -173,19 +182,11 @@ def main():
             os.system("unzip tempota.zip")
             os.system("rm tempota.zip")
             os.system("mv RH-ota-* RH-ota")
-        if no_pdf_update:
+        if no_pdf_update and not beta_update_flag:
             print("Update won't contain PDF file - may be changed in config file.\n")
             os.system("sudo rm -rf ~/RH-ota*")
             os.system("rm tempota.zip > /dev/null  > /dev/null 2>&1")
             os.system("wget https://codeload.github.com/szafranski/RH-ota/zip/no_pdf -O tempota.zip")
-            os.system("unzip tempota.zip")
-            os.system("rm tempota.zip")
-            os.system("mv RH-ota-* RH-ota")
-        if beta_tester_update:
-            print("Update won't contain PDF file - may be changed in config file.\n")
-            os.system("sudo rm -rf ~/RH-ota*")
-            os.system("rm tempota.zip > /dev/null  > /dev/null 2>&1")
-            os.system("wget https://codeload.github.com/szafranski/RH-ota/zip/master -O tempota.zip")
             os.system("unzip tempota.zip")
             os.system("rm tempota.zip")
             os.system("mv RH-ota-* RH-ota")

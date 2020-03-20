@@ -66,7 +66,7 @@ dots30
 kill -9 $(pidof python3 update.py)
 cd ~
 cp ~/RH-ota/self.py ~/.ota_markers/self.py 
-python ~/.ota_markers/self.py
+python3 ~/.ota_markers/self.py
 cd ~
 cd ~/RH-ota
 printf "\n\nUpdate completed, hit 'Enter' to continue \n\n"

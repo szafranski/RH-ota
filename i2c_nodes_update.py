@@ -45,17 +45,22 @@ node6addr = 0x18
 node7addr = 0x20
 node8addr = 0x22
 
-gpio_reset_pin = 12 #  GPIO pin 12 - nothing to do with nodes pin 12
+gpio_reset_pin = 12  # GPIO pin 12 - nothing to do with nodes pin 12
 
 
 def flash_numbered_node():
-    os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/i2c/reset_no_s.hex:i")
+    os.system(
+        "sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"
+        + user + "/RH-ota/firmware/i2c/reset_no_s.hex:i")
+
 
 if not linux_testing:
     import RPi.GPIO as GPIO
+
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
-    GPIO.setup(reset_pin, GPIO.OUT, initial=GPIO.HIGH)
+    GPIO.setup(gpio_reset_pin, GPIO.OUT, initial=GPIO.HIGH)
+
 
     # ensures nothing is being reset during program start
 
@@ -80,58 +85,57 @@ if not linux_testing:
         sleep(0.1)
 
 
-#  all reset commands have disabling serial on all nodes function implemented - for now
+    #  all reset commands have disabling serial on all nodes function implemented - for now
 
     def node_one_reset():
         disable_serial_on_all_nodes()
-        bus.write_byte(node2addr, RESET_MATE_NODE) #  node 2 resets node 1
+        bus.write_byte(node2addr, RESET_MATE_NODE)  # node 2 resets node 1
         sleep(0.1)
 
 
     def node_two_reset():
         disable_serial_on_all_nodes()
-        bus.write_byte(node1addr, RESET_MATE_NODE) #  node 1 resets node 2
+        bus.write_byte(node1addr, RESET_MATE_NODE)  # node 1 resets node 2
         sleep(0.1)
 
 
     def node_three_reset():
         disable_serial_on_all_nodes()
-        bus.write_byte(node4addr, RESET_MATE_NODE) #  node 4 resets node 3
+        bus.write_byte(node4addr, RESET_MATE_NODE)  # node 4 resets node 3
         sleep(0.1)
 
 
     def node_four_reset():
         disable_serial_on_all_nodes()
-        bus.write_byte(node3addr, RESET_MATE_NODE) #  node 3 resets node 4
+        bus.write_byte(node3addr, RESET_MATE_NODE)  # node 3 resets node 4
         sleep(0.1)
 
 
     def node_five_reset():
         disable_serial_on_all_nodes()
-        bus.write_byte(node6addr, RESET_MATE_NODE) #  node 6 resets node 5
+        bus.write_byte(node6addr, RESET_MATE_NODE)  # node 6 resets node 5
         sleep(0.1)
 
 
     def node_six_reset():
         disable_serial_on_all_nodes()
-        bus.write_byte(node5addr, RESET_MATE_NODE) #  node 5 resets node 6
+        bus.write_byte(node5addr, RESET_MATE_NODE)  # node 5 resets node 6
         sleep(0.1)
 
 
     def node_seven_reset():
         disable_serial_on_all_nodes()
-        bus.write_byte(node8addr, 0x79) #  node 8 resets node 7
+        bus.write_byte(node8addr, 0x79)  # node 8 resets node 7
         sleep(0.1)
 
 
     def node_eight_reset():
-        bus.write_byte(node7addr, 0x79) #  node 7 resets node 8
+        bus.write_byte(node7addr, 0x79)  # node 7 resets node 8
         sleep(0.1)
 
 
-
 def flash_all_nodes():
-    input("All nodes will be flashed. Ok? Hit 'Enter'") #  hit enter before start
+    input("All nodes will be flashed. Ok? Hit 'Enter'")  # hit enter before start
     node_one_reset()
     flash_numbered_node()
     node_two_reset()
@@ -159,14 +163,17 @@ def flashing():
     input("Ok?")
     bus.write_byte(node1addr, 0x79)
     sleep(0.5)
-    os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/reset_no_s.hex:i")
+    os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"
+              + user + "/RH-ota/firmware/reset_no_s.hex:i")
     sleep(1)
     bus.write_byte(node2addr, 0x79)
     sleep(0.5)
-    os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"+user+"/RH-ota/firmware/reset_no_s.hex:i")
+    os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"
+              + user + "/RH-ota/firmware/reset_no_s.hex:i")
     sleep(1)
 
-#flashing()
+
+# flashing()
 
 #  sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/pi/RH-ota/firmware/reset_no_s.hex:i
 
@@ -180,13 +187,12 @@ def test():
         test()
     if selection == '2':
         node_two_reset()
-        os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/" + user + "/RH-ota/comm.hex:i ")
+        os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"
+                  + user + "/RH-ota/comm.hex:i ")
         print("\n\t Node flashed using I2C resetting - blink\n")
         sleep(1.5)
         test()
     if selection == '3':
         sys.exit()
 
-#test()
-
-
+# test()
