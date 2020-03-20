@@ -1,6 +1,6 @@
 from time import sleep
 import os
-from modules import clear_the_screen, bcolors, logo_top
+from modules import clear_the_screen, Bcolors, logo_top
 
 homedir = os.path.expanduser('~')
 
@@ -42,13 +42,13 @@ Default values are not automatically applied. Type them if needed.\n""")
                   "/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
         while True:
             version = input(
-                "\nWhat RotorHazard version will you use? [" + bcolors.UNDERLINE + "stable" + bcolors.ENDC +
+                "\nWhat RotorHazard version will you use? [" + Bcolors.UNDERLINE + "stable" + Bcolors.ENDC +
                 " | beta | master]\t\t")
             version_valid_options = ['master', 'stable', 'beta']
             if version not in version_valid_options:
                 print("\nPlease enter correct value!")
             else:
-                os.system(f"echo '    \"RH_version\" : \"{version}\",' \ \
+                os.system(f"echo '    \"RH_version\" : \"{version}\",' \
                  | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
         debug_user = input("\nWhat is you user name on debugging OS? [default: racer]\t\t\t")
@@ -127,7 +127,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                  | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
         os.system("echo '}' | tee -a " + homedir + "/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
-        print("""\n\n\t\t\t""" + bcolors.UNDERLINE + """CONFIGURATION""" + bcolors.ENDC + """:\n\t
+        print("""\n\n\t\t\t""" + Bcolors.UNDERLINE + """CONFIGURATION""" + Bcolors.ENDC + """:\n\t
         User name: \t\t""" + name + """
         RotorHazard version: \t""" + version + """
         Debug user name: \t""" + debug_user + """

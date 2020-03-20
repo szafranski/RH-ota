@@ -34,11 +34,18 @@ cd ~/RotorHazard/src/server
 python server.py
 }
 
-configuration_start ()
+rh_configuration_start ()
 {
 cd ~/RH-ota
-python ./conf_wizard_rh.py
+python3 ./conf_wizard_rh.py
 }
+
+ota_configuration_start ()
+{
+cd ~/RH-ota
+python3 ./conf_wizard_ota.py
+}
+
 
 net_check()
 {

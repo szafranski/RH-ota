@@ -159,15 +159,16 @@ if linux_testing:
 
 def logo_update():
     print("""
-    ###################################################################
-    #                                                                 #
-    #{bold}Flashing firmware onto {nodes_number} nodes - DONE{endc}   #
-    #                                                                 #
-    #                          {bold}Thank you!{endc}                 #
-    #                                                                 #
-    ###################################################################\n\n
-                """.format(nodes_number=nodes_number, bold=bcolors.BOLD_S, underline=bcolors.UNDERLINE_S, endc=bcolors.ENDC_S,
-                       blue=bcolors.BLUE, yellow=bcolors.YELLOW_S, red=bcolors.RED_S, orange=bcolors.ORANGE_S))
+    #######################################################################
+    #                                                                     #
+    #{bold}{s}Flashing firmware onto {nodes_number} nodes - DONE{endc}{s}#
+    #                                                                     #
+    #                          {bold}Thank you!{endc}                     #
+    #                                                                     #
+    #######################################################################\n\n
+    """.format(nodes_number=nodes_number, bold=bcolors.BOLD_S, underline=bcolors.UNDERLINE_S, endc=bcolors.ENDC_S,
+               blue=bcolors.BLUE, yellow=bcolors.YELLOW_S, red=bcolors.RED_S, orange=bcolors.ORANGE_S, s=10 * ' '))
+
 
 def flash_all_nodes():
     global i

@@ -85,8 +85,8 @@ def logo_top():
     ###                                                                 ###
     #######################################################################
     {endc}
-    '''.format(bold=bcolors.BOLD_S, underline=bcolors.UNDERLINE_S, endc=bcolors.ENDC_S,
-               blue=bcolors.BLUE_S, yellow=bcolors.YELLOW_S, red=bcolors.RED_S, orange=bcolors.ORANGE_S)
+    '''.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE_S, endc=Bcolors.ENDC_S,
+               blue=Bcolors.BLUE_S, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
 
     print(logo)
     if linux_testing:
@@ -94,7 +94,7 @@ def logo_top():
     sleep(0.05)
 
 
-class bcolors:
+class Bcolors:
     HEADER = '\033[95m'
     ORANGE = '\033[33m'
     BLUE = '\033[94m'

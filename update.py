@@ -2,7 +2,7 @@ from time import sleep
 import os
 import sys
 import json
-from modules import clear_the_screen, bcolors, logo_top, image_show, ota_image
+from modules import clear_the_screen, Bcolors, logo_top, image_show, ota_image
 from configparser import ConfigParser
 
 parser = ConfigParser()
@@ -14,6 +14,13 @@ updater_version = '2.2.10beta1'
 # third number refers to actual version of the updater itself
 
 homedir = os.path.expanduser('~')
+
+
+def compatibility():  # adds compatibility and fixes with previous versions
+    os.system("python3 ./prev_comp.py")
+
+
+compatibility()
 
 if os.path.exists("./updater-config.json"):
     with open('updater-config.json') as config_file:
@@ -60,10 +67,6 @@ def config_check():
         and next enter configuration wizard - point 6.""")
 
 
-def compatibility():  # adds compatibility and fixes with previous versions
-    os.system("python3 ./prev_comp.py")
-
-
 if not os.path.exists(homedir + "/.ota_markers/ota_config.txt"):
     os.system(f"cp {homedir}/RH-ota/resources/ota_config.txt {homedir}/.ota_markers/ota_config.txt")
 
@@ -77,6 +80,7 @@ def parser_write():
 
 
 def log_write():
+    os.chdir("home/" + user + "/RH-ota")
     os.system("mkdir log_data > /dev/null 2>&1")
     os.system("rm log_data/log.txt > /dev/null 2>&1")
     os.system("echo >./ log_data / log.txt")
@@ -155,8 +159,8 @@ def updated_check():
         'r' - read update notes {endc}
 
         's' - skip and don't show again
-            """.format(bold=bcolors.BOLD_S, underline=bcolors.UNDERLINE, endc=bcolors.ENDC,
-                       blue=bcolors.BLUE, yellow=bcolors.YELLOW_S, red=bcolors.RED_S, orange=bcolors.ORANGE_S))
+            """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, green=Bcolors.GREEN,
+                       blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S))
         selection = input()
         if selection == 'r':
             os.system("less ./docs/update-notes.txt")
@@ -168,12 +172,11 @@ def updated_check():
 
 
 def first():
-    compatibility()
     parser.read(f'/home/{user}/.ota_markers/ota_config.txt')
     clear_the_screen()
     print("\n\n")
     image_show()
-    print("\t\t\t " + bcolors.BOLD + "Updater version: " + str(updater_version) + bcolors.ENDC)
+    print("\t\t\t " + Bcolors.BOLD + "Updater version: " + str(updater_version) + Bcolors.ENDC)
     sleep(1)
     updated_check()
 
@@ -182,14 +185,15 @@ def avr_dude():
     clear_the_screen()
     logo_top()
     menu = """
-            {red}
+            {red}{bold}
                         AVRDUDE MENU
+                        
             {blue}    
-                1 - Install avrdude {endc}{yellow}
-                
-                2 - Go back {endc}
-            """.format(bold=bcolors.BOLD_S, underline=bcolors.UNDERLINE, endc=bcolors.ENDC,
-                       blue=bcolors.BLUE, yellow=bcolors.YELLOW_S, red=bcolors.RED_S, orange=bcolors.ORANGE_S)
+                    'i' - Install avrdude {endc}{yellow}
+            {bold}
+                    'e' - Go back {endc}
+            """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
+                       blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
     print(menu)
     selection = input()
     if selection == '1':
@@ -197,7 +201,7 @@ def avr_dude():
         os.system("sudo apt-get install avrdude -y")
         print("\nDone\n")
         sleep(2)
-    if selection == '2':
+    if selection == 'e':
         main_menu()
     else:
         avr_dude()
@@ -219,8 +223,8 @@ def serial_menu():
         
         r - Reboot now{yellow}
         b - Go back{endc}
-            """.format(bold=bcolors.BOLD_S, underline=bcolors.UNDERLINE, endc=bcolors.ENDC,
-                       blue=bcolors.BLUE, yellow=bcolors.YELLOW_S, red=bcolors.RED_S, orange=bcolors.ORANGE_S))
+            """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
+                       blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S))
         selection = input()
         if selection == 'r':
             os.system("sudo reboot")
@@ -231,11 +235,11 @@ def serial_menu():
         Serial port has to be enabled. 
         Without it Arduinos cannot be programmed.
         Do you want to enable it now?""")
-    selection = input("\n\t\t\t" + bcolors.YELLOW + "Press 'y' for yes or 'a' for abort" + bcolors.ENDC + "\n")
+    selection = input("\n\t\t\t" + Bcolors.YELLOW + "Press 'y' for yes or 'a' for abort" + Bcolors.ENDC + "\n")
     if selection == 'y':
         if parser.getint('added_functions', 'serial_added'):
             print("\n\n\t\tLooks like you already enabled Serial port. \n\t\tDo you want to continue anyway?\n")
-            selection = input("\t\t\t" + bcolors.YELLOW + "Press 'y' for yes or 'a' for abort" + bcolors.ENDC + "\n")
+            selection = input("\t\t\t" + Bcolors.YELLOW + "Press 'y' for yes or 'a' for abort" + Bcolors.ENDC + "\n")
             if selection == 'y':
                 serial_content()
             if selection == 'a':
@@ -262,9 +266,7 @@ def aliases_menu():
         sleep(3)
         features_menu()
 
-    print("""
-    
-    
+    aliases = """
     Aliases in Linux act like shortcuts or references to another commands. 
     You can use them every time when you operates in the terminal window. 
     For example instead of typing 'python ~/RotorHazard/src/server/server.py' 
@@ -291,12 +293,13 @@ def aliases_menu():
         home      -->    go to the home directory (without '~' sign)\n
     {endc}
         Do you want to use above aliases in your system?
-        Reboot should be performed after adding those""".format(bold=bcolors.BOLD, endc=bcolors.ENDC))
-    selection = input("\n\t\t\t" + bcolors.YELLOW + "Press 'y' for yes or 'a' for abort" + bcolors.ENDC + "\n")
+        Reboot should be performed after adding those""".format(bold=Bcolors.BOLD, endc=Bcolors.ENDC)
+    print(aliases)
+    selection = input("\n\t\t\t" + Bcolors.YELLOW + "Press 'y' for yes or 'a' for abort" + Bcolors.ENDC + "\n")
     if selection == 'y':
         if parser.getint('added_functions', 'aliases_1'):
             print("\n\n\t\tLooks like you already have aliases added. \n\t\tDo you want to continue anyway?\n")
-            selection = input("\t\t\t" + bcolors.YELLOW + "Press 'y' for yes or 'a' for abort" + bcolors.ENDC + "\n")
+            selection = input("\t\t\t" + Bcolors.YELLOW + "Press 'y' for yes or 'a' for abort" + Bcolors.ENDC + "\n")
             if selection == 'y':
                 aliases_content()
             if selection == 'a':
@@ -332,19 +335,21 @@ def self_updater():
         add_updater()
     clear_the_screen()
     logo_top()
-    print(bcolors.BOLD + """
+    updater = """{bold}
     If you want to update this program and download new firmware, 
     prepared for Arduino nodes - so you can next flash them 
     - you can just hit 'u' now. You can also type 'updateupdater'
     or 'uu' in the terminal window.\n
-    Version of the updater is related to """ + bcolors.BLUE + """nodes firmware API number"""
-          + bcolors.ENDC + bcolors.BOLD + """
-    ,so you always know what firmware version updater contains.
+    Version of the updater is related to {blue}nodes firmware API number{endc},
+          {bold}
+    so you always know what firmware version updater contains.
     For example "2.2.5c" contains nodes firmware with "API level 22".
     Self-updater will test your internet connection during every update.\n
-    Updating script is currently set to mode: """ + bcolors.GREEN + update_mode + bcolors.ENDC + """.\n\n""")
-    print(bcolors.GREEN + """\t\tUpdate now by pressing 'u'""" + bcolors.ENDC + """\n""")
-    print(bcolors.YELLOW + """\t\tGo back by pressing 'b'""" + bcolors.ENDC + """\n\n""")
+    Updating script is currently set to mode: {green}{update_mode}{endc}.\n\n
+    """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, bold=Bcolors.BOLD, blue=Bcolors.BLUE, update_mode=update_mode)
+    print(updater)
+    print(Bcolors.GREEN + """\t\tUpdate now by pressing 'u'""" + Bcolors.ENDC + """\n""")
+    print(Bcolors.YELLOW + """\t\tGo back by pressing 'b'""" + Bcolors.ENDC + """\n\n""")
     selection = input()
     if selection == 'b':
         features_menu()
@@ -359,7 +364,7 @@ def features_menu():
     logo_top()
     features = """
 
-                        {red}{bold}{underline}FEATURES MENU{endc}
+                    {red}{bold}{underline}FEATURES MENU{endc}
 
         {blue}{bold} 
                         1 - Install AVRDUDE
@@ -376,8 +381,8 @@ def features_menu():
                             
                         e - Exit to main menu {endc}
 
-             """.format(bold=bcolors.BOLD_S, underline=bcolors.UNDERLINE, endc=bcolors.ENDC,
-                        blue=bcolors.BLUE, yellow=bcolors.YELLOW_S, red=bcolors.RED_S, orange=bcolors.ORANGE_S)
+             """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
+                        blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
     print(features)
     selection = input()
     if selection == '1':
@@ -430,29 +435,29 @@ def first_time():
         print("""
 
 
-                            {bold}{underline}CONFIGURATION PROCESS{endc}
+                        {bold}{underline}CONFIGURATION PROCESS{endc}
 
 
-            {bold} 
-            Software configuration process can be assisted with a wizard. 
-            You have to enter point 5. of Main Menu and apply right values.
-            It will configure this software, not RotorHazard server itself. 
-            Thing like amount of used LEDs or password to admin page of RotorHazard
-            should be configured separately - check RotorHazard Manager in Main Menu.
+        {bold} 
+        Software configuration process can be assisted with a wizard. 
+        You have to enter point 5. of Main Menu and apply right values.
+        It will configure this software, not RotorHazard server itself. 
+        Thing like amount of used LEDs or password to admin page of RotorHazard
+        should be configured separately - check RotorHazard Manager in Main Menu.
 
 
-            Possible RotorHazard server versions:
+        Possible RotorHazard server versions:
 
-            > {blue}'stable'{endc}{bold}- last stable release (can be from before few days or few months) {endc}
-            
-            > {blue}'beta'  {endc}{bold}- last 'beta' release (usually has about few weeks, quite stable) {endc}
-            
-            > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested)  {endc}  
+        > {blue}'stable'{endc}{bold}- last stable release (can be from before few days or few months) {endc}
+        
+        > {blue}'beta'  {endc}{bold}- last 'beta' release (usually has about few weeks, quite stable) {endc}
+        
+        > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested)  {endc}  
 
-            """.format(bold=bcolors.BOLD, underline=bcolors.UNDERLINE, endc=bcolors.ENDC,
-                       blue=bcolors.BLUE, yellow=bcolors.YELLOW_S, red=bcolors.RED_S, orange=bcolors.ORANGE_S))
-        print("\n\n\t\t'f' - first page'" + bcolors.GREEN + "\t'u' - update notes'" + bcolors.ENDC
-              + bcolors.YELLOW + "\t'b' - back to menu" + bcolors.ENDC + "\n\n")
+            """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
+                       blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S))
+        print("\n\n\t\t'f' - first page'" + Bcolors.GREEN + "\t'u' - update notes'" + Bcolors.ENDC
+              + Bcolors.YELLOW + "\t'b' - back to menu" + Bcolors.ENDC + "\n\n")
         selection = input()
         if selection == 'f':
             first_page()
@@ -465,7 +470,7 @@ def first_time():
 
     def first_page():
         clear_the_screen()
-        print(bcolors.BOLD + """
+        print(Bcolors.BOLD + """
 
         You can use all implemented features, but if you want to be able to program
         Arduino-based nodes - enter Features menu and begin with first 2 points.
@@ -481,7 +486,7 @@ def first_time():
         If you found any bug - please report via GitHub or Facebook.\n
                 Enjoy!
                                             Szafran
-        """ + bcolors.ENDC)
+        """ + Bcolors.ENDC)
 
         menu = '''{green}
             s - second page {endc}
@@ -489,7 +494,7 @@ def first_time():
             u -  update notes {yellow}
         
             b - back to main menu {endc}
-        '''.format(green=bcolors.GREEN, endc=bcolors.ENDC, yellow=bcolors.YELLOW)
+        '''.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, yellow=Bcolors.YELLOW)
         print(menu)
         selection = input()
         if selection == 's':
@@ -509,7 +514,7 @@ def end():
     clear_the_screen()
     print("\n\n")
     ota_image()
-    print("\t\t\t\t   " + bcolors.BOLD + "Happy flyin'!" + bcolors.ENDC + "\n")
+    print("\t\t\t\t   " + Bcolors.BOLD + "Happy flyin'!" + Bcolors.ENDC + "\n")
     sleep(1.3)
     clear_the_screen()
     sys.exit()
@@ -521,7 +526,7 @@ def main_menu():
     config_check()
     menu = """
     
-                        {red}{bold}{underline}MAIN MENU{endc}
+                    {red}{bold}{underline}MAIN MENU{endc}
                 
     {blue}{bold}
                         1 - RotorHazard Manager
@@ -538,8 +543,8 @@ def main_menu():
                         {yellow}
                         e - Exit {endc}
                         
-            """.format(bold=bcolors.BOLD_S, underline=bcolors.UNDERLINE, endc=bcolors.ENDC,
-                       blue=bcolors.BLUE, yellow=bcolors.YELLOW_S, red=bcolors.RED_S, orange=bcolors.ORANGE_S)
+            """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
+                       blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
     print(menu)
     selection = input()
     if selection == '1':
@@ -554,7 +559,7 @@ def main_menu():
     if selection == '5':
         first_time()
     if selection == '6':
-        os.system("python3 ./conf_wizard_ota.py")
+        os.system(f". /home/{user}/RH-ota/open_scripts.sh; ota_configuration_start")
     if selection == 'logme':
         log_write()
         log_send()

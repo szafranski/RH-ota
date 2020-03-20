@@ -6,6 +6,16 @@
         ^^^^^^^^^^^^
 
 
+2.2.10beta1
+
+Code mostly cleaned
+OTA converted to python3
+Opening script implemented
+Link to Facebook group added to readme
+
+
+_________________________________________________________________
+
 2.2.9n
 
 Small fixes

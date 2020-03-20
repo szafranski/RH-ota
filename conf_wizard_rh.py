@@ -1,7 +1,7 @@
 from time import sleep
 import os
 import json
-from modules import clear_the_screen, bcolors, logo_top
+from modules import clear_the_screen, Bcolors, logo_top
 
 homedir = os.path.expanduser('~')
 
@@ -207,8 +207,8 @@ Default values are not automatically applied. Type them if needed.\n""")
                 else:
                     if cores in ['1', '2', '3']:
                         cores_val = str(cores)
-                        os.system("sed -i 's/\"CORS_ALLOWED_HOSTS\": \"\*\"/\"CORS_ALLOWED_HOSTS\": \"" + str(
-                            cores_val) + "\"/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
+                        os.system("sed -i 's/\"CORS_ALLOWED_HOSTS\": \"\*\"/\"CORS_ALLOWED_HOSTS\": \""
+                                  + str(cores_val) + "\"/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
                     elif cores == 'all':
                         cores_val = 'all'
                     else:
@@ -230,7 +230,7 @@ Default values are not automatically applied. Type them if needed.\n""")
             freq = '800000'
             print("\nAdvanced configuration set to default values.\n\n")
             sleep(1.2)
-        print("""\n\n\t\t\t""" + bcolors.UNDERLINE + """CONFIGURATION""" + bcolors.ENDC + """:\n\t
+        print("""\n\n\t\t\t""" + Bcolors.UNDERLINE + """CONFIGURATION""" + Bcolors.ENDC + """:\n\t
         Admin name: \t\t""" + admin_name + """
         Admin password: \t""" + admin_pass + """
         RotorHazard port: \t""" + port + """

@@ -24,7 +24,7 @@ else:
 myPlace = data['country']
 
 
-class bcolors:
+class Bcolors:
     HEADER = '\033[95m'
     ORANGE = '\033[33m'
     BLUE = '\033[94m'
@@ -47,13 +47,12 @@ def logo_top():
     print("""\n    
         #######################################################################
         ###                                                                 ###
-        ###\t\t\t""" + bcolors.ORANGE + """     """ + bcolors.BOLD + """RotorHazard        """
-          + bcolors.ENDC + """\t\t    ###
+        ###            {orange}{bold}RotorHazard{endc}                      ###  
         ###                                                                 ###
-        ###                     """ + bcolors.BOLD + """OTA Updater and Manager""" + bcolors.ENDC
-          + """                     ###
+        ###            {bold}OTA Updater and Manager{endc}                  ###
         ###                                                                 ###
-        #######################################################################""")
+        #######################################################################
+        """).format(orange=Bcolors.ORANGE_S, bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S)
     if linux_testing:
         print("\t\t\t\t\t  Linux PC version")
     if not os.path.exists("./updater-config.json"):
@@ -72,8 +71,8 @@ def step_four():
                     line.replace('####', '')
                     if '####' in line:
                         break
-    print("""\n\t\t\t\t""" + bcolors.GREEN + """    Reboot by pressing 'r' """ + bcolors.ENDC + """\n\n\t\t\t\t"""
-          + bcolors.YELLOW + """    Exit by pressing 'e'""" + bcolors.ENDC)
+    print("""\n\t\t\t\t""" + Bcolors.GREEN + """    Reboot by pressing 'r' """ + Bcolors.ENDC + """\n\n\t\t\t\t"""
+          + Bcolors.YELLOW + """    Exit by pressing 'e'""" + Bcolors.ENDC)
     selection = str(input(""))
     if selection == 'r':
         os.system("sudo reboot")
@@ -93,8 +92,8 @@ def step_three():
                     line.replace('####', '')
                     if '####' in line:
                         break
-    print("""\n\t\t\t\t""" + bcolors.GREEN + """    Reboot by pressing 'r' """ + bcolors.ENDC + """\n\n\t\t\t\t"""
-          + bcolors.YELLOW + """    Exit by pressing 'e'""" + bcolors.ENDC + """\n""")
+    print("""\n\t\t\t\t""" + Bcolors.GREEN + """    Reboot by pressing 'r' """ + Bcolors.ENDC + """\n\n\t\t\t\t"""
+          + Bcolors.YELLOW + """    Exit by pressing 'e'""" + Bcolors.ENDC + """\n""")
     selection = str(input(""))
     if selection == 'r':
         os.system("sudo reboot")
@@ -133,8 +132,8 @@ def step_one():
     os.system("sudo apt install curl -y")
     os.system("curl -sL https://install.raspap.com | bash -s -- -y")
     step_two()
-    print("""\n\t\t\t\t""" + bcolors.GREEN + """Reboot by pressing 'r' """ + bcolors.ENDC + """\n\n\t\t\t\t"""
-          + bcolors.YELLOW + """Exit by pressing 'e'""" + bcolors.ENDC + """\n""")
+    print("""\n\t\t\t\t""" + Bcolors.GREEN + """Reboot by pressing 'r' """ + Bcolors.ENDC + """\n\n\t\t\t\t"""
+          + Bcolors.YELLOW + """Exit by pressing 'e'""" + Bcolors.ENDC + """\n""")
     selection = str(input(""))
     if selection == 'r':
         os.system("sudo reboot")
@@ -158,10 +157,10 @@ def step_zero():
                     if '####' in line:
                         break
     print("""\n
-    \t\t""" + bcolors.GREEN + """'y' - Yes, let's do it """ + bcolors.ENDC + """\n
+    \t\t""" + Bcolors.GREEN + """'y' - Yes, let's do it """ + Bcolors.ENDC + """\n
     \t\t'3' - enters "Step 3." - check it after first two steps\n
     \t\t'x' - enters Access Point extra menu - info after operation\n
-    \t\t""" + bcolors.YELLOW + """'e' - exit to main menu""" + bcolors.ENDC + """\n""")
+    \t\t""" + Bcolors.YELLOW + """'e' - exit to main menu""" + Bcolors.ENDC + """\n""")
     selection = str(input(""))
     if selection == 'y':
         step_one()
@@ -187,8 +186,8 @@ def ap_menu():
                         line.replace('\n', '').replace('####', '')
                         if '####' in line:
                             break
-        selection = input("\t\t\t" + bcolors.GREEN + "'k' - OK '" + bcolors.ENDC
-                          + "\t\t" + bcolors.YELLOW + "'b' - go back" + bcolors.ENDC + "\n")
+        selection = input("\t\t\t" + Bcolors.GREEN + "'k' - OK '" + Bcolors.ENDC
+                          + "\t\t" + Bcolors.YELLOW + "'b' - go back" + Bcolors.ENDC + "\n")
         if selection == 'k':
             sys.exit()
         if selection == 'b':
@@ -209,8 +208,8 @@ def ap_menu():
                         line.replace('\n', '').replace('####', '')
                         if '####' in line:
                             break
-        selection = input("\t\t\t" + bcolors.GREEN + "'s' - second page'" + bcolors.ENDC + "\t\t"
-                          + bcolors.YELLOW + "'b' - go back" + bcolors.ENDC + "\n")
+        selection = input("\t\t\t" + Bcolors.GREEN + "'s' - second page'" + Bcolors.ENDC + "\t\t"
+                          + Bcolors.YELLOW + "'b' - go back" + Bcolors.ENDC + "\n")
         if selection == 's':
             second_page()
         if selection == 'b':
