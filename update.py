@@ -8,6 +8,7 @@ def compatibility(parser, home_dir):  # adds compatibility and fixes with previo
     from prev_comp import prev_comp
     prev_comp(parser, home_dir)
 
+
 def config_check():
     if not os.path.exists("./updater-config.json"):
         print("""
@@ -21,7 +22,7 @@ def log_to_dev(parser, config):
     log_send(parser, config)
 
 
-def log_write( config):
+def log_write(config):
     os.chdir("/home/" + config.user + "/RH-ota")
     os.system("mkdir log_data > /dev/null 2>&1")
     os.system("rm log_data/log.txt > /dev/null 2>&1")
@@ -86,6 +87,7 @@ def log_send(parser, config):
             input("\n\n\tHit 'Enter' to continue\n\n")
             break
 
+
 def updated_check(config):
     user = config.user
     if os.path.exists(f"/home/" + user + "/.ota_markers/.was_updated"):
@@ -147,8 +149,8 @@ def avr_dude(config):
         if selection == 'e':
             break
 
-def serial_menu(parser, config):
 
+def serial_menu(parser, config):
     def serial_content():
         os.system("echo 'enable_uart=1'| sudo tee -a /boot/config.txt")
         os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
@@ -185,7 +187,8 @@ def serial_menu(parser, config):
         if selection == 'y':
             if parser.getint('added_functions', 'serial_added'):
                 print("\n\n\t\tLooks like you already enabled Serial port. \n\t\tDo you want to continue anyway?\n")
-                selection = input("\t\t\t" + Bcolors.YELLOW + "Press 'y' for yes or 'a' for abort" + Bcolors.ENDC + "\n")
+                selection = input(
+                    "\t\t\t" + Bcolors.YELLOW + "Press 'y' for yes or 'a' for abort" + Bcolors.ENDC + "\n")
                 if selection == 'y':
                     serial_content()
                     break
@@ -290,7 +293,8 @@ def self_updater(parser, config):
     For example "2.2.5c" contains nodes firmware with "API level 22".
     Self-updater will test your internet connection during every update.\n
     Updating script is currently set to mode: {green}{update_mode}{endc}.\n\n
-    """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, bold=Bcolors.BOLD, blue=Bcolors.BLUE, update_mode=config.update_mode)
+    """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, bold=Bcolors.BOLD, blue=Bcolors.BLUE,
+               update_mode=config.update_mode)
     print(updater)
     print(Bcolors.GREEN + """\t\tUpdate now by pressing 'u'""" + Bcolors.ENDC + """\n""")
     print(Bcolors.YELLOW + """\t\tGo back by pressing 'b'""" + Bcolors.ENDC + """\n\n""")
@@ -512,6 +516,7 @@ def main_menu(parser, config):
         if selection == '2dev':
             os.system("python3 ./.dev/done_nodes_update_dev.py")  # opens nodes updating file
 
+
 def main():
     updater_version = '2.2.10beta2d'
 
@@ -521,7 +526,7 @@ def main():
 
     home_dir = os.path.expanduser('~')
     config_check()
-    parser,config = load_config()
+    parser, config = load_config()
     compatibility(parser, home_dir)
     if not os.path.exists(home_dir + "/.ota_markers/ota_config.txt"):
         os.system(f"cp {home_dir}/RH-ota/resources/ota_config.txt {home_dir}/.ota_markers/ota_config.txt")
