@@ -1,9 +1,11 @@
 import json
 import os
 import sys
-import json
-from modules import clear_the_screen, Bcolors, image_show
 from configparser import ConfigParser
+from time import sleep
+
+
+from modules import clear_the_screen, Bcolors, image_show
 
 parser = ConfigParser()
 
@@ -53,8 +55,6 @@ def first():
     print("\n\n\n")
     image_show()
     sleep(0.5)
-
-
 first()
 
 

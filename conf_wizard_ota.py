@@ -125,6 +125,7 @@ Default values are not automatically applied. Type them if needed.\n""")
             if beta_tester not in beta_tester_allowed_values:
                 print("\nPlease enter correct value!")
             else:
+                beta_tester_val = '0'
                 if beta_tester in ['yes', '1', 'y']:
                     beta_tester_val = '1'
                 elif beta_tester in ['no', '0', 'n']:

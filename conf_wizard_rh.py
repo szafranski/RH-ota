@@ -1,12 +1,13 @@
 from time import sleep
 import os
 import json
-from modules import clear_the_screen, Bcolors, logo_top
+from modules import clear_the_screen, Bcolors, logo_top, load_config
 
-homedir = os.path.expanduser('~')
+home_dir = os.path.expanduser('~')
 
 clear_the_screen()
-logo_top(false)
+parser, config = load_config()
+logo_top(config.debug_user)
 
 if os.path.exists("./updater-config.json"):
     with open('updater-config.json') as config_file:
@@ -73,6 +74,7 @@ Default values are not automatically applied. Type them if needed.\n""")
         print("\nAre you planning to use LEDs in your system? [yes/no]\n")
         valid_options = ['y', 'yes', 'n', 'no']
         while True:
+            led_present_FLAG = False
             selection = input("\t").strip()
             if selection in valid_options:
                 break
@@ -83,66 +85,66 @@ Default values are not automatically applied. Type them if needed.\n""")
             if selection == 'n' or selection == 'no':
                 led_present_FLAG = False
             if led_present_FLAG:
-            while True:
-                led_count = input("\nHow many LEDs will you use in your system? [default: 0]\t\t\t")
-                if not led_count.isdigit() or int(led_count) < 0:
-                    print("\nPlease enter correct value!")
-                else:
-                    os.system("sed -i 's/\"LED_COUNT\": 0/\"LED_COUNT\": " + led_count + "/g' /home/" + user +
-                              "/RH-ota/.wizarded-rh-config.json")
-                    break
-            while True:
-                led_pin = input("\nWhich GPIO pin is connected to your LEDs data pin? [default: 10]\t")
-                if not led_pin.isdigit() or int(led_pin) < 0 or int(led_pin) > 40:
-                    print("\nPlease enter correct value!")
-                else:
-                    os.system("sed -i 's/\"LED_PIN\": 10/\"LED_PIN\": " + led_pin + "/g' /home/" + user +
-                              "/RH-ota/.wizarded-rh-config.json")
-                    break
-            while True:
-                led_inv = input("\nIs LED data pin output inverted? [yes/no | default: no]\t\t\t")
-                led_inv_allowed_values = ['yes', 'no', 'false', 'true', 'y', 'n']
-                if led_inv not in led_inv_allowed_values:
-                    print("\nPlease enter correct value!")
-                else:
-                    if led_inv in ['yes', '1', 'y']:
-                        led_inv_val = 'true'
-                    elif led_inv in ['no', '0', 'n']:
-                        led_inv_val = 'true'
-                    os.system("sed -i 's/\"LED_INVERT\": false/\"LED_INVERT\": " + led_inv_val + "/g' /home/" + user +
-                              "/RH-ota/.wizarded-rh-config.json")
-                    break
-            while True:
-                led_channel = input("\nWhat channel (not pin!) will be used with your LEDs? [default: 0]\t")
-                if not led_channel.isdigit() or int(led_channel) < 0 or int(led_channel) > 1:
-                    print("\nPlease enter correct value!")
-                else:
-                    os.system("sed -i 's/\"LED_CHANNEL\": 0/\"LED_CHANNEL\": " + led_channel + "/g' /home/" + user +
-                              "/RH-ota/.wizarded-rh-config.json")
-                    break
-            while True:
-                panel_rot = input("\nBy how many degrees is your panel rotated? [0/90/180/270 | default: 0]\t")
-                panel_rot_values_allowed = ['0', '90', '180', '270']
-                if panel_rot not in panel_rot_values_allowed:
-                    print("\nPlease enter correct value!")
-                else:
-                    panel_val = (int(panel_rot) / 90)
-                    os.system("sed -i 's/\"PANEL_ROTATE\": 0/\"PANEL_ROTATE\": " + str(
-                        panel_val) + "/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
-                    break
-            while True:
-                inv_rows = input("\nAre your panel rows inverted? [yes/no | default: no]\t\t\t")
-                inv_rows_allowed_values = ['yes', 'no', 'false', 'true', 'y', 'n']
-                if inv_rows not in inv_rows_allowed_values:
-                    print("\nPlease enter correct value!")
-                else:
-                    if inv_rows in ['yes', '1', 'y']:
-                        inv_rows_val = 'true'
-                    elif inv_rows in ['no', '0', 'n']:
-                        inv_rows_val = 'true'
-                    os.system("sed -i 's/\"INVERTED_PANEL_ROWS\": \"false\"/\"INVERTED_PANEL_ROWS\": \""
-                              + inv_rows_val + "\"/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
-                    break
+                while True:
+                    led_count = input("\nHow many LEDs will you use in your system? [default: 0]\t\t\t")
+                    if not led_count.isdigit() or int(led_count) < 0:
+                        print("\nPlease enter correct value!")
+                    else:
+                        os.system("sed -i 's/\"LED_COUNT\": 0/\"LED_COUNT\": " + led_count + "/g' /home/" + user +
+                                  "/RH-ota/.wizarded-rh-config.json")
+                        break
+                while True:
+                    led_pin = input("\nWhich GPIO pin is connected to your LEDs data pin? [default: 10]\t")
+                    if not led_pin.isdigit() or int(led_pin) < 0 or int(led_pin) > 40:
+                        print("\nPlease enter correct value!")
+                    else:
+                        os.system("sed -i 's/\"LED_PIN\": 10/\"LED_PIN\": " + led_pin + "/g' /home/" + user +
+                                  "/RH-ota/.wizarded-rh-config.json")
+                        break
+                while True:
+                    led_inv = input("\nIs LED data pin output inverted? [yes/no | default: no]\t\t\t")
+                    led_inv_allowed_values = ['yes', 'no', 'false', 'true', 'y', 'n']
+                    if led_inv not in led_inv_allowed_values:
+                        print("\nPlease enter correct value!")
+                    else:
+                        if led_inv in ['yes', '1', 'y']:
+                            led_inv_val = 'true'
+                        elif led_inv in ['no', '0', 'n']:
+                            led_inv_val = 'true'
+                        os.system("sed -i 's/\"LED_INVERT\": false/\"LED_INVERT\": " + led_inv_val + "/g' /home/" + user +
+                                  "/RH-ota/.wizarded-rh-config.json")
+                        break
+                while True:
+                    led_channel = input("\nWhat channel (not pin!) will be used with your LEDs? [default: 0]\t")
+                    if not led_channel.isdigit() or int(led_channel) < 0 or int(led_channel) > 1:
+                        print("\nPlease enter correct value!")
+                    else:
+                        os.system("sed -i 's/\"LED_CHANNEL\": 0/\"LED_CHANNEL\": " + led_channel + "/g' /home/" + user +
+                                  "/RH-ota/.wizarded-rh-config.json")
+                        break
+                while True:
+                    panel_rot = input("\nBy how many degrees is your panel rotated? [0/90/180/270 | default: 0]\t")
+                    panel_rot_values_allowed = ['0', '90', '180', '270']
+                    if panel_rot not in panel_rot_values_allowed:
+                        print("\nPlease enter correct value!")
+                    else:
+                        panel_val = (int(panel_rot) / 90)
+                        os.system("sed -i 's/\"PANEL_ROTATE\": 0/\"PANEL_ROTATE\": " + str(
+                            panel_val) + "/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
+                        break
+                while True:
+                    inv_rows = input("\nAre your panel rows inverted? [yes/no | default: no]\t\t\t")
+                    inv_rows_allowed_values = ['yes', 'no', 'false', 'true', 'y', 'n']
+                    if inv_rows not in inv_rows_allowed_values:
+                        print("\nPlease enter correct value!")
+                    else:
+                        if inv_rows in ['yes', '1', 'y']:
+                            inv_rows_val = 'true'
+                        elif inv_rows in ['no', '0', 'n']:
+                            inv_rows_val = 'true'
+                        os.system("sed -i 's/\"INVERTED_PANEL_ROWS\": \"false\"/\"INVERTED_PANEL_ROWS\": \""
+                                  + inv_rows_val + "\"/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
+                        break
 
         if not led_present_FLAG:
             led_count = '0'
@@ -192,6 +194,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                 if debug_mode not in debug_mode_allowed_values:
                     print("\nPlease enter correct value!")
                 else:
+                    debug = 'false'
                     if debug_mode in ['yes', '1', 'y']:
                         debug = 'true'
                     elif debug_mode in ['no', '0', 'n']:
