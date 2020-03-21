@@ -520,6 +520,9 @@ def main():
     # third number refers to actual version of the updater itself
 
     home_dir = os.path.expanduser('~')
+    clear_the_screen()
+    print("\n\n")
+    ota_image()
     config_check()
     parser,config = load_config()
     compatibility(parser, home_dir)
