@@ -37,13 +37,15 @@ if preferred_RH_version == 'custom':
 bus = SMBus(1)  # indicates /dev/ic2-1
 
 node1addr = 0x08
-node2addr = 0x10
-node3addr = 0x12
-node4addr = 0x14
+node2addr = 0x0a
+node3addr = 0x0c
+node4addr = 0x0e
 node5addr = 0x16
 node6addr = 0x18
 node7addr = 0x20
 node8addr = 0x22
+
+# address have to be compatible with RH addressing scheme
 
 gpio_reset_pin = 12  # GPIO pin 12 - nothing to do with nodes pin 12
 
