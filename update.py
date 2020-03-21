@@ -63,20 +63,20 @@ def log_send(parser, config):
             print("\n\tPlease wait, file is being uploaded...\n")
             os.system("rm ./log_data/log_name.txt > /dev/null 2>&1")
             os.system("rm ./log_data/log_code.txt > /dev/null 2>&1")
-            os.system(f"echo {log_name} > ./log_data/log_name.txt")
-            os.system(f"curl --upload-file ./log_data/log.txt https://transfer.sh/{log_name}_log.txt \
-                 | tee -a ./log_data/log_code.txt")
+            os.system("echo {log_name} > ./log_data/log_name.txt".format(log_name=log_name))
+            os.system("curl --upload-file ./log_data/log.txt https://transfer.sh/{log_name}_log.txt \
+                 | tee -a ./log_data/log_code.txt".format(log_name=log_name))
             print("\n")
             os.system("sed -i 's/https:\/\/transfer.sh\///g' ./log_data/log_code.txt")
-            os.system(f"sed -i 's/\/{log_name}_log.txt//g' ./log_data/log_code.txt")
+            os.system("sed -i 's/\/{log_name}_log.txt//g' ./log_data/log_code.txt".format(log_name=log_name))
             print("\n___________________________\n")
             print("\nTell your favourite developer those:\n")
-            print(f"User name: {log_name}")
+            print("User name: {log_name}".format(log_name=log_name))
             f = open("./log_data/log_code.txt", "r")
             code = ''
             for line in f:
                 code = line
-            print(f"\nUser code: {code}")
+            print("\nUser code: {code}".format(code=code))
             print("\n___________________________\n")
             input("\n\nHit 'Enter' to continue\n\n")
             if not os.system("cowsay You are awesome! Fly safe."):
@@ -90,7 +90,7 @@ def log_send(parser, config):
 
 def updated_check(config):
     user = config.user
-    if os.path.exists(f"/home/" + user + "/.ota_markers/.was_updated"):
+    if os.path.exists("/home/" + user + "/.ota_markers/.was_updated"):
         clear_the_screen()
         logo_top(config.debug_mode)
         print(""" {bold}
@@ -112,7 +112,7 @@ def updated_check(config):
             pass
         else:
             updated_check(config)
-        os.system(f"rm /home/" + user + "/.ota_markers/.was_updated >/dev/null 2>&1")
+        os.system("rm /home/" + user + "/.ota_markers/.was_updated >/dev/null 2>&1")
 
 
 def first(parser, config, updater_version):
@@ -508,7 +508,7 @@ def main_menu(parser, config):
         if selection == '5':
             first_time(parser, config)
         if selection == '6':
-            os.system(f". ./open_scripts.sh; ota_configuration_start")
+            os.system(". ./open_scripts.sh; ota_configuration_start")
         if selection == 'logme':
             log_to_dev(parser, config)
         if selection == 'e':
@@ -532,7 +532,7 @@ def main():
     parser, config = load_config()
     compatibility(parser, home_dir)
     if not os.path.exists(home_dir + "/.ota_markers/ota_config.txt"):
-        os.system(f"cp {home_dir}/RH-ota/resources/ota_config.txt {home_dir}/.ota_markers/ota_config.txt")
+        os.system("cp {home_dir}/RH-ota/resources/ota_config.txt {home_dir}/.ota_markers/ota_config.txt".format(home_dir=home_dir))
     first(parser, config, updater_version)
     main_menu(parser, config)
 
