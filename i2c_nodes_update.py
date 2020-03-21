@@ -23,15 +23,15 @@ if linux_testing:
     user = data['debug_user']
 else:
     user = data['pi_user']
-preffered_RH_version = data['RH_version']
+preferred_RH_version = data['RH_version']
 
-if preffered_RH_version == 'master':
+if preferred_RH_version == 'master':
     firmware_version = 'master'
-if preffered_RH_version == 'beta':
+if preferred_RH_version == 'beta':
     firmware_version = 'beta'
-if preffered_RH_version == 'stable':
+if preferred_RH_version == 'stable':
     firmware_version = 'stable'
-if preffered_RH_version == 'custom':
+if preferred_RH_version == 'custom':
     firmware_version = 'stable'
 
 bus = SMBus(1)  # indicates /dev/ic2-1
@@ -59,10 +59,8 @@ if not linux_testing:
 
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
-    GPIO.setup(gpio_reset_pin, GPIO.OUT, initial=GPIO.HIGH)
+    GPIO.setup(gpio_reset_pin, GPIO.OUT, initial=GPIO.HIGH)  # ensures nothing is being reset during program start
 
-
-    # ensures nothing is being reset during program start
 
     def disable_serial_on_all_nodes():
         bus.write_byte(node1addr, DISABLE_SERIAL)

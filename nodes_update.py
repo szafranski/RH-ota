@@ -620,7 +620,7 @@ def nodes_update():
     if selection == '4':
         flash_each_node()
     if selection == '5':
-        os.system("python ./.dev/i2c_nodes_update.py")
+        os.system("python ./i2c_nodes_update.py")
     if selection == '6':
         gpio_state()
     if selection == 'e':

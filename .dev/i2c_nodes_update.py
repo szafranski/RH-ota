@@ -149,8 +149,27 @@ def test():
     selection = input("What do you want to send?")
     if selection == '0':
         bus.write_byte(node1addr, 0x0)  # switch it off
+        bus.write_byte(node1addr, 0x0)  # switch it off
+        bus.write_byte(node1addr, 0x0)  # switch it off
+        bus.write_byte(node1addr, 0x0)  # switch it off
+        bus.write_byte(node1addr, 0x0)  # switch it off
+        bus.write_byte(node1addr, 0x0)  # switch it off
+        bus.write_byte(node1addr, 0x0)  # switch it off
+        bus.write_byte(node1addr, 0x0)  # switch it off
+        bus.write_byte(node1addr, 0x0)  # switch it off
+        bus.write_byte(node1addr, 0x0)  # switch it off
         test()
     if selection == '1':
+        bus.write_byte(node1addr, 0x1)  # switch it on
+        bus.write_byte(node1addr, 0x1)  # switch it on
+        bus.write_byte(node1addr, 0x1)  # switch it on
+        bus.write_byte(node1addr, 0x1)  # switch it on
+        bus.write_byte(node1addr, 0x1)  # switch it on
+        bus.write_byte(node1addr, 0x1)  # switch it on
+        bus.write_byte(node1addr, 0x1)  # switch it on
+        bus.write_byte(node1addr, 0x1)  # switch it on
+        bus.write_byte(node1addr, 0x1)  # switch it on
+        bus.write_byte(node1addr, 0x1)  # switch it on
         bus.write_byte(node1addr, 0x1)  # switch it on
         test()
     if selection == '2':
