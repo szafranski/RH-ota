@@ -2,6 +2,7 @@ import json
 import os
 import sys
 from configparser import ConfigParser
+from modules import internet_check
 from time import sleep
 
 
