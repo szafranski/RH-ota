@@ -4,11 +4,11 @@ import os
 import sys
 import json
 
-if os.path.exists("./updater-config.json"):
-    with open('updater-config.json') as config_file:
+if os.path.exists("/home/pi/RH-ota/updater-config.json"):
+    with open('/home/pi/RH-ota/updater-config.json') as config_file:
         data = json.load(config_file)
 else:
-    with open('distr-updater-config.json') as config_file:
+    with open('/home/pi/RH-ota/updater-config.json') as config_file:
         data = json.load(config_file)
 
 if data['debug_mode']:
@@ -148,7 +148,9 @@ if not linux_testing:
 def test():
     selection = input("What do you want to send?")
     if selection == '0':
-        bus.write_byte(node1addr, 0x0)  # switch it off
+        bus.write_byte(node1addr, 0x79)  # switch it off
+        os.system(
+            "sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/pi/RH-ota/firmware/i2c/reset_no_s.hex:i")
         bus.write_byte(node1addr, 0x0)  # switch it off
         bus.write_byte(node1addr, 0x0)  # switch it off
         bus.write_byte(node1addr, 0x0)  # switch it off
