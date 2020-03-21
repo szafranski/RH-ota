@@ -173,10 +173,10 @@ def flash_firmware_onto_all_gnd_nodes():
         # print(reset_list[i])
         node_one_reset()   #  todo iterate one, two, three etc.
         os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{user}\
-        /RH-ota/firmware/i2c/{firmware_version}/node_0.hex:i ").format(firmware=firmware_version)
+        /RH-ota/firmware/i2c/{firmware}/node_0.hex:i ").format(firmware=firmware_version)
         print(f"""avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{user}\
         /RH-ota/firmware/i2c/{firmware}/node_{i+1}.hex:i """.format(user=user, firmware=firmware_version))
-        print(f"\n\n\t\t\t\t{bold}Node {i+1} - flashed{endc}\n\n".format(bold=Bcolors.ENDC))
+        print(f"\n\n\t\t\t\t{bold}Node {i+1} - flashed{endc}\n\n".format(bold=Bcolors.BOLD, endc=Bcolors.ENDC))
         sleep(1)
 
 
@@ -189,10 +189,10 @@ def flash_blink_onto_all_gnd_nodes():
         # print(reset_list[i])
         node_one_reset()   #  todo iterate one, two, three etc.
         os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{user}\
-        /RH-ota/firmware/i2c/blink.hex:i ").format(firmware=firmware_version)
+        /RH-ota/{firmware}/i2c/blink.hex:i ").format(firmware=firmware_version)
         print(f"""avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{user}\
         /RH-ota/firmware/i2c/blink.hex:i """.format(user=user)
-        print(f"\n\n\t\t\t\t{bold}Node {(i+1)} - flashed{endc}\n\n".format(bold=Bcolors.ENDC))
+        print(f"""\n\n\t\t\t\t{bold}Node {(i+1)} - flashed{endc}\n\n""".format(bold=Bcolors.BOLD, endc=Bcolors.ENDC))
         sleep(1)
 
 
