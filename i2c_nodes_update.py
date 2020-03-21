@@ -5,6 +5,7 @@ import json
 from modules import clear_the_screen, Bcolors, logo_top
 from smbus import SMBus  # works only on Pi
 from modules import firmware_version
+#  todo check if it is ok? implement firmware version reading to modules.py
 
 bus = SMBus(1)  # indicates /dev/ic2-1
 
