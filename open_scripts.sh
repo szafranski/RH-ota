@@ -8,7 +8,7 @@ python3 update.py
 
 dots5()
 {
-for i in {1..5}
+for i in {1..5};
 do
 printf "."
 sleep 0.5
@@ -18,7 +18,7 @@ printf "\n\n"
 
 dots30()
 {
-for i in {1..30}
+for i in {1..30};
 do
 printf "."
 sleep 0.08

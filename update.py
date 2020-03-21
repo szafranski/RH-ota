@@ -1,63 +1,12 @@
-from time import sleep
 import os
 import sys
-import json
-from modules import clear_the_screen, Bcolors, logo_top, image_show, ota_image
-from configparser import ConfigParser
-
-parser = ConfigParser()
-
-updater_version = '2.2.10beta2c'
-
-# version of THIS program - has nothing to do with the RH version
-# it refers to the API level of newest contained nodes firmware
-# third number refers to actual version of the updater itself
-
-homedir = os.path.expanduser('~')
+from time import sleep
+from modules import clear_the_screen, Bcolors, logo_top, image_show, ota_image, load_config, parser_write
 
 
-def compatibility():  # adds compatibility and fixes with previous versions
-    os.system("python3 ./prev_comp.py")
-
-
-compatibility()
-
-if os.path.exists("./updater-config.json"):
-    with open('updater-config.json') as config_file:
-        data = json.load(config_file)
-else:
-    with open('distr-updater-config.json') as config_file:
-        data = json.load(config_file)
-
-preferred_RH_version = data['RH_version']
-
-if preferred_RH_version == 'master':
-    firmware_version = 'master'
-if preferred_RH_version == 'beta':
-    firmware_version = 'beta'
-if preferred_RH_version == 'stable':
-    firmware_version = 'stable'
-if preferred_RH_version == 'custom':
-    firmware_version = 'stable'
-
-if data['debug_mode']:
-    linux_testing = True
-else:
-    linux_testing = False
-
-if linux_testing:
-    user = data['debug_user']
-else:
-    user = data['pi_user']
-
-if data['beta_tester']:
-    update_mode = 'beta tester'
-else:
-    if data['updates_without_pdf']:
-        update_mode = 'without PDF'
-    else:
-        update_mode = 'with PDF'
-
+def compatibility(parser, home_dir):  # adds compatibility and fixes with previous versions
+    from prev_comp import prev_comp
+    prev_comp(parser, home_dir)
 
 def config_check():
     if not os.path.exists("./updater-config.json"):
@@ -67,90 +16,13 @@ def config_check():
         and next enter configuration wizard - point 6.""")
 
 
-if not os.path.exists(homedir + "/.ota_markers/ota_config.txt"):
-    os.system(f"cp {homedir}/RH-ota/resources/ota_config.txt {homedir}/.ota_markers/ota_config.txt")
+def log_to_dev(parser, config):
+    log_write(config)
+    log_send(parser, config)
 
 
-def parser_write():
-    try:
-        with open(f'/home/{user}/.ota_markers/ota_config.txt', 'w') as configfile:
-            parser.write(configfile)
-    except IOError as up:
-        print("Config file does not exist and could not be created.")
-
-
-def log_to_dev():
-
-    def log_write():
-        os.chdir("/home/" + user + "/RH-ota")
-        os.system("mkdir log_data > /dev/null 2>&1")
-        os.system("rm log_data/log.txt > /dev/null 2>&1")
-        os.system("echo >./ log_data / log.txt")
-        os.system("echo FILE /boot/config.txt | tee -a  ./log_data/log.txt")
-        os.system("echo -------------------------------------------- | tee -a  ./log_data/log.txt")
-        os.system("echo | tee -a  ./log_data/log.txt")
-        os.system("cat /boot/config.txt | tee -a  ./log_data/log.txt")
-        os.system("echo | tee -a  ./log_data/log.txt")
-        os.system("echo FILE /boot/cmdline.txt | tee -a  ./log_data/log.txt")
-        os.system("echo -------------------------------------------- | tee -a  ./log_data/log.txt")
-        os.system("echo | tee -a  ./log_data/log.txt")
-        os.system("cat /boot/cmdline.txt | tee -a  ./log_data/log.txt")
-        os.system("echo | tee -a  ./log_data/log.txt")
-        os.system("echo FILE updater-config.json | tee -a  ./log_data/log.txt")
-        os.system("echo -------------------------------------------- | tee -a  ./log_data/log.txt")
-        os.system("echo | tee -a  ./log_data/log.txt")
-        os.system("cat ~/RH-ota/updater-config.json | tee -a  ./log_data/log.txt")
-        os.system("echo | tee -a  ./log_data/log.txt")
-        os.system("echo FILE ~/.ota_markers/ota_config.txt | tee -a  ./log_data/log.txt")
-        os.system("echo -------------------------------------------- | tee -a  ./log_data/log.txt")
-        os.system("echo | tee -a  ./log_data/log.txt")
-        os.system("cat ~/.ota_markers/ota_config.txt | tee -a ./log_data/log.txt")
-        os.system("echo | tee -a  ./log_data/log.txt")
-        print("LOGGING TO FILE - DONE")
-        sleep(1.5)
-
-    def log_send():
-        selection = input("\n\n\tDo you want to send a log file for a review to the developer? [y/n] ")
-        if selection == 'y' or selection == 'yes':
-            if not parser.getint('added_functions', 'curl_installed'):
-                if not os.system("sudo apt install curl cowsay"):
-                    parser.set('added_functions', 'curl_installed', '1')
-                    parser_write()
-            log_name = input("\n\tPlease enter your name so we know who sent a log file: ")
-            print("\n\tPlease wait, file is being uploaded...\n")
-            os.system("rm ./log_data/log_name.txt > /dev/null 2>&1")
-            os.system("rm ./log_data/log_code.txt > /dev/null 2>&1")
-            os.system(f"echo {log_name} > ./log_data/log_name.txt")
-            os.system(f"curl --upload-file ./log_data/log.txt https://transfer.sh/{log_name}_log.txt \
-                 | tee -a ./log_data/log_code.txt")
-            print("\n")
-            os.system("sed -i 's/https:\/\/transfer.sh\///g' ./log_data/log_code.txt")
-            os.system(f"sed -i 's/\/{log_name}_log.txt//g' ./log_data/log_code.txt")
-            print("\n___________________________\n")
-            print("\nTell your favourite developer those:\n")
-            print(f"User name: {log_name}")
-            f = open("./log_data/log_code.txt", "r")
-            for line in f:
-                code = line
-            print(f"\nUser code: {code}")
-            print("\n___________________________\n")
-            input("\n\nHit 'Enter' to continue\n\n")
-            if not os.system("cowsay You are awesome! Fly safe."):
-                sleep(3)
-            main_menu()
-        if selection == 'n' or selection == 'no':
-            print("\n\n\tOK - you log file is stored under 'log.txt' name in RH-ota directory.")
-            input("\n\n\tHit 'Enter' to continue\n\n")
-            main_menu()
-        else:
-            log_send()
-
-    log_write()
-    log_send()
-
-
-def log_write():
-    os.chdir("/home/" + user + "/RH-ota")
+def log_write( config):
+    os.chdir("/home/" + config.user + "/RH-ota")
     os.system("mkdir log_data > /dev/null 2>&1")
     os.system("rm log_data/log.txt > /dev/null 2>&1")
     os.system("echo >./ log_data / log.txt")
@@ -178,47 +50,47 @@ def log_write():
     sleep(1.5)
 
 
-def log_send():
-    selection = input("\n\n\tDo you want to send a log file for a review to the developer? [y/n] ")
-    if selection == 'y' or selection == 'yes':
-        if not parser.getint('added_functions', 'curl_installed'):
-            if not os.system("sudo apt install curl cowsay"):
-                parser.set('added_functions', 'curl_installed', '1')
-                parser_write()
-        log_name = input("\n\tPlease enter your name so we know who sent a log file: ")
-        print("\n\tPlease wait, file is being uploaded...\n")
-        os.system("rm ./log_data/log_name.txt > /dev/null 2>&1")
-        os.system("rm ./log_data/log_code.txt > /dev/null 2>&1")
-        os.system(f"echo {log_name} > ./log_data/log_name.txt")
-        os.system(f"curl --upload-file ./log_data/log.txt https://transfer.sh/{log_name}_log.txt \
-             | tee -a ./log_data/log_code.txt")
-        print("\n")
-        os.system("sed -i 's/https:\/\/transfer.sh\///g' ./log_data/log_code.txt")
-        os.system(f"sed -i 's/\/{log_name}_log.txt//g' ./log_data/log_code.txt")
-        print("\n___________________________\n")
-        print("\nTell your favourite developer those:\n")
-        print(f"User name: {log_name}")
-        f = open("./log_data/log_code.txt", "r")
-        for line in f:
-            code = line
-        print(f"\nUser code: {code}")
-        print("\n___________________________\n")
-        input("\n\nHit 'Enter' to continue\n\n")
-        if not os.system("cowsay You are awesome! Fly safe."):
-            sleep(3)
-        main_menu()
-    if selection == 'n' or selection == 'no':
-        print("\n\n\tOK - you log file is stored under 'log.txt' name in RH-ota directory.")
-        input("\n\n\tHit 'Enter' to continue\n\n")
-        main_menu()
-    else:
-        log_send()
+def log_send(parser, config):
+    while True:
+        selection = input("\n\n\tDo you want to send a log file for a review to the developer? [y/n] ")
+        if selection == 'y' or selection == 'yes':
+            if not parser.getint('added_functions', 'curl_installed'):
+                if not os.system("sudo apt install curl cowsay"):
+                    parser.set('added_functions', 'curl_installed', '1')
+                    parser_write(parser, config)
+            log_name = input("\n\tPlease enter your name so we know who sent a log file: ")
+            print("\n\tPlease wait, file is being uploaded...\n")
+            os.system("rm ./log_data/log_name.txt > /dev/null 2>&1")
+            os.system("rm ./log_data/log_code.txt > /dev/null 2>&1")
+            os.system(f"echo {log_name} > ./log_data/log_name.txt")
+            os.system(f"curl --upload-file ./log_data/log.txt https://transfer.sh/{log_name}_log.txt \
+                 | tee -a ./log_data/log_code.txt")
+            print("\n")
+            os.system("sed -i 's/https:\/\/transfer.sh\///g' ./log_data/log_code.txt")
+            os.system(f"sed -i 's/\/{log_name}_log.txt//g' ./log_data/log_code.txt")
+            print("\n___________________________\n")
+            print("\nTell your favourite developer those:\n")
+            print(f"User name: {log_name}")
+            f = open("./log_data/log_code.txt", "r")
+            code = ''
+            for line in f:
+                code = line
+            print(f"\nUser code: {code}")
+            print("\n___________________________\n")
+            input("\n\nHit 'Enter' to continue\n\n")
+            if not os.system("cowsay You are awesome! Fly safe."):
+                sleep(3)
+            break
+        if selection == 'n' or selection == 'no':
+            print("\n\n\tOK - you log file is stored under 'log.txt' name in RH-ota directory.")
+            input("\n\n\tHit 'Enter' to continue\n\n")
+            break
 
-
-def updated_check():
+def updated_check(config):
+    user = config.user
     if os.path.exists(f"/home/" + user + "/.ota_markers/.was_updated"):
         clear_the_screen()
-        logo_top()
+        logo_top(config.debug_mode)
         print(""" {bold}
         Software was updated recently to the new version.
 
@@ -237,55 +109,51 @@ def updated_check():
         if selection == 's':
             pass
         else:
-            updated_check()
+            updated_check(config)
         os.system(f"rm /home/" + user + "/.ota_markers/.was_updated >/dev/null 2>&1")
 
 
-def first():
-    parser.read(f'/home/{user}/.ota_markers/ota_config.txt')
+def first(parser, config, updater_version):
+    parser.read(f'/home/{config.user}/.ota_markers/ota_config.txt')
     clear_the_screen()
     print("\n\n")
     image_show()
     print("\t\t\t " + Bcolors.BOLD + "Updater version: " + str(updater_version) + Bcolors.ENDC)
     sleep(1)
-    updated_check()
+    updated_check(config)
 
 
-def avr_dude():
-    clear_the_screen()
-    logo_top()
-    menu = """
-            {red}{bold}
-                        AVRDUDE MENU
-                        
-            {blue}    
-                    'i' - Install avrdude {endc}{yellow}
-            {bold}
-                    'e' - Go back {endc}
-            """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
-                       blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
-    print(menu)
-    selection = input()
-    if selection == '1':
-        os.system("sudo apt-get update")
-        os.system("sudo apt-get install avrdude -y")
-        print("\nDone\n")
-        sleep(2)
-    if selection == 'e':
-        main_menu()
-    else:
-        avr_dude()
+def avr_dude(config):
+    while True:
+        clear_the_screen()
+        logo_top(config.debug_mode)
+        menu = """
+                {red}{bold}
+                            AVRDUDE MENU
+                            
+                {blue}    
+                        'i' - Install avrdude {endc}{yellow}
+                {bold}
+                        'e' - Go back {endc}
+                """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
+                           blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
+        print(menu)
+        selection = input()
+        if selection == '1':
+            os.system("sudo apt-get update")
+            os.system("sudo apt-get install avrdude -y")
+            print("\nDone\n")
+            sleep(2)
+        if selection == 'e':
+            break
 
-
-def serial_menu():
-    clear_the_screen()
-    logo_top()
+def serial_menu(parser, config):
 
     def serial_content():
         os.system("echo 'enable_uart=1'| sudo tee -a /boot/config.txt")
         os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
         parser.set('added_functions', 'serial_added', '1')
-        parser_write()
+        parser_write(parser, config)
         print("""
         
         Serial port enabled successfully
@@ -295,46 +163,52 @@ def serial_menu():
         b - Go back{endc}
             """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
                        blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S))
-        selection = input()
-        if selection == 'r':
+        selection_2 = input()
+        if selection_2 == 'r':
             os.system("sudo reboot")
-        if selection == 'b':
-            features_menu()
+        if selection_2 == 'b':
+            return
 
-    print("""
-        Serial port has to be enabled. 
-        Without it Arduinos cannot be programmed.
-        Do you want to enable it now?""")
-    selection = input("\n\t\t\t" + Bcolors.YELLOW + "Press 'y' for yes or 'a' for abort" + Bcolors.ENDC + "\n")
-    if selection == 'y':
-        if parser.getint('added_functions', 'serial_added'):
-            print("\n\n\t\tLooks like you already enabled Serial port. \n\t\tDo you want to continue anyway?\n")
-            selection = input("\t\t\t" + Bcolors.YELLOW + "Press 'y' for yes or 'a' for abort" + Bcolors.ENDC + "\n")
-            if selection == 'y':
-                serial_content()
-            if selection == 'a':
-                features_menu()
+    while True:
+        clear_the_screen()
+        logo_top(config.debug_mode)
+        menu = """
+            Serial port has to be enabled. 
+            Without it Arduinos cannot be programmed.
+            Do you want to enable it now?
+            
+            {yellow}
+            y - for yes 
+            a - for abort{endc}
+            """.format(endc=Bcolors.ENDC, yellow=Bcolors.YELLOW)
+        selection = input(menu)
+        if selection == 'y':
+            if parser.getint('added_functions', 'serial_added'):
+                print("\n\n\t\tLooks like you already enabled Serial port. \n\t\tDo you want to continue anyway?\n")
+                selection = input("\t\t\t" + Bcolors.YELLOW + "Press 'y' for yes or 'a' for abort" + Bcolors.ENDC + "\n")
+                if selection == 'y':
+                    serial_content()
+                    break
+                if selection == 'a':
+                    break
             else:
-                serial_menu()
-        else:
-            serial_content()
-    if selection == 'a':
-        features_menu()
-    else:
-        serial_menu()
+                serial_content()
+                break
+        if selection == 'a':
+            break
 
 
-def aliases_menu():
+def aliases_menu(parser, config):
     clear_the_screen()
 
     def aliases_content():
         os.system("cat ./resources/aliases.txt | tee -a ~/.bashrc")
         parser.set('added_functions', 'aliases_1', '1')
         parser.set('added_functions', 'aliases_2', '1')
-        parser_write()
+        parser_write(parser, config)
         print("\n\n\t\t    Aliases added successfully")
         sleep(3)
-        features_menu()
+        features_menu(parser, config)
 
     aliases = """
     Aliases in Linux act like shortcuts or references to another commands. 
@@ -373,21 +247,21 @@ def aliases_menu():
             if selection == 'y':
                 aliases_content()
             if selection == 'a':
-                features_menu()
+                features_menu(parser, config)
             else:
-                aliases_menu()
+                aliases_menu(parser, config)
         else:
             aliases_content()
     if selection == 'a':
-        features_menu()
+        features_menu(parser, config)
     else:
-        aliases_menu()
+        aliases_menu(parser, config)
 
 
-def self_updater():
+def self_updater(parser, config):
     def add_updater():
         clear_the_screen()
-        logo_top()
+        logo_top(config.debug_mode)
         print("""\n
     Permissions required so 'zip' and 'unzip' program can be downloaded.
     Performed only during first instance of entering this sub-menu\n""")
@@ -399,12 +273,12 @@ def self_updater():
         os.system("echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python \
          ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null")
         parser.set('added_functions', 'updater_planted', '1')
-        parser_write()
+        parser_write(parser, config)
 
     if not parser.getint('added_functions', 'updater_planted'):
         add_updater()
     clear_the_screen()
-    logo_top()
+    logo_top(config.debug_mode)
     updater = """{bold}
     If you want to update this program and download new firmware, 
     prepared for Arduino nodes - so you can next flash them 
@@ -416,22 +290,22 @@ def self_updater():
     For example "2.2.5c" contains nodes firmware with "API level 22".
     Self-updater will test your internet connection during every update.\n
     Updating script is currently set to mode: {green}{update_mode}{endc}.\n\n
-    """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, bold=Bcolors.BOLD, blue=Bcolors.BLUE, update_mode=update_mode)
+    """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, bold=Bcolors.BOLD, blue=Bcolors.BLUE, update_mode=config.update_mode)
     print(updater)
     print(Bcolors.GREEN + """\t\tUpdate now by pressing 'u'""" + Bcolors.ENDC + """\n""")
     print(Bcolors.YELLOW + """\t\tGo back by pressing 'b'""" + Bcolors.ENDC + """\n\n""")
     selection = input()
     if selection == 'b':
-        features_menu()
+        features_menu(parser, config)
     if selection == 'u':
         os.system(". ./open_scripts.sh; updater_from_ota")
     else:
-        self_updater()
+        self_updater(parser, config)
 
 
-def features_menu():
+def features_menu(parser, config):
     clear_the_screen()
-    logo_top()
+    logo_top(config.debug_mode)
     features = """
 
                     {red}{bold}{underline}FEATURES MENU{endc}
@@ -456,9 +330,9 @@ def features_menu():
     print(features)
     selection = input()
     if selection == '1':
-        avr_dude()
+        avr_dude(config)
     if selection == '2':
-        serial_menu()
+        serial_menu(parser, config)
     if selection == '3':
         os.system("python3 ./net_and_ap.py")
     if selection == '4':
@@ -469,7 +343,7 @@ def features_menu():
                 if selection == 'y' or selection == 'yes':
                     if not os.system("sudo apt-get install python3-gpiozero"):
                         parser.set('added_functions', 'pinout_installed', '1')
-                        parser_write()
+                        parser_write(parser, config)
                         break
                     else:
                         print("\nFailed to install required package.\n")
@@ -486,16 +360,16 @@ def features_menu():
             print("\nAdditional software needed. Please re-enter this menu.\n")
             sleep(3)
     if selection == '5':
-        aliases_menu()
+        aliases_menu(parser, config)
     if selection == '6':
-        self_updater()
+        self_updater(parser, config)
     if selection == 'e':
-        main_menu()
+        main_menu(parser, config)
     else:
-        features_menu()
+        features_menu(parser, config)
 
 
-def first_time():
+def first_time(parser, config):
     def update_notes():
         clear_the_screen()
         os.system("less ./docs/update-notes.txt")
@@ -532,7 +406,7 @@ def first_time():
         if selection == 'f':
             first_page()
         if selection == 'b':
-            main_menu()
+            main_menu(parser, config)
         if selection == 'u':
             update_notes()
         else:
@@ -572,15 +446,15 @@ def first_time():
         if selection == 'u':
             update_notes()
         if selection == 'b':
-            main_menu()
+            main_menu(parser, config)
         else:
             first_page()
 
     first_page()
 
 
-def end():
-    parser_write()
+def end(parser, config):
+    parser_write(parser, config)
     clear_the_screen()
     print("\n\n")
     ota_image()
@@ -590,56 +464,70 @@ def end():
     sys.exit()
 
 
-def main_menu():
+def main_menu(parser, config):
     clear_the_screen()
-    logo_top()
+    logo_top(config.debug_mode)
     config_check()
-    menu = """
-    
-                    {red}{bold}{underline}MAIN MENU{endc}
-                
-    {blue}{bold}
-                        1 - RotorHazard Manager
-                        
-                        2 - Nodes flash and update {endc} 
-                        {bold}
-                        3 - Start the server now
-                        
-                        4 - Additional features
-                        
-                        5 - Info + first time here
-                        
-                        6 - Configuration wizard {endc}
-                        {yellow}
-                        e - Exit {endc}
-                        
-            """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
-                       blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
-    print(menu)
-    selection = input()
-    if selection == '1':
-        os.system("python3 ./rpi_update.py")  # opens raspberry updating file
-    if selection == '2':
-        os.system("python3 ./nodes_update.py")  # opens nodes updating file
-    if selection == '3':
-        clear_the_screen()
-        os.system(". ./open_scripts.sh; server_start")
-    if selection == '4':
-        features_menu()
-    if selection == '5':
-        first_time()
-    if selection == '6':
-        os.system(f". ./open_scripts.sh; ota_configuration_start")
-    if selection == 'logme':
-        log_to_dev()
-    if selection == 'e':
-        end()
-    if selection == '2dev':
-        os.system("python3 ./.dev/done_nodes_update_dev.py")  # opens nodes updating file
-    else:
-        main_menu()
+    while True:
+        menu = """
+        
+                        {red}{bold}{underline}MAIN MENU{endc}
+                    
+        {blue}{bold}
+                            1 - RotorHazard Manager
+                            
+                            2 - Nodes flash and update {endc} 
+                            {bold}
+                            3 - Start the server now
+                            
+                            4 - Additional features
+                            
+                            5 - Info + first time here
+                            
+                            6 - Configuration wizard {endc}
+                            {yellow}
+                            e - Exit {endc}
+                            
+                """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
+                           blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
+        print(menu)
+        selection = input()
+        if selection == '1':
+            os.system("python3 ./rpi_update.py")  # opens raspberry updating file
+        if selection == '2':
+            os.system("python3 ./nodes_update.py")  # opens nodes updating file
+        if selection == '3':
+            clear_the_screen()
+            os.system(". ./open_scripts.sh; server_start")
+        if selection == '4':
+            features_menu(parser, config)
+        if selection == '5':
+            first_time(parser, config)
+        if selection == '6':
+            os.system(f". ./open_scripts.sh; ota_configuration_start")
+        if selection == 'logme':
+            log_to_dev(parser, config)
+        if selection == 'e':
+            end(parser, config)
+        if selection == '2dev':
+            os.system("python3 ./.dev/done_nodes_update_dev.py")  # opens nodes updating file
+
+def main():
+    updater_version = '2.2.10beta2d'
+
+    # version of THIS program - has nothing to do with the RH version
+    # it refers to the API level of newest contained nodes firmware
+    # third number refers to actual version of the updater itself
+
+    home_dir = os.path.expanduser('~')
+    config_check()
+    parser,config = load_config()
+    compatibility(parser, home_dir)
+    if not os.path.exists(home_dir + "/.ota_markers/ota_config.txt"):
+        os.system(f"cp {home_dir}/RH-ota/resources/ota_config.txt {home_dir}/.ota_markers/ota_config.txt")
+    first(parser, config, updater_version)
+    main_menu(parser, config)
 
 
 if __name__ == "__main__":
-    first()
-    main_menu()
+    main()

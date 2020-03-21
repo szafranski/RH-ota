@@ -1,27 +1,12 @@
+from configparser import ConfigParser
+from shutil import copyfile
 from time import sleep
 import os
 import platform
 import sys
 import json
 import time
-
-if os.path.exists("./updater-config.json"):
-    with open('updater-config.json') as config_file:
-        data = json.load(config_file)
-else:
-    with open('distr-updater-config.json') as config_file:
-        data = json.load(config_file)
-
-if data['debug_mode']:
-    linux_testing = True
-else:
-    linux_testing = False 
-
-if linux_testing:
-    user = data['debug_user']
-else:
-    user = data['pi_user']
-
+from types import SimpleNamespace as Namespace
 
 def clear_the_screen():
     sleep(0.05)
@@ -74,7 +59,7 @@ def check_if_string_in_file(file_name, string_to_search):
     return False
 
 
-def logo_top():
+def logo_top(linux_testing):
     logo = '''
     \n    
     #######################################################################
@@ -120,21 +105,96 @@ class Bcolors:
     UNDERLINE_S = '\033[4m' + (' ' * 11)
 
 
-def internet_check():
+def internet_check(user):
     print("\nPlease wait - checking internet connection state...\n")
-    global internet_FLAG
     before_millis = int(round(time.time() * 1000))
     os.system(". /home/"+user+"/RH-ota/open_scripts.sh; net_check")
     while True:
         now_millis = int(round(time.time() * 1000))
         time_passed = (now_millis - before_millis)
         if os.path.exists("./index.html"):
-            internet_FLAG = 1
+            internet_flag = 1
             break
         elif time_passed > 10100:
-            internet_FLAG = 0
+            internet_flag = 0
             break
     os.system("rm /home/"+user+"/RH-ota/index.html > /dev/null 2>&1")
     os.system("rm /home/"+user+"/RH-ota/wget-log* > /dev/null 2>&1")
     os.system("rm /home/"+user+"/index.html > /dev/null 2>&1")
     os.system("rm /home/"+user+"/wget-log* > /dev/null 2>&1")
+
+    return internet_flag
+
+def parser_write(parser, config):
+    user = config.user
+    try:
+        with open(f'/home/{user}/.ota_markers/ota_config.txt', 'w') as configfile:
+            parser.write(configfile)
+    except IOError as _: # in python _ means ignore this variable.
+        print("Config file does not exist and could not be created.")
+
+def load_config():
+    if os.path.exists("./updater-config.json"):
+        config = load_json("./updater-config.json")
+    else:
+        config = load_json('distr-updater-config.json')
+
+    if config.debug_mode:
+        config.user = config.debug_user
+    else:
+        config.user = config.pi_user
+
+    if config.pi_4_cfg:
+        config.pi_4_FLAG = True
+    else:
+        config.pi_4_FLAG = False
+
+    if config.RH_version == 'master':
+        config.server_version = 'master'
+    if config.RH_version == 'beta':
+        config.server_version = '2.1.0-beta.3'
+    if config.RH_version == 'stable':
+        config.server_version = '2.1.0'
+    if config.RH_version == 'custom':
+        config.server_version = 'X.X.X'  # paste custom version number here if you want to declare it manually
+
+    parser = ConfigParser()
+    parser.read('/home/' + config.user + '/.ota_markers/ota_config.txt')
+
+    return parser, config
+
+'''
+This is a convenience method that uses lambda functions
+to convert json data into accessible objects. 
+Given file with:
+{
+    "name": "John Smith", 
+    "hometown": {
+        "name": "New York"
+        , "id": 123
+    }
+}
+
+running:
+data = load_json(file_name) 
+
+will let you do:
+print(data.hometown.name)
+>>> New York
+
+'''
+def load_json(file_name):
+    data = {}
+    if os.path.exists(file_name):
+        with open(file_name) as open_file:
+            data = json.loads(open_file.read(), object_hook=lambda d: Namespace(**d))
+    return data
+
+'''
+ wrapper around copy file to check if exists before copying
+'''
+def copy_file(src, tgt):
+    if os.path.exists(src):
+        copyfile(src, tgt)
+
+
