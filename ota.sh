@@ -15,7 +15,7 @@ if [ $? -gt 0 ];
 fi;
 
 
-sudo apt-get install python3-dev python3-rpi.gpio python3-rpi.smbus
+sudo apt-get install python3-dev python3-rpi.gpio python3-smbus
 
 #  todo has to be added for checking and pyhon3-pip is not being recognized - attempt to install every time
 

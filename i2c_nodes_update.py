@@ -135,24 +135,26 @@ if not linux_testing:
 
 
 def flash_all_nodes():
-    input("All nodes will be flashed. Ok? Hit 'Enter'")  # hit enter before start
-    node_one_reset()
-    flash_numbered_node()
-    node_two_reset()
-    flash_numbered_node()
-    node_three_reset()
-    flash_numbered_node()
-    node_four_reset()
-    flash_numbered_node()
-    node_five_reset()
-    flash_numbered_node()
-    node_six_reset()
-    flash_numbered_node()
-    node_seven_reset()
-    flash_numbered_node()
-    node_eight_reset()
-    flash_numbered_node()
-
+    selection = input("All nodes will be flashed. Ok? Hit 'Enter'")  # hit enter before start
+    if selection == 'y':
+        node_one_reset()
+        flash_numbered_node()
+        node_two_reset()
+        flash_numbered_node()
+        # node_three_reset()
+        # flash_numbered_node()
+        # node_four_reset()
+        # flash_numbered_node()
+        # node_five_reset()
+        # flash_numbered_node()
+        # node_six_reset()
+        # flash_numbered_node()
+        # node_seven_reset()
+        # flash_numbered_node()
+        # node_eight_reset()
+        # flash_numbered_node()
+    else:
+        flash_all_nodes()
 
 flash_all_nodes()
 
