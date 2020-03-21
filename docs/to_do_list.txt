@@ -1,11 +1,17 @@
-    To do list:
-
-Update notes at the opening - done 
-Better AP configuring - in the way
-AVRdude test - in the way
-Code check - help needed
-Python 3 friendly version - in the way
-Screen center - python 3 related
-Config file instead of creating check files - config parser - done
-Nodes update as function - done, testing
-Pinout shown in terminal (using python3-gpiozero) - done
+        To do list:
+        
+1. AVRdude test - in the way
+2. Code check - help needed
+3. Python 3 friendly version - in the way on master release
+4. Screen center content showing - python 3 related
+5. Config file instead of creating check files - config parser - done
+6. Nodes update as function - done (in .dev dir), testing
+7. GPIO pinout shown in a terminal (using python3-gpiozero) - done
+8. Mentioning contributors in instruction and on the project page
+9. Confirm that logging is 100% reliable - need testing, transfer.sh has many flaws
+10. Implement new way of node resetting - IMPORTANT!! (Michael FPV)
+11. AP / WiFi client auto-switching - David's request
+12. Implement easy python 3 conversion for existing users
+13. Starting/installing script - easy, 80% done
+14. Navigation without hitting 'enter' - python 3 related
+15. Updating RotorHazard update script ‘rpi_update’ file - convert to pip etc to python3?

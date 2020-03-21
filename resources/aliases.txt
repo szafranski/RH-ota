@@ -7,8 +7,7 @@ alias rh="cd ~/RotorHazard/src/server"   # goes to server file location
 alias py="python"  # pure laziness
 alias sts="sudo systemctl stop rotorhazard" # stops RH service
 alias otadir="cd ~/RH-ota"   # goes to server file location
-alias ota="cd ~/RH-ota && python3 update.py"  # opens updating soft
-# todo CHANGE?!
+alias ota="cd ~/RH-ota && sh ./ota.sh"  # opens ota soft
 alias als="nano ~/.bashrc"   #  opens this file
 alias rld="source ~/.bashrc"   #  reloads aliases file
 alias rcfg="sudo raspi-config"   #  open raspberrys configs

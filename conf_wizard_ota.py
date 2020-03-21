@@ -1,6 +1,6 @@
 from time import sleep
 import os
-from modules import clear_the_screen, bcolors, logo_top
+from modules import clear_the_screen, Bcolors, logo_top
 
 homedir = os.path.expanduser('~')
 
@@ -29,36 +29,44 @@ def conf_check():
             conf_now_FLAG = 0
     else:
         conf_now_FLAG = 1
-conf_check()
 
+
+conf_check()
 
 if conf_now_FLAG:
     while True:
         print("""\n
 Please type your configuration data. It can be modified later.
-Default values are not automatically applied. Type them if needed.\n""") 
+Default values are not automatically applied. Type them if needed.\n""")
         os.system("rm .wizarded-updater-config.json >/dev/null 2>&1")
         name = input("\nWhat is your user name on Raspberry Pi? [default: pi]\t\t\t")
-        os.system("echo '{' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
-        os.system("echo '    \"pi_user\" : \""+name+"\",' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+        os.system("echo '{' | tee -a " + homedir + "/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+        os.system("echo '    \"pi_user\" : \"" + name + "\",' | tee -a " + homedir +
+                  "/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
         while True:
-            version = input("\nWhat RotorHazard version will you use? ["+bcolors.UNDERLINE+"stable"+bcolors.ENDC+" | beta | master]\t\t")
+            version = input(
+                "\nWhat RotorHazard version will you use? [" + Bcolors.UNDERLINE + "stable" + Bcolors.ENDC +
+                " | beta | master]\t\t")
             version_valid_options = ['master', 'stable', 'beta']
             if version not in version_valid_options:
                 print("\nPlease enter correct value!")
             else:
-                os.system(f"echo '    \"RH_version\" : \"{version}\",' | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+                os.system(f"echo '    \"RH_version\" : \"{version}\",' \
+                 | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
         debug_user = input("\nWhat is you user name on debugging OS? [default: racer]\t\t\t")
-        os.system(f"echo '    \"debug_user\" : \"{debug_user}\",' | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+        os.system(f"echo '    \"debug_user\" : \"{debug_user}\",' \
+         | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
         code = input("\nWhat is your country code? [default: GB]\t\t\t\t")
-        os.system(f"echo '    \"country\" : \"{code}\",' | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+        os.system(f"echo '    \"country\" : \"{code}\",' \
+         | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
         while True:
             nodes = input("\nHow many nodes will you use in your system? [min: 0/1 | max: 8]\t\t")
             if not nodes.isdigit() or int(nodes) > 8:
                 print("\nPlease enter correct value!")
             else:
-                os.system(f"echo '    \"nodes_number\" : {nodes},' | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+                os.system(f"echo '    \"nodes_number\" : {nodes},' \
+                 | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
         while True:
             debug_mode = input("\nWill you use \"OTA\" software in a debug mode? [yes/no | default: no]\t")
@@ -71,7 +79,8 @@ Default values are not automatically applied. Type them if needed.\n""")
                     debug_mode_val = '1'
                 elif debug_mode in ['no', '0', 'n']:
                     debug_mode_val = '0'
-                os.system(f"echo '    \"debug_mode\" : {debug_mode_val},' | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+                os.system(f"echo '    \"debug_mode\" : {debug_mode_val},' \
+                 | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
         while True:
             pins_assign = input("\nPins assignment? [default/custom/PCB | default: default]\t\t")
@@ -79,7 +88,8 @@ Default values are not automatically applied. Type them if needed.\n""")
             if pins_assign not in pins_valid_options:
                 print("\nPlease enter correct value!")
             else:
-                os.system(f"echo '    \"pins_assignment\" : \"{pins_assign}\",' | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+                os.system(f"echo '    \"pins_assignment\" : \"{pins_assign}\",' \
+                 | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
         while True:
             no_pdf_val = '0'
@@ -92,7 +102,8 @@ Default values are not automatically applied. Type them if needed.\n""")
                     no_pdf_val = '1'
                 elif no_pdf in ['no', '0', 'n']:
                     no_pdf_val = '0'
-                os.system(f"echo '    \"updates_without_pdf\" : {no_pdf_val},' | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+                os.system(f"echo '    \"updates_without_pdf\" : {no_pdf_val},' \
+                 | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
         while True:
             pi_4 = input("\nAre you using Raspberry Pi 4? [yes/no | default: no]\t\t\t")
@@ -105,19 +116,34 @@ Default values are not automatically applied. Type them if needed.\n""")
                     pi_4_val = '1'
                 elif pi_4 in ['no', '0', 'n']:
                     pi_4_val = '0'
-                os.system(f"echo '    \"pi_4_cfg\" : {pi_4_val}' | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+                os.system(f"echo '    \"pi_4_cfg\" : {pi_4_val},' \
+                 | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
-        os.system("echo '}' | tee -a "+homedir+"/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
-        print("""\n\n\t\t\t"""+bcolors.UNDERLINE+"""CONFIGURATION"""+bcolors.ENDC+""":\n\t
-        User name: \t\t"""+name+"""
-        RotorHazard version: \t"""+version+"""
-        Debug user name: \t"""+debug_user+"""
-        Country code: \t\t"""+code+"""
-        Nodes amount: \t\t"""+nodes+"""
-        Debug mode: \t\t"""+debug_mode+"""
-        Pins assignment: \t"""+pins_assign+"""
-        Updates without PDF: \t"""+no_pdf+"""
-        Pi 4 user: \t\t"""+pi_4+"""\n\n\n""")
+        while True:
+            beta_tester = input("\nAre you a beta tester? [yes/no | default: no]\t\t\t\t")
+            beta_tester_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']
+            if beta_tester not in beta_tester_allowed_values:
+                print("\nPlease enter correct value!")
+            else:
+                if beta_tester in ['yes', '1', 'y']:
+                    beta_tester_val = '1'
+                elif beta_tester in ['no', '0', 'n']:
+                    beta_tester_val = '0'
+                os.system(f"echo '    \"beta_tester\" : {beta_tester_val}' \
+                 | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+                break
+        os.system("echo '}' | tee -a " + homedir + "/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+        print("""\n\n\t\t\t""" + Bcolors.UNDERLINE + """CONFIGURATION""" + Bcolors.ENDC + """:\n\t
+        User name: \t\t""" + name + """
+        RotorHazard version: \t""" + version + """
+        Debug user name: \t""" + debug_user + """
+        Country code: \t\t""" + code + """
+        Nodes amount: \t\t""" + nodes + """
+        Debug mode: \t\t""" + debug_mode + """
+        Pins assignment: \t""" + pins_assign + """
+        Updates without PDF: \t""" + no_pdf + """
+        Pi 4 user: \t\t""" + pi_4 + """
+        Beta tester: \t\t""" + beta_tester + """\n\n\n""")
         print("Please check. Confirm? [yes/change/abort]\n")
         valid_options = ['y', 'yes', 'n', 'no', 'change', 'abort']
         while True:

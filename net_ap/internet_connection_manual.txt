@@ -43,7 +43,7 @@ connect PC to WiFi
 Control Panel
 Networks and sharing
 click [name of Wifi network]
-click Properities
+click Properties
 open "Sharing" tab
 "Allow other users ... share this ethernet connection using:" 
 Home internet connection - choose -     "ethernet"
@@ -118,7 +118,7 @@ You may have to unplug the ethernet cable from raspberry for few seconds and plu
 You can confirm that raspberry acts like access point again entering "ipconfig" on PC in cmd and check if IPv4 Address looks like 172.20.20.XX 
 
 Additional info:
-If something went wrong, you have any issues etc. you can allways just connect to raspberry using WiFi access point (RH-race_timer) with SSH and undo all changes etc.
+If something went wrong, you have any issues etc. you can always just connect to raspberry using WiFi access point (RH-race_timer) with SSH and undo all changes etc.
 
 If you connected raspberry to the pc, prepared the file, rebooted the raspberry and you can't see in in IP scanner ory you can see it only as FTP server,
 please unplug the ethernet cable and reboot raspberry, disable and reenable internet sharing option, connect ethernet cable again and look for right IP.

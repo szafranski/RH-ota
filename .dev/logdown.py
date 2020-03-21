@@ -1,5 +1,4 @@
 import os
-import sys
 
 print("\n")
 user_name = input("User name: ").strip()

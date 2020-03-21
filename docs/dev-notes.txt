@@ -10,7 +10,7 @@ Admin privileges are only used when needed (eg. avrdude installation) or to ensu
 Big part of this software acts like simple scripts. Automated actions like 'cp dir1 dir2' are being performed,
 so user don't have to do it manually. 
 
-'> /dev/null 2>&1' parts are added sometimes to prevent error messages in parts where they can be exected,
+'> /dev/null 2>&1' parts are added sometimes to prevent error messages in parts where they can be executed,
 but don't have any impact on user experience due to nature of the rest of a command. 
 
 Software operates in user's home folder most of the time. It contains some code
