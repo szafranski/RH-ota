@@ -7,6 +7,7 @@ import sys
 import json
 import time
 from types import SimpleNamespace as Namespace
+#  todo add an RH version to modules so it can be read by other files like i2c nodes_update
 
 def clear_the_screen():
     sleep(0.05)
@@ -31,12 +32,12 @@ def percent_count():
     def backspace(n):
         sys.stdout.write((b'\x08' * n).decode())  # use \x08 char to go back
 
-    for i in range(101):                        # for 0 to 100
-        s = str(i) + '%'                        # string for output
-        sys.stdout.write(s)                     # just print
-        sys.stdout.flush()                      # needed for flush when using \x08
-        backspace(len(s))                       # back n chars    
-        time.sleep(0.05)        
+    for i in range(101):  # for 0 to 100
+        s = str(i) + '%'  # string for output
+        sys.stdout.write(s)  # just print
+        sys.stdout.flush()  # needed for flush when using \x08
+        backspace(len(s))  # back n chars
+        time.sleep(0.05)
 
 
 def image_show():
@@ -108,7 +109,7 @@ class Bcolors:
 def internet_check(user):
     print("\nPlease wait - checking internet connection state...\n")
     before_millis = int(round(time.time() * 1000))
-    os.system(". /home/"+user+"/RH-ota/open_scripts.sh; net_check")
+    os.system(". /home/" + user + "/RH-ota/open_scripts.sh; net_check")
     while True:
         now_millis = int(round(time.time() * 1000))
         time_passed = (now_millis - before_millis)
@@ -118,20 +119,22 @@ def internet_check(user):
         elif time_passed > 10100:
             internet_flag = 0
             break
-    os.system("rm /home/"+user+"/RH-ota/index.html > /dev/null 2>&1")
-    os.system("rm /home/"+user+"/RH-ota/wget-log* > /dev/null 2>&1")
-    os.system("rm /home/"+user+"/index.html > /dev/null 2>&1")
-    os.system("rm /home/"+user+"/wget-log* > /dev/null 2>&1")
+    os.system("rm /home/" + user + "/RH-ota/index.html > /dev/null 2>&1")
+    os.system("rm /home/" + user + "/RH-ota/wget-log* > /dev/null 2>&1")
+    os.system("rm /home/" + user + "/index.html > /dev/null 2>&1")
+    os.system("rm /home/" + user + "/wget-log* > /dev/null 2>&1")
 
     return internet_flag
+
 
 def parser_write(parser, config):
     user = config.user
     try:
         with open(f'/home/{user}/.ota_markers/ota_config.txt', 'w') as configfile:
             parser.write(configfile)
-    except IOError as _: # in python _ means ignore this variable.
+    except IOError as _:  # in python _ means ignore this variable.
         print("Config file does not exist and could not be created.")
+
 
 def load_config():
     if os.path.exists("./updater-config.json"):
@@ -163,6 +166,7 @@ def load_config():
 
     return parser, config
 
+
 '''
 This is a convenience method that uses lambda functions
 to convert json data into accessible objects. 
@@ -183,6 +187,8 @@ print(data.hometown.name)
 >>> New York
 
 '''
+
+
 def load_json(file_name):
     data = {}
     if os.path.exists(file_name):
@@ -190,11 +196,12 @@ def load_json(file_name):
             data = json.loads(open_file.read(), object_hook=lambda d: Namespace(**d))
     return data
 
+
 '''
  wrapper around copy file to check if exists before copying
 '''
+
+
 def copy_file(src, tgt):
     if os.path.exists(src):
         copyfile(src, tgt)
-
-

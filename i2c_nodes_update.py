@@ -4,7 +4,10 @@ import sys
 import json
 from modules import clear_the_screen, Bcolors, logo_top
 from smbus import SMBus  # works only on Pi
-from modules import firmware_version
+from modules import RH_version #  invalid syntax for some reason
+
+
+firmware_version = RH_version
 #  todo check if it is ok? implement firmware version reading to modules.py
 
 bus = SMBus(1)  # indicates /dev/ic2-1
@@ -169,11 +172,11 @@ def flash_firmware_onto_all_gnd_nodes():
         # reset_gpio()
         # print(reset_list[i])
         node_one_reset()   #  todo iterate one, two, three etc.
-        os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"
-                  + user + "/RH-ota/firmware/i2c/" + firmware_version + "/node_" + str(i + 1) + ".hex:i ")
-        print("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"
-              + user + "/RH-ota/firmware/i2c" + firmware_version + "/node_" + str(i + 1) + ".hex:i ")
-        print("\n\n\t\t\t\t" + Bcolors.BOLD + "Node " + str(i + 1) + " - flashed" + Bcolors.ENDC + "\n\n")
+        os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{user}\
+        /RH-ota/firmware/i2c/{firmware}/node_0.hex:i ").format(firmware=firmware_version)
+        print(f"""avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{user}\
+        /RH-ota/firmware/i2c/{firmware}/node_{i+1}.hex:i """.format(user=user, firmware=firmware_version))
+        print(f"\n\n\t\t\t\t{bold}Node {i+1} - flashed{endc}\n\n".format(bold=Bcolors.BOLD, endc=Bcolors.ENDC))
         sleep(1)
 
 
@@ -181,14 +184,15 @@ def flash_firmware_onto_all_gnd_nodes():
 def flash_blink_onto_all_gnd_nodes():
     global i
     for i in range(0, nodes_number):
-        all_pins_high()
-        gpio_reset_gpio()
-        print(reset_list[i])
-        os.system("echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"
-                  + user + "/RH-ota/firmware/blink.hex:i ")
-        print("echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"
-              + user + "/RH-ota/firmware/blink.hex:i ")
-        print("\n\n\t\t\t\t" + Bcolors.BOLD + "Node " + str(i + 1) + " - flashed" + Bcolors.ENDC + "\n\n")
+        # all_pins_high()
+        # reset_gpio()
+        # print(reset_list[i])
+        node_one_reset()   #  todo iterate one, two, three etc.
+        os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{user}\
+        /RH-ota/{firmware}/i2c/blink.hex:i ").format(firmware=firmware_version)
+        print(f"""avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{user}\
+        /RH-ota/firmware/i2c/blink.hex:i """.format(user=user)
+        print(f"""\n\n\t\t\t\t{bold}Node {(i+1)} - flashed{endc}\n\n""".format(bold=Bcolors.BOLD, endc=Bcolors.ENDC))
         sleep(1)
 
 
