@@ -7,7 +7,11 @@ if [ $? -gt 0 ];
 	then echo python3 has to be installed && sudo apt install python3
 fi;
 
-#printf "\nchecking pip installation\n\n"
+which configparser > /dev/null  # todo how to checkon pip?
+if [ $? -gt 0 ];
+	then echo configparser has to be installed && sudo pip install configparser
+fi;
+
 
 which pip3 > /dev/null  # proper way of checking?
 if [ $? -gt 0 ]; 
