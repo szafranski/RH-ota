@@ -4,11 +4,11 @@ import os
 import sys
 import json
 
-if os.path.exists("./updater-config.json"):
-    with open('updater-config.json') as config_file:
+if os.path.exists("/home/pi/RH-ota/updater-config.json"):
+    with open('/home/pi/RH-ota/updater-config.json') as config_file:
         data = json.load(config_file)
 else:
-    with open('distr-updater-config.json') as config_file:
+    with open('/home/pi/RH-ota/distr-updater-config.json') as config_file:
         data = json.load(config_file)
 
 RESET_MATE_NODE = 0x79
@@ -36,14 +36,14 @@ if preferred_RH_version == 'custom':
 
 bus = SMBus(1)  # indicates /dev/ic2-1
 
-node1addr = 0x08
-node2addr = 0x0a
-node3addr = 0x0c
-node4addr = 0x0e
-node5addr = 0x16
-node6addr = 0x18
-node7addr = 0x20
-node8addr = 0x22
+node1addr = 0x08  # 8
+node2addr = 0x0a  # 10
+node3addr = 0x0c  # 12
+node4addr = 0x0e  # 14
+node5addr = 0x12  # 16
+node6addr = 0x14  # 18
+node7addr = 0x14  # 20
+node8addr = 0x16  # 22
 
 # address have to be compatible with RH addressing scheme
 
@@ -135,7 +135,7 @@ if not linux_testing:
 
 
 def flash_all_nodes():
-    selection = input("All nodes will be flashed. Ok? Hit 'Enter'")  # hit enter before start
+    selection = input("All nodes will be flashed. Ok? Hit 'y'")  # hit enter before start
     if selection == 'y':
         node_one_reset()
         flash_numbered_node()

@@ -20,27 +20,27 @@ if linux_testing:
     user = data['debug_user']
 else:
     user = data['pi_user']
-preffered_RH_version = data['RH_version']
+preferred_RH_version = data['RH_version']
 
-if preffered_RH_version == 'master':
+if preferred_RH_version == 'master':
     firmware_version = 'master'
-if preffered_RH_version == 'beta':
+if preferred_RH_version == 'beta':
     firmware_version = 'beta'
-if preffered_RH_version == 'stable':
+if preferred_RH_version == 'stable':
     firmware_version = 'stable'
-if preffered_RH_version == 'custom':
+if preferred_RH_version == 'custom':
     firmware_version = 'stable'
 
 bus = SMBus(1)  # indicates /dev/ic2-1
 
-node1addr = 0x08
-node2addr = 0x10
-node3addr = 0x12
-node4addr = 0x14
-node5addr = 0x16
-node6addr = 0x18
-node7addr = 0x20
-node8addr = 0x22
+node1addr = 0x08  # 8
+node2addr = 0x0a  # 10
+node3addr = 0x0c  # 12
+node4addr = 0x0e  # 14
+node5addr = 0x12  # 16
+node6addr = 0x14  # 18
+node7addr = 0x14  # 20
+node8addr = 0x16  # 22
 
 reset_1 = 12
 
@@ -146,12 +146,14 @@ if not linux_testing:
 
 
 def test():
-    selection = input("What do you want to send?")
+    selection = input("What do you want to send? press '0'")
     if selection == '0':
         bus.write_byte(node1addr, 0x79)  # switch it off
-        os.system(
-            "sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/pi/RH-ota/firmware/i2c/reset_no_s.hex:i")
-        bus.write_byte(node1addr, 0x0)  # switch it off
+        os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U /"
+                  "flash:w:/home/pi/RH-ota/firmware/i2c/reset_no_s.hex:i")
+        bus.write_byte(node2addr, 0x79)  # switch it off
+        os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U /"
+                  "flash:w:/home/pi/RH-ota/firmware/i2c/reset_no_s.hex:i")
         bus.write_byte(node1addr, 0x0)  # switch it off
         bus.write_byte(node1addr, 0x0)  # switch it off
         bus.write_byte(node1addr, 0x0)  # switch it off
