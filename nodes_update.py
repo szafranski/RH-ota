@@ -32,19 +32,19 @@ if preferred_RH_version == 'custom':
 
 nodes_number = data['nodes_number']
 
+#default to default pins. only update if they said so.
+reset_1 = 12  # node 1   # default 12
+reset_2 = 16  # node 2   # default 16
+reset_3 = 20  # node 3   # default 20
+reset_4 = 21  # node 4   # default 21
+reset_5 = 6  # node 5   # default 6
+reset_6 = 13  # node 6   # default 13
+reset_7 = 19  # node 7   # default 19
+reset_8 = 26  # node 8   # default 26
 if pins_assignment == 'PCB' or pins_assignment == 'pcb':
     reset_1 = 12  # node 1   # default 12
     reset_2 = 16  # node 2   # default 16
     reset_3 = 4  # node 3   # default 4
-    reset_4 = 21  # node 4   # default 21
-    reset_5 = 6  # node 5   # default 6
-    reset_6 = 13  # node 6   # default 13
-    reset_7 = 19  # node 7   # default 19
-    reset_8 = 26  # node 8   # default 26
-if pins_assignment == 'default':
-    reset_1 = 12  # node 1   # default 12
-    reset_2 = 16  # node 2   # default 16
-    reset_3 = 20  # node 3   # default 20
     reset_4 = 21  # node 4   # default 21
     reset_5 = 6  # node 5   # default 6
     reset_6 = 13  # node 6   # default 13
@@ -486,7 +486,7 @@ def flash_each_node():
     def node_menu():
         global x
         clear_the_screen()
-        logo_top()
+        logo_top(linux_testing)
         sleep(0.05)
         print("\n\n\n\t\t\t\t    " + Bcolors.RED + Bcolors.BOLD + "NODES MENU" + Bcolors.ENDC)
         print("\n\t\t " + Bcolors.BOLD + "1 - Flash node 1 \t\t 5 - Flash node 5" + Bcolors.ENDC)
@@ -530,7 +530,7 @@ def flash_each_node():
 
 def gpio_state():
     clear_the_screen()
-    logo_top()
+    logo_top(linux_testing)
     print("\n\n\n")
     os.system(f"echo {reset_1} > /sys/class/GPIO/unexport")
     os.system(f"echo {reset_2} > /sys/class/GPIO/unexport")
@@ -591,7 +591,7 @@ def gpio_state():
 
 def nodes_update():
     clear_the_screen()
-    logo_top()
+    logo_top(linux_testing)
     sleep(0.05)
     print("\n\n\t\t\t " + Bcolors.BOLD + Bcolors.UNDERLINE + "CHOOSE FLASHING TYPE:\n" + Bcolors.ENDC)
     print(

@@ -194,8 +194,8 @@ def flash_firmware_onto_all_gnd_nodes():
         os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{user}\
         /RH-ota/firmware/i2c/{firmware_version}/node_0.hex:i")
         print("""avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{user}\
-        /RH-ota/firmware/i2c/{firmware}/node_{i}.hex:i """.format(user=user, firmware=firmware_version))
-    print("""\n\n\t\t\t\t{bold}Node {i} - flashed{endc}\n\n""".format(bold=Bcolors.BOLD, endc=Bcolors.ENDC))
+        /RH-ota/firmware/i2c/{firmware}/node_{i}.hex:i """.format(user=user, firmware=firmware_version, i=i))
+    print("""\n\n\t\t\t\t{bold}Node {i} - flashed{endc}\n\n""".format(bold=Bcolors.BOLD, endc=Bcolors.ENDC, i=i))
     sleep(1)
 
 

@@ -1,7 +1,9 @@
 import json
 import os
 import sys
+from modules import internet_check
 from configparser import ConfigParser
+from modules import internet_check
 from time import sleep
 
 
