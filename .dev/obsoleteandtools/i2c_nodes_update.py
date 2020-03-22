@@ -11,11 +11,11 @@ firmware_version = RH_version
 
 bus = SMBus(1)  # indicates /dev/ic2-1
 
-if os.path.exists("./updater-config.json"):
-    with open('updater-config.json') as config_file:
+if os.path.exists("../../updater-config.json"):
+    with open('../../updater-config.json') as config_file:
         data = json.load(config_file)
 else:
-    with open('distr-updater-config.json') as config_file:
+    with open('../../distr-updater-config.json') as config_file:
         data = json.load(config_file)
 
 nodes_number = data['nodes_number']

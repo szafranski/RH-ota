@@ -1,5 +1,6 @@
 *.pyc
 *.save
+*.tmp
 .travis.yml
 .idea
 .wizarded*

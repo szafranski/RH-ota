@@ -488,14 +488,22 @@ def flash_each_node():
         clear_the_screen()
         logo_top(linux_testing)
         sleep(0.05)
-        print("\n\n\n\t\t\t\t    " + Bcolors.RED + Bcolors.BOLD + "NODES MENU" + Bcolors.ENDC)
-        print("\n\t\t " + Bcolors.BOLD + "1 - Flash node 1 \t\t 5 - Flash node 5" + Bcolors.ENDC)
-        print("\n\t\t " + Bcolors.BOLD + "2 - Flash node 2 \t\t 6 - Flash node 6" + Bcolors.ENDC)
-        print("\n\t\t " + Bcolors.BOLD + "3 - Flash node 3 \t\t 7 - Flash node 7" + Bcolors.ENDC)
-        print("\n\t\t " + Bcolors.BOLD + "4 - Flash node 4 \t\t 8 - Flash node 8")
-        print("\n\t\t\t\t" + Bcolors.YELLOW + Bcolors.BOLD + "e - Exit to main menu" + Bcolors.ENDC)
-        selection = input("\n\n\t\t" + Bcolors.BOLD + "Which node do you want to program:" + Bcolors.ENDC + " ")
-        print("\n\n")
+        flash_node_menu = """
+                            {red}{bold}NODES MENU{endc}
+                        {bold}
+                1 - Flash node 1        5 - Flash node 5
+            
+                2 - Flash node 2        6 - Flash node 6
+            
+                3 - Flash node 3        7 - Flash node 7
+            
+                4 - Flash node 4        8 - Flash node 8
+                        {yellow}
+                    'e'- Exit to main menu{endc}
+        """.format(bold=Bcolors.BOLD, red=Bcolors.RED, yellow=Bcolors.YELLOW, endc=Bcolors.ENDC)
+        print(flash_node_menu)
+        selection = input("""
+                {bold}Which node do you want to program:{endc} """.format(bold=Bcolors.BOLD, endc=Bcolors.ENDC))
         if selection == '1':
             x = 1
             node_x_menu()
@@ -593,17 +601,26 @@ def nodes_update():
     clear_the_screen()
     logo_top(linux_testing)
     sleep(0.05)
-    print("\n\n\t\t\t " + Bcolors.BOLD + Bcolors.UNDERLINE + "CHOOSE FLASHING TYPE:\n" + Bcolors.ENDC)
-    print(
-        "\t\t " + Bcolors.GREEN + Bcolors.BOLD + "1 - Every Node gets own dedicated firmware - recommended\n"
-        + Bcolors.ENDC)
-    print("\t\t " + Bcolors.BOLD + "2 - Nodes will use ground-auto selection firmware\n" + Bcolors.ENDC)
-    print("\t\t " + Bcolors.BOLD + "3 - Flash 'Blink' on every node\n" + Bcolors.ENDC)
-    print("\t\t " + Bcolors.BOLD + "4 - Flash each node individually\n" + Bcolors.ENDC)
-    print("\t\t " + Bcolors.BOLD + "5 - I2C programming - NEW (beta)\n" + Bcolors.ENDC)
-    print("\t\t " + Bcolors.BOLD + "6 - Fix GPIO pins state - obsolete\n" + Bcolors.ENDC)
-    print("\t\t " + Bcolors.YELLOW + Bcolors.BOLD + "e - Exit to main menu\n" + Bcolors.ENDC)
-    sleep(0.3)
+    node_menu = """\n
+                    {bold}{underline}CHOOSE FLASHING TYPE:{endc}
+    
+            {green}{bold}1 - Every Node gets own dedicated firmware - rec.{endc}
+            
+            {bold}2 - Nodes using ground-auto numbering firmware
+            
+            3 - Flash 'Blink' on every node
+            
+            4 - Flash each node individually
+            
+            5 - I2C programming - NEW (beta)
+            
+            6 - Fix GPIO pins state - obsolete
+            
+            {yellow}'e' - Exit to main menu{endc}
+    """.format(bold=Bcolors.BOLD, green=Bcolors.GREEN, yellow=Bcolors.YELLOW,
+               endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE)
+    print(node_menu)
+    sleep(0.1)
     selection = input()
     if selection == '1':
         flash_all_nodes()
@@ -620,7 +637,7 @@ def nodes_update():
     if selection == '4':
         flash_each_node()
     if selection == '5':
-        os.system("python3 ./i2c_nodes_update.py")
+        os.system("python3 ./i2c_nodes_flash.py")
     if selection == '6':
         gpio_state()
     if selection == 'e':
