@@ -25,14 +25,14 @@ echo "What do you want your hotspot name to be (default is ROTORHAZARD):"
 read -r hotspot
 
 if [[ -n "${hotspot}" ]]; then
-  sudo sed "s/ROTORHAZARD/${hotspot}/" /etc/default/hostapd.conf
+  sudo sed -i.bak "s/ROTORHAZARD/${hotspot}/" /etc/hostapd/hostapd.conf
 fi
 
 #change the  password of the hotspot (in place)
 echo "what do you want your hotspot password to be (default is PASSWORD):"
 read -r password
 if [[ -n "${password}" ]]; then
-  sudo sed "s/PASSWORD/${password}/" /etc/default/hostapd.conf
+  sudo sed -i.bak "s/PASSWORD/${password}/" /etc/hostapd/hostapd.conf
 fi
 
 
@@ -40,8 +40,8 @@ fi
 #uncomment DAEMON_CONF and set it to our hostapd.conf
 #Comment DAEMON_OPTS="" to #DAEMON_OPTS=""
 if grep -q '#DAEMON_CONF=' "/etc/default/hostapd"; then
-  sudo sed 's:#DAEMON_CONF="":DAEMON_CONF="/etc/hostapd/hostapd.conf":g' /etc/default/hostapd
-  sudo sed 's:^DAEMON_OPTS="":#DAEMON_OPTS="":g' /etc/default/hostapd
+  sudo sed -i.bak 's:#DAEMON_CONF="":DAEMON_CONF="/etc/hostapd/hostapd.conf":g' /etc/default/hostapd
+  sudo sed -i.bak 's:^DAEMON_OPTS="":#DAEMON_OPTS="":g' /etc/default/hostapd
 else
   echo DAEMON_CONF already set.
 fi
