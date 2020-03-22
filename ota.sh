@@ -12,7 +12,7 @@ if [ $? -gt 0 ];
 	then echo pip package has to be installed && sudo apt install python3-pip
 fi;
 
-pip3 freeze > pip3intalled.tmp
+pip3 freeze > pip3installed.tmp
 
 if grep -q 'configparser' pip3installed.tmp ; then
   echo configparser installed
