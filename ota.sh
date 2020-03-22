@@ -7,34 +7,38 @@ if [ $? -gt 0 ];
 	then echo python3 has to be installed && sudo apt install python3
 fi;
 
-which configparser > /dev/null  # todo how to checkon pip?
-if [ $? -gt 0 ];
-	then echo configparser has to be installed && sudo pip install configparser
-fi;
-
-
 which pip3 > /dev/null  # proper way of checking?
-if [ $? -gt 0 ]; 
+if [ $? -gt 0 ];
 	then echo pip package has to be installed && sudo apt install python3-pip
 fi;
 
-which python3-dev > /dev/null  # proper way of checking?
-if [ $? -gt 0 ];
-	then echo python3-dev has to be installed && sudo apt install python3-dev
-fi;
+pip3 freeze > pip3intalled.tmp
 
-which python3-rpi.gpio > /dev/null  # proper way of checking?
-if [ $? -gt 0 ];
-	then echo python3-rpi.gpio has to be installed && sudo apt install python3-rpi.gpio
-fi;
+if grep -q 'configparser' pip3installed.tmp ; then
+  echo configparser installed
+else
+  echo configparser has to be installed && sudo pip install configparser
+fi
 
-which python3-smbus > /dev/null  # proper way of checking?
-if [ $? -gt 0 ];
-	then echo python3-smbus has to be installed && sudo apt install python3-smbus
-fi;
+sudo apt list | tee aptinstalled.tmp
 
+if grep -q 'python3-dev' aptinstalled.tmp ; then
+  echo python3-dev installed
+else
+  echo echo python3-dev has to be installed && sudo apt install python3-dev
+fi
 
-#  todo has to be added for checking and pyhon3-pip is not being recognized - attempt to install every time
+if grep -q 'python3-rpi.gpio' aptinstalled.tmp ; then
+  echo python3-rpi.gpio installed
+else
+  echo echo python3-rpi.gpio has to be installed && sudo apt install python3-rpi.gpio
+fi
+
+if grep -q 'python3-smbus' aptinstalled.tmp ; then
+  echo python3-smbus installed
+else
+  echo echo python3-smbus has to be installed && sudo apt install python3-smbus
+fi
 
 
 python3 update.py

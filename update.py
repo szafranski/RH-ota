@@ -141,7 +141,7 @@ def avr_dude(config):
                            blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
         print(menu)
         selection = input()
-        if selection == '1':
+        if selection == 'i':
             os.system("sudo apt-get update")
             os.system("sudo apt-get install avrdude -y")
             print("\nDone\n")
