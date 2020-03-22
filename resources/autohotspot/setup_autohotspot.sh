@@ -17,11 +17,14 @@ sudo systemctl unmask hostapd
 sudo systemctl disable hostapd
 sudo systemctl disable dnsmasq
 
+#Find the directory that this script is in so we can use absolute paths.
+SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
 #copy our access point config into place.
-sudo cp -f hostapd.conf /etc/hostapd/hostapd.conf
+sudo cp -f "${SCRIPTDIR}/hostapd.conf" /etc/hostapd/hostapd.conf
 
 #change the  name of the hotspot (in place)
-echo "What do you want your hotspot name to be (default is ROTORHAZARD):"
+echo "What do you want your hotspot name to be? (default is ROTORHAZARD):"
 read -r hotspot
 
 if [[ -n "${hotspot}" ]]; then
@@ -50,12 +53,12 @@ fi
 if grep -q '#AutoHotspot Config' "/etc/dnsmasq.conf"; then
   echo autohotspot already configured in /etc/dnsmasq.conf
 else
-  sudo cat autohotspot_dnsmasq.conf | tee -a /etc/dnsmasq.conf
+  sudo cat "${SCRIPTDIR}/autohotspot_dnsmasq.conf" | tee -a /etc/dnsmasq.conf
 fi
 
 #Clear out network interfaces file:
 sudo mv /etc/network/interfaces "/etc/network/interfaces-backup-$(date)"
-sudo cp interfaces.conf /etc/network/interfaces
+sudo cp "${SCRIPTDIR}/interfaces.conf" /etc/network/interfaces
 
 if grep -q 'nohook wpa_supplicant' "/etc/dhcpcd.conf"; then
   echo nohook wpa_supplicant already set.
@@ -63,10 +66,10 @@ else
   sudo printf 'nohook wpa_supplicant' | tee -a /etc/dhcpcd.conf
 fi
 #Configure the actual autohotspot service
-sudo cp -f autohotspot.service /etc/systemd/system/autohotspot.service
+sudo cp -f "${SCRIPTDIR}/autohotspot.service" /etc/systemd/system/autohotspot.service
 sudo systemctl enable autohotspot.service
 
 #Create the autohotspot command
-sudo cp -f autohotspot /usr/bin/autohotspot
+sudo cp -f "${SCRIPTDIR}/autohotspot" /usr/bin/autohotspot
 #Make it executable
 sudo chmod +x /usr/bin/autohotspot
