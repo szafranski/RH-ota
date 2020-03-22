@@ -17,26 +17,56 @@ sudo systemctl unmask hostapd
 sudo systemctl disable hostapd
 sudo systemctl disable dnsmasq
 
+#copy our access point config into place.
+sudo cp -f hostapd.conf /etc/hostapd/hostapd.conf
+
+#change the  name of the hotspot (in place)
+echo "What do you want your hotspot name to be (default is ROTORHAZARD):"
+read -r hotspot
+
+if [[ -n "${hotspot}" ]]; then
+  sudo sed "s/ROTORHAZARD/${hotspot}/" /etc/default/hostapd.conf
+fi
+
+#change the  password of the hotspot (in place)
+echo "what do you want your hotspot password to be (default is PASSWORD):"
+read -r password
+if [[ -n "${password}" ]]; then
+  sudo sed "s/PASSWORD/${password}/" /etc/default/hostapd.conf
+fi
+
+
 #switch daemon to our config
 #uncomment DAEMON_CONF and set it to our hostapd.conf
 #Comment DAEMON_OPTS="" to #DAEMON_OPTS=""
-sudo sed 's:#DAEMON_CONF="":DAEMON_CONF="/etc/hostapd/hostapd.conf":g' /etc/default/hostapd
-sudo sed 's:^DAEMON_OPTS="":#DAEMON_OPTS="":g' /etc/default/hostapd
+if grep -q '#DAEMON_CONF=' "/etc/default/hostapd"; then
+  sudo sed 's:#DAEMON_CONF="":DAEMON_CONF="/etc/hostapd/hostapd.conf":g' /etc/default/hostapd
+  sudo sed 's:^DAEMON_OPTS="":#DAEMON_OPTS="":g' /etc/default/hostapd
+else
+  echo DAEMON_CONF already set.
+fi
 
 #append the autohotspot config to dnsmasq.conf
-sudo cat autohotspot_dnsmasq.conf >> /etc/dnsmasq.conf
+if grep -q '#AutoHotspot Config' "/etc/dnsmasq.conf"; then
+  echo autohotspot already configured in /etc/dnsmasq.conf
+else
+  sudo cat autohotspot_dnsmasq.conf | tee -a /etc/dnsmasq.conf
+fi
 
 #Clear out network interfaces file:
-sudo cp /etc/network/interfaces /etc/network/interfaces-backup
+sudo mv /etc/network/interfaces "/etc/network/interfaces-backup-$(date)"
 sudo cp interfaces.conf /etc/network/interfaces
 
-sudo printf 'nohook wpa_supplicant' >> /etc/dhcpcd.conf
-
+if grep -q 'nohook wpa_supplicant' "/etc/dhcpcd.conf"; then
+  echo nohook wpa_supplicant already set.
+else
+  sudo printf 'nohook wpa_supplicant' | tee -a /etc/dhcpcd.conf
+fi
 #Configure the actual autohotspot service
-sudo cp autohotspot.service /etc/systemd/system/autohotspot.service
+sudo cp -f autohotspot.service /etc/systemd/system/autohotspot.service
 sudo systemctl enable autohotspot.service
 
 #Create the autohotspot command
-sudo cp autohotspot /usr/bin/autohotspot
+sudo cp -f autohotspot /usr/bin/autohotspot
 #Make it executable
 sudo chmod +x /usr/bin/autohotspot
