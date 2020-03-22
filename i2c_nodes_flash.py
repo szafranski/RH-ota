@@ -50,8 +50,7 @@ def logo_update():
     #                          {bold}Thank you!{endc}                     #
     #                                                                     #
     #######################################################################\n\n
-    """.format(nodes_number=nodes_number, bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE_S, endc=Bcolors.ENDC_S,
-               blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S, s=10 * ' '))
+    """.format(nodes_number=nodes_number, bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, s=10 * ' '))
 
 
 node1addr = 0x08  # 8
@@ -64,7 +63,6 @@ node7addr = 0x14  # 20
 node8addr = 0x16  # 22
 
 addr_list = ['0x08', '0x0a', '0x0c', '0x0e', '0x10', '0x12', '0x14', '0x16']
-
 
 # address have to be compatible with RH addressing scheme
 
@@ -112,48 +110,81 @@ if not linux_testing:
 
     def node_one_reset():
         disable_serial_on_all_nodes()
-        bus.write_byte(node2addr, RESET_MATE_NODE)  # node 2 resets node 1
+        bus.write_byte(node2addr, RESET_MATE_NODE_HIGH)  # node 2 resets node 1
+        sleep(1)
+        bus.write_byte(node2addr, RESET_MATE_NODE_LOW)  # node 2 resets node 1
+        sleep(1)
+        bus.write_byte(node2addr, RESET_MATE_NODE_HIGH)  # node 2 resets node 1
         sleep(0.1)
 
 
     def node_two_reset():
         disable_serial_on_all_nodes()
-        bus.write_byte(node1addr, RESET_MATE_NODE)  # node 1 resets node 2
+        bus.write_byte(node1addr, RESET_MATE_NODE_HIGH)  # node 2 resets node 1
+        sleep(1)
+        bus.write_byte(node1addr, RESET_MATE_NODE_LOW)  # node 2 resets node 1
+        sleep(1)
+        bus.write_byte(node1addr, RESET_MATE_NODE_HIGH)  # node 2 resets node 1
         sleep(0.1)
 
 
     def node_three_reset():
         disable_serial_on_all_nodes()
-        bus.write_byte(node4addr, RESET_MATE_NODE)  # node 4 resets node 3
+        bus.write_byte(node4addr, RESET_MATE_NODE_HIGH)  # node 2 resets node 1
+        sleep(1)
+        bus.write_byte(node4addr, RESET_MATE_NODE_LOW)  # node 2 resets node 1
+        sleep(1)
+        bus.write_byte(node4addr, RESET_MATE_NODE_HIGH)  # node 2 resets node 1
         sleep(0.1)
 
 
     def node_four_reset():
         disable_serial_on_all_nodes()
-        bus.write_byte(node3addr, RESET_MATE_NODE)  # node 3 resets node 4
+        bus.write_byte(node3addr, RESET_MATE_NODE_HIGH)  # node 2 resets node 1
+        sleep(1)
+        bus.write_byte(node3addr, RESET_MATE_NODE_LOW)  # node 2 resets node 1
+        sleep(1)
+        bus.write_byte(node3addr, RESET_MATE_NODE_HIGH)  # node 2 resets node 1
         sleep(0.1)
 
 
     def node_five_reset():
         disable_serial_on_all_nodes()
-        bus.write_byte(node6addr, RESET_MATE_NODE)  # node 6 resets node 5
+        bus.write_byte(node6addr, RESET_MATE_NODE_HIGH)  # node 2 resets node 1
+        sleep(1)
+        bus.write_byte(node6addr, RESET_MATE_NODE_LOW)  # node 2 resets node 1
+        sleep(1)
+        bus.write_byte(node6addr, RESET_MATE_NODE_HIGH)  # node 2 resets node 1
         sleep(0.1)
 
 
     def node_six_reset():
         disable_serial_on_all_nodes()
-        bus.write_byte(node5addr, RESET_MATE_NODE)  # node 5 resets node 6
+        bus.write_byte(node5addr, RESET_MATE_NODE_HIGH)  # node 2 resets node 1
+        sleep(1)
+        bus.write_byte(node5addr, RESET_MATE_NODE_LOW)  # node 2 resets node 1
+        sleep(1)
+        bus.write_byte(node5addr, RESET_MATE_NODE_HIGH)  # node 2 resets node 1
         sleep(0.1)
 
 
     def node_seven_reset():
         disable_serial_on_all_nodes()
-        bus.write_byte(node8addr, 0x79)  # node 8 resets node 7
+        bus.write_byte(node8addr, RESET_MATE_NODE_HIGH)  # node 2 resets node 1
+        sleep(1)
+        bus.write_byte(node8addr, RESET_MATE_NODE_LOW)  # node 2 resets node 1
+        sleep(1)
+        bus.write_byte(node8addr, RESET_MATE_NODE_HIGH)  # node 2 resets node 1
         sleep(0.1)
 
 
     def node_eight_reset():
-        bus.write_byte(node7addr, 0x79)  # node 7 resets node 8
+        disable_serial_on_all_nodes()
+        bus.write_byte(node7addr, RESET_MATE_NODE_HIGH)  # node 2 resets node 1
+        sleep(1)
+        bus.write_byte(node7addr, RESET_MATE_NODE_LOW)  # node 2 resets node 1
+        sleep(1)
+        bus.write_byte(node7addr, RESET_MATE_NODE_HIGH)  # node 2 resets node 1
         sleep(0.1)
 
 
@@ -204,7 +235,7 @@ def flash_blink_onto_all_gnd_nodes():
         disable_serial_on_all_nodes()
         bus.write_byte(addr_list[i], RESET_MATE_NODE_HIGH)  # node 2 resets node 1
         bus.write_byte(addr_list[i], RESET_MATE_NODE_LOW)
-        bus.write_byte(addr_list[i], RESET_MATE_NODE_HIGH)        
+        bus.write_byte(addr_list[i], RESET_MATE_NODE_HIGH)
         sleep(0.1)
         os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{user}\
         /RH-ota/firmware/{firmware_version}/blink.hex:i")
@@ -217,12 +248,22 @@ def flash_blink_onto_all_gnd_nodes():
 def flash_each_node():
     def node_x_menu():
         global x
-        print(Bcolors.BOLD + "\n\t\t\t\t Node " + str(x) + " selected" + Bcolors.ENDC)
-        print(Bcolors.BOLD + "\n\n\t\t Choose flashing type:\n" + Bcolors.ENDC)
-        print("\t\t 1 - " + Bcolors.GREEN + "Node gets own dedicated firmware - recommended" + Bcolors.ENDC)
-        print("\t\t 2 - Node ground-auto selection firmware")
-        print("\t\t 3 - Flashes 'Blink' on the node")
-        print("\t\t 4 - Abort")
+        flash_each_node_menu = """ {bold}
+                
+                Node {x} selected
+        
+                    Choose flashing type:
+                
+            1 - Node gets own dedicated firmware - recommended
+        
+            2 - Node ground-auto selection firmware
+        
+            3 - Flashes 'Blink' on the node
+        
+            4 - Abort
+        
+        """.format(x=str(x), bold=Bcolors.BOLD, endc=Bcolors.ENDC)
+        print(flash_each_node_menu)
         selection = input()
         if selection == '1':
             reset_gpio_pin()
@@ -263,12 +304,20 @@ def flash_each_node():
         clear_the_screen()
         logo_top()
         sleep(0.05)
-        print("\n\n\n\t\t\t\t    " + Bcolors.RED + Bcolors.BOLD + "NODES MENU" + Bcolors.ENDC)
-        print("\n\t\t " + Bcolors.BOLD + "1 - Flash node 1 \t\t 5 - Flash node 5" + Bcolors.ENDC)
-        print("\n\t\t " + Bcolors.BOLD + "2 - Flash node 2 \t\t 6 - Flash node 6" + Bcolors.ENDC)
-        print("\n\t\t " + Bcolors.BOLD + "3 - Flash node 3 \t\t 7 - Flash node 7" + Bcolors.ENDC)
-        print("\n\t\t " + Bcolors.BOLD + "4 - Flash node 4 \t\t 8 - Flash node 8")
-        print("\n\t\t\t\t" + Bcolors.YELLOW + Bcolors.BOLD + "e - Exit to main menu" + Bcolors.ENDC)
+        flash_node_menu = """
+                            {red}{bold}NODES MENU{endc}
+                        {bold}
+                1 - Flash node 1        5 - Flash node 5
+
+                2 - Flash node 2        6 - Flash node 6
+
+                3 - Flash node 3        7 - Flash node 7
+
+                4 - Flash node 4        8 - Flash node 8
+                        {yellow}
+                    'e'- Exit to main menu{endc}
+        """.format(bold=Bcolors.BOLD, red=Bcolors.RED, yellow=Bcolors.YELLOW, endc=Bcolors.ENDC)
+        print(flash_node_menu)
         selection = input("\n\n\t\t" + Bcolors.BOLD + "Which node do you want to program:" + Bcolors.ENDC + " ")
         print("\n\n")
         if selection.isdigit() and int(selection) <= 8:
@@ -338,15 +387,26 @@ def nodes_update():
     clear_the_screen()
     logo_top()
     sleep(0.05)
-    print("\n\n\t\t\t " + Bcolors.BOLD + Bcolors.UNDERLINE + "CHOOSE FLASHING TYPE:\n" + Bcolors.ENDC)
-    print("\t\t " + Bcolors.GREEN + Bcolors.BOLD + "1 - Every Node gets own dedicated firmware - recommended\n"
-          + Bcolors.ENDC)
-    print("\t\t " + Bcolors.BOLD + "2 - Nodes will use ground-auto selection firmware\n" + Bcolors.ENDC)
-    print("\t\t " + Bcolors.BOLD + "3 - Flash 'Blink' on every node\n" + Bcolors.ENDC)
-    print("\t\t " + Bcolors.BOLD + "4 - Flash each node individually\n" + Bcolors.ENDC)
-    print("\t\t " + Bcolors.BOLD + "5 - Fix GPIO pins state - obsolete\n" + Bcolors.ENDC)
-    print("\t\t " + Bcolors.YELLOW + Bcolors.BOLD + "e - Exit to main menu\n" + Bcolors.ENDC)
-    sleep(0.3)
+    node_menu = """\n
+                        {bold}{underline}CHOOSE FLASHING TYPE:{endc}
+
+                {green}{bold}1 - Every Node gets own dedicated firmware - rec.{endc}
+
+                {bold}2 - Nodes using ground-auto numbering firmware
+
+                3 - Flash 'Blink' on every node
+
+                4 - Flash each node individually
+
+                5 - I2C programming - NEW (beta)
+
+                6 - Fix GPIO pins state - obsolete
+
+                {yellow}'e' - Exit to main menu{endc}
+        """.format(bold=Bcolors.BOLD, green=Bcolors.GREEN, yellow=Bcolors.YELLOW,
+                   endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE)
+    print(node_menu)
+    sleep(0.1)
     selection = input()
     if selection == '1':
         #  todo dedicated node - redundant?
