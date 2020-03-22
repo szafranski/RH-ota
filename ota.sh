@@ -47,3 +47,4 @@ rm aptinstalled.tmp
 python3 update.py
 
 
+# todo David - ota everytime asks for sudo - only on debug?

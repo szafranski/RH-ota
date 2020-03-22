@@ -27,9 +27,31 @@ else:
     user = data['pi_user']
 
 conf_now_FLAG = '0'
+
+admin_name = 0
+admin_pass = 0
+port = 0
+led_count = 0
+led_pin = 0
+led_inv = 0
+led_channel = 0
+panel_rot = 0
+inv_rows = 0
+dma = 0
+freq = 0
+debug = 0
+cores_val = 0
+serial_ports = 0
+led_inv_val = 0
+inv_rows_val = 0
+adv_wiz_flag = 0
+
+# todo David - if above have sense?
+
+
 def conf_check():
     global conf_now_FLAG
-    if os.path.exists("/home/" + user + "/RotorHazard/src/server/config.json"):
+    if os.path.exists(f"/home/{user}/RotorHazard/src/server/config.json"):
         print("\n\tLooks that you already have RotorHazard server configured.")
         valid_options = ['y', 'yes', 'n', 'no']
         while True:
@@ -54,29 +76,29 @@ if conf_now_FLAG:
         print("""\n
 Please type your configuration data. It can be modified later.
 Default values are not automatically applied. Type them if needed.\n""")
-        os.system("rm /home/" + user + "/.wizarded-rh-config.json >/dev/null 2>&1")
-        os.system("cp /home/" + user + "/RotorHazard/src/server/config-dist.json /home/" + user +
-                  "/RH-ota/.wizarded-rh-config.json")
+        os.system(f"rm /home/{user}/.wizarded-rh-config.json >/dev/null 2>&1")
+        os.system(f"cp /home/{user}/RotorHazard/src/server/config-dist.json /home/"
+                  f"{user}/RH-ota/.wizarded-rh-config.json")
         admin_name = input("\nWhat will be admin user name on RotorHazard page? [default: admin]\t")
-        os.system("sed -i 's/\"ADMIN_USERNAME\": \"admin\"/\"ADMIN_USERNAME\": \"" + admin_name + "\"/g' /home/"
-                  + user + "/RH-ota/.wizarded-rh-config.json")
+        os.system(f"sed -i 's/\"ADMIN_USERNAME\": \"admin\"/\"ADMIN_USERNAME\": \"{admin_name}\"/g' /home/"
+                  f"{user}/RH-ota/.wizarded-rh-config.json")
         admin_pass = input("\nWhat will be admin password on RotorHazard page? [default: rotorhazard]\t")
-        os.system("sed -i 's/\"ADMIN_PASSWORD\": \"rotorhazard\"/\"ADMIN_PASSWORD\": \"" + admin_pass +
-                  "\"/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
+        os.system(f"sed -i 's/\"ADMIN_PASSWORD\": \"rotorhazard\"/\"ADMIN_PASSWORD\": \"{admin_pass}\"/g' /home/"
+                  f"{user}/RH-ota/.wizarded-rh-config.json")
         while True:
             port = input("\nWhich port will you use with RotorHazard? [default: 5000]\t\t")
             if not port.isdigit() or int(port) < 0:
                 print("\nPlease enter correct value!")
             else:
-                os.system("sed -i 's/\"HTTP_PORT\": 5000/\"HTTP_PORT\": " + port + "/g' /home/" + user +
-                          "/RH-ota/.wizarded-rh-config.json")
+                os.system(f"sed -i 's/\"HTTP_PORT\": 5000/\"HTTP_PORT\": {port}/g' /home/"
+                          f"{user}/RH-ota/.wizarded-rh-config.json")
                 break
         print("\nAre you planning to use LEDs in your system? [yes/no]\n")
         valid_options = ['y', 'yes', 'n', 'no']
         while True:
             led_present_FLAG = False
             selection = input("\t").strip()
-            if selection in valid_options:
+            if selection in valid_options:    # todo it skips when yes is used - why?
                 break
             else:
                 print("\ntoo big fingers :( wrong command. try again! :)")
@@ -90,16 +112,16 @@ Default values are not automatically applied. Type them if needed.\n""")
                     if not led_count.isdigit() or int(led_count) < 0:
                         print("\nPlease enter correct value!")
                     else:
-                        os.system("sed -i 's/\"LED_COUNT\": 0/\"LED_COUNT\": " + led_count + "/g' /home/" + user +
-                                  "/RH-ota/.wizarded-rh-config.json")
+                        os.system(f"sed -i 's/\"LED_COUNT\": 0/\"LED_COUNT\": {led_count}/g' /home/"
+                                  f"{user}/RH-ota/.wizarded-rh-config.json")
                         break
                 while True:
                     led_pin = input("\nWhich GPIO pin is connected to your LEDs data pin? [default: 10]\t")
                     if not led_pin.isdigit() or int(led_pin) < 0 or int(led_pin) > 40:
                         print("\nPlease enter correct value!")
                     else:
-                        os.system("sed -i 's/\"LED_PIN\": 10/\"LED_PIN\": " + led_pin + "/g' /home/" + user +
-                                  "/RH-ota/.wizarded-rh-config.json")
+                        os.system(f"sed -i 's/\"LED_PIN\": 10/\"LED_PIN\": {led_pin}/g' /home/"
+                                  f"{user}/RH-ota/.wizarded-rh-config.json")
                         break
                 while True:
                     led_inv = input("\nIs LED data pin output inverted? [yes/no | default: no]\t\t\t")
@@ -111,16 +133,16 @@ Default values are not automatically applied. Type them if needed.\n""")
                             led_inv_val = 'true'
                         elif led_inv in ['no', '0', 'n']:
                             led_inv_val = 'true'
-                        os.system("sed -i 's/\"LED_INVERT\": false/\"LED_INVERT\": " + led_inv_val + "/g' /home/" + user +
-                                  "/RH-ota/.wizarded-rh-config.json")
+                        os.system(f"sed -i 's/\"LED_INVERT\": false/\"LED_INVERT\": {led_inv_val}/g' /home/"
+                                  f"{user}/RH-ota/.wizarded-rh-config.json")
                         break
                 while True:
                     led_channel = input("\nWhat channel (not pin!) will be used with your LEDs? [default: 0]\t")
                     if not led_channel.isdigit() or int(led_channel) < 0 or int(led_channel) > 1:
                         print("\nPlease enter correct value!")
                     else:
-                        os.system("sed -i 's/\"LED_CHANNEL\": 0/\"LED_CHANNEL\": " + led_channel + "/g' /home/" + user +
-                                  "/RH-ota/.wizarded-rh-config.json")
+                        os.system(f"sed -i 's/\"LED_CHANNEL\": 0/\"LED_CHANNEL\": {led_channel}/g' \
+                        /home/{user}/RH-ota/.wizarded-rh-config.json")
                         break
                 while True:
                     panel_rot = input("\nBy how many degrees is your panel rotated? [0/90/180/270 | default: 0]\t")
@@ -129,8 +151,8 @@ Default values are not automatically applied. Type them if needed.\n""")
                         print("\nPlease enter correct value!")
                     else:
                         panel_val = (int(panel_rot) / 90)
-                        os.system("sed -i 's/\"PANEL_ROTATE\": 0/\"PANEL_ROTATE\": " + str(
-                            panel_val) + "/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
+                        os.system(f"sed -i 's/\"PANEL_ROTATE\": 0/\"PANEL_ROTATE\": {str(panel_val)}/g' \
+                        /home/{user}/RH-ota/.wizarded-rh-config.json")
                         break
                 while True:
                     inv_rows = input("\nAre your panel rows inverted? [yes/no | default: no]\t\t\t")
@@ -142,8 +164,8 @@ Default values are not automatically applied. Type them if needed.\n""")
                             inv_rows_val = 'true'
                         elif inv_rows in ['no', '0', 'n']:
                             inv_rows_val = 'true'
-                        os.system("sed -i 's/\"INVERTED_PANEL_ROWS\": \"false\"/\"INVERTED_PANEL_ROWS\": \""
-                                  + inv_rows_val + "\"/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
+                        os.system(f"sed -i 's/\"INVERTED_PANEL_ROWS\": \"false\"/\"INVERTED_PANEL_ROWS\": \
+                        \"{inv_rows_val}\"/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
                         break
 
         if not led_present_FLAG:
@@ -165,18 +187,18 @@ Default values are not automatically applied. Type them if needed.\n""")
             else:
                 print("\ntoo big fingers :( wrong command. try again! :)")
         if selection == 'y' or selection == 'yes':
-            adv_wiz_FLAG = True
+            adv_wiz_flag = True
         if selection == 'n' or selection == 'no':
-            adv_wiz_FLAG = False
+            adv_wiz_flag = False
 
-        if adv_wiz_FLAG:
+        if adv_wiz_flag:
             while True:
                 dma = input("\nLED DMA you will use in your system? [default: 10]\t\t\t")
                 if not dma.isdigit() or int(dma) < 0:
                     print("\nPlease enter correct value!")
                 else:
-                    os.system("sed -i 's/\"LED_DMA\": 10/\"LED_DMA\": " + dma + "/g' /home/" + user +
-                              "/RH-ota/.wizarded-rh-config.json")
+                    os.system(f"sed -i 's/\"LED_DMA\": 10/\"LED_DMA\": {dma}/g' \
+                    /home/{user}/RH-ota/.wizarded-rh-config.json")
                     break
             while True:
                 freq = input("\nWhat LED frequency will you use? [default: 800000 - you can type 'def']\t")
@@ -185,8 +207,8 @@ Default values are not automatically applied. Type them if needed.\n""")
                 elif freq == 'def':
                     break
                 else:
-                    os.system("sed -i 's/\"LED_FREQ_HZ\": 800000/\"LED_FREQ_HZ\": " + str(
-                        freq) + "/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
+                    os.system(f"sed -i 's/\"LED_FREQ_HZ\": 800000/\"LED_FREQ_HZ\": \{str(freq)}/g' \
+                    /home/{user}/RH-ota/.wizarded-rh-config.json")
                     break
             while True:
                 debug_mode = input("\nWill you use RotorHazard in debug mode? [yes/no | default: no]\t\t")
@@ -199,8 +221,8 @@ Default values are not automatically applied. Type them if needed.\n""")
                         debug = 'true'
                     elif debug_mode in ['no', '0', 'n']:
                         debug = 'false'
-                    os.system("sed -i 's/\"DEBUG\": false/\"DEBUG\": " + str(
-                        debug) + "/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
+                    os.system(f"sed -i 's/\"DEBUG\": false/\"DEBUG\": {str(debug)}/g' \
+                    /home/{user}/RH-ota/.wizarded-rh-config.json")
                     break
             while True:
                 cores = input("\nHome many cores will be available for hosts? [1/2/3/all | default: all]\t")
@@ -210,8 +232,8 @@ Default values are not automatically applied. Type them if needed.\n""")
                 else:
                     if cores in ['1', '2', '3']:
                         cores_val = str(cores)
-                        os.system("sed -i 's/\"CORS_ALLOWED_HOSTS\": \"\*\"/\"CORS_ALLOWED_HOSTS\": \""
-                                  + str(cores_val) + "\"/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
+                        os.system(f"sed -i 's/\"CORS_ALLOWED_HOSTS\": \"\*\"/\"CORS_ALLOWED_HOSTS\": \
+                        \"{str(cores_val)}\"/g' /home/{user}/RH-ota/.wizarded-rh-config.json")
                     elif cores == 'all':
                         cores_val = 'all'
                     else:
@@ -222,10 +244,10 @@ Default values are not automatically applied. Type them if needed.\n""")
                 if serial_ports in ['none', '0', 'no']:
                     break
                 else:
-                    os.system("sed -i 's/\"SERIAL_PORTS\": [],/\"SERIAL_PORTS\": [" + str(
-                        serial_ports) + "],/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
+                    os.system(f"sed -i 's/\"SERIAL_PORTS\": [],/\"SERIAL_PORTS\": [{str(serial_ports)}],/g' \
+                    /home/{user}/RH-ota/.wizarded-rh-config.json")
                     break
-        if not adv_wiz_FLAG:
+        if not adv_wiz_flag:
             debug = 'no'
             cores_val = 'all'
             serial_ports = 'none'
@@ -257,7 +279,7 @@ Default values are not automatically applied. Type them if needed.\n""")
             else:
                 print("\ntoo big fingers :( wrong command. try again! :)")
         if selection == 'y' or selection == 'yes':
-            os.system("mv .wizarded-rh-config.json /home/" + user + "/RotorHazard/src/server/config.json")
+            os.system(f"mv .wizarded-rh-config.json /home/{user}/RotorHazard/src/server/config.json")
             print("Configuration saved.\n")
             sleep(0.5)
             break

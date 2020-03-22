@@ -39,17 +39,17 @@ else:
 
 def internet_check():
     print("\nPlease wait - checking internet connection state...\n")
-    global internet_FLAG
+    global internet_flag
     before_millis = int(round(time.time() * 1000))
     os.system(". "+myhomedir+"/RH-ota/open_scripts.sh; net_check")
     while True:
         now_millis = int(round(time.time() * 1000))
         time_passed = (now_millis - before_millis)
         if os.path.exists("./index.html"):
-            internet_FLAG = 1
+            internet_flag = 1
             break
         elif time_passed > 10100:
-            internet_FLAG = 0
+            internet_flag = 0
             break
     os.system(f"rm {myhomedir}/RH-ota/index.html > /dev/null 2>&1")
     os.system(f"rm {myhomedir}/RH-ota/wget-log* > /dev/null 2>&1")
@@ -131,7 +131,7 @@ def new_version_check():
 def main():
     parser.read(myhomedir+'/.ota_markers/ota_config.txt')
     internet_check()
-    if not internet_FLAG:
+    if not internet_flag:
         print("\nLooks like you don't have internet connection. Update canceled.\n")
         sleep(2)
     else:

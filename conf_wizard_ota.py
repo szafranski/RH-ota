@@ -8,8 +8,9 @@ clear_the_screen()
 
 logo_top(False)
 
-#Always define variables before using them.
+# Always define variables before using them.
 conf_now_FLAG = 0
+
 
 def conf_check():
     global conf_now_FLAG
@@ -22,10 +23,10 @@ def conf_check():
                 break
             else:
                 print("\ntoo big fingers :( wrong command. try again! :)")
-        if cont_conf[0] == 'y' :
+        if cont_conf[0] == 'y':
             conf_now_FLAG = 1
             pass
-        if cont_conf[0] == 'n' :
+        if cont_conf[0] == 'n':
             conf_now_FLAG = 0
     else:
         conf_now_FLAG = 1

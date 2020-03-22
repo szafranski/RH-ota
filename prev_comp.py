@@ -3,13 +3,14 @@ from modules import check_if_string_in_file, load_config, copy_file
 from configparser import ConfigParser
 from pathlib import Path
 
+
 def prev_comp(parser, home_dir):
-    aliases_1_FLAG = False
-    aliases_2_FLAG = False
-    installation_FLAG = False
-    updater_FLAG = False
-    serial_FLAG = False
-    pinout_FLAG = False
+    aliases_1_flag = False
+    aliases_2_flag = False
+    installation_flag = False
+    updater_flag = False
+    serial_flag = False
+    pinout_flag = False
 
     # if os.stat(homedir+'/.ota_markers/ota_config.txt').st_size == 0:
     #    os.system("rm {homedir}/.ota_markers/ota_config.txt > /dev/null 2>&1")
@@ -23,10 +24,10 @@ def prev_comp(parser, home_dir):
 
     if not os.path.exists(home_dir + "/.ota_markers/.installation-check_file.txt"):
         copy_file(f"{home_dir}/.old_RotorHazard.old/.installation-check_file.txt",
-                 f"{home_dir}/.ota_markers/.installation-check_file.txt")
+                  f"{home_dir}/.ota_markers/.installation-check_file.txt")
 
     copy_file(f"{home_dir}/.serialok", f"{home_dir}/.ota_markers/.serialok")
-    if os.path.exists(home_dir + "/.bashrc"):         # aliases compatibility
+    if os.path.exists(home_dir + "/.bashrc"):  # aliases compatibility
         if check_if_string_in_file(home_dir + '/.bashrc', 'RotorHazard OTA Manager updated'):
             os.system(f"sed -i 's/alias updateupdater/# alias updateupdater/g' {home_dir}/.bashrc")
             os.system(f"sed -i 's/RotorHazard OTA Manager updated/old alias/g' {home_dir}/.bashrc")
@@ -66,12 +67,14 @@ def prev_comp(parser, home_dir):
                 os.system("echo 'alias otacpcfg=\"cd ~/RH-ota && cp distr-updater-config.json updater-config.json \"  \
                 # copies ota conf. file' | tee -a ~/.bashrc >/dev/null")
                 os.system("echo 'alias home=\"cd ~ \"  # go homedir (without ~ sign)' | tee -a ~/.bashrc >/dev/null")
-                os.system("echo 'functionality added - leave file here' | tee -a ~/.ota_markers/.aliases2_added >/dev/null")
-        if os.path.exists("./updater-config.json"):         # json compatibility
+                os.system("echo 'functionality added - leave file here' | tee -a ~/.ota_markers/.aliases2_added \
+                >/dev/null")
+        if os.path.exists("./updater-config.json"):  # json compatibility
             if not check_if_string_in_file(home_dir + '/RH-ota/updater-config.json', '"pins_assignment"'):
                 os.system(f"sed -i 's/\"debug_mode\" : 0/\"debug_mode\" : 0,/g' {home_dir}/RH-ota/updater-config.json")
                 os.system(f"sed -i 's/\"debug_mode\" : 1/\"debug_mode\" : 1,/g' {home_dir}/RH-ota/updater-config.json")
-                os.system("sed -i 's/}/    \"pins_assignment\" : \"default\" /g' " + home_dir + "/RH-ota/updater-config.json")
+                os.system("sed -i 's/}/    \"pins_assignment\" : \"default\" /g' "
+                          + home_dir + "/RH-ota/updater-config.json")
                 os.system("echo '}' | tee -a " + home_dir + "/RH-ota/updater-config.json >/dev/null 2>&1")
             if check_if_string_in_file(home_dir + '/RH-ota/updater-config.json', '"pins_assignment"'):
                 if not check_if_string_in_file(home_dir + '/RH-ota/updater-config.json', '"updates_without_pdf"'):
@@ -81,7 +84,8 @@ def prev_comp(parser, home_dir):
     {home_dir}/RH-ota/updater-config.json")
                     os.system(f"sed -i 's/\"pins_assignment\" : \"PCB\"/\"pins_assignment\" : \"PCB\",/g' \
     {home_dir}/RH-ota/updater-config.json")
-                    os.system("sed -i 's/}/    \"updates_without_pdf\" : 0 /g' " + home_dir + "/RH-ota/updater-config.json")
+                    os.system("sed -i 's/}/    \"updates_without_pdf\" : 0 /g' "
+                              + home_dir + "/RH-ota/updater-config.json")
                     os.system("echo '}' | tee -a " + home_dir + "/RH-ota/updater-config.json >/dev/null 2>&1")
             if check_if_string_in_file(home_dir + '/RH-ota/updater-config.json', '"updates_without_pdf"'):
                 if not check_if_string_in_file(home_dir + '/RH-ota/updater-config.json', '"pi_4_cfg"'):
@@ -98,31 +102,31 @@ def prev_comp(parser, home_dir):
                     os.system("sed -i 's/}/    \"beta_tester\" : 0 /g' " + home_dir + "/RH-ota/updater-config.json")
                     os.system("echo '}' | tee -a " + home_dir + "/RH-ota/updater-config.json >/dev/null 2>&1")
     if os.path.exists(home_dir + "/.ota_markers/.serialok"):
-        serial_FLAG = True
+        serial_flag = True
     if os.path.exists(home_dir + "/.ota_markers/.installation-check_file.txt"):
-        installation_FLAG = True
+        installation_flag = True
     if os.path.exists(home_dir + "/.ota_markers/.pinout_added"):
-        pinout_FLAG = True
+        pinout_flag = True
     if os.path.exists(home_dir + "/.ota_markers/.aliases_added"):
-        aliases_1_FLAG = True
+        aliases_1_flag = True
     if os.path.exists(home_dir + "/.ota_markers/.aliases2_added"):
-        aliases_2_FLAG = True
+        aliases_2_flag = True
     if os.path.exists(home_dir + "/.ota_markers/.updater_self"):
-        updater_FLAG = True
+        updater_flag = True
     if not os.path.exists(home_dir + "/.ota_markers/ota_config.txt"):
         copy_file(f"{home_dir}/RH-ota/resources/ota_config.txt", f"{home_dir}/.ota_markers/ota_config.txt")
     parser.read(home_dir + '/.ota_markers/ota_config.txt')
-    if aliases_1_FLAG:
+    if aliases_1_flag:
         parser.set('added_functions', 'aliases_1', '1')
-    if aliases_2_FLAG:
+    if aliases_2_flag:
         parser.set('added_functions', 'aliases_2', '1')
-    if installation_FLAG:
+    if installation_flag:
         parser.set('added_functions', 'installation_done', '1')
-    if updater_FLAG:
+    if updater_flag:
         parser.set('added_functions', 'updater_planted', '1')
-    if pinout_FLAG:
+    if pinout_flag:
         parser.set('added_functions', 'pinout_installed', '1')
-    if serial_FLAG:
+    if serial_flag:
         parser.set('added_functions', 'serial_added', '1')
     with open(home_dir + '/.ota_markers/ota_config.txt', 'w') as configfile:
         parser.write(configfile)
@@ -143,10 +147,13 @@ python3 prev_comp.py
 
 it will NOT be called if you import this file into another file.
 '''
+
+
 def main():
     parser, config = load_config()
     home_dir = os.path.expanduser('~')
     prev_comp(parser, home_dir)
+
 
 '''
 This if statement is responsible for detecting if this script 

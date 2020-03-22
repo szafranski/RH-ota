@@ -32,7 +32,7 @@ if preferred_RH_version == 'custom':
 
 nodes_number = data['nodes_number']
 
-#default to default pins. only update if they said so.
+# default to default pins. only update if they said so.
 reset_1 = 12  # node 1   # default 12
 reset_2 = 16  # node 2   # default 16
 reset_3 = 20  # node 3   # default 20
@@ -616,7 +616,7 @@ def nodes_update():
             
             6 - Fix GPIO pins state - obsolete
             
-            {yellow}'e' - Exit to main menu{endc}
+            {yellow}e - Exit to main menu{endc}
     """.format(bold=Bcolors.BOLD, green=Bcolors.GREEN, yellow=Bcolors.YELLOW,
                endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE)
     print(node_menu)

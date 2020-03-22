@@ -7,7 +7,10 @@ import sys
 import json
 import time
 from types import SimpleNamespace as Namespace
+
+
 #  todo add an RH version to modules so it can be read by other files like i2c nodes_update
+
 
 def clear_the_screen():
     sleep(0.05)
@@ -165,8 +168,6 @@ def load_config():
         config.update_mode = 'without pdf'
     else:
         config.update_mode = 'with pdf'
-        
-
 
     parser = ConfigParser()
     parser.read('/home/' + config.user + '/.ota_markers/ota_config.txt')

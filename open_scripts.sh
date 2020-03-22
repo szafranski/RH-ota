@@ -34,7 +34,7 @@ cd ~/RotorHazard/src/server
 python server.py
 }
 
-rh_configuration_start ()
+rh_configuration_start()
 {
 cd ~/RH-ota
 python3 ./conf_wizard_rh.py

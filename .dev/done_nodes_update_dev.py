@@ -59,6 +59,15 @@ if pins_assignment == 'custom':
     reset_6 = 0  # node 6   # custom pin assignment
     reset_7 = 0  # node 7   # custom pin assignment
     reset_8 = 0  # node 8   # custom pin assignment
+else:
+    reset_1 = 12  # node 1   # default 12
+    reset_2 = 16  # node 2   # default 16
+    reset_3 = 20  # node 3   # default 20
+    reset_4 = 21  # node 4   # default 21
+    reset_5 = 6  # node 5   # default 6
+    reset_6 = 13  # node 6   # default 13
+    reset_7 = 19  # node 7   # default 19
+    reset_8 = 26  # node 8   # default 26
 
 reset_list = [str(reset_1), str(reset_2), str(reset_3), str(reset_4), str(reset_5), str(reset_6), str(reset_7),
               str(reset_8)]

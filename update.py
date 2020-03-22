@@ -404,7 +404,7 @@ def first_time(parser, config):
 
             """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
                        blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S))
-        print("\n\n\t\t'f' - first page'" + Bcolors.GREEN + "\t'u' - update notes'" + Bcolors.ENDC
+        print("\n\n\t'f' - first page'" + Bcolors.GREEN + "\t'u' - update notes'" + Bcolors.ENDC
               + Bcolors.YELLOW + "\t'b' - back to menu" + Bcolors.ENDC + "\n\n")
         selection = input()
         if selection == 'f':
@@ -477,22 +477,22 @@ def main_menu(parser, config):
         logo_top(config.debug_mode)
         menu = """
         
-                        {red}{bold}{underline}MAIN MENU{endc}
+                    {red}{bold}{underline}MAIN MENU{endc}
                     
         {blue}{bold}
-                            1 - RotorHazard Manager
+                        1 - RotorHazard Manager
                             
-                            2 - Nodes flash and update {endc} 
+                        2 - Nodes flash and update {endc} 
                             {bold}
-                            3 - Start the server now
+                        3 - Start the server now
                             
-                            4 - Additional features
+                        4 - Additional features
                             
-                            5 - Info + first time here
+                        5 - Info + first time here
                             
-                            6 - Configuration wizard {endc}
+                        6 - Configuration wizard {endc}
                             {yellow}
-                            e - Exit {endc}
+                        e - Exit {endc}
                             
                 """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
                            blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
@@ -534,7 +534,8 @@ def main():
     parser, config = load_config()
     compatibility(parser, home_dir)
     if not os.path.exists(home_dir + "/.ota_markers/ota_config.txt"):
-        os.system("cp {home_dir}/RH-ota/resources/ota_config.txt {home_dir}/.ota_markers/ota_config.txt".format(home_dir=home_dir))
+        os.system("cp {home_dir}/RH-ota/resources/ota_config.txt \
+        {home_dir}/.ota_markers/ota_config.txt".format(home_dir=home_dir))
     first(parser, config, updater_version)
     main_menu(parser, config)
 

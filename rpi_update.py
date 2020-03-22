@@ -6,7 +6,6 @@ from configparser import ConfigParser
 from modules import internet_check
 from time import sleep
 
-
 from modules import clear_the_screen, Bcolors, image_show
 
 parser = ConfigParser()
@@ -42,7 +41,7 @@ if preferred_RH_version == 'beta':
 if preferred_RH_version == 'stable':
     server_version = '2.1.0'
 if preferred_RH_version == 'custom':
-    server_version = 'X.X.X'           # paste custom version number here if you want to declare it manually
+    server_version = 'X.X.X'  # paste custom version number here if you want to declare it manually
 
 parser.read('/home/' + user + '/.ota_markers/ota_config.txt')
 
@@ -57,11 +56,13 @@ def first():
     print("\n\n\n")
     image_show()
     sleep(0.5)
+
+
 first()
 
 
 def server_checker():
-    global serv_installed_FLAG
+    global serv_installed_flag
     if os.path.exists(f"/home/{user}/RotorHazard/src/server/server.py"):
         os.system("grep 'RELEASE_VERSION =' ~/RotorHazard/src/server/server.py > ~/.ota_markers/.server_version")
         os.system("sed -i 's/RELEASE_VERSION = \"//' ~/.ota_markers/.server_version")
@@ -70,21 +71,21 @@ def server_checker():
         for line in f:
             global server_version_name
             server_version_name = Bcolors.GREEN + line + Bcolors.ENDC
-        serv_installed_FLAG = True
+        serv_installed_flag = True
     else:
         server_version_name = Bcolors.YELLOW + """no installation found\n""" + Bcolors.ENDC
-        serv_installed_FLAG = False
+        serv_installed_flag = False
 
 
 def config_checker():
-    global config_FLAG
+    global config_flag
     global config_soft
     if os.path.exists(f"/home/{user}/RotorHazard/src/server/config.json"):
         config_soft = Bcolors.GREEN + """configured""" + Bcolors.ENDC
-        config_FLAG = True
+        config_flag = True
     else:
         config_soft = Bcolors.YELLOW + Bcolors.UNDERLINE + """not configured""" + Bcolors.ENDC
-        config_FLAG = False
+        config_flag = False
 
 
 def sys_conf():
@@ -105,7 +106,7 @@ def sys_conf():
 
 def end_update():
     print("\n\n")
-    if not config_FLAG and serv_installed_FLAG:
+    if not config_flag and serv_installed_flag:
         print(Bcolors.GREEN + """\t\t'c' - configure the server now""" + Bcolors.ENDC)
     else:
         print("""\t\t'c' - Reconfigure RotorHazard server""")
@@ -122,7 +123,7 @@ def end_update():
             parser_write()
             sys.exit()
         if selection == 'c':
-            os.system(f". /home/{user}/RH-ota/open_scripts.sh; rh_configuraton_start")
+            os.system(f". /home/{user}/RH-ota/open_scripts.sh; rh_configuration_start")
             end_update()
         if selection == 's':
             clear_the_screen()
@@ -166,8 +167,8 @@ def end_installation():
 def installation():
     if not linux_testing:
         os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
-    internet_FLAG = internet_check(user)
-    if not internet_FLAG:
+    internet_flag = internet_check(user)
+    if not internet_flag:
         print("\nLooks like you don't have internet connection. Installation canceled.")
         sleep(2)
     else:
@@ -254,8 +255,8 @@ def installation():
 def update():
     if not linux_testing:
         os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
-    internet_FLAG = internet_check(user)
-    if not internet_FLAG:
+    internet_flag = internet_check(user)
+    if not internet_flag:
         print("\nLooks like you don't have internet connection. Update canceled.")
         sleep(2)
     else:
@@ -339,8 +340,8 @@ def update():
 
 
 def main():
-    global config_FLAG
-    global serv_installed_FLAG
+    global config_flag
+    global serv_installed_flag
     global conf_allowed
     global config_soft
     global server_version_name
@@ -368,11 +369,11 @@ def main():
                    yellow=Bcolors.YELLOW, red=Bcolors.RED, orange=Bcolors.ORANGE, server_version=server_version,
                    user=user, config_soft=config_soft, server=server_version_name, )
     print(welcome)
-    if not config_FLAG and serv_installed_FLAG:
+    if not config_flag and serv_installed_flag:
         print(Bcolors.GREEN + """\t\t'c' - Configure RotorHazard server\n""" + Bcolors.ENDC)
     else:
         print("""\t\t'c' - Reconfigure RotorHazard server\n""")
-    if not serv_installed_FLAG:
+    if not serv_installed_flag:
         print("""
         \t\t{green}'i' - Install software from skratch{endc}""".format(green=Bcolors.GREEN, endc=Bcolors.ENDC))
     else:
@@ -383,8 +384,8 @@ def main():
             """.format(yellow=Bcolors.YELLOW, endc=Bcolors.ENDC))
     selection = input()
     if selection == 'c':
-        if serv_installed_FLAG:
-            os.system(". ./open_scripts.sh; configuration_start")
+        if serv_installed_flag:
+            os.system(". ./open_scripts.sh; rh_configuration_start")
         else:
             print("\n\t\tPlease install server software first")
             sleep(1.5)

@@ -108,6 +108,7 @@ if not linux_testing:
 
     #  all reset commands have disabling serial on all nodes function implemented - for now
 
+
     def node_one_reset():
         disable_serial_on_all_nodes()
         bus.write_byte(node2addr, RESET_MATE_NODE_HIGH)  # node 2 resets node 1
@@ -336,7 +337,7 @@ def reset_gpio_state():
     clear_the_screen()
     logo_top()
     print("\n\n\n")
-    os.system("echo " + gpio_reset_pin + " > /sys/class/GPIO/unexport")
+    os.system(f"echo {gpio_reset_pin} > /sys/class/GPIO/unexport")
     print("\n\n        DONE\n\n")
     sleep(0.3)
 
@@ -433,7 +434,7 @@ def nodes_update():
 nodes_update()
 
 
-## testing leftovers:
+# testing leftovers:
 
 def flashing():
     input("Ok?")
