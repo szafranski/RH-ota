@@ -21,7 +21,7 @@ else
 fi
 
 echo "looking for non python dependencies..."
-sudo apt list | tee aptinstalled.tmp > /dev/null
+sudo apt list  2>/dev/null | tee aptinstalled.tmp  >/dev/null 
 
 if grep -q 'python3-dev' aptinstalled.tmp ; then
   echo python3-dev installed
