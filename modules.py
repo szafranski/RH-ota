@@ -161,6 +161,13 @@ def load_config():
     if config.RH_version == 'custom':
         config.server_version = 'X.X.X'  # paste custom version number here if you want to declare it manually
 
+    if config.updates_without_pdf:
+        config.update_mode = 'without pdf'
+    else:
+        config.update_mode = 'with pdf'
+        
+
+
     parser = ConfigParser()
     parser.read('/home/' + config.user + '/.ota_markers/ota_config.txt')
 
