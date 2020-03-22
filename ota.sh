@@ -11,16 +11,17 @@ which pip3 > /dev/null  # proper way of checking?
 if [ $? -gt 0 ];
 	then echo pip package has to be installed && sudo apt install python3-pip
 fi;
-
+echo "looking for dependencies python ..."
 pip3 freeze > pip3installed.tmp
 
 if grep -q 'configparser' pip3installed.tmp ; then
   echo configparser installed
 else
-  echo configparser has to be installed && sudo pip install configparser
+  echo configparser has to be installed && sudo pip3 install configparser
 fi
 
-sudo apt list | tee aptinstalled.tmp
+echo "looking for non python dependencies..."
+sudo apt list | tee aptinstalled.tmp > /dev/null
 
 if grep -q 'python3-dev' aptinstalled.tmp ; then
   echo python3-dev installed
