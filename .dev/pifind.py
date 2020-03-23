@@ -14,12 +14,12 @@ pi_pwsd = 'raspberry'
 
 # phrase=pi_user+"@"+10.42.0.245's password :"
 
-selection = input("Do you have 'xterm' installed? \n[hit 'n' if not, 'c' - to cancel or 'Enter' to dismiss]\n")
-if selection == 'n':
-    print("Please install it now.\n")
-    os.system("sudo apt install xterm")
-if selection == 'c':
-    sys.exit()
+# selection = input("Do you have 'xterm' installed? \n[hit 'n' if not, 'c' - to cancel or 'Enter' to dismiss]\n")
+# if selection == 'n':
+#     print("Please install it now.\n")
+#     os.system("sudo apt install xterm")
+# if selection == 'c':
+#     sys.exit()
 
 for i in range(2, 255):
     print("testing connection with IP "+str(ip_first)+str(i))
