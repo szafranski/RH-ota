@@ -3,11 +3,6 @@
 # Easy mange and update your [RotorHazard](https://github.com/RotorHazard/RotorHazard) installation. 
 
 </br>
-Additional features like nodes flashing are included.
-</br></br>
-
-If you want all hardware functionalities - visit: [Instructables page](https://www.instructables.com/id/RotorHazard-Updater/)
-or check the [RotorHazard-Updater.pdf](/how_to/RotorHazard-Updater.pdf).
 
 # Main features of the software:
 
@@ -28,6 +23,10 @@ Helpful developer options
 1. Option for adding aliases to the system
 1. Showing Raspberry GPIO in the terminal
 1. Embeded logging feature with an option to upload log file to the cloud 
+
+
+If you want all hardware functionalities - visit: [Instructables page](https://www.instructables.com/id/RotorHazard-Updater/)
+or check the [RotorHazard-Updater.pdf](/how_to/RotorHazard-Updater.pdf).
 
 
 You may also read [update notes](/docs/update-notes.txt) - new features are present.
