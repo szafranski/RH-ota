@@ -21,3 +21,8 @@
 
 
 #  todo rephrase the list to be readable 
+
+smart-hotspot
+backup existing config files
+backup installation of RH that is going to be overwrite
+automatic fising permission issues with db files etc 
