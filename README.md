@@ -2,7 +2,7 @@
 
 # Easy mange and update your [RotorHazard](https://github.com/RotorHazard/RotorHazard) installation. 
 
-</br>
+<br/>
 
 ## Main features of the software:
 
@@ -18,13 +18,13 @@
 1. Automatic configuring Access Point
      - Smart-hotspot: dynamically connect to existing hotspot or server is the hotspot 
 
-Helpful developer options
-1. Option for installing avrdude
-1. Option for adding aliases to the system
+Helpful developer options:
+1. Installing avrdude
+1. Adding aliases to the system
 1. Showing Raspberry GPIO in the terminal
-1. Embeded logging feature with an option to upload log file to the cloud 
+1. Embedded logging feature with an option to upload log file to the cloud 
 
-</br></br>
+<br/><br/>
 If you want all hardware functionalities - visit: [Instructables page](https://www.instructables.com/id/RotorHazard-Updater/)
 or check the [RotorHazard-Updater.pdf](/how_to/RotorHazard-Updater.pdf).
 
@@ -40,12 +40,11 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
     mv RH-ota-* RH-ota
 
 #### Commands to open the software:
-    sudo apt install python --> if needed
     
     cd ~/RH-ota
-    python update.py
+    sh ./ota.sh
 
-</br>
+<br/>
 
 >If you want detailed description of this software and actions that are being performed during operations</br>
 >or you have some programming experience you may read [developer notes](/docs/dev-notes.txt). Legal stuff - here: [license file](/docs/LICENSE.txt).

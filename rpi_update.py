@@ -325,7 +325,7 @@ def update():
             /home/{user}/backup_RH_data >/dev/null 2>&1 &")
             os.chdir(f"/home/{user}/RotorHazard/src/server")
             os.system("sudo -H pip install --upgrade --no-cache-dir -r requirements.txt")
-            # todo pip3 or pip or what?
+            # todo pip3 or pip should be used?
             print("""\n\n\t
                 ##############################################
                 #                                            #
@@ -341,7 +341,7 @@ def main():
     global serv_installed_flag
     global conf_allowed
     global config_soft
-    global server_version_name  # todo too much globals
+    global server_version_name  # todo too much globals?
     clear_the_screen()
     server_checker()
     config_checker()

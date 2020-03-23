@@ -48,4 +48,5 @@ python3 update.py
 
 
 # todo David - ota everytime asks for sudo - only on debug or always?
-# todo sudo -H with pip should be used? propmts are showing
+
+# todo 'sudo -H' with pip should be used? yellow prompts are showing

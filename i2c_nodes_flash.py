@@ -412,7 +412,7 @@ def nodes_update():
     sleep(0.1)
     selection = input()
     if selection == '1':
-        #  todo dedicated node - redundant?
+        #  todo dedicated firmware node - redundant?
         logo_update()
         sleep(3)
     if selection == '2':

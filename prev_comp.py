@@ -54,7 +54,6 @@ def prev_comp(parser, home_dir):
             os.system("echo 'alias ota=\"cd ~/RH-ota && python3 update.py\"  # opens ota soft' \
             | tee -a ~/.bashrc >/dev/null")
 
-            #  todo change?
             #  todo stupid aliases update have to be fixed
             # is this file necesarry? abandon with python3 implementation or make it "smaller"
 

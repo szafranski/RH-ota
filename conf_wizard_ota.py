@@ -150,7 +150,7 @@ Default values are not automatically applied. Type them if needed.\n""")
         Beta tester:            {beta_tester}
          
         Please check. Confirm? [yes/change/abort]\n""")
-        valid_options = ['y', 'yes', 'n', 'no', 'change', 'abort'] # todo Dave, look - I made it pretty
+        valid_options = ['y', 'yes', 'n', 'no', 'change', 'abort']  # todo Dave, look - I made it pretty
         while True:
             selection = input().strip()
             if selection in valid_options:
