@@ -55,7 +55,8 @@ def prev_comp(parser, home_dir):
             | tee -a ~/.bashrc >/dev/null")
 
             #  todo change?
-            #  todo stupid aliases update fix
+            #  todo stupid aliases update have to be fixed
+            # is this file necesarry? abandon with python3 implementation or make it "smaller"
 
         if check_if_string_in_file(home_dir + '/.bashrc', 'part of self-updater'):
             os.system(f"sed -i 's/part of self-updater/part of self updater/g' {home_dir}/.bashrc")

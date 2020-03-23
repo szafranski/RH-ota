@@ -7,7 +7,9 @@ from smbus import SMBus  # works only on Pi
 from modules import RH_version  # invalid syntax for some reason
 
 firmware_version = RH_version
+
 #  todo check if it is ok? implement firmware version reading to modules.py
+#  cannot find reference for RH_version error shows
 
 bus = SMBus(1)  # indicates /dev/ic2-1
 

@@ -332,7 +332,7 @@ def update():
                 #{bold}{green} Update completed!     {endc}  #
                 #                                            #
                 ############################################## 
-                        """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S)
+                        """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S))
             end_update()
 
 
@@ -371,7 +371,7 @@ def main():
     else:
         print("\t\t'c' - Reconfigure RotorHazard server\n")
     if not serv_installed_flag:
-        print(f"\t{Bcolors.GREEN}'i' - Install software from skratch{endc}")
+        print(f"\t{Bcolors.GREEN}'i' - Install software from skratch{Bcolors.ENDC}")
     else:
         print("""\t\t'i' - Install software from skratch""")
     print("""
@@ -399,8 +399,8 @@ def main():
         'u' - Select update mode - recommended {endc}\n 
         'i' - Force installation without sys. config.\n
         'c' - Force installation and sys. config.\n {yellow}
-        'a' - Abort both  \n {endc}""").format(bold=Bcolors.BOLD, endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE,
-                                                yellow=Bcolors.YELLOW)
+        'a' - Abort both  \n {endc}""".format(bold=Bcolors.BOLD, endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE,
+                                              yellow=Bcolors.YELLOW, green=Bcolors.GREEN)
             print(already_installed_prompt)
             selection = input()
             if selection == 'u':

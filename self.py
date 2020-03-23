@@ -11,7 +11,7 @@ def parser_write():
     try:
         with open(f'/home/{user}/.ota_markers/ota_config.txt', 'w') as configfile:
             parser.write(configfile)
-    except IOError as up:  # todo up greyed out - unused
+    except IOError as up:  # todo 'up' greyed out - unused?
         print("Config file does not exist and could not be created.")
 
 
@@ -93,19 +93,6 @@ if config_file_exists:
         beta_tester_update = False
 else:
     beta_tester_update = False
-
-
-def debug_info():
-    if config_file_exists:
-        print("config_file_exists = True")
-    else:
-        print("config_file_exists = False")
-    if no_pdf_update:
-        print("no_pdf_update = True")
-    else:
-        print("no_pdf_update = False")
-    sleep(1)
-# debug_info()
 
 
 def old_version_check():
@@ -193,8 +180,8 @@ def main():
         print(f"\n\n\n\t RotorHazard OTA Manager updated to version {new_version_name}\
         \n\t\tYou may check update-notes.\n\n")
         sleep(1)
-        os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")   # resolves compatibility issues
-        os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         # resolves compatibility issues
+        os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")
+        os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         # resolves compatibility, permissions issues
         if new_version_name != old_version_name:
             os.system("echo OTA was updated > ~/.ota_markers/.was_updated")
 

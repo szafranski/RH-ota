@@ -9,6 +9,7 @@ clear_the_screen()
 logo_top(False)
 
 # Always define variables before using them.
+
 conf_now_flag = 0
 
 
@@ -142,14 +143,14 @@ Default values are not automatically applied. Type them if needed.\n""")
         Debug user name:        {debug_user}
         Country code:           {code}
         Nodes amount:           {nodes}
-        Debug mode:             {debug_mode}
+        Debug mode:             {debug_mode}    
         Pins assignment:        {pins_assign}
         Updates without PDF:    {no_pdf}
         Pi 4 user:              {pi_4}
         Beta tester:            {beta_tester}
-        
+         
         Please check. Confirm? [yes/change/abort]\n""")
-        valid_options = ['y', 'yes', 'n', 'no', 'change', 'abort']
+        valid_options = ['y', 'yes', 'n', 'no', 'change', 'abort'] # todo Dave, look - I made it pretty
         while True:
             selection = input().strip()
             if selection in valid_options:

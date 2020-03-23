@@ -99,7 +99,7 @@ Default values are not automatically applied. Type them if needed.\n""")
         while True:
             led_present_flag = False
             selection = input("\t")
-            if selection in valid_options:  # todo it skips when yes AND no is used too - why?
+            if selection in valid_options:  # todo it skips when yes AND no is used too - why? IMPORTANT!
                 break
             else:
                 print("\ntoo big fingers :( wrong command. try again! :)")

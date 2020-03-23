@@ -329,7 +329,7 @@ def features_menu(parser, config):
                         e - Exit to main menu {endc}
 
              """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
-                        blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
+                        blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S)
     print(features_menu)
     selection = input()
     if selection == '1':
@@ -462,7 +462,7 @@ def end(parser, config):
     clear_the_screen()
     print("\n\n")
     ota_image()
-    print("\t\t\t\t   " + Bcolors.BOLD + "Happy flyin'!" + Bcolors.ENDC + "\n")
+    print(f"\t\t\t\t\t{Bcolors.BOLD}Happy flyin'!{Bcolors.ENDC}\n")
     sleep(1.3)
     clear_the_screen()
     sys.exit()
@@ -477,25 +477,25 @@ def main_menu(parser, config):
         logo_top(config.debug_mode)
         main_menu = """
         
-                    {red}{bold}{underline}MAIN MENU{endc}
+                    {red}{bold}{underline}MAIN MENU{endc}{blue}{bold}
                     
-        {blue}{bold}
+                             
                         1 - RotorHazard Manager
                             
-                        2 - Nodes flash and update {endc} 
-                            {bold}
+                        2 - Nodes flash and update {endc}{bold}
+                            
                         3 - Start the server now
                             
                         4 - Additional features
                             
                         5 - Info + first time here
                             
-                        6 - Configuration wizard {endc}
-                            {yellow}
+                        6 - Configuration wizard {endc}{yellow}
+                            
                         e - Exit {endc}
                             
                 """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
-                           blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
+                           blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S)
         print(main_menu)
         selection = input()
         if selection == '1':
@@ -516,7 +516,8 @@ def main_menu(parser, config):
         if selection == 'e':
             end(parser, config)
         if selection == '2dev':
-            os.system("python3 ./.dev/done_nodes_update_dev.py")  # opens nodes updating file
+            os.system("python3 ./.dev/done_nodes_update_dev.py")
+            # opens second function-based nodes updating file
 
 
 def main():
