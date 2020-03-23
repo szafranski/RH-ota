@@ -4,7 +4,7 @@
 
 </br>
 
-# Main features of the software:
+## Main features of the software:
 
 1. Wizard install/update of RotorHazard server software
      - Choose which version of RotorHazard to install
