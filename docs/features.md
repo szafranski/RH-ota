@@ -22,7 +22,7 @@
 
 #  todo rephrase the list to be readable 
 
-smart-hotspot
-backup existing config files
-backup installation of RH that is going to be overwrite
-automatic fising permission issues with db files etc 
+1. smart-hotspot
+1. backup existing config files
+1. backup installation of RH that is going to be overwrite
+1. automatic fising permission issues with db files etc 
