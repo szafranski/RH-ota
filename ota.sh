@@ -7,6 +7,21 @@ if [ $? -gt 0 ];
 	then echo python3 has to be installed && sudo apt install python3
 fi;
 
+which python3-gpiozero > /dev/null
+if [ $? -gt 0 ];
+	then echo python3-gpio has to be installed && sudo apt install python3-gpiozero
+fi;
+
+which avrdude > /dev/null
+if [ $? -gt 0 ];
+	then echo cowsay has to be installed && sudo apt install avrdude
+fi;
+
+which cowsay > /dev/null
+if [ $? -gt 0 ];
+	then echo cowsay has to be installed && sudo apt install python3-gpio
+fi;
+
 which pip3 > /dev/null  # proper way of checking?
 if [ $? -gt 0 ];
 	then echo pip package has to be installed && sudo apt install python3-pip
@@ -48,5 +63,5 @@ python3 update.py
 
 
 # todo David - ota everytime asks for sudo - only on debug or always?
-
+# todo are all echoes necesarry?
 # todo 'sudo -H' with pip should be used? yellow prompts are showing

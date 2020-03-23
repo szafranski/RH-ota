@@ -64,17 +64,16 @@ def check_if_string_in_file(file_name, string_to_search):
 
 
 def logo_top(linux_testing):
-    logo = '''
+    logo = """
     \n    
     #######################################################################
     ###                                                                 ###
-    ###           {orange}{bold} RotorHazard {endc}                     ###
+    ###    {orange}{bold}        RotorHazard             {endc}         ###
     ###                                                                 ###
-    ###                {bold}OTA Updater and Manager{endc}              ###
+    ###        {bold}        OTA Updater and Manager     {endc}         ###
     ###                                                                 ###
     #######################################################################
-    {endc}
-    '''.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE_S, endc=Bcolors.ENDC_S,
+    """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE_S, endc=Bcolors.ENDC_S,
                blue=Bcolors.BLUE_S, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
 
     print(logo)
