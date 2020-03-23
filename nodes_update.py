@@ -268,56 +268,56 @@ def flash_all_nodes():
     node_one_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/node_1.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 1 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 1 - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
     if nodes_number == 1:
         return
     node_two_reset()
     os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/node_2.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 2 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 2 - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
     if nodes_number == 2:
         return
     node_three_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/node_3.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 3 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 3 - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
     if nodes_number == 3:
         return
     node_four_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/node_4.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 4 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 4 - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
     if nodes_number == 4:
         return
     node_five_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/node_5.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 5 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 5 - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
     if nodes_number == 5:
         return
     node_six_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/node_6.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 6 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 6 - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
     if nodes_number == 6:
         return
     node_seven_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/node_7.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 7 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 7 - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
     if nodes_number == 7:
         return
     node_eight_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/node_8.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 8 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 8 - flashed{Bcolors.ENDC}\n\n")
     if nodes_number == 8:
         return
 
@@ -326,56 +326,56 @@ def flash_all_gnd():
     node_one_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/node_0.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 1 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 1 - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
     if nodes_number == 1:
         return
     node_two_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/node_0.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 2 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 2 - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
     if nodes_number == 2:
         return
     node_three_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/node_0.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 3 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 3 - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
     if nodes_number == 3:
         return
     node_four_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/node_0.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 4 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 4 - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
     if nodes_number == 4:
         return
     node_five_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/node_0.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 5 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 5 - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
     if nodes_number == 5:
         return
     node_six_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/node_0.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 6 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 6 - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
     if nodes_number == 6:
         return
     node_seven_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/node_0.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 7 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 7 - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
     if nodes_number == 7:
         return
     node_eight_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/node_0.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 8 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 8 - flashed{Bcolors.ENDC}\n\n")
     if nodes_number == 8:
         return
 
@@ -384,56 +384,56 @@ def flash_all_blink():
     node_one_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/blink.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 1 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 1 - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
     if nodes_number == 1:
         return
     node_two_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/blink.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 2 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 2 - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
     if nodes_number == 2:
         return
     node_three_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/blink.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 3 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 3 - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
     if nodes_number == 3:
         return
     node_four_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/blink.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 4 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 4 - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
     if nodes_number == 4:
         return
     node_five_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/blink.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 5 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 5 - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
     if nodes_number == 5:
         return
     node_six_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/blink.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 6 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 6 - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
     if nodes_number == 6:
         return
     node_seven_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/blink.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 7 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 7 - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
     if nodes_number == 7:
         return
     node_eight_reset()
     os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/blink.hex:i ")
-    print("\n\t\t\t\t" + Bcolors.BOLD + "Node 8 - flashed" + Bcolors.ENDC + "\n\n")
+    print(f"\n\t\t\t\t{Bcolors.BOLD}Node 8 - flashed{Bcolors.ENDC}\n\n")
     if nodes_number == 8:
         return
 
@@ -441,12 +441,14 @@ def flash_all_blink():
 def flash_each_node():
     def node_x_menu():
         global x
-        print(Bcolors.BOLD + "\n\t\t\t Node " + str(x) + " selected" + Bcolors.ENDC)
-        print(Bcolors.BOLD + "\n\n\t\t Choose flashing type:\n" + Bcolors.ENDC)
-        print("\t\t 1 - " + Bcolors.GREEN + "Node gets own dedicated firmware - recommended" + Bcolors.ENDC)
-        print("\t\t 2 - Node ground-auto selection firmware")
-        print("\t\t 3 - Flashes 'Blink' on the node")
-        print("\t\t 4 - Abort")
+        print(f"""
+        {Bcolors.BOLD}\n\t\t\tNode {str(x)}  selected{Bcolors.ENDC}
+                Choose flashing type:\n{Bcolors.ENDC}
+        1 - {Bcolors.GREEN}Node gets own dedicated firmware - recommended{Bcolors.ENDC}{Bcolors.BOLD}
+        2 - Node ground-auto selection firmware
+        3 - Flashes 'Blink' on the node
+        4 - Abort
+        {Bcolors.ENDC}""")
         selection = input()
         if selection == '1':
             node_one_reset()
@@ -455,21 +457,21 @@ def flash_each_node():
                 flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/node_" + str(x) + ".hex:i ")
             else:
                 print(f"\t\t\t/home/{user}/RH-ota/firmware/{firmware_version}/node_" + str(x) + ".hex:i ")
-            print(Bcolors.BOLD + "\n\t Node " + str(x) + " flashed\n" + Bcolors.ENDC)
+            print(f"{Bcolors.BOLD}\n\t Node {str(x)} flashed\n{Bcolors.ENDC}")
             sleep(1.5)
             return
         if selection == '2':
             node_one_reset()
             os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
             flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/node_0.hex:i")
-            print(Bcolors.BOLD + "\n\t Node " + str(x) + " flashed\n" + Bcolors.ENDC)
+            print(f"{Bcolors.BOLD}\n\t Node {str(x)} flashed\n{Bcolors.ENDC}")
             sleep(1.5)
             return
         if selection == '3':
             node_one_reset()
             os.system("sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
             flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/blink.hex:i ")
-            print(Bcolors.BOLD + "\n\t Node " + str(x) + " flashed\n" + Bcolors.ENDC)
+            print(f"{Bcolors.BOLD}\n\t Node {str(x)} flashed\n{Bcolors.ENDC}")
             sleep(1.5)
             return
         if selection == '4':
@@ -477,7 +479,7 @@ def flash_each_node():
         if selection == 'dev':
             node_one_reset()
             os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-            flash:w:/home/{user}/RH-ota/.dev/node_" + str(x) + ".hex:i ")
+            flash:w:/home/{user}/RH-ota/.dev/node_{str(x)}.hex:i ")
             print(Bcolors.BOLD + "\n\t Testing firmware on Node " + str(x) + " flashed\n" + Bcolors.ENDC)
             sleep(1.5)
         else:

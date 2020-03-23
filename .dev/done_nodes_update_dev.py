@@ -297,8 +297,8 @@ def flash_each_node():
 
 def gpio_state():
     clear_the_screen()
-    logo_top()
-    print("\n\n\n")
+    logo_top()        # todo inspection shows error Parameter 'linux_testing' unfilled and points to this line
+    print("\n\n\n")   # todo end every other line with logo_top()
     os.system("echo " + str(reset_1) + " > /sys/class/GPIO/unexport")
     os.system("echo " + str(reset_2) + " > /sys/class/GPIO/unexport")
     os.system("echo " + str(reset_3) + " > /sys/class/GPIO/unexport")

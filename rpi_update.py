@@ -238,17 +238,17 @@ def installation():
         os.system("sudo chmod 644 /lib/systemd/system/rotorhazard.service")
         os.system("sudo systemctl daemon-reload")
         os.system("sudo systemctl enable rotorhazard.service")
-        print("""\n\n\t
+        print("""\n\n
         ##############################################
         #                                            #
         #{bold}{green}Installation completed {endc}  #
         #                                            #
         ############################################## 
-        \n\n
-    After rebooting please check by typing 'sudo raspi-config' \n
-    if I2C, SPI and SSH protocols are active.\n
-                """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC_S,
-                           green=Bcolors.GREEN_S, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S))
+        
+        
+    After rebooting please check by typing 'sudo raspi-config' 
+    if I2C, SPI and SSH protocols are active.
+                """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S))
         end_installation()
 
 
@@ -264,13 +264,13 @@ def update():
         sleep(2)
         clear_the_screen()
         if not os.path.exists(f"/home/{user}/RotorHazard"):
-            print("""\n\t """ + Bcolors.BOLD + """
+            print(f"""{Bcolors.BOLD}
     Looks like you don't have RotorHazard server software installed for now. \n\t\t
-    If so please install your server software first or you won't be able to use the timer.""" + Bcolors.ENDC)
-            print("""\n\n\t\t""" + Bcolors.GREEN + """ 
-        'i' - Install the software - recommended """ + Bcolors.ENDC + """\n\t\t 
-        'u' - Force update procedure\n\t\t """ + Bcolors.YELLOW + """
-        'a' - Abort both  \n\n """ + Bcolors.ENDC)
+    If so please install your server software first or you won't be able to use the timer.{Bcolors.ENDC}""")
+            print(f"""\n\n{Bcolors.GREEN} 
+        'i' - Install the software - recommended{Bcolors.ENDC}\n 
+        'u' - Force update procedure\n{Bcolors.YELLOW}
+        'a' - Abort both  \n\n{Bcolors.ENDC}""")
             selection = input()
             if selection == 'i':
                 conf_allowed = True
@@ -284,7 +284,7 @@ def update():
                 main()
         else:
             clear_the_screen()
-            print("\n\t" + Bcolors.BOLD + "Updating existing installation - please wait..." + Bcolors.ENDC + " \n")
+            print(f"\n\t{Bcolors.BOLD}Updating existing installation - please wait...{Bcolors.ENDC} \n")
             os.system("sudo -H python -m pip install --upgrade pip")
             os.system("sudo -H pip install pillow ")
             os.system("sudo apt-get install libjpeg-dev ntp -y")
@@ -370,17 +370,16 @@ def main():
                    user=user, config_soft=config_soft, server=server_version_name, )
     print(welcome)
     if not config_flag and serv_installed_flag:
-        print(Bcolors.GREEN + """\t\t'c' - Configure RotorHazard server\n""" + Bcolors.ENDC)
+        print(f"{Bcolors.GREEN}\t\t'c' - Configure RotorHazard server\n{Bcolors.ENDC}")
     else:
-        print("""\t\t'c' - Reconfigure RotorHazard server\n""")
+        print("\t\t'c' - Reconfigure RotorHazard server\n")
     if not serv_installed_flag:
-        print("""
-        \t\t{green}'i' - Install software from skratch{endc}""".format(green=Bcolors.GREEN, endc=Bcolors.ENDC))
+        print(f"\t{Bcolors.GREEN}'i' - Install software from skratch{endc}")
     else:
         print("""\t\t'i' - Install software from skratch""")
     print("""
-                'u' - Update existing installation\n
-            {yellow}    'e' - Exit to Main Menu{endc}\n
+                'u' - Update existing installation\n {yellow}    
+                'e' - Exit to Main Menu{endc}\n
             """.format(yellow=Bcolors.YELLOW, endc=Bcolors.ENDC))
     selection = input()
     if selection == 'c':
@@ -397,7 +396,8 @@ def main():
     (or at least that your system was once configured).{endc}\n
     If that's the case please use {underline} update mode {endc} - 'u'
     or force installation {underline} without {endc} sys. config. - 'i'.
-            \n\n\t{green} 
+            
+            {green} 
         'u' - Select update mode - recommended {endc}\n 
         'i' - Force installation without sys. config.\n
         'c' - Force installation and sys. config.\n {yellow}

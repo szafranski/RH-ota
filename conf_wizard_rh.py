@@ -26,7 +26,7 @@ if linux_testing:
 else:
     user = data['pi_user']
 
-conf_now_FLAG = '0'
+conf_now_flag = '0'
 
 admin_name = 0
 admin_pass = 0
@@ -46,32 +46,33 @@ led_inv_val = 0
 inv_rows_val = 0
 adv_wiz_flag = 0
 
+
 # todo David - if above have sense?
 
 
 def conf_check():
-    global conf_now_FLAG
+    global conf_now_flag
     if os.path.exists(f"/home/{user}/RotorHazard/src/server/config.json"):
         print("\n\tLooks that you already have RotorHazard server configured.")
-        valid_options = ['y', 'yes', 'n', 'no']
+        valid_options_conf_check = ['y', 'yes', 'n', 'no']
         while True:
             cont_conf = input("\n\tOverwrite and continue anyway? [yes/no]\t\t").strip()
-            if cont_conf in valid_options:
+            if cont_conf in valid_options_conf_check:
                 break
             else:
                 print("\ntoo big fingers :( wrong command. try again! :)")
         if cont_conf == 'y' or cont_conf == 'yes':
-            conf_now_FLAG = 1
+            conf_now_flag = 1
             pass
         if cont_conf == 'n' or cont_conf == 'no':
-            conf_now_FLAG = 0
+            conf_now_flag = 0
     else:
-        conf_now_FLAG = 1
+        conf_now_flag = 1
 
 
 conf_check()
 
-if conf_now_FLAG:
+if conf_now_flag:
     while True:
         print("""\n
 Please type your configuration data. It can be modified later.
@@ -96,17 +97,17 @@ Default values are not automatically applied. Type them if needed.\n""")
         print("\nAre you planning to use LEDs in your system? [yes/no]\n")
         valid_options = ['y', 'yes', 'n', 'no']
         while True:
-            led_present_FLAG = False
-            selection = input("\t").strip()
-            if selection in valid_options:    # todo it skips when yes is used - why?
+            led_present_flag = False
+            selection = input("\t")
+            if selection in valid_options:  # todo it skips when yes AND no is used too - why?
                 break
             else:
                 print("\ntoo big fingers :( wrong command. try again! :)")
             if selection == 'y' or selection == 'yes':
-                led_present_FLAG = True
+                led_present_flag = True
             if selection == 'n' or selection == 'no':
-                led_present_FLAG = False
-            if led_present_FLAG:
+                led_present_flag = False
+            if led_present_flag:
                 while True:
                     led_count = input("\nHow many LEDs will you use in your system? [default: 0]\t\t\t")
                     if not led_count.isdigit() or int(led_count) < 0:
@@ -165,10 +166,10 @@ Default values are not automatically applied. Type them if needed.\n""")
                         elif inv_rows in ['no', '0', 'n']:
                             inv_rows_val = 'true'
                         os.system(f"sed -i 's/\"INVERTED_PANEL_ROWS\": \"false\"/\"INVERTED_PANEL_ROWS\": \
-                        \"{inv_rows_val}\"/g' /home/" + user + "/RH-ota/.wizarded-rh-config.json")
+                        \"{inv_rows_val}\"/g' /home/{user}/RH-ota/.wizarded-rh-config.json")
                         break
 
-        if not led_present_FLAG:
+        if not led_present_flag:
             led_count = '0'
             led_pin = '10'
             led_inv = 'false'
@@ -255,22 +256,26 @@ Default values are not automatically applied. Type them if needed.\n""")
             freq = '800000'
             print("\nAdvanced configuration set to default values.\n\n")
             sleep(1.2)
-        print("""\n\n\t\t\t""" + Bcolors.UNDERLINE + """CONFIGURATION""" + Bcolors.ENDC + """:\n\t
-        Admin name: \t\t""" + admin_name + """
-        Admin password: \t""" + admin_pass + """
-        RotorHazard port: \t""" + port + """
-        LED amount: \t\t""" + led_count + """
-        LED pin: \t\t""" + led_pin + """
-        LED inverted: \t\t""" + led_inv + """
-        LED channel: \t\t""" + led_channel + """
-        LED panel rotate: \t""" + panel_rot + """
-        LED rows inverted: \t""" + inv_rows + """
-        LED DMA: \t\t""" + dma + """
-        LED frequency: \t\t""" + freq + """
-        Debug mode: \t\t""" + debug + """
-        Cores allowed: \t\t""" + cores_val + """
-        Serial ports: \t\t""" + serial_ports + """\n\n\n""")
-        print("Please check. Confirm? [yes/change/abort]\n")
+        rh_configuration_summary = f"""\n\n
+            {Bcolors.UNDERLINE}CONFIGURATION{Bcolors.ENDC}
+            
+        Admin name:         {admin_name}
+        Admin password:     {admin_pass}
+        RotorHazard port:   {port}
+        LED amount:         {led_count}
+        LED pin:            {led_pin}
+        LED inverted:       {led_inv}
+        LED channel:        {led_channel}
+        LED panel rotate:   {panel_rot}
+        LED rows inverted:  {inv_rows}
+        LED DMA:            {dma}
+        LED frequency:      {freq}
+        Debug mode:         {debug}
+        Cores allowed:      {cores_val}
+        Serial ports:       {serial_ports}
+        
+        Please check. Confirm? [yes/change/abort]\n"""
+        print(rh_configuration_summary)
         valid_options = ['y', 'yes', 'n', 'no', 'change', 'abort']
         while True:
             selection = input().strip()

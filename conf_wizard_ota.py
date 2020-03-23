@@ -9,32 +9,32 @@ clear_the_screen()
 logo_top(False)
 
 # Always define variables before using them.
-conf_now_FLAG = 0
+conf_now_flag = 0
 
 
 def conf_check():
-    global conf_now_FLAG
+    global conf_now_flag
     if os.path.exists("./updater-config.json"):
         print("\n\tLooks that you have OTA software already configured.")
-        valid_options = ['y', 'yes', 'n', 'no']
+        valid_options_conf_check = ['y', 'yes', 'n', 'no']
         while True:
             cont_conf = input("\n\tOverwrite and continue anyway? [yes/no]\t\t").strip()
-            if cont_conf in valid_options:
+            if cont_conf in valid_options_conf_check:
                 break
             else:
                 print("\ntoo big fingers :( wrong command. try again! :)")
         if cont_conf[0] == 'y':
-            conf_now_FLAG = 1
+            conf_now_flag = 1
             pass
         if cont_conf[0] == 'n':
-            conf_now_FLAG = 0
+            conf_now_flag = 0
     else:
-        conf_now_FLAG = 1
+        conf_now_flag = 1
 
 
 conf_check()
 
-if conf_now_FLAG:
+if conf_now_flag:
     while True:
         print("""\n
 Please type your configuration data. It can be modified later.
@@ -42,12 +42,11 @@ Default values are not automatically applied. Type them if needed.\n""")
         os.system("rm .wizarded-updater-config.json >/dev/null 2>&1")
         name = input("\nWhat is your user name on Raspberry Pi? [default: pi]\t\t\t")
         os.system("echo '{' | tee -a " + homedir + "/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
-        os.system("echo '    \"pi_user\" : \"" + name + "\",' | tee -a " + homedir +
-                  "/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+        os.system(f"echo '    \"pi_user\" : \"{name}\",' \
+        | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
         while True:
-            version = input(
-                "\nWhat RotorHazard version will you use? [" + Bcolors.UNDERLINE + "stable" + Bcolors.ENDC +
-                " | beta | master]\t\t")
+            version = input("\nWhat RotorHazard version will you use? [{underline}stable{endc} | beta | master]\
+         ".format(underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC))
             version_valid_options = ['master', 'stable', 'beta']
             if version not in version_valid_options:
                 print("\nPlease enter correct value!")
@@ -135,18 +134,21 @@ Default values are not automatically applied. Type them if needed.\n""")
                  | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
         os.system("echo '}' | tee -a " + homedir + "/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
-        print("""\n\n\t\t\t""" + Bcolors.UNDERLINE + """CONFIGURATION""" + Bcolors.ENDC + """:\n\t
-        User name: \t\t""" + name + """
-        RotorHazard version: \t""" + version + """
-        Debug user name: \t""" + debug_user + """
-        Country code: \t\t""" + code + """
-        Nodes amount: \t\t""" + nodes + """
-        Debug mode: \t\t""" + debug_mode + """
-        Pins assignment: \t""" + pins_assign + """
-        Updates without PDF: \t""" + no_pdf + """
-        Pi 4 user: \t\t""" + pi_4 + """
-        Beta tester: \t\t""" + beta_tester + """\n\n\n""")
-        print("Please check. Confirm? [yes/change/abort]\n")
+        print(f"""\n\n
+            {Bcolors.UNDERLINE}CONFIGURATION{Bcolors.ENDC}:
+
+        User name:              {name}
+        RotorHazard version:    {version}
+        Debug user name:        {debug_user}
+        Country code:           {code}
+        Nodes amount:           {nodes}
+        Debug mode:             {debug_mode}
+        Pins assignment:        {pins_assign}
+        Updates without PDF:    {no_pdf}
+        Pi 4 user:              {pi_4}
+        Beta tester:            {beta_tester}
+        
+        Please check. Confirm? [yes/change/abort]\n""")
         valid_options = ['y', 'yes', 'n', 'no', 'change', 'abort']
         while True:
             selection = input().strip()
