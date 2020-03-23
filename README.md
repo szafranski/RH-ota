@@ -3,29 +3,47 @@
 # Easy mange and update your [RotorHazard](https://github.com/RotorHazard/RotorHazard) installation. 
 
 </br>
-Additional features like nodes flashing are included.
-</br>
-</br>
 
+## Main features of the software:
+
+1. Wizard install/update of RotorHazard server software
+     - Choose which version of RotorHazard to install
+     - Preserves exisiting rotorhazard config file.
+     - Backup of existing RH install.
+     - Automatically performs much of the RotorHazard specific Pi setup steps
+
+1. Wizard install of RotorHazard nodes firmware.
+     - Requires some hardware modification to enable
+
+1. Automatic configuring Access Point
+     - Smart-hotspot: dynamically connect to existing hotspot or server is the hotspot 
+
+Helpful developer options
+1. Option for installing avrdude
+1. Option for adding aliases to the system
+1. Showing Raspberry GPIO in the terminal
+1. Embeded logging feature with an option to upload log file to the cloud 
+
+</br></br>
 If you want all hardware functionalities - visit: [Instructables page](https://www.instructables.com/id/RotorHazard-Updater/)
-or check the [RotorHazard-Updater.pdf](/how_to/RotorHazard-Updater.pdf).</br>
-</br>
-Facebook discussion on the [GROUP](https://www.facebook.com/groups/207159263704015).</br>
-</br>
-You may also read [update notes](/docs/update-notes.txt) - new features are present.
-</br>
+or check the [RotorHazard-Updater.pdf](/how_to/RotorHazard-Updater.pdf).
 
+
+You may also read [update notes](/docs/update-notes.txt) - new features are present.
+</br></br>
 #### Commands to download the repo onto Raspberry Pi (or Linux):
     cd ~
     sudo apt install zip unzip
-    wget https://codeload.github.com/szafranski/RH-ota/zip/master -O tempota.zip
+    wget https://codeload.github.com/szafranski/RH-ota/zip/main_stable -O tempota.zip
     unzip tempota.zip
     rm tempota.zip
     mv RH-ota-* RH-ota
 
-#### Commands to open the software (only on 'master' release):
+#### Commands to open the software:
+    sudo apt install python --> if needed
+    
     cd ~/RH-ota
-    sh ./ota.sh
+    python update.py
 
 </br>
 

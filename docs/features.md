@@ -1,23 +1,22 @@
 # Main features of the software:
 
-1. Option for system configuring for RotorHazard
-1. Updating the RotorHazard server version
-1. RotorHazard server version description
-1. Automatic config file copying to the new version
-1. Configuring RotorHazard json software
-1. Flashing nodes - if hardware mod performed
-1. Support both - flashing both - GPIO mod and I2C mod
-1. Starting RotorHazard server from within' the software
-1. Option for adding aliases to the system
-1. Option for installing avrdude
-1. Option for enabling serial protocol
-1. Showing Raspberry GPIO in the terminal
+
+1. Wizard install/update of RotorHazard server software
+     - Choose which version of RotorHazard to install
+     - Preserves exisiting rotorhazard config file.
+     - Backup of existing RH install.
+     - Automatically performs much of the RotorHazard specific Pi setup steps
+
+1. Wizard install of RotorHazard nodes firmware.
+     - Requires some hardware modification to enable
+
 1. Automatic configuring Access Point
-1. Self updating of the software]
-1. Configuration wizard for the OTA software
-1. Opening script with automatic depediances installation 
-1. Option for logging with auto-upload to the cloud 
-1. Automatic showing update-notes after performing self-update
+     - Smart-hotspot: dynamically connect to existing hotspot or server is the hotspot 
+
+Helpful developer options
+1. Option for installing avrdude
+1. Option for adding aliases to the system
+1. Showing Raspberry GPIO in the terminal
+1. Embeded logging feature with an option to upload log file to the cloud 
 
 
-#  todo rephrase the list to be readable 
