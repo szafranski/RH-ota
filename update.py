@@ -129,7 +129,7 @@ def avr_dude(config):
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
-        menu = """
+        avrdude_menu = """
                 {red}{bold}
                             AVRDUDE MENU
                             
@@ -139,7 +139,7 @@ def avr_dude(config):
                         'e' - Go back {endc}
                 """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
                            blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
-        print(menu)
+        print(avrdude_menu)
         selection = input()
         if selection == 'i':
             os.system("sudo apt-get update")
@@ -163,8 +163,7 @@ def serial_menu(parser, config):
         
         r - Reboot now{yellow}
         b - Go back{endc}
-            """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
-                       blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S))
+            """.format(endc=Bcolors.ENDC, yellow=Bcolors.YELLOW_S))
         selection_2 = input()
         if selection_2 == 'r':
             os.system("sudo reboot")
@@ -265,7 +264,7 @@ def self_updater(parser, config):
     def add_updater():
         clear_the_screen()
         logo_top(config.debug_mode)
-        print("""\n
+        print("""
     Permissions required so 'zip' and 'unzip' program can be downloaded.
     Performed only during first instance of entering this sub-menu\n""")
         sleep(2)
@@ -286,12 +285,12 @@ def self_updater(parser, config):
     If you want to update this program and download new firmware, 
     prepared for Arduino nodes - so you can next flash them 
     - you can just hit 'u' now. You can also type 'updateupdater'
-    or 'uu' in the terminal window.\n
+    or 'uu' in the terminal window.
     Version of the updater is related to {blue}nodes firmware API number{endc},
           {bold}
     so you always know what firmware version updater contains.
     For example "2.2.5c" contains nodes firmware with "API level 22".
-    Self-updater will test your internet connection during every update.\n
+    Self-updater will test your internet connection during every update.
     Updating script is currently set to mode: {green}{update_mode}{endc}.\n\n
     """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, bold=Bcolors.BOLD, blue=Bcolors.BLUE,
                update_mode=config.update_mode)
@@ -310,7 +309,7 @@ def self_updater(parser, config):
 def features_menu(parser, config):
     clear_the_screen()
     logo_top(config.debug_mode)
-    features = """
+    features_menu = """
 
                     {red}{bold}{underline}FEATURES MENU{endc}
 
@@ -331,7 +330,7 @@ def features_menu(parser, config):
 
              """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
                         blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
-    print(features)
+    print(features_menu)
     selection = input()
     if selection == '1':
         avr_dude(config)
@@ -380,7 +379,7 @@ def first_time(parser, config):
 
     def second_page():
         clear_the_screen()
-        print("""
+        welcome_second_page = """
 
 
                         {bold}{underline}CONFIGURATION PROCESS{endc}
@@ -403,7 +402,8 @@ def first_time(parser, config):
         > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested)  {endc}  
 
             """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
-                       blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S))
+                       blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
+        print(welcome_second_page)
         print("\n\n\t'f' - first page'" + Bcolors.GREEN + "\t'u' - update notes'" + Bcolors.ENDC
               + Bcolors.YELLOW + "\t'b' - back to menu" + Bcolors.ENDC + "\n\n")
         selection = input()
@@ -418,7 +418,7 @@ def first_time(parser, config):
 
     def first_page():
         clear_the_screen()
-        print(Bcolors.BOLD + """
+        welcome_first_page = """{bold}
 
         You can use all implemented features, but if you want to be able to program
         Arduino-based nodes - enter Features menu and begin with first 2 points.
@@ -434,16 +434,16 @@ def first_time(parser, config):
         If you found any bug - please report via GitHub or Facebook.\n
                 Enjoy!
                                             Szafran
-        """ + Bcolors.ENDC)
-
-        menu = '''{green}
+        {endc}""".format(bold=Bcolors.BOLD, endc=Bcolors.ENDC)
+        print(welcome_first_page)
+        welcome_first_page_menu = """{green}
             s - second page {endc}
         
             u -  update notes {yellow}
         
             b - back to main menu {endc}
-        '''.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, yellow=Bcolors.YELLOW)
-        print(menu)
+        """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, yellow=Bcolors.YELLOW)
+        print(welcome_first_page_menu)
         selection = input()
         if selection == 's':
             second_page()
@@ -475,7 +475,7 @@ def main_menu(parser, config):
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
-        menu = """
+        main_menu = """
         
                     {red}{bold}{underline}MAIN MENU{endc}
                     
@@ -496,7 +496,7 @@ def main_menu(parser, config):
                             
                 """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
                            blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
-        print(menu)
+        print(main_menu)
         selection = input()
         if selection == '1':
             os.system("python3 ./rpi_update.py")  # opens raspberry updating file
@@ -520,7 +520,7 @@ def main_menu(parser, config):
 
 
 def main():
-    updater_version = '2.2.10beta2d'
+    updater_version = '2.2.10beta2e'
 
     # version of THIS program - has nothing to do with the RH version
     # it refers to the API level of newest contained nodes firmware

@@ -11,7 +11,7 @@ def parser_write():
     try:
         with open(f'/home/{user}/.ota_markers/ota_config.txt', 'w') as configfile:
             parser.write(configfile)
-    except IOError as up:
+    except IOError as up:  # todo up greyed out - unused
         print("Config file does not exist and could not be created.")
 
 

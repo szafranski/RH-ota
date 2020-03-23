@@ -1,7 +1,6 @@
 import json
 import os
 import sys
-from modules import internet_check
 from configparser import ConfigParser
 from modules import internet_check
 from time import sleep
@@ -301,7 +300,7 @@ def update():
                 os.system(f"sudo cp -r /home/{user}/RotorHazard.old /home/{user}/.old_RotorHazard.old/")
                 os.system(f"sudo rm -r /home/{user}/RotorHazard.old")
             os.system(f"sudo mv /home/{user}/RotorHazard /home/{user}/RotorHazard.old")
-            os.chdir("/home/" + user)
+            os.chdir(f"/home/{user}")
             os.system(f"wget https://codeload.github.com/RotorHazard/RotorHazard/zip/{server_version} -O temp.zip")
             os.system("unzip temp.zip")
             os.system(f"mv /home/{user}/RotorHazard-{server_version} /home/{user}/RotorHazard")
@@ -333,9 +332,7 @@ def update():
                 #{bold}{green} Update completed!     {endc}  #
                 #                                            #
                 ############################################## 
-                        """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC_S,
-                                   green=Bcolors.GREEN_S, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S,
-                                   orange=Bcolors.ORANGE_S))
+                        """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S)
             end_update()
 
 
@@ -344,7 +341,7 @@ def main():
     global serv_installed_flag
     global conf_allowed
     global config_soft
-    global server_version_name
+    global server_version_name  # todo too much globals
     clear_the_screen()
     server_checker()
     config_checker()
@@ -391,7 +388,8 @@ def main():
     if selection == 'i':
         if parser.getint('added_functions', 'installation_done'):
             clear_the_screen()
-            print("""\n{bold}
+            already_installed_prompt = """
+            {bold}
     Looks like you already have RotorHazard server installed
     (or at least that your system was once configured).{endc}\n
     If that's the case please use {underline} update mode {endc} - 'u'
@@ -402,7 +400,8 @@ def main():
         'i' - Force installation without sys. config.\n
         'c' - Force installation and sys. config.\n {yellow}
         'a' - Abort both  \n {endc}""").format(bold=Bcolors.BOLD, endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE,
-                                               green=Bcolors.GREEN, yellow=Bcolors.YELLOW)
+                                                yellow=Bcolors.YELLOW)
+            print(already_installed_prompt)
             selection = input()
             if selection == 'u':
                 update()

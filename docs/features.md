@@ -6,6 +6,7 @@
 1. Automatic config file copying to the new version
 1. Configuring RotorHazard json software
 1. Flashing nodes - if hardware mod performed
+1. Support both - flashing both - GPIO mod and I2C mod
 1. Starting RotorHazard server from within' the software
 1. Option for adding aliases to the system
 1. Option for installing avrdude
