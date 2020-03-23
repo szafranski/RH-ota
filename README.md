@@ -24,7 +24,7 @@ Helpful developer options
 1. Showing Raspberry GPIO in the terminal
 1. Embeded logging feature with an option to upload log file to the cloud 
 
-
+</br></br>
 If you want all hardware functionalities - visit: [Instructables page](https://www.instructables.com/id/RotorHazard-Updater/)
 or check the [RotorHazard-Updater.pdf](/how_to/RotorHazard-Updater.pdf).
 
