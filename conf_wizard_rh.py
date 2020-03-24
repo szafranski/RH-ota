@@ -127,7 +127,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                     if inv_rows in ['yes','1','y']:
                         inv_rows_val = 'true'
                     elif inv_rows in ['no','0','n']:
-                        inv_rows_val = 'true'
+                        inv_rows_val = 'false'
                     os.system("sed -i 's/\"INVERTED_PANEL_ROWS\": \"false\"/\"INVERTED_PANEL_ROWS\": \""+inv_rows_val+"\"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
                     break
 
