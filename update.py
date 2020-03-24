@@ -11,10 +11,10 @@ def compatibility(parser, home_dir):  # adds compatibility and fixes with previo
 
 def config_check():
     if not os.path.exists("./updater-config.json"):
-        print("""
+        print("""{bold}
         Looks that you haven't set up config file yet.
         Please read about configuration process - point 5
-        and next enter configuration wizard - point 6.""")
+        and next enter configuration wizard - point 6.{endc}""".format(bold=Bcolors.BOLD, endc=Bcolors.ENDC))
 
 
 def log_to_dev(parser, config):
@@ -23,7 +23,7 @@ def log_to_dev(parser, config):
 
 
 def log_write(config):
-    os.chdir("/home/" + config.user + "/RH-ota")
+    os.chdir(f"/home/{config.user}/RH-ota")
     os.system("mkdir log_data > /dev/null 2>&1")
     os.system("rm log_data/log.txt > /dev/null 2>&1")
     os.system("echo >./ log_data / log.txt")
@@ -63,20 +63,20 @@ def log_send(parser, config):
             print("\n\tPlease wait, file is being uploaded...\n")
             os.system("rm ./log_data/log_name.txt > /dev/null 2>&1")
             os.system("rm ./log_data/log_code.txt > /dev/null 2>&1")
-            os.system("echo {log_name} > ./log_data/log_name.txt".format(log_name=log_name))
-            os.system("curl --upload-file ./log_data/log.txt https://transfer.sh/{log_name}_log.txt \
-                 | tee -a ./log_data/log_code.txt".format(log_name=log_name))
+            os.system(f"echo {log_name} > ./log_data/log_name.txt")
+            os.system(f"curl --upload-file ./log_data/log.txt https://transfer.sh/{log_name}_log.txt \
+                 | tee -a ./log_data/log_code.txt")
             print("\n")
             os.system("sed -i 's/https:\/\/transfer.sh\///g' ./log_data/log_code.txt")
-            os.system("sed -i 's/\/{log_name}_log.txt//g' ./log_data/log_code.txt".format(log_name=log_name))
+            os.system(f"sed -i 's/\/{log_name}_log.txt//g' ./log_data/log_code.txt")
             print("\n___________________________\n")
             print("\nTell your favourite developer those:\n")
-            print("User name: {log_name}".format(log_name=log_name))
+            print(f"User name: {log_name}")
             f = open("./log_data/log_code.txt", "r")
             code = ''
             for line in f:
                 code = line
-            print("\nUser code: {code}".format(code=code))
+            print(f"\nUser code: {code}")
             print("\n___________________________\n")
             input("\n\nHit 'Enter' to continue\n\n")
             if not os.system("cowsay You are awesome! Fly safe."):
@@ -90,7 +90,7 @@ def log_send(parser, config):
 
 def updated_check(config):
     user = config.user
-    if os.path.exists("/home/" + user + "/.ota_markers/.was_updated"):
+    if os.path.exists(f"/home/{user}/.ota_markers/.was_updated"):
         clear_the_screen()
         logo_top(config.debug_mode)
         print(""" {bold}
@@ -103,8 +103,7 @@ def updated_check(config):
         'r' - read update notes {endc}
 
         's' - skip and don't show again
-            """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, green=Bcolors.GREEN,
-                       blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S))
+            """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC, green=Bcolors.GREEN)
         selection = input()
         if selection == 'r':
             os.system("less ./docs/update-notes.txt")
@@ -112,7 +111,7 @@ def updated_check(config):
             pass
         else:
             updated_check(config)
-        os.system("rm /home/" + user + "/.ota_markers/.was_updated >/dev/null 2>&1")
+        os.system(f"rm /home/{user}/.ota_markers/.was_updated >/dev/null 2>&1")
 
 
 def first(parser, config, updater_version):
@@ -120,7 +119,7 @@ def first(parser, config, updater_version):
     clear_the_screen()
     print("\n\n")
     image_show()
-    print("\t\t\t " + Bcolors.BOLD + "Updater version: " + str(updater_version) + Bcolors.ENDC)
+    print(f"\t\t\t{Bcolors.BOLD} Updater version: {str(updater_version)}{Bcolors.ENDC}")
     sleep(1)
     updated_check(config)
 
@@ -137,8 +136,8 @@ def avr_dude(config):
                         'i' - Install avrdude {endc}{yellow}
                 {bold}
                         'e' - Go back {endc}
-                """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
-                           blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
+                """.format(bold=Bcolors.BOLD, endc=Bcolors.ENDC,
+                           blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S)
         print(avrdude_menu)
         selection = input()
         if selection == 'i':
@@ -186,8 +185,7 @@ def serial_menu(parser, config):
         if selection == 'y':
             if parser.getint('added_functions', 'serial_added'):
                 print("\n\n\t\tLooks like you already enabled Serial port. \n\t\tDo you want to continue anyway?\n")
-                selection = input(
-                    "\t\t\t" + Bcolors.YELLOW + "Press 'y' for yes or 'a' for abort" + Bcolors.ENDC + "\n")
+                selection = input(f"\t\t\t{Bcolors.YELLOW}Press 'y' for yes or 'a' for abort{Bcolors.ENDC}\n")
                 if selection == 'y':
                     serial_content()
                     break
@@ -241,11 +239,11 @@ def aliases_menu(parser, config):
         Do you want to use above aliases in your system?
         Reboot should be performed after adding those""".format(bold=Bcolors.BOLD, endc=Bcolors.ENDC)
     print(aliases)
-    selection = input("\n\t\t\t" + Bcolors.YELLOW + "Press 'y' for yes or 'a' for abort" + Bcolors.ENDC + "\n")
+    selection = input(f"\n\t\t\t{Bcolors.YELLOW}Press 'y' for yes or 'a' for abort{Bcolors.ENDC}\n")
     if selection == 'y':
         if parser.getint('added_functions', 'aliases_1'):
             print("\n\n\t\tLooks like you already have aliases added. \n\t\tDo you want to continue anyway?\n")
-            selection = input("\t\t\t" + Bcolors.YELLOW + "Press 'y' for yes or 'a' for abort" + Bcolors.ENDC + "\n")
+            selection = input(f"\t\t\t{Bcolors.YELLOW}Press 'y' for yes or 'a' for abort{Bcolors.ENDC}\n")
             if selection == 'y':
                 aliases_content()
             if selection == 'a':
@@ -295,8 +293,8 @@ def self_updater(parser, config):
     """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, bold=Bcolors.BOLD, blue=Bcolors.BLUE,
                update_mode=config.update_mode)
     print(updater)
-    print(Bcolors.GREEN + """\t\tUpdate now by pressing 'u'""" + Bcolors.ENDC + """\n""")
-    print(Bcolors.YELLOW + """\t\tGo back by pressing 'b'""" + Bcolors.ENDC + """\n\n""")
+    print(f"{Bcolors.GREEN}\t\tUpdate now by pressing 'u'{Bcolors.ENDC}\n")
+    print(f"{Bcolors.YELLOW}\t\tGo back by pressing 'b'{Bcolors.ENDC}\n\n)
     selection = input()
     if selection == 'b':
         features_menu(parser, config)
@@ -369,7 +367,7 @@ def features_menu(parser, config):
     if selection == 'e':
         main_menu(parser, config)
     else:
-        features_menu(parser, config)
+        features_menu(parser, config) # todo why error?
 
 
 def first_time(parser, config):
@@ -400,8 +398,8 @@ def first_time(parser, config):
             """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
                        blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
         print(welcome_second_page)
-        print("\n\n\t'f' - first page'" + Bcolors.GREEN + "\t'u' - update notes'" + Bcolors.ENDC
-              + Bcolors.YELLOW + "\t'b' - back to menu" + Bcolors.ENDC + "\n\n")
+        print(f"\n\n\t'f' - first page'{Bcolors.GREEN}\t'u' - update notes'{Bcolors.ENDC}\
+            {Bcolors.YELLOW}\t'b' - back to menu{Bcolors.ENDC}\n\n")
         selection = input()
         if selection == 'f':
             first_page()

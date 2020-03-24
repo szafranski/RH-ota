@@ -17,6 +17,11 @@ if [ $? -gt 0 ];
 	then echo cowsay has to be installed && sudo apt install avrdude
 fi;
 
+which curl > /dev/null
+if [ $? -gt 0 ];
+	then echo curl has to be installed && sudo apt install curl
+fi;
+
 which cowsay > /dev/null
 if [ $? -gt 0 ];
 	then echo cowsay has to be installed && sudo apt install cowsay

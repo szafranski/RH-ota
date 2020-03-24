@@ -6,6 +6,10 @@
         ^^^^^^^^^^^^
 
 
+BETA - in constant developmenr
+look into commits for updates history
+
+
 2.2.10beta1
 
 Code mostly cleaned
