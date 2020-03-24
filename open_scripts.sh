@@ -74,9 +74,11 @@ printf "\n\nUpdate completed, hit 'Enter' to continue \n\n"
 
 aliases_clean()
 {
+sed -i '/# #/d' ~/.bashrc  # removes lines containing # #
+# perl -i.bak -ne 'print if ! $x{$_}++' ~/.bashrc  # removes doubled lines todo cannot be used for now!
 start=$(grep -n "Shortcut" ~/.bashrc | cut -f1 -d:)
 end=$(grep -n "After adding" ~/.bashrc | cut -f1 -d:)
-if [ -n "${start}" ] ; then
+if [ -n "${end}" ] ; then
 sed -i.bak -e "${start},${end}d" ~/.bashrc
 fi
 }
