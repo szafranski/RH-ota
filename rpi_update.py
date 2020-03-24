@@ -152,7 +152,7 @@ def end_installation():
             parser_write()
             sys.exit()
         if selection == 'c':
-            os.system(f". ./open_scripts.sh; rh_configuration_start")
+            conf_ota()
             end_update()
         if selection == 's':
             clear_the_screen()
@@ -385,7 +385,7 @@ def main():
     selection = input()
     if selection == 'c':
         if serv_installed_flag:
-            os.system(". ./open_scripts.sh; rh_configuration_start")
+            conf_ota()
         else:
             print("\n\t\tPlease install server software first")
             sleep(1.5)
