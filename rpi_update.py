@@ -2,6 +2,8 @@ import json
 import os
 import sys
 from configparser import ConfigParser
+
+from conf_wizard_ota import conf_ota
 from modules import internet_check
 from time import sleep
 
@@ -122,7 +124,7 @@ def end_update():
             parser_write()
             sys.exit()
         if selection == 'c':
-            os.system(f". /home/{user}/RH-ota/open_scripts.sh; rh_configuration_start")
+            conf_ota()
             end_update()
         if selection == 's':
             clear_the_screen()
