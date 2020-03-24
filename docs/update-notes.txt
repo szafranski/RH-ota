@@ -6,6 +6,11 @@
         ^^^^^^^^^^^^
 
 
+2.2.9m
+
+Small bug in LEDs configuration - fixed
+
+
 2.2.9n
 
 Small fixes
