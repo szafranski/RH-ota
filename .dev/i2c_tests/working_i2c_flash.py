@@ -46,10 +46,3 @@ def flash_mate_node():
     os.system(
         "avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/pi/RH-ota/firmware/blink.hex:i")
 
-
-def main():
-    disable_serial()
-    flash_mate_node()
-
-
-main()

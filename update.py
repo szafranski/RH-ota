@@ -5,8 +5,10 @@ from modules import clear_the_screen, Bcolors, logo_top, image_show, ota_image, 
 
 
 def compatibility(parser, home_dir):  # adds compatibility and fixes with previous versions
-    from prev_comp import prev_comp
-    prev_comp(parser, home_dir)
+    pass  # todo made it work but this prev_comp needs redesign
+    # from prev_comp import prev_comp
+    # import prev_comp
+    # prev_comp(parser, home_dir)
 
 
 def config_check():
@@ -103,7 +105,7 @@ def updated_check(config):
         'r' - read update notes {endc}
 
         's' - skip and don't show again
-            """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC, green=Bcolors.GREEN)
+            """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC, green=Bcolors.GREEN))
         selection = input()
         if selection == 'r':
             os.system("less ./docs/update-notes.txt")
@@ -294,7 +296,7 @@ def self_updater(parser, config):
                update_mode=config.update_mode)
     print(updater)
     print(f"{Bcolors.GREEN}\t\tUpdate now by pressing 'u'{Bcolors.ENDC}\n")
-    print(f"{Bcolors.YELLOW}\t\tGo back by pressing 'b'{Bcolors.ENDC}\n\n)
+    print(f"{Bcolors.YELLOW}\t\tGo back by pressing 'b'{Bcolors.ENDC}\n\n")
     selection = input()
     if selection == 'b':
         features_menu(parser, config)
@@ -307,7 +309,7 @@ def self_updater(parser, config):
 def features_menu(parser, config):
     clear_the_screen()
     logo_top(config.debug_mode)
-    features_menu = """
+    features_menu_content = """
 
                     {red}{bold}{underline}FEATURES MENU{endc}
 
@@ -328,7 +330,7 @@ def features_menu(parser, config):
 
              """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
                         blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S)
-    print(features_menu)
+    print(features_menu_content)
     selection = input()
     if selection == '1':
         avr_dude(config)
@@ -367,7 +369,7 @@ def features_menu(parser, config):
     if selection == 'e':
         main_menu(parser, config)
     else:
-        features_menu(parser, config) # todo why error?
+        features_menu(parser, config)  # todo why error?
 
 
 def first_time(parser, config):
@@ -469,7 +471,7 @@ def main_menu(parser, config):
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
-        main_menu = """
+        main_menu_content = """
         
                     {red}{bold}{underline}MAIN MENU{endc}{blue}{bold}
                     
@@ -490,7 +492,7 @@ def main_menu(parser, config):
                             
                 """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
                            blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S)
-        print(main_menu)
+        print(main_menu_content)
         selection = input()
         if selection == '1':
             os.system("python3 ./rpi_update.py")  # opens raspberry updating file
@@ -515,7 +517,7 @@ def main_menu(parser, config):
 
 
 def main():
-    updater_version = '2.2.10beta2e'
+    updater_version = '2.2.10beta2f'
 
     # version of THIS program - has nothing to do with the RH version
     # it refers to the API level of newest contained nodes firmware
@@ -528,9 +530,9 @@ def main():
     config_check()
     parser, config = load_config()
     compatibility(parser, home_dir)
-    if not os.path.exists(home_dir + "/.ota_markers/ota_config.txt"):
-        os.system("cp {home_dir}/RH-ota/resources/ota_config.txt \
-        {home_dir}/.ota_markers/ota_config.txt".format(home_dir=home_dir))
+    if not os.path.exists(f"{home_dir}/.ota_markers/ota_config.txt"):
+        os.system(f"cp {home_dir}/RH-ota/resources/ota_config.txt \
+        {home_dir}/.ota_markers/ota_config.txt")
     first(parser, config, updater_version)
     main_menu(parser, config)
 

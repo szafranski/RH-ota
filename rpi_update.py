@@ -42,11 +42,11 @@ if preferred_RH_version == 'stable':
 if preferred_RH_version == 'custom':
     server_version = 'X.X.X'  # paste custom version number here if you want to declare it manually
 
-parser.read('/home/' + user + '/.ota_markers/ota_config.txt')
+parser.read(f'/home/{user}/.ota_markers/ota_config.txt')
 
 
 def parser_write():
-    with open('/home/' + user + '/.ota_markers/ota_config.txt', 'w') as configfile:
+    with open(f'/home/{user}/.ota_markers/ota_config.txt', 'w') as configfile:
         parser.write(configfile)
 
 
@@ -69,10 +69,10 @@ def server_checker():
         f = open(f"/home/{user}/.ota_markers/.server_version", "r")
         for line in f:
             global server_version_name
-            server_version_name = Bcolors.GREEN + line + Bcolors.ENDC
+            server_version_name = f"{Bcolors.GREEN}{line}{Bcolors.ENDC}"
         serv_installed_flag = True
     else:
-        server_version_name = Bcolors.YELLOW + """no installation found\n""" + Bcolors.ENDC
+        server_version_name = f"{Bcolors.YELLOW}no installation found\n{Bcolors.ENDC}"
         serv_installed_flag = False
 
 
@@ -80,10 +80,10 @@ def config_checker():
     global config_flag
     global config_soft
     if os.path.exists(f"/home/{user}/RotorHazard/src/server/config.json"):
-        config_soft = Bcolors.GREEN + """configured""" + Bcolors.ENDC
+        config_soft = f"{Bcolors.GREEN}configured{Bcolors.ENDC}"
         config_flag = True
     else:
-        config_soft = Bcolors.YELLOW + Bcolors.UNDERLINE + """not configured""" + Bcolors.ENDC
+        config_soft = f"{Bcolors.YELLOW}{Bcolors.UNDERLINE}not configured{Bcolors.ENDC}"
         config_flag = False
 
 
@@ -106,13 +106,13 @@ def sys_conf():
 def end_update():
     print("\n\n")
     if not config_flag and serv_installed_flag:
-        print(Bcolors.GREEN + """\t\t'c' - configure the server now""" + Bcolors.ENDC)
+        print(f"{Bcolors.GREEN}\t\t'c' - configure the server now{Bcolors.ENDC}")
     else:
         print("""\t\t'c' - Reconfigure RotorHazard server""")
-    print("""
+    print(f"""
                 'r' - reboot - recommended when configured\n
-                's' - start the server now\n""" + Bcolors.YELLOW + """
-                'e' - exit now\n""" + Bcolors.ENDC)
+                's' - start the server now\n{Bcolors.YELLOW}
+                'e' - exit now\n{Bcolors.ENDC}""")
 
     def end_menu():
         selection = input()
@@ -136,11 +136,11 @@ def end_update():
 
 
 def end_installation():
-    print("""\n\n""" + Bcolors.GREEN + """
+    print(f"""\n\n{Bcolors.GREEN}
         'c' - configure the server now - recommended\n
-        'r' - reboot - recommended after configuring""" + Bcolors.ENDC + """\n
-        's' - start the server now\n""" + Bcolors.YELLOW + """
-        'e' - exit now\n""" + Bcolors.ENDC)
+        'r' - reboot - recommended after configuring{Bcolors.ENDC}\n
+        's' - start the server now\n{Bcolors.YELLOW}
+        'e' - exit now\n{Bcolors.ENDC}""")
 
     def end_menu():
         selection = input()
@@ -174,7 +174,7 @@ def installation():
         print("\nInternet connection - OK")
         sleep(2)
         clear_the_screen()
-        print("\n\t" + Bcolors.BOLD + "Installation process has been started - please wait..." + Bcolors.ENDC + " \n")
+        print(f"\n\t{Bcolors.BOLD}Installation process has been started - please wait...{Bcolors.ENDC}\n")
         os.system("sudo apt-get update && sudo apt-get upgrade -y")
         os.system("sudo apt autoremove -y")
         os.system("sudo apt install wget ntp libjpeg-dev i2c-tools python-dev libffi-dev python-smbus \
@@ -197,7 +197,7 @@ def installation():
         os.system(f"cp -r /home/{user}/RotorHazard-* /home/{user}/.old_RotorHazard.old/ >/dev/null 2>&1")
         # in case of forced installation
         os.system(f"rm -r /home/{user}/RotorHazard-* >/dev/null 2>&1")  # in case of forced installation
-        os.chdir("/home/" + user)
+        os.chdir(f"/home/{user}")
         os.system(f"wget https://codeload.github.com/RotorHazard/RotorHazard/zip/{server_version} -O temp.zip")
         os.system("unzip temp.zip")
         os.system("rm temp.zip")
@@ -348,7 +348,7 @@ def main():
     sleep(0.1)
     welcome = """
         \n\n{red} {bold}
-        AUTOMATIC UPDATE AND INSTALLATION OF ROTORHAZARD RACING TIMER SOFTWARE\n\t
+        AUTOMATIC UPDATE AND INSTALLATION OF ROTORHAZARD RACING TIMER SOFTWARE
             {endc}{bold}
         You can automatically install and update RotorHazard timing software. 
         Additional dependencies and libraries also will be installed or updated.
@@ -357,11 +357,13 @@ def main():
         RotorHazard repository.
          
         Perform self-updating of this software, before updating server software.
-        Also make sure that you are logged as user {blue}'{user}'{endc}{bold}. \n
+        Also make sure that you are logged as user {blue}'{user}'{endc}{bold}.
         
-        You can change those in configuration wizard in Main Menu.\n
+        You can change those in configuration wizard in Main Menu.
+        
         Server installed right now: {server} {bold}
-        RotorHazard configuration state: {config_soft}\n\n\n
+        
+        RotorHazard configuration state: {config_soft}\n\n
         """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, blue=Bcolors.BLUE,
                    yellow=Bcolors.YELLOW, red=Bcolors.RED, orange=Bcolors.ORANGE, server_version=server_version,
                    user=user, config_soft=config_soft, server=server_version_name, )
@@ -391,7 +393,8 @@ def main():
             already_installed_prompt = """
             {bold}
     Looks like you already have RotorHazard server installed
-    (or at least that your system was once configured).{endc}\n
+    (or at least that your system was once configured).{endc}
+    
     If that's the case please use {underline} update mode {endc} - 'u'
     or force installation {underline} without {endc} sys. config. - 'i'.
             
