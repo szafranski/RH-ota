@@ -237,7 +237,7 @@ def aliases_menu(parser, config):
         otacfg    -->    opens updater conf. file
         otacpcfg  -->    copies ota conf. file.
         home      -->    go to the home directory (without '~' sign)\n
-    {endc}
+                        {endc}
         Do you want to use above aliases in your system?
         Reboot should be performed after adding those""".format(bold=Bcolors.BOLD, endc=Bcolors.ENDC)
     print(aliases)
@@ -380,10 +380,7 @@ def first_time(parser, config):
     def second_page():
         clear_the_screen()
         welcome_second_page = """
-
-
-                        {bold}{underline}CONFIGURATION PROCESS{endc}
-
+                {bold}{underline}       CONFIGURATION PROCESS       {endc}
 
         {bold} 
         Software configuration process can be assisted with a wizard. 
@@ -395,12 +392,11 @@ def first_time(parser, config):
 
         Possible RotorHazard server versions:
 
-        > {blue}'stable'{endc}{bold}- last stable release (can be from before few days or few months) {endc}
+        > {blue}'stable'{endc}{bold}- last stable release (can be from before few days or few months){endc}
         
-        > {blue}'beta'  {endc}{bold}- last 'beta' release (usually has about few weeks, quite stable) {endc}
+        > {blue}'beta'  {endc}{bold}- last 'beta' release (usually has about few weeks, quite stable){endc}
         
-        > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested)  {endc}  
-
+        > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested){endc}  
             """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
                        blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
         print(welcome_second_page)
@@ -418,7 +414,7 @@ def first_time(parser, config):
 
     def first_page():
         clear_the_screen()
-        welcome_first_page = """{bold}
+        welcome_first_page = """{bold}  
 
         You can use all implemented features, but if you want to be able to program
         Arduino-based nodes - enter Features menu and begin with first 2 points.
@@ -429,11 +425,11 @@ def first_time(parser, config):
 
         More info about whole poject that this software is a part of: 
         https://www.instructables.com/id/RotorHazard-Updater/
-        and in how_to folder - look for PDF file.\n
+        and in how_to folder - look for PDF file.
         New features and changes - see update notes section.
-        If you found any bug - please report via GitHub or Facebook.\n
+        If you found any bug - please report via GitHub or Facebook.
                 Enjoy!
-                                            Szafran
+                                                Szafran
         {endc}""".format(bold=Bcolors.BOLD, endc=Bcolors.ENDC)
         print(welcome_first_page)
         welcome_first_page_menu = """{green}

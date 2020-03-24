@@ -1,6 +1,5 @@
 from time import sleep 
 import os
-import sys
 
 terminal_used = 'xterm'    # may be changed to 'default' - not recommended
 

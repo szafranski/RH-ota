@@ -10,21 +10,19 @@ from pathlib import Path
 home_dir = '/home/andrzej/'
 
 
+def prev_comp(parser, home_dir):
+    aliases_1_flag = False
+    aliases_2_flag = False
+    installation_flag = False
+    updater_flag = False
+    serial_flag = False
+    pinout_flag = False
+
+
 # Path(f"{home_dir}/.ota_markers").mkdir(exist_ok=True)
 def aliases_clean():
     if check_if_string_in_file(f'{home_dir}/.bashrc', '### Shortcuts'):
-        # os.system("perl - i.bak - ne 'print if ! $a{$_}++' " + home_dir + ".bashrc")  # removes doubled lines
         os.system(". ./open_scripts.sh; aliases_clean")
-        # os.system("sed -i '/# #/d' " + home_dir + ".bashrc")  # removes lines containing # #
-        # os.system("grep -n \"Shortcuts\" ~/.bashrc | awk -F  \":\" '{print $1}' > .tmp1")
-        # os.system("grep -n \"After \" ~/.bashrc | awk -F  \":\" '{print $1}' > .tmp2")
-        # first = 0  # .tmp1
-        # last = 0  # .tmp2
-        # print("-----------")
-        # os.system("rm .tmp1")
-        # os.system("rm .tmp2")
-        # # os.system(f"sed 'first,last' {home_dir}/.bashrc")
-
 
 # tried to remove lines from 'Shortcut' to 'After'
 
@@ -46,8 +44,8 @@ it will NOT be called if you import this file into another file.
 
 def main():
     parser, config = load_config()
-    #     home_dir = os.path.expanduser('~')
-    # prev_comp(parser, home_dir)
+    home_dir = os.path.expanduser('~')
+    prev_comp(parser, home_dir)
     aliases_clean()
 
 

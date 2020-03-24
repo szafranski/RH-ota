@@ -49,7 +49,7 @@ def logo_update():
     #                                                                     #
     #{bold}{s}Flashing firmware onto {nodes_number} nodes - DONE{endc}{s}#
     #                                                                     #
-    #                          {bold}Thank you!{endc}                     #
+    #              {bold}         Thank you!        {endc}                #
     #                                                                     #
     #######################################################################\n\n
     """.format(nodes_number=nodes_number, bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, s=10 * ' '))

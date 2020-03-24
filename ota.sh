@@ -19,7 +19,7 @@ fi;
 
 which cowsay > /dev/null
 if [ $? -gt 0 ];
-	then echo cowsay has to be installed && sudo apt install python3-gpio
+	then echo cowsay has to be installed && sudo apt install cowsay
 fi;
 
 which pip3 > /dev/null  # proper way of checking?
@@ -60,6 +60,9 @@ rm pip3installed.tmp
 rm aptinstalled.tmp
 
 python3 update.py
+
+
+# Add if needed: sudo apt-get install python3-smbus i2c-tools
 
 
 # todo David - ota everytime asks for sudo - only on debug or always?
