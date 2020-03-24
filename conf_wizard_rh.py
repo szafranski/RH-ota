@@ -99,7 +99,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                     if led_inv in ['yes','1','y']:
                         led_inv_val = 'true'
                     elif led_inv in ['no','0','n']:
-                        led_inv_val = 'true'
+                        led_inv_val = 'false'
                     os.system("sed -i 's/\"LED_INVERT\": false/\"LED_INVERT\": "+led_inv_val+"/g' /home/"+user+"/RH-ota/.wizarded-rh-config.json")
                     break
             while True:
