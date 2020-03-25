@@ -3,9 +3,12 @@ import os
 import sys
 import json
 from modules import clear_the_screen, Bcolors, logo_top
-from smbus import SMBus
-try:  # try used for only for testing purposes
-    from modules import RH_version  # invalid syntax for some reason
+try:
+    from smbus import SMBus
+except ModuleNotFoundError as module_err:
+    print(module_err)
+
+# from modules import RH_version  # invalid syntax for some reason
 
 # todo cannot find reference for RH_version error shows
 
@@ -17,6 +20,8 @@ try:
     bus = SMBus(1)  # indicates /dev/ic2-1
 except PermissionError:
     bus = 'SMBus(1)'
+except NameError as name_error:
+    print(name_error)
 
 sleepAmt = 1
 
@@ -30,6 +35,18 @@ disable_serial_on_the_node_command = 0x80
 def calculate_checksum(data):
     checksum = sum(data) & 0xFF
     return checksum
+
+
+'''nodes I2C adresses'''
+
+node1addr = 0x08  # 8
+node2addr = 0x0a  # 10
+node3addr = 0x0c  # 12
+node4addr = 0x0e  # 14
+node5addr = 0x10  # 16
+node6addr = 0x12  # 18
+node7addr = 0x14  # 20
+node8addr = 0x16  # 22
 
 
 def disable_serial_on_the_node():
@@ -93,10 +110,13 @@ gpio_reset_pin = 12
 
 try:
     import RPi.GPIO as GPIO
+
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
     GPIO.setup(gpio_reset_pin, GPIO.OUT, initial=GPIO.HIGH)
     # ensures nothing is being reset during program start
+except ModuleNotFoundError:
+    print("GPIO import - failed")
 
 
 def logo_update():
@@ -110,14 +130,6 @@ def logo_update():
     #######################################################################\n\n
     """.format(nodes_number=nodes_number, bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, s=10 * ' '))
 
-node1addr = 0x08  # 8
-node2addr = 0x0a  # 10
-node3addr = 0x0c  # 12
-node4addr = 0x0e  # 14
-node5addr = 0x12  # 16
-node6addr = 0x14  # 18
-node7addr = 0x14  # 20
-node8addr = 0x16  # 22
 
 addr_list = ['0x08', '0x0a', '0x0c', '0x0e', '0x10', '0x12', '0x14', '0x16']
 
@@ -443,7 +455,7 @@ def reset_gpio_state():
 
 def nodes_update():
     clear_the_screen()
-    logo_top()
+    logo_top(linux_testing)
     sleep(0.05)
     node_menu = """\n
                         {bold}{underline}CHOOSE FLASHING TYPE:{endc}

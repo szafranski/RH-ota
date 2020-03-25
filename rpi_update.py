@@ -327,7 +327,6 @@ def update():
             /home/{user}/backup_RH_data >/dev/null 2>&1 &")
             os.chdir(f"/home/{user}/RotorHazard/src/server")
             os.system("sudo -H pip install --upgrade --no-cache-dir -r requirements.txt")
-            # todo pip3 or pip should be used?
             print("""\n\n\t
                 ##############################################
                 #                                            #
@@ -375,7 +374,7 @@ def main():
     else:
         print("\t\t'c' - Reconfigure RotorHazard server\n")
     if not serv_installed_flag:
-        print(f"\t{Bcolors.GREEN}'i' - Install software from skratch{Bcolors.ENDC}")
+        print(f"\t\t{Bcolors.GREEN}'i' - Install software from skratch{Bcolors.ENDC}")
     else:
         print("""\t\t'i' - Install software from skratch""")
     print("""

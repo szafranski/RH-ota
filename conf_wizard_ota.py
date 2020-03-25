@@ -59,7 +59,6 @@ Default values are not automatically applied. Type them if needed.\n""")
                 print("\nPlease enter correct value!")
             else:
                 config['RH_version'] = version
-                #
                 # os.system(f"echo '    \"RH_version\" : \"{version}\",' \
                 #  | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break

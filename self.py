@@ -6,6 +6,7 @@ from configparser import ConfigParser
 
 parser = ConfigParser()
 
+beta_update_flag = 0
 
 def parser_write():
     try:
@@ -17,8 +18,8 @@ def parser_write():
 
 myhomedir = os.getcwd()
 
-cfgdir1 = str(myhomedir+'/RH-ota/updater-config.json')
-cfgdir2 = str(myhomedir+'/RH-ota/distr-updater-config.json')
+cfgdir1 = str(f'{myhomedir}/RH-ota/updater-config.json')
+cfgdir2 = str(f'{myhomedir}/RH-ota/distr-updater-config.json')
 
 
 def check_if_string_in_file(file_name, string_to_search):
@@ -158,7 +159,7 @@ def main():
             os.system("rm tempota.zip")
             os.system("mv RH-ota-* RH-ota")
             beta_update_flag = True
-        if not no_pdf_update and not beta_update_flag:
+        elif not no_pdf_update and not beta_update_flag:
             print("Update will contain PDF file - may be changed in config file.\n")
             os.system("sudo rm -rf ~/RH-ota*")
             os.system("rm tempota.zip > /dev/null  > /dev/null 2>&1")
@@ -166,7 +167,7 @@ def main():
             os.system("unzip tempota.zip")
             os.system("rm tempota.zip")
             os.system("mv RH-ota-* RH-ota")
-        if no_pdf_update and not beta_update_flag:
+        elif no_pdf_update and not beta_update_flag:
             print("Update won't contain PDF file - may be changed in config file.\n")
             os.system("sudo rm -rf ~/RH-ota*")
             os.system("rm tempota.zip > /dev/null  > /dev/null 2>&1")
@@ -181,7 +182,7 @@ def main():
         \n\t\tYou may check update-notes.\n\n")
         sleep(1)
         os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")
-        os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         # resolves compatibility, permissions issues
+        os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         # resolves compatibility & permissions issues
         if new_version_name != old_version_name:
             os.system("echo OTA was updated > ~/.ota_markers/.was_updated")
 

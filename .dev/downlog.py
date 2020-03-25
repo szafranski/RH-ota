@@ -10,7 +10,6 @@ os.system(f"rm {user_name}_log_old.txt > /dev/null 2>&1")
 os.system(f"cp {user_name}_log.txt {user_name}_log_old.txt > /dev/null 2>&1")
 
 os.system(f"curl https://transfer.sh/{user_code} -o {user_name}_log.txt")
-# os.system("curl https://transfer.sh/"+user_code+"/"+user_name+"_log.txt -o "+user_name+"_log.txt")
 
 while True:
     print("\n")

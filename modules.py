@@ -8,10 +8,6 @@ import json
 import time
 from types import SimpleNamespace as Namespace
 
-
-#  todo add an RH version to modules so it can be read by other files like i2c nodes_update
-
-
 def clear_the_screen():
     sleep(0.05)
     if platform.system() == "Windows":
@@ -219,3 +215,5 @@ def write_json(to_dump, file_name):
 def copy_file(src, tgt):
     if os.path.exists(src):
         copyfile(src, tgt)
+
+

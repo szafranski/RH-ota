@@ -13,10 +13,10 @@ def compatibility(parser, home_dir):  # adds compatibility and fixes with previo
 
 def config_check():
     if not os.path.exists("./updater-config.json"):
-        print("""{bold}
+        print(f"""{Bcolors.BOLD}
         Looks that you haven't set up config file yet.
         Please read about configuration process - point 5
-        and next enter configuration wizard - point 6.{endc}""".format(bold=Bcolors.BOLD, endc=Bcolors.ENDC))
+        and next enter configuration wizard - point 6.{Bcolors.ENDC}""")
 
 
 def log_to_dev(parser, config):
@@ -33,6 +33,7 @@ def log_write(config):
     os.system("echo -------------------------------------------- | tee -a  ./log_data/log.txt")
     os.system("echo | tee -a  ./log_data/log.txt")
     os.system("cat /boot/config.txt | tee -a  ./log_data/log.txt")
+    os.system("echo | tee -a  ./log_data/log.txt")
     os.system("echo | tee -a  ./log_data/log.txt")
     os.system("echo FILE /boot/cmdline.txt | tee -a  ./log_data/log.txt")
     os.system("echo -------------------------------------------- | tee -a  ./log_data/log.txt")
@@ -369,7 +370,7 @@ def features_menu(parser, config):
     if selection == 'e':
         main_menu(parser, config)
     else:
-        features_menu(parser, config)  # todo why error?
+        features_menu(parser, config)
 
 
 def first_time(parser, config):
@@ -511,18 +512,15 @@ def main_menu(parser, config):
             log_to_dev(parser, config)
         if selection == 'e':
             end(parser, config)
-        if selection == '2dev':
-            os.system("python3 ./.dev/done_nodes_update_dev.py")
-            # opens second function-based nodes updating file
 
 
 def main():
     updater_version = '2.2.10beta2f'
-
-    # version of THIS program - has nothing to do with the RH version
-    # it refers to the API level of newest contained nodes firmware
-    # third number refers to actual version of the updater itself
-
+    '''
+    version of THIS program - has nothing to do with the RH version
+    it refers to the API level of newest contained nodes firmware
+    third number refers to actual version of the updater itself
+    '''
     home_dir = os.path.expanduser('~')
     clear_the_screen()
     print("\n\n")
