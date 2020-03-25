@@ -10,11 +10,7 @@
 9. Implement easy python 3 conversion for existing users - just for RotorHazard when will be done
 10. Starting/installing script - easy, 95% done
 11. After implementing i2c - clean the directories etc.
-12. Is using flags ok? capital letters?
-13. One parser file type
-14. Make technical stuff like installing avrdude and enabling serial more user friendly - script
+12. Make technical stuff like installing avrdude and enabling serial more user friendly - script
 with simple naming like 'configure hardware' not 'install avrdude'
-15. Add i2c showing: i2cdetect -y 1
-
 
 # todo - just so we have a reminder of this list

@@ -310,14 +310,16 @@ def self_updater(parser, config):
 def features_menu(parser, config):
     clear_the_screen()
     logo_top(config.debug_mode)
+    # todo "install avrdude" is obsolete cause it is now implemented in ota.sh
+
     features_menu_content = """
 
-                    {red}{bold}{underline}FEATURES MENU{endc}
+                    {red}{bold}{underline}FEATURES MENU{endc}{blue}{bold}
 
-        {blue}{bold} 
+         
                         1 - Install AVRDUDE
                         
-                        2 - Enable serial protocol {endc} {bold}
+                        2 - Enable serial protocol {endc}{bold}
                         
                         3 - Access Point and Internet 
                         
@@ -325,7 +327,7 @@ def features_menu(parser, config):
                         
                         5 - Useful aliases
                         
-                        6 - Update OTA software {endc} {yellow}{bold}
+                        6 - Update OTA software {endc}{yellow}{bold}
                             
                         e - Exit to main menu {endc}
 

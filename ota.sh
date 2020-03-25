@@ -27,11 +27,17 @@ if [ $? -gt 0 ];
 	then echo cowsay has to be installed && sudo apt install cowsay
 fi;
 
+which i2c-tools > /dev/null
+if [ $? -gt 0 ];
+	then echo i2c-tools has to be installed && sudo apt install i2c-tools
+fi;
+
 which pip3 > /dev/null  # proper way of checking?
 if [ $? -gt 0 ];
 	then echo pip package has to be installed && sudo apt install python3-pip
 fi;
 echo "looking for dependencies python ..."
+
 pip3 freeze > pip3installed.tmp
 
 if grep -q 'configparser' pip3installed.tmp ; then
@@ -60,14 +66,12 @@ if grep -q 'python3-smbus' aptinstalled.tmp ; then
 else
   echo echo python3-smbus has to be installed && sudo apt install python3-smbus
 fi
+
 #Cleanup after myself.
 rm pip3installed.tmp
 rm aptinstalled.tmp
 
 python3 update.py
-
-
-# Add if needed: sudo apt-get install python3-smbus i2c-tools
 
 
 # todo David - ota everytime asks for sudo - only on debug or always?

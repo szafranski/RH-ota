@@ -457,7 +457,7 @@ def nodes_update():
 
                 4 - Flash each node individually
 
-                5 - I2C programming - NEW (beta)
+                5 - Show I2C connected devices
 
                 6 - Fix GPIO pins state - obsolete
 
@@ -482,6 +482,9 @@ def nodes_update():
     if selection == '4':
         flash_each_node()
     if selection == '5':
+        logo_top()
+        os.system("i2cdetect - y 1")
+    if selection == '6':
         reset_gpio_state()
     if selection == 'e':
         sys.exit()
