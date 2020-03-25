@@ -3,7 +3,7 @@ from time import sleep
 import os
 
 bus = SMBus(1)  # indicates /dev/ic2-1
-addr = 0x0a
+addr = 0x08
 
 sleepAmt = 1
 
@@ -14,15 +14,18 @@ disable_serial_on_the_node = 0x80
 def calculate_checksum(data):
     checksum = sum(data) & 0xFF
     return checksum
-
+    
 
 on = [1]
 off = [0]
 
 
 def disable_serial():
+    on.append(calculate_checksum(on))
+    off.append(calculate_checksum(off))
     sleep(sleepAmt)
     # bus.write_byte(addr, disable_serial_on_the_node)
+    bus.write_i2c_block_data(addr, disable_serial_on_the_node, on)
     bus.write_i2c_block_data(addr, disable_serial_on_the_node, on)
     # which is correct?
     print("serial disabled")
@@ -42,7 +45,9 @@ def flash_mate_node():
     bus.write_i2c_block_data(addr, reset_mate_node, on)
     print("on sent")
     sleep(0.2)
+    avrdude_content = "avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/pi/RH-ota/firmware/blink.hex:i"
+    os.system(f"{avrdude_content}")
 
-    os.system(
-        "avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/pi/RH-ota/firmware/blink.hex:i")
 
+disable_serial()
+flash_mate_node()
