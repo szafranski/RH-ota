@@ -195,7 +195,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                 else:
                     config['SERIAL_PORTS'] = [f"{serial_ports}"]
                     break
-                                             # todo ordering issue - not a big deal
+                    # todo order is different that RotorHazard default order - not a big deal
         if not adv_wiz_flag:
             config['GENERAL']['DEBUG'] = False
             config['GENERAL']['CORS_ALLOWED_HOSTS'] = '*'

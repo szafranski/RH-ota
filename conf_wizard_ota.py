@@ -45,32 +45,23 @@ def do_config():
         print("""\n
 Please type your configuration data. It can be modified later.
 Default values are not automatically applied. Type them if needed.\n""")
-        # os.system("rm .wizarded-updater-config.json >/dev/null 2>&1")
         name = input("\nWhat is your user name on Raspberry Pi? [default: pi]\t\t\t")
         config['pi_user'] = name
-        # os.system("echo '{' | tee -a " + homedir + "/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
-        # os.system(f"echo '    \"pi_user\" : \"{name}\",' \
-        # | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
         while True:
-            version = input("\nWhat RotorHazard version will you use? [{underline}stable{endc} | beta | master]\
-         ".format(underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC))
+            version = input(f"\nWhat RotorHazard version will you use? \
+            [{Bcolors.UNDERLINE}stable{Bcolors.ENDC} | beta | master]")
             version_valid_options = ['master', 'stable', 'beta']
             if version not in version_valid_options:
                 print("\nPlease enter correct value!")
             else:
                 config['RH_version'] = version
-                # os.system(f"echo '    \"RH_version\" : \"{version}\",' \
-                #  | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
+
         debug_user = input("\nWhat is you user name on debugging OS? [default: racer]\t\t\t")
         config['debug_user'] = debug_user
-        # os.system(f"echo '    \"debug_user\" : \"{debug_user}\",' \
-        #  | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
 
         code = input("\nWhat is your country code? [default: GB]\t\t\t\t")
         config['country'] = code
-        # os.system(f"echo '    \"country\" : \"{code}\",' \
-        #  | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
 
         while True:
             nodes = input("\nHow many nodes will you use in your system? [min: 0/1 | max: 8]\t\t")
@@ -78,8 +69,6 @@ Default values are not automatically applied. Type them if needed.\n""")
                 print("\nPlease enter correct value!")
             else:
                 config['nodes_number'] = nodes
-                # os.system(f"echo '    \"nodes_number\" : {nodes},' \
-                #  | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
 
         while True:
@@ -94,8 +83,6 @@ Default values are not automatically applied. Type them if needed.\n""")
                 elif debug_mode in ['no', '0', 'n']:
                     debug_mode_val = '0'
                 config['debug_mode'] = debug_mode_val
-                # os.system(f"echo '    \"debug_mode\" : {debug_mode_val},' \
-                #  | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
         while True:
             pins_assign = input("\nPins assignment? [default/custom/PCB | default: default]\t\t")
@@ -104,9 +91,8 @@ Default values are not automatically applied. Type them if needed.\n""")
                 print("\nPlease enter correct value!")
             else:
                 config['pins_assignment'] = pins_assign
-                # os.system(f"echo '    \"pins_assignment\" : \"{pins_assign}\",' \
-                #  | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
+
         while True:
             no_pdf_val = '0'
             no_pdf = input("\nUpdates without PDF? [yes/no | default: yes]\t\t\t\t")
@@ -119,9 +105,8 @@ Default values are not automatically applied. Type them if needed.\n""")
                 elif no_pdf in ['no', '0', 'n']:
                     no_pdf_val = '0'
                 config['updates_without_pdf'] = no_pdf_val
-                # os.system(f"echo '    \"updates_without_pdf\" : {no_pdf_val},' \
-                #  | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
+
         while True:
             pi_4 = input("\nAre you using Raspberry Pi 4? [yes/no | default: no]\t\t\t")
             pi_4_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']
@@ -134,9 +119,8 @@ Default values are not automatically applied. Type them if needed.\n""")
                 elif pi_4 in ['no', '0', 'n']:
                     pi_4_val = '0'
                 config['pi_4_cfg'] = pi_4_val
-                # os.system(f"echo '    \"pi_4_cfg\" : {pi_4_val},' \
-                #  | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
+
         while True:
             beta_tester = input("\nAre you a beta tester? [yes/no | default: no]\t\t\t\t")
             beta_tester_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']
@@ -149,10 +133,8 @@ Default values are not automatically applied. Type them if needed.\n""")
                 elif beta_tester in ['no', '0', 'n']:
                     beta_tester_val = '0'
                 config['beta_tester'] = beta_tester_val
-                # os.system(f"echo '    \"beta_tester\" : {beta_tester_val}' \
-                #  | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
-        # os.system("echo '}' | tee -a " + homedir + "/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
+
         print(f"""\n\n
             {Bcolors.UNDERLINE}CONFIGURATION{Bcolors.ENDC}:
 
@@ -178,7 +160,6 @@ Default values are not automatically applied. Type them if needed.\n""")
         if selection == 'y' or selection == 'yes':
             write_json(config, f"{home_dir}/RH-ota/updater-config.json")
 
-            # os.system("mv .wizarded-updater-config.json updater-config.json")
             print("Configuration saved.\n")
             sleep(0.5)
             conf_now_flag = 0
@@ -193,12 +174,12 @@ Default values are not automatically applied. Type them if needed.\n""")
 
 
 def conf_ota():
-    '''
+    """
         repeat the configuration script until
         the user ether aborts, configures ota
         or it was already configured.
     :return:
-    '''
+    """
     config_now = 1
     while config_now:
         config_now = do_config()
