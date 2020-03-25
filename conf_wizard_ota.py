@@ -7,6 +7,8 @@ from pathlib import Path
 Check if a config file already exists. if it does, 
 ask the user if they want to overwrite it.
 '''
+
+
 def conf_check():
     conf_now_flag = 0
     if os.path.exists("./updater-config.json"):
@@ -27,8 +29,8 @@ def conf_check():
         conf_now_flag = 1
     return conf_now_flag
 
-def do_config():
 
+def do_config():
     home_dir = str(Path.home())
     clear_the_screen()
     logo_top(False)
@@ -56,7 +58,7 @@ Default values are not automatically applied. Type them if needed.\n""")
             if version not in version_valid_options:
                 print("\nPlease enter correct value!")
             else:
-                config['RH_version']= version
+                config['RH_version'] = version
                 #
                 # os.system(f"echo '    \"RH_version\" : \"{version}\",' \
                 #  | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
@@ -171,7 +173,7 @@ Default values are not automatically applied. Type them if needed.\n""")
         Beta tester:            {beta_tester}
          
         Please check. Confirm? [yes/change/abort]\n""")
-        valid_options = ['y', 'yes', 'n', 'no', 'change', 'abort']  # todo Dave, look - I made it pretty
+        valid_options = ['y', 'yes', 'n', 'no', 'change', 'abort']
         while True:
             selection = input().strip()
             if selection in valid_options:
@@ -194,6 +196,7 @@ Default values are not automatically applied. Type them if needed.\n""")
 
     return conf_now_flag
 
+
 def conf_ota():
     '''
         repeat the configuration script until
@@ -202,12 +205,13 @@ def conf_ota():
     :return:
     '''
     config_now = 1
-    while  config_now:
+    while config_now:
         config_now = do_config()
 
 
 def main():
     conf_ota()
+
 
 if __name__ == "__main__":
     main()

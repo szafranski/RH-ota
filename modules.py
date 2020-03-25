@@ -111,7 +111,7 @@ class Bcolors:
 def internet_check(user):
     print("\nPlease wait - checking internet connection state...\n")
     before_millis = int(round(time.time() * 1000))
-    os.system(". /home/" + user + "/RH-ota/open_scripts.sh; net_check")
+    os.system(f". /home/{user}/RH-ota/open_scripts.sh; net_check")
     while True:
         now_millis = int(round(time.time() * 1000))
         time_passed = (now_millis - before_millis)
@@ -121,10 +121,10 @@ def internet_check(user):
         elif time_passed > 10100:
             internet_flag = 0
             break
-    os.system("rm /home/" + user + "/RH-ota/index.html > /dev/null 2>&1")
-    os.system("rm /home/" + user + "/RH-ota/wget-log* > /dev/null 2>&1")
-    os.system("rm /home/" + user + "/index.html > /dev/null 2>&1")
-    os.system("rm /home/" + user + "/wget-log* > /dev/null 2>&1")
+    os.system(f"rm /home/{user}/RH-ota/index.html > /dev/null 2>&1")
+    os.system(f"rm /home/{user}/RH-ota/wget-log* > /dev/null 2>&1")
+    os.system(f"rm /home/{user}/index.html > /dev/null 2>&1")
+    os.system(f"rm /home/{user}/wget-log* > /dev/null 2>&1")
 
     return internet_flag
 

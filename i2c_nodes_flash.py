@@ -3,12 +3,14 @@ import os
 import sys
 import json
 from modules import clear_the_screen, Bcolors, logo_top
-from smbus import SMBus  # works only on Pi
+from smbus import SMBus
+try:  # try used for only for testing purposes
+    from modules import RH_version  # invalid syntax for some reason
 
-# from modules import RH_version  # invalid syntax for some reason
 # todo cannot find reference for RH_version error shows
 
 RH_version = 'master'
+
 firmware_version = RH_version
 
 try:
@@ -18,10 +20,8 @@ except PermissionError:
 
 sleepAmt = 1
 
-
 on = [1]
 off = [0]
-
 
 reset_mate_node_command = 0x79
 disable_serial_on_the_node_command = 0x80
@@ -66,8 +66,8 @@ def flash_mate_node():
 
 
 def flash_test():
-    os.system(
-        "avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/pi/RH-ota/firmware/blink.hex:i")
+    os.system("avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
+    flash:w:/home/pi/RH-ota/firmware/blink.hex:i")
 
 
 if os.path.exists("./updater-config.json"):
@@ -91,9 +91,8 @@ else:
 
 gpio_reset_pin = 12
 
-if not linux_testing:
+try:
     import RPi.GPIO as GPIO
-
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
     GPIO.setup(gpio_reset_pin, GPIO.OUT, initial=GPIO.HIGH)
@@ -110,7 +109,6 @@ def logo_update():
     #                                                                     #
     #######################################################################\n\n
     """.format(nodes_number=nodes_number, bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, s=10 * ' '))
-
 
 node1addr = 0x08  # 8
 node2addr = 0x0a  # 10
@@ -137,14 +135,17 @@ def flash_firmware_onto_numbered_node():
 
 if not linux_testing:
     def disable_serial_on_all_nodes():
-        bus.write_byte(node1addr, disable_serial_on_the_node_command)
-        bus.write_byte(node2addr, disable_serial_on_the_node_command)
-        bus.write_byte(node3addr, disable_serial_on_the_node_command)
-        bus.write_byte(node4addr, disable_serial_on_the_node_command)
-        bus.write_byte(node5addr, disable_serial_on_the_node_command)
-        bus.write_byte(node6addr, disable_serial_on_the_node_command)
-        bus.write_byte(node7addr, disable_serial_on_the_node_command)
-        bus.write_byte(node8addr, disable_serial_on_the_node_command)
+        # bus.write_byte(node1addr, disable_serial_on_the_node_command)
+        # bus.write_byte(node2addr, disable_serial_on_the_node_command)
+        # bus.write_byte(node3addr, disable_serial_on_the_node_command)
+        # bus.write_byte(node4addr, disable_serial_on_the_node_command)
+        # bus.write_byte(node5addr, disable_serial_on_the_node_command)
+        # bus.write_byte(node6addr, disable_serial_on_the_node_command)
+        # bus.write_byte(node7addr, disable_serial_on_the_node_command)
+        # bus.write_byte(node8addr, disable_serial_on_the_node_command)
+
+        for i in range(1, nodes_number):
+            bus.write_byte(addr_list[i], disable_serial_on_the_node_command)
 
 
     def gpio_reset_pin_low():
@@ -279,11 +280,11 @@ def flash_firmware_onto_all_gnd_nodes():
         bus.write_byte(addr_list[i], RESET_MATE_NODE_LOW)
         bus.write_byte(addr_list[i], RESET_MATE_NODE_HIGH)
         sleep(0.1)
-        os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{user}\
-        /RH-ota/firmware/i2c/{firmware_version}/node_0.hex:i")
-        print("""avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{user}\
-        /RH-ota/firmware/i2c/{firmware}/node_{i}.hex:i """.format(user=user, firmware=firmware_version, i=i))
-    print("""\n\n\t\t\t\t{bold}Node {i} - flashed{endc}\n\n""".format(bold=Bcolors.BOLD, endc=Bcolors.ENDC, i=i))
+        os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
+        flash:w:/home/{user}/RH-ota/firmware/i2c/{firmware_version}/node_0.hex:i")
+        print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
+        flash:w:/home/{user}/RH-ota/firmware/i2c/{firmware_version}/node_{i}.hex:i")
+    print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {i} - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
 
 
@@ -296,9 +297,9 @@ def flash_blink_onto_all_gnd_nodes():
         sleep(0.1)
         os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{user}\
         /RH-ota/firmware/{firmware_version}/blink.hex:i")
-        print("""avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{user}\
-        /RH-ota/firmware/{firmware}/blink.hex:i """.format(user=user, firmware=firmware_version))
-    print("""\n\n\t\t\t\t{bold}Node {i} - flashed{endc}\n\n""".format(i=i, bold=Bcolors.BOLD, endc=Bcolors.ENDC))
+        print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
+        flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/blink.hex:i ")
+    print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {i} - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
 
 
@@ -375,7 +376,7 @@ def flash_each_node():
                     'e'- Exit to main menu{endc}
         """.format(bold=Bcolors.BOLD, red=Bcolors.RED, yellow=Bcolors.YELLOW, endc=Bcolors.ENDC)
         print(flash_node_menu)
-        selection = input("\n\n\t\t" + Bcolors.BOLD + "Which node do you want to program:" + Bcolors.ENDC + " ")
+        selection = input(f"\n\n\t\t{Bcolors.BOLD}Which node do you want to program:{Bcolors.ENDC} ")
         print("\n\n")
         if selection.isdigit() and int(selection) <= 8:
             x = selection
@@ -496,13 +497,13 @@ def flashing():
     input("Ok?")
     bus.write_byte(node1addr, 0x79)
     sleep(0.5)
-    os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/\
-    {user}/RH-ota/firmware/reset_no_s.hex:i")
+    os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
+    flash:w:/home/{user}/RH-ota/firmware/reset_no_s.hex:i")
     sleep(1)
     bus.write_byte(node2addr, 0x79)
     sleep(0.5)
-    os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/\
-    {user}/RH-ota/firmware/reset_no_s.hex:i")
+    os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
+    flash:w:/home/{user}/RH-ota/firmware/reset_no_s.hex:i")
     sleep(1)
 
 
@@ -520,8 +521,8 @@ def test():
         test()
     if selection == '2':
         node_two_reset()
-        os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/\
-        {user}/RH-ota/comm.hex:i ")
+        os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
+        flash:w:/home/{user}/RH-ota/comm.hex:i ")
         print("\n\t Node flashed using I2C resetting - blink\n")
         sleep(1.5)
         test()
