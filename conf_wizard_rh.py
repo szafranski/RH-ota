@@ -217,9 +217,9 @@ Default values are not automatically applied. Type them if needed.\n""")
                     config['SERIAL_PORTS'] = []
                     break
                 else:
-                    config['SERIAL_PORTS'] = [f"{serial_ports}"]     # todo ordering issue - not a big deal
+                    config['SERIAL_PORTS'] = [f"{serial_ports}"]
                     break
-
+                                             # todo ordering issue - not a big deal
         if not adv_wiz_flag:
             config['GENERAL']['DEBUG'] = False
             config['GENERAL']['CORS_ALLOWED_HOSTS'] = '*'
