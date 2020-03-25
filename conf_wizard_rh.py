@@ -7,7 +7,7 @@ from pathlib import Path
 def conf_check():
     conf_now_flag = 0
     if os.path.exists(f"./../RotorHazard/src/server/config.json"):
-        print("\n\tLooks that you have OTA software already configured.")
+        print("\n\tLooks that you have Rotorhazard software already configured.")
         valid_options_conf_check = ['y', 'yes', 'n', 'no']
         while True:
             cont_conf = input("\n\tOverwrite and continue anyway? [yes/no]\t\t").strip()
@@ -24,29 +24,6 @@ def conf_check():
         conf_now_flag = 1
     return conf_now_flag
 
-
-conf_now_flag = 0
-admin_name = 0
-admin_pass = 0
-port = 0
-led_count = 0
-led_pin = 0
-led_inv = 0
-led_channel = 0
-panel_rot = 0
-inv_rows = 0
-led_dma = 0
-led_freq = 0
-debug = 0
-cores_val = 0
-serial_ports = 0
-led_inv_val = 0
-inv_rows_val = 0
-adv_wiz_flag = 0
-led_present_flag = 0
-
-
-# todo David - if above have sense?
 
 def do_config():
     home_dir = str(Path.home())
@@ -77,7 +54,9 @@ Default values are not automatically applied. Type them if needed.\n""")
         config["LED"] = {}
         print("\nAre you planning to use LEDs in your system? [yes/no]\n")
         valid_options = ['y', 'yes', 'n', 'no']
+        led_present_flag = False
         while True:
+
             selection = input("\t")
             if selection in valid_options:
                 if selection == 'y' or selection == 'yes':
@@ -103,6 +82,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                     config["LED"]['LED_PIN'] = int(led_pin)
                     break
             while True:
+                led_inv_val = 0
                 led_inv = input("\nIs LED data pin output inverted? [yes/no | default: no]\t\t\t")
                 led_inv_allowed_values = ['yes', 'no', 'false', 'true', 'y', 'n']
                 if led_inv not in led_inv_allowed_values:
@@ -131,6 +111,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                     config["LED"]['PANEL_ROTATE'] = int(panel_val)
                     break
             while True:
+                inv_rows_val = 0
                 inv_rows = input("\nAre your panel rows inverted? [yes/no | default: no]\t\t\t")
                 inv_rows_allowed_values = ['yes', 'no', 'false', 'true', 'y', 'n']
                 if inv_rows not in inv_rows_allowed_values:
@@ -161,6 +142,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                 break
             else:
                 print("\ntoo big fingers :( wrong command. try again! :)")
+        adv_wiz_flag = False
         if selection == 'y' or selection == 'yes':
             adv_wiz_flag = True
         if selection == 'n' or selection == 'no':
@@ -185,6 +167,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                     config["LED"]['LED_FREQ_HZ'] = led_freq
                     break
             while True:
+                debug = False
                 debug_mode = input("\nWill you use RotorHazard in debug mode? [yes/no | default: no]\t\t")
                 debug_mode_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']
                 if debug_mode not in debug_mode_allowed_values:
@@ -197,19 +180,12 @@ Default values are not automatically applied. Type them if needed.\n""")
                     config['GENERAL']['DEBUG'] = debug
                     break
             while True:
-                cores = input("\nCors hosts allowed? [default: all]\t\t\t")
-                cores_values_allowed = ['*', 'all']
-                if cores not in cores_values_allowed:
-                    print("\nPlease enter correct value!")
+                cors = input("\nCors hosts allowed? [default: all]\t\t\t")
+                if cors in ['*', 'all']:
+                    config['GENERAL']['CORS_ALLOWED_HOSTS'] = "*"
+                    break
                 else:
-                    if cores in ['1', '2', '3']:
-                        cores_val = str(cores)
-                        config['GENERAL']['CORS_ALLOWED_HOSTS'] = cores
-                    elif cores == 'all':
-                        cores_val = 'all'
-                        config['GENERAL']['CORS_ALLOWED_HOSTS'] = "*"
-                    else:
-                        cores_val = '*'
+                    config['GENERAL']['CORS_ALLOWED_HOSTS'] = cors
                     break
             while True:
                 serial_ports = input("\nWhich serial ports will you use? [default: 'none']\t\t\t").strip()
