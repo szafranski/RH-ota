@@ -8,6 +8,7 @@ parser = ConfigParser()
 
 beta_update_flag = 0
 
+
 def parser_write():
     try:
         with open(f'/home/{user}/.ota_markers/ota_config.txt', 'w') as configfile:
@@ -30,7 +31,7 @@ def check_if_string_in_file(file_name, string_to_search):
     return False
 
 
-if os.path.exists(myhomedir+"/RH-ota/updater-config.json"):
+if os.path.exists(myhomedir + "/RH-ota/updater-config.json"):
     with open(cfgdir1) as config_file:
         data = json.load(config_file)
 else:
@@ -42,7 +43,7 @@ def internet_check():
     print("\nPlease wait - checking internet connection state...\n")
     global internet_flag
     before_millis = int(round(time.time() * 1000))
-    os.system(". "+myhomedir+"/RH-ota/open_scripts.sh; net_check")
+    os.system(". " + myhomedir + "/RH-ota/open_scripts.sh; net_check")
     while True:
         now_millis = int(round(time.time() * 1000))
         time_passed = (now_millis - before_millis)
@@ -73,19 +74,18 @@ else:
     config_file_exists = False
 
 if config_file_exists:
-    if check_if_string_in_file(myhomedir+'/RH-ota/updater-config.json', 'updates_without_pdf'):
+    if check_if_string_in_file(myhomedir + '/RH-ota/updater-config.json', 'updates_without_pdf'):
         if data['updates_without_pdf']:
             no_pdf_update = True
         else:
             no_pdf_update = False
     else:
         no_pdf_update = False
-else: 
+else:
     no_pdf_update = False
 
-
 if config_file_exists:
-    if check_if_string_in_file(myhomedir+'/RH-ota/updater-config.json', 'beta_tester'):
+    if check_if_string_in_file(myhomedir + '/RH-ota/updater-config.json', 'beta_tester'):
         if data['beta_tester']:
             beta_tester_update = True
         else:
@@ -117,7 +117,7 @@ def new_version_check():
 
 
 def main():
-    parser.read(myhomedir+'/.ota_markers/ota_config.txt')
+    parser.read(myhomedir + '/.ota_markers/ota_config.txt')
     internet_check()
     if not internet_flag:
         print("\nLooks like you don't have internet connection. Update canceled.\n")
@@ -125,8 +125,8 @@ def main():
     else:
         print("\nInternet connection - OK\n")
         sleep(1.5)
-        os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")   # resolves compatibility issues
-        os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         # resolves compatibility issues
+        os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")  # resolves compatibility issues
+        os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")  # resolves compatibility issues
         old_version_check()
         if not parser.getint('added_functions', 'python3_installed'):
             print("\nThis time update process may take longer due to python3 implementation\n")
@@ -182,7 +182,7 @@ def main():
         \n\t\tYou may check update-notes.\n\n")
         sleep(1)
         os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")
-        os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")         # resolves compatibility & permissions issues
+        os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")  # resolves compatibility & permissions issues
         if new_version_name != old_version_name:
             os.system("echo OTA was updated > ~/.ota_markers/.was_updated")
 

@@ -1,33 +1,31 @@
 from time import sleep
 import os
-import json
-from modules import clear_the_screen, Bcolors, logo_top, load_config
+from modules import clear_the_screen, Bcolors, logo_top, write_json
+from pathlib import Path
 
-home_dir = os.path.expanduser('~')
 
-clear_the_screen()
-parser, config = load_config()
-logo_top(config.debug_user)
+def conf_check():
+    conf_now_flag = 0
+    if os.path.exists(f"./../RotorHazard/src/server/config.json"):
+        print("\n\tLooks that you have OTA software already configured.")
+        valid_options_conf_check = ['y', 'yes', 'n', 'no']
+        while True:
+            cont_conf = input("\n\tOverwrite and continue anyway? [yes/no]\t\t").strip()
+            if cont_conf in valid_options_conf_check:
+                break
+            else:
+                print("\ntoo big fingers :( wrong command. try again! :)")
+        if cont_conf[0] == 'y':
+            conf_now_flag = 1
+        if cont_conf[0] == 'n':
+            conf_now_flag = 0
+            breakpoint()
+    else:
+        conf_now_flag = 1
+    return conf_now_flag
 
-if os.path.exists("./updater-config.json"):
-    with open('updater-config.json') as config_file:
-        data = json.load(config_file)
-else:
-    with open('distr-updater-config.json') as config_file:
-        data = json.load(config_file)
 
-if data['debug_mode']:
-    linux_testing = True
-else:
-    linux_testing = False
-
-if linux_testing:
-    user = data['debug_user']
-else:
-    user = data['pi_user']
-
-conf_now_flag = '0'
-
+conf_now_flag = 0
 admin_name = 0
 admin_pass = 0
 port = 0
@@ -37,8 +35,8 @@ led_inv = 0
 led_channel = 0
 panel_rot = 0
 inv_rows = 0
-dma = 0
-freq = 0
+led_dma = 0
+led_freq = 0
 debug = 0
 cores_val = 0
 serial_ports = 0
@@ -47,70 +45,36 @@ inv_rows_val = 0
 adv_wiz_flag = 0
 led_present_flag = 0
 
+
 # todo David - if above have sense?
 
-configuration_content = {
-    "GENERAL": {
-        "HTTP_PORT": {port},
-        "ADMIN_USERNAME": {admin_name},
-        "ADMIN_PASSWORD": {admin_pass},
-        "DEBUG": {debug},
-        "CORS_ALLOWED_HOSTS": {cores_val}
-    },
-    "SENSORS": {
-    },
-    "SERIAL_PORTS": [{serial_ports}],
-    "LED": {
-        "LED_COUNT": {led_count},
-        "LED_PIN": {led_pin},
-        "LED_FREQ_HZ": {freq},
-        "LED_DMA": {dma},
-        "LED_INVERT": {led_inv},
-        "LED_CHANNEL": {led_channel},
-        "PANEL_ROTATE": {panel_rot},
-        "INVERTED_PANEL_ROWS": {led_inv}
-    }
-}
+def do_config():
+    home_dir = str(Path.home())
+    clear_the_screen()
+    logo_top(False)
 
+    conf_now_flag = conf_check()
 
-def conf_check():
-    global conf_now_flag
-    if os.path.exists(f"/home/{user}/RotorHazard/src/server/config.json"):
-        print("\n\tLooks that you already have RotorHazard server configured.")
-        valid_options_conf_check = ['y', 'yes', 'n', 'no']
-        while True:
-            cont_conf = input("\n\tOverwrite and continue anyway? [yes/no]\t\t").strip()
-            if cont_conf in valid_options_conf_check:
-                break
-            else:
-                print("\ntoo big fingers :( wrong command. try again! :)")
-        if cont_conf == 'y' or cont_conf == 'yes':
-            conf_now_flag = 1
-            pass
-        if cont_conf == 'n' or cont_conf == 'no':
-            conf_now_flag = 0
-    else:
-        conf_now_flag = 1
+    if conf_now_flag:
+        config = {}
 
-
-conf_check()
-
-if conf_now_flag:
-    while True:
         print("""\n
 Please type your configuration data. It can be modified later.
 Default values are not automatically applied. Type them if needed.\n""")
-        os.system(f"rm /home/{user}/.wizarded-rh-config.json >/dev/null 2>&1")
-        os.system(f"cp /home/{user}/RotorHazard/src/server/config-dist.json /home/"
-                  f"{user}/RH-ota/.wizarded-rh-config.json")
         admin_name = input("\nWhat will be admin user name on RotorHazard page? [default: admin]\t")
+        config["GENERAL"] = {}
+        config["GENERAL"]["ADMIN_USERNAME"] = admin_name
         admin_pass = input("\nWhat will be admin password on RotorHazard page? [default: rotorhazard]\t")
+        config["GENERAL"]["ADMIN_PASSWORD"] = admin_pass
         while True:
             port = input("\nWhich port will you use with RotorHazard? [default: 5000]\t\t")
             if not port.isdigit() or int(port) < 0:
                 print("\nPlease enter correct value!")
             else:
+                config['GENERAL']['HTTP_PORT'] = int(port)
                 break
+        config["SENSORS"] = {}
+        config["LED"] = {}
         print("\nAre you planning to use LEDs in your system? [yes/no]\n")
         valid_options = ['y', 'yes', 'n', 'no']
         while True:
@@ -129,12 +93,14 @@ Default values are not automatically applied. Type them if needed.\n""")
                 if not led_count.isdigit() or int(led_count) < 0:
                     print("\nPlease enter correct value!")
                 else:
+                    config["LED"]['LED_COUNT'] = int(led_count)
                     break
             while True:
                 led_pin = input("\nWhich GPIO pin is connected to your LEDs data pin? [default: 10]\t")
                 if not led_pin.isdigit() or int(led_pin) < 0 or int(led_pin) > 40:
                     print("\nPlease enter correct value!")
                 else:
+                    config["LED"]['LED_PIN'] = int(led_pin)
                     break
             while True:
                 led_inv = input("\nIs LED data pin output inverted? [yes/no | default: no]\t\t\t")
@@ -143,15 +109,17 @@ Default values are not automatically applied. Type them if needed.\n""")
                     print("\nPlease enter correct value!")
                 else:
                     if led_inv in ['yes', '1', 'y']:
-                        led_inv_val = 'true'
+                        led_inv_val = True
                     elif led_inv in ['no', '0', 'n']:
-                        led_inv_val = 'false'
+                        led_inv_val = False
+                    config["LED"]['LED_INVERT'] = led_inv_val
                     break
             while True:
                 led_channel = input("\nWhat channel (not pin!) will be used with your LEDs? [default: 0]\t")
                 if not led_channel.isdigit() or int(led_channel) < 0 or int(led_channel) > 1:
                     print("\nPlease enter correct value!")
                 else:
+                    config["LED"]['LED_CHANNEL'] = int(led_channel)
                     break
             while True:
                 panel_rot = input("\nBy how many degrees is your panel rotated? [0/90/180/270 | default: 0]\t")
@@ -160,6 +128,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                     print("\nPlease enter correct value!")
                 else:
                     panel_val = (int(panel_rot) / 90)
+                    config["LED"]['PANEL_ROTATE'] = int(panel_val)
                     break
             while True:
                 inv_rows = input("\nAre your panel rows inverted? [yes/no | default: no]\t\t\t")
@@ -168,18 +137,19 @@ Default values are not automatically applied. Type them if needed.\n""")
                     print("\nPlease enter correct value!")
                 else:
                     if inv_rows in ['yes', '1', 'y']:
-                        inv_rows_val = 'true'
+                        inv_rows_val = True
                     elif inv_rows in ['no', '0', 'n']:
-                        inv_rows_val = 'false'
+                        inv_rows_val = False
+                    config["LED"]['INVERTED_PANEL_ROWS'] = inv_rows_val
                     break
 
         if not led_present_flag:
-            led_count = '0'
-            led_pin = '10'
-            led_inv = 'false'
-            led_channel = '0'
-            panel_rot = '0'
-            inv_rows = 'false'
+            config["LED"]['LED_COUNT'] = 0
+            config["LED"]['LED_PIN'] = 10
+            config["LED"]['LED_INVERT'] = False
+            config["LED"]['LED_CHANNEL'] = 0
+            config["LED"]['PANEL_ROTATE'] = 0
+            config["LED"]['INVERTED_PANEL_ROWS'] = False
             print("\nLED configuration set to default values.\n\n")
             sleep(1.2)
 
@@ -198,18 +168,21 @@ Default values are not automatically applied. Type them if needed.\n""")
 
         if adv_wiz_flag:
             while True:
-                dma = input("\nLED DMA you will use in your system? [default: 10]\t\t\t")
-                if not dma.isdigit() or int(dma) < 0:
+                led_dma = input("\nLED DMA you will use in your system? [default: 10]\t\t\t")
+                if not led_dma.isdigit() or int(led_dma) < 0:
                     print("\nPlease enter correct value!")
                 else:
+                    config["LED"]['LED_DMA'] = int(led_dma)
                     break
             while True:
-                freq = input("\nWhat LED frequency will you use? [default: 800000 - you can type 'def']\t")
-                if (freq.isalpha() or int(freq) < 0 or int(freq) > 800000) and freq != 'def':
+                led_freq = input("\nWhat LED frequency will you use? [default: 800000 - you can type 'def']\t")
+                if (led_freq.isalpha() or int(led_freq) < 0 or int(led_freq) > 800000) and led_freq != 'def':
                     print("\nPlease enter correct value!")
-                elif freq == 'def':
+                elif led_freq == 'def':
+                    config["LED"]['LED_FREQ_HZ'] = 800000
                     break
                 else:
+                    config["LED"]['LED_FREQ_HZ'] = led_freq
                     break
             while True:
                 debug_mode = input("\nWill you use RotorHazard in debug mode? [yes/no | default: no]\t\t")
@@ -217,56 +190,62 @@ Default values are not automatically applied. Type them if needed.\n""")
                 if debug_mode not in debug_mode_allowed_values:
                     print("\nPlease enter correct value!")
                 else:
-                    debug = 'false'
                     if debug_mode in ['yes', '1', 'y']:
-                        debug = 'true'
+                        debug = True
                     elif debug_mode in ['no', '0', 'n']:
-                        debug = 'false'
+                        debug = False
+                    config['GENERAL']['DEBUG'] = debug
                     break
             while True:
-                cores = input("\nHome many cores will be available for hosts? [1/2/3/all | default: all]\t")
-                cores_values_allowed = ['1', '2', '3', '4', 'all', '*']
+                cores = input("\nCors hosts allowed? [default: all]\t\t\t")
+                cores_values_allowed = ['*', 'all']
                 if cores not in cores_values_allowed:
                     print("\nPlease enter correct value!")
                 else:
                     if cores in ['1', '2', '3']:
                         cores_val = str(cores)
+                        config['GENERAL']['CORS_ALLOWED_HOSTS'] = cores
                     elif cores == 'all':
                         cores_val = 'all'
+                        config['GENERAL']['CORS_ALLOWED_HOSTS'] = "*"
                     else:
                         cores_val = '*'
                     break
             while True:
                 serial_ports = input("\nWhich serial ports will you use? [default: 'none']\t\t\t").strip()
                 if serial_ports in ['none', '0', 'no']:
+                    config['SERIAL_PORTS'] = []
                     break
                 else:
+                    config['SERIAL_PORTS'] = [f"{serial_ports}"]     # todo ordering issue - not a big deal
                     break
+
         if not adv_wiz_flag:
-            debug = 'no'
-            cores_val = 'all'
-            serial_ports = 'none'
-            dma = '10'
-            freq = '800000'
+            config['GENERAL']['DEBUG'] = False
+            config['GENERAL']['CORS_ALLOWED_HOSTS'] = '*'
+            config['SERIAL_PORTS'] = []
+            config['LED']['LED_DMA'] = 10
+            config['LED']['LED_FREQ_HZ'] = 800000
             print("\nAdvanced configuration set to default values.\n\n")
             sleep(1.2)
+
         rh_configuration_summary = f"""\n\n
             {Bcolors.UNDERLINE}CONFIGURATION{Bcolors.ENDC}
 
-        Admin name:         {admin_name}
-        Admin password:     {admin_pass}
-        RotorHazard port:   {port}
-        LED amount:         {led_count}
-        LED pin:            {led_pin}
-        LED inverted:       {led_inv}
-        LED channel:        {led_channel}
-        LED panel rotate:   {panel_rot}
-        LED rows inverted:  {inv_rows}
-        LED DMA:            {dma}
-        LED frequency:      {freq}
-        Debug mode:         {debug}
-        Cores allowed:      {cores_val}
-        Serial ports:       {serial_ports}
+        Admin name:         {config["GENERAL"]["ADMIN_USERNAME"]}
+        Admin password:     {config["GENERAL"]["ADMIN_PASSWORD"]}
+        RotorHazard port:   {config["GENERAL"]["HTTP_PORT"]}
+        LED amount:         {config["LED"]['LED_COUNT']}
+        LED pin:            {config["LED"]['LED_PIN']}
+        LED inverted:       {config["LED"]['LED_INVERT']}
+        LED channel:        {config["LED"]['LED_CHANNEL']}
+        LED panel rotate:   {config["LED"]['PANEL_ROTATE']}
+        LED rows inverted:  {config["LED"]['INVERTED_PANEL_ROWS']}
+        LED DMA:            {config['LED']['LED_DMA']}
+        LED frequency:      {config['LED']['LED_FREQ_HZ']}
+        Debug mode:         {config['GENERAL']['DEBUG']}
+        Cors allowed:       {config['GENERAL']['CORS_ALLOWED_HOSTS']}
+        Serial ports:       {config['SERIAL_PORTS']}
 
         Please check. Confirm? [yes/change/abort]\n"""
         print(rh_configuration_summary)
@@ -278,16 +257,35 @@ Default values are not automatically applied. Type them if needed.\n""")
             else:
                 print("\ntoo big fingers :( wrong command. try again! :)")
         if selection == 'y' or selection == 'yes':
-            with open(f'/home/{user}/Pulpit/test', 'w') as json_cfg:
-                json.dump(configuration_content, json_cfg)
+            write_json(config, f"{home_dir}/RotorHazard/src/server/config.json")
             print("Configuration saved.\n")
             sleep(0.5)
-            break
+            conf_now_flag = 0
         if selection in ['change', 'n', 'no']:
-            continue
+            conf_now_flag = 1
         if selection == 'abort':
             print("Configuration aborted.\n")
             sleep(0.5)
-            break
-else:
-    os.system("exit")
+            conf_now_flag = 0
+
+    return conf_now_flag
+
+
+def conf_rh():
+    """
+        repeat the configuration script until
+        the user ether aborts, configures ota
+        or it was already configured.
+    :return:
+    """
+    config_now = 1
+    while config_now:
+        config_now = do_config()
+
+
+def main():
+    conf_rh()
+
+
+if __name__ == "__main__":
+    main()

@@ -64,13 +64,11 @@ Default values are not automatically applied. Type them if needed.\n""")
                 break
         debug_user = input("\nWhat is you user name on debugging OS? [default: racer]\t\t\t")
         config['debug_user'] = debug_user
-
         # os.system(f"echo '    \"debug_user\" : \"{debug_user}\",' \
         #  | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
 
         code = input("\nWhat is your country code? [default: GB]\t\t\t\t")
         config['country'] = code
-
         # os.system(f"echo '    \"country\" : \"{code}\",' \
         #  | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
 
@@ -121,7 +119,6 @@ Default values are not automatically applied. Type them if needed.\n""")
                 elif no_pdf in ['no', '0', 'n']:
                     no_pdf_val = '0'
                 config['updates_without_pdf'] = no_pdf_val
-                #
                 # os.system(f"echo '    \"updates_without_pdf\" : {no_pdf_val},' \
                 #  | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
@@ -152,7 +149,6 @@ Default values are not automatically applied. Type them if needed.\n""")
                 elif beta_tester in ['no', '0', 'n']:
                     beta_tester_val = '0'
                 config['beta_tester'] = beta_tester_val
-                #
                 # os.system(f"echo '    \"beta_tester\" : {beta_tester_val}' \
                 #  | tee -a {homedir}/RH-ota/.wizarded-updater-config.json >/dev/null 2>&1")
                 break
