@@ -203,6 +203,13 @@ def load_json(file_name):
             data = json.loads(open_file.read(), object_hook=lambda d: Namespace(**d))
     return data
 
+'''
+quick wrapper around write json to normalize our parameters.
+'''
+def write_json(to_dump, file_name):
+    with open(file_name, 'w') as open_file:
+        json.dump(to_dump, open_file, indent=4)
+    pass
 
 '''
  wrapper around copy file to check if exists before copying

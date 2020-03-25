@@ -40,13 +40,6 @@ cd ~/RH-ota
 python3 ./conf_wizard_rh.py
 }
 
-ota_configuration_start ()
-{
-cd ~/RH-ota
-python3 ./conf_wizard_ota.py
-}
-
-
 net_check()
 {
 rm index* > /dev/null 2>&1
