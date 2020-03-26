@@ -4,7 +4,7 @@
 
 
 
-## Main features of the software:
+### Main features of the software:
 
 1. Wizard install/update of RotorHazard server software
      - Choose which version of RotorHazard to install
@@ -30,11 +30,18 @@ or check the [RotorHazard-Updater.pdf](/how_to/RotorHazard-Updater.pdf).
 
 You may also read [update notes](/docs/update-notes.txt) - new features are present.
 </br></br>
-## Credits:
+##
+### Credits:
 [szafranski](https://github.com/szafranski) - project idea, first implementations, flashing part, initial coding
 </br>
 
-[David](https://https://github.com/just-david) - ongoing contribution, BIG coding help, debugging, smart hot-spot
+[Dave](https://github.com/just-david) - ongoing contribution, BIG coding help, debugging, smart hot-spot
+</br>
+
+[Michael FPV](https://github.com/HazardCreative) - consulting and RotorHazard compatibility issues
+</br>
+
+[Facebook Group](https://www.facebook.com/groups/207159263704015) members as well as  software and hardware testers
 </br>
 ##
 #### Commands to download the repo onto Raspberry Pi (or Linux):

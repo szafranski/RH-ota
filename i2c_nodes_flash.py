@@ -7,6 +7,8 @@ try:
     from smbus import SMBus
 except ModuleNotFoundError as module_err:
     print(module_err)
+    print("For flashing purposes you have to use smbus module")
+    sleep(2)
 
 # from modules import RH_version  # invalid syntax for some reason
 
@@ -131,6 +133,7 @@ try:
     # ensures nothing is being reset during program start
 except ModuleNotFoundError:
     print("GPIO import - failed")
+    sleep(2)
 
 
 def logo_update():
@@ -152,7 +155,7 @@ def flash_firmware_onto_numbered_node():
 
 
 if not linux_testing:
-    def disable_serial_on_all_nodes():
+    def disable_serial_on_all_nodes(nodes_number):
         for i in range(1, nodes_number):
             bus.write_byte(addr_list[i], disable_serial_on_the_node_command)
 
