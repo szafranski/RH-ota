@@ -8,6 +8,7 @@ import json
 import time
 from types import SimpleNamespace as Namespace
 
+
 def clear_the_screen():
     sleep(0.05)
     if platform.system() == "Windows":
@@ -69,8 +70,8 @@ def logo_top(linux_testing):
     ###        {bold}        OTA Updater and Manager     {endc}         ###
     ###                                                                 ###
     #######################################################################
-    """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE_S, endc=Bcolors.ENDC_S,
-               blue=Bcolors.BLUE_S, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
+    """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S,
+               yellow=Bcolors.YELLOW_S, orange=Bcolors.ORANGE_S)
 
     print(logo)
     if linux_testing:
@@ -104,10 +105,11 @@ class Bcolors:
     UNDERLINE_S = '\033[4m' + (' ' * 11)
 
 
-def internet_check(user):
+def internet_check(user):  # too much code - but works for now
     print("\nPlease wait - checking internet connection state...\n")
     before_millis = int(round(time.time() * 1000))
-    os.system(f". /home/{user}/RH-ota/open_scripts.sh; net_check")
+    os.system("rm index* > /dev/null 2>&1")
+    os.system("timeout 10s wget www.github.com")
     while True:
         now_millis = int(round(time.time() * 1000))
         time_passed = (now_millis - before_millis)
@@ -188,7 +190,6 @@ data = load_json(file_name)
 will let you do:
 print(data.hometown.name)
 >>> New York
-
 '''
 
 
@@ -199,13 +200,17 @@ def load_json(file_name):
             data = json.loads(open_file.read(), object_hook=lambda d: Namespace(**d))
     return data
 
+
 '''
 quick wrapper around write json to normalize our parameters.
 '''
+
+
 def write_json(to_dump, file_name):
     with open(file_name, 'w') as open_file:
         json.dump(to_dump, open_file, indent=4)
     pass
+
 
 '''
  wrapper around copy file to check if exists before copying
@@ -215,5 +220,3 @@ def write_json(to_dump, file_name):
 def copy_file(src, tgt):
     if os.path.exists(src):
         copyfile(src, tgt)
-
-

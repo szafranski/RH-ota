@@ -1,3 +1,6 @@
 stable is same as master for now
+due to no API changes for nodes
 
-API 22
+every firmware contains bootloader
+
+

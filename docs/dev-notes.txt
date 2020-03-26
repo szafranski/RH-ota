@@ -1,36 +1,36 @@
 
         Developer notes:
 
-This software is designed to work with python 2.7.
-Will be converted to python 3 when RotorHazard will be converted as well. 
+Will be converted to python 3.6 and higher.
 
 Some actions on system files are being performed during operations like UART enabling etc.
-Admin privileges are only used when needed (eg. avrdude installation) or to ensure smooth operation.
+Admin privileges are only used when needed (eg. installing dependencies) or to ensure smooth operation.
 
 Big part of this software acts like simple scripts. Automated actions like 'cp dir1 dir2' are being performed,
 so user don't have to do it manually. 
 
-'> /dev/null 2>&1' parts are added sometimes to prevent error messages in parts where they can be executed,
+'> /dev/null 2>&1' code parts are added sometimes to prevent error messages in parts where they can be expected,
 but don't have any impact on user experience due to nature of the rest of a command. 
 
-Software operates in user's home folder most of the time. It contains some code
-that can change content of that folder. Some directories may be deleted to ensure smooth operation
-in the future - eg. any "leftovers" from previous installation attempts like "RotorHazard-master"
-or "temp.zip" may be deleted. No actual installation or configuration files are intended to be deleted.
+Software operates in user's home folder most of the time. It contains some code that can change content
+of that folder. Some directories may be deleted to ensure smooth operation in the future - eg. any "leftovers"
+from previous installation attempts like "RotorHazard-master" or "temp.zip" may be deleted.
+No actual installation or configuration files are intended to be deleted without user intention.
 
 Software also contains some compatibility-ensuring code in prev_comp.py file so first users have same, 
 good experiences with this software.
 
 Directory '/.dev' contains pieces of software which are not accessible by usual users, like test files etc.
-If you can somehow help in resolving issues posted on GitHub - feel free to do it or write us.
 
 You can enable debugging mode in wizard or in updater-config.json file so it can be evaluated on a PC.
-Linux or WSL will be probably most compatible. 
+Linux or WSL will be probably most compatible.
 
-Update notes may be read for new features description. 
+If you can somehow help in resolving issues posted on GitHub - feel free to do it or write us.
 
-For now (Q1/2020) new release of the software may be quite often, cause lot of features and code cleaning 
-is being  processed.
+Update notes and features doc may be read for new features description.
+
+For now (Q1/2020) new release of the software may be quite often, cause lot of features
+and code cleaning is being processed.
 
 Branches 'main_stable' and 'no_pdf' are always up-to-date and valid to be used.
 
@@ -38,12 +38,17 @@ Branch 'master' is ongoing work in progress.
 
 Feedback is welcome. Use GitHub or contact me via Facebook.
 
-Disclaimer: 
-
+Old disclaimer:
 If you are seriously skilled developer and you can see that my software contains some bugs or implemented 
 "behaviors" that are not in good, coding "taste" - feel free to tell me so. Remember that this software
 was more like a platform to perform desired outcome at the beginning. Than it started to be more serious
 and that I started the development with near zero experience in python coding. Nevertheless, I am opened
-to any learning experience so, again, you can tell me what can be done better. 
+to any learning experience so, again, you can tell me what can be done better.
+
+New disclaimer:
+Since "I" change to "we" due to nice people contribution - if you have any suggestions - just tell us.
+Code is better now.
 
 Link to my GitHub page: https://github.com/szafranski - there is a contact link as well.
+
+Other contact options are on main page - README.md file.

@@ -5,7 +5,6 @@ reload_ota() #  doesn't work
 kill -9 $(pidof python3 update.py)
 python3 update.py
 }
-# above doesn't work
 
 dots5()
 {
@@ -47,12 +46,6 @@ cd ~/RH-ota
 python3 ./conf_wizard_ota.py
 }
 
-net_check()
-{
-rm index* > /dev/null 2>&1
-timeout 10s wget www.github.com
-}
-
 updater_from_ota()
 {
 printf "\n\nSoftware will be automatically closed.\n"
@@ -72,10 +65,9 @@ cd ~/RH-ota
 printf "\n\nUpdate completed, hit 'Enter' to continue \n\n"
 }
 
+# todo port aliases clean to prev_comp
 aliases_clean()
 {
-sed -i '/# #/d' ~/.bashrc  # removes lines containing # #
-# perl -i.bak -ne 'print if ! $x{$_}++' ~/.bashrc  # removes doubled lines todo cannot be used for now!
 start=$(grep -n "Shortcut" ~/.bashrc | cut -f1 -d:)
 end=$(grep -n "After adding" ~/.bashrc | cut -f1 -d:)
 if [ -n "${end}" ] ; then
@@ -83,9 +75,9 @@ sed -i.bak -e "${start},${end}d" ~/.bashrc
 fi
 }
 
-# todo David please check this out cause I am pissed as f**k, it doesn't work now
-
 # scripts like those ensures that files are being executed in right directory but main program
 # istelf can be continued from previous directory after such a script was executed or stopped
 # eg. after hitting Ctrl+C after server was started etc.
+
+# todo any other way?
 
