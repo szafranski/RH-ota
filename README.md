@@ -18,9 +18,10 @@
 1. Automatic configuring Access Point
      - Smart-hotspot: dynamically connect to existing hotspot or server is the hotspot 
 
-Helpful developer options:
+Helpful developer/back-end options:
 1. Installing avrdude
 1. Adding aliases to the system
+1. Script for installing dependencies 
 1. Showing Raspberry GPIO in the terminal
 1. Embedded logging feature with an option to upload log file to the cloud 
 <br/>
