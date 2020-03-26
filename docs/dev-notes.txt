@@ -22,8 +22,7 @@ Software also contains some compatibility-ensuring code in prev_comp.py file so 
 good experiences with this software.
 
 Directory '/.dev' contains pieces of software which are not accessible by usual users, like test files etc.
-There also the file named "to_do_list.txt" with functions that I think may be provided in the software.
-If you can somehow help - feel free to do it. 
+If you can somehow help in resolving issues posted on GitHub - feel free to do it or write us.
 
 You can enable debugging mode in wizard or in updater-config.json file so it can be evaluated on a PC.
 Linux or WSL will be probably most compatible. 

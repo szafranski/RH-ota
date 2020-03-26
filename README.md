@@ -2,7 +2,7 @@
 
 # Easy mange and update your [RotorHazard](https://github.com/RotorHazard/RotorHazard) installation. 
 
-<br/>
+
 
 ## Main features of the software:
 
@@ -24,13 +24,19 @@ Helpful developer options:
 1. Showing Raspberry GPIO in the terminal
 1. Embedded logging feature with an option to upload log file to the cloud 
 
-<br/><br/>
+<br/>
 If you want all hardware functionalities - visit: [Instructables page](https://www.instructables.com/id/RotorHazard-Updater/)
 or check the [RotorHazard-Updater.pdf](/how_to/RotorHazard-Updater.pdf).
 
-
 You may also read [update notes](/docs/update-notes.txt) - new features are present.
 </br></br>
+## Credits:
+[szafranski](https://github.com/szafranski) - project idea, first implementations, flashing part
+</br>
+
+[David](https://https://github.com/just-david) - ongoing contribution, coding, debugging and consulting
+</br></br>
+##
 #### Commands to download the repo onto Raspberry Pi (or Linux):
     cd ~
     sudo apt install zip unzip

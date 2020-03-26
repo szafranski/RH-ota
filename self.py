@@ -2,20 +2,8 @@ from time import sleep
 import os
 import json
 import time
-from configparser import ConfigParser
 
-parser = ConfigParser()
-
-beta_update_flag = 0
-
-
-def parser_write():
-    try:
-        with open(f'/home/{user}/.ota_markers/ota_config.txt', 'w') as configfile:
-            parser.write(configfile)
-    except IOError as up:  # todo 'up' greyed out - unused?
-        print("Config file does not exist and could not be created.")
-
+beta_update_flag = True
 
 myhomedir = os.getcwd()
 
@@ -31,7 +19,7 @@ def check_if_string_in_file(file_name, string_to_search):
     return False
 
 
-if os.path.exists(myhomedir + "/RH-ota/updater-config.json"):
+if os.path.exists(f"{myhomedir}/RH-ota/updater-config.json"):
     with open(cfgdir1) as config_file:
         data = json.load(config_file)
 else:
@@ -74,7 +62,7 @@ else:
     config_file_exists = False
 
 if config_file_exists:
-    if check_if_string_in_file(myhomedir + '/RH-ota/updater-config.json', 'updates_without_pdf'):
+    if check_if_string_in_file(f'{myhomedir}/RH-ota/updater-config.json', 'updates_without_pdf'):
         if data['updates_without_pdf']:
             no_pdf_update = True
         else:
@@ -85,7 +73,7 @@ else:
     no_pdf_update = False
 
 if config_file_exists:
-    if check_if_string_in_file(myhomedir + '/RH-ota/updater-config.json', 'beta_tester'):
+    if check_if_string_in_file(f'{myhomedir}/RH-ota/updater-config.json', 'beta_tester'):
         if data['beta_tester']:
             beta_tester_update = True
         else:
@@ -158,7 +146,6 @@ def main():
             os.system("unzip tempota.zip")
             os.system("rm tempota.zip")
             os.system("mv RH-ota-* RH-ota")
-            beta_update_flag = True
         elif not no_pdf_update and not beta_update_flag:
             print("Update will contain PDF file - may be changed in config file.\n")
             os.system("sudo rm -rf ~/RH-ota*")

@@ -57,7 +57,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                 config['RH_version'] = version
                 break
 
-        debug_user = input("\nWhat is you user name on debugging OS? [default: racer]\t\t\t")
+        debug_user = input("\nWhat is your user name on debugging OS? [default: racer]\t\t\t")
         config['debug_user'] = debug_user
 
         code = input("\nWhat is your country code? [default: GB]\t\t\t\t")
@@ -77,11 +77,11 @@ Default values are not automatically applied. Type them if needed.\n""")
             if debug_mode not in debug_mode_allowed_values:
                 print("\nPlease enter correct value!")
             else:
-                debug_mode_val = '0'
+                debug_mode_val = False
                 if debug_mode in ['yes', '1', 'y']:
-                    debug_mode_val = '1'
+                    debug_mode_val = True
                 elif debug_mode in ['no', '0', 'n']:
-                    debug_mode_val = '0'
+                    debug_mode_val = False
                 config['debug_mode'] = debug_mode_val
                 break
         while True:
@@ -94,16 +94,16 @@ Default values are not automatically applied. Type them if needed.\n""")
                 break
 
         while True:
-            no_pdf_val = '0'
             no_pdf = input("\nUpdates without PDF? [yes/no | default: yes]\t\t\t\t")
             no_pdf_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']
             if no_pdf not in no_pdf_allowed_values:
                 print("\nPlease enter correct value!")
             else:
+                no_pdf_val = False
                 if no_pdf in ['yes', '1', 'y']:
-                    no_pdf_val = '1'
+                    no_pdf_val = True
                 elif no_pdf in ['no', '0', 'n']:
-                    no_pdf_val = '0'
+                    no_pdf_val = False
                 config['updates_without_pdf'] = no_pdf_val
                 break
 
@@ -113,11 +113,11 @@ Default values are not automatically applied. Type them if needed.\n""")
             if pi_4 not in pi_4_allowed_values:
                 print("\nPlease enter correct value!")
             else:
-                pi_4_val = '0'
+                pi_4_val = False
                 if pi_4 in ['yes', '1', 'y']:
-                    pi_4_val = '1'
+                    pi_4_val = True
                 elif pi_4 in ['no', '0', 'n']:
-                    pi_4_val = '0'
+                    pi_4_val = False
                 config['pi_4_cfg'] = pi_4_val
                 break
 
@@ -127,27 +127,27 @@ Default values are not automatically applied. Type them if needed.\n""")
             if beta_tester not in beta_tester_allowed_values:
                 print("\nPlease enter correct value!")
             else:
-                beta_tester_val = '0'
+                beta_tester_val = False
                 if beta_tester in ['yes', '1', 'y']:
-                    beta_tester_val = '1'
+                    beta_tester_val = True
                 elif beta_tester in ['no', '0', 'n']:
-                    beta_tester_val = '0'
+                    beta_tester_val = False
                 config['beta_tester'] = beta_tester_val
                 break
 
         print(f"""\n\n
             {Bcolors.UNDERLINE}CONFIGURATION{Bcolors.ENDC}:
 
-        User name:              {name}
-        RotorHazard version:    {version}
-        Debug user name:        {debug_user}
-        Country code:           {code}
-        Nodes amount:           {nodes}
-        Debug mode:             {debug_mode}    
-        Pins assignment:        {pins_assign}
-        Updates without PDF:    {no_pdf}
-        Pi 4 user:              {pi_4}
-        Beta tester:            {beta_tester}
+        User name:              {config['pi_user']}
+        RotorHazard version:    {config['RH_version']}
+        Debug user name:        {config['debug_user']}
+        Country code:           {config['country']}
+        Nodes amount:           {config['nodes_number']}
+        Debug mode:             {config['debug_mode']}    
+        Pins assignment:        {config['pins_assignment']}
+        Updates without PDF:    {config['updates_without_pdf']}
+        Pi 4 user:              {config['pi_4_cfg']}
+        Beta tester:            {config['beta_tester']}
          
         Please check. Confirm? [yes/change/abort]\n""")
         valid_options = ['y', 'yes', 'n', 'no', 'change', 'abort']

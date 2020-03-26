@@ -4,9 +4,9 @@
     "debug_user" : "racer",
     "country" : "GB",
     "nodes_number" : 8,
-    "debug_mode" : 0,
+    "debug_mode" : false,
     "pins_assignment" : "default",
-    "updates_without_pdf" : 0,
-    "pi_4_cfg" : 0,
-    "beta_tester" : 0
+    "updates_without_pdf" : false,
+    "pi_4_cfg" : false,
+    "beta_tester" : false
 }

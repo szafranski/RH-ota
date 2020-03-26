@@ -3,7 +3,10 @@ import os
 import sys
 import json
 from modules import clear_the_screen, Bcolors, logo_top, check_if_string_in_file
-
+"""
+This is obsolete flashing protocol, left here only for some users.
+New version is in i2c_nodes_flash.py file.
+"""
 if os.path.exists("./updater-config.json"):
     with open('updater-config.json') as config_file:
         data = json.load(config_file)

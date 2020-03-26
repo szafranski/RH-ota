@@ -180,7 +180,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                     config['GENERAL']['DEBUG'] = debug
                     break
             while True:
-                cors = input("\nCors hosts allowed? [default: all]\t\t\t")
+                cors = input("\nCORS hosts allowed? [default: all]\t\t\t")
                 if cors in ['*', 'all']:
                     config['GENERAL']['CORS_ALLOWED_HOSTS'] = "*"
                     break
@@ -222,7 +222,7 @@ Default values are not automatically applied. Type them if needed.\n""")
         LED DMA:            {config['LED']['LED_DMA']}
         LED frequency:      {config['LED']['LED_FREQ_HZ']}
         Debug mode:         {config['GENERAL']['DEBUG']}
-        Cors allowed:       {config['GENERAL']['CORS_ALLOWED_HOSTS']}
+        CORS allowed:       {config['GENERAL']['CORS_ALLOWED_HOSTS']}
         Serial ports:       {config['SERIAL_PORTS']}
 
         Please check. Confirm? [yes/change/abort]\n"""
