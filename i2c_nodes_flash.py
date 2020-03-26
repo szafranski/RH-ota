@@ -449,15 +449,15 @@ def nodes_update():
     node_menu = """\n
                         {bold}{underline}CHOOSE FLASHING TYPE:{endc}
 
-                {green}{bold}1 - Every Node gets own dedicated firmware - rec.{endc}
+                {green}{bold}1 - Flash each node automatically - rec.{endc}
 
-                {bold}2 - Nodes using ground-auto numbering firmware
+                {bold}2 - Flash 'Blink' on every node
 
-                3 - Flash 'Blink' on every node
+                3 - Flash each node individually
 
-                4 - Flash each node individually
+                4 - Show I2C connected devices
 
-                5 - Show I2C connected devices
+                5 - Flash using GPIO reset pins - obsolete
 
                 6 - Fix GPIO pins state - obsolete
 
@@ -468,22 +468,22 @@ def nodes_update():
     sleep(0.1)
     selection = input()
     if selection == '1':
-        #  todo dedicated firmware node - redundant?
-        logo_update()
-        sleep(3)
-    if selection == '2':
         flash_firmware_onto_all_gnd_nodes()
         logo_update()
         sleep(3)
-    if selection == '3':
+    if selection == '2':
         flash_blink_onto_all_gnd_nodes()
         logo_update()
         sleep(3)
-    if selection == '4':
+    if selection == '3':
         flash_each_node()
-    if selection == '5':
+        logo_update()
+        sleep(3)
+    if selection == '4':
         logo_top()
         os.system("i2cdetect - y 1")
+    if selection == '5':
+        os.system("python3 ./nodes_update_old.py")
     if selection == '6':
         reset_gpio_state()
     if selection == 'e':

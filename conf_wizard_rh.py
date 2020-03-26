@@ -184,11 +184,13 @@ Default values are not automatically applied. Type them if needed.\n""")
                 if cors in ['*', 'all']:
                     config['GENERAL']['CORS_ALLOWED_HOSTS'] = "*"
                     break
-                else:
+                elif len(cors) > 3:
                     config['GENERAL']['CORS_ALLOWED_HOSTS'] = cors
                     break
+                else:
+                    print("\nPlease enter correct value!")
             while True:
-                serial_ports = input("\nWhich serial ports will you use? [default: 'none']\t\t\t").strip()
+                serial_ports = input("\nWhich USB ports you will use? [default: 'none']\t\t\t").strip()
                 if serial_ports in ['none', '0', 'no']:
                     config['SERIAL_PORTS'] = []
                     break

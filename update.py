@@ -468,12 +468,10 @@ def end(parser, config):
 
 
 def main_menu(parser, config):
-    clear_the_screen()
-    logo_top(config.debug_mode)
-    config_check()
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
+        config_check()
         main_menu_content = """
         
                     {red}{bold}{underline}MAIN MENU{endc}{blue}{bold}

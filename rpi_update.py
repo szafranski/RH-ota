@@ -363,7 +363,6 @@ def main():
         You can change those in configuration wizard in Main Menu.
         
         Server installed right now: {server} {bold}
-        
         RotorHazard configuration state: {config_soft}\n\n
         """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, blue=Bcolors.BLUE,
                    yellow=Bcolors.YELLOW, red=Bcolors.RED, orange=Bcolors.ORANGE, server_version=server_version,

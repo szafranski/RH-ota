@@ -43,13 +43,13 @@ python3 ./conf_wizard_rh.py
 ota_configuration_start()
 {
 cd ~/RH-ota
-python3 ./conf_wizard_rh.py
+python3 ./conf_wizard_ota.py
 }
 
 net_check()
 {
 rm index* > /dev/null 2>&1
-timeout 10s wget www.google.com
+timeout 10s wget www.github.com
 }
 
 updater_from_ota()

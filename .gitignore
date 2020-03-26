@@ -4,7 +4,7 @@
 .travis.yml
 .idea
 .wizarded*
-index.html
+index.html*
 RH-ota
 nohup*
 /log_data
