@@ -1,4 +1,3 @@
-from configparser import ConfigParser
 from shutil import copyfile
 from time import sleep
 import os
@@ -127,15 +126,6 @@ def internet_check(user):  # too much code - but works for now
     return internet_flag
 
 
-def parser_write(parser, config):
-    user = config.user
-    try:
-        with open(f'/home/{user}/.ota_markers/ota_config.txt', 'w') as configfile:
-            parser.write(configfile)
-    except IOError as _:  # in python _ means ignore this variable.
-        print("Config file does not exist and could not be created.")
-
-
 def load_config():
     if os.path.exists("./updater-config.json"):
         config = load_json("./updater-config.json")
@@ -165,11 +155,6 @@ def load_config():
         config.update_mode = 'without pdf'
     else:
         config.update_mode = 'with pdf'
-
-    parser = ConfigParser()
-    parser.read('/home/' + config.user + '/.ota_markers/ota_config.txt')
-
-    return parser, config
 
 
 '''
