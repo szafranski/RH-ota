@@ -37,7 +37,7 @@ if preffered_RH_version == 'master':
 if preffered_RH_version == 'beta':
     server_version = '2.1.0-beta.3'
 if preffered_RH_version == 'stable':
-    server_version = '2.1.0'
+    server_version = '2.1.1'
 if preffered_RH_version =='custom':
     server_version = 'X.X.X'           ### paste custom version number here if you want to declare it manually
 
