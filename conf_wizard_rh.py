@@ -34,7 +34,6 @@ def do_config():
 
     if conf_now_flag:
         config = {}
-
         print("""\n
 Please type your configuration data. It can be modified later.
 Default values are not automatically applied. Type them if needed.\n""")
@@ -56,7 +55,6 @@ Default values are not automatically applied. Type them if needed.\n""")
         valid_options = ['y', 'yes', 'n', 'no']
         led_present_flag = False
         while True:
-
             selection = input("\t")
             if selection in valid_options:
                 if selection == 'y' or selection == 'yes':
@@ -75,11 +73,11 @@ Default values are not automatically applied. Type them if needed.\n""")
                     config["LED"]['LED_COUNT'] = int(led_count)
                     break
             while True:
-                led_pin = input("\nWhich GPIO pin is connected to your LEDs data pin? [default: 10]\t")
-                if not led_pin.isdigit() or int(led_pin) < 0 or int(led_pin) > 40:
+                led_pin_nr = input("\nWhich GPIO pin is connected to your LEDs data pin? [default: 10]\t")
+                if not led_pin_nr.isdigit() or int(led_pin_nr) < 0 or int(led_pin_nr) > 40:
                     print("\nPlease enter correct value!")
                 else:
-                    config["LED"]['LED_PIN'] = int(led_pin)
+                    config["LED"]['LED_PIN'] = int(led_pin_nr)
                     break
             while True:
                 led_inv_val = 0

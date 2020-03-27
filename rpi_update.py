@@ -1,15 +1,9 @@
 import json
 import os
 import sys
-from configparser import ConfigParser
-
 from conf_wizard_ota import conf_ota
-from modules import internet_check
 from time import sleep
-
-from modules import clear_the_screen, Bcolors, image_show
-
-parser = ConfigParser()
+from modules import clear_the_screen, Bcolors, image_show, internet_check
 
 if os.path.exists("./updater-config.json"):
     with open('updater-config.json') as config_file:
@@ -44,49 +38,30 @@ if preferred_RH_version == 'stable':
 if preferred_RH_version == 'custom':
     server_version = 'X.X.X'  # paste custom version number here if you want to declare it manually
 
-parser.read(f'/home/{user}/.ota_markers/ota_config.txt')
 
-
-def parser_write():
-    with open(f'/home/{user}/.ota_markers/ota_config.txt', 'w') as configfile:
-        parser.write(configfile)
-
-
-def first():
-    clear_the_screen()
-    print("\n\n\n")
-    image_show()
-    sleep(0.5)
-
-
-first()
-
-
-def server_checker():
-    global serv_installed_flag
+def server_version_checker():
     if os.path.exists(f"/home/{user}/RotorHazard/src/server/server.py"):
         os.system("grep 'RELEASE_VERSION =' ~/RotorHazard/src/server/server.py > ~/.ota_markers/.server_version")
         os.system("sed -i 's/RELEASE_VERSION = \"//' ~/.ota_markers/.server_version")
         os.system("sed -i 's/\" # Public release version code//' ~/.ota_markers/.server_version")
         f = open(f"/home/{user}/.ota_markers/.server_version", "r")
         for line in f:
-            global server_version_name
             server_version_name = f"{Bcolors.GREEN}{line}{Bcolors.ENDC}"
-        serv_installed_flag = True
+        server_installed_flag = True
     else:
         server_version_name = f"{Bcolors.YELLOW}no installation found\n{Bcolors.ENDC}"
-        serv_installed_flag = False
-
+        server_installed_flag = False
+    return server_installed_flag, server_version_name
+ 
 
 def config_checker():
-    global config_flag
-    global config_soft
     if os.path.exists(f"/home/{user}/RotorHazard/src/server/config.json"):
         config_soft = f"{Bcolors.GREEN}configured{Bcolors.ENDC}"
         config_flag = True
     else:
         config_soft = f"{Bcolors.YELLOW}{Bcolors.UNDERLINE}not configured{Bcolors.ENDC}"
         config_flag = False
+    return config_flag, config_soft
 
 
 def sys_conf():
@@ -105,9 +80,9 @@ def sys_conf():
     os.system("sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
 
 
-def end_update():
+def end_update(config_flag, server_installed_flag):
     print("\n\n")
-    if not config_flag and serv_installed_flag:
+    if not config_flag and server_installed_flag:
         print(f"{Bcolors.GREEN}\t\t'c' - configure the server now{Bcolors.ENDC}")
     else:
         print("""\t\t'c' - Reconfigure RotorHazard server""")
@@ -121,7 +96,7 @@ def end_update():
         if selection == 'r':
             os.system("sudo reboot")
         if selection == 'e':
-            parser_write()
+            json_dump() # todo only to soft
             sys.exit()
         if selection == 'c':
             conf_ota()
@@ -149,7 +124,7 @@ def end_installation():
         if selection == 'r':
             os.system("sudo reboot")
         if selection == 'e':
-            parser_write()
+            json.dump(soft) # todo change to soft config
             sys.exit()
         if selection == 'c':
             conf_ota()
@@ -165,7 +140,7 @@ def end_installation():
     clear_the_screen()
 
 
-def installation():
+def installation(conf_allowed):
     if not linux_testing:
         os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
     internet_flag = internet_check(user)
@@ -220,8 +195,8 @@ def installation():
         os.system("sudo git clone https://github.com/rm-hull/bme280.git")
         os.chdir(f"/home/{user}/bme280")
         os.system("sudo python setup.py install")
-        parser.set('added_functions', 'installation_done', '1')
-        parser_write()
+        config_soft['installation_done'] = 1
+        json.dump() # soft config
         os.system("sudo apt-get install openjdk-8-jdk-headless -y")
         os.system("sudo rm /lib/systemd/system/rotorhazard.service")
         os.system("echo ' ' | sudo tee -a /lib/systemd/system/rotorhazard.service")
@@ -337,17 +312,9 @@ def update():
             end_update()
 
 
-def main():
-    global config_flag
-    global serv_installed_flag
-    global conf_allowed
-    global config_soft
-    global server_version_name  # todo too much globals?
-    clear_the_screen()
-    server_checker()
-    config_checker()
+def main_window(serv_installed_flag, server_version_name, conf_flag):
     sleep(0.1)
-    welcome = """
+    welcome_text = """
         \n\n{red} {bold}
         AUTOMATIC UPDATE AND INSTALLATION OF ROTORHAZARD RACING TIMER SOFTWARE
             {endc}{bold}
@@ -366,16 +333,16 @@ def main():
         RotorHazard configuration state: {config_soft}\n\n
         """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, blue=Bcolors.BLUE,
                    yellow=Bcolors.YELLOW, red=Bcolors.RED, orange=Bcolors.ORANGE, server_version=server_version,
-                   user=user, config_soft=config_soft, server=server_version_name, )
-    print(welcome)
-    if not config_flag and serv_installed_flag:
+                   user=user, config_soft=conf_flag, server=server_version_name)
+    print(welcome_text)
+    if not conf_flag and serv_installed_flag:
         print(f"{Bcolors.GREEN}\t\t'c' - Configure RotorHazard server\n{Bcolors.ENDC}")
     else:
         print("\t\t'c' - Reconfigure RotorHazard server\n")
     if not serv_installed_flag:
-        print(f"\t\t{Bcolors.GREEN}'i' - Install software from skratch{Bcolors.ENDC}")
+        print(f"\t\t{Bcolors.GREEN}'i' - Install software from scratch{Bcolors.ENDC}")
     else:
-        print("""\t\t'i' - Install software from skratch""")
+        print("""\t\t'i' - Install software from scratch""")
     print("""
                 'u' - Update existing installation\n {yellow}    
                 'e' - Exit to Main Menu{endc}\n
@@ -388,7 +355,7 @@ def main():
             print("\n\t\tPlease install server software first")
             sleep(1.5)
     if selection == 'i':
-        if parser.getint('added_functions', 'installation_done'):
+        if config[installation_done]:
             clear_the_screen()
             already_installed_prompt = """
             {bold}
@@ -445,6 +412,13 @@ def main():
     else:
         main()
 
+def rpi_update():
+    config_checker()
+    server_version_checker()
+    main_window(server_version_checker()[0], server_version_checker()[1], config_checker()[1])
+
+def main():
+    rpi_update()
 
 if __name__ == "__main__":
     main()

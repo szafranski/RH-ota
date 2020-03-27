@@ -45,8 +45,8 @@ def do_config():
         print("""\n
 Please type your configuration data. It can be modified later.
 Default values are not automatically applied. Type them if needed.\n""")
-        name = input("\nWhat is your user name on Raspberry Pi? [default: pi]\t\t\t")
-        config['pi_user'] = name
+        pi_user_name = input("\nWhat is your user name on Raspberry Pi? [default: pi]\t\t\t")
+        config['pi_user'] = pi_user_name
         while True:
             version = input(f"\nWhat RotorHazard version will you use? \
 [{Bcolors.UNDERLINE}stable{Bcolors.ENDC} | beta | master]\t\t")
@@ -60,8 +60,8 @@ Default values are not automatically applied. Type them if needed.\n""")
         debug_user = input("\nWhat is your user name on debugging OS? [default: racer]\t\t\t")
         config['debug_user'] = debug_user
 
-        code = input("\nWhat is your country code? [default: GB]\t\t\t\t")
-        config['country'] = code
+        country_code = input("\nWhat is your country code? [default: GB]\t\t\t\t")
+        config['country'] = country_code
 
         while True:
             nodes = input("\nHow many nodes will you use in your system? [min: 0/1 | max: 8]\t\t")
@@ -108,29 +108,29 @@ Default values are not automatically applied. Type them if needed.\n""")
                 break
 
         while True:
-            pi_4 = input("\nAre you using Raspberry Pi 4? [yes/no | default: no]\t\t\t")
+            pi_4_owner = input("\nAre you using Raspberry Pi 4? [yes/no | default: no]\t\t\t")
             pi_4_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']
-            if pi_4 not in pi_4_allowed_values:
+            if pi_4_owner not in pi_4_allowed_values:
                 print("\nPlease enter correct value!")
             else:
                 pi_4_val = False
-                if pi_4 in ['yes', '1', 'y']:
+                if pi_4_owner in ['yes', '1', 'y']:
                     pi_4_val = True
-                elif pi_4 in ['no', '0', 'n']:
+                elif pi_4_owner in ['no', '0', 'n']:
                     pi_4_val = False
                 config['pi_4_cfg'] = pi_4_val
                 break
 
         while True:
-            beta_tester = input("\nAre you a beta tester? [yes/no | default: no]\t\t\t\t")
+            user_is_beta_tester = input("\nAre you a beta tester? [yes/no | default: no]\t\t\t\t")
             beta_tester_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']
-            if beta_tester not in beta_tester_allowed_values:
+            if user_is_beta_tester not in beta_tester_allowed_values:
                 print("\nPlease enter correct value!")
             else:
                 beta_tester_val = False
-                if beta_tester in ['yes', '1', 'y']:
+                if user_is_beta_tester in ['yes', '1', 'y']:
                     beta_tester_val = True
-                elif beta_tester in ['no', '0', 'n']:
+                elif user_is_beta_tester in ['no', '0', 'n']:
                     beta_tester_val = False
                 config['beta_tester'] = beta_tester_val
                 break
