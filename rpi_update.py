@@ -4,6 +4,7 @@ import sys
 from conf_wizard_ota import conf_ota
 from time import sleep
 from modules import clear_the_screen, Bcolors, image_show, internet_check
+import emoji
 
 if os.path.exists("./updater-config.json"):
     with open('updater-config.json') as config_file:
@@ -56,10 +57,11 @@ def server_version_checker():
 
 def config_checker():
     if os.path.exists(f"/home/{user}/RotorHazard/src/server/config.json"):
-        config_soft = f"{Bcolors.GREEN}configured{Bcolors.ENDC}"
+        config_soft = f"{Bcolors.GREEN}configured {emoji.emojize(':thumbs_up:')}{Bcolors.ENDC}"
         config_flag = True
     else:
-        config_soft = f"{Bcolors.YELLOW}{Bcolors.UNDERLINE}not configured{Bcolors.ENDC}"
+        config_soft = f"{Bcolors.YELLOW}{Bcolors.UNDERLINE}not configured{Bcolors.ENDC} " \
+                      f"{emoji.emojize(':thumbs_down:')}"
         config_flag = False
     return config_flag, config_soft
 
@@ -80,9 +82,9 @@ def sys_conf():
     os.system("sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf")
 
 
-def end_update(config_flag, server_installed_flag):
+def end_update(conf_flag, serv_installed_flag):
     print("\n\n")
-    if not config_flag and server_installed_flag:
+    if not conf_flag and serv_installed_flag:
         print(f"{Bcolors.GREEN}\t\t'c' - configure the server now{Bcolors.ENDC}")
     else:
         print("""\t\t'c' - Reconfigure RotorHazard server""")
@@ -215,16 +217,17 @@ def installation(conf_allowed):
         os.system("sudo systemctl daemon-reload")
         os.system("sudo systemctl enable rotorhazard.service")
         print("""\n\n
-        ################################################
-        ##                                            ##
-        ##{bold}{green}Installation completed {endc}  ##
-        ##                                            ##
-        ################################################
+        #####################################################
+        ##                                                 ##
+        ##{bold}{green}Installation completed{thumbs}{endc}##
+        ##                                                 ##
+        #####################################################
         
         
     After rebooting please check by typing 'sudo raspi-config' 
     if I2C, SPI and SSH protocols are active.
-                """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S))
+                """.format(thumbs=3*emoji.emojize(':thumbs_up:') + 2*" ", bold=Bcolors.BOLD_S,
+                           endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S))
         end_installation()
 
 
@@ -305,11 +308,12 @@ def update():
             print("""\n\n\t
                 ################################################
                 ##                                            ##
-                ##{bold}{green} Update completed!     {endc}  ##
+                ##{bold}{green}Update completed!{thumbs}{endc}##
                 ##                                            ##
                 ################################################
-                        """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S))
-            end_update()
+                        """.format(thumbs=3*emoji.emojize(':thumbs_up:') + 2*" ", bold=Bcolors.BOLD_S,
+                                   endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S))
+            end_update(config_checker()[0], server_version_checker()[0])
 
 
 def main_window(serv_installed_flag, server_version_name, conf_flag):
@@ -321,11 +325,11 @@ def main_window(serv_installed_flag, server_version_name, conf_flag):
         You can automatically install and update RotorHazard timing software. 
         Additional dependencies and libraries also will be installed or updated.
         Current database, configs and custom bitmaps will stay on their place.
-        Source of the software is set to '{blue}{server_version}{endc}'{bold} version from the official 
+        Source of the software is set to {underline}{blue}{server_version}{endc}{bold} version from the official 
         RotorHazard repository.
          
         Perform self-updating of this software, before updating server software.
-        Also make sure that you are logged as user {blue}'{user}'{endc}{bold}.
+        Also make sure that you are logged as user {underline}{blue}{user}{endc}{bold}.
         
         You can change those in configuration wizard in Main Menu.
         

@@ -66,17 +66,6 @@ cd ~/RH-ota
 printf "\n\nUpdate completed, hit 'Enter' to continue \n\n"
 }
 
-# todo "port" aliases clean to prev_comp
-
-aliases_clean()
-{
-start=$(grep -n "Shortcut" ~/.bashrc | cut -f1 -d:)
-end=$(grep -n "After adding" ~/.bashrc | cut -f1 -d:)
-if [ -n "${end}" ] ; then
-sed -i.bak -e "${start},${end}d" ~/.bashrc
-fi
-}
-
 # scripts like those ensures that files are being executed in right directory but main program
 # istelf can be continued from previous directory after such a script was executed or stopped
 # eg. after hitting Ctrl+C after server was started etc.

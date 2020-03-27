@@ -74,7 +74,11 @@ else:
     user = data['pi_user']
 
 if not linux_testing:
-    import RPi.GPIO as GPIO
+    try:
+        import RPi.GPIO as GPIO
+    except ImportError:
+        import RPi.GPIO as GPIO
+        print("RPi.GPIO ImportError")
 
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
@@ -443,9 +447,9 @@ def flash_all_blink():
 
 def flash_each_node():
     def node_x_menu():
-        global x
+        global sel_node
         print(f"""
-        {Bcolors.BOLD}\n\t\t\tNode {str(x)}  selected{Bcolors.ENDC}
+        {Bcolors.BOLD}\n\t\t\tNode {str(sel_node)}  selected{Bcolors.ENDC}
                 Choose flashing type:\n{Bcolors.ENDC}
         1 - {Bcolors.GREEN}Node gets own dedicated firmware - recommended{Bcolors.ENDC}{Bcolors.BOLD}
         2 - Node ground-auto selection firmware
@@ -457,24 +461,24 @@ def flash_each_node():
             node_one_reset()
             if not linux_testing:
                 os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-                flash:w:/home/{user}/RH-ota/firmware/obsolete/{firmware_version}/node_" + str(x) + ".hex:i ")
+                flash:w:/home/{user}/RH-ota/firmware/obsolete/{firmware_version}/node_" + str(sel_node) + ".hex:i ")
             else:
-                print(f"\t\t\t/home/{user}/RH-ota/firmware/obsolete/{firmware_version}/node_" + str(x) + ".hex:i ")
-            print(f"{Bcolors.BOLD}\n\t Node {str(x)} flashed\n{Bcolors.ENDC}")
+                print(f"\t\t\t/home/{user}/RH-ota/firmware/obsolete/{firmware_version}/node_" + str(sel_node) + ".hex:i ")
+            print(f"{Bcolors.BOLD}\n\t Node {str(sel_node)} flashed\n{Bcolors.ENDC}")
             sleep(1.5)
             return
         if selection == '2':
             node_one_reset()
             os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
             flash:w:/home/{user}/RH-ota/firmware/obsolete/{firmware_version}/node_0.hex:i")
-            print(f"{Bcolors.BOLD}\n\t Node {str(x)} flashed\n{Bcolors.ENDC}")
+            print(f"{Bcolors.BOLD}\n\t Node {str(sel_node)} flashed\n{Bcolors.ENDC}")
             sleep(1.5)
             return
         if selection == '3':
             node_one_reset()
             os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
             flash:w:/home/{user}/RH-ota/firmware/obsolete/{firmware_version}/blink.hex:i ")
-            print(f"{Bcolors.BOLD}\n\t Node {str(x)} flashed\n{Bcolors.ENDC}")
+            print(f"{Bcolors.BOLD}\n\t Node {str(sel_node)} flashed\n{Bcolors.ENDC}")
             sleep(1.5)
             return
         if selection == '4':
@@ -482,14 +486,14 @@ def flash_each_node():
         if selection == 'dev':
             node_one_reset()
             os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-            flash:w:/home/{user}/RH-ota/.dev/node_{str(x)}.hex:i ")
-            print(Bcolors.BOLD + "\n\t Testing firmware on Node " + str(x) + " flashed\n" + Bcolors.ENDC)
+            flash:w:/home/{user}/RH-ota/.dev/node_{str(sel_node)}.hex:i ")
+            print(Bcolors.BOLD + "\n\t Testing firmware on Node " + str(sel_node) + " flashed\n" + Bcolors.ENDC)
             sleep(1.5)
         else:
             node_x_menu()
 
     def node_menu():
-        global x
+        global sel_node
         clear_the_screen()
         logo_top(linux_testing)
         sleep(0.05)
@@ -510,28 +514,28 @@ def flash_each_node():
         selection = input("""
                 {bold}Which node do you want to program:{endc} """.format(bold=Bcolors.BOLD, endc=Bcolors.ENDC))
         if selection == '1':
-            x = 1
+            sel_node = 1
             node_x_menu()
         if selection == '2':
-            x = 2
+            sel_node = 2
             node_x_menu()
         if selection == '3':
-            x = 3
+            sel_node = 3
             node_x_menu()
         if selection == '4':
-            x = 4
+            sel_node = 4
             node_x_menu()
         if selection == '5':
-            x = 5
+            sel_node = 5
             node_x_menu()
         if selection == '6':
-            x = 6
+            sel_node = 6
             node_x_menu()
         if selection == '7':
-            x = 7
+            sel_node = 7
             node_x_menu()
         if selection == '8':
-            x = 8
+            sel_node = 8
             node_x_menu()
         if selection == 'e':
             nodes_update()
