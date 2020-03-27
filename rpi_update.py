@@ -52,7 +52,7 @@ def server_version_checker():
         server_version_name = f"{Bcolors.YELLOW}no installation found\n{Bcolors.ENDC}"
         server_installed_flag = False
     return server_installed_flag, server_version_name
- 
+
 
 def config_checker():
     if os.path.exists(f"/home/{user}/RotorHazard/src/server/config.json"):
@@ -96,7 +96,7 @@ def end_update(config_flag, server_installed_flag):
         if selection == 'r':
             os.system("sudo reboot")
         if selection == 'e':
-            json_dump() # todo only to soft
+            json_dump()  # todo only to soft
             sys.exit()
         if selection == 'c':
             conf_ota()
@@ -124,7 +124,7 @@ def end_installation():
         if selection == 'r':
             os.system("sudo reboot")
         if selection == 'e':
-            json.dump(soft) # todo change to soft config
+            json.dump(soft)  # todo change to soft config
             sys.exit()
         if selection == 'c':
             conf_ota()
@@ -196,7 +196,7 @@ def installation(conf_allowed):
         os.chdir(f"/home/{user}/bme280")
         os.system("sudo python setup.py install")
         config_soft['installation_done'] = 1
-        json.dump() # soft config
+        json.dump()  # soft config
         os.system("sudo apt-get install openjdk-8-jdk-headless -y")
         os.system("sudo rm /lib/systemd/system/rotorhazard.service")
         os.system("echo ' ' | sudo tee -a /lib/systemd/system/rotorhazard.service")
@@ -215,11 +215,11 @@ def installation(conf_allowed):
         os.system("sudo systemctl daemon-reload")
         os.system("sudo systemctl enable rotorhazard.service")
         print("""\n\n
-        ##############################################
-        #                                            #
-        #{bold}{green}Installation completed {endc}  #
-        #                                            #
-        ############################################## 
+        ################################################
+        ##                                            ##
+        ##{bold}{green}Installation completed {endc}  ##
+        ##                                            ##
+        ################################################
         
         
     After rebooting please check by typing 'sudo raspi-config' 
@@ -301,13 +301,13 @@ def update():
             os.system(f"cp /home/{user}/RotorHazard.old/src/server/database.db \
             /home/{user}/backup_RH_data >/dev/null 2>&1 &")
             os.chdir(f"/home/{user}/RotorHazard/src/server")
-            os.system("sudo -H pip install --upgrade --no-cache-dir -r requirements.txt")
+            os.system("sudo pip install --upgrade --no-cache-dir -r requirements.txt")
             print("""\n\n\t
-                ##############################################
-                #                                            #
-                #{bold}{green} Update completed!     {endc}  #
-                #                                            #
-                ############################################## 
+                ################################################
+                ##                                            ##
+                ##{bold}{green} Update completed!     {endc}  ##
+                ##                                            ##
+                ################################################
                         """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S))
             end_update()
 
@@ -412,13 +412,16 @@ def main_window(serv_installed_flag, server_version_name, conf_flag):
     else:
         main()
 
+
 def rpi_update():
     config_checker()
     server_version_checker()
     main_window(server_version_checker()[0], server_version_checker()[1], config_checker()[1])
 
+
 def main():
     rpi_update()
+
 
 if __name__ == "__main__":
     main()

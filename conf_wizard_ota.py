@@ -57,7 +57,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                 config['RH_version'] = version
                 break
 
-        debug_user = input("\nWhat is your user name on debugging OS? [default: racer]\t\t\t")
+        debug_user = input("\nWhat is your user name on debugging OS? [default: racer]\t\t")
         config['debug_user'] = debug_user
 
         country_code = input("\nWhat is your country code? [default: GB]\t\t\t\t")
