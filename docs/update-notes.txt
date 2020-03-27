@@ -6,6 +6,11 @@
         ^^^^^^^^^^^^
 
 
+2.2.9o
+Small fixes
+Added RH 2.1.1 support
+
+
 2.2.9m
 
 Small bug in LEDs configuration - fixed
