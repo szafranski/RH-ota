@@ -61,7 +61,7 @@ else
   echo echo python3-smbus has to be installed && sudo apt install python3-smbus
 fi
 
-if grep -q 'emoji' aptinstalled.tmp; then # todo
+if grep -q 'emoji' aptinstalled.tmp; then
   echo
 #  echo python3-smbus installed
 else
@@ -82,5 +82,3 @@ rm aptinstalled.tmp
 python3 update.py
 
 # todo 'sudo -H' with pip should be used? yellow prompts are showing
-# todo check for python3-gpiozero, i2ctools and python3-rpi.gpio only on Pi
-# not on any other 'platform'

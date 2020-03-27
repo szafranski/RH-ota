@@ -4,11 +4,10 @@ from time import sleep
 from modules import clear_the_screen, Bcolors, logo_top, image_show, ota_image, load_config, parser_write
 
 
-def compatibility(parser, home_dir):  # adds compatibility and fixes with previous versions
-    pass  # todo made it work but this prev_comp needs redesign
-    # from prev_comp import prev_comp
-    # import prev_comp
-    # prev_comp(parser, home_dir)
+def compatibility():  # adds compatibility and fixes with previous versions
+    from prev_comp import prev_comp
+    #import prev_comp
+    prev_comp()
 
 
 def config_check():
@@ -311,23 +310,20 @@ def features_menu(parser, config):
     clear_the_screen()
     logo_top(config.debug_mode)
     # todo "install avrdude" is obsolete cause it is now implemented in ota.sh
-
     features_menu_content = """
 
                     {red}{bold}{underline}FEATURES MENU{endc}{blue}{bold}
 
          
-                        1 - Install AVRDUDE
+                        1 - Enable serial protocol {endc}{bold}
                         
-                        2 - Enable serial protocol {endc}{bold}
+                        2 - Access Point and Internet 
                         
-                        3 - Access Point and Internet 
+                        3 - Show actual Pi's GPIO
                         
-                        4 - Show actual Pi's GPIO
+                        4 - Useful aliases
                         
-                        5 - Useful aliases
-                        
-                        6 - Update OTA software {endc}{yellow}{bold}
+                        5 - Update OTA software {endc}{yellow}{bold}
                             
                         e - Exit to main menu {endc}
 
@@ -336,38 +332,15 @@ def features_menu(parser, config):
     print(features_menu_content)
     selection = input()
     if selection == '1':
-        avr_dude(config)
-    if selection == '2':
         serial_menu(parser, config)
-    if selection == '3':
+    if selection == '2':
         os.system("python3 ./net_and_ap.py")
+    if selection == '3':
+        os.system("pinout")
+        input("\nDone? Hit 'Enter'\n")
     if selection == '4':
-        if not parser.getint('added_functions', 'pinout_installed'):
-            print("Some additional software has to be added so action can be performed. Ok?\n[yes/no]\n")
-            while True:
-                selection = input()
-                if selection == 'y' or selection == 'yes':
-                    if not os.system("sudo apt-get install python3-gpiozero"):
-                        parser.set('added_functions', 'pinout_installed', '1')
-                        parser_write(parser, config)
-                        break
-                    else:
-                        print("\nFailed to install required package.\n")
-                        sleep(2)
-                        break
-                if selection == 'n' or selection == 'no':
-                    break
-                else:
-                    continue
-        if parser.getint('added_functions', 'pinout_installed'):
-            os.system("pinout")
-            selection = input("\nDone? Hit 'Enter'\n")
-        else:
-            print("\nAdditional software needed. Please re-enter this menu.\n")
-            sleep(3)
-    if selection == '5':
         aliases_menu(parser, config)
-    if selection == '6':
+    if selection == '5':
         self_updater(parser, config)
     if selection == 'e':
         main_menu(parser, config)

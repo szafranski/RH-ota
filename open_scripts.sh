@@ -70,4 +70,3 @@ printf "\n\nUpdate completed, hit 'Enter' to continue \n\n"
 # istelf can be continued from previous directory after such a script was executed or stopped
 # eg. after hitting Ctrl+C after server was started etc.
 
-
