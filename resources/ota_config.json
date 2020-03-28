@@ -1,5 +1,6 @@
 {
-    "aliases": false,
-    "installation_done": false,
-    "serial_added": false
+    "aliases_implemented": false,
+    "installation_performed": false,
+    "uart_support_added": false,
+    "was_updated_recently": false
 }
