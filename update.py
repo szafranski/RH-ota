@@ -305,7 +305,7 @@ def self_updater(config):
         if selection == 'b':
             break
         if selection == 'u':
-            os.system(". ./open_scripts.sh; updater_from_ota")
+            os.system(". ./scripts/updater_from_ota.sh")
 
 def features_menu(config):
     while True:
@@ -479,7 +479,7 @@ def main_menu( config):
             # os.system("python3 ./nodes_update.py")  # opens nodes updating file
         if selection == '3':
             clear_the_screen()
-            os.system(". ./open_scripts.sh; server_start")
+            os.system(". ./scripts/server_start.sh")
         if selection == '4':
             features_menu(config)
         if selection == '5':
