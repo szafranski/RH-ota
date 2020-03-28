@@ -277,7 +277,8 @@ def self_updater(config):
          python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null")
         os.system("echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python \
          ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null")
-
+        ota_status.updater_planted = True
+        write_ota_config(ota_status, config.user)
 
     if not ota_status.updater_planted:
         add_updater()

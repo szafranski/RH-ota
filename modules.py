@@ -125,6 +125,11 @@ def load_ota_config(user):
         ota_config = load_json(ota_config_file)
     else:
         ota_config = SimpleNamespace()
+        ota_config.serial_added = False
+        ota_config.aliases_1 = False
+        ota_config.aliases_2 = False
+        ota_config.updater_planted = False
+
     return ota_config
 
 def write_ota_config(ota_config, user):
