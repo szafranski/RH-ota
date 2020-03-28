@@ -45,7 +45,7 @@ def do_config(config):
 Please type your configuration data. It can be modified later.
 Default values are not automatically applied. Type them if needed.\n""")
         pi_user_name = input("\nWhat is your user name on Raspberry Pi? [default: pi]\t\t\t")
-        config['pi_user'] = pi_user_name
+        config.pi_user = pi_user_name
         while True:
             version = input(f"\nWhat RotorHazard version will you use? \
 [{Bcolors.UNDERLINE}stable{Bcolors.ENDC} | beta | master]\t\t")
@@ -53,21 +53,21 @@ Default values are not automatically applied. Type them if needed.\n""")
             if version not in version_valid_options:
                 print("\nPlease enter correct value!")
             else:
-                config['RH_version'] = version
+                config.RH_version = version
                 break
 
         debug_user = input("\nWhat is your user name on debugging OS? [default: racer]\t\t")
-        config['debug_user'] = debug_user
+        config.debug_user = debug_user
 
         country_code = input("\nWhat is your country code? [default: GB]\t\t\t\t")
-        config['country'] = country_code
+        config.country = country_code
 
         while True:
             nodes = input("\nHow many nodes will you use in your system? [min: 0/1 | max: 8]\t\t")
             if not nodes.isdigit() or int(nodes) > 8:
                 print("\nPlease enter correct value!")
             else:
-                config['nodes_number'] = nodes
+                config.nodes_number = nodes
                 break
 
         while True:
@@ -81,7 +81,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                     debug_mode_val = True
                 elif debug_mode in ['no', '0', 'n']:
                     debug_mode_val = False
-                config['debug_mode'] = debug_mode_val
+                config.debug_mode = debug_mode_val
                 break
         while True:
             pins_assign = input("\nPins assignment? [default/custom/PCB | default: default]\t\t")
@@ -89,7 +89,7 @@ Default values are not automatically applied. Type them if needed.\n""")
             if pins_assign not in pins_valid_options:
                 print("\nPlease enter correct value!")
             else:
-                config['pins_assignment'] = pins_assign
+                config.pins_assignment = pins_assign
                 break
 
         while True:
@@ -103,7 +103,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                     no_pdf_val = True
                 elif no_pdf in ['no', '0', 'n']:
                     no_pdf_val = False
-                config['updates_without_pdf'] = no_pdf_val
+                config.updates_without_pdf = no_pdf_val
                 break
 
         while True:
@@ -117,7 +117,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                     pi_4_val = True
                 elif pi_4_owner in ['no', '0', 'n']:
                     pi_4_val = False
-                config['pi_4_cfg'] = pi_4_val
+                config.pi_4_cfg = pi_4_val
                 break
 
         while True:
@@ -131,22 +131,22 @@ Default values are not automatically applied. Type them if needed.\n""")
                     beta_tester_val = True
                 elif user_is_beta_tester in ['no', '0', 'n']:
                     beta_tester_val = False
-                config['beta_tester'] = beta_tester_val
+                config.beta_tester = beta_tester_val
                 break
 
         print(f"""\n\n
             {Bcolors.UNDERLINE}CONFIGURATION{Bcolors.ENDC}:
 
-        User name:              {config['pi_user']}
-        RotorHazard version:    {config['RH_version']}
-        Debug user name:        {config['debug_user']}
-        Country code:           {config['country']}
-        Nodes amount:           {config['nodes_number']}
-        Debug mode:             {config['debug_mode']}    
-        Pins assignment:        {config['pins_assignment']}
-        Updates without PDF:    {config['updates_without_pdf']}
-        Pi 4 user:              {config['pi_4_cfg']}
-        Beta tester:            {config['beta_tester']}
+        User name:              {config.pi_user}
+        RotorHazard version:    {config.RH_version}
+        Debug user name:        {config.debug_user}
+        Country code:           {config.country}
+        Nodes amount:           {config.nodes_number}
+        Debug mode:             {config.debug_mode}    
+        Pins assignment:        {config.pins_assignment}
+        Updates without PDF:    {config.updates_without_pdf}
+        Pi 4 user:              {config.pi_4_cfg}
+        Beta tester:            {config.beta_tester}
          
         Please check. Confirm? [yes/change/abort]\n""")
         valid_options = ['y', 'yes', 'n', 'no', 'change', 'abort']
