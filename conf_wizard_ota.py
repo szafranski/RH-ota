@@ -1,6 +1,6 @@
 from time import sleep
 import os
-from modules import clear_the_screen, Bcolors, logo_top, write_json
+from modules import clear_the_screen, Bcolors, logo_top, write_json, load_config
 from pathlib import Path
 
 '''
@@ -30,7 +30,7 @@ def conf_check():
     return conf_now_flag
 
 
-def do_config():
+def do_config(config):
     home_dir = str(Path.home())
     clear_the_screen()
     logo_top(False)
@@ -40,7 +40,6 @@ def do_config():
     conf_now_flag = conf_check()
 
     if conf_now_flag:
-        config = {}
 
         print("""\n
 Please type your configuration data. It can be modified later.
@@ -159,7 +158,6 @@ Default values are not automatically applied. Type them if needed.\n""")
                 print("\ntoo big fingers :( wrong command. try again! :)")
         if selection == 'y' or selection == 'yes':
             write_json(config, f"{home_dir}/RH-ota/updater-config.json")
-
             print("Configuration saved.\n")
             sleep(0.5)
             conf_now_flag = 0
@@ -170,10 +168,10 @@ Default values are not automatically applied. Type them if needed.\n""")
             sleep(0.5)
             conf_now_flag = 0
 
-    return conf_now_flag
+    return conf_now_flag, config
 
 
-def conf_ota():
+def conf_ota(config):
     """
         repeat the configuration script until
         the user ether aborts, configures ota
@@ -182,11 +180,13 @@ def conf_ota():
     """
     config_now = 1
     while config_now:
-        config_now = do_config()
+        config_now, config = do_config(config)
+    return config
 
 
 def main():
-    conf_ota()
+    config = load_config()
+    conf_ota(config)
 
 
 if __name__ == "__main__":

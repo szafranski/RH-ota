@@ -1,3 +1,4 @@
+from pathlib import Path
 from shutil import copyfile
 from time import sleep
 import os
@@ -5,7 +6,8 @@ import platform
 import sys
 import json
 import time
-from types import SimpleNamespace as Namespace
+import requests
+from types import SimpleNamespace as Namespace, SimpleNamespace
 
 
 def clear_the_screen():
@@ -104,26 +106,44 @@ class Bcolors:
     UNDERLINE_S = '\033[4m' + (' ' * 11)
 
 
-def internet_check(user):  # too much code - but works for now
-    print("\nPlease wait - checking internet connection state...\n")
-    before_millis = int(round(time.time() * 1000))
-    os.system("rm index* > /dev/null 2>&1")
-    os.system("timeout 10s wget www.github.com")
-    while True:
-        now_millis = int(round(time.time() * 1000))
-        time_passed = (now_millis - before_millis)
-        if os.path.exists("./index.html"):
-            internet_flag = 1
+def internet_check():  # too much code - but works for now
+    print("""
+        Please wait - checking internet connection state....
+    """)
+    internet_flag = False
+    for i in range(3):
+        response = requests.get('https://github.com')
+        if response.status_code == requests.codes.ok:
+            internet_flag = True
             break
-        elif time_passed > 10100:
-            internet_flag = 0
-            break
-    os.system(f"rm /home/{user}/RH-ota/index.html > /dev/null 2>&1")
-    os.system(f"rm /home/{user}/RH-ota/wget-log* > /dev/null 2>&1")
-    os.system(f"rm /home/{user}/index.html > /dev/null 2>&1")
-    os.system(f"rm /home/{user}/wget-log* > /dev/null 2>&1")
-
     return internet_flag
+
+def load_ota_config(user):
+    #.read(f'/home/{config.user}/.ota_markers/ota_config.txt')
+    ota_config_file = f'/home/{user}/.ota_markers/ota_config.json'
+    if Path(ota_config_file).exists():
+        ota_config = load_json(ota_config_file)
+    else:
+        ota_config = SimpleNamespace()
+    return ota_config
+
+def write_ota_config(ota_config, user):
+    ota_config_file = f'/home/{user}/.ota_markers/ota_config.json'
+    write_json(ota_config, ota_config_file)
+
+
+
+def get_ota_version():
+    this_dir = os.path.dirname(os.path.realpath(__file__))
+    version = ''
+    with open(f"{this_dir}/update.py") as update:
+        for line in update:
+            if 'updater_version = ' in line:
+                version = line.strip().split('=')[1].strip(' \'')
+                break
+
+    return version
+
 
 
 def load_config():
@@ -193,8 +213,10 @@ quick wrapper around write json to normalize our parameters.
 
 def write_json(to_dump, file_name):
     with open(file_name, 'w') as open_file:
-        json.dump(to_dump, open_file, indent=4)
-    pass
+        if isinstance(to_dump, SimpleNamespace):
+            json.dump(vars(to_dump), open_file, indent=4)
+        else:
+            json.dump(to_dump, open_file, indent=4)
 
 
 '''

@@ -145,7 +145,7 @@ def end_installation():
 def installation(conf_allowed):
     if not linux_testing:
         os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
-    internet_flag = internet_check(user)
+    internet_flag = internet_check()
     if not internet_flag:
         print("\nLooks like you don't have internet connection. Installation canceled.")
         sleep(2)
@@ -234,7 +234,7 @@ def installation(conf_allowed):
 def update():
     if not linux_testing:
         os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
-    internet_flag = internet_check(user)
+    internet_flag = internet_check()
     if not internet_flag:
         print("\nLooks like you don't have internet connection. Update canceled.")
         sleep(2)
