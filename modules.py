@@ -6,7 +6,7 @@ import sys
 import json
 import time
 import requests
-from types import SimpleNamespace as Namespace
+from types import SimpleNamespace as Namespace, SimpleNamespace
 
 
 def clear_the_screen():
@@ -202,8 +202,10 @@ quick wrapper around write json to normalize our parameters.
 
 def write_json(to_dump, file_name):
     with open(file_name, 'w') as open_file:
-        json.dump(to_dump, open_file, indent=4)
-    pass
+        if isinstance(to_dump, SimpleNamespace):
+            json.dump(vars(to_dump), open_file, indent=4)
+        else:
+            json.dump(to_dump, open_file, indent=4)
 
 
 '''

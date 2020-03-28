@@ -52,11 +52,9 @@ def self_update(config):
         \n\t\tYou may check update-notes.\n\n")
         sleep(1)
         os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")
-        os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")  # resolves compatibility & permissions issues
+        os.system("sudo chmod -R 777 ~/RH-ota/*.sh > /dev/null 2>&1")  # only make the shell scripts executable.
         if new_version_name != old_version_name:
             os.system("echo OTA was updated > ~/.ota_markers/.was_updated")
-
-
 def main():
     config = load_config()
     internet_check()

@@ -487,13 +487,13 @@ def main():
     it refers to the API level of newest contained nodes firmware
     third number refers to actual version of the updater itself
     '''
-    home_dir = os.path.expanduser('~')
+    home_dir = str(Path.home())
     clear_the_screen()
     print("\n\n")
     ota_image()
     config_check()
-    parser, config = load_config()
-    compatibility(home_dir)
+    config = load_config()
+    compatibility()
     if not os.path.exists(f"{home_dir}/.ota_markers/ota_config.txt"):
         os.system(f"cp {home_dir}/RH-ota/resources/ota_config.txt \
         {home_dir}/.ota_markers/ota_config.txt")
