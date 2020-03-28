@@ -19,11 +19,11 @@ def clear_the_screen():
     sleep(0.05)
 
 
-def dots2sec():
+def dots_show(duration):
     for i in range(30):
         sys.stdout.write(".")
         sys.stdout.flush()
-        sleep(0.0666)
+        sleep(duration/30)
     sys.stdout.write("\n")
 
 

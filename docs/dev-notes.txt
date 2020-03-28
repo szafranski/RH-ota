@@ -1,7 +1,8 @@
 
         Developer notes:
 
-Will be converted to python 3.6 and higher.
+This software requires using python 3.6 or later. It automatically installs all required dependencies,
+when being opened with 'sh ./ota.sh' command.
 
 Some actions on system files are being performed during operations like UART enabling etc.
 Admin privileges are only used when needed (eg. installing dependencies) or to ensure smooth operation.
