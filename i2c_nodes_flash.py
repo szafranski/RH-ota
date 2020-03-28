@@ -33,6 +33,7 @@ except NameError as name_error:
 
 sleepAmt = 1
 
+reset_data = [0]
 on = [1]
 off = [0]
 
@@ -63,15 +64,9 @@ addr_list_int = [node1addr, node2addr, node3addr, node4addr,
 addr_list = [str(item) for item in addr_list_int]
 
 
-def disable_serial_on_the_node(addr):  # todo Michael has to tell
-    sleep(sleepAmt)
-    on.append(calculate_checksum(on))
-    off.append(calculate_checksum(off))
-    # bus.write_byte(addr, disable_serial_on_the_node)
-    bus.write_i2c_block_data(addr, disable_serial_on_the_node, on)
-    # bus.write_i2c_block_data(addr, disable_serial_on_the_node, off)
-    print("serial communication disabling - done")
-    sleep(sleepAmt)
+def disable_serial_on_the_node(addr, reset_data):
+    data.append(calculate_checksum(reset_data))
+    bus.write_i2c_block_data(addr, disable_serial_on_the_node_command, reset_data)
 
 
 def disable_serial_on_all_nodes(addr):

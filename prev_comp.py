@@ -25,10 +25,14 @@ def aliases_clean(start, end, file_name, word1, word2, word3):
         return False
 
 
-def main():
+def prev_comp():
     home_dir = os.path.expanduser('~')
     Path(f"{home_dir}/.ota_markers").mkdir(exist_ok=True)
     aliases_clean('Shortcut', 'After', f'{home_dir}/.bashrc', 'uu', 'updateupdater', '# #')
+
+
+def main():
+    prev_comp()
 
 
 if __name__ == "__main__":

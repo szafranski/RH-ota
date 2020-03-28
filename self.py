@@ -21,7 +21,7 @@ if config['beta_tester']:
 else:
     beta_tester_update = False
 
-if os.path.exists(f'/home/{user}/RH-ota/updater-config.json'):
+if os.path.exists(f'/home/{config.user}/RH-ota/updater-config.json'):
     config_file_exists = True
 else:
     config_file_exists = False
@@ -49,7 +49,7 @@ def internet_check(user):  # too much code - but works for now
     return internet_flag
 
 
-def old_version_name_check():
+def old_version_name_check(user):
     old_version_name = 0
     os.system("grep 'updater_version =' ~/RH-ota/update.py > ~/.ota_markers/.old_version")
     os.system("sed -i 's/updater_version = //' ~/.ota_markers/.old_version")
@@ -60,7 +60,7 @@ def old_version_name_check():
     return old_version_name
 
 
-def new_version_name_check():
+def new_version_name_check(user):
     new_version_name = 0
     os.system("grep 'updater_version =' ~/RH-ota/update.py > ~/.ota_markers/.new_version")
     os.system("sed -i 's/updater_version = //' ~/.ota_markers/.new_version")
@@ -72,7 +72,7 @@ def new_version_name_check():
 
 
 def self_update():
-    internet_flag = internet_check(user)
+    internet_flag = internet_check(config.user)
     if not internet_flag:
         print("\nLooks like you don't have internet connection. Update canceled.\n")
         sleep(2)
@@ -81,7 +81,7 @@ def self_update():
         sleep(1.5)
         os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")  # resolves compatibility issues
         os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")  # resolves compatibility issues
-        old_version_name = old_version_name_check()
+        old_version_name = old_version_name_check(config.user)
         print(f"\n\n\n\t Please wait: updating process from version {old_version_name}\n\n")
         dots_show(2)
         if config_file_exists:
@@ -113,7 +113,7 @@ def self_update():
                 os.system("mv RH-ota-* RH-ota")
         if config_file_exists:
             os.system("cp ~/.ota_markers/updater-config.json ~/RH-ota/updater-config.json")
-        new_version_name = new_version_name_check()
+        new_version_name = new_version_name_check(config.user)
         print(f"\n\n\n\t RotorHazard OTA Manager updated to version {new_version_name}\
         \n\t\tYou may check update-notes.\n\n")
         sleep(1)
@@ -124,7 +124,7 @@ def self_update():
 
 
 def main():
-    internet_check(user)
+    internet_check(config.user)
     self_update()
 
 

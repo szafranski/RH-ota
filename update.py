@@ -1,12 +1,11 @@
 import os
 import sys
 from time import sleep
-from modules import clear_the_screen, Bcolors, logo_top, image_show, ota_image, load_config, parser_write
+from modules import clear_the_screen, Bcolors, logo_top, image_show, ota_image, load_config
 
 
 def compatibility():  # adds compatibility and fixes with previous versions
     from prev_comp import prev_comp
-    #import prev_comp
     prev_comp()
 
 
@@ -18,9 +17,9 @@ def config_check():
         and next enter configuration wizard - point 6.{Bcolors.ENDC}""")
 
 
-def log_to_dev(parser, config):
+def log_to_dev(config):
     log_write(config)
-    log_send(parser, config)
+    log_send(config)
 
 
 def log_write(config):
@@ -53,14 +52,10 @@ def log_write(config):
     sleep(1.5)
 
 
-def log_send(parser, config):
+def log_send(config):
     while True:
         selection = input("\n\n\tDo you want to send a log file for a review to the developer? [y/n] ")
         if selection == 'y' or selection == 'yes':
-            if not parser.getint('added_functions', 'curl_installed'):
-                if not os.system("sudo apt install curl cowsay"):
-                    parser.set('added_functions', 'curl_installed', '1')
-                    parser_write(parser, config)
             log_name = input("\n\tPlease enter your name so we know who sent a log file: ")
             print("\n\tPlease wait, file is being uploaded...\n")
             os.system("rm ./log_data/log_name.txt > /dev/null 2>&1")
@@ -116,7 +111,7 @@ def updated_check(config):
         os.system(f"rm /home/{user}/.ota_markers/.was_updated >/dev/null 2>&1")
 
 
-def first(parser, config, updater_version):
+def first(config, updater_version):
     parser.read(f'/home/{config.user}/.ota_markers/ota_config.txt')
     clear_the_screen()
     print("\n\n")
@@ -151,12 +146,12 @@ def avr_dude(config):
             break
 
 
-def serial_menu(parser, config):
+def serial_menu(config):
     def serial_content():
         os.system("echo 'enable_uart=1'| sudo tee -a /boot/config.txt")
         os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
         parser.set('added_functions', 'serial_added', '1')
-        parser_write(parser, config)
+        parser_write(config)
         print("""
         
         Serial port enabled successfully
@@ -200,7 +195,7 @@ def serial_menu(parser, config):
             break
 
 
-def aliases_menu(parser, config):
+def aliases_menu(config):
     clear_the_screen()
 
     def aliases_content():
@@ -274,8 +269,6 @@ def self_updater(parser, config):
          python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null")
         os.system("echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python \
          ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null")
-        parser.set('added_functions', 'updater_planted', '1')
-        parser_write(parser, config)
 
     if not parser.getint('added_functions', 'updater_planted'):
         add_updater()
@@ -500,7 +493,7 @@ def main():
     ota_image()
     config_check()
     parser, config = load_config()
-    compatibility(parser, home_dir)
+    compatibility(home_dir)
     if not os.path.exists(f"{home_dir}/.ota_markers/ota_config.txt"):
         os.system(f"cp {home_dir}/RH-ota/resources/ota_config.txt \
         {home_dir}/.ota_markers/ota_config.txt")
