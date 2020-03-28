@@ -112,6 +112,9 @@ def updated_check(config):
                 break
             if selection == 's':
                 break
+        else:
+            break
+
     os.system(f"rm /home/{user}/.ota_markers/.was_updated >/dev/null 2>&1")
 
 
