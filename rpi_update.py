@@ -150,7 +150,7 @@ def installation(conf_allowed):
                     """.format(thumbs=3 * emoji.emojize(':thumbs_up:') + 2 * " ", bold=Bcolors.BOLD_S,
                                endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S)
         try:
-            os.system(f"./scripts/install_rh.sh {user}")
+            os.system(f"./scripts/install_rh.sh {user} {server_version}")
             if conf_allowed:
                 os.system("sh. ./scripts/sys_conf.sh")
                 config_soft['installation_done'] = 1
@@ -259,7 +259,7 @@ def update():
         else:
             clear_the_screen()
             print(f"\n\t{Bcolors.BOLD}Updating existing installation - please wait...{Bcolors.ENDC} \n")
-            os.system(f"./scripts/update_rh.sh {user}")
+            os.system(f"./scripts/update_rh.sh {user} {server_version}")
             # os.system("sudo -H python -m pip install --upgrade pip")
             # os.system("sudo -H pip install pillow ")
             # os.system("sudo apt-get install libjpeg-dev ntp -y")

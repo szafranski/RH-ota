@@ -13,9 +13,9 @@ sudo cp -r /home/${1}/RotorHazard.old /home/${1}/.old_RotorHazard.old/ >/dev/nul
 sudo rm -r /home/${1}/RotorHazard.old >/dev/null 2>&1
 sudo mv /home/${1}/RotorHazard /home/${1}/RotorHazard.old
 cd /home/${1}
-wget https://codeload.github.com/RotorHazard/RotorHazard/zip/{server_version} -O temp.zip
+wget https://codeload.github.com/RotorHazard/RotorHazard/zip/${2} -O temp.zip
 unzip temp.zip
-mv /home/${1}/RotorHazard-{server_version} /home/${1}/RotorHazard
+mv /home/${1}/RotorHazard-${2} /home/${1}/RotorHazard
 sudo rm temp.zip
 sudo mkdir /home/${1}/backup_RH_data >/dev/null 2>&1
 sudo chmod 777 -R /home/${1}/RotorHazard/src/server

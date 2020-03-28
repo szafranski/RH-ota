@@ -16,10 +16,10 @@ cp -r /home/${1}/RotorHazard-* /home/${1}/.old_RotorHazard.old/ >/dev/null 2>&1
 # in case of forced installation
 rm -r /home/${1}/RotorHazard-* >/dev/null 2>&1  # in case of forced installation
 cd /home/${1}
-wget https://codeload.github.com/RotorHazard/RotorHazard/zip/{server_version} -O temp.zip
+wget https://codeload.github.com/RotorHazard/RotorHazard/zip/${2} -O temp.zip
 unzip temp.zip
 rm temp.zip
-mv /home/${1}/RotorHazard-{server_version} /home/${1}/RotorHazard
+mv /home/${1}/RotorHazard-${2} /home/${1}/RotorHazard
 sudo -H pip install -r /home/${1}/RotorHazard/src/server/requirements.txt
 sudo chmod 777 -R /home/${1}/RotorHazard/src/server
 cd /home/${1}
