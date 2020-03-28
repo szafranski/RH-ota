@@ -1,3 +1,4 @@
+from pathlib import Path
 from shutil import copyfile
 from time import sleep
 import os
@@ -117,8 +118,18 @@ def internet_check():  # too much code - but works for now
             break
     return internet_flag
 
-def load_ota_config():
-    pass
+def load_ota_config(user):
+    #.read(f'/home/{config.user}/.ota_markers/ota_config.txt')
+    ota_config_file = f'/home/{user}/.ota_markers/ota_config.json'
+    if Path(ota_config_file).exists():
+        ota_config = load_json(ota_config_file)
+    else:
+        ota_config = SimpleNamespace()
+    return ota_config
+
+def write_ota_config(ota_config, user):
+    ota_config_file = f'/home/{user}/.ota_markers/ota_config.json'
+    write_json(ota_config, ota_config_file)
 
 
 

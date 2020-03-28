@@ -30,20 +30,8 @@ server_start ()
 {
 printf "Server booting, please wait"
 dots5
-cd ~/RotorHazard/src/server
+cd ~/RotorHazard/src/server || exit
 python server.py
-}
-
-rh_configuration_start()
-{
-cd ~/RH-ota
-python3 ./conf_wizard_rh.py
-}
-
-ota_configuration_start()
-{
-cd ~/RH-ota
-python3 ./conf_wizard_ota.py
 }
 
 updater_from_ota()

@@ -75,6 +75,12 @@ else
   echo echo i2c-tools has to be installed && sudo apt install python3-smbus
 fi
 
+if grep -q 'zip' aptinstalled.tmp; then
+  echo zip installed
+else
+  echo echo zip has to be installed && sudo apt install zip unzip
+fi
+
 #Cleanup after myself.
 rm pip3installed.tmp
 rm aptinstalled.tmp
