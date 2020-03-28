@@ -5,6 +5,7 @@ import platform
 import sys
 import json
 import time
+import requests
 from types import SimpleNamespace as Namespace
 
 
@@ -104,26 +105,34 @@ class Bcolors:
     UNDERLINE_S = '\033[4m' + (' ' * 11)
 
 
-def internet_check(user):  # too much code - but works for now
-    print("\nPlease wait - checking internet connection state...\n")
-    before_millis = int(round(time.time() * 1000))
-    os.system("rm index* > /dev/null 2>&1")
-    os.system("timeout 10s wget www.github.com")
-    while True:
-        now_millis = int(round(time.time() * 1000))
-        time_passed = (now_millis - before_millis)
-        if os.path.exists("./index.html"):
-            internet_flag = 1
+def internet_check():  # too much code - but works for now
+    print("""
+        Please wait - checking internet connection state....
+    """)
+    internet_flag = False
+    for i in range(3):
+        response = requests.get('https://github.com')
+        if response.status_code == requests.codes.ok:
+            internet_flag = True
             break
-        elif time_passed > 10100:
-            internet_flag = 0
-            break
-    os.system(f"rm /home/{user}/RH-ota/index.html > /dev/null 2>&1")
-    os.system(f"rm /home/{user}/RH-ota/wget-log* > /dev/null 2>&1")
-    os.system(f"rm /home/{user}/index.html > /dev/null 2>&1")
-    os.system(f"rm /home/{user}/wget-log* > /dev/null 2>&1")
-
     return internet_flag
+
+def load_ota_config():
+    pass
+
+
+
+def get_ota_version():
+    this_dir = os.path.dirname(os.path.realpath(__file__))
+    version = ''
+    with open(f"{this_dir}/update.py") as update:
+        for line in update:
+            if 'updater_version = ' in line:
+                version = line.strip().split('=')[1].strip(' \'')
+                break
+
+    return version
+
 
 
 def load_config():
