@@ -25,7 +25,7 @@ def dots_show(duration):
     for i in range(30):
         sys.stdout.write(".")
         sys.stdout.flush()
-        sleep(duration/30)
+        sleep(duration / 30)
     sys.stdout.write("\n")
 
 
@@ -118,8 +118,9 @@ def internet_check():  # too much code - but works for now
             break
     return internet_flag
 
+
 def load_ota_config(user):
-    #.read(f'/home/{config.user}/.ota_markers/ota_config.txt')
+    # .read(f'/home/{config.user}/.ota_markers/ota_config.txt')
     ota_config_file = f'/home/{user}/.ota_markers/ota_config.json'
     if Path(ota_config_file).exists():
         ota_config = load_json(ota_config_file)
@@ -132,23 +133,23 @@ def load_ota_config(user):
 
     return ota_config
 
+
 def write_ota_config(ota_config, user):
     ota_config_file = f'/home/{user}/.ota_markers/ota_config.json'
     write_json(ota_config, ota_config_file)
 
 
-
-def get_ota_version():
-    this_dir = os.path.dirname(os.path.realpath(__file__))
-    version = ''
-    with open(f"{this_dir}/update.py") as update:
-        for line in update:
-            if 'updater_version = ' in line:
-                version = line.strip().split('=')[1].strip(' \'')
-                break
+def get_ota_version():  # todo is it ok David? or just put this one line below into self.py?
+    version = os.system("cat ./version.txt")
+    # this_dir = os.path.dirname(os.path.realpath(__file__))
+    # version = ''
+    # with open(f"{this_dir}/update.py") as update:
+    #     for line in update:
+    #         if 'updater_version = ' in line:
+    #             version = line.strip().split('=')[1].strip(' \'')
+    #             break
 
     return version
-
 
 
 def load_config():

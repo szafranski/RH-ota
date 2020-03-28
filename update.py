@@ -493,12 +493,7 @@ def main_menu( config):
 
 
 def main():
-    updater_version = '2.2.10beta2f'
-    '''
-    version of THIS program - has nothing to do with the RH version
-    it refers to the API level of newest contained nodes firmware
-    third number refers to actual version of the updater itself
-    '''
+    updater_version = os.system("cat ./version.txt")
     home_dir = str(Path.home())
     clear_the_screen()
     print("\n\n")
