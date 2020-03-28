@@ -175,6 +175,7 @@ def load_config():
         config.update_mode = 'without pdf'
     else:
         config.update_mode = 'with pdf'
+    return config
 
 
 '''
