@@ -139,18 +139,10 @@ def write_ota_config(ota_config, user):
 
 
 def get_ota_version():  # todo is it ok David?
-    # this_dir = os.path.dirname(os.path.realpath(__file__))
-    # version = ''
-    # with open(f"{this_dir}/update.py") as update:
-    #     for line in update:
-    #         if 'updater_version = ' in line:
-    #             version = line.strip().split('=')[1].strip(' \'')
-    #             break
-    f = open('./version.txt', 'r')
-    version = (f.readline().replace('\n', '')).strip()  # always returns ONLY the version number
-
+    this_dir = os.path.dirname(os.path.realpath(__file__))
+    with open(f'{this_dir}/version.txt', 'r') as open_file:
+        version = open_file.readline().strip()
     return version
-
 
 def read_aliases_file():  # todo - I think you know what I wanted to achieve, am was close!    list -> lines
     aliases_to_show = []

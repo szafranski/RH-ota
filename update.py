@@ -109,7 +109,6 @@ def updated_check(config):
 
 
 def first(config, updater_version):
-    ota_config = load_ota_config(config.user)
     clear_the_screen()
     print("\n\n")
     image_show()
@@ -341,7 +340,7 @@ def features_menu(config):
             break
 
 
-def first_time(config):
+def first_time():
     def update_notes():
         clear_the_screen()
         os.system("less ./docs/update-notes.txt")  # todo change to pythonic f=open("./docs/update-notes.txt", "r")
@@ -474,7 +473,7 @@ def main_menu(config):
         if selection == '4':
             features_menu(config)
         if selection == '5':
-            first_time(config)
+            first_time()
         if selection == '6':
             config = conf_ota(config)
         if selection == 'logme':
