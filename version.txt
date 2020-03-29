@@ -1,1 +1,9 @@
 2.2.10beta3
+
+Version of this program - has nothing to do with the RH version.
+It refers to the API level of newest contained nodes firmware. 
+Third number refers to actual version of the updater itself. 
+
+Features and functions described in /docs folder.
+
+# keep version number in first line of this file

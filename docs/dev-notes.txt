@@ -37,10 +37,6 @@ Branches 'main_stable' and 'no_pdf' are always up-to-date and valid to be used.
 
 Branch 'master' is ongoing work in progress.
 
-Version of this program - stored in 'version.txt'. - has nothing to do with the RH version.
-It refers to the API level of newest contained nodes firmware. Third number refers to actual version
-of the updater itself.
-
 Feedback is welcome. Use GitHub or contact me via Facebook.
 
 Old disclaimer:

@@ -139,8 +139,7 @@ def write_ota_config(ota_config, user):
     write_json(ota_config, ota_config_file)
 
 
-def get_ota_version():  # todo is it ok David? or just put this one line below into self.py?
-    version = os.system("cat ./version.txt")
+def get_ota_version():  # todo is it ok David?
     # this_dir = os.path.dirname(os.path.realpath(__file__))
     # version = ''
     # with open(f"{this_dir}/update.py") as update:
@@ -148,6 +147,8 @@ def get_ota_version():  # todo is it ok David? or just put this one line below i
     #         if 'updater_version = ' in line:
     #             version = line.strip().split('=')[1].strip(' \'')
     #             break
+    f = open('./version.txt', 'r')
+    version = (f.readline().replace('\n',''))
 
     return version
 

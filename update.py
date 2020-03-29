@@ -5,7 +5,7 @@ from time import sleep
 
 from conf_wizard_ota import conf_ota
 from modules import clear_the_screen, Bcolors, logo_top, image_show, ota_image, load_config, load_ota_config, \
-    write_ota_config
+    write_ota_config, get_ota_version
 
 
 def compatibility():  # adds compatibility and fixes with previous versions
@@ -493,7 +493,7 @@ def main_menu( config):
 
 
 def main():
-    updater_version = os.system("cat ./version.txt")
+    updater_version = get_ota_version()
     home_dir = str(Path.home())
     clear_the_screen()
     print("\n\n")
