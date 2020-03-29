@@ -12,3 +12,4 @@ nohup*
 /venv
 /how_to
 /updater-config.json
+test.py

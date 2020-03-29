@@ -152,16 +152,13 @@ def get_ota_version():  # todo is it ok David?
     return version
 
 
-def read_aliases_file():  # todo - I think you know what I wanted to achieve, am was close!
+def read_aliases_file():  # todo - I think you know what I wanted to achieve, am was close!    list -> lines
     aliases_to_show = []
     with open('./resources/aliases.txt', 'r') as aliases_file:
         for line in aliases_file:
-            if 'alias ' in line:
+            if 'alias ' in line and '###' not in line:
                 line = line.replace('alias ', '')
                 aliases_to_show.append(line)
-            if '###' in line:
-                pass
-                #aliases_file.remove(line)  # todo TextIO wrapper something and removing blank lines add
 
     with open('./.read_aliases.tmp', 'w') as write_obj:
         write_obj.write("".join(aliases_to_show))
