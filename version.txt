@@ -1,9 +1,10 @@
 2.2.10beta3
 
-Version of this program - has nothing to do with the RH version.
-It refers to the API level of newest contained nodes firmware. 
-Third number refers to actual version of the updater itself. 
+Version of this program - it has nothing to do with the RH version.
+It refers to the API level of newest contained nodes firmware.
+For example version 2.2.10 contains firmware with API level 22.
+Third number refers to actual version of the OTA updater itself.
 
-Features and functions described in files in /docs folder.
+Features and functions are described in files in /docs folder.
 
 # keep version number in first line of this file

@@ -162,68 +162,6 @@ def installation(conf_allowed):
             print(installation_completed)
         except:  # todo add something
             print("Error occurred. Installation aborted.")
-        # os.system("sudo apt-get update && sudo apt-get upgrade -y")  # todo David - ok? delete if yes
-        # os.system("sudo apt autoremove -y")
-        # os.system("sudo apt install wget ntp libjpeg-dev i2c-tools python-dev libffi-dev python-smbus \
-        # build-essential python-pip git scons swig zip -y")
-        # if linux_testing:  # on Linux PC system
-        #     os.system("sudo apt dist-upgrade -y")
-        # else:  # on Raspberry
-        #     os.system("sudo apt install python-rpi.gpio")
-        #     if conf_allowed:
-        #         sys_conf()
-        # os.system("sudo -H pip install cffi pillow")
-        # os.chdir("/home/" + user)
-        # if not os.path.exists(f"/home/{user}/.old_RotorHazard.old"):
-        #     os.system(f"mkdir /home/{user}/.old_RotorHazard.old")
-        # if os.path.exists(f"/home/{user}/RotorHazard"):
-        #     os.system(f"cp -r /home/{user}/RotorHazard /home/{user}/.old_RotorHazard.old/ >/dev/null 2>&1")
-        #     #  in case of forced installation
-        #     os.system(f"rm -r /home/{user}/RotorHazard >/dev/null 2>&1")  # in case of forced installation
-        # os.system(f"rm /home/{user}/temp >/dev/null 2>&1")  # in case of forced installation
-        # os.system(f"cp -r /home/{user}/RotorHazard-* /home/{user}/.old_RotorHazard.old/ >/dev/null 2>&1")
-        # # in case of forced installation
-        # os.system(f"rm -r /home/{user}/RotorHazard-* >/dev/null 2>&1")  # in case of forced installation
-        # os.chdir(f"/home/{user}")
-        # os.system(f"wget https://codeload.github.com/RotorHazard/RotorHazard/zip/{server_version} -O temp.zip")
-        # os.system("unzip temp.zip")
-        # os.system("rm temp.zip")
-        # os.system(f"mv /home/{user}/RotorHazard-{server_version} /home/{user}/RotorHazard")
-        # os.system(f"sudo -H pip install -r /home/{user}/RotorHazard/src/server/requirements.txt")
-        # os.system(f"sudo chmod 777 -R /home/{user}/RotorHazard/src/server")
-        # os.chdir(f"/home/{user}")
-        # os.system("sudo git clone https://github.com/jgarff/rpi_ws281x.git")
-        # os.chdir(f"/home/{user}/rpi_ws281x")
-        # os.system("sudo scons")
-        # os.chdir(f"/home/{user}/rpi_ws281x/python")
-        # os.system("sudo python setup.py install")
-        # os.chdir(f"/home/{user}")
-        # os.system("sudo git clone https://github.com/chrisb2/pi_ina219.git")
-        # os.chdir(f"/home/{user}/pi_ina219")
-        # os.system("sudo python setup.py install")
-        # os.chdir(f"/home/{user}")
-        # os.system("sudo git clone https://github.com/rm-hull/bme280.git")
-        # os.chdir(f"/home/{user}/bme280")
-        # os.system("sudo python setup.py install")
-        # config_soft['installation_done'] = 1
-        # json.dump()  # soft config
-        # os.system("sudo apt-get install openjdk-8-jdk-headless -y")
-        # os.system("sudo rm /lib/systemd/system/rotorhazard.service")
-        # os.system("echo ' ' | sudo tee -a /lib/systemd/system/rotorhazard.service")
-        # os.system("echo '[Unit]' | sudo tee -a /lib/systemd/system/rotorhazard.service")
-        # os.system("echo 'Description=RotorHazard Server' | sudo tee -a /lib/systemd/system/rotorhazard.service")
-        # os.system("echo 'After=multi-user.target' | sudo tee -a /lib/systemd/system/rotorhazard.service")
-        # os.system("echo ' ' | sudo tee -a /lib/systemd/system/rotorhazard.service")
-        # os.system("echo '[Service]' | sudo tee -a /lib/systemd/system/rotorhazard.service")
-        # os.system(f"echo 'WorkingDirectory=/home/{user}/RotorHazard/src/server' \
-        # | sudo tee -a /lib/systemd/system/rotorhazard.service")
-        # os.system("echo 'ExecStart=/usr/bin/python server.py' | sudo tee -a /lib/systemd/system/rotorhazard.service")
-        # os.system("echo ' ' | sudo tee -a /lib/systemd/system/rotorhazard.service")
-        # os.system("echo '[Install]' | sudo tee -a /lib/systemd/system/rotorhazard.service")
-        # os.system("echo 'WantedBy=multi-user.target' | sudo tee -a /lib/systemd/system/rotorhazard.service")
-        # os.system("sudo chmod 644 /lib/systemd/system/rotorhazard.service")
-        # os.system("sudo systemctl daemon-reload")
-        # os.system("sudo systemctl enable rotorhazard.service")
         end_installation()
 
 
@@ -269,47 +207,6 @@ def update():
                         """.format(thumbs=3 * emoji.emojize(':thumbs_up:') + str(2 * " "), bold=Bcolors.BOLD_S,
                                    endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S)
             os.system(f"./scripts/update_rh.sh {user} {server_version}")
-            # os.system("sudo -H python -m pip install --upgrade pip")  # todo David - ok? delete if yes
-            # os.system("sudo -H pip install pillow ")
-            # os.system("sudo apt-get install libjpeg-dev ntp -y")
-            # os.system("sudo apt-get update && sudo apt-get upgrade -y")
-            # if not linux_testing:
-            #     os.system("sudo apt dist-upgrade -y")
-            # os.system("sudo apt autoremove -y")
-            # if not os.path.exists(f"/home/{user}/.old_RotorHazard.old"):
-            #     os.system(f"sudo mkdir /home/{user}/.old_RotorHazard.old")
-            # os.system(f"sudo cp -r /home/{user}/RotorHazard-* /home/{user}/.old_RotorHazard.old/ >/dev/null 2>&1")
-            # os.system(f"sudo rm -r /home/{user}/RotorHazard-master >/dev/null 2>&1")  # just in case of weird sys cfg
-            # os.system(f"sudo rm -r /home/{user}/temp.zip >/dev/null 2>&1")  # just in case of weird sys config
-            # if os.path.exists(f"/home/{user}/RotorHazard.old"):
-            #     os.system(f"sudo cp -r /home/{user}/RotorHazard.old /home/{user}/.old_RotorHazard.old/")
-            #     os.system(f"sudo rm -r /home/{user}/RotorHazard.old")
-            # os.system(f"sudo mv /home/{user}/RotorHazard /home/{user}/RotorHazard.old")
-            # os.chdir(f"/home/{user}")
-            # os.system(f"wget https://codeload.github.com/RotorHazard/RotorHazard/zip/{server_version} -O temp.zip")
-            # os.system("unzip temp.zip")
-            # os.system(f"mv /home/{user}/RotorHazard-{server_version} /home/{user}/RotorHazard")
-            # os.system("sudo rm temp.zip")
-            # os.system(f"sudo mkdir /home/{user}/backup_RH_data >/dev/null 2>&1")
-            # os.system(f"sudo chmod 777 -R /home/{user}/RotorHazard/src/server")
-            # os.system(f"sudo chmod 777 -R /home/{user}/RotorHazard.old")
-            # os.system(f"sudo chmod 777 -R /home/{user}/.old_RotorHazard.old")
-            # os.system(f"sudo chmod 777 -R /home/{user}/backup_RH_data")
-            # os.system(f"sudo chmod 777 -R /home/{user}/.ota_markers")
-            # os.system(f"cp /home/{user}/RotorHazard.old/src/server/config.json \
-            # /home/{user}/RotorHazard/src/server/ >/dev/null 2>&1 &")
-            # os.system(f"cp -r /home/{user}/RotorHazard.old/src/server/static/image \
-            # /home/{user}/backup_RH_data")
-            # os.system(f"cp -r /home/{user}/RotorHazard.old/src/server/static/image \
-            # /home/{user}/RotorHazard/src/server/static")
-            # os.system(f"cp /home/{user}/RotorHazard.old/src/server/config.json \
-            # /home/{user}/backup_RH_data >/dev/null 2>&1 &")
-            # os.system(f"cp /home/{user}/RotorHazard.old/src/server/database.db \
-            # /home/{user}/RotorHazard/src/server/ >/dev/null 2>&1 &")
-            # os.system(f"cp /home/{user}/RotorHazard.old/src/server/database.db \
-            # /home/{user}/backup_RH_data >/dev/null 2>&1 &")
-            # os.chdir(f"/home/{user}/RotorHazard/src/server")
-            # os.system("sudo pip install --upgrade --no-cache-dir -r requirements.txt")
             print(update_completed)
             end_update(config_checker()[0], server_version_checker()[0])
 

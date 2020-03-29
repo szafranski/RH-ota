@@ -40,7 +40,7 @@ def read_aliases_file():  # todo - I think you know what I wanted to achieve, am
 
     with open('./.read_aliases.tmp', 'w') as write_obj:
         write_obj.write("".join(aliases_to_show))
-    #os.system('rm .read_aliases.tmp')  # cleanup after myself ;)
+    os.system('rm .read_aliases.tmp')  # cleanup after myself ;)
 
     return aliases_to_show
 
@@ -228,23 +228,24 @@ def aliases_menu(config):
         if selection == 'a':
             return
 
+
 # just for now here - will be deleted if above will work properly
-            # Alias            What it does
-            #
-            # ss        -->    starts the RotorHazard server
-            # cfg       -->    opens RH config.json file
-            # rh        -->    goes to server file directory
-            # py        -->    instead of 'python' - pure laziness
-            # sts       -->    stops RH service if was started
-            # otadir    -->    goes to RH server file directory
-            # ota       -->    opens this software
-            # als       -->    opens the file that contains aliases
-            # rld       -->    reloads aliases file
-            # rcfg      -->    opens raspberry's configuration
-            # gitota    -->    clones OTA repository
-            # otacfg    -->    opens updater conf. file
-            # otacpcfg  -->    copies ota conf. file.
-            # home      -->    go to the home directory (without '~' sign)
+# Alias            What it does
+#
+# ss        -->    starts the RotorHazard server
+# cfg       -->    opens RH config.json file
+# rh        -->    goes to server file directory
+# py        -->    instead of 'python' - pure laziness
+# sts       -->    stops RH service if was started
+# otadir    -->    goes to RH server file directory
+# ota       -->    opens this software
+# als       -->    opens the file that contains aliases
+# rld       -->    reloads aliases file
+# rcfg      -->    opens raspberry's configuration
+# gitota    -->    clones OTA repository
+# otacfg    -->    opens updater conf. file
+# otacpcfg  -->    copies ota conf. file.
+# home      -->    go to the home directory (without '~' sign)
 
 def self_updater(config):
     ota_status = load_ota_config(config.user)
@@ -337,7 +338,8 @@ def first_time():
     def update_notes():
         clear_the_screen()
         os.system("less ./docs/update-notes.txt")  # todo change to pythonic f=open("./docs/update-notes.txt", "r")
-                                                   # or it os ok now?
+        # or it os ok now?
+
     def second_page():
         while True:
             clear_the_screen()
