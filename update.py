@@ -4,7 +4,7 @@ from pathlib import Path
 from time import sleep
 from conf_wizard_ota import conf_ota
 from modules import clear_the_screen, Bcolors, logo_top, image_show, ota_image, load_config, load_ota_config, \
-    write_ota_config, get_ota_version, read_aliases_file
+    write_ota_config, get_ota_version
 
 
 def compatibility():  # adds compatibility and fixes with previous versions
@@ -25,35 +25,28 @@ def log_to_dev(config):
     log_send(config)
 
 
+def read_aliases_file():  # todo - I think you know what I wanted to achieve, am was close!    list -> lines
+    aliases_to_show = []
+    with open('./resources/aliases.txt', 'r') as aliases_file:
+        for line in aliases_file:
+            if 'alias ' in line and '###' not in line:
+                line = line.replace('alias ', '')
+                aliases_to_show.append(line)
+            elif '#' in line and '###' not in line:
+                line = line.replace('#', '')
+                aliases_to_show.append(line)
+            elif '###' not in line:
+                aliases_to_show.append(line)
+
+    with open('./.read_aliases.tmp', 'w') as write_obj:
+        write_obj.write("".join(aliases_to_show))
+    #os.system('rm .read_aliases.tmp')  # cleanup after myself ;)
+
+    return aliases_to_show
+
+
 def log_write(config):
-    os.system(f". ./scripts/log_write.sh {config.user}")  # todo David - ok? delete if yes
-    # os.chdir(f"/home/{config.user}/RH-ota")
-    # os.system("mkdir log_data > /dev/null 2>&1")
-    # os.system("rm log_data/log.txt > /dev/null 2>&1")
-    # os.system("echo >./ log_data / log.txt")
-    # os.system("echo FILE /boot/config.txt | tee -a  ./log_data/log.txt")
-    # os.system("echo -------------------------------------------- | tee -a  ./log_data/log.txt")
-    # os.system("echo | tee -a  ./log_data/log.txt")
-    # os.system("cat /boot/config.txt | tee -a  ./log_data/log.txt")
-    # os.system("echo | tee -a  ./log_data/log.txt")
-    # os.system("echo | tee -a  ./log_data/log.txt")
-    # os.system("echo FILE /boot/cmdline.txt | tee -a  ./log_data/log.txt")
-    # os.system("echo -------------------------------------------- | tee -a  ./log_data/log.txt")
-    # os.system("echo | tee -a  ./log_data/log.txt")
-    # os.system("cat /boot/cmdline.txt | tee -a  ./log_data/log.txt")
-    # os.system("echo | tee -a  ./log_data/log.txt")
-    # os.system("echo FILE updater-config.json | tee -a  ./log_data/log.txt")
-    # os.system("echo -------------------------------------------- | tee -a  ./log_data/log.txt")
-    # os.system("echo | tee -a  ./log_data/log.txt")
-    # os.system("cat ~/RH-ota/updater-config.json | tee -a  ./log_data/log.txt")
-    # os.system("echo | tee -a  ./log_data/log.txt")
-    # os.system("echo FILE ~/.ota_markers/ota_config.txt | tee -a  ./log_data/log.txt")
-    # os.system("echo -------------------------------------------- | tee -a  ./log_data/log.txt")
-    # os.system("echo | tee -a  ./log_data/log.txt")
-    # os.system("cat ~/.ota_markers/ota_config.txt | tee -a ./log_data/log.txt")
-    # os.system("echo | tee -a  ./log_data/log.txt")
-    # print("LOGGING TO FILE - DONE")
-    # sleep(1.5)
+    os.system(f". ./scripts/log_write.sh {config.user}")
 
 
 def log_send(config):
