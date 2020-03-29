@@ -38,10 +38,6 @@ def read_aliases_file():  # todo - I think you know what I wanted to achieve, am
             elif '###' not in line:
                 aliases_to_show.append(line)
 
-    with open('./.read_aliases.tmp', 'w') as write_obj:
-        write_obj.write("".join(aliases_to_show))
-    os.system('rm .read_aliases.tmp')  # cleanup after myself ;)
-
     return aliases_to_show
 
 
@@ -142,7 +138,7 @@ def serial_menu(config):
         # TODO Make this repeatable without adding multiple copies at the end of config.txt.
         os.system("echo 'enable_uart=1'| sudo tee -a /boot/config.txt")
         os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
-        ota_status.serial_added = True
+        ota_status.uart_support_added = True
         write_ota_config(ota_status, config.user)
         print("""
         
@@ -172,7 +168,7 @@ def serial_menu(config):
             """.format(endc=Bcolors.ENDC, yellow=Bcolors.YELLOW)
         selection = input(menu)
         if selection == 'y':
-            if ota_status.serial_added:
+            if ota_status.uart_support_added:
                 print("\n\n\t\tLooks like you already enabled Serial port. \n\t\tDo you want to continue anyway?\n")
                 selection = input(f"\t\t\t{Bcolors.YELLOW}Press 'y' for yes or 'a' for abort{Bcolors.ENDC}\n")
                 if selection == 'y':
@@ -193,7 +189,7 @@ def aliases_menu(config):
     def aliases_content():
         """load ota status, update aliases then write ota_status"""
         os.system("cat ./resources/aliases.txt | tee -a ~/.bashrc")
-        ota_status.aliases = True
+        ota_status.aliases_implemented = True
         write_ota_config(ota_status, config.user)
         print("\n\n\t\t    Aliases added successfully")
         sleep(3)
@@ -216,7 +212,7 @@ def aliases_menu(config):
         print(aliases_description)
         selection = input(f"\n\t\t\t{Bcolors.YELLOW}Press 'y' for yes or 'a' for abort{Bcolors.ENDC}\n")
         if selection == 'y':
-            if ota_status.aliases:
+            if ota_status.aliases_implemented:
                 print("\n\n\t\tLooks like you already have aliases added. \n\t\tDo you want to continue anyway?\n")
                 selection = input(f"\t\t\t{Bcolors.YELLOW}Press 'y' for yes or 'a' for abort{Bcolors.ENDC}\n")
                 if selection == 'y':

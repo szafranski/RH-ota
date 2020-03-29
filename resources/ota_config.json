@@ -1,6 +1,7 @@
 {
     "aliases_implemented": false,
-    "installation_performed": false,
+    "rh_installation_done": false,
     "uart_support_added": false,
-    "was_updated_recently": false
+    "was_updated_recently": false,
+    "updater_planted" : false
 }

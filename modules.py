@@ -125,11 +125,7 @@ def load_ota_config(user):
     if Path(ota_config_file).exists():
         ota_config = load_json(ota_config_file)
     else:
-        ota_config = SimpleNamespace()
-        ota_config.serial_added = False
-        ota_config.aliases = False
-        ota_config.updater_planted = False
-
+        ota_config = load_json(f'/home/{user}/RH-ota/resources/ota_config.json')
     return ota_config
 
 
@@ -143,20 +139,6 @@ def get_ota_version():  # todo is it ok David?
     with open(f'{this_dir}/version.txt', 'r') as open_file:
         version = open_file.readline().strip()
     return version
-
-def read_aliases_file():  # todo - I think you know what I wanted to achieve, am was close!    list -> lines
-    aliases_to_show = []
-    with open('./resources/aliases.txt', 'r') as aliases_file:
-        for line in aliases_file:
-            if 'alias ' in line and '###' not in line:
-                line = line.replace('alias ', '')
-                aliases_to_show.append(line)
-
-    with open('./.read_aliases.tmp', 'w') as write_obj:
-        write_obj.write("".join(aliases_to_show))
-    os.system('rm .read_aliases.tmp')  # cleanup after myself ;)
-
-    return aliases_to_show
 
 def load_config():
     if os.path.exists("./updater-config.json"):
@@ -222,8 +204,6 @@ def load_json(file_name):
 '''
 quick wrapper around write json to normalize our parameters.
 '''
-
-
 def write_json(to_dump, file_name):
     with open(file_name, 'w') as open_file:
         if isinstance(to_dump, SimpleNamespace):
@@ -235,8 +215,6 @@ def write_json(to_dump, file_name):
 '''
  wrapper around copy file to check if exists before copying
 '''
-
-
 def copy_file(src, tgt):
     if os.path.exists(src):
         copyfile(src, tgt)
