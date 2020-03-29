@@ -158,7 +158,6 @@ def read_aliases_file():  # todo - I think you know what I wanted to achieve, am
 
     return aliases_to_show
 
-
 def load_config():
     if os.path.exists("./updater-config.json"):
         config = load_json("./updater-config.json")
