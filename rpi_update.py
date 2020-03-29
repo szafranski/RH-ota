@@ -162,7 +162,7 @@ def installation(conf_allowed):
             print(installation_completed)
         except:  # todo add something
             print("Error occurred. Installation aborted.")
-        # os.system("sudo apt-get update && sudo apt-get upgrade -y")
+        # os.system("sudo apt-get update && sudo apt-get upgrade -y")  # todo David - ok? delete if yes
         # os.system("sudo apt autoremove -y")
         # os.system("sudo apt install wget ntp libjpeg-dev i2c-tools python-dev libffi-dev python-smbus \
         # build-essential python-pip git scons swig zip -y")
@@ -260,8 +260,16 @@ def update():
         else:
             clear_the_screen()
             print(f"\n\t{Bcolors.BOLD}Updating existing installation - please wait...{Bcolors.ENDC} \n")
+            update_completed = """\n\n\t
+                ################################################
+                ##                                            ##
+                ##{bold}{green}Update completed!{thumbs}{endc}##
+                ##                                            ##
+                ################################################
+                        """.format(thumbs=3 * emoji.emojize(':thumbs_up:') + str(2 * " "), bold=Bcolors.BOLD_S,
+                                   endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S)
             os.system(f"./scripts/update_rh.sh {user} {server_version}")
-            # os.system("sudo -H python -m pip install --upgrade pip")
+            # os.system("sudo -H python -m pip install --upgrade pip")  # todo David - ok? delete if yes
             # os.system("sudo -H pip install pillow ")
             # os.system("sudo apt-get install libjpeg-dev ntp -y")
             # os.system("sudo apt-get update && sudo apt-get upgrade -y")
@@ -302,14 +310,7 @@ def update():
             # /home/{user}/backup_RH_data >/dev/null 2>&1 &")
             # os.chdir(f"/home/{user}/RotorHazard/src/server")
             # os.system("sudo pip install --upgrade --no-cache-dir -r requirements.txt")
-            print("""\n\n\t
-                ################################################
-                ##                                            ##
-                ##{bold}{green}Update completed!{thumbs}{endc}##
-                ##                                            ##
-                ################################################
-                        """.format(thumbs=3*emoji.emojize(':thumbs_up:') + str(2*" "), bold=Bcolors.BOLD_S,
-                                   endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S))
+            print(update_completed)
             end_update(config_checker()[0], server_version_checker()[0])
 
 

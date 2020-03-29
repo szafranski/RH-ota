@@ -4,7 +4,7 @@ from pathlib import Path
 # part of action is done in script - has to be ported
 
 
-def aliases_clean(start, end, file_name, *words):
+def aliases_clean(start, end, file_name, *words):  # todo David explain me how this works "*words"
     write_lines = []
     skipping = False
     with open(file_name, 'r') as read_obj:

@@ -6,7 +6,7 @@ import platform
 import sys
 import json
 import time
-import requests
+import requests  # todo David - no module error
 from types import SimpleNamespace as Namespace, SimpleNamespace
 
 
@@ -148,7 +148,7 @@ def get_ota_version():  # todo is it ok David?
     #             version = line.strip().split('=')[1].strip(' \'')
     #             break
     f = open('./version.txt', 'r')
-    version = (f.readline().replace('\n', ''))
+    version = (f.readline().replace('\n', '')).strip()  # always returns ONLY the version number
 
     return version
 

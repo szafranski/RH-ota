@@ -45,23 +45,22 @@ def calculate_checksum(data):
     checksum = sum(data) & 0xFF
     return checksum
 
+def nodes_addresses()
+    '''nodes I2C adresses'''
+    #  node     hex     RH
+    node1addr = 0x08  # 8
+    node2addr = 0x0a  # 10
+    node3addr = 0x0c  # 12
+    node4addr = 0x0e  # 14
+    node5addr = 0x10  # 16
+    node6addr = 0x12  # 18
+    node7addr = 0x14  # 20
+    node8addr = 0x16  # 22
 
-'''nodes I2C adresses'''
+    addr_list_int = [node1addr, node2addr, node3addr, node4addr,
+                     node5addr, node6addr, node7addr, node8addr]
 
-#  node     hex     RH
-node1addr = 0x08  # 8
-node2addr = 0x0a  # 10
-node3addr = 0x0c  # 12
-node4addr = 0x0e  # 14
-node5addr = 0x10  # 16
-node6addr = 0x12  # 18
-node7addr = 0x14  # 20
-node8addr = 0x16  # 22
-
-addr_list_int = [node1addr, node2addr, node3addr, node4addr,
-                 node5addr, node6addr, node7addr, node8addr]
-
-addr_list = [str(item) for item in addr_list_int]
+    addr_list = [str(item) for item in addr_list_int]
 
 
 def disable_serial_on_the_node(addr, reset_data):

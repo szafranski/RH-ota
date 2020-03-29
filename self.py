@@ -41,7 +41,7 @@ def self_update(config):
         os.system("sudo chmod -R 777 ~/RH-ota/*.sh > /dev/null 2>&1")  # only make the shell scripts executable.
         if new_version_name != old_version_name:
             os.system("echo OTA was updated > ~/.ota_markers/.was_updated")
-            # todo change to read json "was_updated"
+            # todo change to read json "was_updated" etc
 
 
 def main():

@@ -2,7 +2,6 @@ import os
 import sys
 from pathlib import Path
 from time import sleep
-
 from conf_wizard_ota import conf_ota
 from modules import clear_the_screen, Bcolors, logo_top, image_show, ota_image, load_config, load_ota_config, \
     write_ota_config, get_ota_version
@@ -27,7 +26,7 @@ def log_to_dev(config):
 
 
 def log_write(config):
-    os.system(f". ./scripts/log_write.sh {config.user}")  # todo David - ok?
+    os.system(f". ./scripts/log_write.sh {config.user}")  # todo David - ok? delete if yes
     # os.chdir(f"/home/{config.user}/RH-ota")
     # os.system("mkdir log_data > /dev/null 2>&1")
     # os.system("rm log_data/log.txt > /dev/null 2>&1")
@@ -467,7 +466,7 @@ def main_menu(config):
             # os.system("python3 ./rpi_update.py")  # opens raspberry updating file
         if selection == '2':
             print("todo: call node_update")
-            # nodes_update(config) #TODO modulalize node-update
+            # nodes_update(config) #TODO modulalize node-update (i2c_ !)
             # os.system("python3 ./nodes_update.py")  # opens nodes updating file
         if selection == '3':
             clear_the_screen()
