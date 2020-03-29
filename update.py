@@ -27,33 +27,34 @@ def log_to_dev(config):
 
 
 def log_write(config):
-    os.chdir(f"/home/{config.user}/RH-ota")
-    os.system("mkdir log_data > /dev/null 2>&1")
-    os.system("rm log_data/log.txt > /dev/null 2>&1")
-    os.system("echo >./ log_data / log.txt")
-    os.system("echo FILE /boot/config.txt | tee -a  ./log_data/log.txt")
-    os.system("echo -------------------------------------------- | tee -a  ./log_data/log.txt")
-    os.system("echo | tee -a  ./log_data/log.txt")
-    os.system("cat /boot/config.txt | tee -a  ./log_data/log.txt")
-    os.system("echo | tee -a  ./log_data/log.txt")
-    os.system("echo | tee -a  ./log_data/log.txt")
-    os.system("echo FILE /boot/cmdline.txt | tee -a  ./log_data/log.txt")
-    os.system("echo -------------------------------------------- | tee -a  ./log_data/log.txt")
-    os.system("echo | tee -a  ./log_data/log.txt")
-    os.system("cat /boot/cmdline.txt | tee -a  ./log_data/log.txt")
-    os.system("echo | tee -a  ./log_data/log.txt")
-    os.system("echo FILE updater-config.json | tee -a  ./log_data/log.txt")
-    os.system("echo -------------------------------------------- | tee -a  ./log_data/log.txt")
-    os.system("echo | tee -a  ./log_data/log.txt")
-    os.system("cat ~/RH-ota/updater-config.json | tee -a  ./log_data/log.txt")
-    os.system("echo | tee -a  ./log_data/log.txt")
-    os.system("echo FILE ~/.ota_markers/ota_config.txt | tee -a  ./log_data/log.txt")
-    os.system("echo -------------------------------------------- | tee -a  ./log_data/log.txt")
-    os.system("echo | tee -a  ./log_data/log.txt")
-    os.system("cat ~/.ota_markers/ota_config.txt | tee -a ./log_data/log.txt")
-    os.system("echo | tee -a  ./log_data/log.txt")
-    print("LOGGING TO FILE - DONE")
-    sleep(1.5)
+    os.system(f". ./scripts/log_write.sh {config.user}")  # todo David - ok?
+    # os.chdir(f"/home/{config.user}/RH-ota")
+    # os.system("mkdir log_data > /dev/null 2>&1")
+    # os.system("rm log_data/log.txt > /dev/null 2>&1")
+    # os.system("echo >./ log_data / log.txt")
+    # os.system("echo FILE /boot/config.txt | tee -a  ./log_data/log.txt")
+    # os.system("echo -------------------------------------------- | tee -a  ./log_data/log.txt")
+    # os.system("echo | tee -a  ./log_data/log.txt")
+    # os.system("cat /boot/config.txt | tee -a  ./log_data/log.txt")
+    # os.system("echo | tee -a  ./log_data/log.txt")
+    # os.system("echo | tee -a  ./log_data/log.txt")
+    # os.system("echo FILE /boot/cmdline.txt | tee -a  ./log_data/log.txt")
+    # os.system("echo -------------------------------------------- | tee -a  ./log_data/log.txt")
+    # os.system("echo | tee -a  ./log_data/log.txt")
+    # os.system("cat /boot/cmdline.txt | tee -a  ./log_data/log.txt")
+    # os.system("echo | tee -a  ./log_data/log.txt")
+    # os.system("echo FILE updater-config.json | tee -a  ./log_data/log.txt")
+    # os.system("echo -------------------------------------------- | tee -a  ./log_data/log.txt")
+    # os.system("echo | tee -a  ./log_data/log.txt")
+    # os.system("cat ~/RH-ota/updater-config.json | tee -a  ./log_data/log.txt")
+    # os.system("echo | tee -a  ./log_data/log.txt")
+    # os.system("echo FILE ~/.ota_markers/ota_config.txt | tee -a  ./log_data/log.txt")
+    # os.system("echo -------------------------------------------- | tee -a  ./log_data/log.txt")
+    # os.system("echo | tee -a  ./log_data/log.txt")
+    # os.system("cat ~/.ota_markers/ota_config.txt | tee -a ./log_data/log.txt")
+    # os.system("echo | tee -a  ./log_data/log.txt")
+    # print("LOGGING TO FILE - DONE")
+    # sleep(1.5)
 
 
 def log_send(config):
@@ -61,24 +62,14 @@ def log_send(config):
         selection = input("\n\n\tDo you want to send a log file for a review to the developer? [y/n] ")
         if selection == 'y' or selection == 'yes':
             log_name = input("\n\tPlease enter your name so we know who sent a log file: ")
-            print("\n\tPlease wait, file is being uploaded...\n")
-            os.system("rm ./log_data/log_name.txt > /dev/null 2>&1")
-            os.system("rm ./log_data/log_code.txt > /dev/null 2>&1")
-            os.system(f"echo {log_name} > ./log_data/log_name.txt")
-            os.system(f"curl --upload-file ./log_data/log.txt https://transfer.sh/{log_name}_log.txt \
-                 | tee -a ./log_data/log_code.txt")
-            print("\n")
-            os.system("sed -i 's/https:\/\/transfer.sh\///g' ./log_data/log_code.txt")
-            os.system(f"sed -i 's/\/{log_name}_log.txt//g' ./log_data/log_code.txt")
-            print("\n___________________________\n")
-            print("\nTell your favourite developer those:\n")
-            print(f"User name: {log_name}")
+            os.system(f". ./scripts/log_send.sh {config.user} {log_name}")
             f = open("./log_data/log_code.txt", "r")
             code = ''
             for line in f:
                 code = line
-            print(f"\nUser code: {code}")
-            print("\n___________________________\n")
+            print(f"""\n
+                User code: {code}\n
+            ___________________________\n""")
             input("\n\nHit 'Enter' to continue\n\n")
             if not os.system("cowsay You are awesome! Fly safe."):
                 sleep(3)
@@ -209,8 +200,7 @@ def aliases_menu(config):
     def aliases_content():
         '''load ota status, update aliases then write ota_status'''
         os.system("cat ./resources/aliases.txt | tee -a ~/.bashrc")
-        ota_status.aliases_1 = True
-        ota_status.aliases_2 = True
+        ota_status.aliases = True
         write_ota_config(ota_status, config.user)
         print("\n\n\t\t    Aliases added successfully")
         sleep(3)
