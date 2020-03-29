@@ -107,6 +107,25 @@ Default values are not automatically applied. Type them if needed.\n""")
                 break
 
         while True:
+            bool_gpio_reset_pin = input("\nWill you use odd number of nodes? [ yes/no | default: no ]\t\t")
+            bool_gpio_reset_pin_allowed_values = ['yes', 'no', '0', '1', 'y', 'n']
+            if bool_gpio_reset_pin not in bool_gpio_reset_pin_allowed_values:
+                print("\nPlease enter correct value!")
+            else:
+                if bool_gpio_reset_pin in ['yes', '1', 'y']:
+                    while True:
+                        gpio_reset_pin = input("\nWhat pin will be used as GPIO reset? [ default (PCB): 17 ]\t\t")
+                        if int(gpio_reset_pin) > 40:
+                            print("\nPlease enter correct value!")
+                        else:
+                            config.gpio_reset = int(gpio_reset_pin)
+                            break
+                else:
+                    gpio_reset_pin = False
+                config.gpio_reset_pin = gpio_reset_pin
+                break  # todo - it works but weird configuration in json occures - see GH issue
+
+        while True:
             pi_4_owner = input("\nAre you using Raspberry Pi 4? [yes/no | default: no]\t\t\t")
             pi_4_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']
             if pi_4_owner not in pi_4_allowed_values:
@@ -145,6 +164,7 @@ Default values are not automatically applied. Type them if needed.\n""")
         Debug mode:             {config.debug_mode}    
         Pins assignment:        {config.pins_assignment}
         Updates without PDF:    {config.updates_without_pdf}
+        GPIO reset pin:         {config.gpio_reset}
         Pi 4 user:              {config.pi_4_cfg}
         Beta tester:            {config.beta_tester}
          

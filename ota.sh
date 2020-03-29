@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo installing dependencies needs sudo
+
 which python3 >/dev/null
 if [ $? -gt 0 ]; then
   echo python3 has to be installed && sudo apt install python3
@@ -47,6 +49,12 @@ if grep -q 'python3-gpiozero' aptinstalled.tmp; then
   echo python3-gpiozero '\t' found
 else
   echo echo python3-gpiozero has to be installed && sudo apt install python3-gpiozero
+fi
+
+if grep -q 'python3-requests' aptinstalled.tmp; then
+  echo python3-dev '\t' found
+else
+  echo echo python3-requests has to be installed && sudo apt install python3-requests
 fi
 
 if grep -q 'python3-dev' aptinstalled.tmp; then

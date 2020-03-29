@@ -2,32 +2,31 @@ from time import sleep
 import os
 import sys
 from modules import clear_the_screen, Bcolors, logo_top
-from conf_wizard_ota import conf_ota  # todo why greyed?
+from conf_wizard_ota import conf_ota
+error_msg = "SMBus(1) - error\nI2C communication doesn't work properly"
+err_time = 1
+try:
+    from smbus import SMBus
+    bus = SMBus(1)  # indicates /dev/ic2-1
+    return bus
+except PermissionError as perm_error:
+    print(error_msg)
+    print(perm_error)
+    sleep(err_time)
+except NameError as name_error:
+    print(error_msg)
+    print(name_error)
+    sleep(err_time)
 
-# try:
-#     from smbus import SMBus
-# except ModuleNotFoundError as module_err:
-#     print(module_err)
-#     print("For flashing purposes you have to use smbus module")
-#     sleep(2)
-
-
-def smbus_import():
-    error_msg = "SMBus(1) - error\nI2C communication doesn't work properly"
-    err_time = 1
-    try:
-        from smbus import SMBus
-        bus = SMBus(1)  # indicates /dev/ic2-1
-        return bus
-    except PermissionError as perm_error:
-        sleep(err_time)
-        print(error_msg)
-        print(perm_error)
-    except NameError as name_error:
-        sleep(err_time)
-        print(error_msg)
-        print(name_error)
-
+try:
+    import RPi.GPIO as GPIO
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
+    GPIO.setup(gpio_reset_pin, GPIO.OUT, initial=GPIO.HIGH)
+    # ensures nothing is being reset during program's start
+except ModuleNotFoundError:
+    print("GPIO import - failed")
+    sleep(2)
 
 def i2c_data():
     sleep_amt = 1
@@ -62,23 +61,23 @@ def nodes_addresses():
 
     addr_list_hex = [hex(item) for item in addr_list_int]
 
-    addr_list = (str(item) for item in addr_list_hex)  # return addresses list as a tuple
+    addr_list = (str(item) for item in addr_list_hex)
 
     return addr_list
 
 
-def reset_mate_node(smbus_import()):
-    sleepAmt = 1
+def reset_mate_node():
+    sleep_amt = 1
     on.append(calculate_checksum(on))
     off.append(calculate_checksum(off))
-    sleep(sleepAmt)
+    sleep(sleep_amt)
     bus.write_i2c_block_data(addr, reset_mate_node_command, on)
     print("on sent")
-    sleep(sleepAmt)
+    sleep(sleep_amt)
     bus.write_i2c_block_data(addr, reset_mate_node_command, off)
     print("off sent")
     print("node reset in progress")
-    sleep(sleepAmt)
+    sleep(sleep_amt)
     bus.write_i2c_block_data(addr, reset_mate_node_command, on)
     print("on sent")
     sleep(0.2)
@@ -94,19 +93,6 @@ def flash_firmware(config):
     flash:w:/home/{config.user}/RH-ota/firmware/{config.firmware_version}/node_0.hex:i")
 
 
-gpio_reset_pin = 12  # todo should be moved to updater_config.json and added to wizard
-
-try:
-    import RPi.GPIO as GPIO
-    GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
-    GPIO.setup(gpio_reset_pin, GPIO.OUT, initial=GPIO.HIGH)
-    # ensures nothing is being reset during program's start
-except ModuleNotFoundError:
-    print("GPIO import - failed")
-    sleep(2)
-
-
 def logo_update(nodes_number):
     print("""
     #######################################################################
@@ -119,12 +105,12 @@ def logo_update(nodes_number):
     """.format(nodes_number=nodes_number, bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, s=10 * ' '))
 
 
-def disable_serial_on_the_node(addr, *i2c_data):
-    data.append(calculate_checksum(reset_data))
+def disable_serial_on_the_node(addr, disable_serial_data, disable_serial_on_the_node_command):
+    disable_serial_data.append(calculate_checksum(disable_serial_data))
     bus.write_i2c_block_data(addr, disable_serial_on_the_node_command, disable_serial_data)
 
 
-def disable_serial_on_all_nodes(nodes_number):
+def disable_serial_on_all_nodes(nodes_number, disable_serial_on_the_node_command):
     for i in range(1, nodes_number):
         bus.write_byte(nodes_addresses()[i], disable_serial_on_the_node_command)
 
