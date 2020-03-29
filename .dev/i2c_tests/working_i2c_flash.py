@@ -45,7 +45,8 @@ def flash_mate_node():
     bus.write_i2c_block_data(addr, reset_mate_node, on)
     print("on sent")
     sleep(0.2)
-    avrdude_content = "avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/pi/RH-ota/firmware/blink.hex:i"
+    avrdude_content = "avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
+    flash:w:/home/pi/RH-ota/firmware/blink.hex:i"
     os.system(f"{avrdude_content}")
 
 

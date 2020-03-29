@@ -65,6 +65,7 @@ def config_checker():
         config_flag = False
     return config_flag, config_soft
 
+
 def end_update(conf_flag, serv_installed_flag):
     print("\n\n")
     if not conf_flag and serv_installed_flag:
@@ -147,7 +148,7 @@ def installation(conf_allowed):
 
         After rebooting please check by typing 'sudo raspi-config' 
         if I2C, SPI and SSH protocols are active.
-                    """.format(thumbs=3 * emoji.emojize(':thumbs_up:') + 2 * " ", bold=Bcolors.BOLD_S,
+                    """.format(thumbs=3 * emoji.emojize(':thumbs_up:') + str(2 * " "), bold=Bcolors.BOLD_S,
                                endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S)
         try:
             os.system(f"./scripts/install_rh.sh {user} {server_version}")
@@ -159,7 +160,7 @@ def installation(conf_allowed):
             config_soft['installation_performed'] = true  # todo change to this json something
             json.dump()  # sys_config_etc
             print(installation_completed)
-        except:
+        except:  # todo add something
             print("Error occurred. Installation aborted.")
         # os.system("sudo apt-get update && sudo apt-get upgrade -y")
         # os.system("sudo apt autoremove -y")
@@ -307,7 +308,7 @@ def update():
                 ##{bold}{green}Update completed!{thumbs}{endc}##
                 ##                                            ##
                 ################################################
-                        """.format(thumbs=3*emoji.emojize(':thumbs_up:') + 2*" ", bold=Bcolors.BOLD_S,
+                        """.format(thumbs=3*emoji.emojize(':thumbs_up:') + str(2*" "), bold=Bcolors.BOLD_S,
                                    endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S))
             end_update(config_checker()[0], server_version_checker()[0])
 

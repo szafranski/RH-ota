@@ -445,9 +445,8 @@ def flash_all_blink():
         return
 
 
-def flash_each_node():
-    def node_x_menu():
-        global sel_node
+def flash_each_node(sel_node):
+    def node_x_menu(sel_node):
         print(f"""
         {Bcolors.BOLD}\n\t\t\tNode {str(sel_node)}  selected{Bcolors.ENDC}
                 Choose flashing type:\n{Bcolors.ENDC}
@@ -463,7 +462,7 @@ def flash_each_node():
                 os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
                 flash:w:/home/{user}/RH-ota/firmware/obsolete/{firmware_version}/node_" + str(sel_node) + ".hex:i ")
             else:
-                print(f"\t\t\t/home/{user}/RH-ota/firmware/obsolete/{firmware_version}/node_" + str(sel_node) + ".hex:i ")
+                print(f"\t\t\t/home/{user}/RH-ota/firmware/obsolete/{firmware_version}/node_{str(sel_node)}.hex:i ")
             print(f"{Bcolors.BOLD}\n\t Node {str(sel_node)} flashed\n{Bcolors.ENDC}")
             sleep(1.5)
             return
@@ -492,8 +491,7 @@ def flash_each_node():
         else:
             node_x_menu()
 
-    def node_menu():
-        global sel_node
+    def node_menu(sel_node):
         clear_the_screen()
         logo_top(linux_testing)
         sleep(0.05)

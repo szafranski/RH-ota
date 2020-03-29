@@ -146,8 +146,9 @@ def avr_dude(config):
 
 def serial_menu(config):
     ota_status = load_ota_config(config.user)
+
     def serial_content():
-        #TODO Make this repeatable without adding multiple copies at the end of config.txt.
+        # TODO Make this repeatable without adding multiple copies at the end of config.txt.
         os.system("echo 'enable_uart=1'| sudo tee -a /boot/config.txt")
         os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
         ota_status.serial_added = True
@@ -180,7 +181,7 @@ def serial_menu(config):
             """.format(endc=Bcolors.ENDC, yellow=Bcolors.YELLOW)
         selection = input(menu)
         if selection == 'y':
-            if ota_status.serial_added :
+            if ota_status.serial_added:
                 print("\n\n\t\tLooks like you already enabled Serial port. \n\t\tDo you want to continue anyway?\n")
                 selection = input(f"\t\t\t{Bcolors.YELLOW}Press 'y' for yes or 'a' for abort{Bcolors.ENDC}\n")
                 if selection == 'y':
@@ -197,8 +198,9 @@ def serial_menu(config):
 
 def aliases_menu(config):
     ota_status = load_ota_config(config.user)
+
     def aliases_content():
-        '''load ota status, update aliases then write ota_status'''
+        """load ota status, update aliases then write ota_status"""
         os.system("cat ./resources/aliases.txt | tee -a ~/.bashrc")
         ota_status.aliases = True
         write_ota_config(ota_status, config.user)
@@ -254,6 +256,7 @@ def aliases_menu(config):
 
 def self_updater(config):
     ota_status = load_ota_config(config.user)
+
     def add_updater():
         clear_the_screen()
         logo_top(config.debug_mode)
@@ -297,6 +300,7 @@ def self_updater(config):
         if selection == 'u':
             os.system(". ./scripts/updater_from_ota.sh")
 
+
 def features_menu(config):
     while True:
         clear_the_screen()
@@ -331,12 +335,11 @@ def features_menu(config):
             os.system("pinout")
             input("\nDone? Hit 'Enter'\n")
         if selection == '4':
-            aliases_menu( config)
+            aliases_menu(config)
         if selection == '5':
-            self_updater( config)
+            self_updater(config)
         if selection == 'e':
             break
-
 
 
 def first_time(config):
@@ -372,12 +375,11 @@ def first_time(config):
                 {Bcolors.YELLOW}\t'b' - back to menu{Bcolors.ENDC}\n\n")
             selection = input()
             if selection == 'f':
-                return False #go back to first page
+                return False  # go back to first page
             if selection == 'b':
-                return True #go back to main menu
+                return True  # go back to main menu
             if selection == 'u':
                 update_notes()
-
 
     def first_page():
         while True:
@@ -411,7 +413,7 @@ def first_time(config):
             selection = input()
             if selection == 's':
                 go_back_again = second_page()
-                if go_back_again: #user wants to go back to main menu.
+                if go_back_again:  # user wants to go back to main menu.
                     break
             if selection == 'u':
                 update_notes()
@@ -431,7 +433,7 @@ def end():
     sys.exit()
 
 
-def main_menu( config):
+def main_menu(config):
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
