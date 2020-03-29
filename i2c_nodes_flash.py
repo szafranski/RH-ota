@@ -1,79 +1,74 @@
 from time import sleep
 import os
 import sys
-import json
 from modules import clear_the_screen, Bcolors, logo_top
-try:
-    from smbus import SMBus
-except ModuleNotFoundError as module_err:
-    print(module_err)
-    print("For flashing purposes you have to use smbus module")
-    sleep(2)
+from conf_wizard_ota import conf_ota  # todo why greyed?
 
-# from modules import RH_version  # invalid syntax for some reason
-# todo cannot find reference for RH_version error shows
+# try:
+#     from smbus import SMBus
+# except ModuleNotFoundError as module_err:
+#     print(module_err)
+#     print("For flashing purposes you have to use smbus module")
+#     sleep(2)
 
-RH_version = 'master'
 
-firmware_version = RH_version
+def smbus_import():
+    error_msg = "SMBus(1) - error\nI2C communication doesn't work properly"
+    err_time = 1
+    try:
+        from smbus import SMBus
+        bus = SMBus(1)  # indicates /dev/ic2-1
+        return bus
+    except PermissionError as perm_error:
+        sleep(err_time)
+        print(error_msg)
+        print(perm_error)
+    except NameError as name_error:
+        sleep(err_time)
+        print(error_msg)
+        print(name_error)
 
-i2c_error_msg = "\nI2C communication doesn't work properly"
-err_time = 1
 
-try:
-    bus = SMBus(1)  # indicates /dev/ic2-1
-except PermissionError:
-    print('SMBus(1) - error')
-    print(i2c_error_msg)
-    sleep(err_time)
-except NameError as name_error:
-    print('SMBus(1) - error')
-    print(name_error)
-    print(i2c_error_msg)
+def i2c_data():
+    sleep_amt = 1
+    disable_serial_data = [0]
+    on = [1]
+    off = [0]
+    reset_mate_node_command = 0x79
+    disable_serial_on_the_node_command = 0x80
 
-sleepAmt = 1
-
-reset_data = [0]
-on = [1]
-off = [0]
-
-reset_mate_node_command = 0x79
-disable_serial_on_the_node_command = 0x80
+    return sleep_amt, disable_serial_data, on, off, reset_mate_node_command, disable_serial_on_the_node_command
 
 
 def calculate_checksum(data):
     checksum = sum(data) & 0xFF
     return checksum
 
-def nodes_addresses()
-    '''nodes I2C adresses'''
-    #  node     hex     RH
-    node1addr = 0x08  # 8
-    node2addr = 0x0a  # 10
-    node3addr = 0x0c  # 12
-    node4addr = 0x0e  # 14
-    node5addr = 0x10  # 16
-    node6addr = 0x12  # 18
-    node7addr = 0x14  # 20
-    node8addr = 0x16  # 22
+
+def nodes_addresses():
+    """nodes I2C adresses - below: conversion to hex numbers required by SMBus module"""
+    #  node    addr
+    node1addr = 8
+    node2addr = 10
+    node3addr = 12
+    node4addr = 14
+    node5addr = 16
+    node6addr = 18
+    node7addr = 20
+    node8addr = 22
 
     addr_list_int = [node1addr, node2addr, node3addr, node4addr,
                      node5addr, node6addr, node7addr, node8addr]
 
-    addr_list = [str(item) for item in addr_list_int]
+    addr_list_hex = [hex(item) for item in addr_list_int]
+
+    addr_list = (str(item) for item in addr_list_hex)  # return addresses list as a tuple
+
+    return addr_list
 
 
-def disable_serial_on_the_node(addr, reset_data):
-    data.append(calculate_checksum(reset_data))
-    bus.write_i2c_block_data(addr, disable_serial_on_the_node_command, reset_data)
-
-
-def disable_serial_on_all_nodes(addr):
-    disable_serial_on_the_node()
-    bus.write_i2c_block_data(addr, disable_serial_on_the_node, [])
-
-
-def reset_mate_node():
+def reset_mate_node(smbus_import()):
+    sleepAmt = 1
     on.append(calculate_checksum(on))
     off.append(calculate_checksum(off))
     sleep(sleepAmt)
@@ -89,44 +84,24 @@ def reset_mate_node():
     sleep(0.2)
 
 
-def flash_blink(user):
+def flash_blink(config):
     os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-    flash:w:/home/{user}/RH-ota/firmware/blink.hex:i")
+    flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i")
 
 
-def flash_firmware(user, firmware_version):
+def flash_firmware(config):
     os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-    flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/node_0.hex:i")
+    flash:w:/home/{config.user}/RH-ota/firmware/{config.firmware_version}/node_0.hex:i")
 
 
-if os.path.exists("./updater-config.json"):
-    with open('updater-config.json') as config_file:
-        data = json.load(config_file)
-else:
-    with open('distr-updater-config.json') as config_file:
-        data = json.load(config_file)
-
-nodes_number = data['nodes_number']
-
-if data['debug_mode']:
-    linux_testing = True
-else:
-    linux_testing = False
-
-if linux_testing:
-    user = data['debug_user']
-else:
-    user = data['pi_user']
-
-gpio_reset_pin = 12
+gpio_reset_pin = 12  # todo should be moved to updater_config.json and added to wizard
 
 try:
     import RPi.GPIO as GPIO
-
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
     GPIO.setup(gpio_reset_pin, GPIO.OUT, initial=GPIO.HIGH)
-    # ensures nothing is being reset during program start
+    # ensures nothing is being reset during program's start
 except ModuleNotFoundError:
     print("GPIO import - failed")
     sleep(2)
@@ -144,12 +119,17 @@ def logo_update(nodes_number):
     """.format(nodes_number=nodes_number, bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, s=10 * ' '))
 
 
-if not linux_testing:
-    def disable_serial_on_all_nodes(nodes_number):
-        for i in range(1, nodes_number):
-            bus.write_byte(addr_list[i], disable_serial_on_the_node_command)
+def disable_serial_on_the_node(addr, *i2c_data):
+    data.append(calculate_checksum(reset_data))
+    bus.write_i2c_block_data(addr, disable_serial_on_the_node_command, disable_serial_data)
 
-'''commands needed for interacion with nodes using GPIO pins '''
+
+def disable_serial_on_all_nodes(nodes_number):
+    for i in range(1, nodes_number):
+        bus.write_byte(nodes_addresses()[i], disable_serial_on_the_node_command)
+
+
+'''commands needed for interaction with nodes using GPIO pins '''
 
 
 def gpio_reset_pin_low(gpio_reset_pin):
@@ -168,22 +148,24 @@ def reset_gpio_pin():
     gpio_reset_pin_high()
 
 
-def reset_mate_node(addr):
-    on.append(calculate_checksum(on))
+def reset_mate_node(i2c_data, addr):
+    on, off, sleep_amt, reset = i2c_data()
+    on.append(calculate_checksum(on))  # todo it should use values from i2c_data() - error :(
     off.append(calculate_checksum(off))
-    sleep(sleepAmt)
+    sleep(sleep_amt)
     bus.write_i2c_block_data(addr, reset_mate_node, on)
     print("pin at default state - sent\n")
-    sleep(sleepAmt)
+    sleep(sleep_amt)
     bus.write_i2c_block_data(addr, reset_mate_node, off)
     print("RESET command - sent")
-    sleep(sleepAmt)
+    sleep(sleep_amt)
     bus.write_i2c_block_data(addr, reset_mate_node, on)
     print("pin at default state - sent\n")
     sleep(0.2)
 
 
-def flash_firmware_onto_all_nodes_with_auto_addr():
+def flash_firmware_onto_all_nodes_with_auto_addr(user, nodes_number):
+    i = 1
     for i in range(1, nodes_number):
         disable_serial_on_all_nodes()
         reset_mate_node()
@@ -195,22 +177,23 @@ def flash_firmware_onto_all_nodes_with_auto_addr():
     sleep(1)
 
 
-def flash_blink_onto_all_gnd_nodes():
+def flash_blink_onto_all_gnd_nodes(config, nodes_number):
+    i = 1
     for i in range(1, nodes_number):
         disable_serial_on_all_nodes()
         reset_mate_node()
-        os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{user}\
+        os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{config.user}\
         /RH-ota/firmware/{firmware_version}/blink.hex:i")
         print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-        flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/blink.hex:i ")
+        flash:w:/home/{config.user}/RH-ota/firmware/{config.firmware_version}/blink.hex:i ")
     print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {i} - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
 
 
 def flash_nodes_individually():
-    def node_selection_menu():
+    def node_selection_menu(config):
         clear_the_screen()
-        logo_top(linux_testing)
+        logo_top(config.linux_testing)
         sleep(0.05)
         flash_node_menu = """
                             {red}{bold}NODES MENU{endc}
@@ -273,13 +256,13 @@ def flash_nodes_individually():
 
 def first_flashing(nodes_num):
 
-    def flash(port):
+    def flash(config, port):
         for i in range(nodes_num):
             input("Hit any key and push reset key of next node after 1 second")
             sleep(0.2)
             disable_serial_on_all_nodes()
             os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/tty{port} -b 57600 -U \
-                    flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/node_0.hex:i")
+                    flash:w:/home/{config.user}/RH-ota/firmware/{config.firmware_version}/node_0.hex:i")
 
     while True:
         port_sel = input("UART or USB flashing [default: UART]")
@@ -309,7 +292,7 @@ def connection_test(nodes_num):
         sleep(0.2)
 
 
-def main():
+def fashing_menu(config):
     clear_the_screen()
     logo_top(linux_testing)
     sleep(0.05)
@@ -335,13 +318,13 @@ def main():
     sleep(0.1)
     selection = input()
     if selection == '1':
-        flash_firmware_onto_all_gnd_nodes()
+        flash_firmware_onto_all_nodes_with_auto_addr()
         logo_update()
     if selection == '2':
         flash_nodes_individually()
         logo_update()
     if selection == '3':
-        first_flashing(nodes_number)
+        first_flashing(config.nodes_number)
         logo_update()
     if selection == '4':
         logo_top()
@@ -353,7 +336,11 @@ def main():
     if selection == 'e':
         sys.exit()
     else:
-        main()
+        break
+
+
+def main():
+    fashing_menu()
 
 
 if __name__ == "__main__":
