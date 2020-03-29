@@ -4,7 +4,7 @@ from pathlib import Path
 from time import sleep
 from conf_wizard_ota import conf_ota
 from modules import clear_the_screen, Bcolors, logo_top, image_show, ota_image, load_config, load_ota_config, \
-    write_ota_config, get_ota_version
+    write_ota_config, get_ota_version, read_aliases_file
 
 
 def compatibility():  # adds compatibility and fixes with previous versions
@@ -208,39 +208,23 @@ def aliases_menu(config):
         return
 
     while True:
-        clear_the_screen()
-        aliases = """
+        clear_the_screen()  # todo change those lines below to read aliases.txt file - always the same and better code
+        aliases_description = f""" 
         Aliases in Linux act like shortcuts or references to another commands. 
         You can use them every time when you operates in the terminal window. 
         For example instead of typing 'python ~/RotorHazard/src/server/server.py' 
         you can just type 'ss' (server start) etc. Aliases can be modified and added 
         anytime you want. You just have to open '~./bashrc' file in text editor 
         - like 'nano'. After that you have reboot or type 'source ~/.bashrc'. 
-        
-        {bold}
-            Alias            What it does    
-            
-            ss        -->    starts the RotorHazard server
-            cfg       -->    opens RH config.json file
-            rh        -->    goes to server file directory
-            py        -->    instead of 'python' - pure laziness
-            sts       -->    stops RH service if was started
-            otadir    -->    goes to RH server file directory
-            ota       -->    opens this software
-            als       -->    opens the file that contains aliases
-            rld       -->    reloads aliases file 
-            rcfg      -->    opens raspberry's configuration 
-            gitota    -->    clones OTA repository
-            otacfg    -->    opens updater conf. file
-            otacpcfg  -->    copies ota conf. file.
-            home      -->    go to the home directory (without '~' sign)\n
-                            {endc}
+        {Bcolors.BOLD}
+        {read_aliases_file()}
+        {Bcolors.ENDC}
             Do you want to use above aliases in your system?
-            Reboot should be performed after adding those""".format(bold=Bcolors.BOLD, endc=Bcolors.ENDC)
-        print(aliases)
+            Reboot should be performed after adding those"""
+        print(aliases_description)
         selection = input(f"\n\t\t\t{Bcolors.YELLOW}Press 'y' for yes or 'a' for abort{Bcolors.ENDC}\n")
         if selection == 'y':
-            if ota_status.aliases_1:
+            if ota_status.aliases:
                 print("\n\n\t\tLooks like you already have aliases added. \n\t\tDo you want to continue anyway?\n")
                 selection = input(f"\t\t\t{Bcolors.YELLOW}Press 'y' for yes or 'a' for abort{Bcolors.ENDC}\n")
                 if selection == 'y':
@@ -252,6 +236,23 @@ def aliases_menu(config):
         if selection == 'a':
             return
 
+# just for now here - will be deleted if above will work properly
+            # Alias            What it does
+            #
+            # ss        -->    starts the RotorHazard server
+            # cfg       -->    opens RH config.json file
+            # rh        -->    goes to server file directory
+            # py        -->    instead of 'python' - pure laziness
+            # sts       -->    stops RH service if was started
+            # otadir    -->    goes to RH server file directory
+            # ota       -->    opens this software
+            # als       -->    opens the file that contains aliases
+            # rld       -->    reloads aliases file
+            # rcfg      -->    opens raspberry's configuration
+            # gitota    -->    clones OTA repository
+            # otacfg    -->    opens updater conf. file
+            # otacpcfg  -->    copies ota conf. file.
+            # home      -->    go to the home directory (without '~' sign)
 
 def self_updater(config):
     ota_status = load_ota_config(config.user)
@@ -304,7 +305,6 @@ def features_menu(config):
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
-        # todo "install avrdude" is obsolete cause it is now implemented in ota.sh
         features_menu_content = """
     
                         {red}{bold}{underline}FEATURES MENU{endc}{blue}{bold}
@@ -344,8 +344,8 @@ def features_menu(config):
 def first_time(config):
     def update_notes():
         clear_the_screen()
-        os.system("less ./docs/update-notes.txt")
-
+        os.system("less ./docs/update-notes.txt")  # todo change to pythonic f=open("./docs/update-notes.txt", "r")
+                                                   # or it os ok now?
     def second_page():
         while True:
             clear_the_screen()

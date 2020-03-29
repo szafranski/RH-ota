@@ -6,7 +6,7 @@ import platform
 import sys
 import json
 import time
-import requests  # todo David - no module error
+import requests  # todo David - no module error, we use it?
 from types import SimpleNamespace as Namespace, SimpleNamespace
 
 
@@ -120,15 +120,14 @@ def internet_check():  # too much code - but works for now
 
 
 def load_ota_config(user):
-    # .read(f'/home/{config.user}/.ota_markers/ota_config.txt')
+    # .read(f'/home/{config.user}/.ota_markers/ota_config.txt')  # todo remove that line? and only 1 aliases instance
     ota_config_file = f'/home/{user}/.ota_markers/ota_config.json'
     if Path(ota_config_file).exists():
         ota_config = load_json(ota_config_file)
     else:
         ota_config = SimpleNamespace()
         ota_config.serial_added = False
-        ota_config.aliases_1 = False
-        ota_config.aliases_2 = False
+        ota_config.aliases = False
         ota_config.updater_planted = False
 
     return ota_config
@@ -151,6 +150,24 @@ def get_ota_version():  # todo is it ok David?
     version = (f.readline().replace('\n', '')).strip()  # always returns ONLY the version number
 
     return version
+
+
+def read_aliases_file():  # todo - I think you know what I wanted to achieve, am was close!
+    aliases_to_show = []
+    with open('./resources/aliases.txt', 'r') as aliases_file:
+        for line in aliases_file:
+            if 'alias ' in line:
+                line = line.replace('alias ', '')
+                aliases_to_show.append(line)
+            if '###' in line:
+                pass
+                #aliases_file.remove(line)  # todo TextIO wrapper something and removing blank lines add
+
+    with open('./.read_aliases.tmp', 'w') as write_obj:
+        write_obj.write("".join(aliases_to_show))
+    os.system('rm .read_aliases.tmp')  # cleanup after myself ;)
+
+    return aliases_to_show
 
 
 def load_config():
