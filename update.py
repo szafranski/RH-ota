@@ -38,10 +38,6 @@ def read_aliases_file():  # todo - I think you know what I wanted to achieve, am
             elif '###' not in line:
                 aliases_to_show.append(line)
 
-    with open('./.read_aliases.tmp', 'w') as write_obj:
-        write_obj.write("".join(aliases_to_show))
-    os.system('rm .read_aliases.tmp')  # cleanup after myself ;)
-
     return aliases_to_show
 
 
