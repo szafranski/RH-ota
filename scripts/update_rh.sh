@@ -1,14 +1,14 @@
 #!/bin/bash
 
 sudo -H python -m pip install --upgrade pip
-sudo -H pip install pillow 
+sudo -H pip install pillow
 sudo apt-get install libjpeg-dev ntp -y
 sudo apt-get update && sudo apt-get upgrade -y
 sudo apt autoremove -y
-sudo mkdir /home/"${1}"/.old_RotorHazard.old  >/dev/null 2>&1
+sudo mkdir /home/"${1}"/.old_RotorHazard.old >/dev/null 2>&1
 sudo cp -r /home/"${1}"/RotorHazard-* /home/"${1}"/.old_RotorHazard.old/ >/dev/null 2>&1
-sudo rm -r /home/"${1}"/RotorHazard-master >/dev/null 2>&1  # just in case of weird sys cfg
-sudo rm -r /home/"${1}"/temp.zip >/dev/null 2>&1  # just in case of weird sys config
+sudo rm -r /home/"${1}"/RotorHazard-master >/dev/null 2>&1 # just in case of weird sys cfg
+sudo rm -r /home/"${1}"/temp.zip >/dev/null 2>&1           # just in case of weird sys config
 sudo cp -r /home/"${1}"/RotorHazard.old /home/"${1}"/.old_RotorHazard.old/ >/dev/null 2>&1
 sudo rm -r /home/"${1}"/RotorHazard.old >/dev/null 2>&1
 sudo mv /home/"${1}"/RotorHazard /home/"${1}"/RotorHazard.old

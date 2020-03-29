@@ -6,12 +6,12 @@ sudo apt install wget ntp libjpeg-dev i2c-tools python-dev libffi-dev python-smb
 sudo apt install python-rpi.gpio
 sudo -H pip install cffi pillow
 cd /home/"${1}" || exit
-mkdir /home/"${1}"/.old_RotorHazard.old  >/dev/null 2>&1
-cp -r /home/"${1}"/RotorHazard /home/"${1}"/.old_RotorHazard.old/ >/dev/null 2>&1  # from here
-rm -r /home/"${1}"/RotorHazard >/dev/null 2>&1  # in case of forced installation - from here to here
+mkdir /home/"${1}"/.old_RotorHazard.old >/dev/null 2>&1
+cp -r /home/"${1}"/RotorHazard /home/"${1}"/.old_RotorHazard.old/ >/dev/null 2>&1 # from here
+rm -r /home/"${1}"/RotorHazard >/dev/null 2>&1                                    # in case of forced installation - from here to here
 rm /home/"${1}"/temp* >/dev/null 2>&1
 cp -r /home/"${1}"/RotorHazard-* /home/"${1}"/.old_RotorHazard.old/ >/dev/null 2>&1
-rm -r /home/"${1}"/RotorHazard-* >/dev/null 2>&1  # to here
+rm -r /home/"${1}"/RotorHazard-* >/dev/null 2>&1 # to here
 cd /home/"${1}" || exit
 wget https://codeload.github.com/RotorHazard/RotorHazard/zip/${2} -O temp.zip
 unzip temp.zip

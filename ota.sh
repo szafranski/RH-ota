@@ -4,7 +4,7 @@ which python3 >/dev/null
 if [ $? -gt 0 ]; then
   echo python3 has to be installed && sudo apt install python3
 else
-  echo python3 '\t' found  # those '\t' cure my ocd 
+  echo python3 '\t' found # those '\t' cure my ocd
 fi
 
 which avrdude >/dev/null
@@ -42,7 +42,6 @@ pip3 freeze >pip3installed.tmp
 # "looking for non python dependencies..."
 #sudo apt list 2>/dev/null | tee aptinstalled.tmp >/dev/null # I removed 'sudo' so it won't ask for admin pswd always
 apt list 2>/dev/null | tee aptinstalled.tmp >/dev/null
-
 
 if grep -q 'python3-gpiozero' aptinstalled.tmp; then
   echo python3-gpiozero '\t' found
@@ -83,7 +82,7 @@ fi
 if grep -q 'zip' aptinstalled.tmp; then
   echo zip '\t' found
 else
-  echo echo zip has to be installed && sudo apt install zip unzip  # todo does it check for unzip too?
+  echo echo zip has to be installed && sudo apt install zip unzip # todo does it check for unzip too?
 fi
 
 # Cleanup after myself.
