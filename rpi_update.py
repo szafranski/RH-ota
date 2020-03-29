@@ -3,44 +3,46 @@ import os
 import sys
 from conf_wizard_ota import conf_ota
 from time import sleep
-from modules import clear_the_screen, Bcolors, image_show, internet_check
+
+from conf_wizard_rh import conf_rh
+from modules import clear_the_screen, Bcolors, image_show, internet_check, load_ota_config, write_ota_config
 import emoji
 
-if os.path.exists("./updater-config.json"):
-    with open('updater-config.json') as config_file:
-        data = json.load(config_file)
-else:
-    with open('distr-updater-config.json') as config_file:
-        data = json.load(config_file)
+# if os.path.exists("./updater-config.json"):
+#     with open('updater-config.json') as config_file:
+#         data = json.load(config_file)
+# else:
+#     with open('distr-updater-config.json') as config_file:
+#         data = json.load(config_file)
+#
+# if data['debug_mode']:
+#     linux_testing = True
+# else:
+#     linux_testing = False
+#
+# if linux_testing:
+#     user = data['debug_user']
+# else:
+#     user = data['pi_user']
+#
+# preferred_RH_version = data['RH_version']
+#
+# if data['pi_4_cfg']:
+#     pi_4_FLAG = True
+# else:
+#     pi_4_FLAG = False
+#
+# if preferred_RH_version == 'master':
+#     server_version = 'master'
+# if preferred_RH_version == 'beta':
+#     server_version = '2.1.0-beta.3'
+# if preferred_RH_version == 'stable':
+#     server_version = '2.1.0'
+# if preferred_RH_version == 'custom':
+#     server_version = 'X.X.X'  # paste custom version number here if you want to declare it manually
 
-if data['debug_mode']:
-    linux_testing = True
-else:
-    linux_testing = False
 
-if linux_testing:
-    user = data['debug_user']
-else:
-    user = data['pi_user']
-
-preferred_RH_version = data['RH_version']
-
-if data['pi_4_cfg']:
-    pi_4_FLAG = True
-else:
-    pi_4_FLAG = False
-
-if preferred_RH_version == 'master':
-    server_version = 'master'
-if preferred_RH_version == 'beta':
-    server_version = '2.1.0-beta.3'
-if preferred_RH_version == 'stable':
-    server_version = '2.1.0'
-if preferred_RH_version == 'custom':
-    server_version = 'X.X.X'  # paste custom version number here if you want to declare it manually
-
-
-def server_version_checker():
+def server_version_checker(user, server_version_name):
     if os.path.exists(f"/home/{user}/RotorHazard/src/server/server.py"):
         os.system("grep 'RELEASE_VERSION =' ~/RotorHazard/src/server/server.py > ~/.ota_markers/.server_version")
         os.system("sed -i 's/RELEASE_VERSION = \"//' ~/.ota_markers/.server_version")
@@ -55,7 +57,7 @@ def server_version_checker():
     return server_installed_flag, server_version_name
 
 
-def config_checker():
+def config_checker(user):
     if os.path.exists(f"/home/{user}/RotorHazard/src/server/config.json"):
         config_soft = f"{Bcolors.GREEN}configured {emoji.emojize(':thumbs_up:')}{Bcolors.ENDC}"
         config_flag = True
@@ -66,67 +68,69 @@ def config_checker():
     return config_flag, config_soft
 
 
-def end_update(conf_flag, serv_installed_flag):
-    print("\n\n")
-    if not conf_flag and serv_installed_flag:
-        print(f"{Bcolors.GREEN}\t\t'c' - configure the server now{Bcolors.ENDC}")
-    else:
-        print("""\t\t'c' - Reconfigure RotorHazard server""")
-    print(f"""
-                'r' - reboot - recommended when configured\n
-                's' - start the server now\n{Bcolors.YELLOW}
-                'e' - exit now\n{Bcolors.ENDC}""")
+def end_update(user, server_configured_flag, server_installed_flag):
 
-    def end_menu():
+    if not server_configured_flag and server_installed_flag:
+        configure = f"{Bcolors.GREEN}        'c' - configure RotorHazard now{Bcolors.ENDC}"
+    else:
+        configure = "        'c' - reconfigure RotorHazard server"
+
+
+    while True:
+        clear_the_screen()
+
+        print(f"""
+                    {configure}
+        
+                    'r' - reboot - recommended when configured
+                    
+                    's' - start the server now{Bcolors.YELLOW}
+                    
+                    'e' - exit now{Bcolors.ENDC}""")
         selection = input()
         if selection == 'r':
             os.system("sudo reboot")
         if selection == 'e':
-            json_dump()  # todo only to soft
-            sys.exit()
+            return
         if selection == 'c':
-            conf_ota()
-            end_update()
+            conf_rh()
         if selection == 's':
             clear_the_screen()
             os.chdir(f"/home/{user}/RH-ota")
             os.system(". ./open_scripts.sh; server_start")
-        else:
-            end_menu()
-
-    end_menu()
-    clear_the_screen()
 
 
 def end_installation():
-    print(f"""\n\n{Bcolors.GREEN}
-        'c' - configure the server now - recommended\n
-        'r' - reboot - recommended after configuring{Bcolors.ENDC}\n
-        's' - start the server now\n{Bcolors.YELLOW}
-        'e' - exit now\n{Bcolors.ENDC}""")
+    while True:
+        clear_the_screen()
+        print(f"""
+    
+            {Bcolors.GREEN}
+            'c' - configure the server now - recommended {Bcolors.ENDC}
+            
+            'r' - reboot - recommended after configuring
+            
+            's' - start the server now{Bcolors.YELLOW}
+            
+            'e' - exit now{Bcolors.ENDC}""")
 
-    def end_menu():
+
         selection = input()
         if selection == 'r':
             os.system("sudo reboot")
         if selection == 'e':
-            json.dump(soft)  # todo change to soft config
-            sys.exit()
+            return
         if selection == 'c':
-            conf_ota()
-            end_update()
+            conf_rh()
         if selection == 's':
             clear_the_screen()
             os.chdir(f"/home/{user}/RH-ota")
             os.system(". ./open_scripts.sh; server_start")
-        else:
-            end_menu()
-
-    end_menu()
-    clear_the_screen()
 
 
-def installation(conf_allowed):
+
+def installation(conf_allowed, linux_testing, user, server_version):
+    ota_confg = load_ota_config(user)
     if not linux_testing:
         os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
     internet_flag = internet_check()
@@ -137,8 +141,12 @@ def installation(conf_allowed):
         print("\nInternet connection - OK")
         sleep(2)
         clear_the_screen()
-        print(f"\n\t{Bcolors.BOLD}Installation process has been started - please wait...{Bcolors.ENDC}\n")
-        installation_completed = """\n\n
+        print(f"""
+            {Bcolors.BOLD}Installation process has been started - please wait...{Bcolors.ENDC}
+""")
+        installation_completed = """
+        
+        
             #####################################################
             ##                                                 ##
             ##{bold}{green}Installation completed{thumbs}{endc}##
@@ -148,17 +156,15 @@ def installation(conf_allowed):
 
         After rebooting please check by typing 'sudo raspi-config' 
         if I2C, SPI and SSH protocols are active.
-                    """.format(thumbs=3 * emoji.emojize(':thumbs_up:') + str(2 * " "), bold=Bcolors.BOLD_S,
+                    """.format(thumbs="👍👍👍  ", bold=Bcolors.BOLD_S,
                                endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S)
         try:
             os.system(f"./scripts/install_rh.sh {user} {server_version}")
             if conf_allowed:
                 os.system("sh. ./scripts/sys_conf.sh")
-                config_soft['installation_done'] = 1
-                if pi_4_FLAG:
-                    os.system("sed -i 's/core_freq=250/#core_freq=250/' /boot/config.txt > /dev/null 2>&1")
-            config_soft['installation_performed'] = true  # todo change to this json something
-            json.dump()  # sys_config_etc
+                ota_confg.installation_done = True
+            ota_confg.installation_performed = True
+            write_ota_config(ota_confg, user)
             print(installation_completed)
         except:  # todo add something
             print("Error occurred. Installation aborted.")
