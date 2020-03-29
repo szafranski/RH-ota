@@ -6,9 +6,8 @@ from conf_wizard_ota import conf_ota
 error_msg = "SMBus(1) - error\nI2C communication doesn't work properly"
 err_time = 1
 try:
-    from smbus import SMBus
-    bus = SMBus(1)  # indicates /dev/ic2-1
-    return bus
+    from smbus import SMBus  # works only on Pi
+    bus = SMBus(1)  # indicates /dev/ic2-1 - correct i2c bus for most Pies
 except PermissionError as perm_error:
     print(error_msg)
     print(perm_error)
@@ -19,10 +18,10 @@ except NameError as name_error:
     sleep(err_time)
 
 try:
-    import RPi.GPIO as GPIO
+    import RPi.GPIO as GPIO  # works only on Pi
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
-    GPIO.setup(gpio_reset_pin, GPIO.OUT, initial=GPIO.HIGH)
+    GPIO.setup(config.gpio_reset_pin, GPIO.OUT, initial=GPIO.HIGH)
     # ensures nothing is being reset during program's start
 except ModuleNotFoundError:
     print("GPIO import - failed")
