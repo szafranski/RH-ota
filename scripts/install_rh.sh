@@ -95,7 +95,7 @@ sudo systemctl enable rotorhazard.service
 # os.system("sudo git clone https://github.com/rm-hull/bme280.git")
 # os.chdir(f"/home/{user}/bme280")
 # os.system("sudo python setup.py install")
-# config_soft['installation_done'] = 1
+# config_soft['rh_installation_done'] = 1
 # json.dump()  # soft config
 # os.system("sudo apt-get install openjdk-8-jdk-headless -y")
 # os.system("sudo rm /lib/systemd/system/rotorhazard.service")

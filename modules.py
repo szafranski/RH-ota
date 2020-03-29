@@ -125,11 +125,7 @@ def load_ota_config(user):
     if Path(ota_config_file).exists():
         ota_config = load_json(ota_config_file)
     else:
-        ota_config = SimpleNamespace()
-        ota_config.serial_added = False
-        ota_config.aliases = False
-        ota_config.updater_planted = False
-
+        ota_config = load_json(f'/home/{user}/RH-ota/resources/ota_config.json')
     return ota_config
 
 
@@ -208,8 +204,6 @@ def load_json(file_name):
 '''
 quick wrapper around write json to normalize our parameters.
 '''
-
-
 def write_json(to_dump, file_name):
     with open(file_name, 'w') as open_file:
         if isinstance(to_dump, SimpleNamespace):
@@ -221,8 +215,6 @@ def write_json(to_dump, file_name):
 '''
  wrapper around copy file to check if exists before copying
 '''
-
-
 def copy_file(src, tgt):
     if os.path.exists(src):
         copyfile(src, tgt)
