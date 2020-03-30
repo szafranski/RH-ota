@@ -8,7 +8,7 @@ def flash(addr):
 
     firmware = 'node'
 
-    sleepAmt = 1
+    sleep_amt = 1
 
     reset_mate_node = 0x79
     disable_serial_on_the_node = 0x80
@@ -26,22 +26,22 @@ def flash(addr):
 
     def disable_serial(addr):
         ser.append(calculate_checksum(ser))
-        sleep(sleepAmt)
+        sleep(sleep_amt)
         bus.write_i2c_block_data(addr, disable_serial_on_the_node, ser)
         sleep(1)
         print("serial disabled")
-        sleep(sleepAmt)
+        sleep(sleep_amt)
 
     def flash_mate_node(addr):
         on.append(calculate_checksum(on))
         off.append(calculate_checksum(off))
-        sleep(sleepAmt)
+        sleep(sleep_amt)
         bus.write_i2c_block_data(addr, reset_mate_node, on)
         print("on sent")
-        sleep(sleepAmt)
+        sleep(sleep_amt)
         bus.write_i2c_block_data(addr, reset_mate_node, off)
         print("off sent")
-        sleep(sleepAmt)
+        sleep(sleep_amt)
         bus.write_i2c_block_data(addr, reset_mate_node, on)
         print("on sent")
         sleep(0.2)
@@ -57,7 +57,7 @@ def flash(addr):
     disable_serial(addr)
     flash_mate_node(addr)
     flash_it(firmware)
-    # sleep(sleepAmt)
+    # sleep(sleep_amt)
     # os.system("i2cdetect -y 1")
     # flash_mate_node(addr2)
     # flash_it(firmware)
