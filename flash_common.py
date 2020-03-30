@@ -8,18 +8,22 @@ def communication_initializing():  # I was trying to assume that software could 
     err_time = 2
     try:
         from smbus import SMBus  # works only on Pi
+        bus = SMBus(1)  # indicates /dev/ic2-1 - correct i2c bus for most Pies
     except PermissionError as perm_error:
         print(error_msg)
         print(perm_error)
         sleep(err_time)
+        bus = 0
     except NameError as name_error:
         print(error_msg)
         print(name_error)
         sleep(err_time)
+        bus = 0
     except ModuleNotFoundError as no_mod_err:
         print(error_msg)
         print(no_mod_err)
         sleep(err_time)
+        bus = 0
 
     try:
         import RPi.GPIO as GPIO  # works only on Pi
@@ -32,7 +36,6 @@ def communication_initializing():  # I was trying to assume that software could 
         sleep(err_time)
 
     finally:
-        bus = SMBus(1)  # indicates /dev/ic2-1 - correct i2c bus for most Pies
         return bus
 
 
@@ -96,16 +99,16 @@ def flash_mate_node(firmware):
     os.system(f"{avrdude_action}")
 
 
-def flashing_steps(firmware):
+def flashing_steps():
     config = load_config()
     disable_serial_on_the_node(bus=SMBus(1), addr=0)
     communication_initializing()
     prepare_mate_node(bus=SMBus(1), addr=0)
-    flash_mate_node(firmware)
+    flash_mate_node(config.RH_version)
 
 
-def main(config):
-    flashing_steps(firmware=config.RH_version)
+def main():
+    flashing_steps()
 
 
 if __name__ == "__main__":

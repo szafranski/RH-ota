@@ -1,41 +1,12 @@
 from time import sleep
 import os
 import sys
-from flash_common import flashing_steps, disable_serial_on_the_node
+from flash_common import flashing_steps, disable_serial_on_the_node, communication_initializing
 from modules import clear_the_screen, Bcolors, logo_top, load_config
-
-error_msg = "SMBus(1) - error\nI2C communication doesn't work properly"
-err_time = 1
-try:
-    from smbus import SMBus  # works only on Pi
-    bus = SMBus(1)  # indicates /dev/ic2-1 - correct i2c bus for most Pies
-except PermissionError as perm_error:
-    print(error_msg)
-    print(perm_error)
-    sleep(err_time)
-except NameError as name_error:
-    print(error_msg)
-    print(name_error)
-    sleep(err_time)
-except ModuleNotFoundError as no_mod_err:
-    print(error_msg)
-    print(no_mod_err)
-    sleep(err_time)
-
-try:
-    import RPi.GPIO as GPIO  # works only on Pi
-
-    GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
-    GPIO.setup(config.gpio_reset_pin, GPIO.OUT, initial=GPIO.HIGH)
-    # ensures nothing is being reset during program's start
-except ModuleNotFoundError:
-    print("GPIO import - failed")
-    sleep(2)
 
 
 def nodes_addresses():
-    """nodes I2C adresses - below: conversion to hex numbers required by SMBus module"""
+    """nodes I2C addresses - below: conversion to hex numbers required by SMBus module"""
     #  node    addr
     node1addr = 8
     node2addr = 10
@@ -49,11 +20,11 @@ def nodes_addresses():
     addr_list_int = [node1addr, node2addr, node3addr, node4addr,
                      node5addr, node6addr, node7addr, node8addr]
 
-    addr_list = [hex(item) for item in addr_list_int]
+    addr_list = (hex(item) for item in addr_list_int)
 
     addr_list_str = [str(item) for item in addr_list]
 
-    return addr_list, addr_list_str
+    return addr_list, addr_list_str, addr_list_int
 
 
 def logo_update(nodes_number):
@@ -76,14 +47,15 @@ def disable_serial_on_all_nodes(addr_list, nodes_number):
             break
 
 
-def flash_firmware_onto_all_nodes_with_auto_addr(config, addr_list=nodes_addresses()[0]):
+def flash_firmware_onto_all_nodes_with_auto_addr(config, addr_list=nodes_addresses()[0],
+                                                 nodes_addresses()[2]):
     addr = 0
     for addr in addr_list:
-        flashing_steps(config.RH_version)
+        flashing_steps()
         sleep(2)
-        if addr_list.index(addr) == config.nodes_number:
+        if addr_list_int.index(addr) == config.nodes_number:
             break
-    print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {str(addr_list.index(addr))} - flashed{Bcolors.ENDC}\n\n")
+    print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {str(addr_list_int.index(addr)+1)} - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
 
 
@@ -140,12 +112,12 @@ def flash_nodes_individually():
             specific_node_menu()
 
 
-def first_flashing(config, nodes_num):
-    def flash(config, port):
-        for i in range(nodes_num):
+def first_flashing(config, nodes_number):
+    def flash(port):
+        for i in range(nodes_number):
             input("Hit any key and push reset key of next node after 1 second")
             sleep(0.2)
-            disable_serial_on_all_nodes()
+            disable_serial_on_all_nodes(nodes_number=config.nodes_number, addr_list=nodes_addresses()[0])
             os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/tty{port} -b 57600 -U \
                     flash:w:/home/{config.user}/RH-ota/firmware/{config.firmware_version}/node_0.hex:i")
 
@@ -153,10 +125,10 @@ def first_flashing(config, nodes_num):
         port_sel = input("UART or USB flashing [default: UART]")
         if port_sel.lower() == 'uart':
             port_sel = 'S0'
-            flash(config, port_sel)
+            flash(port_sel)
         if port_sel.lower() == 'usb':
             port_sel = 'USB0'
-            flash(config, port_sel)
+            flash(port_sel)
         else:
             print("Type: 'UART' or 'USB' ")
 
@@ -172,7 +144,7 @@ def reset_gpio_state(config):
 
 def connection_test(nodes_num):
     for i in range(nodes_num):
-        disable_serial_on_all_nodes()
+        disable_serial_on_all_nodes(nodes_addresses()[0])
         os.system("echo no_sudo &&  avrdude -c arduino -p m328p -v")
         sleep(0.2)
 
@@ -210,7 +182,7 @@ def flashing_menu(config):
             flash_nodes_individually()
             logo_update(config.nodes_number)
         if selection == '3':
-            first_flashing(config.nodes_number)
+            first_flashing(nodes_num=config.nodes_number)
             logo_update()
         if selection == '4':
             logo_top(config.debug_mode)
@@ -226,6 +198,7 @@ def flashing_menu(config):
 
 
 def main():
+    communication_initializing()
     config = load_config()
     flashing_menu(config)
 
