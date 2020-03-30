@@ -41,21 +41,20 @@ def logo_update(nodes_number):
 
 def disable_serial_on_all_nodes(addr_list, nodes_number):
     for addr in addr_list:
-        disable_serial_on_the_node(addr)
+        disable_serial_on_the_node(addr, bus=communication_initializing())
         sleep(2)
         if addr_list.index(addr) == nodes_number:
             break
 
 
-def flash_firmware_onto_all_nodes_with_auto_addr(config, addr_list=nodes_addresses()[0],
-                                                 nodes_addresses()[2]):
+def flash_firmware_onto_all_nodes_with_auto_addr(config, addr_list):
     addr = 0
     for addr in addr_list:
         flashing_steps()
         sleep(2)
-        if addr_list_int.index(addr) == config.nodes_number:
+        if addr_list.index(addr) == config.nodes_number:
             break
-    print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {str(addr_list_int.index(addr)+1)} - flashed{Bcolors.ENDC}\n\n")
+    print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {str(addr_list.index(addr)+1)} - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
 
 
@@ -89,27 +88,28 @@ def flash_nodes_individually():
             node_selection_menu(config)
 
     def specific_node_menu(config, selected_node_number):
-        print(f"""
-        {Bcolors.BOLD}\n\t\t\tNode {str(selected_node_number)}  selected{Bcolors.ENDC}
-                Choose flashing type:\n{Bcolors.ENDC}
-        1 - {Bcolors.GREEN}Node ground-auto selection firmware - recommended{Bcolors.ENDC}{Bcolors.BOLD}
-        2 - Flashes 'Blink' on the node - only for test purposes
-        a - Abort{Bcolors.ENDC}""")
-        selection = input()
-        if selection == '1':
-            flashing_steps(config.firmware_version)
-            print(f"{Bcolors.BOLD}\n\t Node {str(selected_node_number)} flashed\n{Bcolors.ENDC}")
-            sleep(1.5)
-            return
-        if selection == '2':
-            flashing_steps('blink')
-            print(f"{Bcolors.BOLD}\n\t Node {str(selected_node_number)} flashed\n{Bcolors.ENDC}")
-            sleep(1.5)
-            return
-        if selection == 'a':
-            specific_node_menu(config, selected_node_number)
-        else:
-            specific_node_menu()
+        while True:
+            print(f"""
+            {Bcolors.BOLD}\n\t\t\tNode {str(selected_node_number)}  selected{Bcolors.ENDC}
+                    Choose flashing type:\n{Bcolors.ENDC}
+            1 - {Bcolors.GREEN}Node ground-auto selection firmware - recommended{Bcolors.ENDC}{Bcolors.BOLD}
+            2 - Flashes 'Blink' on the node - only for test purposes
+            a - Abort{Bcolors.ENDC}""")
+            selection = input()
+            if selection == '1':
+                flashing_steps()
+                print(f"{Bcolors.BOLD}\n\t Node {str(selected_node_number)} flashed\n{Bcolors.ENDC}")
+                sleep(1.5)
+                return
+            if selection == '2':
+                flashing_steps()
+                print(f"{Bcolors.BOLD}\n\t Node {str(selected_node_number)} flashed\n{Bcolors.ENDC}")
+                sleep(1.5)
+                return
+            if selection == 'a':
+                specific_node_menu(config, selected_node_number)
+            else:
+                break
 
 
 def first_flashing(config, nodes_number):
@@ -117,7 +117,7 @@ def first_flashing(config, nodes_number):
         for i in range(nodes_number):
             input("Hit any key and push reset key of next node after 1 second")
             sleep(0.2)
-            disable_serial_on_all_nodes(nodes_number=config.nodes_number, addr_list=nodes_addresses()[0])
+            disable_serial_on_all_nodes(nodes_number=config.nodes_number, addr_list=nodes_addresses()[1])
             os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/tty{port} -b 57600 -U \
                     flash:w:/home/{config.user}/RH-ota/firmware/{config.firmware_version}/node_0.hex:i")
 
@@ -135,16 +135,16 @@ def first_flashing(config, nodes_number):
 
 def reset_gpio_state(config):
     clear_the_screen()
-    logo_top()
+    logo_top(config.debug_mode)
     print("\n\n\n")
     os.system(f"echo {config.gpio_reset_pin} > /sys/class/GPIO/unexport")
     print("\n\n\t\t\tDONE\n\n")
     sleep(0.5)
 
 
-def connection_test(nodes_num):
+def connection_test(config, nodes_num):
     for i in range(nodes_num):
-        disable_serial_on_all_nodes(nodes_addresses()[0])
+        disable_serial_on_all_nodes(nodes_addresses()[1], config.nodes_number)
         os.system("echo no_sudo &&  avrdude -c arduino -p m328p -v")
         sleep(0.2)
 
@@ -176,14 +176,14 @@ def flashing_menu(config):
         sleep(0.1)
         selection = input()
         if selection == '1':
-            flash_firmware_onto_all_nodes_with_auto_addr(config)
+            flash_firmware_onto_all_nodes_with_auto_addr(config, nodes_addresses()[2])
             logo_update(config.nodes_number)
         if selection == '2':
             flash_nodes_individually()
             logo_update(config.nodes_number)
         if selection == '3':
-            first_flashing(nodes_num=config.nodes_number)
-            logo_update()
+            first_flashing(config, nodes_number=config.nodes_number)
+            logo_update(nodes_number=config.nodes_number)
         if selection == '4':
             logo_top(config.debug_mode)
             os.system("i2cdetect - y 1")

@@ -101,9 +101,9 @@ def flash_mate_node(firmware):
 
 def flashing_steps():
     config = load_config()
-    disable_serial_on_the_node(bus=SMBus(1), addr=0)
+    disable_serial_on_the_node(bus=communication_initializing(), addr=0)
     communication_initializing()
-    prepare_mate_node(bus=SMBus(1), addr=0)
+    prepare_mate_node(bus=communication_initializing(), addr=0)
     flash_mate_node(config.RH_version)
 
 
