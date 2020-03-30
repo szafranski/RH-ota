@@ -2,7 +2,6 @@ from time import sleep
 import os
 import sys
 from modules import clear_the_screen, Bcolors, logo_top
-import flash_common
 from conf_wizard_ota import conf_ota
 error_msg = "SMBus(1) - error\nI2C communication doesn't work properly"
 err_time = 1
@@ -65,6 +64,33 @@ def nodes_addresses():
     return addr_list
 
 
+def reset_mate_node():
+    sleep_amt = 1
+    on.append(calculate_checksum(on))
+    off.append(calculate_checksum(off))
+    sleep(sleep_amt)
+    bus.write_i2c_block_data(addr, reset_mate_node_command, on)
+    print("on sent")
+    sleep(sleep_amt)
+    bus.write_i2c_block_data(addr, reset_mate_node_command, off)
+    print("off sent")
+    print("node reset in progress")
+    sleep(sleep_amt)
+    bus.write_i2c_block_data(addr, reset_mate_node_command, on)
+    print("on sent")
+    sleep(0.2)
+
+
+def flash_blink(config):
+    os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
+    flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i")
+
+
+def flash_firmware(config):
+    os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
+    flash:w:/home/{config.user}/RH-ota/firmware/{config.firmware_version}/node_0.hex:i")
+
+
 def logo_update(nodes_number):
     print("""
     #######################################################################
@@ -77,18 +103,60 @@ def logo_update(nodes_number):
     """.format(nodes_number=nodes_number, bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, s=10 * ' '))
 
 
+def disable_serial_on_the_node(addr, disable_serial_data, disable_serial_on_the_node_command):
+    disable_serial_data.append(calculate_checksum(disable_serial_data))
+    bus.write_i2c_block_data(addr, disable_serial_on_the_node_command, disable_serial_data)
 
 
-def flash_firmware_onto_all_nodes_with_auto_addr(user, nodes_number, firmware_version):
+def disable_serial_on_all_nodes(nodes_number, disable_serial_on_the_node_command):
+    for i in range(1, nodes_number):
+        bus.write_byte(nodes_addresses()[i], disable_serial_on_the_node_command)
+
+
+'''commands needed for interaction with nodes using GPIO pins '''
+
+
+def gpio_reset_pin_low(gpio_reset_pin):
+    GPIO.output(gpio_reset_pin, GPIO.LOW)
+    sleep(0.1)
+
+
+def gpio_reset_pin_high(gpio_reset_pin):
+    GPIO.output(gpio_reset_pin, GPIO.HIGH)
+    sleep(0.1)
+
+
+def reset_gpio_pin():
+    gpio_reset_pin_high()
+    gpio_reset_pin_low()
+    gpio_reset_pin_high()
+
+
+def reset_mate_node(i2c_data, addr):
+    on, off, sleep_amt, reset = i2c_data()
+    on.append(calculate_checksum(on))  # todo it should use values from i2c_data() - error :(
+    off.append(calculate_checksum(off))
+    sleep(sleep_amt)
+    bus.write_i2c_block_data(addr, reset_mate_node, on)
+    print("pin at default state - sent\n")
+    sleep(sleep_amt)
+    bus.write_i2c_block_data(addr, reset_mate_node, off)
+    print("RESET command - sent")
+    sleep(sleep_amt)
+    bus.write_i2c_block_data(addr, reset_mate_node, on)
+    print("pin at default state - sent\n")
+    sleep(0.2)
+
+
+def flash_firmware_onto_all_nodes_with_auto_addr(user, nodes_number):
     i = 1
     for i in range(1, nodes_number):
-        for addr in addr_list:
-            flash(addr)
-            sleep(2)
-        print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-        flash:w:/home/{user}/RH-ota/firmware/i2c/{firmware_version}/node_{i}.hex:i")
+        disable_serial_on_all_nodes()
+        reset_mate_node()
         os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
         flash:w:/home/{user}/RH-ota/firmware/i2c/{firmware_version}/node_0.hex:i")
+        print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
+        flash:w:/home/{user}/RH-ota/firmware/i2c/{firmware_version}/node_{i}.hex:i")
     print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {i} - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
 
