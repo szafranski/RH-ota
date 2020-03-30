@@ -417,7 +417,7 @@ def main_menu(config):
             # os.system("python3 ./rpi_update.py")  # opens raspberry updating file
         if selection == '2':
             print("todo: call node_update")
-            # nodes_update(config) #TODO modulalize node-update (i2c_ !)
+            # nodes_update(config) #TODO modulalize node-update (i2c_ !) P.F.: and flash_common
             # os.system("python3 ./nodes_update.py")  # opens nodes updating file
         if selection == '3':
             clear_the_screen()

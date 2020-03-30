@@ -1,6 +1,27 @@
 #!/bin/bash
 
-echo installing dependencies needs sudo
+##################
+### fun stuff
+spinner()  # maybe will be used when pip3 freeze etc.
+{
+sp='/-\|'
+printf ' '
+while true; do
+    printf '\b%.1s' "$sp"
+    sp=${sp#?}${sp%???}
+done
+}
+
+dots5() { # done that way so it work on every terminal
+for i in {1 2 3 4 5}; do
+  printf "."
+  sleep 0.2
+done
+printf "\n"
+}
+###############
+
+echo installing dependencies may need 'sudo'
 
 which python3 >/dev/null
 if [ $? -gt 0 ]; then
@@ -37,16 +58,16 @@ else
   echo pip3 '\t''\t' found
 fi
 
-# "looking for dependencies python..."
+echo please wait - looking for dependencies
+
+dots5 # works?
 
 pip3 freeze >pip3installed.tmp
 
-# "looking for non python dependencies..."
-#sudo apt list 2>/dev/null | tee aptinstalled.tmp >/dev/null # I removed 'sudo' so it won't ask for admin pswd always
 apt list 2>/dev/null | tee aptinstalled.tmp >/dev/null
 
 if grep -q 'python3-gpiozero' aptinstalled.tmp; then
-  echo python3-gpiozero '\t' found
+  echo python3-gpiozero found
 else
   echo echo python3-gpiozero has to be installed && sudo apt install python3-gpiozero
 fi
@@ -64,7 +85,7 @@ else
 fi
 
 if grep -q 'python3-rpi.gpio' aptinstalled.tmp; then
-  echo python3-rpi.gpio '\t' found
+  echo python3-rpi.gpio found
 else
   echo echo python3-rpi.gpio has to be installed && sudo apt install python3-rpi.gpio
 fi

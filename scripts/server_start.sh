@@ -1,7 +1,7 @@
 #!/bin/bash
 
-dots5() { # todo why dots are not showing when open from update.py?
-  for i in {1..5}; do
+dots5() { # done that way so it work on every terminal
+  for i in {1 2 3 4 5}; do
     printf "."
     sleep 0.5
   done
