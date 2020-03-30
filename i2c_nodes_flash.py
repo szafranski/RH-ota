@@ -3,12 +3,13 @@ import os
 import sys
 from modules import clear_the_screen, Bcolors, logo_top
 from flash_common import flashing_steps, disable_serial_on_the_node
-from conf_wizard_ota import conf_ota
+# from conf_wizard_ota import conf_ota
 
 error_msg = "SMBus(1) - error\nI2C communication doesn't work properly"
 err_time = 1
 try:
     from smbus import SMBus  # works only on Pi
+
     bus = SMBus(1)  # indicates /dev/ic2-1 - correct i2c bus for most Pies
 except PermissionError as perm_error:
     print(error_msg)
@@ -21,6 +22,7 @@ except NameError as name_error:
 
 try:
     import RPi.GPIO as GPIO  # works only on Pi
+
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
     GPIO.setup(config.gpio_reset_pin, GPIO.OUT, initial=GPIO.HIGH)
@@ -45,11 +47,11 @@ def nodes_addresses():
     addr_list_int = [node1addr, node2addr, node3addr, node4addr,
                      node5addr, node6addr, node7addr, node8addr]
 
-    addr_list_hex = [hex(item) for item in addr_list_int]
+    addr_list = [hex(item) for item in addr_list_int]
 
-    addr_list = (str(item) for item in addr_list_hex)
+    addr_list_str = [str(item) for item in addr_list]
 
-    return addr_list
+    return addr_list, addr_list_str
 
 
 def logo_update(nodes_number):
@@ -71,9 +73,12 @@ def disable_serial_on_all_nodes(addr_list, nodes_number):
         if addr_list.index(addr) == nodes_number:
             break
 
-def flash_firmware_onto_all_nodes_with_auto_addr(user, nodes_number, firmware_version, addr_list):
+
+def flash_firmware_onto_all_nodes_with_auto_addr(nodes_number=config.nodes_number,
+                                                 firmware='blink', addr_list=nodes_addresses()[0]):
+    addr = 0
     for addr in addr_list:
-        flashing_steps()
+        flashing_steps(firmware)
         sleep(2)
         if addr_list.index(addr) == nodes_number:
             break
@@ -81,9 +86,11 @@ def flash_firmware_onto_all_nodes_with_auto_addr(user, nodes_number, firmware_ve
     sleep(1)
 
 
-def flash_blink_onto_all_gnd_nodes(user, nodes_number, firmware = blink, addr_list):
+def flash_blink_onto_all_gnd_nodes(nodes_number=config.nodes_number,
+                                   firmware='blink', addr_list=nodes_addresses()[0]):
+    addr = 0
     for addr in addr_list:
-        flashing_steps()
+        flashing_steps(firmware)
         sleep(2)
         if addr_list.index(addr) == nodes_number:
             break
@@ -118,9 +125,9 @@ def flash_nodes_individually():
         if selection == 'e':
             main()
         else:
-            node_selection_menu()
+            node_selection_menu(config)
 
-    def specific_node_menu(selected_node_number):
+    def specific_node_menu(config, selected_node_number):
         print(f"""
         {Bcolors.BOLD}\n\t\t\tNode {str(selected_node_number)}  selected{Bcolors.ENDC}
                 Choose flashing type:\n{Bcolors.ENDC}
@@ -129,21 +136,22 @@ def flash_nodes_individually():
         a - Abort{Bcolors.ENDC}""")
         selection = input()
         if selection == '1':
-            flashing_steps()
+            flashing_steps(config.firmware_version)
             print(f"{Bcolors.BOLD}\n\t Node {str(selected_node_number)} flashed\n{Bcolors.ENDC}")
             sleep(1.5)
             return
         if selection == '2':
-            flashing_steps()
+            flashing_steps('blink')
+            print(f"{Bcolors.BOLD}\n\t Node {str(selected_node_number)} flashed\n{Bcolors.ENDC}")
+            sleep(1.5)
             return
         if selection == 'a':
-            specific_node_menu()
+            specific_node_menu(config, selected_node_number)
         else:
             specific_node_menu()
 
 
-def first_flashing(nodes_num):
-
+def first_flashing(config, nodes_num):
     def flash(config, port):
         for i in range(nodes_num):
             input("Hit any key and push reset key of next node after 1 second")
@@ -156,19 +164,19 @@ def first_flashing(nodes_num):
         port_sel = input("UART or USB flashing [default: UART]")
         if port_sel.lower() == 'uart':
             port_sel = 'S0'
-            flash(port_sel)
+            flash(config, port_sel)
         if port_sel.lower() == 'usb':
             port_sel = 'USB0'
-            flash(port_sel)
+            flash(config, port_sel)
         else:
             print("Type: 'UART' or 'USB' ")
 
 
-def reset_gpio_state():
+def reset_gpio_state(config):
     clear_the_screen()
     logo_top()
     print("\n\n\n")
-    os.system(f"echo {gpio_reset_pin} > /sys/class/GPIO/unexport")
+    os.system(f"echo {config.gpio_reset_pin} > /sys/class/GPIO/unexport")
     print("\n\n\t\t\tDONE\n\n")
     sleep(0.5)
 
@@ -181,54 +189,55 @@ def connection_test(nodes_num):
 
 
 def flashing_menu(config):
-    clear_the_screen()
-    logo_top(linux_testing)
-    sleep(0.05)
-    node_menu = """\n
-                        {bold}{underline}CHOOSE FLASHING TYPE:{endc}
-
-                {green}{bold}1 - Flash each node automatically - rec.{endc}
-
-                2 - Flash each node individually
-
-                3 - Flash first time
-
-                4 - Show I2C connected devices
-
-                5 - Flash using GPIO reset pins - obsolete
-
-                6 - Fix GPIO pin state
-
-                {yellow}'e' - Exit to main menu{endc}
-        """.format(bold=Bcolors.BOLD, green=Bcolors.GREEN, yellow=Bcolors.YELLOW,
-                   endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE)
-    print(node_menu)
-    sleep(0.1)
-    selection = input()
-    if selection == '1':
-        flash_firmware_onto_all_nodes_with_auto_addr()
-        logo_update()
-    if selection == '2':
-        flash_nodes_individually()
-        logo_update()
-    if selection == '3':
-        first_flashing(config.nodes_number)
-        logo_update()
-    if selection == '4':
-        logo_top()
-        os.system("i2cdetect - y 1")
-    if selection == '5':
-        os.system("python3 ./nodes_update_old.py")
-    if selection == '6':
-        reset_gpio_state()
-    if selection == 'e':
-        sys.exit()
-    else:
-        break
+    while True:
+        clear_the_screen()
+        logo_top(config.linux_testing)
+        sleep(0.05)
+        node_menu = """\n
+                            {bold}{underline}CHOOSE FLASHING TYPE:{endc}
+    
+                    {green}{bold}1 - Flash each node automatically - rec.{endc}
+    
+                    2 - Flash each node individually
+    
+                    3 - Flash first time
+    
+                    4 - Show I2C connected devices
+    
+                    5 - Flash using GPIO reset pins - obsolete
+    
+                    6 - Fix GPIO pin state
+    
+                    {yellow}'e' - Exit to main menu{endc}
+            """.format(bold=Bcolors.BOLD, green=Bcolors.GREEN, yellow=Bcolors.YELLOW,
+                       endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE)
+        print(node_menu)
+        sleep(0.1)
+        selection = input()
+        if selection == '1':
+            flash_firmware_onto_all_nodes_with_auto_addr()
+            logo_update()
+        if selection == '2':
+            flash_nodes_individually()
+            logo_update()
+        if selection == '3':
+            first_flashing(config.nodes_number)
+            logo_update()
+        if selection == '4':
+            logo_top()
+            os.system("i2cdetect - y 1")
+        if selection == '5':
+            os.system("python3 ./nodes_update_old.py")
+        if selection == '6':
+            reset_gpio_state()
+        if selection == 'e':
+            sys.exit()
+        else:
+            break
 
 
 def main():
-    fashing_menu()
+    flashing_menu()
 
 
 if __name__ == "__main__":
