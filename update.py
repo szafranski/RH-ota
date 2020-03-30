@@ -25,7 +25,7 @@ def log_to_dev(config):
     log_send(config)
 
 
-def read_aliases_file():  # todo - I think you know what I wanted to achieve, am was close!    list -> lines
+def read_aliases_file():  # todo - cool, almost done, readability has to be improved yet
     aliases_to_show = []
     with open('./resources/aliases.txt', 'r') as aliases_file:
         for line in aliases_file:
@@ -37,6 +37,8 @@ def read_aliases_file():  # todo - I think you know what I wanted to achieve, am
                 aliases_to_show.append(line)
             elif '###' not in line:
                 aliases_to_show.append(line)
+
+    aliases_to_show = (''.join(aliases_to_show))
 
     return aliases_to_show
 
