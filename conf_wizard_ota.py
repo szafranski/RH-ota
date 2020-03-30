@@ -123,13 +123,13 @@ Default values are not automatically applied. Type them if needed.\n""")
                 elif bool_gpio_reset_pin not in ['yes', '1', 'y']:
                     gpio_reset_pin = False
                     config.gpio_reset_pin = gpio_reset_pin
-                break  # todo - it works but weird configuration in json occures - see GH issue
+                break  # todo - it works but weird configuration in json occurres - see GH issue
 
         while True:
             pi_4_owner = input("\nAre you using Raspberry Pi 4? [yes/no | default: no]\t\t\t")
             pi_4_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']
             if pi_4_owner not in pi_4_allowed_values:
-                print("\nPlease enter correct value!")
+                print("\nPlease enter correct value!")  # todo change to confirming pi version from the script
             else:
                 pi_4_val = False
                 if pi_4_owner in ['yes', '1', 'y']:

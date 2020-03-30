@@ -1,0 +1,10 @@
+We want to make a file structure with i2c_nodes_flash in main directory with menu etc.
+
+In node_flashing_resources there would be:
+file named flash_common.py - with functions that would be used in every file in that directory
+8 files for flashing 8 nodes - yes, evey node HAS TO have own file. Weird. It has something to do
+with initializing i2c communication etc. This is walkaround. Not most elegant but also not the worst.
+Proved to be working. So basically there has to be one file that calls module after module. Simple.
+Last thing to be testes - if every module like flash_node_1, flash_node_2 etc needs to import smbus etc
+or cat in be just a "function caller" - from a flash_common module. Either way most of the code will be
+in flash_common and i2c_nodes_flash would contain menu and right call.
