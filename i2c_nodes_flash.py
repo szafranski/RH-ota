@@ -77,7 +77,7 @@ def flash_firmware_onto_all_nodes_with_auto_addr(user, nodes_number, firmware_ve
         sleep(2)
         if addr_list.index(addr) == nodes_number:
             break
-    print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {i} - flashed{Bcolors.ENDC}\n\n")
+    print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {str(addr_list.index(addr))} - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
 
 
@@ -87,7 +87,7 @@ def flash_blink_onto_all_gnd_nodes(user, nodes_number, firmware = blink, addr_li
         sleep(2)
         if addr_list.index(addr) == nodes_number:
             break
-    print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {i} - flashed{Bcolors.ENDC}\n\n")
+    print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {str(addr_list.index(addr))} - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
 
 
@@ -138,13 +138,6 @@ def flash_nodes_individually():
             return
         if selection == 'a':
             specific_node_menu()
-        if selection == 'dev':
-            node_one_reset()
-            os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-            flash:w:/home/{user}/RH-ota/.dev/node_test.hex:i ")
-            print(Bcolors.BOLD + "\n\t Testing firmware on Node " + str(
-                selected_node_number) + " flashed\n" + Bcolors.ENDC)
-            sleep(1.5)
         else:
             specific_node_menu()
 
