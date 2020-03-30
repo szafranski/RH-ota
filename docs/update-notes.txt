@@ -5,6 +5,8 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+2.2.9p
+Fixed bug when LED configuration performed in wizard
 
 2.2.9o
 Small fixes

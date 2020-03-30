@@ -102,8 +102,8 @@ def sys_conf():
     os.system("sudo systemctl enable ssh")
     os.system("sudo systemctl start ssh ")
     os.system("echo 'dtparam=i2c_baudrate=75000' | sudo tee -a /boot/config.txt")
+    os.system("echo 'core_freq=250' | sudo tee -a /boot/config.txt")
     if pi_4_FLAG:
-        os.system("echo 'core_freq=250' | sudo tee -a /boot/config.txt")
         os.system("sed -i 's/core_freq=250/#core_freq=250/' /boot/config.txt > /dev/null 2>&1")
     os.system("echo 'dtparam=spi=on' | sudo sudo tee -a /boot/config.txt  ")
     os.system("echo 'i2c-bcm2708' | sudo tee -a /boot/config.txt")
