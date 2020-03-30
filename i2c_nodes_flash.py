@@ -2,8 +2,9 @@ from time import sleep
 import os
 import sys
 from modules import clear_the_screen, Bcolors, logo_top
-import flash_common
+from flash_common import flashing_steps, disable_serial_on_the_node
 from conf_wizard_ota import conf_ota
+
 error_msg = "SMBus(1) - error\nI2C communication doesn't work properly"
 err_time = 1
 try:
@@ -27,20 +28,6 @@ try:
 except ModuleNotFoundError:
     print("GPIO import - failed")
     sleep(2)
-
-def i2c_data():
-    sleep_amt = 1
-    disable_serial_data = [0]
-    on, off = [1], [0]
-    reset_mate_node_command = 0x79
-    disable_serial_on_the_node_command = 0x80
-
-    return sleep_amt, disable_serial_data, on, off, reset_mate_node_command, disable_serial_on_the_node_command
-
-
-def calculate_checksum(data):
-    checksum = sum(data) & 0xFF
-    return checksum
 
 
 def nodes_addresses():
@@ -77,31 +64,29 @@ def logo_update(nodes_number):
     """.format(nodes_number=nodes_number, bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, s=10 * ' '))
 
 
+def disable_serial_on_all_nodes(addr_list, nodes_number):
+    for addr in addr_list:
+        disable_serial_on_the_node(addr)
+        sleep(2)
+        if addr_list.index(addr) == nodes_number:
+            break
 
-
-def flash_firmware_onto_all_nodes_with_auto_addr(user, nodes_number, firmware_version):
-    i = 1
-    for i in range(1, nodes_number):
-        for addr in addr_list:
-            flash(addr)
-            sleep(2)
-        print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-        flash:w:/home/{user}/RH-ota/firmware/i2c/{firmware_version}/node_{i}.hex:i")
-        os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-        flash:w:/home/{user}/RH-ota/firmware/i2c/{firmware_version}/node_0.hex:i")
+def flash_firmware_onto_all_nodes_with_auto_addr(user, nodes_number, firmware_version, addr_list):
+    for addr in addr_list:
+        flashing_steps()
+        sleep(2)
+        if addr_list.index(addr) == nodes_number:
+            break
     print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {i} - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
 
 
-def flash_blink_onto_all_gnd_nodes(config, nodes_number):
-    i = 1
-    for i in range(1, nodes_number):
-        disable_serial_on_all_nodes()
-        reset_mate_node()
-        os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{config.user}\
-        /RH-ota/firmware/{firmware_version}/blink.hex:i")
-        print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-        flash:w:/home/{config.user}/RH-ota/firmware/{config.firmware_version}/blink.hex:i ")
+def flash_blink_onto_all_gnd_nodes(user, nodes_number, firmware = blink, addr_list):
+    for addr in addr_list:
+        flashing_steps()
+        sleep(2)
+        if addr_list.index(addr) == nodes_number:
+            break
     print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {i} - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
 
@@ -144,18 +129,12 @@ def flash_nodes_individually():
         a - Abort{Bcolors.ENDC}""")
         selection = input()
         if selection == '1':
-            node_one_reset()  # todo change to reset and serial disabling
-            os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-            flash:w:/home/{user}/RH-ota/firmware/{firmware_version}/node_0.hex:i")
+            flashing_steps()
             print(f"{Bcolors.BOLD}\n\t Node {str(selected_node_number)} flashed\n{Bcolors.ENDC}")
             sleep(1.5)
             return
         if selection == '2':
-            node_one_reset()
-            os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-            flash:w:/home/{user}/RH-ota/firmware/blink.hex:i ")
-            print(f"{Bcolors.BOLD}\n\t Node {str(selected_node_number)} flashed\n{Bcolors.ENDC}")
-            sleep(1.5)
+            flashing_steps()
             return
         if selection == 'a':
             specific_node_menu()
@@ -208,7 +187,7 @@ def connection_test(nodes_num):
         sleep(0.2)
 
 
-def fashing_menu(config):
+def flashing_menu(config):
     clear_the_screen()
     logo_top(linux_testing)
     sleep(0.05)

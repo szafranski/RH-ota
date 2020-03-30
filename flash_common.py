@@ -51,7 +51,7 @@ def calculate_checksum(data):
     return checksum
 
 
-def disable_serial_on_mate_node(addr, calculate_checksum, bus=SMBus(1)):
+def disable_serial_on_the_node(addr, calculate_checksum, bus=SMBus(1)):
     sleep_amt = 1
     disable_serial_data = [0]
     disable_serial_on_the_node_command = 0x80
@@ -87,11 +87,15 @@ def flash_mate_node(firmware):
     os.system(f"{avrdude_action}")
 
 
-def main():
-    disable_serial_on_mate_node()
+def flashing_steps():
+    disable_serial_on_the_node()
     communication_initializing()
     prepare_mate_node()
     flash_mate_node()
+
+
+def main():
+    flashing_steps()
 
 
 if __name__ == "__main__":
