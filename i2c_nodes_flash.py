@@ -30,8 +30,7 @@ except ModuleNotFoundError:
 def i2c_data():
     sleep_amt = 1
     disable_serial_data = [0]
-    on = [1]
-    off = [0]
+    on, off = [1], [0]
     reset_mate_node_command = 0x79
     disable_serial_on_the_node_command = 0x80
 
