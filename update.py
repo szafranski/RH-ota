@@ -14,10 +14,11 @@ def compatibility():  # adds compatibility and fixes with previous versions
 
 def config_check():
     if not os.path.exists("./updater-config.json"):
-        print(f"""{Bcolors.BOLD}
+        print(f"""{Bcolors.BOLD}\
         Looks that you haven't set up config file yet.
         Please read about configuration process - point 5
-        and next enter configuration wizard - point 6.{Bcolors.ENDC}""")
+        and next enter configuration wizard - point 6.\
+        {Bcolors.ENDC}""")
 
 
 def log_to_dev(config):
@@ -57,9 +58,10 @@ def log_send(config):
             code = ''
             for line in f:
                 code = line
+            short_line = "".center(30, "-")
             print(f"""\n
                 User code: {code}\n
-            ___________________________\n""")
+            {short_line}\n""")
             input("\n\nHit 'Enter' to continue\n\n")
             if not os.system("cowsay You are awesome! Fly safe."):
                 sleep(3)
@@ -106,31 +108,6 @@ def first(config, updater_version):
     print(f"\t\t\t{Bcolors.BOLD} Updater version: {str(updater_version)}{Bcolors.ENDC}")
     sleep(1)
     updated_check(config)
-
-
-def avr_dude(config):
-    while True:
-        clear_the_screen()
-        logo_top(config.debug_mode)
-        avrdude_menu = """
-                {red}{bold}
-                            AVRDUDE MENU
-                            
-                {blue}    
-                        'i' - Install avrdude {endc}{yellow}
-                {bold}
-                        'e' - Go back {endc}
-                """.format(bold=Bcolors.BOLD, endc=Bcolors.ENDC,
-                           blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S)
-        print(avrdude_menu)
-        selection = input()
-        if selection == 'i':
-            os.system("sudo apt-get update")
-            os.system("sudo apt-get install avrdude -y")
-            print("\nDone\n")
-            sleep(2)
-        if selection == 'e':
-            break
 
 
 def serial_menu(config):
@@ -226,24 +203,6 @@ def aliases_menu(config):
         if selection == 'a':
             return
 
-
-# just for now here - will be deleted if above will work properly
-# Alias            What it does
-#
-# ss        -->    starts the RotorHazard server
-# cfg       -->    opens RH config.json file
-# rh        -->    goes to server file directory
-# py        -->    instead of 'python' - pure laziness
-# sts       -->    stops RH service if was started
-# otadir    -->    goes to RH server file directory
-# ota       -->    opens this software
-# als       -->    opens the file that contains aliases
-# rld       -->    reloads aliases file
-# rcfg      -->    opens raspberry's configuration
-# gitota    -->    clones OTA repository
-# otacfg    -->    opens updater conf. file
-# otacpcfg  -->    copies ota conf. file.
-# home      -->    go to the home directory (without '~' sign)
 
 def self_updater(config):
     ota_status = load_ota_config(config.user)

@@ -12,7 +12,7 @@ echo
 sed -i 's/https:\/\/transfer.sh\///g' ./log_data/log_code.txt
 sed -i 's/\/${1}_log.txt//g' ./log_data/log_code.txt
 echo
-echo ___________________________
+echo ------------------------------
 echo
 echo Tell your favourite developer those:
 echo
