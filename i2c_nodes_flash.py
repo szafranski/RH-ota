@@ -1,15 +1,13 @@
 from time import sleep
 import os
 import sys
-from modules import clear_the_screen, Bcolors, logo_top
 from flash_common import flashing_steps, disable_serial_on_the_node
-# from conf_wizard_ota import conf_ota
+from modules import clear_the_screen, Bcolors, logo_top, ota_image, load_config, load_ota_config
 
 error_msg = "SMBus(1) - error\nI2C communication doesn't work properly"
 err_time = 1
 try:
     from smbus import SMBus  # works only on Pi
-
     bus = SMBus(1)  # indicates /dev/ic2-1 - correct i2c bus for most Pies
 except PermissionError as perm_error:
     print(error_msg)
@@ -18,6 +16,10 @@ except PermissionError as perm_error:
 except NameError as name_error:
     print(error_msg)
     print(name_error)
+    sleep(err_time)
+except ModuleNotFoundError as no_mod_err:
+    print(error_msg)
+    print(no_mod_err)
     sleep(err_time)
 
 try:
@@ -74,25 +76,23 @@ def disable_serial_on_all_nodes(addr_list, nodes_number):
             break
 
 
-def flash_firmware_onto_all_nodes_with_auto_addr(nodes_number=config.nodes_number,
-                                                 firmware='blink', addr_list=nodes_addresses()[0]):
+def flash_firmware_onto_all_nodes_with_auto_addr(config, firmware='blink', addr_list=nodes_addresses()[0]):
     addr = 0
     for addr in addr_list:
         flashing_steps(firmware)
         sleep(2)
-        if addr_list.index(addr) == nodes_number:
+        if addr_list.index(addr) == config.nodes_number:
             break
     print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {str(addr_list.index(addr))} - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
 
 
-def flash_blink_onto_all_gnd_nodes(nodes_number=config.nodes_number,
-                                   firmware='blink', addr_list=nodes_addresses()[0]):
+def flash_blink_onto_all_gnd_nodes(config, firmware='blink', addr_list=nodes_addresses()[0]):
     addr = 0
     for addr in addr_list:
         flashing_steps(firmware)
         sleep(2)
-        if addr_list.index(addr) == nodes_number:
+        if addr_list.index(addr) == config.nodes_number:
             break
     print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {str(addr_list.index(addr))} - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
@@ -191,7 +191,7 @@ def connection_test(nodes_num):
 def flashing_menu(config):
     while True:
         clear_the_screen()
-        logo_top(config.linux_testing)
+        logo_top(config.debug_mode)
         sleep(0.05)
         node_menu = """\n
                             {bold}{underline}CHOOSE FLASHING TYPE:{endc}
@@ -237,7 +237,8 @@ def flashing_menu(config):
 
 
 def main():
-    flashing_menu()
+    config = load_config()
+    flashing_menu(config)
 
 
 if __name__ == "__main__":

@@ -7,7 +7,6 @@ def communication_initializing():
     err_time = 2
     try:
         from smbus import SMBus  # works only on Pi
-
     except PermissionError as perm_error:
         print(error_msg)
         print(perm_error)
@@ -15,6 +14,10 @@ def communication_initializing():
     except NameError as name_error:
         print(error_msg)
         print(name_error)
+        sleep(err_time)
+    except ModuleNotFoundError as no_mod_err:
+        print(error_msg)
+        print(no_mod_err)
         sleep(err_time)
 
     try:
@@ -48,7 +51,7 @@ def reset_gpio_pin(config):
     gpio_reset_pin_high(config.gpio_reset_pin)
 
 
-def disable_serial_on_the_node(addr, bus=SMBus(1)):
+def disable_serial_on_the_node(addr, bus):
     def calculate_checksum(data):
         checksum = sum(data) & 0xFF
         return checksum
@@ -64,7 +67,7 @@ def disable_serial_on_the_node(addr, bus=SMBus(1)):
     sleep(sleep_amt)
 
 
-def prepare_mate_node(addr, bus=SMBus(1)):
+def prepare_mate_node(addr, bus):
     def calculate_checksum(data):
         checksum = sum(data) & 0xFF
         return checksum
