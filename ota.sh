@@ -58,9 +58,9 @@ else
   echo pip3 '\t''\t' found
 fi
 
-echo please wait - looking for dependencies
+dots5
 
-dots5 # works?
+echo please wait - looking for dependencies
 
 pip3 freeze >pip3installed.tmp
 
@@ -109,7 +109,7 @@ else
 fi
 
 if grep -q 'zip' aptinstalled.tmp; then
-  echo zip '\t' found
+  echo zip '\t''\t' found
 else
   echo echo zip has to be installed && sudo apt install zip unzip # todo does it check for unzip too?
 fi

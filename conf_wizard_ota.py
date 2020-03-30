@@ -120,7 +120,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                         else:
                             config.gpio_reset = int(gpio_reset_pin)
                             break
-                elif bool_gpio_reset_pin not in ['yes', '1', 'y']:
+                elif bool_gpio_reset_pin in ['no', '0', 'n']:
                     gpio_reset_pin = False
                     config.gpio_reset_pin = gpio_reset_pin
                 break  # todo - it works but weird configuration in json occurres - see GH issue
