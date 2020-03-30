@@ -70,13 +70,13 @@ def logo_top(linux_testing):
     ###                                                                 ###
     ###        {bold}        OTA Updater and Manager     {endc}         ###
     ###                                                                 ###
-    #######################################################################
+    #######################################################################\
     """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S,
                yellow=Bcolors.YELLOW_S, orange=Bcolors.ORANGE_S)
 
     print(logo)
     if linux_testing:
-        print("\t\t\t  Linux PC version\t\n")
+        print("\t\t\t\t\tLinux PC version - debug mode")
     sleep(0.05)
 
 

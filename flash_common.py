@@ -1,8 +1,9 @@
 from time import sleep
 import os
+from modules import load_config
 
 
-def communication_initializing():
+def communication_initializing():  # I was trying to assume that software could be open on Linux but idk anymore
     error_msg = "SMBus(1) - error\nI2C communication doesn't work properly"
     err_time = 2
     try:
@@ -96,14 +97,15 @@ def flash_mate_node(firmware):
 
 
 def flashing_steps(firmware):
-    disable_serial_on_the_node()
+    config = load_config()
+    disable_serial_on_the_node(bus=SMBus(1), addr=0)
     communication_initializing()
-    prepare_mate_node()
+    prepare_mate_node(bus=SMBus(1), addr=0)
     flash_mate_node(firmware)
 
 
-def main():
-    flashing_steps()
+def main(config):
+    flashing_steps(firmware=config.RH_version)
 
 
 if __name__ == "__main__":

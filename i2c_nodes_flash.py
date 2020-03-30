@@ -2,7 +2,7 @@ from time import sleep
 import os
 import sys
 from flash_common import flashing_steps, disable_serial_on_the_node
-from modules import clear_the_screen, Bcolors, logo_top, ota_image, load_config, load_ota_config
+from modules import clear_the_screen, Bcolors, logo_top, load_config
 
 error_msg = "SMBus(1) - error\nI2C communication doesn't work properly"
 err_time = 1
@@ -76,21 +76,10 @@ def disable_serial_on_all_nodes(addr_list, nodes_number):
             break
 
 
-def flash_firmware_onto_all_nodes_with_auto_addr(config, firmware='blink', addr_list=nodes_addresses()[0]):
+def flash_firmware_onto_all_nodes_with_auto_addr(config, addr_list=nodes_addresses()[0]):
     addr = 0
     for addr in addr_list:
-        flashing_steps(firmware)
-        sleep(2)
-        if addr_list.index(addr) == config.nodes_number:
-            break
-    print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {str(addr_list.index(addr))} - flashed{Bcolors.ENDC}\n\n")
-    sleep(1)
-
-
-def flash_blink_onto_all_gnd_nodes(config, firmware='blink', addr_list=nodes_addresses()[0]):
-    addr = 0
-    for addr in addr_list:
-        flashing_steps(firmware)
+        flashing_steps(config.RH_version)
         sleep(2)
         if addr_list.index(addr) == config.nodes_number:
             break
@@ -208,28 +197,28 @@ def flashing_menu(config):
     
                     6 - Fix GPIO pin state
     
-                    {yellow}'e' - Exit to main menu{endc}
+                    {yellow}e - Exit to main menu{endc}
             """.format(bold=Bcolors.BOLD, green=Bcolors.GREEN, yellow=Bcolors.YELLOW,
                        endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE)
         print(node_menu)
         sleep(0.1)
         selection = input()
         if selection == '1':
-            flash_firmware_onto_all_nodes_with_auto_addr()
-            logo_update()
+            flash_firmware_onto_all_nodes_with_auto_addr(config)
+            logo_update(config.nodes_number)
         if selection == '2':
             flash_nodes_individually()
-            logo_update()
+            logo_update(config.nodes_number)
         if selection == '3':
             first_flashing(config.nodes_number)
             logo_update()
         if selection == '4':
-            logo_top()
+            logo_top(config.debug_mode)
             os.system("i2cdetect - y 1")
         if selection == '5':
             os.system("python3 ./nodes_update_old.py")
         if selection == '6':
-            reset_gpio_state()
+            reset_gpio_state(config.gpio_reset_pin)
         if selection == 'e':
             sys.exit()
         else:
