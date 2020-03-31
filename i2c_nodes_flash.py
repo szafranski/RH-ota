@@ -20,11 +20,51 @@ def nodes_addresses():
     addr_list_int = [node1addr, node2addr, node3addr, node4addr,
                      node5addr, node6addr, node7addr, node8addr]
 
-    addr_list = (hex(item) for item in addr_list_int)
+    addr_list_hex = [hex(item) for item in addr_list_int]
 
-    addr_list_str = [str(item) for item in addr_list]
+    addr_list = (str(item) for item in addr_list_hex)  # return addresses list as a tuple
 
-    return addr_list, addr_list_str, addr_list_int
+    return addr_list
+
+
+def reset_mate_node(smbus_import, addr, i2c_data, calculate_checksum):
+    on, off, bus, sleep_amt = smbus_import
+
+    reset_mate_node_command = i2c_data
+    on.append(calculate_checksum(on))
+    off.append(calculate_checksum(off))
+    sleep(sleep_amt)
+    bus.write_i2c_block_data(addr, reset_mate_node_command, on)
+    print("on sent")
+    sleep(sleep_amt)
+    bus.write_i2c_block_data(addr, reset_mate_node_command, off)
+    print("off sent")
+    print("node reset in progress")
+    sleep(sleep_amt)
+    bus.write_i2c_block_data(addr, reset_mate_node_command, on)
+    print("on sent")
+    sleep(0.2)
+
+
+def flash_blink(config):
+    os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
+    flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i")
+
+
+def flash_firmware(config):
+    os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
+    flash:w:/home/{config.user}/RH-ota/firmware/{config.firmware_version}/node_0.hex:i")
+
+
+try:
+    import RPi.GPIO as GPIO
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
+    GPIO.setup(config.gpio_reset_pin, GPIO.OUT, initial=GPIO.HIGH)
+    # ensures nothing is being reset during program's start
+except ModuleNotFoundError:
+    print("GPIO import - failed")
+    sleep(2)
 
 
 def logo_update(nodes_number):
@@ -39,23 +79,78 @@ def logo_update(nodes_number):
     """.format(nodes_number=nodes_number, bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, s=10 * ' '))
 
 
+def disable_serial_on_the_node(addr, *i2c_data, calculate_checksum):
+    disable_serial_data, disable_serial_on_the_node_command, bus = i2c_data
+    disable_serial_data.append(calculate_checksum(disable_serial_data))
+    bus.write_i2c_block_data(addr, disable_serial_on_the_node_command, disable_serial_data)
+
+
+'''commands needed for interaction with nodes using GPIO pins '''
+
+
+def gpio_reset_pin_low(gpio_reset_pin):
+    GPIO.output(gpio_reset_pin, GPIO.LOW)
+    sleep(0.1)
+
+
+def gpio_reset_pin_high(gpio_reset_pin):
+    GPIO.output(gpio_reset_pin, GPIO.HIGH)
+    sleep(0.1)
+
+
+def reset_gpio_pin(config):
+    gpio_reset_pin_high(config.gpio_reset_pin)
+    gpio_reset_pin_low(config.gpio_reset_pin)
+    gpio_reset_pin_high(config.gpio_reset_pin)
+
+
+def reset_mate_node(i2c_data, addr, calculate_checksum):
+    on, off, sleep_amt, reset, bus = i2c_data()
+    on.append(calculate_checksum(on))
+    off.append(calculate_checksum(off))
+    sleep(sleep_amt)
+    bus.write_i2c_block_data(addr, reset_mate_node, on)
+    print("pin at default state - sent\n")
+    sleep(sleep_amt)
+    bus.write_i2c_block_data(addr, reset_mate_node, off)
+    print("RESET command - sent")
+    sleep(sleep_amt)
+    bus.write_i2c_block_data(addr, reset_mate_node, on)
+    print("pin at default state - sent\n")
+    sleep(0.2)
+
+
+def flash_firmware_onto_all_nodes_with_auto_addr(config, user, nodes_number):
+    i = 1
+    for i in range(1, nodes_number):
+        disable_serial_on_all_nodes(config.nodes_number)
+        reset_mate_node(config.gpio_reset_pin)
+        os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
+        flash:w:/home/{user}/RH-ota/firmware/i2c/{config.RH_version}/node_0.hex:i")
+        print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
+        flash:w:/home/{user}/RH-ota/firmware/i2c/{config.RH_version}/node_{i}.hex:i")
+    print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {i} - flashed{Bcolors.ENDC}\n\n")
+    sleep(1)
+
+
+def flash_blink_onto_all_gnd_nodes(config, nodes_number):
+    i = 1
+    for i in range(1, nodes_number):
+        disable_serial_on_all_nodes(nodes_number)
+        reset_mate_node(config.gpio_reset_pin)
+        os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{config.user}\
+        /RH-ota/firmware/blink.hex:i")
+        print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
+        flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i ")
+    print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {i} - flashed{Bcolors.ENDC}\n\n")
+
+
 def disable_serial_on_all_nodes(addr_list, nodes_number):
     for addr in addr_list:
         disable_serial_on_the_node(addr, bus=communication_initializing())
         sleep(2)
         if addr_list.index(addr) == nodes_number:
             break
-
-
-def flash_firmware_onto_all_nodes_with_auto_addr(config, addr_list):
-    addr = 0
-    for addr in addr_list:
-        flashing_steps()
-        sleep(2)
-        if addr_list.index(addr) == config.nodes_number:
-            break
-    print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {str(addr_list.index(addr)+1)} - flashed{Bcolors.ENDC}\n\n")
-    sleep(1)
 
 
 def flash_nodes_individually():
