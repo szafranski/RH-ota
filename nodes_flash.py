@@ -1,7 +1,7 @@
 from time import sleep
 import os
 import sys
-from nodes_flash_common import main, disable_serial_on_the_node, com_init
+from nodes_flash_common import main as flashing, disable_serial_on_the_node, com_init
 from modules import clear_the_screen, Bcolors, logo_top, load_config
 from nodes_update_old import main as old_flash_gpio
 
@@ -25,26 +25,7 @@ def nodes_addresses():
 
     addr_list = [str(item) for item in addr_list_hex]  # return addresses list as a tuple
 
-    return addr_list
-
-
-def reset_mate_node(smbus_import, addr, i2c_data, calculate_checksum):
-    on, off, bus, sleep_amt = smbus_import
-
-    reset_mate_node_command = i2c_data
-    on.append(calculate_checksum(on))
-    off.append(calculate_checksum(off))
-    sleep(sleep_amt)
-    bus.write_i2c_block_data(addr, reset_mate_node_command, on)
-    print("on sent")
-    sleep(sleep_amt)
-    bus.write_i2c_block_data(addr, reset_mate_node_command, off)
-    print("off sent")
-    print("node reset in progress")
-    sleep(sleep_amt)
-    bus.write_i2c_block_data(addr, reset_mate_node_command, on)
-    print("on sent")
-    sleep(0.2)
+    return addr_list, addr_list_hex
 
 
 def flash_blink(config):
@@ -57,15 +38,18 @@ def flash_firmware(config):
     flash:w:/home/{config.user}/RH-ota/firmware/{config.firmware_version}/node_0.hex:i")
 
 
-try:
-    import RPi.GPIO as GPIO
-    GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
-    GPIO.setup(config.gpio_reset_pin, GPIO.OUT, initial=GPIO.HIGH)
-    # ensures nothing is being reset during program's start
-except ModuleNotFoundError:
-    print("GPIO import - failed")
-    sleep(2)
+def gpio_com(config):
+    try:
+        import RPi.GPIO as GPIO
+        GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
+        GPIO.setup(config.gpio_reset_pin, GPIO.OUT, initial=GPIO.HIGH)
+        # ensures nothing is being reset during program's start
+    except ModuleNotFoundError:
+        print("GPIO import - failed")
+        sleep(2)
+    finally:
+        return GPIO
 
 
 def logo_update(nodes_number):
@@ -80,29 +64,16 @@ def logo_update(nodes_number):
     """.format(nodes_number=nodes_number, bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, s=10 * ' '))
 
 
-def disable_serial_on_the_node(addr, *i2c_data, calculate_checksum):
-    disable_serial_data, disable_serial_on_the_node_command, bus = i2c_data
-    disable_serial_data.append(calculate_checksum(disable_serial_data))
-    bus.write_i2c_block_data(addr, disable_serial_on_the_node_command, disable_serial_data)
-
-
 '''commands needed for interaction with nodes using GPIO pins '''
 
 
-def gpio_reset_pin_low(gpio_reset_pin):
-    GPIO.output(gpio_reset_pin, GPIO.LOW)
-    sleep(0.1)
-
-
-def gpio_reset_pin_high(gpio_reset_pin):
-    GPIO.output(gpio_reset_pin, GPIO.HIGH)
-    sleep(0.1)
-
-
 def reset_gpio_pin(config):
-    gpio_reset_pin_high(config.gpio_reset_pin)
-    gpio_reset_pin_low(config.gpio_reset_pin)
-    gpio_reset_pin_high(config.gpio_reset_pin)
+    gpio_com().output(config.gpio_reset_pin, gpio_com().LOW)
+    sleep(0.1)
+    gpio_com().output(config.gpio_reset_pin, gpio_com().HIGH)
+    sleep(0.1)
+    gpio_com().output(config.gpio_reset_pin, gpio_com().LOW)
+    sleep(0.1)
 
 
 def reset_mate_node(i2c_data, addr, calculate_checksum):
@@ -121,15 +92,15 @@ def reset_mate_node(i2c_data, addr, calculate_checksum):
     sleep(0.2)
 
 
-def flash_firmware_onto_all_nodes_with_auto_addr(config, user, nodes_number):
+def flash_firmware_onto_all_nodes_with_auto_addr(config, nodes_number):
     i = 1
     for i in range(1, nodes_number):
-        disable_serial_on_all_nodes(config.nodes_number)
+        disable_serial_on_all_nodes(nodes_number=config.nodes_number)
         reset_mate_node(config.gpio_reset_pin)
         os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-        flash:w:/home/{user}/RH-ota/firmware/i2c/{config.RH_version}/node_0.hex:i")
+        flash:w:/home/{config.user}/RH-ota/firmware/i2c/{config.RH_version}/node_0.hex:i")
         print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-        flash:w:/home/{user}/RH-ota/firmware/i2c/{config.RH_version}/node_{i}.hex:i")
+        flash:w:/home/{config.user}/RH-ota/firmware/i2c/{config.RH_version}/node_{i}.hex:i")
     print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {i} - flashed{Bcolors.ENDC}\n\n")
     sleep(1)
 
@@ -137,8 +108,8 @@ def flash_firmware_onto_all_nodes_with_auto_addr(config, user, nodes_number):
 def flash_blink_onto_all_gnd_nodes(config, nodes_number):
     i = 1
     for i in range(1, nodes_number):
-        disable_serial_on_all_nodes(nodes_number)
-        reset_mate_node(config.gpio_reset_pin)
+        disable_serial_on_all_nodes(nodes_number=config.nodes_number, addr_list=nodes_addresses()[0])
+        reset_mate_node(config.gpio_reset_pin, addr=nodes_addresses()[0])
         os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{config.user}\
         /RH-ota/firmware/blink.hex:i")
         print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
@@ -193,12 +164,12 @@ def flash_nodes_individually():
             a - Abort{Bcolors.ENDC}""")
             selection = input()
             if selection == '1':
-                flashing_steps()
+                flashing(nodes_addresses()[1].index(selected_node_number))
                 print(f"{Bcolors.BOLD}\n\t Node {str(selected_node_number)} flashed\n{Bcolors.ENDC}")
                 sleep(1.5)
                 return
             if selection == '2':
-                flashing_steps()
+                flashing(nodes_addresses()[1].index(selected_node_number))
                 print(f"{Bcolors.BOLD}\n\t Node {str(selected_node_number)} flashed\n{Bcolors.ENDC}")
                 sleep(1.5)
                 return
@@ -209,6 +180,9 @@ def flash_nodes_individually():
 
 
 def first_flashing(config, nodes_number):
+    clear_the_screen()
+    logo_top(config.debug_mode)
+
     def flash(port):
         for i in range(nodes_number):
             input("Hit any key and push reset key of next node after 1 second")
@@ -272,7 +246,8 @@ def flashing_menu(config):
         sleep(0.1)
         selection = input()
         if selection == '1':
-            flash_firmware_onto_all_nodes_with_auto_addr(config, nodes_addresses()[2])
+            flash_firmware_onto_all_nodes_with_auto_addr(config.user, nodes_addresses()[2],
+                                                         config.nodes_number)
             logo_update(config.nodes_number)
         if selection == '2':
             flash_nodes_individually()
@@ -294,8 +269,8 @@ def flashing_menu(config):
 
 
 def main():
-    com_init()
     config = load_config()
+    com_init()
     flashing_menu(config)
 
 
