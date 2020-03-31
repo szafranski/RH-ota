@@ -36,16 +36,16 @@ def communication_initializing():  # I was trying to assume that software could 
         sleep(err_time)
 
     finally:
-        return bus
+        return bus, GPIO
 
 
 def gpio_reset_pin_low(config):
-    GPIO.output(config.gpio_reset_pin, GPIO.LOW)
+    communication_initializing()[1].output(config.gpio_reset_pin, communication_initializing()[1].LOW)
     sleep(0.1)
 
 
 def gpio_reset_pin_high(config):
-    GPIO.output(config.gpio_reset_pin, GPIO.HIGH)
+    communication_initializing()[1].output(config.gpio_reset_pin, communication_initializing()[1].HIGH)
     sleep(0.1)
 
 
@@ -67,7 +67,7 @@ def disable_serial_on_the_node(addr, bus):
     sleep(sleep_amt)
     bus.write_i2c_block_data(addr, disable_serial_on_the_node_command, disable_serial_data)
     sleep(sleep_amt)
-    print("serial disabled the node")
+    print(f"serial disabled on the node {str(addr)}")
     sleep(sleep_amt)
 
 
@@ -99,16 +99,13 @@ def flash_mate_node(firmware):
     os.system(f"{avrdude_action}")
 
 
-def flashing_steps():
+def main(addr):
     config = load_config()
-    disable_serial_on_the_node(bus=communication_initializing(), addr=0)
-    communication_initializing()
-    prepare_mate_node(bus=communication_initializing(), addr=0)
+    disable_serial_on_the_node(communication_initializing()[0], addr)
+    if config.debug_mode:
+        communication_initializing()
+    prepare_mate_node(communication_initializing()[0], addr)
     flash_mate_node(config.RH_version)
-
-
-def main():
-    flashing_steps()
 
 
 if __name__ == "__main__":

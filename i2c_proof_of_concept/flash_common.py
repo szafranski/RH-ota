@@ -47,7 +47,8 @@ def flash(addr):
         sleep(0.2)
 
     def flash_it(firm):
-        avrdude_content = f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/pi/{firm}.hex:i"
+        avrdude_content = f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
+        flash:w:/home/pi/RH-ota/i2c_proof_of_concept/{firm}.hex:i"
         os.system(f"{avrdude_content}")
 
     if flash_before:

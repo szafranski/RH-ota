@@ -1,7 +1,7 @@
 from time import sleep
 import os
 import sys
-from flash_common import flashing_steps, disable_serial_on_the_node, communication_initializing
+from nodes_flash_common import main, disable_serial_on_the_node, communication_initializing
 from modules import clear_the_screen, Bcolors, logo_top, load_config
 
 
