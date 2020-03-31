@@ -3,10 +3,18 @@ from time import sleep
 import os
 
 
-def flash(addr):
-    bus = SMBus(1)  # indicates /dev/ic2-1
-
+def firmware_ver_define():
     firmware = 'node'
+    return firmware
+
+
+def flash(addr):
+    try:
+        bus = SMBus(1)  # indicates /dev/ic2-1
+    except PermissionError:
+        print("\n\n\tI2C error")
+
+    firmware = firmware_ver_define()
 
     sleep_amt = 1
 
@@ -21,13 +29,16 @@ def flash(addr):
 
     on = [1]
     off = [0]
-
     ser = [0]
 
     def disable_serial(addr):
         ser.append(calculate_checksum(ser))
         sleep(sleep_amt)
-        bus.write_i2c_block_data(addr, disable_serial_on_the_node, ser)
+        try:
+            bus.write_i2c_block_data(addr, disable_serial_on_the_node, ser)
+        except NameError:
+            print("\n\n\tI2C error")
+
         sleep(1)
         print("serial disabled")
         sleep(sleep_amt)
@@ -36,13 +47,22 @@ def flash(addr):
         on.append(calculate_checksum(on))
         off.append(calculate_checksum(off))
         sleep(sleep_amt)
-        bus.write_i2c_block_data(addr, reset_mate_node, on)
+        try:
+            bus.write_i2c_block_data(addr, reset_mate_node, on)
+        except NameError:
+            print("\n\n\tI2C error")
         print("on sent")
         sleep(sleep_amt)
-        bus.write_i2c_block_data(addr, reset_mate_node, off)
+        try:
+            bus.write_i2c_block_data(addr, reset_mate_node, off)
+        except NameError:
+            print("\n\n\tI2C error")
         print("off sent")
         sleep(sleep_amt)
-        bus.write_i2c_block_data(addr, reset_mate_node, on)
+        try:
+            bus.write_i2c_block_data(addr, reset_mate_node, on)
+        except NameError:
+            print("\n\n\tI2C error")
         print("on sent")
         sleep(0.2)
 
@@ -58,7 +78,7 @@ def flash(addr):
     disable_serial(addr)
     flash_mate_node(addr)
     flash_it(firmware)
-    # sleep(sleep_amt)
+    sleep(sleep_amt)
     # os.system("i2cdetect -y 1")
     # flash_mate_node(addr2)
     # flash_it(firmware)

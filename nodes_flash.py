@@ -3,6 +3,7 @@ import os
 import sys
 from nodes_flash_common import main, disable_serial_on_the_node, communication_initializing
 from modules import clear_the_screen, Bcolors, logo_top, load_config
+from nodes_update_old import main as nodes_old_update
 
 
 def nodes_addresses():
@@ -17,12 +18,12 @@ def nodes_addresses():
     node7addr = 20
     node8addr = 22
 
-    addr_list_int = [node1addr, node2addr, node3addr, node4addr,
-                     node5addr, node6addr, node7addr, node8addr]
+    addr_list_int = (node1addr, node2addr, node3addr, node4addr,
+                     node5addr, node6addr, node7addr, node8addr)
 
     addr_list_hex = [hex(item) for item in addr_list_int]
 
-    addr_list = (str(item) for item in addr_list_hex)  # return addresses list as a tuple
+    addr_list = [str(item) for item in addr_list_hex]  # return addresses list as a tuple
 
     return addr_list
 
@@ -283,7 +284,7 @@ def flashing_menu(config):
             logo_top(config.debug_mode)
             os.system("i2cdetect - y 1")
         if selection == '5':
-            os.system("python3 ./nodes_update_old.py")
+            nodes_old_update()
         if selection == '6':
             reset_gpio_state(config.gpio_reset_pin)
         if selection == 'e':
