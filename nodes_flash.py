@@ -1,9 +1,9 @@
 from time import sleep
 import os
 import sys
-from nodes_flash_common import main, disable_serial_on_the_node, communication_initializing
+from nodes_flash_common import main, disable_serial_on_the_node, com_init
 from modules import clear_the_screen, Bcolors, logo_top, load_config
-from nodes_update_old import main as nodes_old_update
+from nodes_update_old import main as old_flash_gpio
 
 
 def nodes_addresses():
@@ -148,7 +148,7 @@ def flash_blink_onto_all_gnd_nodes(config, nodes_number):
 
 def disable_serial_on_all_nodes(addr_list, nodes_number):
     for addr in addr_list:
-        disable_serial_on_the_node(addr, bus=communication_initializing())
+        disable_serial_on_the_node(addr, bus=com_init())
         sleep(2)
         if addr_list.index(addr) == nodes_number:
             break
@@ -284,7 +284,7 @@ def flashing_menu(config):
             logo_top(config.debug_mode)
             os.system("i2cdetect - y 1")
         if selection == '5':
-            nodes_old_update()
+            old_flash_gpio()
         if selection == '6':
             reset_gpio_state(config.gpio_reset_pin)
         if selection == 'e':
@@ -294,7 +294,7 @@ def flashing_menu(config):
 
 
 def main():
-    communication_initializing()
+    com_init()
     config = load_config()
     flashing_menu(config)
 

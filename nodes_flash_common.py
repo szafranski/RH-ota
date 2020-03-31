@@ -3,7 +3,7 @@ import os
 from modules import load_config
 
 
-def communication_initializing():  # I was trying to assume that software could be open on Linux but idk anymore
+def com_init():  # I was trying to assume that software could be open on Linux but idk anymore
     error_msg = "SMBus(1) - error\nI2C communication doesn't work properly"
     err_time = 2
     try:
@@ -39,20 +39,13 @@ def communication_initializing():  # I was trying to assume that software could 
         return bus, GPIO
 
 
-def gpio_reset_pin_low(config):
-    communication_initializing()[1].output(config.gpio_reset_pin, communication_initializing()[1].LOW)
-    sleep(0.1)
-
-
-def gpio_reset_pin_high(config):
-    communication_initializing()[1].output(config.gpio_reset_pin, communication_initializing()[1].HIGH)
-    sleep(0.1)
-
-
 def reset_gpio_pin(config):
-    gpio_reset_pin_high(config.gpio_reset_pin)
-    gpio_reset_pin_low(config.gpio_reset_pin)
-    gpio_reset_pin_high(config.gpio_reset_pin)
+    com_init()[1].output(config.gpio_reset_pin, com_init()[1].HIGH)
+    sleep(0.1)
+    com_init()[1].output(config.gpio_reset_pin, com_init()[1].LOW)
+    sleep(0.1)
+    com_init()[1].output(config.gpio_reset_pin, com_init()[1].HIGH)
+    sleep(0.1)
 
 
 def disable_serial_on_the_node(addr, bus):
@@ -101,10 +94,10 @@ def flash_mate_node(firmware):
 
 def main(addr):
     config = load_config()
-    disable_serial_on_the_node(communication_initializing()[0], addr)
+    disable_serial_on_the_node(com_init()[0], addr)
     if config.debug_mode:
-        communication_initializing()
-    prepare_mate_node(communication_initializing()[0], addr)
+        com_init()
+    prepare_mate_node(com_init()[0], addr)
     flash_mate_node(config.RH_version)
 
 
