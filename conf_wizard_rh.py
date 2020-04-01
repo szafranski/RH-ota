@@ -73,7 +73,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                     rh_config["LED"]['LED_COUNT'] = int(led_count)
                     break
             while True:
-                led_pin_nr = input("\nWhich GPIO pin is connected to your LEDs data pin? [default: 10]\t")
+                led_pin_nr = input("\nWhich GPIO pin is connected to your LEDs data pin? [default: 18]\t")
                 if not led_pin_nr.isdigit() or int(led_pin_nr) < 0 or int(led_pin_nr) > 40:
                     print("\nPlease enter correct value!")
                 else:
