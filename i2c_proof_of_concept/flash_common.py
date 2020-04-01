@@ -4,11 +4,11 @@ import os
 
 
 def firmware_ver_define():
-    firmware = 'node'
+    firmware = 'node_no_s'
     return firmware
 
 
-def main(addr):
+def flash(addr):
     try:
         bus = SMBus(1)  # indicates /dev/ic2-1
     except PermissionError:
@@ -76,7 +76,7 @@ def main(addr):
         flash_it(firmware)
 
     disable_serial(addr)
+    #    disable_serial(addr2)
     flash_mate_node(addr)
     flash_it(firmware)
     sleep(sleep_amt)
-
