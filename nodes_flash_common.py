@@ -66,11 +66,11 @@ def disable_serial_on_the_node(addr, bus):
     sleep(sleep_amt)
 
 
-def prepare_mate_node(addr, bus):
+def prepare_mate_node(addr):
     def calculate_checksum(data):
         checksum = sum(data) & 0xFF
         return checksum
-
+    bus = com_init()
     sleep_amt = 1
     on, off = [1], [0]
     reset_mate_node_command = 0x79

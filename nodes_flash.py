@@ -17,8 +17,8 @@ def nodes_addresses():
     node7addr = 0x14
     node8addr = 0x16
 
-    addr_list_int = (node1addr, node2addr, node3addr, node4addr,
-                     node5addr, node6addr, node7addr, node8addr)
+    addr_list_int = [node1addr, node2addr, node3addr, node4addr,
+                     node5addr, node6addr, node7addr, node8addr]
 
     addr_list = [str(item) for item in addr_list_int]  # return addresses list as a tuple
 
@@ -75,8 +75,7 @@ def reset_gpio_pin(config):
 
 def flash_firmware_onto_all_nodes_with_auto_addr(config):
     i = 1
-    bus = com_init()
-    reset_mate_node = prepare_mate_node(bus=bus, addr=nodes_addresses()[1])
+    reset_mate_node = prepare_mate_node(addr=nodes_addresses()[1])
     for i in range(1, config.nodes_number):
         # disable_serial_on_all_nodes(nodes_number=config.nodes_number, addr_list=nodes_addresses()[0])
         reset_mate_node(config.gpio_reset_pin)
@@ -169,12 +168,12 @@ def first_flashing(config, nodes_number):
     logo_top(config.debug_mode)
 
     def flash(port):
-        for i in range(nodes_number):
-            input("Hit any key and push reset key of next node after 1 second")
-            sleep(0.2)
+        for i in range(int(nodes_number)):
+            input("\n\n\tHit any key and push reset key of next node after 1 second\n\t")
+            sleep(0.5)
             # disable_serial_on_all_nodes(nodes_number=config.nodes_number, addr_list=nodes_addresses()[1])
             os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/tty{port} -b 57600 -U \
-                    flash:w:/home/{config.user}/RH-ota/firmware/{config.firmware_version}/node_0.hex:i")
+                    flash:w:/home/{config.user}/RH-ota/firmware/{config.RH_version}/node_0.hex:i")
 
     while True:
         port_sel = input("""\n\n
@@ -183,9 +182,11 @@ def first_flashing(config, nodes_number):
         if port_sel.lower() == 'uart':
             port_sel = 'S0'
             flash(port_sel)
+            break
         if port_sel.lower() == 'usb':
             port_sel = 'USB0'
             flash(port_sel)
+            break
         else:
             print("\n\tType: 'UART' or 'USB'\n\t")
 
