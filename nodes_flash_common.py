@@ -26,7 +26,7 @@ def com_init():  # I was trying to assume that software could be open on Linux b
         bus = 0
 
     try:
-        import RPi.GPIO as GPIO  # works only on Pi
+        import RPi.GPIO as GPIO # works only on Pi
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
         GPIO.setup(config.gpio_reset_pin, GPIO.OUT, initial=GPIO.HIGH)
@@ -36,15 +36,16 @@ def com_init():  # I was trying to assume that software could be open on Linux b
         sleep(err_time)
 
     finally:
-        return bus, GPIO
+        return bus
 
 
 def reset_gpio_pin(config):
-    com_init()[1].output(config.gpio_reset_pin, com_init()[1].HIGH)
+    GPIO = RPi.GPIO()
+    GPIO.output(config.gpio_reset_pin, GPIO.HIGH)
     sleep(0.1)
-    com_init()[1].output(config.gpio_reset_pin, com_init()[1].LOW)
+    GPIO.output(config.gpio_reset_pin, GPIO.LOW)
     sleep(0.1)
-    com_init()[1].output(config.gpio_reset_pin, com_init()[1].HIGH)
+    GPIO.output(config.gpio_reset_pin, GPIO.HIGH)
     sleep(0.1)
 
 

@@ -35,7 +35,7 @@ def flash_blink(config):
 
 def flash_firmware(config):
     os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-    flash:w:/home/{config.user}/RH-ota/firmware/{config.firmware_version}/node_0.hex:i")
+    flash:w:/home/{config.user}/RH-ota/firmware/{config.RH_version}/node_0.hex:i")
 
 
 def gpio_com(config):
@@ -52,7 +52,7 @@ def gpio_com(config):
         return GPIO
 
 
-def logo_update(nodes_number):
+def logo_update(config):
     print("""
     #######################################################################
     #                                                                     #
@@ -61,41 +61,39 @@ def logo_update(nodes_number):
     #              {bold}         Thank you!        {endc}                #
     #                                                                     #
     #######################################################################\n\n
-    """.format(nodes_number=nodes_number, bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, s=10 * ' '))
-
-
-'''commands needed for interaction with nodes using GPIO pins '''
+    """.format(nodes_number=config.nodes_number, bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, s=10 * ' '))
 
 
 def reset_gpio_pin(config):
-    gpio_com().output(config.gpio_reset_pin, gpio_com().LOW)
+    GPIO - gpio_com(config)
+    GPIO.output(config.gpio_reset_pin, GPIO.LOW)
     sleep(0.1)
-    gpio_com().output(config.gpio_reset_pin, gpio_com().HIGH)
+    GPIO.output(config.gpio_reset_pin, GPIO.HIGH)
     sleep(0.1)
-    gpio_com().output(config.gpio_reset_pin, gpio_com().LOW)
+    GPIO.output(config.gpio_reset_pin, GPIO.LOW)
     sleep(0.1)
 
 
-def reset_mate_node(i2c_data, addr, calculate_checksum):
-    on, off, sleep_amt, reset, bus = i2c_data()
-    on.append(calculate_checksum(on))
-    off.append(calculate_checksum(off))
-    sleep(sleep_amt)
-    bus.write_i2c_block_data(addr, reset_mate_node, on)
-    print("pin at default state - sent\n")
-    sleep(sleep_amt)
-    bus.write_i2c_block_data(addr, reset_mate_node, off)
-    print("RESET command - sent")
-    sleep(sleep_amt)
-    bus.write_i2c_block_data(addr, reset_mate_node, on)
-    print("pin at default state - sent\n")
-    sleep(0.2)
+# def reset_mate_node(i2c_data, addr, calculate_checksum):
+#     on, off, sleep_amt, reset, bus = i2c_data()
+#     on.append(calculate_checksum(on))
+#     off.append(calculate_checksum(off))
+#     sleep(sleep_amt)
+#     bus.write_i2c_block_data(addr, reset_mate_node, on)
+#     print("pin at default state - sent\n")
+#     sleep(sleep_amt)
+#     bus.write_i2c_block_data(addr, reset_mate_node, off)
+#     print("RESET command - sent")
+#     sleep(sleep_amt)
+#     bus.write_i2c_block_data(addr, reset_mate_node, on)
+#     print("pin at default state - sent\n")
+#     sleep(0.2)
 
 
-def flash_firmware_onto_all_nodes_with_auto_addr(config, nodes_number):
+def flash_firmware_onto_all_nodes_with_auto_addr(config):
     i = 1
-    for i in range(1, nodes_number):
-        disable_serial_on_all_nodes(nodes_number=config.nodes_number)
+    for i in range(1, config.nodes_number):
+        disable_serial_on_all_nodes(nodes_number=config.nodes_number, addr_list=nodes_addresses()[0])
         reset_mate_node(config.gpio_reset_pin)
         os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
         flash:w:/home/{config.user}/RH-ota/firmware/i2c/{config.RH_version}/node_0.hex:i")
@@ -246,15 +244,14 @@ def flashing_menu(config):
         sleep(0.1)
         selection = input()
         if selection == '1':
-            flash_firmware_onto_all_nodes_with_auto_addr(config.user, nodes_addresses()[2],
-                                                         config.nodes_number)
+            flash_firmware_onto_all_nodes_with_auto_addr(config)
             logo_update(config.nodes_number)
         if selection == '2':
             flash_nodes_individually()
             logo_update(config.nodes_number)
         if selection == '3':
             first_flashing(config, nodes_number=config.nodes_number)
-            logo_update(nodes_number=config.nodes_number)
+            logo_update(config.nodes_number)
         if selection == '4':
             logo_top(config.debug_mode)
             os.system("i2cdetect - y 1")
