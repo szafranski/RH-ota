@@ -1,6 +1,7 @@
 #!/bin/bash
 
 sleep 2
+echo
 avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/pi/"${1}".hex:i
 echo
 echo   ------ node flashed ------
