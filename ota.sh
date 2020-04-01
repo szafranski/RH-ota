@@ -120,7 +120,5 @@ rm aptinstalled.tmp
 
 python3 update.py
 
-# todo 'sudo -H' with pip should be used? yellow prompts are showing
-
 # shellcheck disable=SC2230
 # due to 'which' reporting
