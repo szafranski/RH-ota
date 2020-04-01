@@ -8,7 +8,7 @@ def firmware_ver_define():
     return firmware
 
 
-def flash(addr):
+def main(addr):
     try:
         bus = SMBus(1)  # indicates /dev/ic2-1
     except PermissionError:
@@ -79,6 +79,4 @@ def flash(addr):
     flash_mate_node(addr)
     flash_it(firmware)
     sleep(sleep_amt)
-    # os.system("i2cdetect -y 1")
-    # flash_mate_node(addr2)
-    # flash_it(firmware)
+

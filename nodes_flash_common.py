@@ -93,11 +93,11 @@ def flash_mate_node(firmware):
     os.system(f"{avrdude_action}")
 
 
-def main(addr):
+def main(addr=0):
     config = load_config()
-    disable_serial_on_the_node(com_init()[0], addr)
     if config.debug_mode:
         com_init()
+    disable_serial_on_the_node(com_init()[0], addr)
     prepare_mate_node(com_init()[0], addr)
     flash_mate_node(config.RH_version)
 
