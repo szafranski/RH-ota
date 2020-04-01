@@ -35,19 +35,18 @@ cd /home/"${1}"/bme280 || exit
 sudo python setup.py install
 sudo apt-get install openjdk-8-jdk-headless -y
 sudo rm /lib/systemd/system/rotorhazard.service
-echo
-echo ' ' | sudo tee -a /lib/systemd/system/rotorhazard.service
-echo '[Unit]' | sudo tee -a /lib/systemd/system/rotorhazard.service
-echo 'Description=RotorHazard Server' | sudo tee -a /lib/systemd/system/rotorhazard.service
-echo 'After=multi-user.target' | sudo tee -a /lib/systemd/system/rotorhazard.service
-echo ' ' | sudo tee -a /lib/systemd/system/rotorhazard.service
-echo '[Service]' | sudo tee -a /lib/systemd/system/rotorhazard.service
-echo 'WorkingDirectory=/home/"${1}"/RotorHazard/src/server' | sudo tee -a /lib/systemd/system/rotorhazard.service
-echo 'ExecStart=/usr/bin/python server.py' | sudo tee -a /lib/systemd/system/rotorhazard.service
-echo ' ' | sudo tee -a /lib/systemd/system/rotorhazard.service
-echo '[Install]' | sudo tee -a /lib/systemd/system/rotorhazard.service
-echo 'WantedBy=multi-user.target' | sudo tee -a /lib/systemd/system/rotorhazard.service
-echo
+echo "
+[Unit]
+Description=RotorHazard Server
+After=multi-user.target
+
+[Service]
+WorkingDirectory=/home/${1}/RotorHazard/src/server
+ExecStart=/usr/bin/python server.py
+
+[Install]
+WantedBy=multi-user.target
+" | sudo tee -a /lib/systemd/system/rotorhazard.service
 sudo chmod 644 /lib/systemd/system/rotorhazard.service
 sudo systemctl daemon-reload
 sudo systemctl enable rotorhazard.service
