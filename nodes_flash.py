@@ -260,9 +260,9 @@ def flashing_menu(config):
         if selection == '6':
             reset_gpio_state(config.gpio_reset_pin)
         if selection == 'e':
-            sys.exit()
-        else:
             break
+        else:
+            continue
 
 
 def main():

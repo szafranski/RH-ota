@@ -6,7 +6,7 @@ import platform
 import sys
 import json
 import time
-import requests  # todo David - no module error, we use it?
+import requests
 from types import SimpleNamespace as Namespace, SimpleNamespace
 
 

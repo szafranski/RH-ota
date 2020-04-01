@@ -2,18 +2,8 @@
 
 ##################
 ### fun stuff
-spinner()  # maybe will be used when pip3 freeze etc.
-{
-sp='/-\|'
-printf ' '
-while true; do
-    printf '\b%.1s' "$sp"
-    sp=${sp#?}${sp%???}
-done
-}
-
-dots5() { # done that way so it work on every terminal
-for i in {1 2 3 4 5}; do
+dots7() { # done that way so it work on every terminal
+for i in {1 2 3 4 5 6 7}; do
   printf "."
   sleep 0.2
 done
@@ -58,13 +48,11 @@ else
   echo pip3 '\t''\t' found
 fi
 
-dots5
-
 echo please wait - looking for dependencies
 
-pip3 freeze >pip3installed.tmp
+dots7 & pip3 freeze >pip3installed.tmp
 
-apt list 2>/dev/null | tee aptinstalled.tmp >/dev/null
+dots7 & apt list 2>/dev/null | tee aptinstalled.tmp >/dev/null
 
 if grep -q 'python3-gpiozero' aptinstalled.tmp; then
   echo python3-gpiozero found

@@ -1,14 +1,13 @@
 from time import sleep
 import os
-import sys
 import json
-from modules import clear_the_screen, Bcolors, logo_top, check_if_string_in_file
+from modules import clear_the_screen, Bcolors, logo_top, check_if_string_in_file, load_config
 
-if os.path.exists("./updater-config.json"):
-    with open('updater-config.json') as config_file:
+if os.path.exists("../updater-config.json"):
+    with open('../updater-config.json') as config_file:
         data = json.load(config_file)
 else:
-    with open('distr-updater-config.json') as config_file:
+    with open('../distr-updater-config.json') as config_file:
         data = json.load(config_file)
 
 if os.path.exists("./updater-config.json"):
@@ -19,15 +18,15 @@ if os.path.exists("./updater-config.json"):
 else:
     pins_assignment = 'default'
 
-prefered_RH_version = data['RH_version']
+preferred_RH_version = data['RH_version']
 
-if prefered_RH_version == 'master':
+if preferred_RH_version == 'master':
     firmware_version = 'master'
-if prefered_RH_version == 'beta':
+if preferred_RH_version == 'beta':
     firmware_version = 'beta'
-if prefered_RH_version == 'stable':
+if preferred_RH_version == 'stable':
     firmware_version = 'stable'
-if prefered_RH_version == 'custom':
+if preferred_RH_version == 'custom':
     firmware_version = 'stable'
 
 nodes_number = data['nodes_number']
@@ -69,8 +68,8 @@ else:
     reset_7 = 19  # node 7   # default 19
     reset_8 = 26  # node 8   # default 26
 
-reset_list = [str(reset_1), str(reset_2), str(reset_3), str(reset_4), str(reset_5), str(reset_6), str(reset_7),
-              str(reset_8)]
+reset_list = [str(reset_1), str(reset_2), str(reset_3), str(reset_4),
+              str(reset_5), str(reset_6), str(reset_7), str(reset_8)]
 
 if data['debug_mode']:
     linux_testing = True
@@ -135,27 +134,27 @@ if not linux_testing:
 
 if linux_testing:
 
-    for i in range(0, 8):
+    for i in range(0, 7):
         print("GPIO.setup(" + (reset_list[i]) + ", GPIO.OUT, initial=GPIO.HIGH)")
     sleep(0.5)
 
 
     def all_pins_reset():
-        print("\n\n\t\t\tallPinsReset")
+        print("\n\n\t\t\tall_pins_reset")
         print("\n\t\t\t\t\t Linux - PC\n\n")
         sleep(0.3)
 
 
     def all_pins_low():
-        print("\n\n\t\t\tallPinsLow")
-        for i in range(0, 8):
+        print("\n\n\t\t\tall_pins_low")
+        for i in range(0, 7):
             print("GPIO.output(" + (reset_list[i]) + ", GPIO.LOW")
         sleep(3)
 
 
     def all_pins_high():
-        print("\n\n\tallPinsHigh:")
-        for i in range(0, 8):
+        print("\n\n\tall_pins_high:")
+        for i in range(0, 7):
             print("GPIO.output(" + (reset_list[i]) + ", GPIO.HIGH")
         sleep(3)
 
@@ -180,7 +179,6 @@ def logo_update():
 
 
 def flash_all_nodes():
-    global i
     for i in range(0, nodes_number):
         all_pins_high()
         reset_gpio()
@@ -194,7 +192,6 @@ def flash_all_nodes():
 
 
 def flash_all_gnd():
-    global i
     for i in range(0, nodes_number):
         all_pins_high()
         reset_gpio()
@@ -208,7 +205,6 @@ def flash_all_gnd():
 
 
 def flash_all_blink():
-    global i
     for i in range(0, nodes_number):
         all_pins_high()
         reset_gpio()
@@ -221,9 +217,8 @@ def flash_all_blink():
         sleep(1)
 
 
-def flash_each_node():
-    def node_x_menu():
-        global x
+def node_x_menu(config, x):
+    while True:
         print(Bcolors.BOLD + "\n\t\t\t\t Node " + str(x) + " selected" + Bcolors.ENDC)
         print(Bcolors.BOLD + "\n\n\t\t Choose flashing type:\n" + Bcolors.ENDC)
         print("\t\t 1 - " + Bcolors.GREEN + "Node gets own dedicated firmware - recommended" + Bcolors.ENDC)
@@ -259,46 +254,46 @@ def flash_each_node():
             sleep(1)
             return
         if selection == '4':
-            node_menu()
-        if selection == 'dev':
-            all_pins_high()
-            reset_gpio()
-            os.system("echo no_sudo &&  avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-            flash:w:/home/" + user + "/RH-ota/.dev/node_" + str(x) + ".hex:i ")
-            print(Bcolors.BOLD + "\n\t Testing firmware on Node " + str(x) + " flashed\n" + Bcolors.ENDC)
-            sleep(1)
+            node_menu(config)
         else:
-            node_x_menu()
+            continue
 
-    def node_menu():
-        global x
+
+def node_menu(config):
+    while True:
         clear_the_screen()
-        logo_top()
+        logo_top(config.debug_mode)
         sleep(0.05)
-        print("\n\n\n\t\t\t\t    " + Bcolors.RED + Bcolors.BOLD + "NODES MENU" + Bcolors.ENDC)
-        print("\n\t\t " + Bcolors.BOLD + "1 - Flash node 1 \t\t 5 - Flash node 5" + Bcolors.ENDC)
-        print("\n\t\t " + Bcolors.BOLD + "2 - Flash node 2 \t\t 6 - Flash node 6" + Bcolors.ENDC)
-        print("\n\t\t " + Bcolors.BOLD + "3 - Flash node 3 \t\t 7 - Flash node 7" + Bcolors.ENDC)
-        print("\n\t\t " + Bcolors.BOLD + "4 - Flash node 4 \t\t 8 - Flash node 8")
-        print("\n\t\t\t\t" + Bcolors.YELLOW + Bcolors.BOLD + "e - Exit to main menu" + Bcolors.ENDC)
+        flash_node_menu = """
+                            {red}{bold}NODES MENU{endc}
+                        {bold}
+                1 - Flash node 1        5 - Flash node 5
+
+                2 - Flash node 2        6 - Flash node 6
+
+                3 - Flash node 3        7 - Flash node 7
+
+                4 - Flash node 4        8 - Flash node 8
+                        {yellow}
+                    'e'- Exit to main menu{endc}
+        """.format(bold=Bcolors.BOLD, red=Bcolors.RED, yellow=Bcolors.YELLOW, endc=Bcolors.ENDC)
+        print(flash_node_menu)
         selection = input("\n\n\t\t" + Bcolors.BOLD + "Which node do you want to program:" + Bcolors.ENDC + " ")
         print("\n\n")
         if (selection.isdigit()) and int(selection) <= 8:
             x = selection
-            sleep(0.5)
-            node_x_menu()
+            sleep(0.1)
+            node_x_menu(config, x)
         if selection == 'e':
-            nodes_update()
+            break
         else:
-            node_menu()
-
-    node_menu()
+            continue
 
 
-def gpio_state():
+def gpio_state(config):
     clear_the_screen()
-    logo_top()        # todo inspection shows error Parameter 'linux_testing' unfilled and points to this line
-    print("\n\n\n")   # todo end every other line with logo_top()
+    logo_top(config.debug_mode)
+    print("\n\n\n")  # todo end every other line with logo_top()
     os.system("echo " + str(reset_1) + " > /sys/class/GPIO/unexport")
     os.system("echo " + str(reset_2) + " > /sys/class/GPIO/unexport")
     os.system("echo " + str(reset_3) + " > /sys/class/GPIO/unexport")
@@ -313,6 +308,61 @@ def gpio_state():
     print("\n\n        DONE\n\n")
     sleep(0.3)
 
+
+def nodes_update(config):
+    while True:
+        clear_the_screen()
+        logo_top(config.debug_mode)
+        sleep(0.05)
+        node_menu_content = """\n
+                            {bold}{underline}CHOOSE FLASHING TYPE:{endc}
+
+                    {green}{bold}1 - Every Node gets own dedicated firmware - rec.{endc}
+
+                    2 - Nodes will use ground-auto selection firmware
+
+                    3 - Flash 'Blink' on every node
+
+                    4 - Flash each node individually
+
+                    5 - Fix GPIO pins state 
+
+                    e - Exit to main menu
+
+                    {yellow}e - Exit to main menu{endc}
+            """.format(bold=Bcolors.BOLD, green=Bcolors.GREEN, yellow=Bcolors.YELLOW,
+                       endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE)
+        print(node_menu_content)
+        selection = input()
+        if selection == '1':
+            flash_all_nodes()
+            logo_update()
+            sleep(3)
+        if selection == '2':
+            flash_all_gnd()
+            logo_update()
+            sleep(3)
+        if selection == '3':
+            flash_all_blink()
+            logo_update()
+            sleep(3)
+        if selection == '4':
+            node_menu(config)
+        if selection == '5':
+            gpio_state(config)
+        if selection == 'e':
+            break
+        else:
+            continue
+
+
+def main():
+    config = load_config()
+    nodes_update(config)
+
+
+if __name__ == "__main__":
+    main()
 
 # def connectionTest():
 # nodeOneReset()
@@ -355,44 +405,3 @@ def gpio_state():
 # sleep(2)
 # if nodes_number == 8:
 # return
-
-def nodes_update():
-    clear_the_screen()
-    logo_top()
-    sleep(0.05)
-    print("\n\n\t\t\t " + Bcolors.BOLD + Bcolors.UNDERLINE + "CHOOSE FLASHING TYPE:\n" + Bcolors.ENDC)
-    print("\t\t " + Bcolors.GREEN + Bcolors.BOLD + "1 - Every Node gets own dedicated firmware - recommended\n"
-          + Bcolors.ENDC)
-    print("\t\t " + Bcolors.BOLD + "2 - Nodes will use ground-auto selection firmware\n" + Bcolors.ENDC)
-    print("\t\t " + Bcolors.BOLD + "3 - Flash 'Blink' on every node\n" + Bcolors.ENDC)
-    print("\t\t " + Bcolors.BOLD + "4 - Flash each node individually\n" + Bcolors.ENDC)
-    print("\t\t " + Bcolors.BOLD + "5 - I2C programming - early beta\n" + Bcolors.ENDC)
-    print("\t\t " + Bcolors.BOLD + "6 - Fix GPIO pins state - obsolete\n" + Bcolors.ENDC)
-    print("\t\t " + Bcolors.YELLOW + Bcolors.BOLD + "e - Exit to main menu\n" + Bcolors.ENDC)
-    sleep(0.3)
-    selection = input()
-    if selection == '1':
-        flash_all_nodes()
-        logo_update()
-        sleep(3)
-    if selection == '2':
-        flash_all_gnd()
-        logo_update()
-        sleep(3)
-    if selection == '3':
-        flash_all_blink()
-        logo_update()
-        sleep(3)
-    if selection == '4':
-        flash_each_node()
-    if selection == '5':
-        os.system("python ./.dev/i2c_nodes_py")
-    if selection == '6':
-        gpio_state()
-    if selection == 'e':
-        sys.exit()
-    else:
-        nodes_update()
-
-
-nodes_update()
