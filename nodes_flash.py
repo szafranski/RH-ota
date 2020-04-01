@@ -185,12 +185,14 @@ def first_flashing(config, nodes_number):
         for i in range(nodes_number):
             input("Hit any key and push reset key of next node after 1 second")
             sleep(0.2)
-            disable_serial_on_all_nodes(nodes_number=config.nodes_number, addr_list=nodes_addresses()[1])
+            #disable_serial_on_all_nodes(nodes_number=config.nodes_number, addr_list=nodes_addresses()[1])
             os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/tty{port} -b 57600 -U \
                     flash:w:/home/{config.user}/RH-ota/firmware/{config.firmware_version}/node_0.hex:i")
 
     while True:
-        port_sel = input("UART or USB flashing [default: UART]")
+        port_sel = input("""\n\n
+    Will you flash your nodes for the first time via UART (on PCB) 
+    or using USB port [usb/uart | default: UART] """)
         if port_sel.lower() == 'uart':
             port_sel = 'S0'
             flash(port_sel)
@@ -198,7 +200,7 @@ def first_flashing(config, nodes_number):
             port_sel = 'USB0'
             flash(port_sel)
         else:
-            print("Type: 'UART' or 'USB' ")
+            print("\n\tType: 'UART' or 'USB'\n\t")
 
 
 def reset_gpio_state(config):
