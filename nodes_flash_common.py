@@ -6,6 +6,7 @@ from modules import load_config
 def com_init():  # I was trying to assume that software could be open on Linux but idk anymore
     error_msg = "SMBus(1) - error\nI2C communication doesn't work properly"
     err_time = 2
+    bus = 0
     try:
         from smbus import SMBus  # works only on Pi
         bus = SMBus(1)  # indicates /dev/ic2-1 - correct i2c bus for most Pies
@@ -13,30 +14,30 @@ def com_init():  # I was trying to assume that software could be open on Linux b
         print(error_msg)
         print(perm_error)
         sleep(err_time)
-        bus = 0
     except NameError as name_error:
         print(error_msg)
         print(name_error)
         sleep(err_time)
-        bus = 0
     except ModuleNotFoundError as no_mod_err:
         print(error_msg)
         print(no_mod_err)
         sleep(err_time)
-        bus = 0
+    finally:
+        return bus
 
+
+def gpio_com(config):
     try:
-        import RPi.GPIO as GPIO # works only on Pi
+        import RPi.GPIO as GPIO
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
         GPIO.setup(config.gpio_reset_pin, GPIO.OUT, initial=GPIO.HIGH)
         # ensures nothing is being reset during program's start
     except ModuleNotFoundError:
         print("GPIO import - failed")
-        sleep(err_time)
-
+        sleep(2)
     finally:
-        return bus
+        return GPIO
 
 
 def reset_gpio_pin(config):
