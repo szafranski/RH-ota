@@ -124,11 +124,12 @@ which pin will be used as GPIO reset pin?
                 config.updates_without_pdf = no_pdf_val
                 break
 
+        # todo change to confirming pi version from the script
         while True:
             pi_4_owner = input("\nAre you using Raspberry Pi 4? [yes/no | default: no]\t\t\t")
             pi_4_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']
             if pi_4_owner not in pi_4_allowed_values:
-                print("\nPlease enter correct value!")  # todo change to confirming pi version from the script
+                print("\nPlease enter correct value!")
             else:
                 pi_4_val = False
                 if pi_4_owner in ['yes', '1', 'y']:
