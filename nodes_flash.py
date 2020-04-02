@@ -23,9 +23,7 @@ def nodes_addresses():
     addr_list_int = [node2addr, node1addr, node4addr, node3addr,
                      node6addr, node5addr, node8addr, node7addr]
 
-    addr_list_str = [str(item) for item in addr_list_int]
-
-    return addr_list_str, addr_list_int
+    return addr_list_int
 
 
 def flash_blink(config):
@@ -63,7 +61,7 @@ def reset_gpio_pin(config):
 
 def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
     for i in range(0, int(config.nodes_number)):
-        addr = nodes_addresses()[1][i]
+        addr = nodes_addresses()[i]
         print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {i + 1} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
         prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
         print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
@@ -127,7 +125,7 @@ def flash_nodes_individually(config):
             a - Abort{Bcolors.ENDC}""")
             selection = input()
             if selection == '1':
-                addr = nodes_addresses()[1][selected_node_number-1]
+                addr = nodes_addresses()[selected_node_number-1]
                 x = selected_node_number
                 print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
                 prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
@@ -139,7 +137,7 @@ def flash_nodes_individually(config):
                 sleep(2)
                 return
             if selection == '2':
-                addr = nodes_addresses()[1][selected_node_number-1]
+                addr = nodes_addresses()[selected_node_number-1]
                 x = selected_node_number
                 print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
                 prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
