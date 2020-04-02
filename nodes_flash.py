@@ -20,7 +20,7 @@ def nodes_addresses():
     addr_list_int = [node1addr, node2addr, node3addr, node4addr,
                      node5addr, node6addr, node7addr, node8addr]
 
-    addr_list_str = [str(item) for item in addr_list_int]  # return addresses list as a tuple
+    addr_list_str = [str(item) for item in addr_list_int]
 
     return addr_list_str, addr_list_int
 
@@ -169,14 +169,19 @@ def first_flashing(config):
                         flash:w:/home/{config.user}/RH-ota/firmware/{config.RH_version}/node_0.hex:i")
 
     while True:
-        port_sel = input("""\n\n
-    Will you flash your nodes for the first time via UART (on PCB) 
-    or using USB port [usb/uart | default: UART] """)
-        if port_sel.lower() == 'uart':
+        first_flash_select = """\n\n
+        Will you flash your nodes for the first time via UART (on PCB) 
+        or using USB port? [default: UART]
+
+        1 - UART
+
+        2 - USB \n"""
+        port_sel = input(first_flash_select)
+        if port_sel == '1':
             port_sel = 'S0'
             flash(port_sel)
             break
-        if port_sel.lower() == 'usb':
+        if port_sel == '2':
             port_sel = 'USB0'
             flash(port_sel)
             break
