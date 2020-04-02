@@ -21,7 +21,7 @@ def nodes_addresses():
 # sending a command to first element on the list causes second node to be flashed etc.
 
     addr_list = [node2addr, node1addr, node4addr, node3addr,
-                     node6addr, node5addr, node8addr, node7addr]
+                 node6addr, node5addr, node8addr, node7addr]
 
     return addr_list
 
@@ -60,7 +60,9 @@ def reset_gpio_pin(config):
 
 
 def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
-    for i in range(0, int(config.nodes_number)):
+    nodes_num = int(config.nodes_number)
+    odd_number = True if nodes_num % 2 != 0 else False
+    for i in range(0, nodes_num):
         addr = nodes_addresses()[i]
         print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {i + 1} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
         prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
@@ -69,7 +71,24 @@ def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
         flash_firmware(config) if not config.debug_mode else None
         print(f"\n\t\t\t{Bcolors.BOLD}Node {i + 1} - flashed{Bcolors.ENDC}\n\n")
         sleep(2)
+        if odd_number and (nodes_num - i) == 1:
+            break
+    flash_firmware_onto_gpio_node(config) if odd_number else None
     logo_update(config)
+    sleep(2)
+
+    return odd_number
+
+
+def flash_firmware_onto_gpio_node(config):
+    rst = config.gpio_reset_pin
+    x = int(config.nodes_number)
+    print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with GPIO pin: {rst})\n")
+    reset_gpio_pin(config.gpio_reset_pin)
+    print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
+          f"flash:w:/home/{config.user}/RH-ota/firmware/{config.RH_version}/node_0.hex:i ")
+    flash_firmware(config) if not config.debug_mode else None
+    print(f"\n\t\t\t{Bcolors.BOLD}Node {x} - flashed{Bcolors.ENDC}\n\n")
     sleep(2)
 
 
@@ -79,6 +98,7 @@ def flash_nodes_individually(config):
             clear_the_screen()
             logo_top(config.debug_mode)
             sleep(0.05)
+            odd_number_flash = "\n'o' - Flash odd node\n" if flash_firmware_onto_all_nodes(config) else None
             flash_node_menu = """
             
                                 {red}{bold}NODES MENU{endc}
@@ -89,13 +109,12 @@ def flash_nodes_individually(config):
     
                     3 - Flash node 3        7 - Flash node 7
     
-                    4 - Flash node 4        8 - Flash node 8
-                    
-                            'o'- Flash 'odd' node 
-                            
+                    4 - Flash node 4        8 - Flash node 8 
+                           {odd_number_flash}
                     {yellow}'e'- Exit to main menu{endc}
                         
-            """.format(bold=Bcolors.BOLD, red=Bcolors.RED, yellow=Bcolors.YELLOW, endc=Bcolors.ENDC)
+            """.format(bold=Bcolors.BOLD, red=Bcolors.RED, yellow=Bcolors.YELLOW,
+                       endc=Bcolors.ENDC, odd_number_flash=odd_number_flash)
             print(flash_node_menu)
             selection = input("""
                     {bold}Which node do you want to program:{endc} """.format(bold=Bcolors.BOLD, endc=Bcolors.ENDC))
@@ -169,19 +188,12 @@ def flash_nodes_individually(config):
             a - Abort{Bcolors.ENDC}""")
             selection = input()
             if selection == '1':
-                rst = config.gpio_reset_pin
-                x = int(config.nodes_number)
-                print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with GPIO pin: {rst})\n")
-                reset_gpio_pin(config.gpio_reset_pin)
-                print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
-                      f"flash:w:/home/{config.user}/RH-ota/firmware/{config.RH_version}/node_0.hex:i ")
-                flash_firmware(config) if not config.debug_mode else None
-                print(f"\n\t\t\t{Bcolors.BOLD}Node {x} - flashed{Bcolors.ENDC}\n\n")
-                sleep(2)
+                flash_firmware_onto_gpio_node(config)
                 return
             if selection == '2':
                 x = int(config.nodes_number)
-                print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
+                print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {x} "
+                      f"{Bcolors.ENDC}(reset with GPIO pin){config.gpio_reset_pin}\n")
                 reset_gpio_pin(config.gpio_reset_pin)
                 print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
                       f"flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i ")
