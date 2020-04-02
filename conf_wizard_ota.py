@@ -54,9 +54,6 @@ Default values are not automatically applied. Type them if needed.\n""")
                 config.RH_version = version
                 break
 
-        debug_user = input("\nWhat is your user name on debugging OS? [default: racer]\t\t")
-        config.debug_user = debug_user
-
         country_code = input("\nWhat is your country code? [default: GB]\t\t\t\t")
         config.country = country_code
 
@@ -67,6 +64,22 @@ Default values are not automatically applied. Type them if needed.\n""")
             else:
                 config.nodes_number = nodes
                 break
+
+        if int(nodes) % 2 != 0:
+            while True:
+                odd_nodes_note = """
+Since you declared odd number of nodes, please input, 
+which pin will be used as GPIO reset pin? 
+[ default (used on official PCB): 17 ] \t"""
+                gpio_reset_pin = input(odd_nodes_note)
+                if int(gpio_reset_pin) > 40:
+                    print("\nPlease enter correct value!")
+                else:
+                    config.gpio_reset_pin = int(gpio_reset_pin)
+                    break
+        elif int(nodes) % 2 == 0:
+            gpio_reset_pin = False
+            config.gpio_reset_pin = gpio_reset_pin
 
         while True:
             debug_mode = input("\nWill you use \"OTA\" software in a debug mode? [yes/no | default: no]\t")
@@ -81,6 +94,13 @@ Default values are not automatically applied. Type them if needed.\n""")
                     debug_mode_val = False
                 config.debug_mode = debug_mode_val
                 break
+
+        if debug_mode_val:
+            debug_user = input("\nWhat is your user name on debugging OS? [default: racer]\t\t")
+            config.debug_user = debug_user
+        else:
+            config.debug_user = 'racer'
+
         while True:
             pins_assign = input("\nPins assignment? [default/custom/PCB | default: default]\t\t")
             pins_valid_options = ['default', 'PCB', 'pcb', 'custom']
@@ -103,25 +123,6 @@ Default values are not automatically applied. Type them if needed.\n""")
                     no_pdf_val = False
                 config.updates_without_pdf = no_pdf_val
                 break
-
-        while True:
-            bool_gpio_reset_pin = input("\nWill you use odd number of nodes? [ yes/no | default: no ]\t\t")
-            bool_gpio_reset_pin_allowed_values = ['yes', 'no', '0', '1', 'y', 'n']
-            if bool_gpio_reset_pin not in bool_gpio_reset_pin_allowed_values:
-                print("\nPlease enter correct value!")
-            else:
-                if bool_gpio_reset_pin in ['yes', '1', 'y']:
-                    while True:
-                        gpio_reset_pin = input("\nWhat pin will be used as GPIO reset? [ default (PCB): 17 ]\t\t")
-                        if int(gpio_reset_pin) > 40:
-                            print("\nPlease enter correct value!")
-                        else:
-                            config.gpio_reset_pin = int(gpio_reset_pin)
-                            break
-                elif bool_gpio_reset_pin in ['no', '0', 'n']:
-                    gpio_reset_pin = False
-                    config.gpio_reset_pin = gpio_reset_pin
-                break  # todo - it works but weird configuration in json occurres - see GH issue
 
         while True:
             pi_4_owner = input("\nAre you using Raspberry Pi 4? [yes/no | default: no]\t\t\t")

@@ -352,6 +352,7 @@ def first_time():
             and in how_to folder - look for PDF file.
             New features and changes - see update notes section.
             If you found any bug - please report via GitHub or Facebook.
+            
                     Enjoy!
                                                     Szafran
             {endc}""".format(bold=Bcolors.BOLD, endc=Bcolors.ENDC)
