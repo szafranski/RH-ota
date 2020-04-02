@@ -17,8 +17,11 @@ def nodes_addresses():
     node7addr = 0x14
     node8addr = 0x16
 
-    addr_list_int = [node1addr, node2addr, node3addr, node4addr,
-                     node5addr, node6addr, node7addr, node8addr]
+# addresses are swapped in the list due to "paired" nature of resetting before flashing
+# sending a command to first element on the list causes second node to be flashed etc.
+
+    addr_list_int = [node2addr, node1addr, node4addr, node3addr,
+                     node6addr, node5addr, node8addr, node7addr]
 
     addr_list_str = [str(item) for item in addr_list_int]
 
@@ -61,12 +64,14 @@ def reset_gpio_pin(config):
 def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
     for i in range(0, int(config.nodes_number)):
         addr = nodes_addresses()[1][i]
-        print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {i + 1} (I2C address: {addr}){Bcolors.ENDC}\n")
-        prepare_mate_node(addr)
+        print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {i + 1} (reset with I2C address: {addr}){Bcolors.ENDC}\n")
+        if not config.debug_mode:
+            prepare_mate_node(addr)
         print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
               f"flash:w:/home/{config.user}/RH-ota/firmware/{config.RH_version}/node_0.hex:i ")
-        os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{config.user}"
-                  f"/RH-ota/firmware/{config.RH_version}/node_0.hex:i")
+        if not config.debug_mode:
+            os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{config.user}"
+                      f"/RH-ota/firmware/{config.RH_version}/node_0.hex:i")
         print(f"\n\t\t\t{Bcolors.BOLD}Node {i + 1} - flashed{Bcolors.ENDC}\n\n")
         sleep(2)
     logo_update(config)
@@ -126,24 +131,28 @@ def flash_nodes_individually(config):
             if selection == '1':
                 addr = nodes_addresses()[1][selected_node_number-1]
                 x = selected_node_number
-                print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {x} (I2C address: {addr}){Bcolors.ENDC}\n")
-                prepare_mate_node(addr)
+                print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {x} (reset with I2C address: {addr}){Bcolors.ENDC}\n")
+                if not config.debug_mode:
+                    prepare_mate_node(addr)
                 print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
                       f"flash:w:/home/{config.user}/RH-ota/firmware/{config.RH_version}/node_0.hex:i ")
-                os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{config.user}"
-                          f"/RH-ota/firmware/{config.RH_version}/node_0.hex:i")
+                if not config.debug_mode:
+                    os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"
+                              f"{config.user}/RH-ota/firmware/{config.RH_version}/node_0.hex:i")
                 print(f"\n\t\t\t{Bcolors.BOLD}Node {x} - flashed{Bcolors.ENDC}\n\n")
                 sleep(2)
                 return
             if selection == '2':
                 addr = nodes_addresses()[1][selected_node_number-1]
                 x = selected_node_number
-                print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {x} (I2C address: {addr}){Bcolors.ENDC}\n")
-                prepare_mate_node(addr)
+                print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {x} (reset with I2C address: {addr}){Bcolors.ENDC}\n")
+                if not config.debug_mode:
+                    prepare_mate_node(addr)
                 print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
                       f"flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i ")
-                os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{config.user}"
-                          f"/RH-ota/firmware/blink.hex:i")
+                if not config.debug_mode:
+                    os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"
+                              f"{config.user}/RH-ota/firmware/blink.hex:i")
                 print(f"\n\t\t\t{Bcolors.BOLD}Node {x} - flashed{Bcolors.ENDC}\n\n")
                 return
             if selection == 'a':
