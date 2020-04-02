@@ -153,7 +153,7 @@ def flash_nodes_individually(config):
             else:
                 continue
 
-    def odd_node_menu(selected_node_number):
+    def odd_node_menu():
         clear_the_screen()
         logo_top(config.debug_mode)
         sleep(0.05)
@@ -192,6 +192,10 @@ def flash_nodes_individually(config):
                 break
             else:
                 continue
+        else:
+            clear_the_screen()
+            logo_top(config.debug_mode)
+            print("\n\n\t\tEven number of nodes detected\n\n")
 
     node_selection_menu()
 
