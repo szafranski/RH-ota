@@ -1,0 +1,21 @@
+from modules import clear_the_screen, logo_top, load_config
+from time import sleep
+import os
+
+
+def reset_gpio_state(config):
+    clear_the_screen()
+    logo_top(config.debug_mode)
+    print("\n\n\n")
+    os.system(f"echo {config.gpio_reset_pin} > /sys/class/GPIO/unexport")
+    print("\n\n\t\t\tDONE\n\n")
+    sleep(0.5)
+
+
+def main():
+    config = load_config()
+    reset_gpio_state(config)
+
+
+if __name__ == "__main__":
+    main()

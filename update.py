@@ -439,7 +439,6 @@ def main():
     home_dir = str(Path.home())
     clear_the_screen()
     print("\n\n")
-    ota_image()
     config_check()
     config = load_config()
     compatibility()
