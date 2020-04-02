@@ -1,9 +1,6 @@
 import os
 from pathlib import Path
-
-from conf_wizard_ota import conf_ota
 from time import sleep
-
 from conf_wizard_rh import conf_rh
 from modules import clear_the_screen, Bcolors, image_show, internet_check, load_ota_config, write_ota_config, \
     load_config
@@ -228,7 +225,7 @@ def main_window(config, conf_soft, conf_flag):
                 """.format(yellow=Bcolors.YELLOW, endc=Bcolors.ENDC, configure=configure, install=install))
         selection = input()
         if selection == 'c':
-            conf_ota(config)
+            conf_rh()
         if selection == 'i':
             if not conf_flag:
                 print("Please configure before install.")
