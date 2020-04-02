@@ -51,11 +51,11 @@ def logo_update(config):
 
 def reset_gpio_pin(config):
     GPIO = gpio_com(config)
-    GPIO.output(config.gpio_reset_pin, GPIO.LOW)
-    sleep(0.1)
     GPIO.output(config.gpio_reset_pin, GPIO.HIGH)
     sleep(0.1)
     GPIO.output(config.gpio_reset_pin, GPIO.LOW)
+    sleep(0.1)
+    GPIO.output(config.gpio_reset_pin, GPIO.HIGH)
     sleep(0.1)
 
 
@@ -66,8 +66,7 @@ def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
         prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
         print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
               f"flash:w:/home/{config.user}/RH-ota/firmware/{config.RH_version}/node_0.hex:i ")
-        os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{config.user}"
-                  f"/RH-ota/firmware/{config.RH_version}/node_0.hex:i") if not config.debug_mode else None
+        flash_firmware(config) if not config.debug_mode else None
         print(f"\n\t\t\t{Bcolors.BOLD}Node {i + 1} - flashed{Bcolors.ENDC}\n\n")
         sleep(2)
     logo_update(config)
@@ -91,8 +90,10 @@ def flash_nodes_individually(config):
                     3 - Flash node 3        7 - Flash node 7
     
                     4 - Flash node 4        8 - Flash node 8
-                            {yellow}
-                          'e'- Exit to main menu{endc}
+                    
+                            'o'- Flash 'odd' node 
+                            
+                    {yellow}'e'- Exit to main menu{endc}
                         
             """.format(bold=Bcolors.BOLD, red=Bcolors.RED, yellow=Bcolors.YELLOW, endc=Bcolors.ENDC)
             print(flash_node_menu)
@@ -105,6 +106,8 @@ def flash_nodes_individually(config):
                 elif int(selection) in range(8) and int(selection) not in range(int(config.nodes_number)):
                     print("\n\n\tNode number higher than configured amount of nodes.")
                     sleep(1.5)
+            elif selection == 'o':
+                odd_node_menu()
             elif selection == 'e':
                 break
             else:
@@ -131,8 +134,7 @@ def flash_nodes_individually(config):
                 prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
                 print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
                       f"flash:w:/home/{config.user}/RH-ota/firmware/{config.RH_version}/node_0.hex:i ")
-                os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{config.user}"
-                          f"/RH-ota/firmware/{config.RH_version}/node_0.hex:i") if not config.debug_mode else None
+                flash_firmware(config) if not config.debug_mode else None
                 print(f"\n\t\t\t{Bcolors.BOLD}Node {x} - flashed{Bcolors.ENDC}\n\n")
                 sleep(2)
                 return
@@ -143,8 +145,47 @@ def flash_nodes_individually(config):
                 prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
                 print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
                       f"flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i ")
-                os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/"
-                          f"{config.user}/RH-ota/firmware/blink.hex:i") if not config.debug_mode else None
+                flash_blink(config) if not config.debug_mode else None
+                print(f"\n\t\t\t{Bcolors.BOLD}Node {x} - flashed{Bcolors.ENDC}\n\n")
+                return
+            if selection == 'a':
+                break
+            else:
+                continue
+
+    def odd_node_menu(selected_node_number):
+        clear_the_screen()
+        logo_top(config.debug_mode)
+        sleep(0.05)
+        odd_number = True if int(config.nodes_number) % 2 != 0 else None
+        while odd_number:
+            print(f"""
+            {Bcolors.BOLD}\n\t\t\tNode {str(config.nodes_number)}  selected{Bcolors.ENDC}\n
+                    Choose flashing type:\n{Bcolors.ENDC}
+            1 - {Bcolors.GREEN}Flash firmware on the node - recommended{Bcolors.ENDC}{Bcolors.BOLD}
+
+            2 - Flashes 'Blink' on the node - only for test purposes
+
+            a - Abort{Bcolors.ENDC}""")
+            selection = input()
+            if selection == '1':
+                rst = config.gpio_reset_pin
+                x = int(config.nodes_number)
+                print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with GPIO pin: {rst})\n")
+                reset_gpio_pin(config.gpio_reset_pin)
+                print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
+                      f"flash:w:/home/{config.user}/RH-ota/firmware/{config.RH_version}/node_0.hex:i ")
+                flash_firmware(config) if not config.debug_mode else None
+                print(f"\n\t\t\t{Bcolors.BOLD}Node {x} - flashed{Bcolors.ENDC}\n\n")
+                sleep(2)
+                return
+            if selection == '2':
+                x = int(config.nodes_number)
+                print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
+                reset_gpio_pin(config.gpio_reset_pin)
+                print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
+                      f"flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i ")
+                flash_blink(config) if not config.debug_mode else None
                 print(f"\n\t\t\t{Bcolors.BOLD}Node {x} - flashed{Bcolors.ENDC}\n\n")
                 return
             if selection == 'a':
@@ -225,9 +266,9 @@ def flashing_menu(config):
     
                     {green}{bold}1 - Flash each node automatically - rec.{endc}{bold}
     
-                    2 - Flash each node individually
+                    2 - Flash nodes individually
     
-                    3 - Flash first time
+                    3 - First time flashing
     
                     4 - Show I2C connected devices
     

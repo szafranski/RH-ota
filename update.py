@@ -98,7 +98,7 @@ def updated_check(config):
                 break
         else:
             break
-    os.system(f"rm /home/{config.user}/.ota_markers/.was_updated >/dev/null 2>&1")
+        os.system(f"rm /home/{config.user}/.ota_markers/.was_updated >/dev/null 2>&1")
 
 
 def first(config, updater_version):
