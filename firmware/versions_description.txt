@@ -1,6 +1,6 @@
 stable is same as master for now
 due to no API changes for nodes
 
-every firmware contains bootloader
+every included firmware contains bootloader
 
 
