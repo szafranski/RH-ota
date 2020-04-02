@@ -6,24 +6,24 @@ from nodes_update_old import main as old_flash_gpio
 
 
 def nodes_addresses():
-    """nodes I2C addresses - below: conversion to hex numbers required by SMBus module"""
-    #  node    addr
-    node1addr = 0x08
-    node2addr = 0x0a
-    node3addr = 0x0c
-    node4addr = 0x0e
-    node5addr = 0x10
-    node6addr = 0x12
-    node7addr = 0x14
-    node8addr = 0x16
+    """nodes I2C addresses - below: hex format is required by SMBus module"""
+    #  node     addr   RH
+    node1addr = 0x08  # 8
+    node2addr = 0x0a  # 10
+    node3addr = 0x0c  # 12
+    node4addr = 0x0e  # 14
+    node5addr = 0x10  # 16
+    node6addr = 0x12  # 18
+    node7addr = 0x14  # 20
+    node8addr = 0x16  # 22
 
 # addresses are swapped in the list due to "paired" nature of resetting before flashing
 # sending a command to first element on the list causes second node to be flashed etc.
 
-    addr_list_int = [node2addr, node1addr, node4addr, node3addr,
+    addr_list = [node2addr, node1addr, node4addr, node3addr,
                      node6addr, node5addr, node8addr, node7addr]
 
-    return addr_list_int
+    return addr_list
 
 
 def flash_blink(config):
