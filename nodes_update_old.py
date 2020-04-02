@@ -25,15 +25,15 @@ def main():
     else:
         pins_assignment = 'default'
 
-    preferred_RH_version = data['RH_version']
+    preferred_rh_version = data['RH_version']
 
-    if preferred_RH_version == 'master':
+    if preferred_rh_version == 'master':
         firmware_version = 'master'
-    if preferred_RH_version == 'beta':
+    if preferred_rh_version == 'beta':
         firmware_version = 'beta'
-    if preferred_RH_version == 'stable':
+    if preferred_rh_version == 'stable':
         firmware_version = 'stable'
-    if preferred_RH_version == 'custom':
+    if preferred_rh_version == 'custom':
         firmware_version = 'stable'
 
     nodes_number = data['nodes_number']

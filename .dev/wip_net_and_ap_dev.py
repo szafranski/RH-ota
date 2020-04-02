@@ -112,7 +112,7 @@ def step_zero():
     sleep(0.05)
     clear_the_screen()
     sleep(0.05)
-    logo_top()
+    logo_top(config.debug_user)
     sleep(0.05)
     with open('./net_ap/net_steps.txt', 'rt') as f:
         for line in f:
@@ -164,7 +164,7 @@ def ap_menu():
         sleep(0.05)
         clear_the_screen()
         sleep(0.05)
-        logo_top()
+        logo_top(config.debug_user)
         sleep(0.05)
         with open('./net_ap/net_steps.txt', 'rt') as f:
             for line in f:

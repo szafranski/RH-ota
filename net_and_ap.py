@@ -2,7 +2,7 @@ from time import sleep
 import os
 import sys
 import json
-from modules import clear_the_screen, Bcolors, logo_top
+from modules import clear_the_screen, Bcolors, logo_top, load_config
 
 if os.path.exists("./updater-config.json"):
     with open('updater-config.json') as config_file:
@@ -205,9 +205,9 @@ def ap_menu():
         else:
             second_page()
 
-    def first_page():
+    def first_page(config):
         clear_the_screen()
-        logo_top()
+        logo_top(config.debug_mode)
         sleep(0.05)
         print("""\n
     Right now you have your Access Point configured. However,
@@ -230,12 +230,13 @@ def ap_menu():
         if selection == 'b':
             main()
         else:
-            first_page()
+            first_page(config)
 
-    first_page()
+    first_page(config)
 
 
 def main():
+    config = load_config
     step_zero()
     step_one()
 

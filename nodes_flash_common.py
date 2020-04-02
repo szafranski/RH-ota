@@ -2,6 +2,7 @@ from time import sleep
 import os
 from modules import load_config
 
+
 def com_init():
     error_msg = "SMBus(1) - error\nI2C communication doesn't work properly"
     err_time = 2

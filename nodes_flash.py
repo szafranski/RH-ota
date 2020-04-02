@@ -1,6 +1,6 @@
 from time import sleep
 import os
-from nodes_flash_common import main as flashing, com_init, gpio_com, prepare_mate_node  # disable_serial_on_the_node
+from nodes_flash_common import com_init, gpio_com, prepare_mate_node
 from modules import clear_the_screen, Bcolors, logo_top, load_config
 from nodes_update_old import main as old_flash_gpio
 
@@ -91,17 +91,17 @@ def flash_nodes_individually(config):
     
                     4 - Flash node 4        8 - Flash node 8
                             {yellow}
-                        'e'- Exit to main menu{endc}
+                          'e'- Exit to main menu{endc}
                         
             """.format(bold=Bcolors.BOLD, red=Bcolors.RED, yellow=Bcolors.YELLOW, endc=Bcolors.ENDC)
             print(flash_node_menu)
             selection = input("""
                     {bold}Which node do you want to program:{endc} """.format(bold=Bcolors.BOLD, endc=Bcolors.ENDC))
             if selection.isdigit():
-                if int(selection) in range(int(config.nodes_number)):
+                if int(selection) in range(int(config.nodes_number)+1):
                     selected_node_number = selection
                     specific_node_menu(int(selected_node_number))
-                elif int(selection) in range(8) and int(selection) > int(config.nodes_number):
+                elif int(selection) in range(8) and int(selection) not in range(int(config.nodes_number)):
                     print("\n\n\tNode number higher than configured amount of nodes.")
                     sleep(1.5)
             elif selection == 'e':

@@ -31,17 +31,17 @@ def flash(addr):
     off = [0]
     ser = [0]
 
-    def disable_serial(addr):
-        ser.append(calculate_checksum(ser))
-        sleep(sleep_amt)
-        try:
-            bus.write_i2c_block_data(addr, disable_serial_on_the_node, ser)
-        except NameError:
-            print("\n\n\tI2C error")
-
-        sleep(1)
-        print("serial disabled")
-        sleep(sleep_amt)
+    # def disable_serial(addr):
+    #     ser.append(calculate_checksum(ser))
+    #     sleep(sleep_amt)
+    #     try:
+    #         bus.write_i2c_block_data(addr, disable_serial_on_the_node, ser)
+    #     except NameError:
+    #         print("\n\n\tI2C error")
+    #
+    #     sleep(1)
+    #     print("serial disabled")
+    #     sleep(sleep_amt)
 
     def flash_mate_node(addr):
         on.append(calculate_checksum(on))
