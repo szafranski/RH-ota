@@ -77,13 +77,18 @@ def flash_mate_node(config, firmware_version):
     os.system(f"{avrdude_action}")
 
 
-def main(addr=0):  # probably could be deleted
-    config = load_config()
-    if not config.debug_mode:
-        com_init()
-        gpio_com(config)
-    prepare_mate_node(addr)
-    flash_mate_node(config, config.RH_version)
+# def main(addr=0):  # probably could be deleted
+#     config = load_config()
+#     if not config.debug_mode:
+#         com_init()
+#         gpio_com(config)
+#     prepare_mate_node(addr)
+#     flash_mate_node(config, config.RH_version)
+#
+#
+
+def main():
+    print("Use file nodes_flash.py as a opening file instead")
 
 
 if __name__ == "__main__":
