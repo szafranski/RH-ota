@@ -144,24 +144,19 @@ def load_config():
     if os.path.exists("./updater-config.json"):
         config = load_json("./updater-config.json")
     else:
-        config = load_json('distr-updater-config.json')
+        config = load_json('./distr-updater-config.json')
 
     if config.debug_mode:
         config.user = config.debug_user
     else:
         config.user = config.pi_user
 
-    if config.pi_4_cfg:
-        config.pi_4_FLAG = True
-    else:
-        config.pi_4_FLAG = False
-
     if config.RH_version == 'master':
         config.server_version = 'master'
     if config.RH_version == 'beta':
         config.server_version = '2.1.0-beta.3'
     if config.RH_version == 'stable':
-        config.server_version = '2.1.0'
+        config.server_version = '2.1.1'
     if config.RH_version == 'custom':
         config.server_version = 'X.X.X'
     # paste custom version number here if you want to declare it manually

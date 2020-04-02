@@ -110,21 +110,6 @@ which pin will be used as GPIO reset pin?
                 config.pins_assignment = pins_assign
                 break
 
-        # todo change to confirming pi version from the script
-        while True:
-            pi_4_owner = input("\nAre you using Raspberry Pi 4? [yes/no | default: no]\t\t\t")
-            pi_4_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']
-            if pi_4_owner not in pi_4_allowed_values:
-                print("\nPlease enter correct value!")
-            else:
-                pi_4_val = False
-                if pi_4_owner in ['yes', '1', 'y']:
-                    pi_4_val = True
-                elif pi_4_owner in ['no', '0', 'n']:
-                    pi_4_val = False
-                config.pi_4_cfg = pi_4_val
-                break
-
         while True:
             user_is_beta_tester = input("\nAre you a beta tester? [yes/no | default: no]\t\t\t\t")
             beta_tester_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']

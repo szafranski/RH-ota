@@ -93,7 +93,6 @@ def end_installation(user):
 def installation(conf_allowed, linux_testing, user, server_version):
     ota_config = load_ota_config(user)
     os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &") if not linux_testing else None
-
     clear_the_screen()
     internet_flag = internet_check()
     if not internet_flag:
