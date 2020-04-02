@@ -6,6 +6,7 @@ from conf_wizard_ota import conf_ota
 from modules import clear_the_screen, Bcolors, logo_top, image_show, ota_image, load_config, load_ota_config, \
     write_ota_config, get_ota_version
 from rpi_update import rpi_update
+from nodes_flash import main as flashing_menu
 
 
 def compatibility():  # adds compatibility and fixes with previous versions
@@ -417,9 +418,7 @@ def main_menu(config):
         if selection == '1':
             rpi_update(config)
         if selection == '2':
-            print("todo: call node_update")
-            # nodes_update(config) #TODO modulalize node-update (i2c_ !) P.F.: and flash_common
-            # os.system("python3 ./nodes_update.py")  # opens nodes updating file
+            flashing_menu()
         if selection == '3':
             clear_the_screen()
             os.system(". ./scripts/server_start.sh")

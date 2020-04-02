@@ -51,6 +51,7 @@ def prepare_mate_node(addr):
     def calculate_checksum(data):
         checksum = sum(data) & 0xFF
         return checksum
+
     bus = com_init()
     sleep_amt = 1
     on, off = [1], [0]
@@ -59,13 +60,13 @@ def prepare_mate_node(addr):
     off.append(calculate_checksum(off))
     sleep(sleep_amt)
     bus.write_i2c_block_data(addr, reset_mate_node_command, on)
-    print("on sent")
+    print("on command sent")
     sleep(sleep_amt)
     bus.write_i2c_block_data(addr, reset_mate_node_command, off)
-    print("off sent")
+    print("off command sent")
     sleep(sleep_amt)
     bus.write_i2c_block_data(addr, reset_mate_node_command, on)
-    print("on sent")
+    print("on command sent")
     sleep(0.2)
 
 

@@ -9,9 +9,9 @@ def nodes_addresses():
     """nodes I2C addresses - below: conversion to hex numbers required by SMBus module"""
     #  node    addr
     node1addr = 0x08
-    node2addr = 0xa
-    node3addr = 0xc
-    node4addr = 0xe
+    node2addr = 0x0a
+    node3addr = 0x0c
+    node4addr = 0x0e
     node5addr = 0x10
     node6addr = 0x12
     node7addr = 0x14
@@ -44,7 +44,7 @@ def logo_update(config):
     #              {bold}         Thank you!        {endc}                #
     #                                                                     #
     #######################################################################\n\n
-    """.format(nodes_number=config.nodes_number, bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, s=10 * ' '))
+    """.format(nodes_number=int(config.nodes_number), bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, s=(10 * ' ')))
 
 
 def reset_gpio_pin(config):
@@ -57,62 +57,52 @@ def reset_gpio_pin(config):
     sleep(0.1)
 
 
-def flash_firmware_onto_all_nodes_with_auto_addr(config):
-    i = 1
-    reset_mate_node = prepare_mate_node(addr=nodes_addresses()[1])
-    for i in range(1, config.nodes_number):
-        # disable_serial_on_all_nodes(nodes_number=config.nodes_number, addr_list=nodes_addresses()[0])
-        reset_mate_node(config.gpio_reset_pin)
-        os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-        flash:w:/home/{config.user}/RH-ota/firmware/i2c/{config.RH_version}/node_0.hex:i")
-        print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-        flash:w:/home/{config.user}/RH-ota/firmware/i2c/{config.RH_version}/node_{i}.hex:i")
-    print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {i} - flashed{Bcolors.ENDC}\n\n")
-    sleep(1)
+def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
+    for i in range(0, int(config.nodes_number)):
+        addr = nodes_addresses()[1][i]
+        print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {i + 1} (I2C address: {addr}){Bcolors.ENDC}\n")
+        prepare_mate_node(addr)
+        os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{config.user}"
+                  f"/RH-ota/firmware/{config.RH_version}/node_0.hex:i")
+        print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
+              f"flash:w:/home/{config.user}/RH-ota/firmware/{config.RH_version}/node_0.hex:i ")
+        print(f"\n\t\t\t{Bcolors.BOLD}Node {i + 1} - flashed{Bcolors.ENDC}\n\n")
+        sleep(2)
+    logo_update(config)
+    sleep(2)
 
 
-def flash_blink_onto_all_gnd_nodes(config, nodes_number):
-    i = 1
-    bus = com_init()
-    reset_mate_node = prepare_mate_node(bus=bus, addr=nodes_addresses()[1])
-    for i in range(1, nodes_number):
-        # disable_serial_on_all_nodes(nodes_number=config.nodes_number, addr_list=nodes_addresses()[0])
-        reset_mate_node(config.gpio_reset_pin, addr=nodes_addresses()[1])
-        os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U flash:w:/home/{config.user}\
-        /RH-ota/firmware/blink.hex:i")
-        print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-        flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i ")
-    print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {i} - flashed{Bcolors.ENDC}\n\n")
-
-
-def flash_nodes_individually():
-    def node_selection_menu(config):
-        clear_the_screen()
-        logo_top(config.linux_testing)
-        sleep(0.05)
-        flash_node_menu = """
-                            {red}{bold}NODES MENU{endc}
-                        {bold}
-                1 - Flash node 1        5 - Flash node 5
-
-                2 - Flash node 2        6 - Flash node 6
-
-                3 - Flash node 3        7 - Flash node 7
-
-                4 - Flash node 4        8 - Flash node 8
-                        {yellow}
-                    'e'- Exit to main menu{endc}
-        """.format(bold=Bcolors.BOLD, red=Bcolors.RED, yellow=Bcolors.YELLOW, endc=Bcolors.ENDC)
-        print(flash_node_menu)
-        selection = input("""
-                {bold}Which node do you want to program:{endc} """.format(bold=Bcolors.BOLD, endc=Bcolors.ENDC))
-        if int(selection) in range(8):
-            selected_node_number = selection
-            return selected_node_number
-        if selection == 'e':
-            main()
-        else:
-            node_selection_menu(config)
+def flash_nodes_individually(config):
+    def node_selection_menu():
+        while True:
+            clear_the_screen()
+            logo_top(config.debug_mode)
+            sleep(0.05)
+            flash_node_menu = """
+                                {red}{bold}NODES MENU{endc}
+                            {bold}
+                    1 - Flash node 1        5 - Flash node 5
+    
+                    2 - Flash node 2        6 - Flash node 6
+    
+                    3 - Flash node 3        7 - Flash node 7
+    
+                    4 - Flash node 4        8 - Flash node 8
+                            {yellow}
+                        'e'- Exit to main menu{endc}
+            """.format(bold=Bcolors.BOLD, red=Bcolors.RED, yellow=Bcolors.YELLOW, endc=Bcolors.ENDC)
+            print(flash_node_menu)
+            selection = input("""
+                    {bold}Which node do you want to program:{endc} """.format(bold=Bcolors.BOLD, endc=Bcolors.ENDC))
+            if int(selection) in range(int(config.nodes_number)):
+                selected_node_number = selection
+                specific_node_menu(config, selected_node_number)
+            if int(selection) in range(8) and int(selection) > int(config.nodes_number):
+                print("\n\n\tNode number higher than configured.")
+            if selection == 'e':
+                break
+            else:
+                continue
 
     def specific_node_menu(config, selected_node_number):
         while True:
@@ -138,18 +128,22 @@ def flash_nodes_individually():
             else:
                 break
 
+    node_selection_menu()
 
-def first_flashing(config, nodes_number):
+
+def first_flashing(config):
     clear_the_screen()
     logo_top(config.debug_mode)
 
     def flash(port):
-        for i in range(int(nodes_number)):
-            input("\n\n\tHit any key and push reset key of next node after 1 second\n\t")
-            sleep(0.5)
-            # disable_serial_on_all_nodes(nodes_number=config.nodes_number, addr_list=nodes_addresses()[1])
-            os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/tty{port} -b 57600 -U \
-                    flash:w:/home/{config.user}/RH-ota/firmware/{config.RH_version}/node_0.hex:i")
+        for i in range(int(config.nodes_number)):
+            selection = input("\n\n\tHit 'Enter' and push reset key of next node after 1 second [a - abort] ")
+            if selection == 'a':
+                break
+            else:
+                sleep(0.5)
+                os.system(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/tty{port} -b 57600 -U \
+                        flash:w:/home/{config.user}/RH-ota/firmware/{config.RH_version}/node_0.hex:i")
 
     while True:
         port_sel = input("""\n\n
@@ -165,6 +159,15 @@ def first_flashing(config, nodes_number):
             break
         else:
             print("\n\tType: 'UART' or 'USB'\n\t")
+    print(f"\n\t{Bcolors.BOLD}FIRMWARE FLASHING - DONE{Bcolors.ENDC}\n")
+    sleep(2)
+
+
+def show_i2c_devices(config):
+    logo_top(config.debug_mode)
+    print("\n\n")
+    os.system("i2cdetect -y 1")
+    input("\n\n\tHit any key when done.")
 
 
 def reset_gpio_state(config):
@@ -209,18 +212,13 @@ def flashing_menu(config):
         sleep(0.1)
         selection = input()
         if selection == '1':
-            flash_firmware_onto_all_nodes_with_auto_addr(config)
-            logo_update(config.nodes_number)
+            flash_firmware_onto_all_nodes(config)
         if selection == '2':
-            flash_nodes_individually()
-            logo_update(config.nodes_number)
+            flash_nodes_individually(config)
         if selection == '3':
-            first_flashing(config, nodes_number=config.nodes_number)
-            logo_update(config.nodes_number)
+            first_flashing(config)
         if selection == '4':
-            logo_top(config.debug_mode)
-            print("\n\n")
-            os.system("i2cdetect - y 1")
+            show_i2c_devices(config)
         if selection == '5':
             old_flash_gpio()
         if selection == '6':
