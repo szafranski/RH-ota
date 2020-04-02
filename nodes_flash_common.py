@@ -77,7 +77,7 @@ def flash_mate_node(config, firmware_version):
     os.system(f"{avrdude_action}")
 
 
-def main(addr=0):
+def main(addr=0):  # probably could be deleted
     config = load_config()
     if not config.debug_mode:
         com_init()
