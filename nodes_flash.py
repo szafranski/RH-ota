@@ -64,7 +64,7 @@ def reset_gpio_pin(config):
 def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
     for i in range(0, int(config.nodes_number)):
         addr = nodes_addresses()[1][i]
-        print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {i + 1} (reset with I2C address: {addr}){Bcolors.ENDC}\n")
+        print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {i + 1} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
         prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
         print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
               f"flash:w:/home/{config.user}/RH-ota/firmware/{config.RH_version}/node_0.hex:i ")
@@ -129,7 +129,7 @@ def flash_nodes_individually(config):
             if selection == '1':
                 addr = nodes_addresses()[1][selected_node_number-1]
                 x = selected_node_number
-                print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {x} (reset with I2C address: {addr}){Bcolors.ENDC}\n")
+                print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
                 prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
                 print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
                       f"flash:w:/home/{config.user}/RH-ota/firmware/{config.RH_version}/node_0.hex:i ")
@@ -141,7 +141,7 @@ def flash_nodes_individually(config):
             if selection == '2':
                 addr = nodes_addresses()[1][selected_node_number-1]
                 x = selected_node_number
-                print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {x} (reset with I2C address: {addr}){Bcolors.ENDC}\n")
+                print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
                 prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
                 print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
                       f"flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i ")

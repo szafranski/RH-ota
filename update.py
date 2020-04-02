@@ -381,7 +381,7 @@ def end():
     clear_the_screen()
     print("\n\n")
     ota_image()
-    print(f"\t\t\t\t\t{Bcolors.BOLD}Happy flyin'!{Bcolors.ENDC}\n")
+    print(f"\t\t\t{Bcolors.BOLD}Happy flyin'!{Bcolors.ENDC}\n")
     sleep(1.3)
     clear_the_screen()
     sys.exit()
