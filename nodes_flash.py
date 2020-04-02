@@ -174,7 +174,7 @@ def first_flashing(config):
     while True:
         first_flash_select = """\n\n
         After selecting right port you will be asked to manually push
-        rest buttons of each node according to instructions on the screen.
+        reset button on each node according to instructions on the screen.
         
         Number of iterations of this procedure will correspond to the number
         of nodes declared during the configuration process.  

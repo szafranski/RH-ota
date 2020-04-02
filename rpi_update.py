@@ -92,8 +92,7 @@ def end_installation(user):
 
 def installation(conf_allowed, linux_testing, user, server_version):
     ota_config = load_ota_config(user)
-    if not linux_testing:
-        os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
+    os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &") if not linux_testing else None
 
     clear_the_screen()
     internet_flag = internet_check()
@@ -122,8 +121,7 @@ def installation(conf_allowed, linux_testing, user, server_version):
         os.system(f"./scripts/install_rh.sh {user} {server_version}")
         f"./scripts/install_rh.sh {user} {server_version}"
         input("press Enter to continue.")
-        if conf_allowed:
-            os.system("sh. ./scripts/sys_conf.sh")
+        os.system("sh. ./scripts/sys_conf.sh") if conf_allowed else None
         ota_config.rh_installation_done = True
         write_ota_config(ota_config, user)
         print(installation_completed)
@@ -131,8 +129,7 @@ def installation(conf_allowed, linux_testing, user, server_version):
 
 
 def update(linux_testing, user, server_version):
-    if not linux_testing:
-        os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &")
+    os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &") if not linux_testing else None
     internet_flag = internet_check()
     if not internet_flag:
         print("\nLooks like you don't have internet connection. Update canceled.")
