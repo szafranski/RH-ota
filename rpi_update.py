@@ -8,6 +8,7 @@ from conf_wizard_rh import conf_rh
 from modules import clear_the_screen, Bcolors, image_show, internet_check, load_ota_config, write_ota_config, \
     load_config
 
+
 def get_rotorhazard_server_version(user):
     server_py = Path(f"/home/{user}/RotorHazard/src/server/server.py")
     server_version_name = ''
@@ -16,8 +17,10 @@ def get_rotorhazard_server_version(user):
         with open(server_py, 'r') as open_file:
             for line in open_file:
                 if line.startswith('RELEASE_VERSION'):
-                    #RELEASE_VERSION = "2.2.0 (dev 1)" # Public release version code
+                    # RELEASE_VERSION = "2.2.0 (dev 1)" # Public release version code
                     server_version_name = line.strip().split('=')[1].strip()
+                    server_version_name = server_version_name.strip().split('#')[0].replace('"', '')
+                    server_version_name = f"{Bcolors.GREEN}{server_version_name}{Bcolors.ENDC}"
                     server_installed_flag = True
                     break
     return server_installed_flag, server_version_name
@@ -25,7 +28,7 @@ def get_rotorhazard_server_version(user):
 
 def check_rotorhazard_config_status(user):
     if os.path.exists(f"/home/{user}/RotorHazard/src/server/config.json"):
-        config_soft = f"{Bcolors.GREEN}configured 👍{Bcolors.ENDC}"
+        config_soft = f"{Bcolors.GREEN}configured👍{Bcolors.ENDC} "
         config_flag = True
     else:
         config_soft = f"{Bcolors.YELLOW}{Bcolors.UNDERLINE}not configured{Bcolors.ENDC}  👎"
@@ -34,12 +37,10 @@ def check_rotorhazard_config_status(user):
 
 
 def end_update(user, server_configured_flag, server_installed_flag):
-
     if not server_configured_flag and server_installed_flag:
         configure = f"{Bcolors.GREEN}        'c' - configure RotorHazard now{Bcolors.ENDC}"
     else:
         configure = "        'c' - reconfigure RotorHazard server"
-
 
     while True:
         clear_the_screen()
@@ -79,7 +80,6 @@ def end_installation(user):
             
             'e' - exit now{Bcolors.ENDC}""")
 
-
         selection = input()
         if selection == 'r':
             os.system("sudo reboot")
@@ -91,7 +91,6 @@ def end_installation(user):
             clear_the_screen()
             os.chdir(f"/home/{user}/RH-ota")
             os.system("./scripts/server_start.sh")
-
 
 
 def installation(conf_allowed, linux_testing, user, server_version):
@@ -107,9 +106,7 @@ def installation(conf_allowed, linux_testing, user, server_version):
         print("\nInternet connection - OK")
         sleep(2)
         clear_the_screen()
-        print(f"""
-            {Bcolors.BOLD}Installation process has been started - please wait...{Bcolors.ENDC}
-""")
+        print(f"{Bcolors.BOLD}Installation process has been started - please wait...{Bcolors.ENDC}")
         installation_completed = """
         
         
@@ -181,7 +178,7 @@ def update(linux_testing, user, server_version):
             end_update(user, config_flag, server_installed_flag)
 
 
-def main_window(config, conf_flag):
+def main_window(config, conf_soft, conf_flag):
     user = config.user
 
     while True:
@@ -205,20 +202,20 @@ def main_window(config, conf_flag):
             You can change those in configuration wizard in Main Menu.
             
             Server installed right now: {server} {bold}
-            RotorHazard configuration state: {config_soft}\n\n
+            RotorHazard configuration state: {config_soft}
             """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, blue=Bcolors.BLUE,
                        yellow=Bcolors.YELLOW, red=Bcolors.RED, orange=Bcolors.ORANGE, server_version=config.RH_version,
-                       user=user, config_soft=conf_flag, server=server_version_name)
+                       user=user, config_soft=conf_soft, server=server_version_name)
         print(welcome_text)
 
         if not conf_flag:
             configure = f"{Bcolors.GREEN}'c' - Configure RotorHazard server{Bcolors.ENDC}"
         else:
-            configure ="'c' - Reconfigure RotorHazard server"
+            configure = "'c' - Reconfigure RotorHazard server"
         if not server_installed_flag:
-            install=f"{Bcolors.GREEN}'i' - Install software from scratch{Bcolors.ENDC}"
+            install = f"{Bcolors.GREEN}'i' - Install software from scratch{Bcolors.ENDC}"
         else:
-            install="""'i' - Install software from scratch"""
+            install = """'i' - Install software from scratch"""
         print("""
                     {configure}
                     
@@ -231,7 +228,7 @@ def main_window(config, conf_flag):
                 """.format(yellow=Bcolors.YELLOW, endc=Bcolors.ENDC, configure=configure, install=install))
         selection = input()
         if selection == 'c':
-                conf_ota(config)
+            conf_ota(config)
         if selection == 'i':
             if not conf_flag:
                 print("Please configure before install.")
@@ -284,20 +281,21 @@ def main_window(config, conf_flag):
             update(config.debug_mode, config.user, config.RH_version)
         if selection == 'e':
             clear_the_screen()
-            os.chdir(f"/home/{user}/RH-ota")
+            os.chdir(f"/home/{config.user}/RH-ota")
             image_show()
             sleep(0.3)
             break
 
-def rpi_update(config):
-    config_flag, _ = check_rotorhazard_config_status(config.user)
 
-    main_window(config, config_flag)
+def rpi_update(config):
+    config_soft, config_flag = check_rotorhazard_config_status(config.user)
+    main_window(config, config_flag, config_soft)
 
 
 def main():
     config = load_config()
     rpi_update(config)
+
 
 if __name__ == "__main__":
     main()

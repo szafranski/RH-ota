@@ -1,9 +1,8 @@
 from time import sleep
 import os
-import platform
 import sys
 import json
-from modules import Bcolors
+from modules import Bcolors, clear_the_screen, logo_top
 
 if os.path.exists("./updater-config.json"):
     with open('updater-config.json') as config_file:
@@ -23,29 +22,6 @@ else:
     user = data['pi_user']
 
 myPlace = data['country']
-
-
-def clear_the_screen():
-    if platform.system() == "Windows":
-        os.system("cls")
-    else:
-        os.system("clear")
-
-
-def logo_top():
-    print("""\n    
-        #######################################################################
-        ###                                                                 ###
-        ###            {orange}{bold}RotorHazard{endc}                      ###  
-        ###                                                                 ###
-        ###            {bold}OTA Updater and Manager{endc}                  ###
-        ###                                                                 ###
-        #######################################################################
-        """).format(orange=Bcolors.ORANGE_S, bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S)
-    if linux_testing:
-        print("\t\t\t\t\t  Linux PC version")
-    if not os.path.exists("./updater-config.json"):
-        print("\t\t\t    Looks that you haven't set up config file yet!")
 
 
 # Set the WiFi country in raspi-config's Localisation Options:
