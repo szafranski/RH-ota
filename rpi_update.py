@@ -17,7 +17,7 @@ def get_rotorhazard_server_version(user):
             for line in open_file:
                 if line.startswith('RELEASE_VERSION'):
                     #RELEASE_VERSION = "2.2.0 (dev 1)" # Public release version code
-                    server_version_name = line.strip().split('=')[2].strip()
+                    server_version_name = line.strip().split('=')[1].strip()
                     server_installed_flag = True
                     break
     return server_installed_flag, server_version_name
@@ -62,7 +62,7 @@ def end_update(user, server_configured_flag, server_installed_flag):
         if selection == 's':
             clear_the_screen()
             os.chdir(f"/home/{user}/RH-ota")
-            os.system(". ./open_scripts.sh; server_start")
+            os.system("./scripts/server_start.sh")
 
 
 def end_installation(user):
@@ -90,7 +90,7 @@ def end_installation(user):
         if selection == 's':
             clear_the_screen()
             os.chdir(f"/home/{user}/RH-ota")
-            os.system(". ./open_scripts.sh; server_start")
+            os.system("./scripts/server_start.sh")
 
 
 
@@ -124,7 +124,10 @@ def installation(conf_allowed, linux_testing, user, server_version):
         if I2C, SPI and SSH protocols are active.
                     """.format(thumbs="👍👍👍  ", bold=Bcolors.BOLD_S,
                                endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S)
+
         os.system(f"./scripts/install_rh.sh {user} {server_version}")
+        f"./scripts/install_rh.sh {user} {server_version}"
+        input("press Enter to continue.")
         if conf_allowed:
             os.system("sh. ./scripts/sys_conf.sh")
         ota_config.rh_installation_done = True
@@ -178,9 +181,13 @@ def update(linux_testing, user, server_version):
             end_update(user, config_flag, server_installed_flag)
 
 
-def main_window(config, server_installed_flag, server_version_name, conf_flag):
+def main_window(config, conf_flag):
     user = config.user
+
     while True:
+        clear_the_screen()
+        server_installed_flag, server_version_name = get_rotorhazard_server_version(config.user)
+        ota_config = load_ota_config(user)
         sleep(0.1)
         welcome_text = """
             \n\n{red} {bold}
@@ -203,27 +210,33 @@ def main_window(config, server_installed_flag, server_version_name, conf_flag):
                        yellow=Bcolors.YELLOW, red=Bcolors.RED, orange=Bcolors.ORANGE, server_version=config.RH_version,
                        user=user, config_soft=conf_flag, server=server_version_name)
         print(welcome_text)
-        if not conf_flag and server_installed_flag:
-            print(f"{Bcolors.GREEN}\t\t'c' - Configure RotorHazard server\n{Bcolors.ENDC}")
+
+        if not conf_flag:
+            configure = f"{Bcolors.GREEN}'c' - Configure RotorHazard server{Bcolors.ENDC}"
         else:
-            print("\t\t'c' - Reconfigure RotorHazard server\n")
+            configure ="'c' - Reconfigure RotorHazard server"
         if not server_installed_flag:
-            print(f"\t\t{Bcolors.GREEN}'i' - Install software from scratch{Bcolors.ENDC}")
+            install=f"{Bcolors.GREEN}'i' - Install software from scratch{Bcolors.ENDC}"
         else:
-            print("""\t\t'i' - Install software from scratch""")
+            install="""'i' - Install software from scratch"""
         print("""
-                    'u' - Update existing installation\n {yellow}    
-                    'e' - Exit to Main Menu{endc}\n
-                """.format(yellow=Bcolors.YELLOW, endc=Bcolors.ENDC))
+                    {configure}
+                    
+                    {install}
+                    
+                    'u' - Update existing installation {yellow}
+                        
+                    'e' - Exit to Main Menu{endc}
+                    
+                """.format(yellow=Bcolors.YELLOW, endc=Bcolors.ENDC, configure=configure, install=install))
         selection = input()
         if selection == 'c':
-            if server_installed_flag:
                 conf_ota(config)
-            else:
-                print("\n\t\tPlease install server software first")
-                sleep(1.5)
         if selection == 'i':
-            if config.installation_done:
+            if not conf_flag:
+                print("Please configure before install.")
+
+            elif ota_config.rh_installation_done:
                 clear_the_screen()
                 already_installed_prompt = """
                 {bold}
@@ -242,10 +255,10 @@ def main_window(config, server_installed_flag, server_version_name, conf_flag):
                 print(already_installed_prompt)
                 selection = input()
                 if selection == 'u':
-                    update(config.debug_mode, config.user, config.RH_version)
+                    update(config.debug_mode, config.user, config.server_version)
                 if selection == 'i':
                     conf_allowed = False
-                    installation(conf_allowed, config.debug_mode, config.user, config.RH_version)
+                    installation(conf_allowed, config.debug_mode, config.user, config.server_version)
                 if selection == 'c':
                     confirm_valid_options = ['y', 'yes', 'n', 'no', 'abort', 'a']
                     while True:
@@ -256,7 +269,7 @@ def main_window(config, server_installed_flag, server_version_name, conf_flag):
                             print("\ntoo big fingers :( wrong command. try again! :)")
                     if confirm == 'y' or confirm == 'yes':
                         conf_allowed = True
-                        installation(conf_allowed, config.debug_mode, config.user, config.RH_version)
+                        installation(conf_allowed, config.debug_mode, config.user, config.server_version)
                     if confirm in ['n', 'no', 'abort', 'a']:
                         pass
                 if selection == 'a':
@@ -266,7 +279,7 @@ def main_window(config, server_installed_flag, server_version_name, conf_flag):
                     break
             else:
                 conf_allowed = True
-                installation(conf_allowed, config.debug_mode, config.user, config.RH_version)
+                installation(conf_allowed, config.debug_mode, config.user, config.server_version)
         if selection == 'u':
             update(config.debug_mode, config.user, config.RH_version)
         if selection == 'e':
@@ -278,8 +291,8 @@ def main_window(config, server_installed_flag, server_version_name, conf_flag):
 
 def rpi_update(config):
     config_flag, _ = check_rotorhazard_config_status(config.user)
-    server_installed_flag, server_version_name = get_rotorhazard_server_version(config.user)
-    main_window(config, server_installed_flag, server_version_name, config_flag)
+
+    main_window(config, config_flag)
 
 
 def main():

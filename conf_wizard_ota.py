@@ -24,7 +24,6 @@ def conf_check():
             conf_now_flag = 1
         if cont_conf[0] == 'n':
             conf_now_flag = 0
-            breakpoint()
     else:
         conf_now_flag = 1
     return conf_now_flag
@@ -36,7 +35,6 @@ def do_config(config):
     logo_top(False)
 
     # Always define variables before using them.
-
     conf_now_flag = conf_check()
 
     if conf_now_flag:
@@ -118,7 +116,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                         if int(gpio_reset_pin) > 40:
                             print("\nPlease enter correct value!")
                         else:
-                            config.gpio_reset = int(gpio_reset_pin)
+                            config.gpio_reset_pin = int(gpio_reset_pin)
                             break
                 elif bool_gpio_reset_pin in ['no', '0', 'n']:
                     gpio_reset_pin = False
@@ -164,7 +162,7 @@ Default values are not automatically applied. Type them if needed.\n""")
         Debug mode:             {config.debug_mode}    
         Pins assignment:        {config.pins_assignment}
         Updates without PDF:    {config.updates_without_pdf}
-        GPIO reset pin:         {config.gpio_reset}
+        GPIO reset pin:         {config.gpio_reset_pin}
         Pi 4 user:              {config.pi_4_cfg}
         Beta tester:            {config.beta_tester}
          

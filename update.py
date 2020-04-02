@@ -5,6 +5,7 @@ from time import sleep
 from conf_wizard_ota import conf_ota
 from modules import clear_the_screen, Bcolors, logo_top, image_show, ota_image, load_config, load_ota_config, \
     write_ota_config, get_ota_version
+from rpi_update import rpi_update
 
 
 def compatibility():  # adds compatibility and fixes with previous versions
@@ -412,9 +413,7 @@ def main_menu(config):
         print(main_menu_content)
         selection = input()
         if selection == '1':
-            print("todo: call rpi_update")
-            # rpi_update(config) #TODO modulalize rpi-update
-            # os.system("python3 ./rpi_update.py")  # opens raspberry updating file
+            rpi_update(config)
         if selection == '2':
             print("todo: call node_update")
             # nodes_update(config) #TODO modulalize node-update (i2c_ !) P.F.: and flash_common
