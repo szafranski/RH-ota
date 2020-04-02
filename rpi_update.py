@@ -17,7 +17,7 @@ def get_rotorhazard_server_version(user):
                     # RELEASE_VERSION = "2.2.0 (dev 1)" # Public release version code
                     server_version_name = line.strip().split('=')[1].strip()
                     server_version_name = server_version_name.strip().split('#')[0].replace('"', '')
-                    server_version_name = f"{Bcolors.GREEN}{server_version_name}{Bcolors.ENDC}"
+                    server_version_name = f"{Bcolors.GREEN}{server_version_name}{Bcolors.ENDC} "
                     server_installed_flag = True
                     break
     return server_installed_flag, server_version_name
@@ -25,7 +25,7 @@ def get_rotorhazard_server_version(user):
 
 def check_rotorhazard_config_status(user):
     if os.path.exists(f"/home/{user}/RotorHazard/src/server/config.json"):
-        config_soft = f"{Bcolors.GREEN}configured👍{Bcolors.ENDC} "
+        config_soft = f"{Bcolors.GREEN}configured👍 {Bcolors.ENDC} "
         config_flag = True
     else:
         config_soft = f"{Bcolors.YELLOW}{Bcolors.UNDERLINE}not configured{Bcolors.ENDC}  👎"
@@ -199,6 +199,7 @@ def main_window(config, conf_soft, conf_flag):
             You can change those in configuration wizard in Main Menu.
             
             Server installed right now: {server} {bold}
+            
             RotorHazard configuration state: {config_soft}
             """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, blue=Bcolors.BLUE,
                        yellow=Bcolors.YELLOW, red=Bcolors.RED, orange=Bcolors.ORANGE, server_version=config.RH_version,

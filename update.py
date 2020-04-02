@@ -176,7 +176,7 @@ def aliases_menu(config):
         return
 
     while True:
-        clear_the_screen()  # todo change those lines below to read aliases.txt file - always the same and better code
+        clear_the_screen()
         aliases_description = f""" 
         Aliases in Linux act like shortcuts or references to another commands. 
         You can use them every time when you operates in the terminal window. 
@@ -197,10 +197,12 @@ def aliases_menu(config):
                 selection = input(f"\t\t\t{Bcolors.YELLOW}Press 'y' for yes or 'a' for abort{Bcolors.ENDC}\n")
                 if selection == 'y':
                     aliases_content()
+                    break
                 if selection == 'a':
                     return
             else:
                 aliases_content()
+                break
         if selection == 'a':
             return
 
