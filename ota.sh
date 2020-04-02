@@ -85,12 +85,6 @@ else
   echo echo python3-smbus has to be installed && sudo apt install python3-smbus
 fi
 
-if grep -q 'emoji' aptinstalled.tmp; then
-  echo python3-smbus"   "found
-else
-  echo echo emoji has to be installed && sudo pip install emoji
-fi
-
 if grep -q 'i2c-tools' aptinstalled.tmp; then
   echo i2c-tools"       "found
 else

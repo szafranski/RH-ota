@@ -75,9 +75,8 @@ def log_send(config):
 
 
 def updated_check(config):
-    user = config.user
     while True:
-        if os.path.exists(f"/home/{user}/.ota_markers/.was_updated"):
+        if os.path.exists(f"/home/{config.user}/.ota_markers/.was_updated"):
             clear_the_screen()
             logo_top(config.debug_mode)
             print(""" {bold}
@@ -99,8 +98,7 @@ def updated_check(config):
                 break
         else:
             break
-
-    os.system(f"rm /home/{user}/.ota_markers/.was_updated >/dev/null 2>&1")
+    os.system(f"rm /home/{config.user}/.ota_markers/.was_updated >/dev/null 2>&1")
 
 
 def first(config, updater_version):
@@ -214,16 +212,6 @@ def self_updater(config):
     def add_updater():
         clear_the_screen()
         logo_top(config.debug_mode)
-        print("""
-    Permissions required so 'zip' and 'unzip' program can be downloaded.
-    Performed only during first instance of entering this sub-menu\n""")
-        sleep(2)
-        os.system("sudo echo")
-        os.system("sudo apt install zip unzip")
-        os.system("echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && \
-         python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null")
-        os.system("echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python \
-         ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null")
         ota_status.updater_planted = True
         write_ota_config(ota_status, config.user)
 
@@ -241,10 +229,8 @@ def self_updater(config):
               {bold}
         so you always know what firmware version updater contains.
         For example "2.2.5c" contains nodes firmware with "API level 22".
-        Self-updater will test your internet connection during every update.
-        Updating script is currently set to mode: {green}{update_mode}{endc}.\n\n
-        """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, bold=Bcolors.BOLD, blue=Bcolors.BLUE,
-                   update_mode=config.update_mode)
+        Self-updater will test your internet connection during every update.\n\n
+        """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, bold=Bcolors.BOLD, blue=Bcolors.BLUE)
         print(updater)
         print(f"{Bcolors.GREEN}\t\tUpdate now by pressing 'u'{Bcolors.ENDC}\n")
         print(f"{Bcolors.YELLOW}\t\tGo back by pressing 'b'{Bcolors.ENDC}\n\n")
@@ -443,9 +429,6 @@ def main():
     config_check()
     config = load_config()
     compatibility()
-    if not os.path.exists(f"{home_dir}/.ota_markers/ota_config.txt"):
-        os.system(f"cp {home_dir}/RH-ota/resources/ota_config.txt \
-        {home_dir}/.ota_markers/ota_config.txt")
     first(config, updater_version)
     main_menu(config)
 

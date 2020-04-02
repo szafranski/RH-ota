@@ -1,12 +1,11 @@
 {
     "pi_user" : "pi",
     "RH_version" : "stable",
-    "debug_user" : "racer",
+    "debug_user" : "andrzej",
     "country" : "GB",
     "nodes_number" : 8,
-    "debug_mode" : false,
+    "debug_mode" : true,
     "pins_assignment" : "default",
-    "updates_without_pdf" : false,
     "gpio_reset_pin" : false,
     "pi_4_cfg" : false,
     "beta_tester" : false

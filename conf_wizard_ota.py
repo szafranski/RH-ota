@@ -96,7 +96,7 @@ which pin will be used as GPIO reset pin?
                 break
 
         if debug_mode_val:
-            debug_user = input("\nWhat is your user name on debugging OS? [default: racer]\t\t")
+            debug_user = input("\nWhat is your user name on debugging OS? \t\t\t")
             config.debug_user = debug_user
         else:
             config.debug_user = 'racer'
@@ -108,20 +108,6 @@ which pin will be used as GPIO reset pin?
                 print("\nPlease enter correct value!")
             else:
                 config.pins_assignment = pins_assign
-                break
-
-        while True:
-            no_pdf = input("\nUpdates without PDF? [yes/no | default: yes]\t\t\t\t")
-            no_pdf_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']
-            if no_pdf not in no_pdf_allowed_values:
-                print("\nPlease enter correct value!")
-            else:
-                no_pdf_val = False
-                if no_pdf in ['yes', '1', 'y']:
-                    no_pdf_val = True
-                elif no_pdf in ['no', '0', 'n']:
-                    no_pdf_val = False
-                config.updates_without_pdf = no_pdf_val
                 break
 
         # todo change to confirming pi version from the script

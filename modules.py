@@ -163,13 +163,8 @@ def load_config():
     if config.RH_version == 'stable':
         config.server_version = '2.1.0'
     if config.RH_version == 'custom':
-        config.server_version = 'X.X.X'  # paste custom version number here if you want to declare it manually
-
-    if config.updates_without_pdf:
-        config.update_mode = 'without pdf'
-    else:
-        config.update_mode = 'with pdf'
-    return config
+        config.server_version = 'X.X.X'
+    # paste custom version number here if you want to declare it manually
 
 
 '''
