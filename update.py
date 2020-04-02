@@ -6,7 +6,7 @@ from conf_wizard_ota import conf_ota
 from modules import clear_the_screen, Bcolors, logo_top, image_show, ota_image, load_config, load_ota_config, \
     write_ota_config, get_ota_version
 from rpi_update import rpi_update
-from nodes_flash import main as flashing_menu
+from nodes_flash import flashing_menu
 
 
 def compatibility():  # adds compatibility and fixes with previous versions
@@ -405,7 +405,7 @@ def main_menu(config):
         if selection == '1':
             rpi_update(config)
         if selection == '2':
-            flashing_menu()
+            flashing_menu(config)
         if selection == '3':
             clear_the_screen()
             os.system(". ./scripts/server_start.sh")
@@ -419,7 +419,6 @@ def main_menu(config):
             log_to_dev(config)
         if selection == 'e':
             end()
-
 
 def main():
     updater_version = get_ota_version()

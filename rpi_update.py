@@ -170,11 +170,12 @@ def update(linux_testing, user, server_version):
             end_update(user, config_flag, server_installed_flag)
 
 
-def main_window(config, conf_soft, conf_flag):
+def main_window(config):
 
     user = config.user
 
     while True:
+        rh_config_text, rh_config_flag = check_rotorhazard_config_status(config.user)
         clear_the_screen()
         server_installed_flag, server_version_name = get_rotorhazard_server_version(config.user)
         ota_config = load_ota_config(user)
@@ -199,10 +200,10 @@ def main_window(config, conf_soft, conf_flag):
             RotorHazard configuration state: {config_soft}
             """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, blue=Bcolors.BLUE,
                        yellow=Bcolors.YELLOW, red=Bcolors.RED, orange=Bcolors.ORANGE, server_version=config.RH_version,
-                       user=user, config_soft=conf_soft, server=server_version_name)
+                       user=user, config_soft=rh_config_text, server=server_version_name)
         print(welcome_text)
 
-        if not conf_flag:
+        if not rh_config_flag:
             configure = f"{Bcolors.GREEN}'c' - Configure RotorHazard server{Bcolors.ENDC}"
         else:
             configure = "'c' - Reconfigure RotorHazard server"
@@ -211,9 +212,9 @@ def main_window(config, conf_soft, conf_flag):
         else:
             install = """'i' - Install software from scratch"""
         print("""
-                    {configure}
-                    
                     {install}
+                    
+                    {configure}
                     
                     'u' - Update existing installation {yellow}
                         
@@ -222,12 +223,12 @@ def main_window(config, conf_soft, conf_flag):
                 """.format(yellow=Bcolors.YELLOW, endc=Bcolors.ENDC, configure=configure, install=install))
         selection = input()
         if selection == 'c':
-            conf_rh()
+            if not server_installed_flag:
+                print("Please install before configuring.")
+            else:
+                conf_rh()
         if selection == 'i':
-            if not conf_flag:
-                print("Please configure before install.")
-                sleep(2)
-            elif ota_config.rh_installation_done:
+            if ota_config.rh_installation_done:
                 clear_the_screen()
                 already_installed_prompt = """
                 {bold}
@@ -282,8 +283,8 @@ def main_window(config, conf_soft, conf_flag):
 
 
 def rpi_update(config):
-    config_soft, config_flag = check_rotorhazard_config_status(config.user)
-    main_window(config, config_flag, config_soft)
+
+    main_window(config)
 
 
 def main():

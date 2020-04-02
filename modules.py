@@ -160,6 +160,7 @@ def load_config():
     if config.RH_version == 'custom':
         config.server_version = 'X.X.X'
     # paste custom version number here if you want to declare it manually
+    return config
 
 
 '''
