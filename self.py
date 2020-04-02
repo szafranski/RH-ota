@@ -23,13 +23,8 @@ def self_update(config):
         if config['beta_tester']:
             source = 'master'
             print("This will be 'beta' update - may be changed in config file.\n")
-        if not config['beta_tester']:
-            if not config.updates_without_pdf:
-                source = 'main_stable'
-                print("Update will contain PDF file - may be changed in config file.\n")
-            else:
-                source = 'no_pdf'
-                print("Update won't contain PDF file - may be changed in config file.\n")
+        else:
+            source = 'main_stable'
         os.system(f". ./scripts/self_updater_actions.sh {source}")
         if config:  # if the config variable is not empty, then the config file must have existed.
             shutil.copyfile('~/.ota_markers/updater-config.json', '~/RH-ota/updater-config.json"')
@@ -41,7 +36,6 @@ def self_update(config):
         os.system("sudo chmod -R 777 ~/RH-ota/*.sh > /dev/null 2>&1")  # only make the shell scripts executable.
         if new_version_name != old_version_name:
             os.system("echo OTA was updated > ~/.ota_markers/.was_updated")
-            # todo change to read json "was_updated" in ota_config - maybe?
 
 
 def main():

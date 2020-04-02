@@ -118,7 +118,6 @@ def installation(conf_allowed, linux_testing, user, server_version):
                                endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S)
 
         os.system(f"./scripts/install_rh.sh {user} {server_version}")
-        f"./scripts/install_rh.sh {user} {server_version}"
         input("press Enter to continue.")
         os.system("sh. ./scripts/sys_conf.sh") if conf_allowed else None
         ota_config.rh_installation_done = True
