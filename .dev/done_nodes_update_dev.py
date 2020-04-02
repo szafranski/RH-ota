@@ -293,7 +293,7 @@ def node_menu(config):
 def gpio_state(config):
     clear_the_screen()
     logo_top(config.debug_mode)
-    print("\n\n\n")  # todo end every other line with logo_top()
+    print("\n\n\n")
     os.system("echo " + str(reset_1) + " > /sys/class/GPIO/unexport")
     os.system("echo " + str(reset_2) + " > /sys/class/GPIO/unexport")
     os.system("echo " + str(reset_3) + " > /sys/class/GPIO/unexport")

@@ -20,9 +20,9 @@ def nodes_addresses():
     addr_list_int = [node1addr, node2addr, node3addr, node4addr,
                      node5addr, node6addr, node7addr, node8addr]
 
-    addr_list = [str(item) for item in addr_list_int]  # return addresses list as a tuple
+    addr_list_str = [str(item) for item in addr_list_int]  # return addresses list as a tuple
 
-    return addr_list, addr_list_int
+    return addr_list_str, addr_list_int
 
 
 def flash_blink(config):
@@ -57,22 +57,6 @@ def reset_gpio_pin(config):
     sleep(0.1)
 
 
-# def reset_mate_node(i2c_data, addr, calculate_checksum):
-#     on, off, sleep_amt, reset, bus = i2c_data()
-#     on.append(calculate_checksum(on))
-#     off.append(calculate_checksum(off))
-#     sleep(sleep_amt)
-#     bus.write_i2c_block_data(addr, reset_mate_node, on)
-#     print("pin at default state - sent\n")
-#     sleep(sleep_amt)
-#     bus.write_i2c_block_data(addr, reset_mate_node, off)
-#     print("RESET command - sent")
-#     sleep(sleep_amt)
-#     bus.write_i2c_block_data(addr, reset_mate_node, on)
-#     print("pin at default state - sent\n")
-#     sleep(0.2)
-
-
 def flash_firmware_onto_all_nodes_with_auto_addr(config):
     i = 1
     reset_mate_node = prepare_mate_node(addr=nodes_addresses()[1])
@@ -99,14 +83,6 @@ def flash_blink_onto_all_gnd_nodes(config, nodes_number):
         print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
         flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i ")
     print(f"\n\n\t\t\t\t{Bcolors.BOLD}Node {i} - flashed{Bcolors.ENDC}\n\n")
-
-
-# def disable_serial_on_all_nodes(addr_list, nodes_number):
-    # for addr in addr_list:
-    #     disable_serial_on_the_node(addr, bus=com_init())
-    #     sleep(2)
-    #     if addr_list.index(addr) == nodes_number:
-    #         break
 
 
 def flash_nodes_individually():
@@ -202,7 +178,6 @@ def reset_gpio_state(config):
 
 def connection_test(nodes_num):
     for i in range(nodes_num):
-        # disable_serial_on_all_nodes(nodes_addresses()[1], config.nodes_number)
         os.system("echo no_sudo &&  avrdude -c arduino -p m328p -v")
         sleep(0.2)
 

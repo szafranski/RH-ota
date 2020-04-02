@@ -120,7 +120,7 @@ def internet_check():  # too much code - but works for now
 
 
 def load_ota_config(user):
-    # .read(f'/home/{config.user}/.ota_markers/ota_config.txt')  # todo remove that line? and only 1 aliases instance
+    # .read(f'/home/{config.user}/.ota_markers/ota_config.txt')  # todo remove that line?
     ota_config_file = f'/home/{user}/.ota_markers/ota_config.json'
     if Path(ota_config_file).exists():
         ota_config = load_json(ota_config_file)

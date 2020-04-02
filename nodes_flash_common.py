@@ -2,8 +2,7 @@ from time import sleep
 import os
 from modules import load_config
 
-
-def com_init():  # I was trying to assume that software could be open on Linux but idk anymore
+def com_init():
     error_msg = "SMBus(1) - error\nI2C communication doesn't work properly"
     err_time = 2
     bus = 0
@@ -36,8 +35,6 @@ def gpio_com(config):
     except ModuleNotFoundError:
         print("GPIO import - failed")
         sleep(2)
-    finally:
-        return GPIO
 
 
 def reset_gpio_pin(config):
@@ -48,22 +45,6 @@ def reset_gpio_pin(config):
     sleep(0.1)
     GPIO.output(config.gpio_reset_pin, GPIO.HIGH)
     sleep(0.1)
-
-
-def disable_serial_on_the_node(addr, bus):
-    def calculate_checksum(data):
-        checksum = sum(data) & 0xFF
-        return checksum
-
-    sleep_amt = 1
-    disable_serial_data = [0]
-    disable_serial_on_the_node_command = 0x80
-    disable_serial_data.append(calculate_checksum(disable_serial_on_the_node_command))
-    sleep(sleep_amt)
-    bus.write_i2c_block_data(addr, disable_serial_on_the_node_command, disable_serial_data)
-    sleep(sleep_amt)
-    print(f"serial disabled on the node {str(addr)}")
-    sleep(sleep_amt)
 
 
 def prepare_mate_node(addr):
@@ -88,19 +69,19 @@ def prepare_mate_node(addr):
     sleep(0.2)
 
 
-def flash_mate_node(firmware):
+def flash_mate_node(config, firmware_version):
     avrdude_action = f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-    flash:w:/home/pi/{firmware}.hex:i"
+    flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version}.hex:i"
     os.system(f"{avrdude_action}")
 
 
 def main(addr=0):
     config = load_config()
-    if config.debug_mode:
+    if not config.debug_mode:
         com_init()
-    disable_serial_on_the_node(com_init()[0], addr)
-    prepare_mate_node(com_init()[0], addr)
-    flash_mate_node(config.RH_version)
+        gpio_com(config)
+    prepare_mate_node(addr)
+    flash_mate_node(config, config.RH_version)
 
 
 if __name__ == "__main__":
