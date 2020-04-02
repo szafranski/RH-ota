@@ -20,6 +20,9 @@ def get_rotorhazard_server_version(user):
                     server_version_name = f"{Bcolors.GREEN}{server_version_name}{Bcolors.ENDC} "
                     server_installed_flag = True
                     break
+    else:
+        server_version_name = f'{Bcolors.YELLOW}{Bcolors.UNDERLINE}installation not found{Bcolors.ENDC}'
+        server_installed_flag = False
     return server_installed_flag, server_version_name
 
 
@@ -35,13 +38,10 @@ def check_rotorhazard_config_status(user):
 
 def end_update(user, server_configured_flag, server_installed_flag):
     if not server_configured_flag and server_installed_flag:
-        configure = f"{Bcolors.GREEN}        'c' - configure RotorHazard now{Bcolors.ENDC}"
+        configure = f"{Bcolors.GREEN}'c' - configure RotorHazard now{Bcolors.ENDC}"
     else:
-        configure = "        'c' - reconfigure RotorHazard server"
-
+        configure = "'c' - reconfigure RotorHazard server"
     while True:
-        clear_the_screen()
-
         print(f"""
                     {configure}
         
@@ -176,6 +176,7 @@ def update(linux_testing, user, server_version):
 
 
 def main_window(config, conf_soft, conf_flag):
+
     user = config.user
 
     while True:
@@ -230,7 +231,7 @@ def main_window(config, conf_soft, conf_flag):
         if selection == 'i':
             if not conf_flag:
                 print("Please configure before install.")
-
+                sleep(2)
             elif ota_config.rh_installation_done:
                 clear_the_screen()
                 already_installed_prompt = """

@@ -173,12 +173,20 @@ def first_flashing(config):
 
     while True:
         first_flash_select = """\n\n
+        After selecting right port you will be asked to manually push
+        rest buttons of each node according to instructions on the screen.
+        
+        Number of iterations of this procedure will correspond to the number
+        of nodes declared during the configuration process.  
+          
         Will you flash your nodes for the first time via UART (on PCB) 
         or using USB port? [default: UART]
 
         1 - UART
 
-        2 - USB \n"""
+        2 - USB 
+        
+        a - abort """
         port_sel = input(first_flash_select)
         if port_sel == '1':
             port_sel = 'S0'
@@ -187,6 +195,8 @@ def first_flashing(config):
         if port_sel == '2':
             port_sel = 'USB0'
             flash(port_sel)
+            break
+        if port_sel == 'a':
             break
         else:
             print("\n\tType: 'UART' or 'USB'\n\t")
