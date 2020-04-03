@@ -95,7 +95,7 @@ which pin will be used as GPIO reset pin?
                 break
 
         if debug_mode_val:
-            debug_user = input("\nWhat is your user name on debugging OS? \t\t\t")
+            debug_user = input("\nWhat is your user name on debugging OS?\t\t\t\t")
             config.debug_user = debug_user
         else:
             config.debug_user = 'racer'
@@ -147,6 +147,7 @@ Are you using older, non-i2c hardware flashing mod?
         Debug user name:        {config.debug_user}
         Country code:           {config.country}
         Nodes amount:           {config.nodes_number}
+        Old hardware mod:       {config.old_hw_mod}    
         Debug mode:             {config.debug_mode}    
         Pins assignment:        {config.pins_assignment}
         GPIO reset pin:         {config.gpio_reset_pin}
