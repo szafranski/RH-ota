@@ -7,12 +7,12 @@ try:
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
 except ModuleNotFoundError:
-    print("GPIO import - failed")
+    print("GPIO import - failed - works only on Pi")
     sleep(1)
 
 """
-This is obsolete flashing protocol, left here only for some users.
-New version is in i2c_nodes_flash.py file.
+This is obsolete flashing protocol, left here only for first users in mind.
+New version is in i2c_nodes_flash.py file. 
 """
 
 
