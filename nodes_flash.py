@@ -17,8 +17,8 @@ def nodes_addresses():
     node7addr = 0x14  # 20
     node8addr = 0x16  # 22
 
-# addresses are swapped in the list due to "paired" nature of resetting before flashing
-# sending a command to first element on the list causes second node to be flashed etc.
+    # addresses are swapped in the list due to "paired" nature of resetting before flashing
+    # sending a command to first element on the list causes second node to be flashed etc.
 
     addr_list = [node2addr, node1addr, node4addr, node3addr,
                  node6addr, node5addr, node8addr, node7addr]
@@ -46,12 +46,18 @@ def logo_update(config):
     #                                                                     #
     #######################################################################\n\n
     """.format(nodes_number=config.nodes_number, bold=Bcolors.BOLD_S,
-               bg=Bcolors.BOLD_S+Bcolors.GREEN, endc=Bcolors.ENDC_S, s=(9 * ' ')))
+               bg=Bcolors.BOLD_S + Bcolors.GREEN, endc=Bcolors.ENDC_S, s=(9 * ' ')))
+
+
+def odd_number_of_nodes_check(config):
+    nodes_number = config.nodes_number
+    odd_nodes_flag = True if nodes_number % 2 != 0 else False
+    return odd_nodes_flag
 
 
 def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
     nodes_num = config.nodes_number
-    odd_number = True if nodes_num % 2 != 0 else False
+    odd_number = odd_number_of_nodes_check(config)
     for i in range(0, nodes_num):
         addr = nodes_addresses()[i]
         print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {i + 1} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
@@ -66,8 +72,6 @@ def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
     flash_firmware_onto_gpio_node(config) if odd_number else None
     logo_update(config)
     sleep(2)
-
-    return odd_number
 
 
 def flash_firmware_onto_gpio_node(config):
@@ -87,7 +91,8 @@ def node_selection_menu(config):
         clear_the_screen()
         logo_top(config.debug_mode)
         sleep(0.05)
-        odd_number_flash = "\n\t\t\t\t'o' - Flash odd node\n" if flash_firmware_onto_all_nodes(config) else ''
+        odd_number_flash = "\n\t\t\t\t'o' - Flash odd node\n" if odd_number_of_nodes_check(config) is True else ''
+        # prevents odd node flashing menu showing if even amount is used
         flash_node_menu = """
         
                             {red}{bold}NODES MENU{endc}
@@ -108,10 +113,10 @@ def node_selection_menu(config):
         selection = input("""
                 {bold}Which node do you want to program:{endc} """.format(bold=Bcolors.BOLD, endc=Bcolors.ENDC))
         if selection.isdigit():
-            if int(selection) in range(config.nodes_number+1):
+            if int(selection) in range(config.nodes_number + 1):
                 selected_node_number = selection
                 specific_node_menu(config, int(selected_node_number))
-            elif int(selection) in range(8) and int(selection) not in range(int(config.nodes_number)):
+            elif int(selection) in range(8) and int(selection) not in range(config.nodes_number):
                 print("\n\n\tNode number higher than configured amount of nodes.")
                 sleep(1.5)
         elif selection == 'o':
@@ -135,7 +140,7 @@ def specific_node_menu(config, selected_node_number):
         a - Abort{Bcolors.ENDC}""")
         selection = input()
         if selection == '1':
-            addr = nodes_addresses()[selected_node_number-1]
+            addr = nodes_addresses()[selected_node_number - 1]
             x = selected_node_number
             print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
             prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
@@ -146,7 +151,7 @@ def specific_node_menu(config, selected_node_number):
             sleep(2)
             return
         if selection == '2':
-            addr = nodes_addresses()[selected_node_number-1]
+            addr = nodes_addresses()[selected_node_number - 1]
             x = selected_node_number
             print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
             prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
@@ -157,15 +162,13 @@ def specific_node_menu(config, selected_node_number):
             return
         if selection == 'a':
             break
-        else:
-            continue
 
 
 def odd_node_menu(config):
     clear_the_screen()
     logo_top(config.debug_mode)
     sleep(0.05)
-    odd_number = True if config.nodes_number % 2 != 0 else None
+    odd_number = odd_number_of_nodes_check(config)
     while odd_number:
         print(f"""
         {Bcolors.BOLD}\n\t\t\tNode {str(config.nodes_number)}  selected{Bcolors.ENDC}\n
@@ -191,8 +194,6 @@ def odd_node_menu(config):
             return
         if selection == 'a':
             break
-        else:
-            continue
     else:
         clear_the_screen()
         logo_top(config.debug_mode)
@@ -284,7 +285,7 @@ def flashing_menu(config):
                        endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE)
         print(node_menu)
         sleep(0.1)
-        selection = input()
+        selection = input("")
         if selection == '1':
             flash_firmware_onto_all_nodes(config)
         if selection == '2':
@@ -297,8 +298,6 @@ def flashing_menu(config):
             old_flash_gpio()
         if selection == 'e':
             break
-        else:
-            continue
 
 
 def main():
