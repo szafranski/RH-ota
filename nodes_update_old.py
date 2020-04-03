@@ -145,11 +145,6 @@ def main():
         """.format(nodes_number=nodes_number, bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE_S, endc=Bcolors.ENDC_S,
                    blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S, s=10 * ' '))
 
-    def flash_all_nodes():
-        for node in range(1, nodes_number + 1):
-            pin = reset_pins[node - 1]
-            flash_a_node(pin, user, firmware_version, node, node)
-
     def flash_all_gnd():
         for node in range(1, nodes_number + 1):
             pin = reset_pins[node - 1]
@@ -176,22 +171,18 @@ def main():
                 print(f"""
                 {Bcolors.BOLD}\n\t\t\tNode {str(sel_node)}  selected{Bcolors.ENDC}
                         Choose flashing type:\n{Bcolors.ENDC}
-                1 - {Bcolors.GREEN}Node gets own dedicated firmware - recommended{Bcolors.ENDC}{Bcolors.BOLD}
-                2 - Node ground-auto selection firmware
-                3 - Flashes 'Blink' on the node
-                4 - Abort
+                1 - {Bcolors.GREEN}Flash firmware on the node{Bcolors.GREEN}{Bcolors.BOLD}
+                2 - Flash 'blink' on the node
+                a - Abort
                 {Bcolors.ENDC}""")
                 selection = input()
                 if selection == '1':
-                    flash_a_node(reset_pins[sel_node - 1], user, firmware_version, sel_node, sel_node)
-                    return
-                if selection == '2':
                     flash_a_node(reset_pins[sel_node - 1], user, firmware_version, 0, sel_node)
                     return
-                if selection == '3':
+                if selection == '2':
                     flash_a_blink(reset_pins[sel_node - 1], user, firmware_version, sel_node)
                     return
-                if selection == '4':
+                if selection == 'a':
                     break
 
         def node_menu():
@@ -248,17 +239,15 @@ def main():
             node_menu = """\n
                             {bold}{underline}CHOOSE FLASHING TYPE:{endc}
             
-                    {green}{bold}1 - Every Node gets own dedicated firmware - rec.{endc}
+                    {green}{bold}1 - Nodes using ground-auto numbering firmware - rec.{endc}
                     
-                    {bold}2 - Nodes using ground-auto numbering firmware
+                    2 - Flash 'Blink' on every node
                     
-                    3 - Flash 'Blink' on every node
+                    3 - Flash each node individually
                     
-                    4 - Flash each node individually
+                    4 - Fix GPIO pins state - obsolete
                     
-                    5 - Fix GPIO pins state - obsolete
-                    
-                    6 - Enter new (I2C) flashing menu
+                    5 - Enter new (I2C) flashing menu
                     
                     {yellow}e - Exit to main menu{endc}
             """.format(bold=Bcolors.BOLD, green=Bcolors.GREEN, yellow=Bcolors.YELLOW,
@@ -267,22 +256,18 @@ def main():
             sleep(0.1)
             selection = input()
             if selection == '1':
-                flash_all_nodes()
-                logo_update()
-                sleep(3)
-            if selection == '2':
                 flash_all_gnd()
                 logo_update()
                 sleep(3)
-            if selection == '3':
+            if selection == '2':
                 flash_all_blink()
                 logo_update()
                 sleep(3)
-            if selection == '4':
+            if selection == '3':
                 flash_each_node()
-            if selection == '5':
+            if selection == '4':
                 gpio_state()
-            if selection == '6':
+            if selection == '5':
                 new_flashing()
             if selection == 'e':
                 break
