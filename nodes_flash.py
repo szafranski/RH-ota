@@ -2,6 +2,7 @@ from time import sleep
 import os
 from nodes_flash_common import com_init, prepare_mate_node, reset_gpio_pin
 from modules import clear_the_screen, Bcolors, logo_top, load_config
+from nodes_update_old import main as nodes_flash_old
 
 
 def nodes_addresses():
@@ -224,7 +225,8 @@ def first_flashing(config):
                         flash:w:/home/{config.user}/RH-ota/firmware/{config.RH_version}/node_0.hex:i")
 
     while True:
-        first_flash_select = """\n\n
+        first_flash_select = f"""
+        {Bcolors.BOLD}
         After selecting right port you will be asked to manually push
         reset button on each node according to instructions on the screen.
         
@@ -232,14 +234,16 @@ def first_flashing(config):
         of nodes declared during the configuration process.  
           
         Will you flash your nodes for the first time via UART (on PCB) 
-        or using USB port? [default: UART]
+        or using USB* port? [default: UART]
 
         1 - UART
 
         2 - USB 
         
-        a - abort 
+        a - abort{Bcolors.ENDC} 
         
+        
+        *USB can be used only if node is only device connected to the Pi
         """
         port_sel = input(first_flash_select)
         if port_sel == '1':
@@ -301,7 +305,8 @@ def flashing_menu(config):
             first_flashing(config)
         if selection == '4':
             show_i2c_devices(config)
-
+        if selection == 'old':  # hidden - just for developers purpose
+            nodes_flash_old()
         if selection == 'e':
             break
 

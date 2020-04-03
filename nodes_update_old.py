@@ -70,8 +70,7 @@ def gpio_init(config, reset_pins):
 
 
 def all_pins_high(config, reset_pins):
-    debugging = config.debug_mode
-    if not debugging:
+    if not config.debug_mode:
         GPIO.output(reset_pins[0], GPIO.HIGH)
         GPIO.output(reset_pins[1], GPIO.HIGH)
         GPIO.output(reset_pins[2], GPIO.HIGH)
@@ -81,7 +80,7 @@ def all_pins_high(config, reset_pins):
         GPIO.output(reset_pins[6], GPIO.HIGH)
         GPIO.output(reset_pins[7], GPIO.HIGH)
         sleep(0.05)
-    if debugging:
+    if config.debug_mode:
         print(f"\n\n\t\t\t/home/{config.user}/RH-ota/firmware/obsolete/{config.RH_version}/X.hex")
         print("\n\t\t\t\t\t Linux - PC\n\n")
         sleep(0.3)
