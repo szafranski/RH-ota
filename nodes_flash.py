@@ -61,7 +61,7 @@ def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
         flash_firmware(config) if not config.debug_mode else None
         print(f"\n\t\t\t{Bcolors.BOLD}Node {i + 1} - flashed{Bcolors.ENDC}\n\n")
         sleep(2)
-        if odd_number and (nodes_num - i) == 1:
+        if odd_number and ((nodes_num - i) == 2):  # breaks the "flashing loop" after last even node
             break
     flash_firmware_onto_gpio_node(config) if odd_number else None
     logo_update(config)

@@ -4,7 +4,7 @@ import os
 
 def com_init():
     error_msg = "SMBus(1) - error\nI2C communication doesn't work properly"
-    err_time = 2
+    err_time = 1
     bus = 0
     try:
         from smbus import SMBus  # works only on Pi
@@ -33,8 +33,8 @@ def gpio_com(config):
         GPIO.setup(config.gpio_reset_pin, GPIO.OUT, initial=GPIO.HIGH)
         # ensures nothing is being reset during program's start
     except ModuleNotFoundError:
-        print("GPIO import - failed")
-        sleep(2)
+        print("GPIO import - failed - works only on Pi")
+        sleep(1)
 
 
 def reset_gpio_pin(config):
