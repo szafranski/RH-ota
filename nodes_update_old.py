@@ -2,16 +2,13 @@ from time import sleep
 import os
 import json
 from modules import clear_the_screen, Bcolors, logo_top, check_if_string_in_file
-
-
-def com_init():
-    try:
-        import RPi.GPIO as GPIO
-        GPIO.setwarnings(False)
-        GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
-    except ModuleNotFoundError:
-        print("GPIO import - failed")
-        sleep(2)
+try:
+    import RPi.GPIO as GPIO
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
+except ModuleNotFoundError:
+    print("GPIO import - failed")
+    sleep(2)
 
 """
 This is obsolete flashing protocol, left here only for some users.
@@ -284,12 +281,7 @@ def main():
                 gpio_state()
             if selection == 'e':
                 break
-            else:
-                continue
-
-    nodes_update()
 
 
 if __name__ == '__main__':
-    com_init()
     main()

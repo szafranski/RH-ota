@@ -1,5 +1,6 @@
 from time import sleep
 import os
+from modules import load_config
 
 
 def com_init():
@@ -25,32 +26,27 @@ def com_init():
         return bus
 
 
-def gpio_com(config):
+def reset_gpio_pin(gpio_reset_pin):
     try:
         import RPi.GPIO as GPIO
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
-        GPIO.setup(config.gpio_reset_pin, GPIO.OUT, initial=GPIO.HIGH)
-        # ensures nothing is being reset during program's start
-    except ModuleNotFoundError:
-        print("GPIO import - failed - works only on Pi")
-        sleep(1)
-
-
-def reset_gpio_pin(config):
-    try:
-        GPIO = RPi.GPIO()
-        GPIO.output(config.gpio_reset_pin, GPIO.HIGH)
+        GPIO.setup(gpio_reset_pin, GPIO.OUT, initial=GPIO.HIGH)
+        GPIO.output(gpio_reset_pin, GPIO.HIGH)
         sleep(0.1)
-        GPIO.output(config.gpio_reset_pin, GPIO.LOW)
+        GPIO.output(gpio_reset_pin, GPIO.LOW)
+        print("gpio pin reset")
         sleep(0.1)
-        GPIO.output(config.gpio_reset_pin, GPIO.HIGH)
+        GPIO.output(gpio_reset_pin, GPIO.HIGH)
         sleep(0.1)
     except AttributeError:
         print("AttributeError - that feature works only on Pi")
         sleep(1)
     except NameError:
-        print("AttributeError - that feature works only on Pi")
+        print("NameError - that feature works only on Pi")
+        sleep(1)
+    except ModuleNotFoundError:
+        print("GPIO import - failed - works only on Pi")
         sleep(1)
 
 

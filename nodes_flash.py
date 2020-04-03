@@ -81,7 +81,19 @@ def flash_firmware_onto_gpio_node(config):
     reset_gpio_pin(config.gpio_reset_pin)
     print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
           f"flash:w:/home/{config.user}/RH-ota/firmware/{config.RH_version}/node_0.hex:i ")
-    flash_firmware(config) if not config.debug_mode else None
+    flash_blink(config) if not config.debug_mode else None
+    print(f"\n\t\t\t{Bcolors.BOLD}Node {x} - flashed{Bcolors.ENDC}\n\n")
+    sleep(2)
+
+
+def flash_blink_onto_gpio_node(config):
+    rst = config.gpio_reset_pin
+    x = int(config.nodes_number)
+    print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with GPIO pin: {rst})\n")
+    reset_gpio_pin(config.gpio_reset_pin)
+    print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
+          f"flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i ")
+    flash_blink(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {x} - flashed{Bcolors.ENDC}\n\n")
     sleep(2)
 
@@ -91,8 +103,6 @@ def node_selection_menu(config):
         clear_the_screen()
         logo_top(config.debug_mode)
         sleep(0.05)
-        odd_number_flash = "\n\t\t\t\t'o' - Flash odd node\n" if odd_number_of_nodes_check(config) is True else ''
-        # prevents odd node flashing menu showing if even amount is used
         flash_node_menu = """
         
                             {red}{bold}NODES MENU{endc}
@@ -104,23 +114,30 @@ def node_selection_menu(config):
                 3 - Flash node 3        7 - Flash node 7
 
                 4 - Flash node 4        8 - Flash node 8 
-                            {odd_number_flash}
+                            
                     {yellow}'e'- Exit to main menu{endc}
                     
-        """.format(bold=Bcolors.BOLD, red=Bcolors.RED, yellow=Bcolors.YELLOW,
-                   endc=Bcolors.ENDC, odd_number_flash=odd_number_flash)
+        """.format(bold=Bcolors.BOLD, red=Bcolors.RED, yellow=Bcolors.YELLOW, endc=Bcolors.ENDC)
         print(flash_node_menu)
         selection = input("""
                 {bold}Which node do you want to program:{endc} """.format(bold=Bcolors.BOLD, endc=Bcolors.ENDC))
         if selection.isdigit():
-            if int(selection) in range(config.nodes_number + 1):
-                selected_node_number = selection
-                specific_node_menu(config, int(selected_node_number))
-            elif int(selection) in range(8) and int(selection) not in range(config.nodes_number):
-                print("\n\n\tNode number higher than configured amount of nodes.")
-                sleep(1.5)
-        elif selection == 'o':
-            odd_node_menu(config)
+            if odd_number_of_nodes_check(config):
+                if int(selection) in range(config.nodes_number+1) and int(selection) != config.nodes_number:
+                    selected_node_number = selection
+                    specific_node_menu(config, int(selected_node_number))
+                if int(selection) in range(config.nodes_number+1) and int(selection) == config.nodes_number:
+                    odd_node_menu(config)
+                elif int(selection) in range(8) and int(selection) not in range(config.nodes_number):
+                    print("\n\n\tNode number higher than configured amount of nodes.")
+                    sleep(1.5)
+            if not odd_number_of_nodes_check(config):
+                if int(selection) in range(config.nodes_number+1):
+                    selected_node_number = selection
+                    specific_node_menu(config, int(selected_node_number))
+                elif int(selection) in range(8) and int(selection) not in range(config.nodes_number):
+                    print("\n\n\tNode number higher than configured amount of nodes.")
+                    sleep(1.5)
         elif selection == 'e':
             break
 
@@ -142,7 +159,7 @@ def specific_node_menu(config, selected_node_number):
         if selection == '1':
             addr = nodes_addresses()[selected_node_number - 1]
             x = selected_node_number
-            print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
+            print(f"\n\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
             prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
             print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
                   f"flash:w:/home/{config.user}/RH-ota/firmware/{config.RH_version}/node_0.hex:i ")
@@ -153,7 +170,7 @@ def specific_node_menu(config, selected_node_number):
         if selection == '2':
             addr = nodes_addresses()[selected_node_number - 1]
             x = selected_node_number
-            print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
+            print(f"\n\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
             prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
             print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
                   f"flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i ")
@@ -183,14 +200,7 @@ def odd_node_menu(config):
             flash_firmware_onto_gpio_node(config)
             return
         if selection == '2':
-            x = config.nodes_number
-            print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {x} "
-                  f"{Bcolors.ENDC}(reset with GPIO pin){config.gpio_reset_pin}\n")
-            reset_gpio_pin(config.gpio_reset_pin)
-            print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
-                  f"flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i ")
-            flash_blink(config) if not config.debug_mode else None
-            print(f"\n\t\t\t{Bcolors.BOLD}Node {x} - flashed{Bcolors.ENDC}\n\n")
+            flash_blink_onto_gpio_node(config)
             return
         if selection == 'a':
             break
@@ -245,7 +255,7 @@ def first_flashing(config):
             break
         else:
             print("\n\tType: 'UART' or 'USB'\n\t")
-    print(f"\n\n\t\t{Bcolors.BOLD}FIRMWARE FLASHING - DONE{Bcolors.ENDC}\n\\n")
+    print(f"\n\n\t\t{Bcolors.BOLD}FIRMWARE FLASHING - DONE{Bcolors.ENDC}\n\n")
     sleep(2)
 
 
