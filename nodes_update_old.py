@@ -16,21 +16,6 @@ New version is in i2c_nodes_flash.py file.
 """
 
 
-def check_rh_version(config):
-    preferred_rh_version = config.RH_version
-
-    if preferred_rh_version == 'master':
-        firmware_version = 'master'
-    elif preferred_rh_version == 'beta':
-        firmware_version = 'beta'
-    elif preferred_rh_version == 'stable':
-        firmware_version = 'stable'
-    else:
-        firmware_version = 'stable'
-
-    return firmware_version
-
-
 def pins_assignment(config):
 
     # default to default pins. only update if they said so.
