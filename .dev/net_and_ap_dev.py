@@ -1,32 +1,12 @@
 from time import sleep
 import os
 import sys
-import json
-from modules import Bcolors, clear_the_screen, logo_top
-
-if os.path.exists("./updater-config.json"):
-    with open('updater-config.json') as config_file:
-        data = json.load(config_file)
-else:
-    with open('distr-updater-config.json') as config_file:
-        data = json.load(config_file)
-
-if data['debug_mode']:
-    linux_testing = True
-else:
-    linux_testing = False
-
-if linux_testing:
-    user = data['debug_user']
-else:
-    user = data['pi_user']
-
-myPlace = data['country']
-
+from modules import Bcolors, clear_the_screen, logo_top, load_config
 
 # Set the WiFi country in raspi-config's Localisation Options:
 # sudo raspi-config
 # ( 4. point -> I4 - Change WiFi country -> select -> enter -> finish )
+
 
 def step_four():
     with open('./net_ap/net_steps.txt', 'rt') as f:
@@ -36,9 +16,10 @@ def step_four():
                     line.replace('####', '')
                     if '####' in line:
                         break
-    print("""\n\t\t\t\t""" + Bcolors.GREEN + """    Reboot by pressing 'r' """ + Bcolors.ENDC + """\n\n\t\t\t\t"""
-          + Bcolors.YELLOW + """    Exit by pressing 'e'""" + Bcolors.ENDC)
-    selection = str(input(""))
+    print(f"""{Bcolors.GREEN}
+            Reboot by pressing 'r' {Bcolors.ENDC}{Bcolors.YELLOW} 
+            Exit by pressing 'e'{Bcolors.ENDC}""")
+    selection = input()
     if selection == 'r':
         os.system("sudo reboot")
     if selection == 'e':
@@ -57,8 +38,9 @@ def step_three():
                     line.replace('####', '')
                     if '####' in line:
                         break
-    print("""\n\t\t\t\t""" + Bcolors.GREEN + """    Reboot by pressing 'r' """ + Bcolors.ENDC + """\n\n\t\t\t\t"""
-          + Bcolors.YELLOW + """    Exit by pressing 'e'""" + Bcolors.ENDC + """\n""")
+    print(f"""{Bcolors.GREEN}
+            Reboot by pressing 'r' {Bcolors.ENDC}{Bcolors.YELLOW} 
+            Exit by pressing 'e'{Bcolors.ENDC}""")
     selection = str(input(""))
     if selection == 'r':
         os.system("sudo reboot")
@@ -89,16 +71,17 @@ def conf_copy():
     os.system("sudo cp ./net_ap/dnsmasq.conf.net /etc/dnsmasq.conf.net")
 
 
-def step_one():
+def step_one(config):
     conf_copy()
     os.system("sudo sed -i 's/country/# country/g' /etc/wpa_supplicant/wpa_supplicant.conf")
-    os.system("echo 'country=" + myPlace + "'| sudo  tee -a /boot/config.txt")
+    os.system(f"echo 'country={config.country}'| sudo  tee -a /boot/config.txt")
     os.system("sudo apt-get update && sudo apt-get upgrade -y")
     os.system("sudo apt install curl -y")
     os.system("curl -sL https://install.raspap.com | bash -s -- -y")
     step_two()
-    print("""\n\t\t\t\t""" + Bcolors.GREEN + """Reboot by pressing 'r' """ + Bcolors.ENDC + """\n\n\t\t\t\t"""
-          + Bcolors.YELLOW + """Exit by pressing 'e'""" + Bcolors.ENDC + """\n""")
+    print(f"""{Bcolors.GREEN}
+            Reboot by pressing 'r' {Bcolors.ENDC}{Bcolors.YELLOW} 
+            Exit by pressing 'e'{Bcolors.ENDC}""")
     selection = str(input(""))
     if selection == 'r':
         os.system("sudo reboot")
@@ -108,7 +91,7 @@ def step_one():
         main()
 
 
-def step_zero():
+def step_zero(config):
     sleep(0.05)
     clear_the_screen()
     sleep(0.05)
@@ -121,18 +104,21 @@ def step_zero():
                     line.replace('\n', '').replace('####', '')
                     if '####' in line:
                         break
-    print("""\n
-    \t\t""" + Bcolors.GREEN + """'y' - Yes, let's do it """ + Bcolors.ENDC + """\n
-    \t\t'3' - enters "Step 3." - check it after first two steps\n
-    \t\t'x' - enters Access Point extra menu - info after operation\n
-    \t\t""" + Bcolors.YELLOW + """'e' - exit to main menu""" + Bcolors.ENDC + """\n""")
+    print(f"""{Bcolors.GREEN}
+        'y' - Yes, let's do it {Bcolors.ENDC} 
+
+        '3' - enters "Step 3." - check it after first two steps
+
+        'x' - enters Access Point extra menu - info after operation{Bcolors.YELLOW}
+
+        'e' - exit to main menu{Bcolors.ENDC}""")
     selection = str(input(""))
     if selection == 'y':
-        step_one()
+        step_one(config)
     if selection == '3':
         step_three()
     if selection == 'x':
-        ap_menu()
+        ap_menu(config)
     if selection == 'e':
         sys.exit()
     else:
@@ -151,8 +137,10 @@ def ap_menu():
                         line.replace('\n', '').replace('####', '')
                         if '####' in line:
                             break
-        selection = input("\t\t\t" + Bcolors.GREEN + "'k' - OK '" + Bcolors.ENDC
-                          + "\t\t" + Bcolors.YELLOW + "'b' - go back" + Bcolors.ENDC + "\n")
+        print(f"""{Bcolors.GREEN}
+                'k' - OK '{Bcolors.ENDC}{Bcolors.YELLOW}
+                'b' - go back{Bcolors.ENDC}""")
+        selection = input()
         if selection == 'k':
             sys.exit()
         if selection == 'b':
@@ -164,7 +152,7 @@ def ap_menu():
         sleep(0.05)
         clear_the_screen()
         sleep(0.05)
-        logo_top(config.debug_user)
+        logo_top(False)
         sleep(0.05)
         with open('./net_ap/net_steps.txt', 'rt') as f:
             for line in f:
@@ -173,8 +161,10 @@ def ap_menu():
                         line.replace('\n', '').replace('####', '')
                         if '####' in line:
                             break
-        selection = input("\t\t\t" + Bcolors.GREEN + "'s' - second page'" + Bcolors.ENDC + "\t\t"
-                          + Bcolors.YELLOW + "'b' - go back" + Bcolors.ENDC + "\n")
+        print(f"""{Bcolors.GREEN}
+                    's' - second page'{Bcolors.ENDC}{Bcolors.YELLOW}
+                    'b' - go back{Bcolors.ENDC}""")
+        selection = input()
         if selection == 's':
             second_page()
         if selection == 'b':
@@ -186,8 +176,9 @@ def ap_menu():
 
 
 def main():
-    step_zero()
-    step_one()
+    config = load_config()
+    step_zero(config)
+    step_one(config)
 
 
 if __name__ == "__main__":
