@@ -1,6 +1,0 @@
-stable is same as master for now
-due to no API changes for nodes
-
-every included firmware contains bootloader
-
-
