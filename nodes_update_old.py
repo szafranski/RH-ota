@@ -2,6 +2,7 @@ from time import sleep
 import os
 import json
 from modules import clear_the_screen, Bcolors, logo_top, check_if_string_in_file
+from nodes_flash import main as new_flashing
 try:
     import RPi.GPIO as GPIO
     GPIO.setwarnings(False)
@@ -279,8 +280,12 @@ def main():
                 flash_each_node()
             if selection == '5':
                 gpio_state()
+            if selection == 'new':
+                new_flashing()
             if selection == 'e':
                 break
+
+    nodes_update()
 
 
 if __name__ == '__main__':

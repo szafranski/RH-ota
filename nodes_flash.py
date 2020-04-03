@@ -2,7 +2,6 @@ from time import sleep
 import os
 from nodes_flash_common import com_init, prepare_mate_node, reset_gpio_pin
 from modules import clear_the_screen, Bcolors, logo_top, load_config
-from nodes_update_old import main as old_flash_gpio
 
 
 def nodes_addresses():
@@ -287,9 +286,7 @@ def flashing_menu(config):
                     3 - First time flashing
     
                     4 - Show I2C connected devices
-    
-                    5 - Flash using GPIO reset pins - obsolete
-        
+            
                     {yellow}e - Exit to main menu{endc}
             """.format(bold=Bcolors.BOLD, green=Bcolors.GREEN, yellow=Bcolors.YELLOW,
                        endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE)
@@ -304,8 +301,7 @@ def flashing_menu(config):
             first_flashing(config)
         if selection == '4':
             show_i2c_devices(config)
-        if selection == '5':
-            old_flash_gpio()
+
         if selection == 'e':
             break
 

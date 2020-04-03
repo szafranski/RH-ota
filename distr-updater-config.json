@@ -5,6 +5,7 @@
     "country" : "GB",
     "nodes_number" : 8,
     "debug_mode" : true,
+    "old_hw_mod" : false,
     "pins_assignment" : "default",
     "gpio_reset_pin" : false,
     "beta_tester" : false

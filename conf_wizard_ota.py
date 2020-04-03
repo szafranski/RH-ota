@@ -106,9 +106,11 @@ Are you using older, non-i2c hardware flashing mod?
 (nodes reset pins connected to gpio pins) [ yes/no | default: no ]\t""")
             if old_hw_mod == "yes" or old_hw_mod == "y":
                 old_hw_mod = True
+                config.old_hw_mod = True
                 break
             elif old_hw_mod == "no" or old_hw_mod == "n":
                 old_hw_mod = False
+                config.old_hw_mod = False
                 break
             else:
                 print("\nPlease enter correct value!")
