@@ -33,7 +33,7 @@ def check_rotorhazard_config_status(user):
     else:
         config_soft = f"{Bcolors.YELLOW}{Bcolors.UNDERLINE}not configured{Bcolors.ENDC}  👎"
         config_flag = False
-    return config_flag, config_soft
+    return config_soft, config_flag
 
 
 def end_update(user, server_configured_flag, server_installed_flag):

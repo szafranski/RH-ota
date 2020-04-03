@@ -38,7 +38,6 @@ def do_config(config):
     conf_now_flag = conf_check()
 
     if conf_now_flag:
-
         print("""\n
 Please type your configuration data. It can be modified later.
 Default values are not automatically applied. Type them if needed.\n""")
@@ -62,7 +61,7 @@ Default values are not automatically applied. Type them if needed.\n""")
             if not nodes.isdigit() or int(nodes) > 8:
                 print("\nPlease enter correct value!")
             else:
-                config.nodes_number = nodes
+                config.nodes_number = int(nodes)
                 break
 
         if int(nodes) % 2 != 0:
@@ -70,7 +69,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                 odd_nodes_note = """
 Since you declared odd number of nodes, please input, 
 which pin will be used as GPIO reset pin? 
-[ default (used on official PCB): 17 ] \t"""
+[ default (used on official PCB): 17 ] \t\t\t\t\t"""
                 gpio_reset_pin = input(odd_nodes_note)
                 if int(gpio_reset_pin) > 40:
                     print("\nPlease enter correct value!")
@@ -102,6 +101,17 @@ which pin will be used as GPIO reset pin?
             config.debug_user = 'racer'
 
         while True:
+            old_hw_mod = input("""Are you using older, non-i2c flashing mod? 
+            (nodes reset pins connected to gpio pins) [ yes/no | default: no ] """)
+            if old_hw_mod == "yes" or old_hw_mod == "y":
+                old_hw_mod = True
+                break
+            elif old_hw_mod == "no" or old_hw_mod == "n":
+                old_hw_mod = False
+                break
+            else:
+                print("\nPlease enter correct value!")
+        while old_hw_mod:
             pins_assign = input("\nPins assignment? [default/custom/PCB | default: default]\t\t")
             pins_valid_options = ['default', 'PCB', 'pcb', 'custom']
             if pins_assign not in pins_valid_options:
@@ -109,6 +119,8 @@ which pin will be used as GPIO reset pin?
             else:
                 config.pins_assignment = pins_assign
                 break
+        else:
+            config.pins_assignment = 'default'
 
         while True:
             user_is_beta_tester = input("\nAre you a beta tester? [yes/no | default: no]\t\t\t\t")
@@ -134,9 +146,7 @@ which pin will be used as GPIO reset pin?
         Nodes amount:           {config.nodes_number}
         Debug mode:             {config.debug_mode}    
         Pins assignment:        {config.pins_assignment}
-        Updates without PDF:    {config.updates_without_pdf}
         GPIO reset pin:         {config.gpio_reset_pin}
-        Pi 4 user:              {config.pi_4_cfg}
         Beta tester:            {config.beta_tester}
          
         Please check. Confirm? [yes/change/abort]\n""")

@@ -24,7 +24,7 @@ ip_est_end = 0
 
 def main():
     while True:
-        ip_est_range = input("What range you expect it to be? 1/2/3")
+        ip_est_range = input("What range you expect it to be? 1/2/3/4")
         if ip_est_range == '1':
             ip_est_start = 2
             ip_est_end = 100
@@ -35,6 +35,10 @@ def main():
             break
         if ip_est_range == '3':
             ip_est_start = 201
+            ip_est_end = 240
+            break
+        if ip_est_range == '4':
+            ip_est_start = 241
             ip_est_end = 255
             break
         else:

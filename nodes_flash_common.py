@@ -1,6 +1,5 @@
 from time import sleep
 import os
-from modules import load_config
 
 
 def com_init():
@@ -39,13 +38,20 @@ def gpio_com(config):
 
 
 def reset_gpio_pin(config):
-    GPIO = RPi.GPIO()
-    GPIO.output(config.gpio_reset_pin, GPIO.HIGH)
-    sleep(0.1)
-    GPIO.output(config.gpio_reset_pin, GPIO.LOW)
-    sleep(0.1)
-    GPIO.output(config.gpio_reset_pin, GPIO.HIGH)
-    sleep(0.1)
+    try:
+        GPIO = RPi.GPIO()
+        GPIO.output(config.gpio_reset_pin, GPIO.HIGH)
+        sleep(0.1)
+        GPIO.output(config.gpio_reset_pin, GPIO.LOW)
+        sleep(0.1)
+        GPIO.output(config.gpio_reset_pin, GPIO.HIGH)
+        sleep(0.1)
+    except AttributeError:
+        print("AttributeError - that feature works only on Pi")
+        sleep(1)
+    except NameError:
+        print("AttributeError - that feature works only on Pi")
+        sleep(1)
 
 
 def prepare_mate_node(addr):
@@ -76,16 +82,6 @@ def flash_mate_node(config, firmware_version):
     flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version}.hex:i"
     os.system(f"{avrdude_action}")
 
-
-# def main(addr=0):  # probably could be deleted
-#     config = load_config()
-#     if not config.debug_mode:
-#         com_init()
-#         gpio_com(config)
-#     prepare_mate_node(addr)
-#     flash_mate_node(config, config.RH_version)
-#
-#
 
 def main():
     print("Use file nodes_flash.py as a opening file instead")

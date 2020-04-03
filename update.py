@@ -420,6 +420,7 @@ def main_menu(config):
         if selection == 'e':
             end()
 
+
 def main():
     updater_version = get_ota_version()
     home_dir = str(Path.home())

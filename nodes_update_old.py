@@ -1,9 +1,17 @@
-from numbers import Number
 from time import sleep
 import os
 import json
 from modules import clear_the_screen, Bcolors, logo_top, check_if_string_in_file
-import RPi.GPIO as GPIO
+
+
+def com_init():
+    try:
+        import RPi.GPIO as GPIO
+        GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
+    except ModuleNotFoundError:
+        print("GPIO import - failed")
+        sleep(2)
 
 """
 This is obsolete flashing protocol, left here only for some users.
@@ -41,26 +49,26 @@ def main():
     nodes_number = int(data['nodes_number'])
 
     # default to default pins. only update if they said so.
-    reset_pins=[
+    reset_pins = [
         12  # node 1   # default 12
-        ,16  # node 2   # default 16
-        ,20  # node 3   # default 20
-        ,21  # node 4   # default 21
-        ,6  # node 5   # default 6
-        ,13  # node 6   # default 13
-        ,19  # node 7   # default 19
-        ,26  # node 8   # default 26
+        , 16  # node 2   # default 16
+        , 20  # node 3   # default 20
+        , 21  # node 4   # default 21
+        , 6  # node 5   # default 6
+        , 13  # node 6   # default 13
+        , 19  # node 7   # default 19
+        , 26  # node 8   # default 26
     ]
     if pins_assignment == 'PCB' or pins_assignment == 'pcb':
         reset_pins = [
             12  # node 1   # default 12
-            ,16  # node 2   # default 16
-            ,4  # node 3   # default 4
-            ,21  # node 4   # default 21
-            ,6  # node 5   # default 6
-            ,13  # node 6   # default 13
-            ,19  # node 7   # default 19
-            ,26  # node 8   # default 26
+            , 16  # node 2   # default 16
+            , 4  # node 3   # default 4
+            , 21  # node 4   # default 21
+            , 6  # node 5   # default 6
+            , 13  # node 6   # default 13
+            , 19  # node 7   # default 19
+            , 26  # node 8   # default 26
         ]
     if pins_assignment == 'custom':
         reset_pins = [
@@ -117,7 +125,6 @@ def main():
             print(f"\n\t\t\t\t{Bcolors.BOLD}Node {node_number} - flashed{Bcolors.ENDC}\n\n")
 
     if linux_testing:
-
         def all_pins_high():
             print(f"\n\n\t\t\t/home/{user}/RH-ota/firmware/obsolete/{firmware_version}/X.hex")
             print("\n\t\t\t\t\t Linux - PC\n\n")
@@ -127,7 +134,6 @@ def main():
             print(f"sudo avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
                     flash:w:/home/{user}/RH-ota/firmware/obsolete/{firmware_version}/node_{firmware_number}.hex:i ")
             print(f"\n\t\t\t\t{Bcolors.BOLD}Node {node_number} - flashed{Bcolors.ENDC}\n\n")
-
 
     def logo_update():
         print("""
@@ -142,13 +148,13 @@ def main():
                    blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S, s=10 * ' '))
 
     def flash_all_nodes():
-        for node in range(1, nodes_number+1):
-            pin = reset_pins[node-1]
+        for node in range(1, nodes_number + 1):
+            pin = reset_pins[node - 1]
             flash_a_node(pin, user, firmware_version, node, node)
 
     def flash_all_gnd():
-        for node in range(1, nodes_number+1):
-            pin = reset_pins[node-1]
+        for node in range(1, nodes_number + 1):
+            pin = reset_pins[node - 1]
             flash_a_node(pin, user, firmware_version, 0, node)
 
     def flash_a_blink(reset_pin, user, firmware_version, node_number):
@@ -162,8 +168,8 @@ def main():
         sleep(1)
 
     def flash_all_blink():
-        for node in range(1, nodes_number+1):
-            pin = reset_pins[node-1]
+        for node in range(1, nodes_number + 1):
+            pin = reset_pins[node - 1]
             flash_a_blink(pin, user, firmware_version, node)
 
     def flash_each_node():
@@ -215,6 +221,7 @@ def main():
                     node_x_menu(int(selection))
                 elif selection == 'e':
                     break
+
         node_menu()
 
     def gpio_state():
@@ -279,9 +286,10 @@ def main():
                 break
             else:
                 continue
+
     nodes_update()
 
 
-
 if __name__ == '__main__':
+    com_init()
     main()
