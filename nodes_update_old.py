@@ -258,6 +258,8 @@ def main():
                     
                     5 - Fix GPIO pins state - obsolete
                     
+                    6 - Enter new (I2C) flashing menu
+                    
                     {yellow}e - Exit to main menu{endc}
             """.format(bold=Bcolors.BOLD, green=Bcolors.GREEN, yellow=Bcolors.YELLOW,
                        endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE)
@@ -280,7 +282,7 @@ def main():
                 flash_each_node()
             if selection == '5':
                 gpio_state()
-            if selection == 'new':
+            if selection == '6':
                 new_flashing()
             if selection == 'e':
                 break
