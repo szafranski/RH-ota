@@ -118,7 +118,7 @@ def step_zero(config):
     if selection == '3':
         step_three()
     if selection == 'x':
-        ap_menu(config)
+        ap_menu()
     if selection == 'e':
         sys.exit()
     else:

@@ -2,16 +2,13 @@ from time import sleep
 import os
 from modules import clear_the_screen, Bcolors, logo_top, load_config
 from nodes_flash import main as new_flashing
-
-
-def com_init_old_protocol():
-    try:
-        import RPi.GPIO as GPIO
-        GPIO.setwarnings(False)
-        GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
-    except ModuleNotFoundError:
-        print("GPIO import - failed - works only on Pi")
-        sleep(1)
+try:
+    import RPi.GPIO as GPIO
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
+except ModuleNotFoundError:
+    print("GPIO import - failed - works only on Pi")
+    sleep(1)
 
 """
 This is obsolete flashing protocol, left here only for first users in mind.
@@ -258,7 +255,6 @@ def nodes_update(config):
 
 def main():
     config = load_config()
-    com_init_old_protocol()
     nodes_update(config)
 
 
