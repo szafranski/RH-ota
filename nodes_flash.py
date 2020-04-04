@@ -313,6 +313,7 @@ def flashing_menu(config):
         sleep(0.1)
         selection = input("")
         if selection == '1':
+            clear_the_screen()
             flash_firmware_onto_all_nodes(config)
         if selection == '2':
             node_selection_menu(config)
