@@ -147,6 +147,7 @@ Are you using older, non-i2c hardware flashing mod?
         Debug user name:        {config.debug_user}
         Country code:           {config.country}
         Nodes amount:           {config.nodes_number}
+        Old hardware mod:       {config.old_hw_mod}    
         Debug mode:             {config.debug_mode}    
         Pins assignment:        {config.pins_assignment}
         GPIO reset pin:         {config.gpio_reset_pin}
