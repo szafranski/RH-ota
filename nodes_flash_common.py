@@ -1,6 +1,5 @@
 from time import sleep
 import os
-from modules import load_config
 
 
 def com_init():

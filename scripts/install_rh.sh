@@ -15,10 +15,10 @@ if [ -d "/home/${1}/RotorHazard-${2}" ]; then
   mv "/home/${1}/RotorHazard-${2}" "/home/${1}/RotorHazard_${2}_$(date +%Y%m%d)"
 fi
 cd /home/"${1}" || exit
-wget https://codeload.github.com/RotorHazard/RotorHazard/zip/${2} -O temp.zip
+wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"${2}" -O temp.zip
 unzip temp.zip
 rm temp.zip
-mv /home/"${1}"/RotorHazard-${2} /home/"${1}"/RotorHazard
+mv /home/"${1}"/RotorHazard-"${2}" /home/"${1}"/RotorHazard
 sudo -H pip install -r /home/"${1}"/RotorHazard/src/server/requirements.txt
 sudo chmod 777 -R /home/"${1}"/RotorHazard/src/server
 cd /home/"${1}" || exit

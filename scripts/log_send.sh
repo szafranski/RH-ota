@@ -16,5 +16,5 @@ echo ------------------------------
 echo
 echo Tell your favourite developer those:
 echo
-echo User name: ${2}
+echo User name: "${2}"
 cd /home/"${1}"/RH-ota || exit

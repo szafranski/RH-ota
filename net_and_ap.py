@@ -171,7 +171,7 @@ def step_zero():
         main()
 
 
-def ap_menu():
+def ap_menu(config):
     def second_page():
         clear_the_screen()
         print("""\n
@@ -201,7 +201,7 @@ def ap_menu():
         if selection == 'k':
             sys.exit()
         if selection == 'b':
-            first_page()
+            first_page(config)
         else:
             second_page()
 
@@ -236,7 +236,7 @@ def ap_menu():
 
 
 def main():
-    config = load_config
+    config = load_config()
     step_zero()
     step_one()
 

@@ -19,7 +19,6 @@ def flash(addr):
     sleep_amt = 1
 
     reset_mate_node = 0x79
-    disable_serial_on_the_node = 0x80
 
     flash_before = False
 
@@ -29,7 +28,6 @@ def flash(addr):
 
     on = [1]
     off = [0]
-    ser = [0]
 
     # def disable_serial(addr):
     #     ser.append(calculate_checksum(ser))
@@ -75,8 +73,6 @@ def flash(addr):
         flash_it(firmware)
         flash_it(firmware)
 
-    disable_serial(addr)
-    #    disable_serial(addr2)
     flash_mate_node(addr)
     flash_it(firmware)
     sleep(sleep_amt)

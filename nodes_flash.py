@@ -2,7 +2,6 @@ from time import sleep
 import os
 from nodes_flash_common import com_init, prepare_mate_node, reset_gpio_pin
 from modules import clear_the_screen, Bcolors, logo_top, load_config
-from nodes_update_old import main as nodes_flash_old
 
 
 def nodes_addresses():
@@ -316,8 +315,6 @@ def flashing_menu(config):
             first_flashing(config)
         if selection == '4':
             show_i2c_devices(config)
-        if selection == 'old':  # hidden - just for developers purpose
-            nodes_flash_old()
         if selection == 'e':
             break
 
