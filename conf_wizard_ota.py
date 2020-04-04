@@ -152,6 +152,9 @@ Are you using older, non-i2c hardware flashing mod?
                 print("\ntoo big fingers :( wrong command. try again! :)")
         if selection == 'y' or selection == 'yes':
             write_json(config, f"{home_dir}/RH-ota/updater-config.json")
+            #Once we write out the json config we should re-load it just
+            #to ensure consistency.
+            config = load_config()
             print("Configuration saved.\n")
             sleep(0.5)
             conf_now_flag = 0

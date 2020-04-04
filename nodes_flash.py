@@ -57,8 +57,9 @@ def flash_firmware(config):
 def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
     nodes_num = config.nodes_number
     odd_number = odd_number_of_nodes_check(config)
+    addresses = nodes_addresses()
     for i in range(0, nodes_num):
-        addr = nodes_addresses()[i]
+        addr = addresses[i]
         print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {i + 1} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
         prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
         print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
@@ -70,6 +71,7 @@ def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
             break
     flash_firmware_onto_gpio_node(config) if odd_number else None
     logo_update(config)
+    input("\nPress ENTER to continue.")
     sleep(2)
 
 
