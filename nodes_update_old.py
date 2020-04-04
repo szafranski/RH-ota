@@ -9,7 +9,7 @@ try:
     GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
 except ModuleNotFoundError:
     print("GPIO import - failed")
-    sleep(2)
+    sleep(1)
 
 """
 This is obsolete flashing protocol, left here only for some users.

@@ -95,7 +95,7 @@ which pin will be used as GPIO reset pin?
                 break
 
         if debug_mode_val:
-            debug_user = input("\nWhat is your user name on debugging OS? \t\t\t")
+            debug_user = input("\nWhat is your user name on debugging OS? \t\t\t\t")
             config.debug_user = debug_user
         else:
             config.debug_user = 'racer'
