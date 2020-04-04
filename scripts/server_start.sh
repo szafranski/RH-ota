@@ -3,7 +3,7 @@
 dots5() { # done that way so it work on every terminal
   for i in {1 2 3 4 5}; do
     printf "."
-    sleep 0.5
+    sleep 0.4
   done
   printf "\n\n"
 }

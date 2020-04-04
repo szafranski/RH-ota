@@ -86,11 +86,7 @@ which pin will be used as GPIO reset pin?
             if debug_mode not in debug_mode_allowed_values:
                 print("\nPlease enter correct value!")
             else:
-                debug_mode_val = False
-                if debug_mode in ['yes', '1', 'y']:
-                    debug_mode_val = True
-                elif debug_mode in ['no', '0', 'n']:
-                    debug_mode_val = False
+                debug_mode_val = True if debug_mode in ['yes', '1', 'y'] else False
                 config.debug_mode = debug_mode_val
                 break
 
@@ -99,18 +95,15 @@ which pin will be used as GPIO reset pin?
             config.debug_user = debug_user
         else:
             config.debug_user = 'racer'
-
         while True:
             old_hw_mod = input("""
 Are you using older, non-i2c hardware flashing mod? 
 (nodes reset pins connected to gpio pins) [ yes/no | default: no ]\t""")
-            if old_hw_mod == "yes" or old_hw_mod == "y":
-                old_hw_mod = True
-                config.old_hw_mod = True
+            if old_hw_mod == "yes":
+                old_hw_mod, config.old_hw_mod = True, True
                 break
-            elif old_hw_mod == "no" or old_hw_mod == "n":
-                old_hw_mod = False
-                config.old_hw_mod = False
+            elif old_hw_mod == "no":
+                old_hw_mod, config.old_hw_mod = False, False
                 break
             else:
                 print("\nPlease enter correct value!")
@@ -131,11 +124,7 @@ Are you using older, non-i2c hardware flashing mod?
             if user_is_beta_tester not in beta_tester_allowed_values:
                 print("\nPlease enter correct value!")
             else:
-                beta_tester_val = False
-                if user_is_beta_tester in ['yes', '1', 'y']:
-                    beta_tester_val = True
-                elif user_is_beta_tester in ['no', '0', 'n']:
-                    beta_tester_val = False
+                beta_tester_val = True if user_is_beta_tester in ['yes', '1', 'y'] else False
                 config.beta_tester = beta_tester_val
                 break
 

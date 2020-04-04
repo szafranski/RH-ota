@@ -17,7 +17,7 @@ def conf_check():
                 print("\ntoo big fingers :( wrong command. try again! :)")
         if cont_conf[0] == 'y':
             conf_now_flag = 1
-        if cont_conf[0] == 'n':
+        elif cont_conf[0] == 'n':
             conf_now_flag = 0
             breakpoint()
     else:
@@ -86,10 +86,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                 if led_inv not in led_inv_allowed_values:
                     print("\nPlease enter correct value!")
                 else:
-                    if led_inv in ['yes', '1', 'y']:
-                        led_inv_val = True
-                    elif led_inv in ['no', '0', 'n']:
-                        led_inv_val = False
+                    led_inv_val = True if led_inv in ['yes', '1', 'y'] else False
                     rh_config["LED"]['LED_INVERT'] = led_inv_val
                     break
             while True:
@@ -115,10 +112,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                 if inv_rows not in inv_rows_allowed_values:
                     print("\nPlease enter correct value!")
                 else:
-                    if inv_rows in ['yes', '1', 'y']:
-                        inv_rows_val = True
-                    elif inv_rows in ['no', '0', 'n']:
-                        inv_rows_val = False
+                    inv_rows_val = True if inv_rows in ['yes', '1', 'y'] else False
                     rh_config["LED"]['INVERTED_PANEL_ROWS'] = inv_rows_val
                     break
 
@@ -171,10 +165,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                 if debug_mode not in debug_mode_allowed_values:
                     print("\nPlease enter correct value!")
                 else:
-                    if debug_mode in ['yes', '1', 'y']:
-                        debug = True
-                    elif debug_mode in ['no', '0', 'n']:
-                        debug = False
+                    debug = True if debug_mode in ['yes', '1', 'y'] else False
                     rh_config['GENERAL']['DEBUG'] = debug
                     break
             while True:

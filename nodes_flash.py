@@ -191,9 +191,12 @@ def odd_node_menu(config):
     sleep(0.05)
     odd_number = odd_number_of_nodes_check(config)
     while odd_number:
-        print(f"""
-        {Bcolors.BOLD}\n\t\t\tNode {str(config.nodes_number)}  selected{Bcolors.ENDC}\n
-                Choose flashing type:\n{Bcolors.ENDC}
+        print(f"""{Bcolors.BOLD}
+
+                Node {str(config.nodes_number)}  selected{Bcolors.ENDC}
+
+                Choose flashing type:{Bcolors.ENDC}
+
         1 - {Bcolors.GREEN}Flash firmware on the node - recommended{Bcolors.ENDC}{Bcolors.BOLD}
 
         2 - Flashes 'blink' on the node - only for test purposes
@@ -219,13 +222,15 @@ def first_flashing(config):
     logo_top(config.debug_mode)
 
     def flash(port):
-        for i in range(config.nodes_number):
-            uart_flashing_prompt = "\n\n\tHit 'Enter' and push reset key on next node after 1 second [e - exit] "
-            usb_flashing_prompt = "\n\n\tConnect next Arduino and hit 'Enter' [e - exit] "
-            if port == 'USB0':
-                selection = input(usb_flashing_prompt)
-            else:
-                selection = input(uart_flashing_prompt)
+        uart_flashing_prompt = "\n\n\tHit 'Enter' and push reset key on next node after 1 second [e - exit] "
+        usb_flashing_prompt = "\n\n\tConnect next Arduino and hit 'Enter' [e - exit] "
+        flashing_prompt = 0
+        if port == 'USB0':
+            flashing_prompt = usb_flashing_prompt
+        elif port == 'S0':
+            flashing_prompt = uart_flashing_prompt
+        while True:
+            selection = input(flashing_prompt)
             if selection == 'e':
                 break
             else:
@@ -268,7 +273,7 @@ def first_flashing(config):
             break
         else:
             print("\n\tType: 'UART' or 'USB'\n\t")
-    print(f"\n\n\t\t{Bcolors.BOLD}FIRMWARE FLASHING - DONE{Bcolors.ENDC}\n\n")
+    print(f"\n\n\t\t\t{Bcolors.BOLD}FIRMWARE FLASHING - DONE{Bcolors.ENDC}\n\n")
     sleep(2)
 
 
@@ -276,7 +281,7 @@ def show_i2c_devices(config):
     logo_top(config.debug_mode)
     print("\n\n")
     os.system("i2cdetect -y 1")
-    input("\n\n\tHit any key when done.")
+    input("\n\n\tHit any key when done")
 
 
 def connection_test(nodes_num):

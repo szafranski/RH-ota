@@ -1,6 +1,5 @@
 import os
 import sys
-# from pathlib import Path
 from time import sleep
 from conf_wizard_ota import conf_ota
 from modules import clear_the_screen, Bcolors, logo_top, image_show, ota_image, load_config, load_ota_config, \
@@ -29,7 +28,7 @@ def log_to_dev(config):
     log_send(config)
 
 
-def read_aliases_file():  # todo - cool, almost done, readability has to be improved yet
+def read_aliases_file():  # todo almost done, readability has to be improved yet (remove "(...)" part from every line
     aliases_to_show = []
     with open('./resources/aliases.txt', 'r') as aliases_file:
         for line in aliases_file:
@@ -102,7 +101,7 @@ def updated_check(config):
         os.system(f"rm /home/{config.user}/.ota_markers/.was_updated >/dev/null 2>&1")
 
 
-def first(config, updater_version):
+def welcome_screen(config, updater_version):
     clear_the_screen()
     print("\n\n")
     image_show()
@@ -139,16 +138,17 @@ def serial_menu(config):
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
-        menu = """
+        serial_adding_menu = f"""
             Serial port has to be enabled. 
             Without it Arduinos cannot be programmed.
             Do you want to enable it now?
             
-            {yellow}
-            y - for yes 
-            a - for abort{endc}
-            """.format(endc=Bcolors.ENDC, yellow=Bcolors.YELLOW)
-        selection = input(menu)
+            {Bcolors.GREEN}
+            y - for yes {Bcolors.ENDC}
+            {Bcolors.YELLOW}
+            a - for abort{Bcolors.ENDC}
+            """
+        selection = input(serial_adding_menu)
         if selection == 'y':
             if ota_status.uart_support_added:
                 print("\n\n\t\tLooks like you already enabled Serial port. \n\t\tDo you want to continue anyway?\n")
@@ -287,8 +287,7 @@ def features_menu(config):
 def first_time():
     def update_notes():
         clear_the_screen()
-        os.system("less ./docs/update-notes.txt")  # todo change to pythonic f=open("./docs/update-notes.txt", "r")
-        # or it os ok now?
+        os.system("less ./docs/update-notes.txt")
 
     def second_page():
         while True:
@@ -408,8 +407,8 @@ def main_menu(config):
         if selection == '1':
             rpi_update(config)
         if selection == '2':
-            old_flash_gpio() if config.old_hw_mod else flashing_menu(config)
-            # enters "old" flashing menu when "old_hw_mod" is confirmed
+            old_flash_gpio(config) if config.old_hw_mod else flashing_menu(config)
+            # enters "old" flashing menu only when "old_hw_mod" is confirmed
         if selection == '3':
             clear_the_screen()
             os.system(". ./scripts/server_start.sh")
@@ -427,13 +426,12 @@ def main_menu(config):
 
 def main():
     updater_version = get_ota_version()
-    # home_dir = str(Path.home())
     clear_the_screen()
     print("\n\n")
     config_check()
     config = load_config()
     compatibility()
-    first(config, updater_version)
+    welcome_screen(config, updater_version)
     main_menu(config)
 
 
