@@ -5,16 +5,18 @@ from modules import clear_the_screen, Bcolors, logo_top, load_config
 
 
 def nodes_addresses():
-    """nodes I2C addresses - below: hex format is required by SMBus module"""
+    # nodes I2C addresses - below: hex format is required by SMBus module
+    # "RH" are address in RotorHazard node firmware code "format" (rhnode file)
+
     #  node     addr   RH
-    node1addr = 0x08  # 8
-    node2addr = 0x0a  # 10
-    node3addr = 0x0c  # 12
-    node4addr = 0x0e  # 14
-    node5addr = 0x10  # 16
-    node6addr = 0x12  # 18
-    node7addr = 0x14  # 20
-    node8addr = 0x16  # 22
+    node1addr = 0x08  # 8   - 1st node I2C hardware address
+    node2addr = 0x0a  # 10  - 2nd node I2C hardware address
+    node3addr = 0x0c  # 12  - 3rd node I2C hardware address
+    node4addr = 0x0e  # 14  - 4th node I2C hardware address
+    node5addr = 0x10  # 16  - 5th node I2C hardware address
+    node6addr = 0x12  # 18  - 6th node I2C hardware address
+    node7addr = 0x14  # 20  - 7th node I2C hardware address
+    node8addr = 0x16  # 22  - 8th node I2C hardware address
 
     # addresses are swapped in the list due to "paired" nature of resetting before flashing
     # sending a command to first element on the list causes second node to be flashed etc.
