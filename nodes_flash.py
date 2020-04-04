@@ -139,7 +139,7 @@ def node_selection_menu(config):
                     
         """.format(bold=Bcolors.BOLD, red=Bcolors.RED, yellow=Bcolors.YELLOW, endc=Bcolors.ENDC)
         print(flash_node_menu)
-        selection = input(f"{Bcolors.BOLD}Which node do you want to program: {Bcolors.ENDC}")
+        selection = input(f"\t\t{Bcolors.BOLD}Which node do you want to program: {Bcolors.ENDC}")
         if selection.isdigit():
             if odd_number_of_nodes_check(config):
                 if int(selection) in range(config.nodes_number+1) and int(selection) != config.nodes_number:
@@ -167,7 +167,7 @@ def specific_node_menu(config, selected_node_number):
     sleep(0.05)
     while True:
         print(f"""
-        {Bcolors.BOLD}\n\t\t\tNode {str(selected_node_number)}  selected{Bcolors.ENDC}\n
+        {Bcolors.BOLD}\n\n\t\t\tNode {str(selected_node_number)}  selected{Bcolors.ENDC}\n
                 Choose flashing type:\n{Bcolors.ENDC}
         1 - {Bcolors.GREEN}Node ground-auto selection firmware - recommended{Bcolors.ENDC}{Bcolors.BOLD}
 

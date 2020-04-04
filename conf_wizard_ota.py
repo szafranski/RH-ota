@@ -81,7 +81,7 @@ which pin will be used as GPIO reset pin?
             config.gpio_reset_pin = gpio_reset_pin
 
         while True:
-            debug_mode = input("\nWill you use \"OTA\" software in a debug mode? [yes/no | default: no]\t")
+            debug_mode = input("\nWill you use OTA software in a debug mode? [yes/no | default: no]\t")
             debug_mode_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']
             if debug_mode not in debug_mode_allowed_values:
                 print("\nPlease enter correct value!")

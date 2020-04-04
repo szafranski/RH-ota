@@ -62,7 +62,7 @@ else
 fi
 
 if grep -q 'python3-requests' aptinstalled.tmp; then
-  echo python3-dev"     "found
+  echo python3-requests"     "found
 else
   echo echo python3-requests has to be installed && sudo apt install python3-requests
 fi
@@ -76,7 +76,7 @@ fi
 if grep -q 'python3-rpi.gpio' aptinstalled.tmp; then
   echo python3-rpi.gpio"  "found
 else
-  echo echo python3-rpi.gpio has to be installed && sudo apt install python3-rpi.gpio
+  echo echo python3-rpi.gpio has to be installed && sudo apt install python3-rpi.gpio || echo - only on Pi -
 fi
 
 if grep -q 'python3-smbus' aptinstalled.tmp; then
