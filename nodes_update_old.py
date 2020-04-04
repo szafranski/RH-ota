@@ -3,15 +3,17 @@ import os
 from modules import clear_the_screen, Bcolors, logo_top, load_config
 from nodes_flash import main as new_flashing
 
+try:
+    # GPIO is only definable on the pi.
+    # Try and import it but continue if it is not found.
+    import RPi.GPIO as GPIO
 
-def com_init_old_protocol():
-    try:
-        import RPi.GPIO as GPIO
-        GPIO.setwarnings(False)
-        GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
-    except ModuleNotFoundError:
-        print("GPIO import - failed - works only on Pi")
-        sleep(1)
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
+except ModuleNotFoundError:
+    print("GPIO import - failed - works only on Pi")
+    sleep(1)
+
 
 """
 This is obsolete flashing protocol, left here only for first users in mind.
@@ -83,7 +85,7 @@ def all_pins_high(config, reset_pins):
         GPIO.output(reset_pins[6], GPIO.HIGH)
         GPIO.output(reset_pins[7], GPIO.HIGH)
         sleep(0.05)
-    if config.debug_mode:
+    else:
         print(f"\n\n\t\t\t/home/{config.user}/RH-ota/firmware/obsolete/{config.RH_version}/X.hex")
         print("\n\t\t\t\t\t Linux - PC\n\n")
         sleep(0.3)
@@ -105,7 +107,7 @@ def logo_update(config):
 
 def flash_a_node(config, reset_pin, node_number):
     if not config.debug_mode:
-        all_pins_high(config.debug_mode, pins_assignment(config))
+        all_pins_high(config, pins_assignment(config))
         GPIO.output(reset_pin, GPIO.LOW)
         sleep(0.1)
         GPIO.output(reset_pin, GPIO.HIGH)
@@ -115,11 +117,12 @@ def flash_a_node(config, reset_pin, node_number):
         print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
                 flash:w:/home/{config.user}/RH-ota/firmware/{config.RH_version}/node_0.hex:i ")
     print(f"\n\t\t\t\t{Bcolors.BOLD}Node {node_number} - flashed{Bcolors.ENDC}\n\n")
+    input("\nPress ENTER to continue.\n")
 
 
 def flash_a_blink(config, reset_pin, node_number):
     if not config.debug_mode:
-        all_pins_high(config.debug_mode, pins_assignment(config))
+        all_pins_high(config, pins_assignment(config))
         GPIO.output(reset_pin, GPIO.LOW)
         sleep(0.1)
         GPIO.output(reset_pin, GPIO.HIGH)
@@ -129,6 +132,7 @@ def flash_a_blink(config, reset_pin, node_number):
         print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
                 flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i ")
     print(f"\n\t\t\t\t{Bcolors.BOLD}Node {node_number} - flashed{Bcolors.ENDC}\n\n")
+    input("\nPress ENTER to continue.\n")
 
 
 def flash_all_blink(config, reset_pins):
@@ -215,6 +219,7 @@ def gpio_state(config):
 
 
 def nodes_update(config):
+    gpio_init(config, pins_assignment(config))
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
@@ -258,7 +263,6 @@ def nodes_update(config):
 
 def main():
     config = load_config()
-    com_init_old_protocol()
     nodes_update(config)
 
 

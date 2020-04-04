@@ -1,4 +1,3 @@
-from time import sleep
 import os
 import sys
 from modules import Bcolors, clear_the_screen, logo_top, load_config
@@ -92,11 +91,8 @@ def step_one(config):
 
 
 def step_zero(config):
-    sleep(0.05)
     clear_the_screen()
-    sleep(0.05)
     logo_top(config.debug_user)
-    sleep(0.05)
     with open('./net_ap/net_steps.txt', 'rt') as f:
         for line in f:
             if '### step1' in line:
@@ -118,7 +114,7 @@ def step_zero(config):
     if selection == '3':
         step_three()
     if selection == 'x':
-        ap_menu(config)
+        ap_menu()
     if selection == 'e':
         sys.exit()
     else:
@@ -127,9 +123,7 @@ def step_zero(config):
 
 def ap_menu():
     def second_page():
-        sleep(0.05)
         clear_the_screen()
-        sleep(0.05)
         with open('./net_ap/net_steps.txt', 'rt') as f:
             for line in f:
                 if '### step last - page 2' in line:
@@ -149,11 +143,8 @@ def ap_menu():
             second_page()
 
     def first_page():
-        sleep(0.05)
         clear_the_screen()
-        sleep(0.05)
         logo_top(False)
-        sleep(0.05)
         with open('./net_ap/net_steps.txt', 'rt') as f:
             for line in f:
                 if '### step last - page 1' in line:

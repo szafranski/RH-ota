@@ -80,7 +80,6 @@ Default values are not automatically applied. Type them if needed.\n""")
                     rh_config["LED"]['LED_PIN'] = int(led_pin_nr)
                     break
             while True:
-                led_inv_val = 0
                 led_inv = input("\nIs LED data pin output inverted? [yes/no | default: no]\t\t\t")
                 led_inv_allowed_values = ['yes', 'no', 'false', 'true', 'y', 'n']
                 if led_inv not in led_inv_allowed_values:
@@ -106,7 +105,6 @@ Default values are not automatically applied. Type them if needed.\n""")
                     rh_config["LED"]['PANEL_ROTATE'] = int(panel_val)
                     break
             while True:
-                inv_rows_val = 0
                 inv_rows = input("\nAre your panel rows inverted? [yes/no | default: no]\t\t\t")
                 inv_rows_allowed_values = ['yes', 'no', 'false', 'true', 'y', 'n']
                 if inv_rows not in inv_rows_allowed_values:
@@ -159,7 +157,6 @@ Default values are not automatically applied. Type them if needed.\n""")
                     rh_config["LED"]['LED_FREQ_HZ'] = led_freq
                     break
             while True:
-                debug = False
                 debug_mode = input("\nWill you use RotorHazard in debug mode? [yes/no | default: no]\t\t")
                 debug_mode_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']
                 if debug_mode not in debug_mode_allowed_values:

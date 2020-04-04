@@ -18,9 +18,6 @@ pi_pswd = 'raspberry'
 
 # phrase=pi_user+"@"+10.42.0.245's password :"
 
-ip_est_start = 0
-ip_est_end = 0
-
 
 def main():
     while True:
