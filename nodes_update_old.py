@@ -5,7 +5,7 @@ from nodes_flash import main as new_flashing
 
 try:
     # GPIO is only definable on the pi.
-    #Try and import it but continue if it is not found.
+    # Try and import it but continue if it is not found.
     import RPi.GPIO as GPIO
 
     GPIO.setwarnings(False)
@@ -19,6 +19,8 @@ except ModuleNotFoundError:
 This is obsolete flashing protocol, left here only for first users in mind.
 New version is in i2c_nodes_flash.py file. 
 """
+
+
 def pins_assignment(config):
 
     # default to default pins. only update if they said so.
