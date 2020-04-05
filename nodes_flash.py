@@ -288,12 +288,10 @@ def show_i2c_devices(config):
         logo_top(config.debug_mode)
         print("\n\n")
         os.system("i2cdetect -y 1")
-        selection = input("""\n\n\tHit any key when done or 'r' - to refresh\n\n""")
-        if selection != 'r':
-            break
+        print("\n\n\tPress 'e' tp exit when done\n")
 
 
-def connection_test(nodes_num):
+def connection_test(nodes_num):  # todo finish this or remove
     for i in range(nodes_num):
         os.system("echo no_sudo &&  avrdude -c arduino -p m328p -v")
         sleep(0.2)
@@ -304,7 +302,7 @@ def flashing_menu(config):
         clear_the_screen()
         logo_top(config.debug_mode)
         sleep(0.05)
-        node_menu = """\n
+        node_menu = """\n\n
                             {bold}{underline}CHOOSE FLASHING TYPE:{endc}
     
                     {green}{bold}1 - Flash each node automatically - rec.{endc}{bold}
@@ -315,7 +313,7 @@ def flashing_menu(config):
     
                     4 - Show I2C connected devices
             
-                    {yellow}e - Exit to main menu{endc}
+                    {yellow}e - Exit to main menu{endc}\n
             """.format(bold=Bcolors.BOLD, green=Bcolors.GREEN, yellow=Bcolors.YELLOW,
                        endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE)
         print(node_menu)
