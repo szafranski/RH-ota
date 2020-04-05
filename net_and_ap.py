@@ -231,13 +231,13 @@ def ap_menu(config):
     first_page(config)
 
 
-def net_and_ap_conf():
-    config = load_config()
+def net_and_ap_conf(config):
     step_zero(config)
     step_one(config)
 
 
 def main():
+    config = load_config()
     net_and_ap_conf()
 
 
