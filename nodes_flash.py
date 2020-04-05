@@ -284,12 +284,11 @@ def first_flashing(config):
 
 def show_i2c_devices(config):
     while True:
+        clear_the_screen()
         logo_top(config.debug_mode)
         print("\n\n")
         os.system("i2cdetect -y 1")
-        selection = input("""\n
-        Hit any key when done
-        r - to refresh""")
+        selection = input("""\n\n\tHit any key when done or 'r' - to refresh\n\n""")
         if selection != 'r':
             break
 
