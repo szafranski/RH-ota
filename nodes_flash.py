@@ -283,10 +283,15 @@ def first_flashing(config):
 
 
 def show_i2c_devices(config):
-    logo_top(config.debug_mode)
-    print("\n\n")
-    os.system("i2cdetect -y 1")
-    input("\n\n\tHit any key when done")
+    while True:
+        logo_top(config.debug_mode)
+        print("\n\n")
+        os.system("i2cdetect -y 1")
+        selection = input("""\n
+        Hit any key when done
+        r - to refresh""")
+        if selection != 'r':
+            break
 
 
 def connection_test(nodes_num):
