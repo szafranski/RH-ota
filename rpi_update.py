@@ -65,7 +65,6 @@ def end_update(user, server_configured_flag, server_installed_flag):
 
 def end_installation(user):
     while True:
-        clear_the_screen()
         print(f"""
     
             {Bcolors.GREEN}
@@ -84,6 +83,7 @@ def end_installation(user):
             return
         if selection == 'c':
             conf_rh()
+            break
         if selection == 's':
             clear_the_screen()
             os.chdir(f"/home/{user}/RH-ota")

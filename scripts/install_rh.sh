@@ -2,8 +2,7 @@
 
 sudo apt-get update && sudo apt-get upgrade -y
 sudo apt autoremove -y
-sudo apt install wget ntp libjpeg-dev i2c-tools python-dev libffi-dev python-smbus build-essential python-pip git scons swig zip -y
-sudo apt install python-rpi.gpio
+sudo apt install wget ntp libjpeg-dev i2c-tools python-dev libffi-dev python-smbus build-essential python-pip python-rpi.gpio git scons swig zip -y
 sudo -H pip install cffi pillow
 cd /home/"${1}" || exit
 if [ -d "/home/${1}/RotorHazard" ]; then
@@ -53,6 +52,8 @@ sudo chmod 644 /lib/systemd/system/rotorhazard.service
 sudo systemctl daemon-reload
 sudo systemctl enable rotorhazard.service
 
+
+# todo below is a source of that script - may be deleted after testing
 # os.system("sudo apt-get update && sudo apt-get upgrade -y")
 # os.system("sudo apt autoremove -y")
 # os.system("sudo apt install wget ntp libjpeg-dev i2c-tools python-dev libffi-dev python-smbus \
