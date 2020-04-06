@@ -238,7 +238,7 @@ def net_and_ap_conf(config):
 
 def main():
     config = load_config()
-    net_and_ap_conf()
+    net_and_ap_conf(config)
 
 
 if __name__ == "__main__":

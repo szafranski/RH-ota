@@ -3,6 +3,7 @@ import os
 from modules import load_config, clear_the_screen, logo_top, Bcolors
 from net_and_ap import net_and_ap_conf
 
+
 def confirm_auto_hotspot(config):
     while True:
         clear_the_screen()
@@ -38,7 +39,7 @@ def confirm_auto_hotspot(config):
                 #                                                                     #
                 #######################################################################\n\n
                 """.format(nodes_number=config.nodes_number, bold=Bcolors.BOLD_S,
-                           bg=Bcolors.BOLD + Bcolors.GREEN + (' '* 4), endc=Bcolors.ENDC_S))
+                           bg=Bcolors.BOLD + Bcolors.GREEN + (' ' * 4), endc=Bcolors.ENDC_S))
             input("Press enter to continue:")
         elif selection == 'e':
             break
@@ -71,6 +72,7 @@ def conf_wizard_net(config):
         if selection == 'e':
             break
     pass
+
 
 def main():
     config = load_config()
