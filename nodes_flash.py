@@ -263,8 +263,9 @@ def first_flashing(config):
     logo_top(config.debug_mode)
 
     def flash(port):
-        uart_flashing_prompt = "\n\n\tHit 'Enter' and push reset key on next node after 1 second [e - exit] "
-        usb_flashing_prompt = "\n\n\tConnect next Arduino and hit 'Enter' [e - exit] "
+        uart_flashing_prompt = f"\n\n\t{Bcolors.BOLD}Hit 'Enter' and push reset key on next node after 1 second " \
+                               f"[e - exit] {Bcolors.ENDC}"
+        usb_flashing_prompt = f"\n\n\t{Bcolors.BOLD}Connect next Arduino and hit 'Enter' [e - exit] {Bcolors.ENDC}"
         flashing_prompt = 0
         if port == 'USB0':
             flashing_prompt = usb_flashing_prompt
@@ -319,13 +320,15 @@ def first_flashing(config):
 
 
 def show_i2c_devices(config):
-    logo_top(config.debug_mode)
-    print("\n\n")
-    os.system("i2cdetect -y 1")
-    input("\n\n\tHit any key when done")
+    while True:
+        clear_the_screen()
+        logo_top(config.debug_mode)
+        print("\n\n")
+        os.system("i2cdetect -y 1")
+        print("\n\n\tPress 'e' tp exit when done\n")
 
 
-def connection_test(nodes_num):
+def connection_test(nodes_num):  # todo finish this or remove
     for i in range(nodes_num):
         os.system("echo no_sudo &&  avrdude -c arduino -p m328p -v")
         sleep(0.2)
@@ -336,7 +339,7 @@ def flashing_menu(config):
         clear_the_screen()
         logo_top(config.debug_mode)
         sleep(0.05)
-        node_menu = """\n
+        node_menu = """\n\n
                             {bold}{underline}CHOOSE FLASHING TYPE:{endc}
     
                     {green}{bold}1 - Flash each node automatically - rec.{endc}{bold}
@@ -347,7 +350,7 @@ def flashing_menu(config):
     
                     4 - Show I2C connected devices
             
-                    {yellow}e - Exit to main menu{endc}
+                    {yellow}e - Exit to main menu{endc}\n
             """.format(bold=Bcolors.BOLD, green=Bcolors.GREEN, yellow=Bcolors.YELLOW,
                        endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE)
         print(node_menu)
