@@ -1,6 +1,7 @@
-If you want to flash custom firmware, put it into this folder in format presented below.
+If you want to flash custom firmware, you have to put it into a specific folder
+in speific format - as described below.
 
-'custom_node.hex'
+'custom_node.hex' - name required by a flashing software
 
 Remember to use files that contain bootloader. In Arduino IDE you have to:
 'Tools' -> 'Board' -> 'Arduino Nano'
