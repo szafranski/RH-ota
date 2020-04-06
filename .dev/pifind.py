@@ -21,7 +21,7 @@ pi_pswd = 'raspberry'
 
 def main():
     while True:
-        ip_est_range = input("What range you expect it to be? 1/2/3/4")
+        ip_est_range = input("What range you expect it to be? 1/2/3/4 ")
         if ip_est_range == '1':
             ip_est_start = 2
             ip_est_end = 100
