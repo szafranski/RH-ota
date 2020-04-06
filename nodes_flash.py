@@ -77,6 +77,27 @@ def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
     sleep(1)
 
 
+def flash_custom_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
+    nodes_num = config.nodes_number
+    odd_number = odd_number_of_nodes_check(config)
+    addresses = nodes_addresses()
+    for i in range(0, nodes_num):
+        addr = addresses[i]
+        print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {i + 1} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
+        prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
+        print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
+              f"flash:w:/home/{config.user}/RH-ota/firmware/custom_firmware/custom_node.hex:i ")
+        flash_firmware(config) if not config.debug_mode else None
+        print(f"\n\t\t\t{Bcolors.BOLD}Node {i + 1} - flashed{Bcolors.ENDC}\n\n")
+        sleep(2)
+        if odd_number and ((nodes_num - i) == 2):  # breaks the "flashing loop" after last even node
+            break
+    flash_firmware_onto_gpio_node(config) if odd_number else None
+    logo_update(config)
+    input("\nPress ENTER to continue.")
+    sleep(2)
+
+
 def flash_firmware_on_a_specific_node(config, selected_node_number):
     addr = nodes_addresses()[selected_node_number - 1]
     print(f"\n\t\t{Bcolors.BOLD}Flashing node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
@@ -84,6 +105,17 @@ def flash_firmware_on_a_specific_node(config, selected_node_number):
     print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
           f"flash:w:/home/{config.user}/RH-ota/firmware/{config.RH_version}/node_0.hex:i ")
     flash_firmware(config) if not config.debug_mode else None
+    print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - flashed{Bcolors.ENDC}\n\n")
+    sleep(2)
+
+
+def flash_custom_firmware_on_a_specific_node(config, selected_node_number):
+    addr = nodes_addresses()[selected_node_number - 1]
+    print(f"\n\t\t{Bcolors.BOLD}Flashing node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
+    prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
+    print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
+          f"flash:w:/home/{config.user}/RH-ota/firmware/custom_firmware/custom_node.hex:i ")
+    flash_blink(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - flashed{Bcolors.ENDC}\n\n")
     sleep(2)
 
@@ -129,8 +161,8 @@ def node_selection_menu(config):
         sleep(0.05)
         flash_node_menu = """
         
-                            {red}{bold}NODES MENU{endc}
-                        {bold}
+                            {red}{bold}NODES MENU{endc}{bold}
+                        
                 1 - Flash node 1        5 - Flash node 5
 
                 2 - Flash node 2        6 - Flash node 6
@@ -175,7 +207,9 @@ def specific_node_menu(config, selected_node_number):
                 Choose flashing type:\n{Bcolors.ENDC}
         1 - {Bcolors.GREEN}Node ground-auto selection firmware - recommended{Bcolors.ENDC}{Bcolors.BOLD}
 
-        2 - Flashes 'blink' on the node - only for test purposes
+        2 - Flash custom firmware on the node
+        
+        3 - Flash 'blink' on the node - only for test purposes
 
         a - Abort{Bcolors.ENDC}""")
         selection = input()
@@ -183,6 +217,9 @@ def specific_node_menu(config, selected_node_number):
             flash_firmware_on_a_specific_node(config, selected_node_number)
             break
         if selection == '2':
+            flash_custom_firmware_on_a_specific_node(config, selected_node_number)
+            break
+        if selection == '3':
             flash_blink_on_a_specific_node(config, selected_node_number)
             break
         if selection == 'a':
@@ -326,6 +363,9 @@ def flashing_menu(config):
             first_flashing(config)
         if selection == '4':
             show_i2c_devices(config)
+        if selection == 'custom':
+            clear_the_screen()
+            flash_custom_firmware_onto_all_nodes(config)
         if selection == 'e':
             break
 
