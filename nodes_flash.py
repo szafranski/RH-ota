@@ -92,7 +92,7 @@ def flash_custom_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numb
         sleep(2)
         if odd_number and ((nodes_num - i) == 2):  # breaks the "flashing loop" after last even node
             break
-    flash_firmware_onto_gpio_node(config) if odd_number else None
+    flash_custom_firmware_onto_gpio_node(config) if odd_number else None
     logo_update(config)
     input("\nPress ENTER to continue.")
     sleep(2)
@@ -142,6 +142,18 @@ def flash_firmware_onto_gpio_node(config):
     sleep(2)
 
 
+def flash_custom_firmware_onto_gpio_node(config):
+    rst = config.gpio_reset_pin
+    x = int(config.nodes_number)
+    print(f"\n\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with GPIO pin: {rst})\n")
+    reset_gpio_pin(config.gpio_reset_pin)
+    print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
+          f"flash:w:/home/{config.user}/RH-ota/firmware/custom_firmware/custom_node.hex:i ")
+    flash_blink(config) if not config.debug_mode else None
+    print(f"\n\t\t\t{Bcolors.BOLD}Node {x} - flashed{Bcolors.ENDC}\n\n")
+    sleep(2)
+
+
 def flash_blink_onto_gpio_node(config):
     rst = config.gpio_reset_pin
     x = int(config.nodes_number)
@@ -159,7 +171,7 @@ def node_selection_menu(config):
         clear_the_screen()
         logo_top(config.debug_mode)
         sleep(0.05)
-        flash_node_menu = """
+        flash_node_menu = """\n
         
                             {red}{bold}NODES MENU{endc}{bold}
                         
@@ -171,7 +183,7 @@ def node_selection_menu(config):
 
                 4 - Flash node 4        8 - Flash node 8 
                             
-                    {yellow}'e'- Exit to main menu{endc}
+                        {yellow}e- Exit to main menu{endc}
                     
         """.format(bold=Bcolors.BOLD, red=Bcolors.RED, yellow=Bcolors.YELLOW, endc=Bcolors.ENDC)
         print(flash_node_menu)
@@ -211,7 +223,7 @@ def specific_node_menu(config, selected_node_number):
         
         3 - Flash 'blink' on the node - only for test purposes
 
-        a - Abort{Bcolors.ENDC}""")
+        e - Exit{Bcolors.ENDC}""")
         selection = input()
         if selection == '1':
             flash_firmware_on_a_specific_node(config, selected_node_number)
@@ -222,7 +234,7 @@ def specific_node_menu(config, selected_node_number):
         if selection == '3':
             flash_blink_on_a_specific_node(config, selected_node_number)
             break
-        if selection == 'a':
+        if selection == 'e':
             break
 
 
@@ -240,17 +252,22 @@ def odd_node_menu(config):
 
         1 - {Bcolors.GREEN}Flash firmware on the node - recommended{Bcolors.ENDC}{Bcolors.BOLD}
 
-        2 - Flashes 'blink' on the node - only for test purposes
+        2 - Flash custom firmware on the node
+        
+        3 - Flashes 'blink' on the node - only for test purposes
 
-        a - Abort{Bcolors.ENDC}""")
+        e - Abort{Bcolors.ENDC}""")
         selection = input()
         if selection == '1':
             flash_firmware_onto_gpio_node(config)
             return
         if selection == '2':
+            flash_custom_firmware_onto_gpio_node(config, selected_node_number)
+            break
+        if selection == '3':
             flash_blink_onto_gpio_node(config)
             return
-        if selection == 'a':
+        if selection == 'e':
             break
     else:
         clear_the_screen()

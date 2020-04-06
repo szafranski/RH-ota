@@ -1,5 +1,5 @@
 If you want to flash custom firmware, you have to put it into a specific folder
-in speific format - as described below.
+in specific format - as described below.
 
 'custom_node.hex' - name required by a flashing software
 
