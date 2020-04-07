@@ -30,7 +30,7 @@ def self_update(config):
             print("This will be the 'beta' update - may be changed in config file.\n")
         else:
             source = 'main_stable'
-        os.system(f". ./scripts/self_updater_actions.sh {source}")
+        os.system(f"./scripts/self_updater.sh {source}")
         if config:  # if the config variable is not empty, then the config file must have existed.
             shutil.copyfile('~/.ota_markers/updater-config.json', '~/RH-ota/updater-config.json"')
         new_version_name = get_ota_version()
