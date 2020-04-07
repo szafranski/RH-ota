@@ -7,7 +7,7 @@ from modules import clear_the_screen, Bcolors, image_show, internet_check, load_
 
 
 def check_preferred_rh_version(config):
-    rh_version = config.RH_version
+    rh_version = config.rh_version
     if rh_version == 'master':
         server_version = 'master'
     elif rh_version == 'beta':
@@ -217,7 +217,7 @@ def main_window(config):
             
             RotorHazard configuration state: {config_soft}
             """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, blue=Bcolors.BLUE,
-                       yellow=Bcolors.YELLOW, red=Bcolors.RED, orange=Bcolors.ORANGE, server_version=config.RH_version,
+                       yellow=Bcolors.YELLOW, red=Bcolors.RED, orange=Bcolors.ORANGE, server_version=config.rh_version,
                        user=user, config_soft=rh_config_text, server=server_version_name)
         print(welcome_text)
 
