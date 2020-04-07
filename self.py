@@ -4,6 +4,13 @@ import shutil
 from modules import load_config, dots_show, internet_check, get_ota_version
 
 
+def make_directories_accessible(config):
+    markers_dir = f'/home/{config.user}/.ota_markers'
+    ota_dir = f'/home/{config.user}/RH-ota'
+    os.system(f"sudo chmod -R 777 {markers_dir} > /dev/null 2>&1") if os.stat(markers_dir).st_uid == 0 else None
+    os.system(f"sudo chmod -R 777 {ota_dir} > /dev/null 2>&1") if os.stat(ota_dir).st_uid == 0 else None
+
+
 def self_update(config):
     internet_flag = internet_check()
     if not internet_flag:
@@ -12,8 +19,7 @@ def self_update(config):
     else:
         print("\nInternet connection - OK\n")
         sleep(1.5)
-        os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")  # resolves compatibility issues
-        os.system("sudo chmod -R 777 ~/RH-ota > /dev/null 2>&1")  # resolves compatibility issues
+        make_directories_accessible(config)
         old_version_name = get_ota_version()
         print(f"\n\n\n\t Please wait: updating process from version {old_version_name}\n\n")
         dots_show(2)
@@ -36,8 +42,7 @@ def self_update(config):
 
             """)
         sleep(1)
-        os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")
-        os.system("sudo chmod -R 777 ~/RH-ota/*.sh > /dev/null 2>&1")  # only make the shell scripts executable.
+        make_directories_accessible(config)
         if new_version_name != old_version_name:
             os.system("echo OTA was updated > ~/.ota_markers/.was_updated")
 
