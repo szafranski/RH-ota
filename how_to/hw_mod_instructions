@@ -1,0 +1,25 @@
+Steps that you have to perform to make existing Delta5 PCB compatible with the newest RotorHazard and OTA software
+and firmware flashing.
+
+Hardware steps:
+       Connect following pins – best way is to do it at the PCB’s bottom.
+    1. Connect D9 pin of all nodes to the ground.
+    2. Connect pin D12 of first node to reset pin of the second node and vice versa. Same thing with node 3 and 4 etc.
+    3. You have to perform auto-numbering mod if you don’t already have it performed on your timer.
+    4. Connect pin TX of every node together.
+    5. Connect pin RX of every node together.
+    6. Connect RX line to Raspberry’s TX pin
+    7. Connect pin TX line to Raspberry’s TX using VOLTAGE DIVIDER or logic level converter.
+
+
+Software steps – on the Pi:
+    1. Make sure you have internet connection on your Raspberry Pi.
+    2. Download and open OTA software on the Raspberry.
+    3. Configure OTA in a wizard – point 5. of the menu
+    4. Go to Features Menu → Enable Serial and reboot
+    5. Enter OTA software after rebooting
+    6. Enter Nodes flash and update → First time flashing
+    7. Go through first time flashing procedure according to instructions seen on the screen.
+    8. Enter Automatic flashing and perform a flashing so you confirm that it is and will be working in the future
+    9. You may also use OTA software to install or update RotorHazard server software.
+    Another options like smart hotspot setup are also included.
