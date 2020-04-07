@@ -28,8 +28,13 @@ def self_update(config):
         if config:  # if the config variable is not empty, then the config file must have existed.
             shutil.copyfile('~/.ota_markers/updater-config.json', '~/RH-ota/updater-config.json"')
         new_version_name = get_ota_version()
-        print(f"\n\n\n\t RotorHazard OTA Manager updated to version {new_version_name}\
-        \n\t\tYou may check update-notes.\n\n")
+        print(f"""
+    
+    RotorHazard OTA Manager updated to version {new_version_name}
+    
+            You may check update-notes.
+
+            """)
         sleep(1)
         os.system("sudo chmod -R 777 ~/.ota_markers > /dev/null 2>&1")
         os.system("sudo chmod -R 777 ~/RH-ota/*.sh > /dev/null 2>&1")  # only make the shell scripts executable.
