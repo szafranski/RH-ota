@@ -386,9 +386,9 @@ def main_menu(config):
         config_check()
         main_menu_content = """
         
-                    {red}{bold}{underline}MAIN MENU{endc}{blue}{bold}
+                    {red}{bold}{underline}MAIN MENU{endc}
                     
-                             
+                           {blue}{bold}  
                         1 - RotorHazard Manager
                             
                         2 - Nodes flash and update {endc}{bold}

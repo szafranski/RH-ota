@@ -33,8 +33,7 @@ def conf_check():
 
 def ask_custom_rh_version():
     while True:
-        version = input(f"""
-            Please enter the version tag that you wish to install [EG: 2.1.0-beta.3]: """)
+        version = input(f"\nPlease enter the version tag that you wish to install [EG: 2.1.0-beta.3]:\t")
         confirm = input(f"""
             You entered: '{version}'  
             Confirm [yes/no]""")
@@ -59,8 +58,8 @@ Default values are not automatically applied. Type them if needed.\n""")
         pi_user_name = input("\nWhat is your user name on Raspberry Pi? [default: pi]\t\t\t")
         config.pi_user = pi_user_name
         while True:
-            version = input(f"\nWhat RotorHazard version will you use? \
-[{Bcolors.UNDERLINE}stable{Bcolors.ENDC} | beta | master | custom]\t\t").lower()
+            version = input(f"\nChoose RotorHazard version? \
+[{Bcolors.UNDERLINE}stable{Bcolors.ENDC} | beta | master | custom]\t").lower()
             version_valid_options = ['master', 'stable', 'beta', 'custom']
             if version not in version_valid_options:
                 print("\nPlease enter correct value!")
