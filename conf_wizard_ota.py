@@ -41,7 +41,6 @@ def ask_custom_rh_version():
             return version
 
 
-
 def do_config(config):
     home_dir = str(Path.home())
     clear_the_screen()
@@ -68,13 +67,13 @@ Default values are not automatically applied. Type them if needed.\n""")
                 # If the user specifies custom for version, re-ask the question
                 # and ask exactly what version tag they want:
                 if version == 'custom':
-                    continue # todo it has to be changed! nodes firmware issue would occure rh_verion is used also in other modules than rpi
+                    continue  # todo it has to be changed! nodes firmware issue would occure rh_verion is used also in other modules than rpi
                     # config.rh_version = ask_custom_rh_version()
                 break
 
         while True:
             country_code = input("\nWhat is your country code? [default: GB]\t\t\t\t").upper()
-            if len(country_code) in range(3):
+            if len(country_code) in range(2, 4):
                 config.country = country_code
                 break
             else:
@@ -122,7 +121,8 @@ which pin will be used as GPIO reset pin?
         while True:
             old_hw_mod = input("""
 Are you using older, non-i2c hardware flashing mod? 
-(nodes reset pins connected to gpio pins) [ yes/no | default: no ]\t""").lower()[0] #honestly, we only care about the first letter.
+(nodes reset pins connected to gpio pins) [ yes/no | default: no ]\t""").lower()[
+                0]  # honestly, we only care about the first letter.
             if old_hw_mod == "y":
                 old_hw_mod, config.old_hw_mod = True, True
                 break
