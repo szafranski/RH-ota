@@ -63,22 +63,23 @@ def end_update(config, server_configured_flag, server_installed_flag):
                     
                     's' - start the server now{Bcolors.YELLOW}
                     
-                    'c' - clear old RotorHazard installations 
+                    'o' - clear old RotorHazard installations 
                     
                     'e' - exit now{Bcolors.ENDC}""")
         selection = input()
         if selection == 'r':
             os.system("sudo reboot")
-        if selection == 'e':
-            return
-        if selection == 'c':
-            conf_rh()
         if selection == 's':
             clear_the_screen()
             os.chdir(f"/home/{config.user}/RH-ota")
             os.system("./scripts/server_start.sh")
-        if selection == 'c':
+        if selection == 'o':
             os.system("./scripts/clear_old_rh.sh")
+        if selection == 'c':
+            conf_rh()
+        if selection == 'e':
+            return
+
 
 def end_installation(config):
     while True:
