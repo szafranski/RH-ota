@@ -297,7 +297,7 @@ def first_flashing(config):
                 error = "echo !!! ---- Flashing error - try again ---- !!!"  # todo new line before and after '!!!'
                 os.system(f"timeout 10 avrdude -v -p atmega328p -c arduino -P /dev/tty{port} -b 57600 -U \
                         flash:w:/home/{config.user}/RH-ota/firmware/{config.rh_version}/node_0.hex:i || {error}")
-
+# todo error reported to be show even after succesfull first time flashing - to be checked on Pi
     while True:
         first_flash_select = f"""
         {Bcolors.BOLD}
@@ -314,7 +314,7 @@ def first_flashing(config):
 
         2 - USB 
         
-        a - abort{Bcolors.ENDC} 
+        e - exit{Bcolors.ENDC} 
         
         
         *USB can be used only if node is only device connected to the Pi """
@@ -327,7 +327,7 @@ def first_flashing(config):
             port_sel = 'USB0'
             flash(port_sel)
             break
-        if port_sel == 'a':
+        if port_sel == 'e':
             break
         else:
             print("\n\tType: 'UART' or 'USB'\n\t")
@@ -340,7 +340,7 @@ def show_i2c_devices(config):
     logo_top(config.debug_mode)
     print("\n\n")
     os.system("i2cdetect -y 1")
-    print("\n\n\tPress Enter to exit to menu\n")
+    input("\n\n\tPress Enter to exit to menu\n")
 
 
 def connection_test(nodes_num):  # todo finish this or remove
