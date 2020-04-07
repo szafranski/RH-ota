@@ -1,4 +1,6 @@
 #!/bin/bash
+# $1 is linux user name
+# $2 is actual version of RotorHazard to get.
 
 sudo apt-get update && sudo apt-get upgrade -y
 sudo apt autoremove -y
@@ -7,17 +9,17 @@ sudo -H pip install cffi pillow
 cd /home/"${1}" || exit
 if [ -d "/home/${1}/RotorHazard" ]; then
   # Control will enter here if $DIRECTORY exists.
-  mv "/home/${1}/RotorHazard" "/home/${1}/RotorHazard_$(date +%Y%m%d)"
+  mv "/home/${1}/RotorHazard" "/home/${1}/RotorHazard_$(date +%Y%m%d%H%M)" || exit 1
 fi
 if [ -d "/home/${1}/RotorHazard-${2}" ]; then
   # Control will enter here if $DIRECTORY exists.
-  mv "/home/${1}/RotorHazard-${2}" "/home/${1}/RotorHazard_${2}_$(date +%Y%m%d)"
+  mv "/home/${1}/RotorHazard-${2}" "/home/${1}/RotorHazard_${2}_$(date +%Y%m%d%H%M)" || exit 1
 fi
 cd /home/"${1}" || exit
 wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"${2}" -O temp.zip
 unzip temp.zip
 rm temp.zip
-mv /home/"${1}"/RotorHazard-"${2}" /home/"${1}"/RotorHazard
+mv /home/"${1}"/RotorHazard-"${2}" /home/"${1}"/RotorHazard || exit 1
 sudo -H pip install -r /home/"${1}"/RotorHazard/src/server/requirements.txt
 sudo chmod 777 -R /home/"${1}"/RotorHazard/src/server
 cd /home/"${1}" || exit

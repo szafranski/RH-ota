@@ -1,5 +1,7 @@
 from time import sleep
 import os
+from types import SimpleNamespace
+
 from modules import clear_the_screen, Bcolors, logo_top, write_json, load_config
 from pathlib import Path
 
@@ -29,6 +31,18 @@ def conf_check():
     return conf_now_flag
 
 
+def ask_custom_rh_version():
+    while True:
+        version = input(f"""
+            Please enter the version tag that you wish to install [EG: 2.1.0-beta.3]: """)
+        confirm = input(f"""
+            You entered: '{version}'  
+            Confirm [yes/no]""")
+        if confirm.upper().startswith('Y'):
+            return version
+
+
+
 def do_config(config):
     home_dir = str(Path.home())
     clear_the_screen()
@@ -38,6 +52,7 @@ def do_config(config):
     conf_now_flag = conf_check()
 
     if conf_now_flag:
+        config = SimpleNamespace()
         print("""\n
 Please type your configuration data. It can be modified later.
 Default values are not automatically applied. Type them if needed.\n""")
@@ -45,12 +60,16 @@ Default values are not automatically applied. Type them if needed.\n""")
         config.pi_user = pi_user_name
         while True:
             version = input(f"\nWhat RotorHazard version will you use? \
-[{Bcolors.UNDERLINE}stable{Bcolors.ENDC} | beta | master]\t\t")
-            version_valid_options = ['master', 'stable', 'beta']
+[{Bcolors.UNDERLINE}stable{Bcolors.ENDC} | beta | master | custom]\t\t").lower()
+            version_valid_options = ['master', 'stable', 'beta', 'custom']
             if version not in version_valid_options:
                 print("\nPlease enter correct value!")
             else:
                 config.RH_version = version
+                # If the user specifies custom for version, re-ask the question
+                # and ask exactly what version tag they want:
+                if version == 'custom':
+                    config.RH_version = ask_custom_rh_version()
                 break
 
         country_code = input("\nWhat is your country code? [default: GB]\t\t\t\t")
@@ -81,12 +100,12 @@ which pin will be used as GPIO reset pin?
             config.gpio_reset_pin = gpio_reset_pin
 
         while True:
-            debug_mode = input("\nWill you use OTA software in a debug mode? [yes/no | default: no]\t")
+            debug_mode = input("\nWill you use OTA software in a debug mode? [yes/no | default: no]\t").lower()
             debug_mode_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']
             if debug_mode not in debug_mode_allowed_values:
                 print("\nPlease enter correct value!")
             else:
-                debug_mode_val = True if debug_mode in ['yes', '1', 'y'] else False
+                debug_mode_val = debug_mode in ['yes', '1', 'y']
                 config.debug_mode = debug_mode_val
                 break
 
@@ -98,17 +117,17 @@ which pin will be used as GPIO reset pin?
         while True:
             old_hw_mod = input("""
 Are you using older, non-i2c hardware flashing mod? 
-(nodes reset pins connected to gpio pins) [ yes/no | default: no ]\t""")
-            if old_hw_mod == "yes":
+(nodes reset pins connected to gpio pins) [ yes/no | default: no ]\t""").lower()[0] #honestly, we only care about the first letter.
+            if old_hw_mod == "y":
                 old_hw_mod, config.old_hw_mod = True, True
                 break
-            elif old_hw_mod == "no":
+            elif old_hw_mod == "n":
                 old_hw_mod, config.old_hw_mod = False, False
                 break
             else:
                 print("\nPlease enter correct value!")
         while old_hw_mod:
-            pins_assign = input("\nPins assignment? [default/custom/PCB | default: default]\t\t")
+            pins_assign = input("\nPins assignment? [default/custom/PCB | default: default]\t\t").lower()
             pins_valid_options = ['default', 'PCB', 'pcb', 'custom']
             if pins_assign not in pins_valid_options:
                 print("\nPlease enter correct value!")
@@ -124,8 +143,7 @@ Are you using older, non-i2c hardware flashing mod?
             if user_is_beta_tester not in beta_tester_allowed_values:
                 print("\nPlease enter correct value!")
             else:
-                beta_tester_val = True if user_is_beta_tester in ['yes', '1', 'y'] else False
-                config.beta_tester = beta_tester_val
+                config.beta_tester = user_is_beta_tester in ['yes', '1', 'y']
                 break
 
         print(f"""\n\n
@@ -145,7 +163,7 @@ Are you using older, non-i2c hardware flashing mod?
         Please check. Confirm? [yes/change/abort]\n""")
         valid_options = ['y', 'yes', 'n', 'no', 'change', 'abort']
         while True:
-            selection = input().strip()
+            selection = input().strip().lower()
             if selection in valid_options:
                 break
             else:

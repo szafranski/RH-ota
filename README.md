@@ -8,7 +8,7 @@
 
 1. Wizard install/update of RotorHazard server software
      - Choose which version of RotorHazard to install
-     - Preserves exisiting rotorhazard config file.
+     - Preserves existing rotorhazard config file.
      - Backup of existing RH install.
      - Automatically performs much of the RotorHazard specific Pi setup steps
 
@@ -16,7 +16,8 @@
      - Requires some hardware modification to enable
 
 1. Automatic configuring Access Point
-     - Smart-hotspot: dynamically connect to existing hotspot or server is the hotspot 
+     - Hotspot: Configure always-on hotspot using Pi's built in Wifi 
+     - Auto-Hotspot: Automatically connect to known wifi if available, or become hotspot if no network is found. 
 
 Helpful developer/back-end options:
 1. Installing avrdude
@@ -26,7 +27,7 @@ Helpful developer/back-end options:
 1. Embedded logging feature with an option to upload log file to the cloud 
 <br/>
 
-If you want all hardware functionalities - visit: [Instructables page](https://www.instructables.com/id/RotorHazard-Updater/)
+If you want all hardware functionality - visit: [Instructables page](https://www.instructables.com/id/RotorHazard-Updater/)
 or check the [RotorHazard-Updater.pdf](/how_to/RotorHazard-Updater.pdf).
 
 You may also read [update notes](/docs/update-notes.txt) - new features are present.
