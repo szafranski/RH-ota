@@ -265,10 +265,10 @@ def main_window(config):
                 print(already_installed_prompt)
                 selection = input()
                 if selection == 'u':
-                    update(config.user, check_preferred_rh_version(config))
+                    update(config.user, config)
                 if selection == 'i':
                     conf_allowed = False
-                    installation(conf_allowed, config.user, check_preferred_rh_version(config))
+                    installation(conf_allowed, config.user, config)
                 if selection == 'c':
                     confirm_valid_options = ['y', 'yes', 'n', 'no', 'abort', 'a']
                     while True:
@@ -279,7 +279,7 @@ def main_window(config):
                             print("\ntoo big fingers :( wrong command. try again! :)")
                     if confirm == 'y' or confirm == 'yes':
                         conf_allowed = True
-                        installation(conf_allowed, config.user, check_preferred_rh_version(config))
+                        installation(conf_allowed, config.user, config)
                     if confirm in ['n', 'no', 'abort', 'a']:
                         pass
                 if selection == 'a':
@@ -289,9 +289,9 @@ def main_window(config):
                     break
             else:
                 conf_allowed = True
-                installation(conf_allowed, config.user, check_preferred_rh_version(config))
+                installation(conf_allowed, config.user, config)
         if selection == 'u':
-            update(config.user, check_preferred_rh_version(config))
+            update(config.user, config)
         if selection == 'e':
             clear_the_screen()
             os.chdir(f"/home/{config.user}/RH-ota")
