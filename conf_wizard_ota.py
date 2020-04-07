@@ -73,7 +73,7 @@ Default values are not automatically applied. Type them if needed.\n""")
 
         while True:
             country_code = input("\nWhat is your country code? [default: GB]\t\t\t\t").upper()
-            if len(country_code) in range(2, 4):
+            if 1 < len(country_code) <= 3:
                 config.country = country_code
                 break
             else:
