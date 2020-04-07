@@ -1,6 +1,6 @@
 {
     "pi_user" : "pi",
-    "RH_version" : "stable",
+    "rh_version": "stable",
     "debug_user" : "racer",
     "country" : "GB",
     "nodes_number" : 8,

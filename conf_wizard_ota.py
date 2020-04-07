@@ -59,16 +59,17 @@ Default values are not automatically applied. Type them if needed.\n""")
         config.pi_user = pi_user_name
         while True:
             version = input(f"\nChoose RotorHazard version? \
-[{Bcolors.UNDERLINE}stable{Bcolors.ENDC} | beta | master | custom]\t").lower()
+[{Bcolors.UNDERLINE}stable{Bcolors.ENDC} | beta | master | custom]\t\t").lower()
             version_valid_options = ['master', 'stable', 'beta', 'custom']
             if version not in version_valid_options:
                 print("\nPlease enter correct value!")
             else:
-                config.RH_version = version
+                config.rh_version = version
                 # If the user specifies custom for version, re-ask the question
                 # and ask exactly what version tag they want:
                 if version == 'custom':
-                    config.RH_version = ask_custom_rh_version()
+                    continue # todo it has to be changed! nodes firmware issue would occure rh_verion is used also in other modules than rpi
+                    # config.rh_version = ask_custom_rh_version()
                 break
 
         country_code = input("\nWhat is your country code? [default: GB]\t\t\t\t")
@@ -149,7 +150,7 @@ Are you using older, non-i2c hardware flashing mod?
             {Bcolors.UNDERLINE}CONFIGURATION{Bcolors.ENDC}:
 
         User name:              {config.pi_user}
-        RotorHazard version:    {config.RH_version}
+        RotorHazard version:    {config.rh_version}
         Debug user name:        {config.debug_user}
         Country code:           {config.country}
         Nodes amount:           {config.nodes_number}

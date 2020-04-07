@@ -7,7 +7,7 @@ from conf_wizard_ota import conf_ota
 from modules import clear_the_screen, Bcolors, logo_top, image_show, ota_image, load_config, load_ota_config, \
     write_ota_config, get_ota_version
 from net_and_ap import net_and_ap_conf
-from rpi_update import rpi_update
+from rpi_update import main_window as rpi_update
 from nodes_flash import flashing_menu
 from nodes_update_old import nodes_update as old_flash_gpio
 
