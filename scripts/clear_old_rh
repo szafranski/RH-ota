@@ -1,5 +1,0 @@
-#!/bin/bash
-
-cp -r ~/RotorHazard ~/temp_RotorHazard
-rm -rf ~/RotorHazard*
-cp -r ~/temp_RotorHazard ~/RotorHazard

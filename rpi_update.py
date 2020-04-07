@@ -74,7 +74,8 @@ def end_update(config, server_configured_flag, server_installed_flag):
             os.chdir(f"/home/{config.user}/RH-ota")
             os.system("./scripts/server_start.sh")
         if selection == 'o':
-            os.system("./scripts/clear_old_rh.sh")
+            os.chdir(f"/home/{config.user}/RH-ota")
+            os.system(f"./scripts/clear_old_rh.sh {config.user}")
         if selection == 'c':
             conf_rh()
         if selection == 'e':
