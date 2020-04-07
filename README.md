@@ -18,6 +18,7 @@
 1. Automatic configuring Access Point
      - Hotspot: Configure always-on hotspot using Pi's built in Wifi 
      - Auto-Hotspot: Automatically connect to known wifi if available, or become hotspot if no network is found. 
+        - explanation: https://www.raspberryconnect.com/projects/65-raspberrypi-hotspot-accesspoints/158-raspberry-pi-auto-wifi-hotspot-switch-direct-connection
 
 Helpful developer/back-end options:
 1. Installing avrdude
