@@ -19,6 +19,11 @@ def check_preferred_rh_version(config):
 
     return server_version
 
+# Dave's thoughts:
+# TODO I would like to move th tags out of being hard-coded here.
+# Maybe get a list of tags and ask user to select from list
+# or automatically figure out the newest non-beta tag?
+
 
 def get_rotorhazard_server_version(config):
     server_py = Path(f"/home/{config.user}/RotorHazard/src/server/server.py")
@@ -136,10 +141,6 @@ def installation(conf_allowed, config):
                     """.format(thumbs="👍👍👍  ", bold=Bcolors.BOLD_S,
                                endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S)
 
-        # TODO I would like to move th tags out of being hard-coded here.
-        # Maybe get a list of tags and ask user to select from list
-        # or automatically figure out the newest non-beta tag?
-
         os.system(f"./scripts/install_rh.sh {config.user} {check_preferred_rh_version(config)}")
         input("press Enter to continue.")
         os.system("sh. ./scripts/sys_conf.sh") if conf_allowed else None
@@ -231,7 +232,7 @@ def main_window(config):
         if not server_installed_flag:
             install = f"{Bcolors.GREEN}'i' - Install software from scratch{Bcolors.ENDC}"
         else:
-            install = """'i' - Install software from scratch"""
+            install = "'i' - Install software from scratch"
         print("""
                     {install}
                     

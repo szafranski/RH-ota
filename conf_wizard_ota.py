@@ -72,8 +72,13 @@ Default values are not automatically applied. Type them if needed.\n""")
                     # config.rh_version = ask_custom_rh_version()
                 break
 
-        country_code = input("\nWhat is your country code? [default: GB]\t\t\t\t")
-        config.country = country_code
+        while True:
+            country_code = input("\nWhat is your country code? [default: GB]\t\t\t\t").upper()
+            if len(country_code) in range(3):
+                config.country = country_code
+                break
+            else:
+                print("\nPlease enter correct value!")
 
         while True:
             nodes = input("\nHow many nodes will you use in your system? [min: 0/1 | max: 8]\t\t")
