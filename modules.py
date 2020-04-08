@@ -133,10 +133,17 @@ def write_ota_config(ota_config, user):  # todo should be changed to ota_sys_con
     write_json(ota_config, ota_config_file)
 
 
-def get_ota_version(config):
-    # this_dir = os.path.dirname(os.path.realpath(__file__))
-    with open(f'/home/{config.user}/version.txt', 'r') as open_file:
-        version = open_file.readline().strip()
+def get_ota_version(checking_from_updater):
+    config = load_config()
+    if checking_from_updater == 'update':
+        path = f'/home/{config.user}/RH-ota/'
+    else:
+        path = os.path.dirname(os.path.realpath(__file__))
+    try:
+        with open(f'{path}/version.txt', 'r') as open_file:
+            version = open_file.readline().strip()
+    except:
+        version = "can't read OTA version"
     return version
 
 
