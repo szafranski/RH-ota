@@ -428,11 +428,11 @@ def main_menu(config):
 
 
 def main():
-    updater_version = get_ota_version()
-    clear_the_screen()
-    print("\n\n")
     config_check()
     config = load_config()
+    updater_version = get_ota_version(config)
+    clear_the_screen()
+    print("\n\n")
     compatibility()
     welcome_screen(config, updater_version)
     main_menu(config)
