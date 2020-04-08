@@ -135,7 +135,7 @@ def write_ota_config(ota_config, user):  # todo should be changed to ota_sys_con
 
 def get_ota_version(checking_from_updater):
     config = load_config()
-    if checking_from_updater == 'update':
+    if checking_from_updater:
         path = f'/home/{config.user}/RH-ota/'
     else:
         path = os.path.dirname(os.path.realpath(__file__))
