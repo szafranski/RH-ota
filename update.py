@@ -430,7 +430,7 @@ def main_menu(config):
 def main():
     compatibility()
     config = load_config()
-    updater_version = get_ota_version(config)
+    updater_version = get_ota_version(False)
     clear_the_screen()
     config_check()
     print("\n\n")

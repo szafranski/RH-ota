@@ -20,7 +20,7 @@ def self_update(config):
         print("\nInternet connection - OK\n")
         sleep(1.5)
         make_directories_accessible(config)
-        old_version_name = get_ota_version(config)
+        old_version_name = get_ota_version('update')
         print(f"\n\n\n\t Please wait: updating process from version {old_version_name}\n\n")
         dots_show(2)
         # if config:  # if config is not empty, then the file exited to load.
@@ -42,7 +42,7 @@ def self_update(config):
 
             """)
         sleep(1)
-        make_directories_accessible(config)
+        make_directories_accessible('update')
         os.system("cp ~/.ota_markers/old_RH-ota/updater-config.json ~/RH-ota/updater-config.json")
         # it had some bug with shutil - can be changed when resolved
         if new_version_name != old_version_name:
