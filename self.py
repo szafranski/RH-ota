@@ -32,7 +32,7 @@ def self_update(config):
             source = 'main_stable'
         os.system(f"./scripts/self_updater.sh {source}")
         if config:  # if the config variable is not empty, then the config file must have existed.
-            shutil.copyfile('~/.ota_markers/old_RH-ota/updater-config.json', '~/RH-ota/updater-config.json"')
+            shutil.copyfile("~/.ota_markers/old_RH-ota/updater-config.json", "~/RH-ota/updater-config.json")
         new_version_name = get_ota_version()
         print(f"""
     
