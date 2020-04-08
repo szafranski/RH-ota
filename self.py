@@ -23,8 +23,8 @@ def self_update(config):
         old_version_name = get_ota_version()
         print(f"\n\n\n\t Please wait: updating process from version {old_version_name}\n\n")
         dots_show(2)
-        if config:  # if config is not empty, then the file exited to load.
-            shutil.copyfile('~/RH-ota/updater-config.json', '~/.ota_markers/updater-config.json')
+        # if config:  # if config is not empty, then the file exited to load.
+        #     shutil.copyfile('~/RH-ota/updater-config.json', '~/.ota_markers/updater-config.json')
         if config.beta_tester:
             source = 'master'
             print("This will be the 'beta' update - may be changed in config file.\n")
@@ -32,7 +32,7 @@ def self_update(config):
             source = 'main_stable'
         os.system(f"./scripts/self_updater.sh {source}")
         if config:  # if the config variable is not empty, then the config file must have existed.
-            shutil.copyfile('~/.ota_markers/updater-config.json', '~/RH-ota/updater-config.json"')
+            shutil.copyfile('~/.ota_markers/old_RH-ota/updater-config.json', '~/RH-ota/updater-config.json"')
         new_version_name = get_ota_version()
         print(f"""
     
