@@ -20,7 +20,7 @@ def self_update(config):
         print("\nInternet connection - OK\n")
         sleep(1.5)
         make_directories_accessible(config)
-        old_version_name = get_ota_version()
+        old_version_name = get_ota_version(config)
         print(f"\n\n\n\t Please wait: updating process from version {old_version_name}\n\n")
         dots_show(2)
         # if config:  # if config is not empty, then the file exited to load.
@@ -33,7 +33,7 @@ def self_update(config):
         os.system(f"./scripts/self_updater.sh {source}")
         # if config:  # if the config variable is not empty, then the config file must have existed.
             # shutil.copyfile("~/.ota_markers/old_RH-ota/updater-config.json", "~/RH-ota/updater-config.json")
-        new_version_name = get_ota_version()
+        new_version_name = get_ota_version(config)
         print(f"""
     
     RotorHazard OTA Manager updated to version {new_version_name}
