@@ -14,12 +14,12 @@ sleep 1.2
 printf "\n\nEnter 'sudo' password if prompted.\n"
 sleep 1.2
 sudo echo
-printf "\n\nUpdating process has been started\n\n"
-dots30
+printf "\n\nUpdating process has been started\n\n" $ dots30
 kill -9 $(pidof python3 update.py)
 cd ~ || exit
-cp ~/RH-ota/self.py ~/.ota_markers/self.py
-python3 ~/.ota_markers/self.py
+rm -rf ~/.ota_markers/old_RH-ota > /dev/null 2>&1
+cp -r ~/RH-ota ~/.ota_markers/old_RH-ota
+python3 ~/.ota_markers/old_RH-ota/self.py
 cd ~ || exit
 sleep 1.2
 cd ~/RH-ota || exit
