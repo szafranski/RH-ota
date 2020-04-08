@@ -6,6 +6,7 @@
 .wizarded*
 index.html*
 RH-ota
+wget-log*
 nohup*
 /log_data
 /.dev/*_log.txt
