@@ -19,6 +19,7 @@ kill -9 $(pidof python3 update.py)
 cd ~ || exit
 rm -rf ~/.ota_markers/old_RH-ota > /dev/null 2>&1
 cp -r ~/RH-ota ~/.ota_markers/old_RH-ota
+cd ~/.ota_markers/old_RH-ota || exit
 python3 ~/.ota_markers/old_RH-ota/self.py
 cd ~ || exit
 sleep 1.2
