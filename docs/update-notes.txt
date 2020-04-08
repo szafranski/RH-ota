@@ -6,11 +6,14 @@
         ^^^^^^^^^^^^
 
 
-BETA - in constant developmenr
+2.2.10beta1
+Code mostly ready
+
+BETA - in constant development
 look into commits for updates history
 
 
-2.2.10beta1
+2.2.10beta0
 
 Code mostly cleaned
 OTA converted to python3
