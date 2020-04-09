@@ -79,7 +79,7 @@ else
   echo python3-rpi.gpio has to be installed && sudo apt install python3-rpi.gpio  -y|| echo - only on Pi -
 fi
 
-if grep -q 'python3-smbus' pip3installed.tmp; then
+if grep -q 'smbus' pip3installed.tmp; then
   echo python3-smbus"    "found
 else
   echo python3-smbus has to be installed && pip3 install smbus
