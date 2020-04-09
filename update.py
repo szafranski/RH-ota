@@ -217,7 +217,7 @@ def aliases_menu(config):
 def self_updater(config):
 
     def check_if_beta_user(config):
-        if not config.beta_tester:
+        if config.beta_tester:
             updater_info = f'{Bcolors.RED}Beta-tester mode - your update contains OTA in beta-state.{Bcolors.ENDC}'
         else:
             updater_info = ''
