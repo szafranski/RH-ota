@@ -64,12 +64,11 @@ def log_send(config):
             code = ''
             for line in f:
                 code = line
-            short_line = "".center(30, "-")
             print(f"""
 
 User code: {code}
 
-{short_line}
+------------------------------
 
 """)
             input("Hit 'Enter' to continue\n\n")
@@ -418,8 +417,12 @@ def main_menu(config):
         if selection == '1':
             rpi_update(config)
         if selection == '2':
-            old_flash_gpio(config) if config.old_hw_mod else flashing_menu(config)
-            # enters "old" flashing menu only when "old_hw_mod" is confirmed
+            ota_status = load_ota_config(config.user)
+            if ota_status.uart_support_added:
+                old_flash_gpio(config) if config.old_hw_mod else flashing_menu(config)
+                # enters "old" flashing menu only when "old_hw_mod" is confirmed
+            else:
+                serial_menu(config)
         if selection == '3':
             server_start()
         if selection == '4':
