@@ -47,10 +47,10 @@ def get_rotorhazard_server_version(config):
 
 def check_rotorhazard_config_status(config):
     if os.path.exists(f"/home/{config.user}/RotorHazard/src/server/config.json"):
-        config_soft = f"{Bcolors.GREEN}configured👍 {Bcolors.ENDC} "
+        config_soft = f"{Bcolors.GREEN}configured{Bcolors.ENDC} 👍"
         config_flag = True
     else:
-        config_soft = f"{Bcolors.YELLOW}{Bcolors.UNDERLINE}not configured{Bcolors.ENDC}  👎"
+        config_soft = f"{Bcolors.YELLOW}{Bcolors.UNDERLINE}not configured{Bcolors.ENDC} 👎👎👎"
         config_flag = False
     return config_soft, config_flag
 
@@ -129,11 +129,11 @@ def installation(conf_allowed, config):
         installation_completed = """
         
         
-            #####################################################
-            ##                                                 ##
-            ##{bold}{green}Installation completed{thumbs}{endc}##
-            ##                                                 ##
-            #####################################################
+            ######################################################
+            ##                                                  ##
+            ##{bold}{green}Installation completed {thumbs}{endc}##
+            ##                                                  ##
+            ######################################################
 
 
         After rebooting please check by typing 'sudo raspi-config' 
@@ -181,11 +181,11 @@ def update(config):
             clear_the_screen()
             print(f"\n\t{Bcolors.BOLD}Updating existing installation - please wait...{Bcolors.ENDC} \n")
             update_completed = """\n\n\t
-                ################################################
-                ##                                            ##
-                ##{bold}{green}Update completed!{thumbs}{endc}##
-                ##                                            ##
-                ################################################
+                #################################################
+                ##                                             ##
+                ##{bold}{green}Update completed! {thumbs}{endc}##
+                ##                                             ##
+                #################################################
                         """.format(thumbs="👍👍👍  ", bold=Bcolors.BOLD_S,
                                    endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S)
             os.system(f"./scripts/update_rh.sh {config.user} {check_preferred_rh_version(config)}")
