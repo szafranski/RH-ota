@@ -215,30 +215,31 @@ def aliases_menu(config):
 
 
 def self_updater(config):
-    ota_status = load_ota_config(config.user)
 
-    def add_updater():
-        clear_the_screen()
-        logo_top(config.debug_mode)
-        ota_status.updater_planted = True
-        write_ota_config(ota_status, config.user)
+    def check_if_beta_user(config):
+        if not config.beta_tester:
+            updater_info = f'{Bcolors.RED}Beta-tester mode - your update contains OTA in beta-state.{Bcolors.ENDC}'
+        else:
+            updater_info = ''
 
-    if not ota_status.updater_planted:
-        add_updater()
+        return updater_info
+
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
         updater = """{bold}
         If you want to update this program and download new firmware, 
         prepared for Arduino nodes - so you can next flash them 
-        - you can just hit 'u' now. You can also type 'updateupdater'
-        or 'uu' in the terminal window.
+        - you can just hit 'u' now.
         Version of the updater is related to {blue}nodes firmware API number{endc},
               {bold}
         so you always know what firmware version updater contains.
         For example "2.2.5c" contains nodes firmware with "API level 22".
-        Self-updater will test your internet connection during every update.\n\n
-        """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, bold=Bcolors.BOLD, blue=Bcolors.BLUE)
+        Self-updater will test your internet connection during every update.
+        
+        {updater_info}
+        """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, bold=Bcolors.BOLD,
+                   blue=Bcolors.BLUE, updater_info=check_if_beta_user(config))
         print(updater)
         print(f"{Bcolors.GREEN}\t\tUpdate now by pressing 'u'{Bcolors.ENDC}\n")
         print(f"{Bcolors.YELLOW}\t\tGo back by pressing 'b'{Bcolors.ENDC}\n\n")
