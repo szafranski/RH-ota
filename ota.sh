@@ -58,43 +58,43 @@ dots7 & apt list 2>/dev/null | tee aptinstalled.tmp >/dev/null
 if grep -q 'python3-gpiozero' aptinstalled.tmp; then
   echo python3-gpiozero" "found
 else
-  echp python3-gpiozero has to be installed && sudo apt install python3-gpiozero -y
+  echo python3-gpiozero has to be installed && sudo apt install python3-gpiozero -y
 fi
 
 if grep -q 'python3-requests' aptinstalled.tmp; then
   echo python3-requests" "found
 else
-  echp python3-requests has to be installed && sudo apt install python3-requests -y
+  echo python3-requests has to be installed && sudo apt install python3-requests -y
 fi
 
 if grep -q 'python3-dev' aptinstalled.tmp; then
   echo python3-dev"      "found
 else
-  echp python3-dev has to be installed && sudo apt install python3-dev -y
+  echo python3-dev has to be installed && sudo apt install python3-dev -y
 fi
 
 if grep -q 'python3-rpi.gpio' aptinstalled.tmp; then
   echo python3-rpi.gpio" "found
 else
-  echp python3-rpi.gpio has to be installed && sudo apt install python3-rpi.gpio  -y|| echo - only on Pi -
+  echo python3-rpi.gpio has to be installed && sudo apt install python3-rpi.gpio  -y|| echo - only on Pi -
 fi
 
 if grep -q 'python3-smbus' pip3installed.tmp; then
   echo python3-smbus"    "found
 else
-  echp python3-smbus has to be installed && pip3 install smbus
+  echo python3-smbus has to be installed && pip3 install smbus
 fi
 
 if grep -q 'i2c-tools' aptinstalled.tmp; then
   echo i2c-tools"        "found
 else
-  echp i2c-tools has to be installed && sudo apt install i2c-tools -y
+  echo i2c-tools has to be installed && sudo apt install i2c-tools -y
 fi
 
 if grep -q 'zip' aptinstalled.tmp; then
   echo zip"              "found
 else
-  echp zip has to be installed && sudo apt install zip unzip  -y # todo does it check for unzip too?
+  echo zip has to be installed && sudo apt install zip unzip  -y # todo does it check for unzip too?
 fi
 
 # Cleanup after myself.

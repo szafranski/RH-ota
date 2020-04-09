@@ -412,7 +412,8 @@ def flashing_menu(config):
         logo_top(config.debug_mode)
         sleep(0.05)
         node_menu = """\n\n
-                            {bold}{underline}CHOOSE FLASHING TYPE:{endc}
+                            {red}{bold}{underline}FLASHING MENU{endc}
+                            
     
                     {green}{bold}1 - Flash each node automatically - rec.{endc}{bold}
     
@@ -422,11 +423,11 @@ def flashing_menu(config):
     
                     4 - Show I2C connected devices
                     
-                    5 - Check UART connected devices
+                    5 - Check all UART connected devices
             
                     {yellow}e - Exit to main menu{endc}\n
             """.format(bold=Bcolors.BOLD, green=Bcolors.GREEN, yellow=Bcolors.YELLOW,
-                       endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE)
+                       endc=Bcolors.ENDC, red=Bcolors.RED, underline=Bcolors.UNDERLINE)
         print(node_menu)
         sleep(0.1)
         selection = input("")
