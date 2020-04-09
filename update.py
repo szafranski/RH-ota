@@ -50,7 +50,7 @@ def read_aliases_file():  # todo almost done, readability has to be improved yet
 
 
 def log_write(config):
-    os.system(f". ./scripts/log_write.sh {config.user}")
+    os.system(f"./scripts/log_write.sh {config.user}")
 
 
 def log_send(config):
@@ -58,16 +58,17 @@ def log_send(config):
         selection = input("\n\n\tDo you want to send a log file for a review to the developer? [y/n] ")
         if selection == 'y' or selection == 'yes':
             log_name = input("\n\tPlease enter your name so we know who sent a log file: ")
-            os.system(f". ./scripts/log_send.sh {config.user} {log_name}")
+            os.system(f"./scripts/log_send.sh {config.user} {log_name}")
+            # todo 'code' is saved with 'name_log.txt' - to be changed
             f = open("./log_data/log_code.txt", "r")
             code = ''
             for line in f:
                 code = line
             short_line = "".center(30, "-")
             print(f"""\n
-                User code: {code}\n
-            {short_line}\n""")
-            input("\n\nHit 'Enter' to continue\n\n")
+User code: {code}\n
+{short_line}\n""")
+            input("\nHit 'Enter' to continue\n\n")
             if not os.system("cowsay You are awesome! Fly safe."):
                 sleep(3)
             break
