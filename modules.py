@@ -150,6 +150,7 @@ def get_ota_version(checking_from_updater):
 def server_start():
     server_stat = os.system("timeout 2 systemctl is-active --quiet rotorhazard")
     # todo checking if RH service is already running and only than letting user start the server
+    # it doesnt work properly now
     if server_stat == 0:
         try:
             clear_the_screen()
