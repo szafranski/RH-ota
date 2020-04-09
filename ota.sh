@@ -73,11 +73,12 @@ else
   echo python3-dev has to be installed && sudo apt install python3-dev -y
 fi
 
-if grep -q 'rpi.gpio' pip3installed.tmp; then
+if grep -q 'RPI.GPIO' pip3installed.tmp; then
   echo python3-rpi.gpio" "found
 else
-  echo python3-rpi.gpio has to be installed && pip install rpi.gpio || echo - only on Pi -
+  echo python3-rpi.gpio has to be installed && pip3 install rpi.gpio || echo - only on Pi -
 fi
+# todo error - shows
 
 if grep -q 'smbus' pip3installed.tmp; then
   echo python3-smbus"    "found
