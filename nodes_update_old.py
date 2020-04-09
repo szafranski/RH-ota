@@ -11,6 +11,7 @@ try:
     GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
 except ModuleNotFoundError:
     print("GPIO import - failed - works only on Pi")
+    print("Try manually install RPI.GPIO with 'pip3 install rpi.gpio'")
     sleep(1)
 
 
