@@ -120,7 +120,7 @@ def internet_check():
     return internet_flag
 
 
-def load_ota_config(user):
+def load_ota_sys_markers(user):
     ota_config_file = f'/home/{user}/.ota_markers/ota_config.json'
     if Path(ota_config_file).exists():
         ota_config = load_json(ota_config_file)
@@ -129,7 +129,7 @@ def load_ota_config(user):
     return ota_config
 
 
-def write_ota_config(ota_config, user):  # todo should be changed to ota_sys_config_marker or sth like this
+def write_ota_sys_markers(ota_config, user):
     ota_config_file = f'/home/{user}/.ota_markers/ota_config.json'
     write_json(ota_config, ota_config_file)
 
@@ -151,7 +151,7 @@ def get_ota_version(checking_from_updater):
 def server_start():
     server_stat = os.system("timeout 2 systemctl is-active --quiet rotorhazard")
     # todo checking if RH service is already running and only than letting user start the server
-    # it doesnt work properly now
+    # for now it doesnt work properly with that method
     if server_stat == 0:
         try:
             clear_the_screen()

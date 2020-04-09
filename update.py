@@ -21,9 +21,9 @@ def config_check():
     if not os.path.exists("./updater-config.json"):
         print("""
 
-            {GandB}Looks that you haven't set up config file yet.     {endc}
-            {GandB}Please read about configuration process - point 5  {endc}
-            {GandB}and next enter configuration wizard - point 6.     {endc}
+          {GandB}  Looks that you haven't set up config file yet.     {endc}
+          {GandB}  Please read about configuration process - point 5  {endc}
+          {GandB}  and next enter configuration wizard - point 6.     {endc}
 """.format(GandB=Bcolors.BOLD + Bcolors.GREEN_BACK, endc=Bcolors.ENDC))
 
 
@@ -60,7 +60,7 @@ def log_send(config):
         if selection == 'y' or selection == 'yes':
             log_name = input("\n\tPlease enter your name so we know who sent a log file: ")
             os.system(f"./scripts/log_send.sh {config.user} {log_name}")
-            # todo 'code' is saved with 'name_log.txt' - to be changed
+            # todo 'code' is saved with '<code>_log.txt', should be just <code> - to be changed
             f = open("./log_data/log_code.txt", "r")
             code = ''
             for line in f:
@@ -119,7 +119,7 @@ def welcome_screen(config, updater_version):
 
 
 def serial_menu(config):
-    ota_status = load_ota_config(config.user)
+    ota_status = load_ota_sys_markers(config.user)
 
     def serial_content():
         # TODO Make this repeatable without adding multiple copies at the end of config.txt.
@@ -129,7 +129,7 @@ def serial_menu(config):
         os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
         print("UART enabled")
         ota_status.uart_support_added = True
-        write_ota_config(ota_status, config.user)
+        write_ota_sys_markers(ota_status, config.user)
         print("""
         
         Serial port enabled successfully
@@ -176,13 +176,13 @@ def serial_menu(config):
 
 
 def aliases_menu(config):
-    ota_status = load_ota_config(config.user)
+    ota_status = load_ota_sys_markers(config.user)
 
     def aliases_content():
         """load ota status, update aliases then write ota_status"""
         os.system("cat ./resources/aliases.txt | tee -a ~/.bashrc")
         ota_status.aliases_implemented = True
-        write_ota_config(ota_status, config.user)
+        write_ota_sys_markers(ota_status, config.user)
         print("\n\n\t\t    Aliases added successfully")
         sleep(3)
         return
@@ -418,7 +418,7 @@ def main_menu(config):
         if selection == '1':
             rpi_update(config)
         if selection == '2':
-            ota_status = load_ota_config(config.user)
+            ota_status = load_ota_sys_markers(config.user)
             if ota_status.uart_support_added:
                 old_flash_gpio(config) if config.old_hw_mod else flashing_menu(config)
                 # enters "old" flashing menu only when "old_hw_mod" is confirmed

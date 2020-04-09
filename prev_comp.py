@@ -1,10 +1,11 @@
 from pathlib import Path
 import platform
 
+
 # removes old aliases, especially doubled ones and bad leftovers from ~/.bashrc file
 # part of action is done in script - has to be ported
 
-
+#  todo now it cleans even "new" aliases
 def aliases_clean(start, end, file_name, *words):
     if platform.system() == "Linux":
         write_lines = []
@@ -28,14 +29,10 @@ def aliases_clean(start, end, file_name, *words):
         pass
 
 
-def prev_comp():
+def main():
     home_dir = str(Path.home())
     Path(f"{home_dir}/.ota_markers").mkdir(exist_ok=True)
     aliases_clean('Shortcut', 'After', f'{home_dir}/.bashrc', 'uu', 'updateupdater', '# #')
-
-
-def main():
-    prev_comp()
 
 
 if __name__ == "__main__":

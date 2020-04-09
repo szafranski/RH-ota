@@ -248,7 +248,6 @@ def specific_node_menu(config, selected_node_number):
             break
         if selection == '4':
             check_uart_con_with_a_node(config, selected_node_number)
-            # todo uart with a gpio node in node menu
             break
         if selection == 'e':
             break
@@ -313,7 +312,6 @@ def first_flashing(config):
                 os.system(f"timeout 10 avrdude -v -p atmega328p -c arduino -P /dev/tty{port} -b 57600 -U \
                 flash:w:/home/{config.user}/RH-ota/firmware/{config.rh_version}/node_0.hex:i \
                 || {show_flash_error_msg()}")
-# todo error reported to be show even after succesfull first time flashing - to be checked on Pi
     while True:
         first_flash_select = f"""
         {Bcolors.BOLD}

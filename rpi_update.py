@@ -114,7 +114,7 @@ def end_installation(config):
 
 
 def installation(conf_allowed, config):
-    ota_config = load_ota_config(config.user)
+    ota_config = load_ota_sys_markers(config.user)
     os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &") if not config.debug_mode else None
     clear_the_screen()
     internet_flag = internet_check()
@@ -143,7 +143,7 @@ def installation(conf_allowed, config):
         os.system("./scripts/sys_conf.sh") if conf_allowed else None
         os.system(f"./scripts/install_rh.sh {config.user} {check_preferred_rh_version(config)}")
         ota_config.rh_installation_done = True
-        write_ota_config(ota_config, config.user)
+        write_ota_sys_markers(ota_config, config.user)
         input("press Enter to continue.")
         clear_the_screen()
         print(installation_completed)
@@ -207,7 +207,7 @@ def main_window(config):
         rh_config_text, rh_config_flag = check_rotorhazard_config_status(config)
         clear_the_screen()
         server_installed_flag, server_version_name = get_rotorhazard_server_version(config)
-        ota_config = load_ota_config(config.user)
+        ota_config = load_ota_sys_markers(config.user)
         sleep(0.1)
         welcome_text = """
             \n\n{red} {bold}
