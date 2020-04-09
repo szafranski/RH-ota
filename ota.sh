@@ -95,7 +95,7 @@ fi
 #if grep -q 'zip' aptinstalled.tmp; then
 #  echo zip"              "found
 #else
-#  echo zip has to be installed && sudo apt install zip unzip  -y # todo does it check for unzip too?
+#  echo zip has to be installed && sudo apt install zip unzip  -y
 #fi
 
 # Cleanup after myself.
