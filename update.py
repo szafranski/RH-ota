@@ -218,7 +218,7 @@ def self_updater(config):
 
     def check_if_beta_user(config):
         if config.beta_tester:
-            updater_info = f'{Bcolors.RED}Beta-tester mode - your update contains OTA in beta-state.{Bcolors.ENDC}'
+            updater_info = f'{Bcolors.RED}Beta-tester mode - your update contains OTA in beta-state.{Bcolors.ENDC}\n'
         else:
             updater_info = ''
 
@@ -416,12 +416,19 @@ def main_menu(config):
             old_flash_gpio(config) if config.old_hw_mod else flashing_menu(config)
             # enters "old" flashing menu only when "old_hw_mod" is confirmed
         if selection == '3':
-            clear_the_screen()
-            try:
-                os.system(". ./scripts/server_start.sh")
-            except KeyboardInterrupt:
-                print("Server closed manually")
-                continue
+            server_stat = os.system("timeout 2 systemctl is-active --quiet rotorhazard")
+            # todo checking if RH service is already running and only than letting user start the server
+            if server_stat == 0:
+                try:
+                    clear_the_screen()
+                    os.system(". ./scripts/server_start.sh")
+                except KeyboardInterrupt:
+                    print("Server closed manually")
+                    input("Hit Enter to continue")
+                    continue
+            else:
+                print("Server is already running as a service")
+                input("Hit Enter to continue")
         if selection == '4':
             features_menu(config)
         if selection == '5':
