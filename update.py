@@ -19,11 +19,12 @@ def compatibility():  # adds compatibility and fixes with previous versions
 
 def config_check():
     if not os.path.exists("./updater-config.json"):
-        print(f"""{Bcolors.BOLD}\
-        Looks that you haven't set up config file yet.
-        Please read about configuration process - point 5
-        and next enter configuration wizard - point 6.\
-        {Bcolors.ENDC}""")
+        print("""
+
+            {GandB}Looks that you haven't set up config file yet.     {endc}
+            {GandB}Please read about configuration process - point 5  {endc}
+            {GandB}and next enter configuration wizard - point 6.     {endc}
+""".format(GandB=Bcolors.BOLD + Bcolors.GREEN_BACK, endc=Bcolors.ENDC))
 
 
 def log_to_dev(config):
@@ -439,11 +440,9 @@ def main_menu(config):
 
 def main():
     compatibility()
-    config = load_config()
     updater_version = get_ota_version(False)
-    clear_the_screen()
     config_check()
-    print("\n\n")
+    config = load_config()
     welcome_screen(config, updater_version)
     main_menu(config)
 

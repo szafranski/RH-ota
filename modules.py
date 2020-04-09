@@ -90,6 +90,7 @@ class Bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+    GREEN_BACK = '\033[102m'
     '''
     the following are designed to be used in formatted strings
     they each have enough spaces appended so that {value}
