@@ -65,10 +65,14 @@ def log_send(config):
             for line in f:
                 code = line
             short_line = "".center(30, "-")
-            print(f"""\n
-User code: {code}\n
-{short_line}\n""")
-            input("\nHit 'Enter' to continue\n\n")
+            print(f"""
+
+User code: {code}
+
+{short_line}
+
+""")
+            input("Hit 'Enter' to continue\n\n")
             if not os.system("cowsay You are awesome! Fly safe."):
                 sleep(3)
             break
