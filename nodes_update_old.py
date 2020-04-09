@@ -7,7 +7,6 @@ try:
     # GPIO is only definable on the pi.
     # Try and import it but continue if it is not found.
     import RPi.GPIO as GPIO
-
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
 except ModuleNotFoundError:

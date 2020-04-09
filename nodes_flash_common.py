@@ -3,7 +3,10 @@ import os
 
 
 def com_init():
-    error_msg = "SMBus(1) - error\nI2C communication doesn't work properly"
+    error_msg = """
+    SMBus(1) - error\nI2C communication doesn't work properly
+    Check if I2C interface is enabled with 'sudo raspi-config'
+    """
     err_time = 1
     bus = 0
     try:

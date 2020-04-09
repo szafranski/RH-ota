@@ -122,6 +122,7 @@ def serial_menu(config):
         # for the first time
         os.system("echo 'enable_uart=1'| sudo tee -a /boot/config.txt")
         os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
+        print("UART enabled")
         ota_status.uart_support_added = True
         write_ota_config(ota_status, config.user)
         print("""
@@ -130,12 +131,13 @@ def serial_menu(config):
         You have to reboot Raspberry now. Ok?
         
         r - Reboot now{yellow}
-        b - Go back{endc}
+        
+        e - Exit{endc}
             """.format(endc=Bcolors.ENDC, yellow=Bcolors.YELLOW_S))
-        selection_2 = input()
-        if selection_2 == 'r':
+        selection = input()
+        if selection == 'r':
             os.system("sudo reboot")
-        if selection_2 == 'b':
+        if selection == 'e':
             return
 
     while True:
