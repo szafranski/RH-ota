@@ -67,7 +67,10 @@ Default values are not automatically applied. Type them if needed.\n""")
                 # If the user specifies custom for version, re-ask the question
                 # and ask exactly what version tag they want:
                 if version == 'custom':
-                    continue  # todo it has to be changed! nodes firmware issue would occure rh_verion is used also in other modules than rpi
+                    print("Support for custom versions of RH coming soon")
+                    input("Press Enter")
+                    continue    # todo add support for custom version of RotorHazard
+                                # maybe sth like "check_if_rh_version_is_custom()" in nodes_update
                     # config.rh_version = ask_custom_rh_version()
                 break
 
