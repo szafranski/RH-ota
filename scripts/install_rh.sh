@@ -5,7 +5,7 @@
 warning_show(){
   echo "
 
-  WARNING: Installing additional software may take few minuts
+  Installing additional software may take few minuts
 
 "
 }
@@ -50,6 +50,7 @@ warning_show()
 sudo python setup.py install
 sudo apt-get install openjdk-8-jdk-headless -y
 sudo rm /lib/systemd/system/rotorhazard.service > /dev/null 2>&1
+echo
 echo "
 [Unit]
 Description=RotorHazard Server
@@ -62,10 +63,12 @@ ExecStart=/usr/bin/python server.py
 [Install]
 WantedBy=multi-user.target
 " | sudo tee -a /lib/systemd/system/rotorhazard.service
+echo
 sudo chmod 644 /lib/systemd/system/rotorhazard.service
 sudo systemctl daemon-reload
 sudo systemctl enable rotorhazard.service
-
+sudo chmod 777 -R ~/RotorHazard
+echo
 
 # todo below is a source of that script - may be deleted after testing
 # os.system("sudo apt-get update && sudo apt-get upgrade -y")

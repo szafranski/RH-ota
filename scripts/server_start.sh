@@ -8,10 +8,28 @@ dots5() { # done that way so it work on every terminal
   printf "\n\n"
 }
 
+error_handling(){
+  echo "
+
+  Error - trying to start the server again...
+
+  "
+  python server.py ;
+  echo "
+
+LOOKS LIKE ERROR OCCURED
+
+Please try:
+manually enabling I2C interface with <sudo raspi-config>
+manually changing RH directory permissions with <sudo chmod -R 777 ~/RotorHazard>
+"
+read -p "Hit Enter when done " var
+}
+
 printf "Server booting, please wait"
 dots5
 cd ~/RotorHazard/src/server || exit
-python server.py
+python server.py || error_handling
 
 # scripts like those ensures that files are being executed in right directory but main program
 # istelf can be continued from previous directory after such a script was executed or stopped
