@@ -78,7 +78,7 @@ if grep -q 'RPI.GPIO' pip3installed.tmp; then
 else
   echo python3-rpi.gpio has to be installed && pip3 install rpi.gpio || echo - only on Pi -
 fi
-# todo error - shows
+# todo error - never shows as found
 
 if grep -q 'smbus' pip3installed.tmp; then
   echo python3-smbus"    "found

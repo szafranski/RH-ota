@@ -67,5 +67,4 @@ echo
 sudo chmod 644 /lib/systemd/system/rotorhazard.service
 sudo systemctl daemon-reload
 sudo systemctl enable rotorhazard.service
-sudo chmod 777 -R ~/RotorHazard
 echo

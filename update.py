@@ -416,7 +416,11 @@ def main_menu(config):
             # enters "old" flashing menu only when "old_hw_mod" is confirmed
         if selection == '3':
             clear_the_screen()
-            os.system(". ./scripts/server_start.sh")
+            try:
+                os.system(". ./scripts/server_start.sh")
+            except KeyboardInterrupt:
+                print("Server closed manually")
+                continue
         if selection == '4':
             features_menu(config)
         if selection == '5':

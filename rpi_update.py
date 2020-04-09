@@ -148,6 +148,7 @@ def installation(conf_allowed, config):
         input("press Enter to continue.")
         clear_the_screen()
         print(installation_completed)
+        os.system("sudo chmod 777 -R ~/RotorHazard")
         end_installation(config.user)
 
 
