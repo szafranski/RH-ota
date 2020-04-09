@@ -163,11 +163,17 @@ def update(config):
         clear_the_screen()
         if not os.path.exists(f"/home/{config.user}/RotorHazard"):
             print(f"""{Bcolors.BOLD}
-    Looks like you don't have RotorHazard server software installed for now. \n\t\t
-    If so please install your server software first or you won't be able to use the timer.{Bcolors.ENDC}""")
-            print(f"""\n\n{Bcolors.GREEN} 
-        'i' - Install the software - recommended{Bcolors.ENDC}\n 
-        'a' - Abort both  \n\n{Bcolors.ENDC}""")
+
+    Looks like you don't have RotorHazard server software installed for now. 
+
+    If so please install your server software first or you won't be able to use the timer.{Bcolors.ENDC}{Bcolors.GREEN} 
+          
+        
+        'i' - Install the software - recommended{Bcolors.ENDC}
+
+        'a' - Abort both  {Bcolors.ENDC}
+
+""")
             selection = input()
             if selection == 'i':
                 conf_allowed = True
@@ -261,10 +267,14 @@ def main_window(config):
         or force installation {underline} without {endc} sys. config. - 'i'.
                 
                 {green} 
-            'u' - Select update mode - recommended {endc}\n 
-            'i' - Force installation without sys. config.\n
-            'c' - Force installation and sys. config.\n {yellow}
-            'a' - Abort both  \n {endc}""".format(bold=Bcolors.BOLD, endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE,
+            'u' - Select update mode - recommended {endc}
+            
+            'i' - Force installation without sys. config.
+            
+            'c' - Force installation and sys. config. {yellow}
+            
+            'a' - Abort both  {endc}
+            """.format(bold=Bcolors.BOLD, endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE,
                                                   yellow=Bcolors.YELLOW, green=Bcolors.GREEN)
                 print(already_installed_prompt)
                 selection = input()
@@ -284,7 +294,7 @@ def main_window(config):
                     if confirm == 'y' or confirm == 'yes':
                         conf_allowed = True
                         installation(conf_allowed, config)
-                    if confirm in ['n', 'no', 'abort', 'a']:
+                    elif confirm in ['n', 'no', 'abort', 'a']:
                         pass
                 if selection == 'a':
                     clear_the_screen()
