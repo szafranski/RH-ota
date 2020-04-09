@@ -28,25 +28,25 @@ wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"${2}" -O temp.zip
 unzip temp.zip
 rm temp.zip
 mv /home/"${1}"/RotorHazard-"${2}" /home/"${1}"/RotorHazard || exit 1
-warning_show()
+warning_show
 sudo -H pip install -r /home/"${1}"/RotorHazard/src/server/requirements.txt
 sudo chmod 777 -R /home/"${1}"/RotorHazard/src/server
 cd /home/"${1}" || exit
 sudo git clone https://github.com/jgarff/rpi_ws281x.git
 cd /home/"${1}"/rpi_ws281x || exit
-warning_show()
+warning_show
 sudo scons
 cd /home/"${1}"/rpi_ws281x/python || exit
 sudo python setup.py install
 cd /home/"${1}" || exit
 sudo git clone https://github.com/chrisb2/pi_ina219.git
 cd /home/"${1}"/pi_ina219 || exit
-warning_show()
+warning_show
 sudo python setup.py install
 cd /home/"${1}" || exit
 sudo git clone https://github.com/rm-hull/bme280.git
 cd /home/"${1}"/bme280 || exit
-warning_show()
+warning_show
 sudo python setup.py install
 sudo apt-get install openjdk-8-jdk-headless -y
 sudo rm /lib/systemd/system/rotorhazard.service > /dev/null 2>&1

@@ -125,7 +125,7 @@ def installation(conf_allowed, config):
         print("\nInternet connection - OK")
         sleep(2)
         clear_the_screen()
-        print(f"{Bcolors.BOLD}Installation process has been started - please wait...{Bcolors.ENDC}")
+        print(f"{Bcolors.BOLD}Installation process has been started - please wait...{Bcolors.ENDC}\n")
         installation_completed = """
         
         

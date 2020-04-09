@@ -43,7 +43,7 @@ cp /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/config.json /home/"${1}"
 cp /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/database.db /home/"${1}"/RotorHazard/src/server/ >/dev/null 2>&1 &
 cp /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/database.db /home/"${1}"/backup_RH_data >/dev/null 2>&1 &
 cd /home/"${1}"/RotorHazard/src/server || exit
-warning_show()
+warning_show
 sudo pip install --upgrade --no-cache-dir -r requirements.txt
 
 # os.system("sudo -H python -m pip install --upgrade pip")
