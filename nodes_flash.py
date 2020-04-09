@@ -383,7 +383,7 @@ def check_uart_con_with_gpio_node(config):
     print(f"\n\t\t\t{Bcolors.BOLD}Node {config.nodes_number} - checked{Bcolors.ENDC}\n\n")
     sleep(1)
     input("\nPress ENTER to continue.")
-
+# todo test gpio uart connection testing
 
 def check_uart_devices(config):  # nodes have to be 'auto-numbered'
     nodes_num = config.nodes_number

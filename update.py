@@ -253,20 +253,20 @@ def features_menu(config):
         logo_top(config.debug_mode)
         features_menu_content = """
     
-                        {red}{bold}{underline}FEATURES MENU{endc}{blue}{bold}
+                    {red}{bold}{underline}FEATURES MENU{endc}{blue}{bold}
     
              
-                            1 - Enable serial protocol {endc}{bold}
+                        1 - Enable serial protocol {endc}{bold}
+                        
+                        2 - Access Point and Internet 
+                        
+                        3 - Show actual Pi's GPIO
+                        
+                        4 - Useful aliases
+                        
+                        5 - Update OTA software {endc}{yellow}{bold}
                             
-                            2 - Access Point and Internet 
-                            
-                            3 - Show actual Pi's GPIO
-                            
-                            4 - Useful aliases
-                            
-                            5 - Update OTA software {endc}{yellow}{bold}
-                                
-                            e - Exit to main menu {endc}
+                        e - Exit to main menu {endc}
     
                  """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
                             blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S)
