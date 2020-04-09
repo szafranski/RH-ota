@@ -199,6 +199,7 @@ def update(config):
             print(update_completed)
             config_flag, config_soft = check_rotorhazard_config_status(config)
             server_installed_flag, server_version_name = get_rotorhazard_server_version(config)
+            os.system("sudo chmod -R 777 ~/RotorHazard")
             end_update(config, config_flag, server_installed_flag)
 
 
