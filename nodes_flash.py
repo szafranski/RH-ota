@@ -47,12 +47,12 @@ def odd_number_of_nodes_check(config):
 
 
 def show_flash_error_msg():
-    flash_error = 'printf"\n\n    !!! ---- Flashing error - try again ---- !!! \n\n"'
+    flash_error = '"\n\n    !!! ---- Flashing error - try again ---- !!! \n\n"'
     return flash_error
 
 
 def show_uart_con_error_msg():
-    uart_error = '"printf\n\n    !!! ---- No UART connection with device ---- !!! \n\n"'
+    uart_error = '"\n\n    !!! ---- No UART connection with device ---- !!! \n\n"'
     return uart_error
 
 

@@ -2,6 +2,14 @@
 # $1 is linux user name
 # $2 is actual version of RotorHazard to get.
 
+warning_show(){
+  echo "
+
+  WARNING: Installing additional software may take few minuts
+
+"
+}
+
 sudo apt-get update && sudo apt-get upgrade -y
 sudo apt autoremove -y
 sudo apt install wget python2.7 ntp libjpeg-dev i2c-tools python-dev libffi-dev python-smbus build-essential python-pip python-rpi.gpio git scons swig zip -y
@@ -20,21 +28,25 @@ wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"${2}" -O temp.zip
 unzip temp.zip
 rm temp.zip
 mv /home/"${1}"/RotorHazard-"${2}" /home/"${1}"/RotorHazard || exit 1
+warning_show()
 sudo -H pip install -r /home/"${1}"/RotorHazard/src/server/requirements.txt
 sudo chmod 777 -R /home/"${1}"/RotorHazard/src/server
 cd /home/"${1}" || exit
 sudo git clone https://github.com/jgarff/rpi_ws281x.git
 cd /home/"${1}"/rpi_ws281x || exit
+warning_show()
 sudo scons
 cd /home/"${1}"/rpi_ws281x/python || exit
 sudo python setup.py install
 cd /home/"${1}" || exit
 sudo git clone https://github.com/chrisb2/pi_ina219.git
 cd /home/"${1}"/pi_ina219 || exit
+warning_show()
 sudo python setup.py install
 cd /home/"${1}" || exit
 sudo git clone https://github.com/rm-hull/bme280.git
 cd /home/"${1}"/bme280 || exit
+warning_show()
 sudo python setup.py install
 sudo apt-get install openjdk-8-jdk-headless -y
 sudo rm /lib/systemd/system/rotorhazard.service
