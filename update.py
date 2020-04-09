@@ -5,7 +5,7 @@ from time import sleep
 from conf_wizard_net import conf_wizard_net
 from conf_wizard_ota import conf_ota
 from modules import clear_the_screen, Bcolors, logo_top, image_show, ota_image, load_config, load_ota_config, \
-    write_ota_config, get_ota_version
+    write_ota_config, get_ota_version, server_start
 from net_and_ap import net_and_ap_conf
 from rpi_update import main_window as rpi_update
 from nodes_flash import flashing_menu
@@ -416,19 +416,7 @@ def main_menu(config):
             old_flash_gpio(config) if config.old_hw_mod else flashing_menu(config)
             # enters "old" flashing menu only when "old_hw_mod" is confirmed
         if selection == '3':
-            server_stat = os.system("timeout 2 systemctl is-active --quiet rotorhazard")
-            # todo checking if RH service is already running and only than letting user start the server
-            if server_stat == 0:
-                try:
-                    clear_the_screen()
-                    os.system(". ./scripts/server_start.sh")
-                except KeyboardInterrupt:
-                    print("Server closed manually")
-                    input("Hit Enter to continue")
-                    continue
-            else:
-                print("Server is already running as a service")
-                input("Hit Enter to continue")
+            server_start()
         if selection == '4':
             features_menu(config)
         if selection == '5':

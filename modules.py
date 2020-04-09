@@ -147,6 +147,21 @@ def get_ota_version(checking_from_updater):
     return version
 
 
+def server_start():
+    server_stat = os.system("timeout 2 systemctl is-active --quiet rotorhazard")
+    # todo checking if RH service is already running and only than letting user start the server
+    if server_stat == 0:
+        try:
+            clear_the_screen()
+            os.system(". ./scripts/server_start.sh")
+        except KeyboardInterrupt:
+            print("Server closed manually")
+            input("Hit Enter to continue")
+    else:
+        print("Server is already running as a service")
+        input("Hit Enter to continue")
+
+
 def load_config():
     if os.path.exists("./updater-config.json"):
         config = load_json("./updater-config.json")

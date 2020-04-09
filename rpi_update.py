@@ -3,7 +3,7 @@ from pathlib import Path
 from time import sleep
 from conf_wizard_rh import conf_rh
 from modules import clear_the_screen, Bcolors, image_show, internet_check, load_ota_config, write_ota_config, \
-    load_config
+    load_config, server_start
 
 
 def check_preferred_rh_version(config):
@@ -75,9 +75,8 @@ def end_update(config, server_configured_flag, server_installed_flag):
         if selection == 'r':
             os.system("sudo reboot")
         if selection == 's':
-            clear_the_screen()
             os.chdir(f"/home/{config.user}/RH-ota")
-            os.system("./scripts/server_start.sh")
+            server_start()
         if selection == 'o':
             os.chdir(f"/home/{config.user}/RH-ota")
             os.system(f"./scripts/clear_old_rh.sh {config.user}")

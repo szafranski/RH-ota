@@ -17,11 +17,11 @@ error_handling(){
   python server.py ;
   echo "
 
-LOOKS LIKE ERROR OCCURED
+LOOKS LIKE ERROR OCCURRED
 
 Please try:
-manually enabling I2C interface with <sudo raspi-config>
-manually changing RH directory permissions with <sudo chmod -R 777 ~/RotorHazard>
+manually enabling I2C interface with 'sudo raspi-config'
+manually changing RH directory permissions with 'sudo chmod -R 777 ~/RotorHazard'
 "
 read -p "Hit Enter when done " var
 }
