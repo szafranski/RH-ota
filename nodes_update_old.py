@@ -234,7 +234,6 @@ def nodes_update(config):
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
-        sleep(0.05)
         node_menu = """
         
                         {rmh}CHOOSE FLASHING TYPE:{endc}

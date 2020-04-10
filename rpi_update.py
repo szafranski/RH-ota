@@ -227,19 +227,20 @@ def main_window(config):
             Server installed right now: {server} {bold}
             
             RotorHazard configuration state: {config_soft}
+            
             """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, blue=Bcolors.BLUE,
                        yellow=Bcolors.YELLOW, red=Bcolors.RED, orange=Bcolors.ORANGE, server_version=config.rh_version,
                        user=config.user, config_soft=rh_config_text, server=server_version_name)
         print(welcome_text)
 
         if not rh_config_flag:
-            configure = f"{Bcolors.GREEN}'c' - Configure RotorHazard server{Bcolors.ENDC}"
+            configure = f"{Bcolors.GREEN}c - Configure RotorHazard server{Bcolors.ENDC}"
         else:
-            configure = "'c' - Reconfigure RotorHazard server"
+            configure = "c - Reconfigure RotorHazard server"
         if not server_installed_flag:
             install = f"{Bcolors.GREEN}'i' - Install software from scratch{Bcolors.ENDC}"
         else:
-            install = "'i' - Install software from scratch"
+            install = "i - Install software from scratch"
         print("""
                     {install}
                     

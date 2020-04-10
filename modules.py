@@ -62,22 +62,20 @@ def check_if_string_in_file(file_name, string_to_search):
 
 
 def logo_top(linux_testing):
-    logo = """
+    debug_status = f"{Bcolors.PROMPT}Linux PC version - debug mode{Bcolors.ENDC}" if linux_testing else 29 * ' '
+    print("""
     \n    
     #######################################################################
     ###                                                                 ###
     ###    {orange}{bold}        RotorHazard             {endc}         ###
     ###                                                                 ###
-    ###        {bold}        OTA Updater and Manager     {endc}         ###
-    ###                                                                 ###
-    #######################################################################\
-    """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S,
-               yellow=Bcolors.YELLOW_S, orange=Bcolors.ORANGE_S)
+    ###        {bold}      OTA Updater and Manager     {endc}           ###
+    ###                 {place_for_debug_status_here}                   ###
+    #######################################################################
+    """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, place_for_debug_status_here=debug_status,
+               yellow=Bcolors.YELLOW_S, orange=Bcolors.ORANGE_S))
 
-    print(logo)
-    if linux_testing:
-        print("\t\t\t\t\tLinux PC version - debug mode")
-    sleep(0.05)
+
 
 
 class Bcolors:

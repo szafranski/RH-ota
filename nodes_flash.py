@@ -180,7 +180,6 @@ def node_selection_menu(config):
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
-        sleep(0.05)
         flash_node_menu = """\n
         
                     {red}{bold}NODES MENU{endc}{bold}
@@ -222,7 +221,6 @@ def node_selection_menu(config):
 def specific_node_menu(config, selected_node_number):
     clear_the_screen()
     logo_top(config.debug_mode)
-    sleep(0.05)
     while True:
         print(f"""
         {Bcolors.BOLD}\n\n\t\t\tNode {str(selected_node_number)}  selected{Bcolors.ENDC}\n
@@ -256,7 +254,6 @@ def specific_node_menu(config, selected_node_number):
 def odd_node_menu(config):
     clear_the_screen()
     logo_top(config.debug_mode)
-    sleep(0.05)
     odd_number = odd_number_of_nodes_check(config)
     while odd_number:
         print(f"""{Bcolors.BOLD}
@@ -414,7 +411,6 @@ def flashing_menu(config):
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
-        sleep(0.05)
         node_menu = """\n
         
                           {rmh}FLASHING MENU{endc}

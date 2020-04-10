@@ -311,7 +311,7 @@ def first_time():
         while True:
             clear_the_screen()
             welcome_second_page = """
-                        {bold}{underline}CONFIGURATION PROCESS{endc}
+                            {bold}{underline}CONFIGURATION PROCESS{endc}
     
             {bold} 
             Software configuration process can be assisted with a wizard. 
@@ -330,7 +330,7 @@ def first_time():
             > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested){endc}  
                 
             
-            f - First page'       u - Update notes' {yellow}       b - Back to menu{endc}
+                f - First page'         u - Update notes' {yellow}   b - Back to menu{endc}
                   
             """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
                        blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S,
@@ -366,7 +366,7 @@ def first_time():
                                                     Szafran
             
                 {green}
-            s - Second page {endc}  u - Update notes {yellow}e - Exit to main menu {endc}
+            s - Second page {endc}        u - Update notes {yellow}e - Exit to main menu {endc}
             """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, yellow=Bcolors.YELLOW_S, bold=Bcolors.BOLD)
             print(welcome_first_page)
             selection = input()
