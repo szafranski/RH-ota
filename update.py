@@ -87,31 +87,30 @@ User code: {code}
 
 
 def updated_check(config):
-    if os.path.exists(f"/home/{config.user}/.ota_markers/.was_updated"):
-        while True:
-            clear_the_screen()
-            logo_top(config.debug_mode)
-            print("""\n\n {bold}
-            
-            Software was updated recently to the new version.
-    
-            You can read update notes now.
-    
-    
-             {endc}  {green} 
-                r - Read update notes {endc}{yellow}
-    
-                s - Skip and don't show again{endc}
-                """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC,
-                           green=Bcolors.GREEN, yellow=Bcolors.YELLOW))
-            selection = input()
-            if selection == 'r':
-                os.system("less ./docs/update-notes.txt")
-                os.system(f"rm /home/{config.user}/.ota_markers/.was_updated >/dev/null 2>&1")
-                break
-            if selection == 's':
-                os.system(f"rm /home/{config.user}/.ota_markers/.was_updated >/dev/null 2>&1")
-                break
+    while os.path.exists(f"/home/{config.user}/.ota_markers/.was_updated"):
+        clear_the_screen()
+        logo_top(config.debug_mode)
+        print("""\n\n {bold}
+        
+        Software was updated recently to the new version.
+
+        You can read update notes now.
+
+
+         {endc}  {green} 
+            r - Read update notes {endc}{yellow}
+
+            s - Skip and don't show again{endc}
+            """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC,
+                       green=Bcolors.GREEN, yellow=Bcolors.YELLOW))
+        selection = input()
+        if selection == 'r':
+            os.system("less ./docs/update-notes.txt")
+            os.system(f"rm /home/{config.user}/.ota_markers/.was_updated >/dev/null 2>&1")
+            break
+        if selection == 's':
+            os.system(f"rm /home/{config.user}/.ota_markers/.was_updated >/dev/null 2>&1")
+            break
 
 
 def welcome_screen(updater_version):
