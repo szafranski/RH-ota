@@ -31,11 +31,6 @@ def config_check():
         return True
 
 
-def log_to_dev(config):
-    log_write(config)
-    log_send(config)
-
-
 def read_aliases_file():
     aliases_to_show = []
     with open('./resources/aliases.txt', 'r') as aliases_file:
@@ -56,6 +51,11 @@ def read_aliases_file():
     return aliases_to_show
 
 
+def log_to_dev(config):
+    log_write(config)
+    log_send(config)
+
+
 def log_write(config):
     os.system(f"./scripts/log_write.sh {config.user}")
 
@@ -71,21 +71,26 @@ def log_send(config):
             code = ''
             for line in f:
                 code = line
-            print(f"""
+            code_error_msg = """
+                -- Error occurred --
+                
+        Please send log file manually - from 'log_data' folder. 
+        Uploading to server process has failed.
+            """
+            code_report = f"""
 
 User code: {code}
 
 ------------------------------
 
-""")
-            input("Hit 'Enter' to continue\n\n")
-            if not os.system("cowsay You are awesome! Fly safe."):
-                sleep(3)
-            break
+"""
+            print(code_report) if code != '' else print(code_error_msg)
         if selection == 'n' or selection == 'no':
-            print("\n\n\tOK - you log file is stored under 'log.txt' name in RH-ota directory.")
-            input("\n\n\tHit 'Enter' to continue\n\n")
-            break
+            print("\n\nOK - your log file is stored as 'log.txt' in RH-ota/log_data/ directory.")
+        input("\nHit 'Enter' to continue\n\n")
+        if not os.system("cowsay You are awesome! Fly safe."):
+            sleep(3)
+        break
 
 
 def updated_check(config):
@@ -137,7 +142,9 @@ def serial_menu(config):
         print("""
         
         Serial port enabled successfully.
-        You have to reboot Raspberry now. Ok?
+        You have toz reboot Raspberry now,
+        so changes would be implemented. Ok?
+        
         
         
         r - Reboot now{yellow}

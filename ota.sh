@@ -92,11 +92,6 @@ else
   echo i2c-tools has to be installed && sudo apt install i2c-tools -y
 fi
 
-#if grep -q 'zip' aptinstalled.tmp; then
-#  echo zip"              "found
-#else
-#  echo zip has to be installed && sudo apt install zip unzip  -y
-#fi
 
 # Cleanup after myself.
 rm pip3installed.tmp
