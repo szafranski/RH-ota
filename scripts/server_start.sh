@@ -28,6 +28,8 @@ read -p "Hit Enter when done " var
 
 printf "Server booting, please wait"
 dots5
+echo
+printf "You can stop the server by pressing Ctrl+C "
 cd ~/RotorHazard/src/server || exit
 python server.py || error_handling
 
