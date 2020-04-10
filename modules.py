@@ -11,14 +11,14 @@ from types import SimpleNamespace as Namespace, SimpleNamespace
 
 
 def clear_the_screen():
-    sleep(0.05)
+    sleep(0.03)
     if platform.system() == "Windows":
         os.system("cls")
     elif platform.system() == "Linux":
         os.system("clear")
     else:
         print(("\n" * 200))
-    sleep(0.05)
+    sleep(0.03)
 
 
 def dots_show(duration):
@@ -74,8 +74,6 @@ def logo_top(linux_testing):
     #######################################################################
     """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, place_for_debug_status_here=debug_status,
                yellow=Bcolors.YELLOW_S, orange=Bcolors.ORANGE_S))
-
-
 
 
 class Bcolors:

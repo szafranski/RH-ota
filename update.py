@@ -19,12 +19,12 @@ def compatibility():  # adds compatibility and fixes with previous versions
 
 def config_check():
     if not os.path.exists("./updater-config.json"):
-        prompt = f"""
+        prompt = """
 
-          {Bcolors.PROMPT}  Looks that you haven't set up config file yet.     {Bcolors.ENDC}
-          {Bcolors.PROMPT}  Please read about configuration process - point 5  {Bcolors.ENDC}
-          {Bcolors.PROMPT}  and next enter configuration wizard - point 6.     {Bcolors.ENDC}
-"""
+          {prompt}  Looks that you haven't set up config file yet.     {endc}
+          {prompt}  Please read about configuration process - point 5  {endc}
+          {prompt}  and next enter configuration wizard - point 6.     {endc}
+""".format(prompt=Bcolors.PROMPT, endc=Bcolors.ENDC)
         print(prompt)
         return False
     else:
@@ -152,16 +152,16 @@ def serial_menu(config):
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
-        serial_adding_menu = f"""
-            Serial port has to be enabled. 
-            Without it Arduinos cannot be programmed.
+        serial_adding_menu = """
+            Serial port (UART) has to be enabled. 
+            Without it Arduino-nodes cannot be programmed.
             Do you want to enable it now?
             
-            {Bcolors.GREEN}
-            y - for yes {Bcolors.ENDC}
-            {Bcolors.YELLOW}
-            a - for abort{Bcolors.ENDC}
-            """
+            
+     {green}y - for yes {endc}
+            
+    {yellow}a - for abort{endc}
+            """.format(yellow=Bcolors.YELLOW, green=Bcolors.GREEN, endc=Bcolors.ENDC)
         selection = input(serial_adding_menu)
         if selection == 'y':
             if ota_status.uart_support_added:
@@ -188,7 +188,7 @@ def aliases_menu(config):
         ota_status.aliases_implemented = True
         write_ota_sys_markers(ota_status, config.user)
         print("\n\n\t\t    Aliases added successfully")
-        sleep(3)
+        sleep(2)
         return
 
     while True:
@@ -209,7 +209,12 @@ def aliases_menu(config):
         selection = input(f"\n\t\t\t{Bcolors.YELLOW}Press 'y' for yes or 'a' for abort{Bcolors.ENDC}\n")
         if selection == 'y':
             if ota_status.aliases_implemented:
-                print("\n\n\t\tLooks like you already have aliases added. \n\t\tDo you want to continue anyway?\n")
+                print("""
+                
+        Looks like you already have aliases added. 
+        Do you want to continue anyway?
+        
+        """)
                 selection = input(f"\t\t\t{Bcolors.YELLOW}Press 'y' for yes or 'a' for abort{Bcolors.ENDC}\n")
                 if selection == 'y':
                     aliases_content()
@@ -227,8 +232,8 @@ def self_updater(config):
 
     def check_if_beta_user(config):
         if config.beta_tester:
-            updater_info = f'{Bcolors.RED}Beta-tester mode is enabled - update will contain OTA in beta version.\
-{Bcolors.ENDC}\n'
+            updater_info = f'{Bcolors.RED}' \
+                           f'Beta-tester mode is enabled - update will contain OTA in beta version.{Bcolors.ENDC}\n'
         else:
             updater_info = ''
 
