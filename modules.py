@@ -64,7 +64,7 @@ def check_if_string_in_file(file_name, string_to_search):
 def logo_top(linux_testing):
     debug_status = f"{Bcolors.PROMPT}Linux PC version - debug mode{Bcolors.ENDC}" if linux_testing else 29 * ' '
     print("""
-    \n    
+    
     #######################################################################
     ###                                                                 ###
     ###    {orange}{bold}        RotorHazard             {endc}         ###
