@@ -160,8 +160,11 @@ def server_start():
             print("Server closed manually")
             input("Hit Enter to continue")
     else:
+        clear_the_screen()
         print("Server is already running as a service")
-        input("Hit Enter to continue")
+        print("Do you want to try to start in anyway? [y/n]")
+        selection = input("")
+        os.system(". ./scripts/server_start.sh") if selection == 'y' else None
 
 
 def load_config():
