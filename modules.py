@@ -150,8 +150,6 @@ def get_ota_version(checking_from_updater):
 
 def server_start():
     server_stat = os.popen('service rotorhazard status').read()
-    # todo checking if RH service is already running and only than letting user start the server
-    # for now it doesnt work properly with that method
     if 'running' not in server_stat:
         try:
             clear_the_screen()
