@@ -55,17 +55,7 @@ def check_rotorhazard_config_status(config):
     return config_soft, config_flag
 
 
-def check_for_old_rh():
-    if os.path.exists('./old_rh_found'):
-        os.system("rm ./old_rh_found > /dev/null 2>&1")
-        return True
-    else:
-        return False
-
-
 def end_update(config, server_configured_flag, server_installed_flag):
-    clear_color = Bcolors.GREEN if check_for_old_rh() else None
-    # todo needs tweaking
     if not server_configured_flag and server_installed_flag:
         configure = f"{Bcolors.GREEN}'c' - configure RotorHazard now{Bcolors.ENDC}"
     else:
@@ -76,9 +66,9 @@ def end_update(config, server_configured_flag, server_installed_flag):
         
                     'r' - reboot - recommended when configured
                     
-                    's' - start the server now{clear_color}
+                    's' - start the server now {Bcolors.YELLOW}
                     
-                    'o' - clear old RotorHazard installations {Bcolors.YELLOW}
+                    'o' - clear old RotorHazard installations 
                     
                     'e' - exit now{Bcolors.ENDC}""")
         selection = input()
@@ -88,8 +78,8 @@ def end_update(config, server_configured_flag, server_installed_flag):
             os.chdir(f"/home/{config.user}/RH-ota")
             server_start()
         if selection == 'o':
-            os.chdir(f"/home/{config.user}/RH-ota")
-            os.system(f"./scripts/clear_old_rh.sh {config.user}")
+            os.system("rm -rf ~/RotorHazard_*")
+            print("old installations cleaned")
         if selection == 'c':
             conf_rh()
         if selection == 'e':
