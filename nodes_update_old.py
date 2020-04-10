@@ -237,7 +237,8 @@ def nodes_update(config):
         sleep(0.05)
         node_menu = """
         
-         {bold}{underline}CHOOSE FLASHING TYPE:{endc}
+                        {rmh}CHOOSE FLASHING TYPE:{endc}
+        
         
    {green}{bold}1 - Nodes using ground-auto numbering firmware - rec.{endc}
                 
@@ -251,7 +252,7 @@ def nodes_update(config):
                 
         {yellow}e - Exit to main menu{endc}
         """.format(bold=Bcolors.BOLD_S, green=Bcolors.GREEN_S, yellow=Bcolors.YELLOW_S,
-                   endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE_S)
+                   endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE, rmh=Bcolors.RED_MENU_HEADER)
         print(node_menu)
         sleep(0.1)
         selection = input()
