@@ -151,17 +151,16 @@ def get_ota_version(checking_from_updater):
 def server_start():
     server_stat = os.popen('service rotorhazard status').read()
     if 'running' not in server_stat:
-        try:
-            clear_the_screen()
-            os.system(". ./scripts/server_start.sh")
-        except KeyboardInterrupt:
-            print("Server closed manually")
-            input("Hit Enter to continue")
+        clear_the_screen()
+        os.system("./scripts/server_start.sh")
     else:
         clear_the_screen()
         print("Server is already running as a service")
-        selection = input("Do you want to try to start in anyway? [y/n] ")
-        os.system(". ./scripts/server_start.sh") if selection == 'y' else None
+        selection = input("Do you want to stop it and than start the server? [y/n] ")
+        if selection == 'y':
+            os.system("sudo systemctl stop rotorhazard")
+            print("Server service stopped. Please wait.\n")
+            os.system("./scripts/server_start.sh")
 
 
 def load_config():

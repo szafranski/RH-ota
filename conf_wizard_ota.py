@@ -123,8 +123,8 @@ which pin will be used as GPIO reset pin?
         while True:
             old_hw_mod = input("""
 Are you using older, non-i2c hardware flashing mod? 
-(nodes reset pins connected to gpio pins) [ yes/no | default: no ]\t""").lower()[
-                0]  # honestly, we only care about the first letter.
+(nodes reset pins connected to gpio pins) [ yes/no | default: no ]\t""").lower()[0]
+            # honestly, we only care about the first letter.
             if old_hw_mod == "y":
                 old_hw_mod, config.old_hw_mod = True, True
                 break
