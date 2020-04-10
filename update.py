@@ -25,6 +25,9 @@ def config_check():
           {GandB}  Please read about configuration process - point 5  {endc}
           {GandB}  and next enter configuration wizard - point 6.     {endc}
 """.format(GandB=Bcolors.BOLD + Bcolors.GREEN_BACK, endc=Bcolors.ENDC))
+        return False
+    else:
+        return True
 
 
 def log_to_dev(config):
@@ -305,7 +308,7 @@ def first_time():
         while True:
             clear_the_screen()
             welcome_second_page = """
-                    {bold}{underline}       CONFIGURATION PROCESS       {endc}
+                        {bold}{underline}CONFIGURATION PROCESS{endc}
     
             {bold} 
             Software configuration process can be assisted with a wizard. 
@@ -322,11 +325,13 @@ def first_time():
             > {blue}'beta'  {endc}{bold}- last 'beta' release (usually has about few weeks, quite stable){endc}
             
             > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested){endc}  
-                """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
-                           blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
+                
+            
+            'f' - first page'       'u' - update notes' {yellow}       'b' - back to menu{endc}
+                  
+            """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
+                    blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
             print(welcome_second_page)
-            print(f"\n\n\t'f' - first page'{Bcolors.GREEN}\t'u' - update notes'{Bcolors.ENDC}\
-                {Bcolors.YELLOW}\t'b' - back to menu{Bcolors.ENDC}\n\n")
             selection = input()
             if selection == 'f':
                 return False  # go back to first page
@@ -340,10 +345,10 @@ def first_time():
             clear_the_screen()
             welcome_first_page = """{bold}  
     
-            You can use all implemented features, but if you want to be able to program
-            Arduino-based nodes - enter Features menu and begin with first 2 points.
+            You can use all implemented features, but if you want to be able to flash
+            Arduino-nodes, you have to use official PCB or have 'hardware mod" done.
     
-            Also remember about setting up config file - check second page.  
+            Please remember about setting up config file - check out second page.  
     
             This program has ability to perform 'self-updates' - in "Features Menu".
     
@@ -355,16 +360,15 @@ def first_time():
             
                     Enjoy!
                                                     Szafran
-            {endc}""".format(bold=Bcolors.BOLD, endc=Bcolors.ENDC)
-            print(welcome_first_page)
-            welcome_first_page_menu = """{green}
+            
+                {green}
                 s - second page {endc}
             
                 u -  update notes {yellow}
             
                 b - back to main menu {endc}
-            """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, yellow=Bcolors.YELLOW)
-            print(welcome_first_page_menu)
+            """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, yellow=Bcolors.YELLOW, bold=Bcolors.BOLD)
+            print(welcome_first_page)
             selection = input()
             if selection == 's':
                 go_back_again = second_page()
@@ -393,6 +397,7 @@ def main_menu(config):
         clear_the_screen()
         logo_top(config.debug_mode)
         config_check()
+        conf_color = Bcolors.GREEN if config_check() == False else ''
         main_menu_content = """
         
                     {red}{bold}{underline}MAIN MENU{endc}
@@ -406,14 +411,14 @@ def main_menu(config):
                             
                         4 - Additional features
                             
-                        5 - Info + first time here
+                        5 - Info + first time here{configured}
                             
                         6 - Configuration wizard {endc}{yellow}
                             
                         e - Exit {endc}
                             
-                """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
-                           blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S)
+                """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, green=Bcolors.GREEN,
+                           blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, configured=conf_color)
         print(main_menu_content)
         selection = input()
         if selection == '1':

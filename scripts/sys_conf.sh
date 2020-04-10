@@ -13,7 +13,7 @@ dtparam=i2c_arm=on
 sudo sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf
 sudo sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf
 
-# todo shows error during installation - according to last 2 lines above
+# todo shows error during installation - according to last 2 lines above - IMPORTANT TO FIX!
 #if ./isPi4.sh ; then
 # sed -i 's/core_freq=250/#core_freq=250/' /boot/config.txt > /dev/null 2>&1
 #fi
