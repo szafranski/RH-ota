@@ -2,8 +2,8 @@ import os
 from pathlib import Path
 from time import sleep
 from conf_wizard_rh import conf_rh
-from modules import clear_the_screen, Bcolors, image_show, internet_check, load_ota_config, write_ota_config, \
-    load_config, server_start
+from modules import clear_the_screen, Bcolors, image_show, internet_check, load_ota_sys_markers, \
+    write_ota_sys_markers, load_config, server_start
 
 
 def check_preferred_rh_version(config):
@@ -276,7 +276,7 @@ def main_window(config):
             
             'a' - Abort both  {endc}
             """.format(bold=Bcolors.BOLD, endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE,
-                                                  yellow=Bcolors.YELLOW, green=Bcolors.GREEN)
+                       yellow=Bcolors.YELLOW, green=Bcolors.GREEN)
                 print(already_installed_prompt)
                 selection = input()
                 if selection == 'u':

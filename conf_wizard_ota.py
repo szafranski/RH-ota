@@ -69,8 +69,8 @@ Default values are not automatically applied. Type them if needed.\n""")
                 if version == 'custom':
                     print("Support for custom versions of RH coming soon")
                     input("Press Enter")
-                    continue    # todo add support for custom version of RotorHazard
-                                # maybe sth like "check_if_rh_version_is_custom()" in nodes_update
+                    continue  # todo add support for custom version of RotorHazard
+                    # maybe sth like "check_if_rh_version_is_custom()" in nodes_update
                     # config.rh_version = ask_custom_rh_version()
                 break
 

@@ -1,6 +1,6 @@
 from time import sleep
 import os
-#import shutil
+# import shutil
 from modules import load_config, dots_show, internet_check, get_ota_version
 
 
@@ -32,7 +32,7 @@ def self_update(config):
             source = 'main_stable'
         os.system(f"./scripts/self_updater.sh {source}")
         # if config:  # if the config variable is not empty, then the config file must have existed.
-            # shutil.copyfile("~/.ota_markers/old_RH-ota/updater-config.json", "~/RH-ota/updater-config.json")
+        #   shutil.copyfile("~/.ota_markers/old_RH-ota/updater-config.json", "~/RH-ota/updater-config.json")
         new_version_name = get_ota_version(True)
         print(f"""
     

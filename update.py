@@ -4,16 +4,16 @@ from time import sleep
 
 from conf_wizard_net import conf_wizard_net
 from conf_wizard_ota import conf_ota
-from modules import clear_the_screen, Bcolors, logo_top, image_show, ota_image, load_config, load_ota_config, \
-    write_ota_config, get_ota_version, server_start
-from net_and_ap import net_and_ap_conf
+from modules import clear_the_screen, Bcolors, logo_top, image_show, ota_image, load_config, load_ota_sys_markers, \
+    write_ota_sys_markers, get_ota_version, server_start
+# from net_and_ap import net_and_ap_conf
 from rpi_update import main_window as rpi_update
 from nodes_flash import flashing_menu
 from nodes_update_old import nodes_update as old_flash_gpio
 
 
 def compatibility():  # adds compatibility and fixes with previous versions
-    from prev_comp import prev_comp
+    from prev_comp import main as prev_comp
     prev_comp()
 
 
@@ -223,7 +223,8 @@ def self_updater(config):
 
     def check_if_beta_user(config):
         if config.beta_tester:
-            updater_info = f'{Bcolors.RED}Beta-tester mode is enabled - update will contain OTA in beta version.{Bcolors.ENDC}\n'
+            updater_info = f'{Bcolors.RED}Beta-tester mode is enabled - update will contain OTA in beta version.\
+{Bcolors.ENDC}\n'
         else:
             updater_info = ''
 
