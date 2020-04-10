@@ -128,8 +128,7 @@ def serial_menu(config):
 
     def serial_content():
         # TODO Make this repeatable without adding multiple copies at the end of config.txt.
-        # P.F. or just make it as an automatic feature when opening nodes-flashing menu
-        # for the first time
+        # P.F.: I added this to be performed when entering nodes flashing for the first time
         os.system("echo 'enable_uart=1'| sudo tee -a /boot/config.txt")
         os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
         print("UART enabled")
