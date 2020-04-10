@@ -162,8 +162,7 @@ def server_start():
     else:
         clear_the_screen()
         print("Server is already running as a service")
-        print("Do you want to try to start in anyway? [y/n]")
-        selection = input("")
+        selection = input("Do you want to try to start in anyway? [y/n] ")
         os.system(". ./scripts/server_start.sh") if selection == 'y' else None
 
 
