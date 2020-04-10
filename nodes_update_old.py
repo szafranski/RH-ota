@@ -3,19 +3,20 @@ import os
 from modules import clear_the_screen, Bcolors, logo_top, load_config
 from nodes_flash import main as new_flashing
 
-try:
-    # GPIO is only definable on the pi.
-    # Try and import it but continue if it is not found.
-    import RPi.GPIO as GPIO
-    GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
-except ModuleNotFoundError:
-    print("GPIO import - failed - works only on Pi")
-    print("Try manually install RPI.GPIO with 'pip3 install rpi.gpio'")
-    sleep(1)
-except RuntimeError:
-    print("GPIO import - failed - works only on Pi")
-    sleep(1)
+def import_gpio():  # done that way so errors don't show on non-raspbian oses during program boot
+    try:
+        # GPIO is only definable on the pi.
+        # Try and import it but continue if it is not found.
+        import RPi.GPIO as GPIO
+        GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
+    except ModuleNotFoundError:
+        print("GPIO import - failed - works only on Pi")
+        print("Try manually install RPI.GPIO with 'pip3 install rpi.gpio'")
+        sleep(1)
+    except RuntimeError:
+        print("GPIO import - failed - works only on Pi")
+        sleep(1)
 
 
 """
@@ -65,6 +66,7 @@ def pins_assignment(config):
 
 def gpio_init(config, reset_pins):
     if not config.debug_mode:
+        import_gpio()
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
         GPIO.setup(reset_pins[0], GPIO.OUT, initial=GPIO.HIGH)
@@ -79,6 +81,7 @@ def gpio_init(config, reset_pins):
 
 def all_pins_high(config, reset_pins):
     if not config.debug_mode:
+        import_gpio()
         GPIO.output(reset_pins[0], GPIO.HIGH)
         GPIO.output(reset_pins[1], GPIO.HIGH)
         GPIO.output(reset_pins[2], GPIO.HIGH)
@@ -110,6 +113,7 @@ def logo_update(config):
 
 def flash_a_node(config, reset_pin, node_number):
     if not config.debug_mode:
+        import_gpio()
         all_pins_high(config, pins_assignment(config))
         GPIO.output(reset_pin, GPIO.LOW)
         sleep(0.1)
@@ -125,6 +129,7 @@ def flash_a_node(config, reset_pin, node_number):
 
 def flash_a_blink(config, reset_pin, node_number):
     if not config.debug_mode:
+        import_gpio()
         all_pins_high(config, pins_assignment(config))
         GPIO.output(reset_pin, GPIO.LOW)
         sleep(0.1)
@@ -139,12 +144,14 @@ def flash_a_blink(config, reset_pin, node_number):
 
 
 def flash_all_blink(config, reset_pins):
+    import_gpio()
     for node in range(1, config.nodes_number + 1):
         pin = reset_pins[node - 1]
         flash_a_blink(config, pin, node)
 
 
 def flash_all_gnd(config, reset_pins):
+    import_gpio()
     for node in range(1, config.nodes_number + 1):
         pin = reset_pins[node - 1]
         flash_a_node(config, pin, node)
@@ -203,6 +210,7 @@ def flash_each_node(config):
 
 
 def gpio_state(config):
+    import_gpio()
     clear_the_screen()
     logo_top(config.debug_mode)
     print("\n\n\n")
