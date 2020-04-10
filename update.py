@@ -36,12 +36,14 @@ def log_to_dev(config):
     log_send(config)
 
 
-def read_aliases_file():  # todo almost done, readability has to be improved yet (remove "(...)" part from every line
+def read_aliases_file():
     aliases_to_show = []
     with open('./resources/aliases.txt', 'r') as aliases_file:
         for line in aliases_file:
             if 'alias ' in line and '###' not in line:
                 line = line.replace('alias ', '')
+                line = line[0:line.index('=')] + ' ' + line[line.index('#'):-1]
+                line = line.replace('#', '\t\t\t')
                 aliases_to_show.append(line)
             elif '#' in line and '###' not in line:
                 line = line.replace('#', '')
@@ -49,7 +51,7 @@ def read_aliases_file():  # todo almost done, readability has to be improved yet
             elif '###' not in line:
                 aliases_to_show.append(line)
 
-    aliases_to_show = (''.join(aliases_to_show))
+    aliases_to_show = ('\n\t\t'.join(aliases_to_show))
 
     return aliases_to_show
 
@@ -211,8 +213,8 @@ def aliases_menu(config):
             if ota_status.aliases_implemented:
                 print("""
                 
-        Looks like you already have aliases added. 
-        Do you want to continue anyway?
+            Looks like you already have aliases added. 
+            Do you want to continue anyway?
         
         """)
                 selection = input(f"\t\t\t{Bcolors.YELLOW}Press 'y' for yes or 'a' for abort{Bcolors.ENDC}\n")
