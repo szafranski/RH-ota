@@ -90,6 +90,7 @@ class Bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+    BLINK =  '\033[5m'
     GREEN_BACK = '\033[102m'
     ORANGE_BACK = '\033[103m'
     RED_MENU_HEADER = '\033[91m' + '\033[1m' + '\033[4m'

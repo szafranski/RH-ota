@@ -15,6 +15,7 @@ except ModuleNotFoundError:
     sleep(1)
 except RuntimeError:
     print("GPIO import - failed - works only on Pi")
+    sleep(1)
 
 
 """

@@ -87,11 +87,11 @@ User code: {code}
 
 
 def updated_check(config):
-    while True:
-        if os.path.exists(f"/home/{config.user}/.ota_markers/.was_updated"):
+    if os.path.exists(f"/home/{config.user}/.ota_markers/.was_updated"):
+        while True:
             clear_the_screen()
             logo_top(config.debug_mode)
-            print("""\n {bold}
+            print("""\n\n {bold}
             
             Software was updated recently to the new version.
     
@@ -447,8 +447,8 @@ def main():
     compatibility()
     updater_version = get_ota_version(False)
     config = load_config()
-    # updated_check(config)
     welcome_screen(updater_version)
+    updated_check(config)
     main_menu(config)
 
 
