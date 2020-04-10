@@ -183,7 +183,7 @@ def node_selection_menu(config):
         sleep(0.05)
         flash_node_menu = """\n
         
-                            {red}{bold}NODES MENU{endc}{bold}
+                    {red}{bold}NODES MENU{endc}{bold}
                         
                 1 - Flash node 1        5 - Flash node 5
 
@@ -193,9 +193,9 @@ def node_selection_menu(config):
 
                 4 - Flash node 4        8 - Flash node 8 
                             
-                        {yellow}e- Exit to main menu{endc}
+                   {yellow}e- Exit to main menu{endc}
                     
-        """.format(bold=Bcolors.BOLD, red=Bcolors.RED, yellow=Bcolors.YELLOW, endc=Bcolors.ENDC)
+        """.format(bold=Bcolors.BOLD_S, red=Bcolors.RED_S, yellow=Bcolors.YELLOW_S, endc=Bcolors.ENDC)
         print(flash_node_menu)
         selection = input(f"\t\t{Bcolors.BOLD}Which node do you want to program: {Bcolors.ENDC}")
         if selection.isdigit():
@@ -269,9 +269,9 @@ def odd_node_menu(config):
 
         2 - Flash custom firmware on the node
         
-        3 - Flashes 'blink' on the node - only for test purposes
+        3 - Flash 'blink' on the node - only for test purposes
 
-        e - Abort{Bcolors.ENDC}""")
+        e - Exit{Bcolors.ENDC}""")
         selection = input()
         if selection == '1':
             flash_firmware_onto_gpio_node(config)
@@ -280,6 +280,11 @@ def odd_node_menu(config):
             flash_custom_firmware_onto_gpio_node(config)
             break
         if selection == '3':
+            print("""
+            Remember to flash firmware back on the node - later. 
+            Only one of the paired nodes can be flashed with 'blink'
+            """)
+            input("Hit Enter")
             flash_blink_onto_gpio_node(config)
             return
         if selection == 'e':
@@ -328,7 +333,7 @@ def first_flashing(config):
 
         2 - USB 
         
-        e - exit{Bcolors.ENDC} 
+        e - Exit{Bcolors.ENDC} 
         
         
         *USB can be used only if node is only device connected to the Pi """
@@ -410,11 +415,12 @@ def flashing_menu(config):
         clear_the_screen()
         logo_top(config.debug_mode)
         sleep(0.05)
-        node_menu = """\n\n
-                            {red}{bold}{underline}FLASHING MENU{endc}
-                            
-    
-                    {green}{bold}1 - Flash each node automatically - rec.{endc}{bold}
+        node_menu = """\n
+        
+                          {rmh}FLASHING MENU{endc}
+            
+            
+       {green}{bold}1 - Flash each node automatically - rec.{endc}{bold}
     
                     2 - Flash nodes individually
     
@@ -424,9 +430,10 @@ def flashing_menu(config):
                     
                     5 - Check all UART connected devices
             
-                    {yellow}e - Exit to main menu{endc}\n
-            """.format(bold=Bcolors.BOLD, green=Bcolors.GREEN, yellow=Bcolors.YELLOW,
-                       endc=Bcolors.ENDC, red=Bcolors.RED, underline=Bcolors.UNDERLINE)
+            {yellow}e - Exit to main menu{endc}\n
+            """.format(bold=Bcolors.BOLD_S, green=Bcolors.GREEN_S, yellow=Bcolors.YELLOW_S,
+                       endc=Bcolors.ENDC, red=Bcolors.RED_S, underline=Bcolors.UNDERLINE_S,
+                       rmh=Bcolors.RED_MENU_HEADER)
         print(node_menu)
         sleep(0.1)
         selection = input("")

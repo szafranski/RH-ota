@@ -34,7 +34,8 @@ def ask_custom_rh_version():
     while True:
         version = input(f"\nPlease enter the version tag that you wish to install [EG: 2.1.0-beta.3]:\t")
         confirm = input(f"""
-            You entered: '{version}'  
+            You entered: '{version}' 
+
             Confirm [yes/no]""")
         if confirm.upper().startswith('Y'):
             return version

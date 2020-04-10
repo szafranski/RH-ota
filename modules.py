@@ -44,7 +44,7 @@ def percent_count():
 def image_show():
     with open('./resources/image.txt', 'r') as logo:
         f = logo.read()
-        print(f)
+        print(f"{Bcolors.YELLOW}{f}{Bcolors.ENDC}")
 
 
 def ota_image():
@@ -91,6 +91,9 @@ class Bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
     GREEN_BACK = '\033[102m'
+    ORANGE_BACK = '\033[103m'
+    RED_MENU_HEADER = '\033[91m' + '\033[1m' + '\033[4m'
+    PROMPT = '\033[30m' + '\033[103m' + '\033[1m'
     '''
     the following are designed to be used in formatted strings
     they each have enough spaces appended so that {value}

@@ -160,7 +160,7 @@ def flash_each_node(config):
 
             2 - Flash 'blink' on the node
 
-            a - Abort
+            e - Exit
             {Bcolors.ENDC}""")
             selection = input()
             if selection == '1':
@@ -178,7 +178,7 @@ def flash_each_node(config):
             logo_top(config.debug_mode)
             sleep(0.05)
             flash_node_menu = """
-                                {red}{bold}NODES MENU{endc}
+                        {red}{bold}NODES MENU{endc}
                             {bold}
                     1 - Flash node 1        5 - Flash node 5
                 
@@ -189,7 +189,7 @@ def flash_each_node(config):
                     4 - Flash node 4        8 - Flash node 8
                             {yellow}
                         'e'- Exit to main menu{endc}
-            """.format(bold=Bcolors.BOLD, red=Bcolors.RED, yellow=Bcolors.YELLOW, endc=Bcolors.ENDC)
+            """.format(bold=Bcolors.BOLD_S, red=Bcolors.RED_S, yellow=Bcolors.YELLOW, endc=Bcolors.ENDC)
             print(flash_node_menu)
             selection = input("""
                     {bold}Which node do you want to program:{endc} """.format(bold=Bcolors.BOLD, endc=Bcolors.ENDC))
@@ -226,10 +226,11 @@ def nodes_update(config):
         clear_the_screen()
         logo_top(config.debug_mode)
         sleep(0.05)
-        node_menu = """\n
-                        {bold}{underline}CHOOSE FLASHING TYPE:{endc}
+        node_menu = """
         
-                {green}{bold}1 - Nodes using ground-auto numbering firmware - rec.{endc}
+         {bold}{underline}CHOOSE FLASHING TYPE:{endc}
+        
+   {green}{bold}1 - Nodes using ground-auto numbering firmware - rec.{endc}
                 
                 2 - Flash 'blink' on every node
                 
@@ -239,9 +240,9 @@ def nodes_update(config):
                 
                 5 - Enter new (I2C) flashing menu
                 
-                {yellow}e - Exit to main menu{endc}
-        """.format(bold=Bcolors.BOLD, green=Bcolors.GREEN, yellow=Bcolors.YELLOW,
-                   endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE)
+        {yellow}e - Exit to main menu{endc}
+        """.format(bold=Bcolors.BOLD_S, green=Bcolors.GREEN_S, yellow=Bcolors.YELLOW_S,
+                   endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE_S)
         print(node_menu)
         sleep(0.1)
         selection = input()

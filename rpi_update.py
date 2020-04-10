@@ -57,20 +57,20 @@ def check_rotorhazard_config_status(config):
 
 def end_update(config, server_configured_flag, server_installed_flag):
     if not server_configured_flag and server_installed_flag:
-        configure = f"{Bcolors.GREEN}'c' - configure RotorHazard now{Bcolors.ENDC}"
+        configure = f"{Bcolors.GREEN}c - Configure RotorHazard now{Bcolors.ENDC}"
     else:
-        configure = "'c' - reconfigure RotorHazard server"
+        configure = "c - Reconfigure RotorHazard server"
     while True:
         print(f"""
                     {configure}
         
-                    'r' - reboot - recommended when configured
+                    r - Reboot - recommended when configured
                     
-                    's' - start the server now {Bcolors.YELLOW}
+                    s - Start the server now {Bcolors.YELLOW}
                     
-                    'o' - clear old RotorHazard installations 
+                    o - Clear old RotorHazard installations 
                     
-                    'e' - exit now{Bcolors.ENDC}""")
+                    e - Exit now{Bcolors.ENDC}""")
         selection = input()
         if selection == 'r':
             os.system("sudo reboot")
@@ -91,13 +91,13 @@ def end_installation(config):
         print(f"""
     
             {Bcolors.GREEN}
-            'c' - configure the server now - recommended {Bcolors.ENDC}
+            c - Configure the server now - recommended {Bcolors.ENDC}
             
-            'r' - reboot - recommended after configuring
+            r - Reboot - recommended after configuring
             
-            's' - start the server now{Bcolors.YELLOW}
+            s - Start the server now{Bcolors.YELLOW}
             
-            'e' - exit now{Bcolors.ENDC}""")
+            e - Exit now{Bcolors.ENDC}""")
 
         selection = input()
         if selection == 'r':
@@ -169,9 +169,9 @@ def update(config):
     If so please install your server software first or you won't be able to use the timer.{Bcolors.ENDC}{Bcolors.GREEN} 
           
         
-        'i' - Install the software - recommended{Bcolors.ENDC}
+        i - Install the software - recommended{Bcolors.ENDC}
 
-        'a' - Abort both  {Bcolors.ENDC}
+        a - Abort both  {Bcolors.ENDC}
 
 """)
             selection = input()
@@ -245,9 +245,9 @@ def main_window(config):
                     
                     {configure}
                     
-                    'u' - Update existing installation {yellow}
+                    u - Update existing installation {yellow}
                         
-                    'e' - Exit to Main Menu{endc}
+                    e - Exit to Main Menu{endc}
                     
                 """.format(yellow=Bcolors.YELLOW, endc=Bcolors.ENDC, configure=configure, install=install))
         selection = input()
@@ -268,13 +268,13 @@ def main_window(config):
         or force installation {underline} without {endc} sys. config. - 'i'.
                 
                 {green} 
-            'u' - Select update mode - recommended {endc}
+            u - Select update mode - recommended {endc}
             
-            'i' - Force installation without sys. config.
+            i - Force installation without sys. config.
             
-            'c' - Force installation and sys. config. {yellow}
+            c - Force installation and sys. config. {yellow}
             
-            'a' - Abort both  {endc}
+            a - Abort both  {endc}
             """.format(bold=Bcolors.BOLD, endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE,
                        yellow=Bcolors.YELLOW, green=Bcolors.GREEN)
                 print(already_installed_prompt)

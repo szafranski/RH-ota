@@ -19,12 +19,13 @@ def compatibility():  # adds compatibility and fixes with previous versions
 
 def config_check():
     if not os.path.exists("./updater-config.json"):
-        print("""
+        prompt = f"""
 
-          {GandB}  Looks that you haven't set up config file yet.     {endc}
-          {GandB}  Please read about configuration process - point 5  {endc}
-          {GandB}  and next enter configuration wizard - point 6.     {endc}
-""".format(GandB=Bcolors.BOLD + Bcolors.GREEN_BACK, endc=Bcolors.ENDC))
+          {Bcolors.PROMPT}  Looks that you haven't set up config file yet.     {Bcolors.ENDC}
+          {Bcolors.PROMPT}  Please read about configuration process - point 5  {Bcolors.ENDC}
+          {Bcolors.PROMPT}  and next enter configuration wizard - point 6.     {Bcolors.ENDC}
+"""
+        print(prompt)
         return False
     else:
         return True
@@ -90,35 +91,35 @@ def updated_check(config):
         if os.path.exists(f"/home/{config.user}/.ota_markers/.was_updated"):
             clear_the_screen()
             logo_top(config.debug_mode)
-            print(""" {bold}
+            print("""\n {bold}
+            
             Software was updated recently to the new version.
     
-            You can read update notes now or check them later.
+            You can read update notes now.
     
     
              {endc}  {green} 
-            'r' - read update notes {endc}
+                r - Read update notes {endc}{yellow}
     
-            's' - skip and don't show again
-                """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC, green=Bcolors.GREEN))
+                s - Skip and don't show again{endc}
+                """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC,
+                           green=Bcolors.GREEN, yellow=Bcolors.YELLOW))
             selection = input()
             if selection == 'r':
                 os.system("less ./docs/update-notes.txt")
+                os.system(f"rm /home/{config.user}/.ota_markers/.was_updated >/dev/null 2>&1")
                 break
             if selection == 's':
+                os.system(f"rm /home/{config.user}/.ota_markers/.was_updated >/dev/null 2>&1")
                 break
-        else:
-            break
-        os.system(f"rm /home/{config.user}/.ota_markers/.was_updated >/dev/null 2>&1")
 
 
-def welcome_screen(config, updater_version):
+def welcome_screen(updater_version):
     clear_the_screen()
     print("\n\n")
     image_show()
     print(f"\t\t\t{Bcolors.BOLD} Updater version: {str(updater_version)}{Bcolors.ENDC}")
     sleep(1)
-    updated_check(config)
 
 
 def serial_menu(config):
@@ -135,8 +136,9 @@ def serial_menu(config):
         write_ota_sys_markers(ota_status, config.user)
         print("""
         
-        Serial port enabled successfully
+        Serial port enabled successfully.
         You have to reboot Raspberry now. Ok?
+        
         
         r - Reboot now{yellow}
         
@@ -265,7 +267,7 @@ def features_menu(config):
         logo_top(config.debug_mode)
         features_menu_content = """
     
-                    {red}{bold}{underline}FEATURES MENU{endc}{blue}{bold}
+                                {rmf}FEATURES MENU{endc}{blue}{bold}
     
              
                         1 - Enable serial protocol {endc}{bold}
@@ -281,7 +283,7 @@ def features_menu(config):
                         e - Exit to main menu {endc}
     
                  """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
-                            blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S)
+                            blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, rmf=Bcolors.RED_MENU_HEADER)
         print(features_menu_content)
         selection = input()
         if selection == '1':
@@ -327,10 +329,11 @@ def first_time():
             > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested){endc}  
                 
             
-            'f' - first page'       'u' - update notes' {yellow}       'b' - back to menu{endc}
+            f - First page'       u - Update notes' {yellow}       b - Back to menu{endc}
                   
             """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
-                    blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
+                       blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S,
+                       orange=Bcolors.ORANGE_S)
             print(welcome_second_page)
             selection = input()
             if selection == 'f':
@@ -362,12 +365,8 @@ def first_time():
                                                     Szafran
             
                 {green}
-                s - second page {endc}
-            
-                u -  update notes {yellow}
-            
-                b - back to main menu {endc}
-            """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, yellow=Bcolors.YELLOW, bold=Bcolors.BOLD)
+            s - Second page {endc}  u - Update notes {yellow}e - Exit to main menu {endc}
+            """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, yellow=Bcolors.YELLOW_S, bold=Bcolors.BOLD)
             print(welcome_first_page)
             selection = input()
             if selection == 's':
@@ -396,11 +395,10 @@ def main_menu(config):
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
-        config_check()
-        conf_color = Bcolors.GREEN if config_check() == False else ''
+        conf_color = Bcolors.GREEN if config_check() is False else ''
         main_menu_content = """
         
-                    {red}{bold}{underline}MAIN MENU{endc}
+                                {rmf}MAIN MENU{endc}
                     
                            {blue}{bold}  
                         1 - RotorHazard Manager
@@ -418,7 +416,8 @@ def main_menu(config):
                         e - Exit {endc}
                             
                 """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, green=Bcolors.GREEN,
-                           blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, configured=conf_color)
+                           blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, configured=conf_color,
+                           rmf=Bcolors.RED_MENU_HEADER)
         print(main_menu_content)
         selection = input()
         if selection == '1':
@@ -447,9 +446,9 @@ def main_menu(config):
 def main():
     compatibility()
     updater_version = get_ota_version(False)
-    config_check()
     config = load_config()
-    welcome_screen(config, updater_version)
+    # updated_check(config)
+    welcome_screen(updater_version)
     main_menu(config)
 
 
