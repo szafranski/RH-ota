@@ -262,11 +262,11 @@ def main_window(config):
                 clear_the_screen()
                 already_installed_prompt = """
                 {bold}
-        Looks like you already have RotorHazard server installed
-        (or at least that your system was once configured).{endc}
+        Looks like you already have RotorHazard server installed.{endc}
         
-        If that's the case please use {underline} update mode {endc} - 'u'
-        or force installation {underline} without {endc} sys. config. - 'i'.
+        
+        If that's the case please use {underline}update mode{endc} - 'u'
+        or force installation {underline}without{endc} sys. config. - 'i'.
                 
                 {green} 
             u - Select update mode - recommended {endc}
