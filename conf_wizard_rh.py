@@ -75,7 +75,7 @@ Default values are not automatically applied. Type them if needed.\n""")
             while True:
                 led_pin_nr = input("\nWhich GPIO pin is connected to your LEDs data pin? [default: 18]\t")
                 led_pins_allowed = [10, 12, 13, 18, 19, 21, 31, 38, 40, 41, 45, 52, 53]
-                if int(led_pin_nr) not in led_pins_allowed:
+                if led_pin_nr not in str(led_pins_allowed):
                     print("\nPlease enter correct value!")
                 else:
                     rh_config["LED"]['LED_PIN'] = int(led_pin_nr)
