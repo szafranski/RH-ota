@@ -249,11 +249,13 @@ def self_updater(config):
         Self-updater will test your internet connection during every update.
         
         {updater_info}
-        """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, bold=Bcolors.BOLD,
-                   blue=Bcolors.BLUE, updater_info=check_if_beta_user(config))
+        
+                {green}u - Update now{endc}
+        
+                {yellow}b - Go back{endc}
+        """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, bold=Bcolors.BOLD, blue=Bcolors.BLUE,
+                   yellow=Bcolors.YELLOW, updater_info=check_if_beta_user(config))
         print(updater)
-        print(f"{Bcolors.GREEN}\t\tUpdate now by pressing 'u'{Bcolors.ENDC}\n")
-        print(f"{Bcolors.YELLOW}\t\tGo back by pressing 'b'{Bcolors.ENDC}\n\n")
         selection = input()
         if selection == 'b':
             break
