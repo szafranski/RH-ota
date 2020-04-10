@@ -149,10 +149,10 @@ def get_ota_version(checking_from_updater):
 
 
 def server_start():
-    server_stat = os.system("timeout 2 systemctl is-active --quiet rotorhazard")
+    server_stat = os.popen('service rotorhazard status').read()
     # todo checking if RH service is already running and only than letting user start the server
     # for now it doesnt work properly with that method
-    if server_stat == 0:
+    if 'running' not in server_stat:
         try:
             clear_the_screen()
             os.system(". ./scripts/server_start.sh")

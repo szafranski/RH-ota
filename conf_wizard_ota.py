@@ -1,7 +1,6 @@
 from time import sleep
 import os
 from types import SimpleNamespace
-
 from modules import clear_the_screen, Bcolors, logo_top, write_json, load_config
 from pathlib import Path
 
