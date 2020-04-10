@@ -56,7 +56,7 @@ def check_rotorhazard_config_status(config):
 
 
 def check_for_old_rh():
-    if os.path.exists('./old_rh_found')
+    if os.path.exists('./old_rh_found'):
         os.system("rm ./old_rh_found > /dev/null 2>&1")
         return True
     else:
