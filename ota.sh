@@ -34,13 +34,6 @@ else
   echo curl"       "found
 fi
 
-which fonts-symbola >/dev/null  # todo David, can you do that?
-if [ $? -gt 0 ]; then
-  echo fonts-symbola has to be installed && sudo apt install fonts-symbola -y
-else
-  echo fonts-symbola"     "found
-fi
-
 which cowsay >/dev/null
 if [ $? -gt 0 ]; then
   echo cowsay has to be installed && sudo apt install cowsay -y
@@ -80,17 +73,10 @@ else
   echo python3-dev has to be installed && sudo apt install python3-dev -y
 fi
 
-if grep -q 'RPI.GPIO' pip3installed.tmp; then
-  echo python3-rpi.gpio" "found
+if grep -q 'fonts-symbola' aptinstalled.tmp;; then
+  echo fonts-symbola has to be installed && sudo apt install fonts-symbola -y
 else
-  echo python3-rpi.gpio has to be installed && pip3 install rpi.gpio || echo - only on Pi -
-fi
-# todo error - never shows as found, always tries to install it
-
-if grep -q 'smbus' pip3installed.tmp; then
-  echo python3-smbus"    "found
-else
-  echo python3-smbus has to be installed && pip3 install smbus
+  echo fonts-symbola"     "found
 fi
 
 if grep -q 'i2c-tools' aptinstalled.tmp; then
@@ -99,6 +85,17 @@ else
   echo i2c-tools has to be installed && sudo apt install i2c-tools -y
 fi
 
+if grep -q 'RPi.GPIO' pip3installed.tmp; then
+  echo python3-rpi.gpio" "found
+else
+  echo python3-rpi.gpio has to be installed && pip3 install rpi.gpio || echo - only on Pi -
+fi
+
+if grep -q 'smbus' pip3installed.tmp; then
+  echo python3-smbus"    "found
+else
+  echo python3-smbus has to be installed && pip3 install smbus
+fi
 
 # Cleanup after myself.
 rm pip3installed.tmp
