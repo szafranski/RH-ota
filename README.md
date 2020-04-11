@@ -13,7 +13,7 @@
      - Automatically performs much of the RotorHazard specific Pi setup steps
 
 1. Wizard install and update of RotorHazard nodes firmware.
-     - Requires some hardware modification to enable
+     - Requires some hardware modification to enable - described [here](./how_to/hw_mod_instructions)
 
 1. Automatic configuring Access Point
      - Hotspot: Configure always-on hotspot using Pi's built in Wifi 
