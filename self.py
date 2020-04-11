@@ -12,8 +12,7 @@ def make_directories_accessible(config):
 
 
 def self_update(config):
-    internet_flag = internet_check()
-    if not internet_flag:
+    if not internet_check():
         print("\nLooks like you don't have internet connection. Update canceled.\n")
         sleep(2)
     else:
