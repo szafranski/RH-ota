@@ -18,7 +18,7 @@
 1. Automatic configuring Access Point
      - Hotspot: Configure always-on hotspot using Pi's built in Wifi 
         - You lose the ability to connect to the internet using built in Wifi. 
-     - Auto-Hotspot: Automatically connect to known wifi if available, or become hotspot if no network is found. 
+     - [Auto-Hotspot:](./AUTO_HOTSPOT.md) Automatically connect to known wifi if available, or become hotspot if no network is found. 
         - If your Pi has been configured to connect to WIFI, this option allows you to use that wifi when in range, and still create a hotspot when not in range.
         - explanation: https://www.raspberryconnect.com/projects/65-raspberrypi-hotspot-accesspoints/158-raspberry-pi-auto-wifi-hotspot-switch-direct-connection
 
@@ -50,6 +50,8 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
 </br>
 ##
 #### Commands to download the repo onto Raspberry Pi (or Linux):
+**Note:**  This software will automatically install all necessary dependencies
+
     cd ~
     wget https://codeload.github.com/szafranski/RH-ota/zip/main_stable -O tempota.zip
     unzip tempota.zip
