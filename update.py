@@ -291,9 +291,9 @@ def features_menu(config):
                         
                         4 - Useful aliases
                         
-                        5 - Update OTA software {endc}{yellow}{bold}
+                        5 - Update OTA software {endc}{bold}
                         
-                        6 - Create a log file
+                        6 - Create a log file{yellow}
                             
                         e - Exit to main menu {endc}
     
