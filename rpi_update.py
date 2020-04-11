@@ -20,7 +20,7 @@ def check_preferred_rh_version(config):
     return server_version
 
 
-# Dave's thoughts:
+# Dave's thoughts: # todo can be removed now?
 # TODO I would like to move th tags out of being hard-coded here.
 # Maybe get a list of tags and ask user to select from list
 # or automatically figure out the newest non-beta tag?
