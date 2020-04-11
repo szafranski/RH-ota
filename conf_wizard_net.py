@@ -51,17 +51,16 @@ def conf_wizard_net(config):
         logo_top(config.debug_mode)
         features_menu_content = """
 
-                        {red}{bold}{underline}Networking Menu{endc}
+                            {rmh}NETWORKING MENU{endc}{bold}
 
-                            
-                            1 - Setup hotspot always 
+                        
+                        1 - Setup hotspot - always on
 
-                            2 - Setup automatic hotspot/wifi 
+                        2 - Setup automatic hotspot/wifi 
 
-                            e - Exit to main menu {endc}
+                {yellow}e - Exit to main menu {endc}
 
-                 """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
-                            blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S)
+                 """.format(rmh=Bcolors.RED_MENU_HEADER, yellow=Bcolors.YELLOW_S, bold=Bcolors.BOLD, endc=Bcolors.ENDC)
         print(features_menu_content)
         selection = input()
         if selection == '1':

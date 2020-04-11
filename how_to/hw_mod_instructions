@@ -15,7 +15,7 @@ Hardware steps:
     4. Connect pin D12 of 6th node to reset pin of the 5th node - if you have them in a system.
     5. Connect pin D12 of 7th node to reset pin of the 8th node - if you have them in a system.
     5. Connect pin D12 of 8th node to reset pin of the 7th node - if you have them in a system.
-    6. You have to perform auto-numbering mod if you don’t already have it performed on your timer - instructions ebelow
+    6. You have to perform auto-numbering mod if you don’t already have it performed on your timer - instructions below
     7. Connect pin TX of every node together.
     8. Connect pin RX of every node together.
     9. Connect RX line to Raspberry’s TX pin
