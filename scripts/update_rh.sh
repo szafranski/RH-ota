@@ -27,6 +27,7 @@ sudo rm -r /home/"${1}"/temp.zip >/dev/null 2>&1           # just in case of wei
 cd /home/"${1}" || exit
 wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"${2}" -O temp.zip
 unzip temp.zip
+rm ~/wget* > /dev/null 2>&1
 mv /home/"${1}"/RotorHazard-"${2}" /home/"${1}"/RotorHazard
 sudo rm temp.zip
 sudo mkdir /home/"${1}"/backup_RH_data >/dev/null 2>&1
