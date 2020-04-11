@@ -301,9 +301,12 @@ def first_flashing(config):
     logo_top(config.debug_mode)
 
     def flash(port):
-        uart_flashing_prompt = f"\n\n\t{Bcolors.BOLD}Hit 'Enter' and push reset key on next node after 1 second " \
-                               f"[e - exit] {Bcolors.ENDC}"
-        usb_flashing_prompt = f"\n\n\t{Bcolors.BOLD}Connect next Arduino and hit 'Enter' [e - exit] {Bcolors.ENDC}"
+        uart_flashing_prompt = \
+            "\n\n\t{bg}Hit 'Enter' and push reset key on next node after 1 second {e}{br}[e - exit] {e}".\
+            format(br=Bcolors.RED + Bcolors.BOLD, bg=Bcolors.GREEN + Bcolors.BOLD, e=Bcolors.ENDC)
+        usb_flashing_prompt = \
+            "\n\n\t{bg}Connect next Arduino and hit 'Enter'{e} {br}[e - exit] {e}".\
+                format(br=Bcolors.RED + Bcolors.BOLD, bg=Bcolors.GREEN + Bcolors.BOLD, e=Bcolors.ENDC)
         flashing_prompt = 0
         if port == 'USB0':
             flashing_prompt = usb_flashing_prompt

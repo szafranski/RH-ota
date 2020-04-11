@@ -7,12 +7,19 @@ Flash all nodes with 'blink' sketch or with the newest RotorHazard node firmware
 Hardware steps:
        Connect following pins – best way is to do it at the PCB’s bottom.
     1. Connect D9 pin of all nodes to the ground.
-    2. Connect pin D12 of first node to reset pin of the second node and vice versa. Same thing with node 3 and 4 etc.
-    3. You have to perform auto-numbering mod if you don’t already have it performed on your timer - instructions below
-    4. Connect pin TX of every node together.
-    5. Connect pin RX of every node together.
-    6. Connect RX line to Raspberry’s TX pin
-    7. Connect pin TX line to Raspberry’s TX using VOLTAGE DIVIDER or logic level converter.
+    2. Connect pin D12 of 1st node to reset pin of the 2nd node.
+    2. Connect pin D12 of 2nd node to reset pin of the 1st node.
+    3. Connect pin D12 of 3rd node to reset pin of the 4th node - if you have them in a system.
+    3. Connect pin D12 of 4th node to reset pin of the 3rd node - if you have them in a system.
+    4. Connect pin D12 of 5th node to reset pin of the 6th node - if you have them in a system.
+    4. Connect pin D12 of 6th node to reset pin of the 5th node - if you have them in a system.
+    5. Connect pin D12 of 7th node to reset pin of the 8th node - if you have them in a system.
+    5. Connect pin D12 of 8th node to reset pin of the 7th node - if you have them in a system.
+    6. You have to perform auto-numbering mod if you don’t already have it performed on your timer - instructions ebelow
+    7. Connect pin TX of every node together.
+    8. Connect pin RX of every node together.
+    9. Connect RX line to Raspberry’s TX pin
+    10. Connect pin TX line to Raspberry’s TX using VOLTAGE DIVIDER or logic level converter.
 
 
 Software steps – on the Pi:
