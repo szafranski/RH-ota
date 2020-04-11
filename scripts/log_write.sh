@@ -4,6 +4,11 @@ cd /home/"${1}"/RH-ota || exit
 mkdir log_data >/dev/null 2>&1
 rm log_data/log.txt >/dev/null 2>&1
 echo >./ log_data / log.txt
+echo OTA Version | tee -a ./log_data/log.txt
+echo -------------------------------- | tee -a ./log_data/log.txt
+echo | tee -a ./log_data/log.txt
+cat ~/RH-ota/version.txt | tee -a ./log_data/log.txt
+echo | tee -a ./log_data/log.txt
 echo FILE /boot/config.txt | tee -a ./log_data/log.txt
 echo -------------------------------- | tee -a ./log_data/log.txt
 echo | tee -a ./log_data/log.txt
