@@ -302,7 +302,7 @@ def first_flashing(config):
 
     def flash(port):
         uart_flashing_prompt = \
-            "\n\n\t{bg}Hit 'Enter' and push reset key on next node after 1 second {e}{br}[e - exit] {e}".\
+            "\n\n\t{bg}Hit 'Enter' and push reset button on next node after a second {e}{br}[e - exit] {e}".\
             format(br=Bcolors.RED + Bcolors.BOLD, bg=Bcolors.GREEN + Bcolors.BOLD, e=Bcolors.ENDC)
         usb_flashing_prompt = \
             "\n\n\t{bg}Connect next Arduino and hit 'Enter'{e} {br}[e - exit] {e}".\
@@ -328,8 +328,7 @@ def first_flashing(config):
         After selecting right port you will be asked to manually push
         reset button on each node according to instructions on the screen.
         
-        Number of iterations of this procedure will correspond to the number
-        of nodes declared during the configuration process.  
+        After flashing last node for the first time hit 'e' to exit.
           
         Will you flash your nodes for the first time via UART (on PCB) 
         or using USB* port? [default: UART]
@@ -355,7 +354,7 @@ def first_flashing(config):
             print("\n\tType: 'UART' or 'USB'\n\t")
             continue
         break
-    print(f"\n\n\t\t\t{Bcolors.BOLD}FIRMWARE FLASHING - DONE{Bcolors.ENDC}\n\n")
+    print(f"\n\n\t\t\t{Bcolors.BOLD + Bcolors.GREEN}FIRMWARE FLASHING - DONE{Bcolors.ENDC}\n\n")
     sleep(2)
 
 
