@@ -34,6 +34,13 @@ else
   echo curl"       "found
 fi
 
+which fonts-symbola >/dev/null  # todo David, can you do that?
+if [ $? -gt 0 ]; then
+  echo fonts-symbola has to be installed && sudo apt install fonts-symbola -y
+else
+  echo fonts-symbola"     "found
+fi
+
 which cowsay >/dev/null
 if [ $? -gt 0 ]; then
   echo cowsay has to be installed && sudo apt install cowsay -y
