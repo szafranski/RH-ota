@@ -73,11 +73,15 @@ else
   echo python3-dev has to be installed && sudo apt install python3-dev -y
 fi
 
-if grep -q 'fonts-symbola' aptinstalled.tmp; then
-  echo fonts-symbola"    "found
-else
-  echo fonts-symbola has to be installed && sudo apt install fonts-symbola -y
-fi
+#if grep -q 'twemoji-svginot' aptinstalled.tmp; then
+#  echo fonts-twemoji"    "found
+#else
+#  echo fonts-symbola has to be installed &&
+#  sudo apt-get install software-properties-common -y &&
+#  sudo apt-add-repository ppa:eosrei/fonts -y &&
+#  sudo apt-get update &&
+#  sudo apt-get install fonts-twemoji-svginot -y
+#fi
 
 if grep -q 'i2c-tools' aptinstalled.tmp; then
   echo i2c-tools"        "found
