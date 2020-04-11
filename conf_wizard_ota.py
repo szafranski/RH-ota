@@ -1,7 +1,6 @@
 from time import sleep
 import os
 from types import SimpleNamespace
-
 from modules import clear_the_screen, Bcolors, logo_top, write_json, load_config
 from pathlib import Path
 
@@ -35,7 +34,8 @@ def ask_custom_rh_version():
     while True:
         version = input(f"\nPlease enter the version tag that you wish to install [EG: 2.1.0-beta.3]:\t")
         confirm = input(f"""
-            You entered: '{version}'  
+            You entered: '{version}' 
+
             Confirm [yes/no]""")
         if confirm.upper().startswith('Y'):
             return version
@@ -51,14 +51,16 @@ def do_config(config):
 
     if conf_now_flag:
         config = SimpleNamespace()
-        print("""\n
+        print("""
+        
 Please type your configuration data. It can be modified later.
-Default values are not automatically applied. Type them if needed.\n""")
+Default values are not automatically applied. Type them if needed.
+""")
         pi_user_name = input("\nWhat is your user name on Raspberry Pi? [default: pi]\t\t\t")
         config.pi_user = pi_user_name
         while True:
             version = input(f"\nChoose RotorHazard version? \
-[{Bcolors.UNDERLINE}stable{Bcolors.ENDC} | beta | master | custom]\t\t").lower()
+[{Bcolors.UNDERLINE}stable{Bcolors.ENDC} | beta | master | custom]").lower()
             version_valid_options = ['master', 'stable', 'beta', 'custom']
             if version not in version_valid_options:
                 print("\nPlease enter correct value!")
@@ -124,8 +126,8 @@ which pin will be used as GPIO reset pin?
         while True:
             old_hw_mod = input("""
 Are you using older, non-i2c hardware flashing mod? 
-(nodes reset pins connected to gpio pins) [ yes/no | default: no ]\t""").lower()[
-                0]  # honestly, we only care about the first letter.
+(nodes reset pins connected to gpio pins) [ yes/no | default: no ]\t""").lower()[0]
+            # honestly, we only care about the first letter.
             if old_hw_mod == "y":
                 old_hw_mod, config.old_hw_mod = True, True
                 break

@@ -5,7 +5,6 @@ import platform
 # removes old aliases, especially doubled ones and bad leftovers from ~/.bashrc file
 # part of action is done in script - has to be ported
 
-#  todo now it cleans even "new" aliases
 def aliases_clean(start, end, file_name, *words):
     if platform.system() == "Linux":
         write_lines = []

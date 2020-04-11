@@ -1,6 +1,6 @@
 ### OTA aliases
-### Shortcuts that can be used in terminal window ###
-#              ALIAS                                             WHAT IT DOES
+### Aliases can be used in a terminal window ###
+#       ALIAS                           WHAT IT DOES
 alias ss="cd ~/RotorHazard/src/server && python server.py"     # starts the RH-server
 alias cfg="nano ~/RotorHazard/src/server/config.json"          # opens config.json file
 alias rh="cd ~/RotorHazard/src/server"                         # goes to server file location
@@ -10,16 +10,14 @@ alias sts="sudo systemctl stop rotorhazard"                    # stops RotorHaza
 alias otadir="cd ~/RH-ota"                                     # goes to the OTA directory
 alias ota="cd ~/RH-ota && sh ./ota.sh"                         # opens OTA software
 alias rcfg="sudo raspi-config"                                 # open Raspberry's configs
-alias gitota="git clone -b main_stable \
-https://github.com/szafranski/RH-ota.git"                      # clones ota repo
-alias otacfg="nano ~/RH-ota/updater-config.json "              # opens updater conf. file
-alias home="cd ~ "                                             # go homedir (without '~' sign)
+alias gitota="git clone -b main_stable https://github.com/szafranski/RH-ota.git"    # clones ota repo
+alias otacfg="nano ~/RH-ota/updater-config.json"               # opens updater conf. file
+alias home="cd ~"                                              # go homedir (without '~' sign)
 alias als="nano ~/.bashrc"                                     # opens file with aliases
 alias rld="source ~/.bashrc"                                   # reloads aliases file
-alias gitotamaster="git clone -b \
-master https://github.com/szafranski/RH-ota.git"               # clones master repo
-alias gitotassh="git clone -b master \
-git@github.com:szafranski/RH-ota.git"                          # clones master repo via ssh
+alias gotam="git clone -b master https://github.com/szafranski/RH-ota.git" # clones master repo
+alias gotas="git clone -b master git@github.com:szafranski/RH-ota.git"     # clones master repo via ssh
 
-### After adding or changing aliases manually - reboot raspberry or type "source ~/.bashrc".
+### Every manual addition or change to aliases should be followed by a reboot to be implemented.
+### You can also type "source ~/.bashrc".
 ### end of OTA aliases

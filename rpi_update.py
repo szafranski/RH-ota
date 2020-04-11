@@ -19,6 +19,7 @@ def check_preferred_rh_version(config):
 
     return server_version
 
+
 # Dave's thoughts:
 # TODO I would like to move th tags out of being hard-coded here.
 # Maybe get a list of tags and ask user to select from list
@@ -55,22 +56,40 @@ def check_rotorhazard_config_status(config):
     return config_soft, config_flag
 
 
+def show_update_completed():
+    update_completed = """\n\n
+        #################################################
+        ##                                             ##
+        ##{bold}{green}Update completed! {thumbs}{endc}##
+        ##                                             ##
+        #################################################
+                """.format(thumbs="👍👍👍  ", bold=Bcolors.BOLD_S,
+                           endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S)
+    return update_completed
+
+
 def end_update(config, server_configured_flag, server_installed_flag):
     if not server_configured_flag and server_installed_flag:
-        configure = f"{Bcolors.GREEN}'c' - configure RotorHazard now{Bcolors.ENDC}"
+        configure = f"{Bcolors.GREEN}c - Configure RotorHazard now{Bcolors.ENDC}"
     else:
-        configure = "'c' - reconfigure RotorHazard server"
+        configure = "c - Reconfigure RotorHazard server"
     while True:
+        print(show_update_completed())
+        clearing_color = ''
+        old_installations_were_found = False
+        if 'RotorHazard_' in os.popen('ls ~').read():
+            clearing_color = Bcolors.YELLOW
+            old_installations_were_found = True
         print(f"""
-                    {configure}
-        
-                    'r' - reboot - recommended when configured
-                    
-                    's' - start the server now {Bcolors.YELLOW}
-                    
-                    'o' - clear old RotorHazard installations 
-                    
-                    'e' - exit now{Bcolors.ENDC}""")
+                {configure}
+    
+                r - Reboot - recommended, not a must
+                
+                s - Start the server now {clearing_color}
+                
+                o - Clear old RotorHazard installations{Bcolors.YELLOW}
+                
+                e - Exit now{Bcolors.ENDC}""")
         selection = input()
         if selection == 'r':
             os.system("sudo reboot")
@@ -79,7 +98,12 @@ def end_update(config, server_configured_flag, server_installed_flag):
             server_start()
         if selection == 'o':
             os.system("rm -rf ~/RotorHazard_*")
-            print("old installations cleaned")
+            if old_installations_were_found:
+                print("\n\t\t -- old RH installations cleaned --")
+            else:
+                print("\n\t\t -- no more old RH installations --")
+            sleep(2)
+            clear_the_screen()
         if selection == 'c':
             conf_rh()
         if selection == 'e':
@@ -91,13 +115,13 @@ def end_installation(config):
         print(f"""
     
             {Bcolors.GREEN}
-            'c' - configure the server now - recommended {Bcolors.ENDC}
+            c - Configure the server now - recommended {Bcolors.ENDC}
             
-            'r' - reboot - recommended after configuring
+            r - Reboot - recommended after configuring
             
-            's' - start the server now{Bcolors.YELLOW}
+            s - Start the server now{Bcolors.YELLOW}
             
-            'e' - exit now{Bcolors.ENDC}""")
+            e - Exit now{Bcolors.ENDC}""")
 
         selection = input()
         if selection == 'r':
@@ -169,9 +193,9 @@ def update(config):
     If so please install your server software first or you won't be able to use the timer.{Bcolors.ENDC}{Bcolors.GREEN} 
           
         
-        'i' - Install the software - recommended{Bcolors.ENDC}
+        i - Install the software - recommended{Bcolors.ENDC}
 
-        'a' - Abort both  {Bcolors.ENDC}
+        a - Abort both  {Bcolors.ENDC}
 
 """)
             selection = input()
@@ -186,16 +210,7 @@ def update(config):
         else:
             clear_the_screen()
             print(f"\n\t{Bcolors.BOLD}Updating existing installation - please wait...{Bcolors.ENDC} \n")
-            update_completed = """\n\n\t
-                #################################################
-                ##                                             ##
-                ##{bold}{green}Update completed! {thumbs}{endc}##
-                ##                                             ##
-                #################################################
-                        """.format(thumbs="👍👍👍  ", bold=Bcolors.BOLD_S,
-                                   endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S)
             os.system(f"./scripts/update_rh.sh {config.user} {check_preferred_rh_version(config)}")
-            print(update_completed)
             config_flag, config_soft = check_rotorhazard_config_status(config)
             server_installed_flag, server_version_name = get_rotorhazard_server_version(config)
             os.system("sudo chmod -R 777 ~/RotorHazard")
@@ -219,7 +234,7 @@ def main_window(config):
             Source of the software is set to {underline}{blue}{server_version}{endc}{bold} version from the official 
             RotorHazard repository.
              
-            Perform self-updating of this software, before updating server software.
+            Please update this software, before updating RotorHazard server.
             Also make sure that you are logged as user {underline}{blue}{user}{endc}{bold}.
             
             You can change those in configuration wizard in Main Menu.
@@ -227,54 +242,51 @@ def main_window(config):
             Server installed right now: {server} {bold}
             
             RotorHazard configuration state: {config_soft}
+            
             """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, blue=Bcolors.BLUE,
                        yellow=Bcolors.YELLOW, red=Bcolors.RED, orange=Bcolors.ORANGE, server_version=config.rh_version,
                        user=config.user, config_soft=rh_config_text, server=server_version_name)
         print(welcome_text)
-
         if not rh_config_flag:
-            configure = f"{Bcolors.GREEN}'c' - Configure RotorHazard server{Bcolors.ENDC}"
+            configure = f"{Bcolors.GREEN}c - Configure RotorHazard server{Bcolors.ENDC}"
         else:
-            configure = "'c' - Reconfigure RotorHazard server"
+            configure = "c - Reconfigure RotorHazard server"
         if not server_installed_flag:
-            install = f"{Bcolors.GREEN}'i' - Install software from scratch{Bcolors.ENDC}"
+            install = f"{Bcolors.GREEN}i - Install software from scratch{Bcolors.ENDC}"
         else:
-            install = "'i' - Install software from scratch"
+            install = "i - Install software from scratch"
         print("""
                     {install}
                     
                     {configure}
                     
-                    'u' - Update existing installation {yellow}
+                    u - Update existing installation {yellow}
                         
-                    'e' - Exit to Main Menu{endc}
+                    e - Exit to Main Menu{endc}
                     
                 """.format(yellow=Bcolors.YELLOW, endc=Bcolors.ENDC, configure=configure, install=install))
         selection = input()
         if selection == 'c':
-            if not server_installed_flag:
-                print("Please install before configuring.")
-            else:
-                conf_rh()
+            conf_rh() if server_installed_flag else print("Please install the server before configuring.")
         if selection == 'i':
             if ota_config.rh_installation_done:
                 clear_the_screen()
                 already_installed_prompt = """
                 {bold}
-        Looks like you already have RotorHazard server installed
-        (or at least that your system was once configured).{endc}
+        Looks like you already have RotorHazard server installed.{endc}
         
-        If that's the case please use {underline} update mode {endc} - 'u'
-        or force installation {underline} without {endc} sys. config. - 'i'.
+        
+        If that's the case please use {underline}update mode{endc} - 'u'
+        or force installation {underline}without{endc} sys. config. - 'i'.
                 
                 {green} 
-            'u' - Select update mode - recommended {endc}
+            u - Select update mode - recommended {endc}
             
-            'i' - Force installation without sys. config.
+            i - Force installation without sys. config.
             
-            'c' - Force installation and sys. config. {yellow}
+            c - Force installation and sys. config. {yellow}
             
-            'a' - Abort both  {endc}
+            a - Abort both  {endc}
             """.format(bold=Bcolors.BOLD, endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE,
                        yellow=Bcolors.YELLOW, green=Bcolors.GREEN)
                 print(already_installed_prompt)

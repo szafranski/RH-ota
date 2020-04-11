@@ -11,14 +11,14 @@ from types import SimpleNamespace as Namespace, SimpleNamespace
 
 
 def clear_the_screen():
-    sleep(0.05)
+    sleep(0.02)
     if platform.system() == "Windows":
         os.system("cls")
     elif platform.system() == "Linux":
         os.system("clear")
     else:
         print(("\n" * 200))
-    sleep(0.05)
+    sleep(0.02)
 
 
 def dots_show(duration):
@@ -44,7 +44,7 @@ def percent_count():
 def image_show():
     with open('./resources/image.txt', 'r') as logo:
         f = logo.read()
-        print(f)
+        print(f"{Bcolors.YELLOW}{f}{Bcolors.ENDC}")
 
 
 def ota_image():
@@ -62,22 +62,18 @@ def check_if_string_in_file(file_name, string_to_search):
 
 
 def logo_top(linux_testing):
-    logo = """
-    \n    
+    debug_status = f"{Bcolors.PROMPT}Linux PC version - debug mode{Bcolors.ENDC}" if linux_testing else 29 * ' '
+    print("""
+    
     #######################################################################
     ###                                                                 ###
     ###    {orange}{bold}        RotorHazard             {endc}         ###
     ###                                                                 ###
-    ###        {bold}        OTA Updater and Manager     {endc}         ###
-    ###                                                                 ###
-    #######################################################################\
-    """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S,
-               yellow=Bcolors.YELLOW_S, orange=Bcolors.ORANGE_S)
-
-    print(logo)
-    if linux_testing:
-        print("\t\t\t\t\tLinux PC version - debug mode")
-    sleep(0.05)
+    ###        {bold}      OTA Updater and Manager     {endc}           ###
+    ###                 {place_for_debug_status_here}                   ###
+    #######################################################################
+    """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, place_for_debug_status_here=debug_status,
+               yellow=Bcolors.YELLOW_S, orange=Bcolors.ORANGE_S))
 
 
 class Bcolors:
@@ -90,7 +86,11 @@ class Bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+    BLINK = '\033[5m'
     GREEN_BACK = '\033[102m'
+    ORANGE_BACK = '\033[103m'
+    RED_MENU_HEADER = '\033[91m' + '\033[1m' + '\033[4m'
+    PROMPT = '\033[30m' + '\033[103m' + '\033[1m'
     '''
     the following are designed to be used in formatted strings
     they each have enough spaces appended so that {value}
@@ -149,19 +149,18 @@ def get_ota_version(checking_from_updater):
 
 
 def server_start():
-    server_stat = os.system("timeout 2 systemctl is-active --quiet rotorhazard")
-    # todo checking if RH service is already running and only than letting user start the server
-    # for now it doesnt work properly with that method
-    if server_stat == 0:
-        try:
-            clear_the_screen()
-            os.system(". ./scripts/server_start.sh")
-        except KeyboardInterrupt:
-            print("Server closed manually")
-            input("Hit Enter to continue")
+    server_stat = os.popen('service rotorhazard status').read()
+    if 'running' not in server_stat:
+        clear_the_screen()
+        os.system("./scripts/server_start.sh")
     else:
+        clear_the_screen()
         print("Server is already running as a service")
-        input("Hit Enter to continue")
+        selection = input("Do you want to stop it and than start the server? [y/n] ")
+        if selection == 'y':
+            os.system("sudo systemctl stop rotorhazard")
+            print("Server service stopped. Please wait.\n")
+            os.system("./scripts/server_start.sh")
 
 
 def load_config():

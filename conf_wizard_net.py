@@ -1,5 +1,4 @@
 import os
-
 from modules import load_config, clear_the_screen, logo_top, Bcolors
 from net_and_ap import net_and_ap_conf
 

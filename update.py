@@ -19,28 +19,26 @@ def compatibility():  # adds compatibility and fixes with previous versions
 
 def config_check():
     if not os.path.exists("./updater-config.json"):
-        print("""
+        prompt = """
 
-          {GandB}  Looks that you haven't set up config file yet.     {endc}
-          {GandB}  Please read about configuration process - point 5  {endc}
-          {GandB}  and next enter configuration wizard - point 6.     {endc}
-""".format(GandB=Bcolors.BOLD + Bcolors.GREEN_BACK, endc=Bcolors.ENDC))
+          {prompt}  Looks that you haven't set up config file yet.     {endc}
+          {prompt}  Please read about configuration process - point 5  {endc}
+          {prompt}  and next enter configuration wizard - point 6.     {endc}
+""".format(prompt=Bcolors.PROMPT, endc=Bcolors.ENDC)
+        print(prompt)
         return False
     else:
         return True
 
 
-def log_to_dev(config):
-    log_write(config)
-    log_send(config)
-
-
-def read_aliases_file():  # todo almost done, readability has to be improved yet (remove "(...)" part from every line
+def read_aliases_file():
     aliases_to_show = []
     with open('./resources/aliases.txt', 'r') as aliases_file:
         for line in aliases_file:
             if 'alias ' in line and '###' not in line:
                 line = line.replace('alias ', '')
+                line = line[0:line.index('=')] + ' ' + line[line.index('#'):-1]
+                line = line.replace('#', '\t\t\t')
                 aliases_to_show.append(line)
             elif '#' in line and '###' not in line:
                 line = line.replace('#', '')
@@ -48,9 +46,14 @@ def read_aliases_file():  # todo almost done, readability has to be improved yet
             elif '###' not in line:
                 aliases_to_show.append(line)
 
-    aliases_to_show = (''.join(aliases_to_show))
+    aliases_to_show = ('\n\t\t'.join(aliases_to_show))
 
     return aliases_to_show
+
+
+def log_to_dev(config):
+    log_write(config)
+    log_send(config)
 
 
 def log_write(config):
@@ -68,57 +71,61 @@ def log_send(config):
             code = ''
             for line in f:
                 code = line
-            print(f"""
+            code_error_msg = """
+                -- Error occurred --
+                
+        Please send log file manually - from 'log_data' folder. 
+        Uploading to server process has failed.
+            """
+            code_report = f"""
 
 User code: {code}
 
 ------------------------------
 
-""")
-            input("Hit 'Enter' to continue\n\n")
-            if not os.system("cowsay You are awesome! Fly safe."):
-                sleep(3)
-            break
+"""
+            print(code_report) if code != '' else print(code_error_msg)
         if selection == 'n' or selection == 'no':
-            print("\n\n\tOK - you log file is stored under 'log.txt' name in RH-ota directory.")
-            input("\n\n\tHit 'Enter' to continue\n\n")
-            break
+            print("\n\nOK - your log file is stored as 'log.txt' in RH-ota/log_data/ directory.")
+        input("\nHit 'Enter' to continue\n\n")
+        if not os.system("cowsay You are awesome! Fly safe."):
+            sleep(3)
+        break
 
 
 def updated_check(config):
-    while True:
-        if os.path.exists(f"/home/{config.user}/.ota_markers/.was_updated"):
-            clear_the_screen()
-            logo_top(config.debug_mode)
-            print(""" {bold}
-            Software was updated recently to the new version.
-    
-            You can read update notes now or check them later.
-    
-    
-             {endc}  {green} 
-            'r' - read update notes {endc}
-    
-            's' - skip and don't show again
-                """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC, green=Bcolors.GREEN))
-            selection = input()
-            if selection == 'r':
-                os.system("less ./docs/update-notes.txt")
-                break
-            if selection == 's':
-                break
-        else:
+    while os.path.exists(f"/home/{config.user}/.ota_markers/.was_updated"):
+        clear_the_screen()
+        logo_top(config.debug_mode)
+        print("""\n\n {bold}
+        
+        Software was updated recently to the new version.
+
+        You can read update notes now.
+
+
+         {endc}  {green} 
+            r - Read update notes {endc}{yellow}
+
+            s - Skip and don't show again{endc}
+            """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC,
+                       green=Bcolors.GREEN, yellow=Bcolors.YELLOW))
+        selection = input()
+        if selection == 'r':
+            os.system("less ./docs/update-notes.txt")
+            os.system(f"rm /home/{config.user}/.ota_markers/.was_updated >/dev/null 2>&1")
             break
-        os.system(f"rm /home/{config.user}/.ota_markers/.was_updated >/dev/null 2>&1")
+        if selection == 's':
+            os.system(f"rm /home/{config.user}/.ota_markers/.was_updated >/dev/null 2>&1")
+            break
 
 
-def welcome_screen(config, updater_version):
+def welcome_screen(updater_version):
     clear_the_screen()
     print("\n\n")
     image_show()
     print(f"\t\t\t{Bcolors.BOLD} Updater version: {str(updater_version)}{Bcolors.ENDC}")
     sleep(1)
-    updated_check(config)
 
 
 def serial_menu(config):
@@ -126,8 +133,7 @@ def serial_menu(config):
 
     def serial_content():
         # TODO Make this repeatable without adding multiple copies at the end of config.txt.
-        # P.F. or just make it as an automatic feature when opening nodes-flashing menu
-        # for the first time
+        # P.F.: I added this to be performed when entering nodes flashing for the first time
         os.system("echo 'enable_uart=1'| sudo tee -a /boot/config.txt")
         os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
         print("UART enabled")
@@ -135,8 +141,11 @@ def serial_menu(config):
         write_ota_sys_markers(ota_status, config.user)
         print("""
         
-        Serial port enabled successfully
-        You have to reboot Raspberry now. Ok?
+        Serial port enabled successfully.
+        You have toz reboot Raspberry now,
+        so changes would be implemented. Ok?
+        
+        
         
         r - Reboot now{yellow}
         
@@ -151,16 +160,16 @@ def serial_menu(config):
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
-        serial_adding_menu = f"""
-            Serial port has to be enabled. 
-            Without it Arduinos cannot be programmed.
+        serial_adding_menu = """
+            Serial port (UART) has to be enabled. 
+            Without it Arduino-nodes cannot be programmed.
             Do you want to enable it now?
             
-            {Bcolors.GREEN}
-            y - for yes {Bcolors.ENDC}
-            {Bcolors.YELLOW}
-            a - for abort{Bcolors.ENDC}
-            """
+            
+     {green}y - for yes {endc}
+            
+    {yellow}a - for abort{endc}
+            """.format(yellow=Bcolors.YELLOW, green=Bcolors.GREEN, endc=Bcolors.ENDC)
         selection = input(serial_adding_menu)
         if selection == 'y':
             if ota_status.uart_support_added:
@@ -187,7 +196,7 @@ def aliases_menu(config):
         ota_status.aliases_implemented = True
         write_ota_sys_markers(ota_status, config.user)
         print("\n\n\t\t    Aliases added successfully")
-        sleep(3)
+        sleep(2)
         return
 
     while True:
@@ -208,7 +217,12 @@ def aliases_menu(config):
         selection = input(f"\n\t\t\t{Bcolors.YELLOW}Press 'y' for yes or 'a' for abort{Bcolors.ENDC}\n")
         if selection == 'y':
             if ota_status.aliases_implemented:
-                print("\n\n\t\tLooks like you already have aliases added. \n\t\tDo you want to continue anyway?\n")
+                print("""
+                
+            Looks like you already have aliases added. 
+            Do you want to continue anyway?
+        
+        """)
                 selection = input(f"\t\t\t{Bcolors.YELLOW}Press 'y' for yes or 'a' for abort{Bcolors.ENDC}\n")
                 if selection == 'y':
                     aliases_content()
@@ -223,11 +237,10 @@ def aliases_menu(config):
 
 
 def self_updater(config):
-
     def check_if_beta_user(config):
         if config.beta_tester:
-            updater_info = f'{Bcolors.RED}Beta-tester mode is enabled - update will contain OTA in beta version.\
-{Bcolors.ENDC}\n'
+            updater_info = f'{Bcolors.RED}' \
+                           f'Beta-tester mode is enabled - update will contain OTA in beta version.{Bcolors.ENDC}\n'
         else:
             updater_info = ''
 
@@ -247,11 +260,13 @@ def self_updater(config):
         Self-updater will test your internet connection during every update.
         
         {updater_info}
-        """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, bold=Bcolors.BOLD,
-                   blue=Bcolors.BLUE, updater_info=check_if_beta_user(config))
+        
+                {green}u - Update now{endc}
+        
+                {yellow}b - Go back{endc}
+        """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, bold=Bcolors.BOLD, blue=Bcolors.BLUE,
+                   yellow=Bcolors.YELLOW, updater_info=check_if_beta_user(config))
         print(updater)
-        print(f"{Bcolors.GREEN}\t\tUpdate now by pressing 'u'{Bcolors.ENDC}\n")
-        print(f"{Bcolors.YELLOW}\t\tGo back by pressing 'b'{Bcolors.ENDC}\n\n")
         selection = input()
         if selection == 'b':
             break
@@ -265,7 +280,7 @@ def features_menu(config):
         logo_top(config.debug_mode)
         features_menu_content = """
     
-                    {red}{bold}{underline}FEATURES MENU{endc}{blue}{bold}
+                                {rmf}FEATURES MENU{endc}{blue}{bold}
     
              
                         1 - Enable serial protocol {endc}{bold}
@@ -276,12 +291,14 @@ def features_menu(config):
                         
                         4 - Useful aliases
                         
-                        5 - Update OTA software {endc}{yellow}{bold}
+                        5 - Update OTA software {endc}{bold}
+                        
+                        6 - Create a log file{yellow}
                             
                         e - Exit to main menu {endc}
     
                  """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
-                            blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S)
+                            blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, rmf=Bcolors.RED_MENU_HEADER)
         print(features_menu_content)
         selection = input()
         if selection == '1':
@@ -295,12 +312,14 @@ def features_menu(config):
             aliases_menu(config)
         if selection == '5':
             self_updater(config)
+        if selection == '6':
+            log_to_dev(config)
         if selection == 'e':
             break
 
 
 def first_time():
-    def update_notes():
+    def show_update_notes():
         clear_the_screen()
         os.system("less ./docs/update-notes.txt")
 
@@ -308,7 +327,7 @@ def first_time():
         while True:
             clear_the_screen()
             welcome_second_page = """
-                        {bold}{underline}CONFIGURATION PROCESS{endc}
+                            {bold}{underline}CONFIGURATION PROCESS{endc}
     
             {bold} 
             Software configuration process can be assisted with a wizard. 
@@ -327,18 +346,19 @@ def first_time():
             > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested){endc}  
                 
             
-            'f' - first page'       'u' - update notes' {yellow}       'b' - back to menu{endc}
+                f - First page'         u - Update notes' {yellow}   e - Exit to menu{endc}
                   
             """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
-                    blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, orange=Bcolors.ORANGE_S)
+                       blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S,
+                       orange=Bcolors.ORANGE_S)
             print(welcome_second_page)
             selection = input()
             if selection == 'f':
                 return False  # go back to first page
-            if selection == 'b':
+            if selection == 'e':
                 return True  # go back to main menu
             if selection == 'u':
-                update_notes()
+                show_update_notes()
 
     def first_page():
         while True:
@@ -362,21 +382,17 @@ def first_time():
                                                     Szafran
             
                 {green}
-                s - second page {endc}
-            
-                u -  update notes {yellow}
-            
-                b - back to main menu {endc}
-            """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, yellow=Bcolors.YELLOW, bold=Bcolors.BOLD)
+            s - Second page {endc}        u - Update notes {yellow}e - Exit to main menu {endc}
+            """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, yellow=Bcolors.YELLOW_S, bold=Bcolors.BOLD)
             print(welcome_first_page)
             selection = input()
             if selection == 's':
                 go_back_again = second_page()
-                if go_back_again:  # user wants to go back to main menu.
-                    break
+                if go_back_again:
+                    break  # user wants to go back to main menu.
             if selection == 'u':
-                update_notes()
-            if selection == 'b':
+                show_update_notes()
+            if selection == 'e':
                 break
 
     first_page()
@@ -396,11 +412,10 @@ def main_menu(config):
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
-        config_check()
-        conf_color = Bcolors.GREEN if config_check() == False else ''
+        conf_color = Bcolors.GREEN if config_check() is False else ''
         main_menu_content = """
         
-                    {red}{bold}{underline}MAIN MENU{endc}
+                                {rmf}MAIN MENU{endc}
                     
                            {blue}{bold}  
                         1 - RotorHazard Manager
@@ -418,7 +433,8 @@ def main_menu(config):
                         e - Exit {endc}
                             
                 """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, green=Bcolors.GREEN,
-                           blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, configured=conf_color)
+                           blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, configured=conf_color,
+                           rmf=Bcolors.RED_MENU_HEADER)
         print(main_menu_content)
         selection = input()
         if selection == '1':
@@ -427,7 +443,7 @@ def main_menu(config):
             ota_status = load_ota_sys_markers(config.user)
             if ota_status.uart_support_added:
                 old_flash_gpio(config) if config.old_hw_mod else flashing_menu(config)
-                # enters "old" flashing menu only when "old_hw_mod" is confirmed
+            # enters "old" flashing menu only when "old_hw_mod" is confirmed
             else:
                 serial_menu(config)
         if selection == '3':
@@ -438,8 +454,6 @@ def main_menu(config):
             first_time()
         if selection == '6':
             config = conf_ota(config)
-        if selection == 'logme':
-            log_to_dev(config)
         if selection == 'e':
             end()
 
@@ -447,9 +461,9 @@ def main_menu(config):
 def main():
     compatibility()
     updater_version = get_ota_version(False)
-    config_check()
     config = load_config()
-    welcome_screen(config, updater_version)
+    welcome_screen(updater_version)
+    updated_check(config)
     main_menu(config)
 
 

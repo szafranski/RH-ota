@@ -7,6 +7,7 @@ try:
     # GPIO is only definable on the pi.
     # Try and import it but continue if it is not found.
     import RPi.GPIO as GPIO
+
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
 except ModuleNotFoundError:
@@ -15,7 +16,7 @@ except ModuleNotFoundError:
     sleep(1)
 except RuntimeError:
     print("GPIO import - failed - works only on Pi")
-
+    sleep(1)
 
 """
 This is obsolete flashing protocol, left here only for first users in mind.
@@ -24,7 +25,6 @@ New version is in i2c_nodes_flash.py file.
 
 
 def pins_assignment(config):
-
     # default to default pins. only update if they said so.
     reset_pins = [
         12,  # node 1   # default 12
@@ -160,7 +160,7 @@ def flash_each_node(config):
 
             2 - Flash 'blink' on the node
 
-            a - Abort
+            e - Exit
             {Bcolors.ENDC}""")
             selection = input()
             if selection == '1':
@@ -178,7 +178,7 @@ def flash_each_node(config):
             logo_top(config.debug_mode)
             sleep(0.05)
             flash_node_menu = """
-                                {red}{bold}NODES MENU{endc}
+                        {red}{bold}NODES MENU{endc}
                             {bold}
                     1 - Flash node 1        5 - Flash node 5
                 
@@ -189,7 +189,7 @@ def flash_each_node(config):
                     4 - Flash node 4        8 - Flash node 8
                             {yellow}
                         'e'- Exit to main menu{endc}
-            """.format(bold=Bcolors.BOLD, red=Bcolors.RED, yellow=Bcolors.YELLOW, endc=Bcolors.ENDC)
+            """.format(bold=Bcolors.BOLD_S, red=Bcolors.RED_S, yellow=Bcolors.YELLOW, endc=Bcolors.ENDC)
             print(flash_node_menu)
             selection = input("""
                     {bold}Which node do you want to program:{endc} """.format(bold=Bcolors.BOLD, endc=Bcolors.ENDC))
@@ -225,11 +225,12 @@ def nodes_update(config):
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
-        sleep(0.05)
-        node_menu = """\n
-                        {bold}{underline}CHOOSE FLASHING TYPE:{endc}
+        node_menu = """
         
-                {green}{bold}1 - Nodes using ground-auto numbering firmware - rec.{endc}
+                        {rmh}CHOOSE FLASHING TYPE:{endc}
+        
+        
+   {green}{bold}1 - Nodes using ground-auto numbering firmware - rec.{endc}
                 
                 2 - Flash 'blink' on every node
                 
@@ -239,9 +240,9 @@ def nodes_update(config):
                 
                 5 - Enter new (I2C) flashing menu
                 
-                {yellow}e - Exit to main menu{endc}
-        """.format(bold=Bcolors.BOLD, green=Bcolors.GREEN, yellow=Bcolors.YELLOW,
-                   endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE)
+        {yellow}e - Exit to main menu{endc}
+        """.format(bold=Bcolors.BOLD_S, green=Bcolors.GREEN_S, yellow=Bcolors.YELLOW_S,
+                   endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE, rmh=Bcolors.RED_MENU_HEADER)
         print(node_menu)
         sleep(0.1)
         selection = input()
