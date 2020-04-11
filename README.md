@@ -57,14 +57,16 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
     unzip tempota.zip
     rm tempota.zip
     mv RH-ota-* RH-ota
+    chmod +x ~/RH-ota/ota.sh
     
     *Change 2nd line with what's below if you want to install the beta version: 
+    
     wget https://codeload.github.com/szafranski/RH-ota/zip/master -O tempota.zip
 
 #### Commands to open the software:
     
     cd ~/RH-ota
-    sh ./ota.sh
+    ./ota.sh
 
 <br/>
 We assume in our instructions and provided setup process that you already have your Raspbian OS set up. 

@@ -27,6 +27,7 @@ cd /home/"${1}" || exit
 wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"${2}" -O temp.zip
 unzip temp.zip
 rm temp.zip
+rm ~/wget* > /dev/null 2>&1
 mv /home/"${1}"/RotorHazard-"${2}" /home/"${1}"/RotorHazard || exit 1
 warning_show
 sudo -H pip install -r /home/"${1}"/RotorHazard/src/server/requirements.txt

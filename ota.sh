@@ -10,7 +10,7 @@ done
 printf "\n"
 }
 
-function check_package() {
+check_package() {
   if dpkg-query -l "$1" >/dev/null 2>&1 ; then
     return 0
   else
@@ -19,7 +19,7 @@ function check_package() {
 
 }
 
-function  check_python_package() {
+check_python_package() {
   if python3 -c "import $1" >/dev/null 2>&1; then
     return 0
   else
