@@ -315,8 +315,8 @@ def first_flashing(config):
                 flash:w:/home/{config.user}/RH-ota/firmware/{config.rh_version}/node_0.hex:i \
                 || {show_flash_error_msg()}")
     while True:
-        first_flash_select = f"""
-        {Bcolors.BOLD}
+        first_flash_select = """
+        {bold}
         After selecting right port you will be asked to manually push
         reset button on each node according to instructions on the screen.
         
@@ -326,14 +326,16 @@ def first_flashing(config):
         Will you flash your nodes for the first time via UART (on PCB) 
         or using USB* port? [default: UART]
 
-        1 - UART
+ {green}1 - UART{endc}{bold}
 
         2 - USB 
         
-        e - Exit{Bcolors.ENDC} 
+        
+{yellow}e - Exit{endc} 
         
         
-        *USB can be used only if node is only device connected to the Pi """
+        *USB can be used only if node is only device connected to the Pi 
+""".format(green=Bcolors.GREEN_S, yellow=Bcolors.YELLOW_S, bold=Bcolors.BOLD, endc=Bcolors.ENDC)
         port_sel = input(first_flash_select)
         if port_sel == '1':
             port_sel = 'S0'

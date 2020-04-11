@@ -55,22 +55,36 @@ def check_rotorhazard_config_status(config):
     return config_soft, config_flag
 
 
+def show_update_completed():
+    update_completed = """\n\n
+        #################################################
+        ##                                             ##
+        ##{bold}{green}Update completed! {thumbs}{endc}##
+        ##                                             ##
+        #################################################
+                """.format(thumbs="👍👍👍  ", bold=Bcolors.BOLD_S,
+                           endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S)
+    return update_completed
+
+
 def end_update(config, server_configured_flag, server_installed_flag):
     if not server_configured_flag and server_installed_flag:
         configure = f"{Bcolors.GREEN}c - Configure RotorHazard now{Bcolors.ENDC}"
     else:
         configure = "c - Reconfigure RotorHazard server"
     while True:
+        print(show_update_completed())
+        clearing_color = Bcolors.YELLOW if 'RotorHazard_' in os.popen('ls ~').read() else ''
         print(f"""
-                    {configure}
-        
-                    r - Reboot - recommended when configured
-                    
-                    s - Start the server now {Bcolors.YELLOW}
-                    
-                    o - Clear old RotorHazard installations 
-                    
-                    e - Exit now{Bcolors.ENDC}""")
+                {configure}
+    
+                r - Reboot - recommended, not a must
+                
+                s - Start the server now {clearing_color}
+                
+                o - Clear old RotorHazard installations{Bcolors.YELLOW}
+                
+                e - Exit now{Bcolors.ENDC}""")
         selection = input()
         if selection == 'r':
             os.system("sudo reboot")
@@ -80,6 +94,8 @@ def end_update(config, server_configured_flag, server_installed_flag):
         if selection == 'o':
             os.system("rm -rf ~/RotorHazard_*")
             print("old installations cleaned")
+            sleep(2)
+            clear_the_screen()
         if selection == 'c':
             conf_rh()
         if selection == 'e':
@@ -186,16 +202,7 @@ def update(config):
         else:
             clear_the_screen()
             print(f"\n\t{Bcolors.BOLD}Updating existing installation - please wait...{Bcolors.ENDC} \n")
-            update_completed = """\n\n\t
-                #################################################
-                ##                                             ##
-                ##{bold}{green}Update completed! {thumbs}{endc}##
-                ##                                             ##
-                #################################################
-                        """.format(thumbs="👍👍👍  ", bold=Bcolors.BOLD_S,
-                                   endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S)
             os.system(f"./scripts/update_rh.sh {config.user} {check_preferred_rh_version(config)}")
-            print(update_completed)
             config_flag, config_soft = check_rotorhazard_config_status(config)
             server_installed_flag, server_version_name = get_rotorhazard_server_version(config)
             os.system("sudo chmod -R 777 ~/RotorHazard")
@@ -219,7 +226,7 @@ def main_window(config):
             Source of the software is set to {underline}{blue}{server_version}{endc}{bold} version from the official 
             RotorHazard repository.
              
-            Perform self-updating of this software, before updating server software.
+            Please update this software, before updating RotorHazard server.
             Also make sure that you are logged as user {underline}{blue}{user}{endc}{bold}.
             
             You can change those in configuration wizard in Main Menu.
@@ -232,7 +239,6 @@ def main_window(config):
                        yellow=Bcolors.YELLOW, red=Bcolors.RED, orange=Bcolors.ORANGE, server_version=config.rh_version,
                        user=config.user, config_soft=rh_config_text, server=server_version_name)
         print(welcome_text)
-
         if not rh_config_flag:
             configure = f"{Bcolors.GREEN}c - Configure RotorHazard server{Bcolors.ENDC}"
         else:
