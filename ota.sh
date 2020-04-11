@@ -10,8 +10,8 @@ done
 printf "\n"
 }
 ###############
-
-echo installing dependencies may need 'sudo'
+echo dependencies will be auto-detected and installed
+echo installing dependencies may need 'sudo' password
 
 which python3 >/dev/null
 if [ $? -gt 0 ]; then

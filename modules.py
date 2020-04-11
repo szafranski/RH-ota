@@ -123,6 +123,7 @@ def internet_check():
         if response and response.status_code == requests.codes.ok:
             internet_flag = True
             break
+    os.system("rm ~/wget* > /dev/null 2>&1")
     return internet_flag
 
 
