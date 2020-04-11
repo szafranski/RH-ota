@@ -19,7 +19,6 @@ def conf_check():
             conf_now_flag = 1
         elif cont_conf[0] == 'n':
             conf_now_flag = 0
-            breakpoint()
     else:
         conf_now_flag = 1
     return conf_now_flag
