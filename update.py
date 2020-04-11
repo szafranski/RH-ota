@@ -307,7 +307,7 @@ def features_menu(config):
 
 
 def first_time():
-    def update_notes():
+    def show_update_notes():
         clear_the_screen()
         os.system("less ./docs/update-notes.txt")
 
@@ -334,7 +334,7 @@ def first_time():
             > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested){endc}  
                 
             
-                f - First page'         u - Update notes' {yellow}   b - Back to menu{endc}
+                f - First page'         u - Update notes' {yellow}   e - Exit to menu{endc}
                   
             """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
                        blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S,
@@ -342,8 +342,8 @@ def first_time():
             print(welcome_second_page)
             selection = input()
             if selection == 'f': return False  # go back to first page
-            if selection == 'b': return True  # go back to main menu
-            if selection == 'u': update_notes()
+            if selection == 'e': return True  # go back to main menu
+            if selection == 'u': show_update_notes()
 
     def first_page():
         while True:
@@ -374,8 +374,8 @@ def first_time():
             if selection == 's':
                 go_back_again = second_page()
                 if go_back_again: break # user wants to go back to main menu.
-            if selection == 'u': update_notes()
-            if selection == 'b': break
+            if selection == 'u': show_update_notes()
+            if selection == 'e': break
 
     first_page()
 

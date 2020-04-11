@@ -67,6 +67,8 @@ def flash_firmware(config):
 
 
 def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
+    clear_the_screen()
+    print(f"\n\t\t\t{Bcolors.BOLD}Flashing procedure started{Bcolors.BOLD}\n\n")
     nodes_num = config.nodes_number
     odd_number = odd_number_of_nodes_check(config)
     addresses = nodes_addresses()
@@ -87,6 +89,8 @@ def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
 
 
 def flash_custom_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
+    clear_the_screen()
+    print(f"\n\t\t\t{Bcolors.BOLD}Flashing procedure started{Bcolors.BOLD}\n\n")
     nodes_num = config.nodes_number
     odd_number = odd_number_of_nodes_check(config)
     addresses = nodes_addresses()
@@ -212,8 +216,7 @@ def node_selection_menu(config):
                 elif int(selection) in range(8) and int(selection) not in range(config.nodes_number):
                     print("\n\n\tNode number higher than configured amount of nodes.")
                     sleep(1.5)
-        elif selection == 'e':
-            break
+        elif selection == 'e': break
 
 
 def specific_node_menu(config, selected_node_number):
@@ -287,7 +290,6 @@ def odd_node_menu(config):
 def first_flashing(config):
     clear_the_screen()
     logo_top(config.debug_mode)
-
     def flash(port):
         uart_flashing_prompt = f"\n\n\t{Bcolors.BOLD}Hit 'Enter' and push reset key on next node after 1 second " \
                                f"[e - exit] {Bcolors.ENDC}"
@@ -385,8 +387,7 @@ def check_uart_devices(config):  # nodes have to be 'auto-numbered'
         print(f"\n\t\t\t{Bcolors.BOLD}Node {i + 1} - checked{Bcolors.ENDC}\n\n")
         sleep(1)
         input("\nPress ENTER to continue.\n")
-        if odd_number and ((nodes_num - i) == 2):  # breaks the "flashing loop" after last even node
-            break
+        if odd_number and ((nodes_num - i) == 2): break # breaks the "flashing loop" after last even node
     check_uart_con_with_gpio_node(config) if odd_number else None
     # todo checking summary
     input("\nPress ENTER to continue.")
@@ -419,18 +420,12 @@ def flashing_menu(config):
         print(node_menu)
         sleep(0.1)
         selection = input("")
-        if selection == '1':
-            clear_the_screen()
-            print("\nFlashing procedure started\n\n")
-            flash_firmware_onto_all_nodes(config)
+        if selection == '1': flash_firmware_onto_all_nodes(config)
         if selection == '2': node_selection_menu(config)
         if selection == '3': first_flashing(config)
         if selection == '4': show_i2c_devices(config)
         if selection == '5': check_uart_devices(config)
-        if selection == 'custom':
-            clear_the_screen()
-            print("\nFlashing procedure started\n\n")
-            flash_custom_firmware_onto_all_nodes(config)
+        if selection == 'custom': flash_custom_firmware_onto_all_nodes(config)
         if selection == 'e': break
 
 
