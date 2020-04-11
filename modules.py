@@ -114,6 +114,7 @@ def internet_check():
     internet_flag = False
     for i in range(3):
         response = requests.get('https://github.com')
+        os.system("rm ~/wget* > /dev/null 2>&1")
         if response.status_code == requests.codes.ok:
             internet_flag = True
             break

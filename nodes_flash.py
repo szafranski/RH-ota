@@ -354,7 +354,7 @@ def first_flashing(config):
             print("\n\tType: 'UART' or 'USB'\n\t")
             continue
         break
-    print(f"\n\n\t\t\t{Bcolors.BOLD + Bcolors.GREEN}FIRMWARE FLASHING - DONE{Bcolors.ENDC}\n\n")
+    print(f"\n\n\t\t\t{Bcolors.BOLD + Bcolors.UNDERLINE}FIRMWARE FLASHING - DONE{Bcolors.ENDC}\n\n")
     sleep(2)
 
 
