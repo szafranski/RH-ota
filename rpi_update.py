@@ -74,7 +74,11 @@ def end_update(config, server_configured_flag, server_installed_flag):
         configure = "c - Reconfigure RotorHazard server"
     while True:
         print(show_update_completed())
-        clearing_color = Bcolors.YELLOW if 'RotorHazard_' in os.popen('ls ~').read() else ''
+        clearing_color = ''
+        old_installations_were_found = False
+        if 'RotorHazard_' in os.popen('ls ~').read():
+            clearing_color = Bcolors.YELLOW
+            old_installations_were_found = True
         print(f"""
                 {configure}
     
@@ -93,7 +97,8 @@ def end_update(config, server_configured_flag, server_installed_flag):
             server_start()
         if selection == 'o':
             os.system("rm -rf ~/RotorHazard_*")
-            print("old installations cleaned")
+            if old_installations_were_found: print("\n\t\t -- old RH installations cleaned --")
+            else: print("\n\t\t -- no more old RH installations --")
             sleep(2)
             clear_the_screen()
         if selection == 'c':
@@ -244,7 +249,7 @@ def main_window(config):
         else:
             configure = "c - Reconfigure RotorHazard server"
         if not server_installed_flag:
-            install = f"{Bcolors.GREEN}'i' - Install software from scratch{Bcolors.ENDC}"
+            install = f"{Bcolors.GREEN}i - Install software from scratch{Bcolors.ENDC}"
         else:
             install = "i - Install software from scratch"
         print("""

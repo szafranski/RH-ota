@@ -21,12 +21,9 @@ def conf_check():
                 break
             else:
                 print("\ntoo big fingers :( wrong command. try again! :)")
-        if cont_conf[0] == 'y':
-            conf_now_flag = 1
-        if cont_conf[0] == 'n':
-            conf_now_flag = 0
-    else:
-        conf_now_flag = 1
+        if cont_conf[0] == 'y': conf_now_flag = 1
+        if cont_conf[0] == 'n': conf_now_flag = 0
+    else: conf_now_flag = 1
     return conf_now_flag
 
 

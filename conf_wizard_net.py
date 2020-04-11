@@ -40,8 +40,7 @@ def confirm_auto_hotspot(config):
                 """.format(nodes_number=config.nodes_number, bold=Bcolors.BOLD_S,
                            bg=Bcolors.BOLD + Bcolors.GREEN + (' ' * 4), endc=Bcolors.ENDC_S))
             input("Press enter to continue:")
-        elif selection == 'e':
-            break
+        elif selection == 'e': break
     pass
 
 
@@ -64,14 +63,10 @@ def conf_wizard_net(config):
                             blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S)
         print(features_menu_content)
         selection = input()
-        if selection == '1':
-            net_and_ap_conf(config)
-        if selection == '2':
-            confirm_auto_hotspot(config)
-        if selection == 'e':
-            break
+        if selection == '1': net_and_ap_conf(config)
+        if selection == '2': confirm_auto_hotspot(config)
+        if selection == 'e': break
     pass
-
 
 def main():
     config = load_config()

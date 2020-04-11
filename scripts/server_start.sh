@@ -26,12 +26,12 @@ manually changing RH directory permissions with 'sudo chmod -R 777 ~/RotorHazard
 read -p "Hit Enter when done " var
 }
 
+printf "You can stop the server by pressing Ctrl+C "
 printf "Server booting, please wait"
 dots5
 echo
-printf "You can stop the server by pressing Ctrl+C "
 cd ~/RotorHazard/src/server || exit
-python server.py || error_handling
+python2.7 server.py || error_handling
 
 # scripts like those ensures that files are being executed in right directory but main program
 # istelf can be continued from previous directory after such a script was executed or stopped
