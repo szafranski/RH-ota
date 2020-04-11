@@ -56,7 +56,7 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
     rm tempota.zip
     mv RH-ota-* RH-ota
     
-    *Change 3rd line with what's below if you want to install beta version: 
+    *Change 2nd line with what's below if you want to install beta version: 
     wget https://codeload.github.com/szafranski/RH-ota/zip/master -O tempota.zip
 
 #### Commands to open the software:
