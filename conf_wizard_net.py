@@ -40,7 +40,8 @@ def confirm_auto_hotspot(config):
                 """.format(nodes_number=config.nodes_number, bold=Bcolors.BOLD_S,
                            bg=Bcolors.BOLD + Bcolors.GREEN + (' ' * 4), endc=Bcolors.ENDC_S))
             input("Press enter to continue:")
-        elif selection == 'e': break
+        elif selection == 'e':
+            break
     pass
 
 

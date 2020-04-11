@@ -79,8 +79,7 @@ def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
         flash_firmware(config) if not config.debug_mode else None
         print(f"\n\t\t\t{Bcolors.BOLD}Node {i + 1} - flashed{Bcolors.ENDC}\n\n")
         sleep(2)
-        if odd_number and ((nodes_num - i) == 2):  # breaks the "flashing loop" after last even node
-            break
+        if odd_number and ((nodes_num - i) == 2): break # breaks the "flashing loop" after last even node
     flash_firmware_onto_gpio_node(config) if odd_number else None
     logo_update(config)
     input("\nDone. Press ENTER to continue. ")
@@ -100,8 +99,7 @@ def flash_custom_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numb
         flash_firmware(config) if not config.debug_mode else None
         print(f"\n\t\t\t{Bcolors.BOLD}Node {i + 1} - flashed{Bcolors.ENDC}\n\n")
         sleep(2)
-        if odd_number and ((nodes_num - i) == 2):  # breaks the "flashing loop" after last even node
-            break
+        if odd_number and ((nodes_num - i) == 2): break # breaks the "flashing loop" after last even node
     flash_custom_firmware_onto_gpio_node(config) if odd_number else None
     logo_update(config)
     input("\nPress ENTER to continue.")
@@ -219,11 +217,11 @@ def node_selection_menu(config):
 
 
 def specific_node_menu(config, selected_node_number):
-    clear_the_screen()
-    logo_top(config.debug_mode)
     while True:
-        print(f"""
-        {Bcolors.BOLD}\n\n\t\t\tNode {str(selected_node_number)}  selected{Bcolors.ENDC}\n
+        clear_the_screen()
+        logo_top(config.debug_mode)
+        node_selected_menu = f"""
+        {Bcolors.BOLD}\n\t\t\tNode {str(selected_node_number)}  selected{Bcolors.ENDC}\n
                 Choose flashing type:\n{Bcolors.ENDC}
         1 - {Bcolors.GREEN}Node ground-auto selection firmware - recommended{Bcolors.ENDC}{Bcolors.BOLD}
 
@@ -233,22 +231,16 @@ def specific_node_menu(config, selected_node_number):
 
         4 - Check UART connection with a node
 
-        e - Exit{Bcolors.ENDC}""")
+        e - Exit{Bcolors.ENDC}"""
+        print(node_selected_menu)
         selection = input()
-        if selection == '1':
-            flash_firmware_on_a_specific_node(config, selected_node_number)
-            break
-        if selection == '2':
-            flash_custom_firmware_on_a_specific_node(config, selected_node_number)
-            break
-        if selection == '3':
-            flash_blink_on_a_specific_node(config, selected_node_number)
-            break
-        if selection == '4':
-            check_uart_con_with_a_node(config, selected_node_number)
-            break
-        if selection == 'e':
-            break
+        if selection == '1': flash_firmware_on_a_specific_node(config, selected_node_number)
+        elif selection == '2': flash_custom_firmware_on_a_specific_node(config, selected_node_number)
+        elif selection == '3': flash_blink_on_a_specific_node(config, selected_node_number)
+        elif selection == '4': check_uart_con_with_a_node(config, selected_node_number)
+        elif selection == 'e': break
+        else: continue
+        break
 
 
 def odd_node_menu(config):
@@ -301,14 +293,11 @@ def first_flashing(config):
                                f"[e - exit] {Bcolors.ENDC}"
         usb_flashing_prompt = f"\n\n\t{Bcolors.BOLD}Connect next Arduino and hit 'Enter' [e - exit] {Bcolors.ENDC}"
         flashing_prompt = 0
-        if port == 'USB0':
-            flashing_prompt = usb_flashing_prompt
-        elif port == 'S0':
-            flashing_prompt = uart_flashing_prompt
+        if port == 'USB0': flashing_prompt = usb_flashing_prompt
+        elif port == 'S0': flashing_prompt = uart_flashing_prompt
         while True:
             selection = input(flashing_prompt)
-            if selection == 'e':
-                break
+            if selection == 'e': break
             else:
                 sleep(0.5)
                 os.system(f"timeout 10 avrdude -v -p atmega328p -c arduino -P /dev/tty{port} -b 57600 -U \
@@ -326,29 +315,24 @@ def first_flashing(config):
         Will you flash your nodes for the first time via UART (on PCB) 
         or using USB* port? [default: UART]
 
- {green}1 - UART{endc}{bold}
-
-        2 - USB 
-        
-        
-{yellow}e - Exit{endc} 
+     {green}1 - UART{endc}{bold}
+    
+            2 - USB 
+            
+            
+    {yellow}e - Exit{endc} 
         
         
         *USB can be used only if node is only device connected to the Pi 
 """.format(green=Bcolors.GREEN_S, yellow=Bcolors.YELLOW_S, bold=Bcolors.BOLD, endc=Bcolors.ENDC)
         port_sel = input(first_flash_select)
-        if port_sel == '1':
-            port_sel = 'S0'
-            flash(port_sel)
-            break
-        if port_sel == '2':
-            port_sel = 'USB0'
-            flash(port_sel)
-            break
-        if port_sel == 'e':
-            break
+        if port_sel == '1': flash('S0')
+        elif port_sel == '2': flash('USB0')
+        elif port_sel == 'e': break
         else:
             print("\n\tType: 'UART' or 'USB'\n\t")
+            continue
+        break
     print(f"\n\n\t\t\t{Bcolors.BOLD}FIRMWARE FLASHING - DONE{Bcolors.ENDC}\n\n")
     sleep(2)
 
@@ -437,20 +421,17 @@ def flashing_menu(config):
         selection = input("")
         if selection == '1':
             clear_the_screen()
+            print("\nFlashing procedure started\n\n")
             flash_firmware_onto_all_nodes(config)
-        if selection == '2':
-            node_selection_menu(config)
-        if selection == '3':
-            first_flashing(config)
-        if selection == '4':
-            show_i2c_devices(config)
-        if selection == '5':
-            check_uart_devices(config)
+        if selection == '2': node_selection_menu(config)
+        if selection == '3': first_flashing(config)
+        if selection == '4': show_i2c_devices(config)
+        if selection == '5': check_uart_devices(config)
         if selection == 'custom':
             clear_the_screen()
+            print("\nFlashing procedure started\n\n")
             flash_custom_firmware_onto_all_nodes(config)
-        if selection == 'e':
-            break
+        if selection == 'e': break
 
 
 def main():

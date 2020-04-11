@@ -256,14 +256,10 @@ def nodes_update(config):
             flash_all_blink(config, pins_assignment(config))
             logo_update(config)
             sleep(3)
-        if selection == '3':
-            flash_each_node(config)
-        if selection == '4':
-            gpio_state(config)
-        if selection == '5':
-            new_flashing()
-        if selection == 'e':
-            break
+        if selection == '3': flash_each_node(config)
+        if selection == '4': gpio_state(config)
+        if selection == '5': new_flashing()
+        if selection == 'e': break
 
 
 def main():

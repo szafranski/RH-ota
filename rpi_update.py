@@ -8,14 +8,10 @@ from modules import clear_the_screen, Bcolors, image_show, internet_check, load_
 
 def check_preferred_rh_version(config):
     rh_version = config.rh_version
-    if rh_version == 'master':
-        server_version = 'master'
-    elif rh_version == 'beta':
-        server_version = '2.1.0-beta.3'
-    elif rh_version == 'stable':
-        server_version = '2.1.1'
-    else:
-        server_version = rh_version
+    if rh_version == 'master': server_version = 'master'
+    elif rh_version == 'beta': server_version = '2.1.0-beta.3'
+    elif rh_version == 'stable': server_version = '2.1.1'
+    else: server_version = rh_version
 
     return server_version
 
@@ -264,10 +260,7 @@ def main_window(config):
                 """.format(yellow=Bcolors.YELLOW, endc=Bcolors.ENDC, configure=configure, install=install))
         selection = input()
         if selection == 'c':
-            if not server_installed_flag:
-                print("Please install before configuring.")
-            else:
-                conf_rh()
+            conf_rh() if server_installed_flag else print("Please install the server before configuring.")
         if selection == 'i':
             if ota_config.rh_installation_done:
                 clear_the_screen()
@@ -300,10 +293,8 @@ def main_window(config):
                     confirm_valid_options = ['y', 'yes', 'n', 'no', 'abort', 'a']
                     while True:
                         confirm = input("\n\t\tAre you sure? [yes/abort]\t").strip()
-                        if confirm in confirm_valid_options:
-                            break
-                        else:
-                            print("\ntoo big fingers :( wrong command. try again! :)")
+                        if confirm in confirm_valid_options: break
+                        else: print("\ntoo big fingers :( wrong command. try again! :)")
                     if confirm == 'y' or confirm == 'yes':
                         conf_allowed = True
                         installation(conf_allowed, config)

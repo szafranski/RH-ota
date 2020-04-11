@@ -51,12 +51,9 @@ def step_three():
                 Exit by pressing 'e'{Bcolors.ENDC}
             """)
     selection = input()
-    if selection == 'r':
-        os.system("sudo reboot")
-    if selection == 'e':
-        sys.exit()
-    else:
-        main()
+    if selection == 'r': os.system("sudo reboot")
+    if selection == 'e': sys.exit()
+    else: main()
 
 
 def step_two():
@@ -122,10 +119,8 @@ def step_one(config):
     selection = input()
     if selection == 'r':
         os.system("sudo reboot")
-    if selection == 'e':
-        sys.exit()
-    else:
-        main()
+    if selection == 'e': sys.exit()
+    else: main()
 
 
 def step_zero(config):
@@ -148,16 +143,11 @@ def step_zero(config):
             'e' - exit to main menu{Bcolors.ENDC}
             """)
     selection = input()
-    if selection == 'y':
-        step_one(config)
-    if selection == '3':
-        step_three()
-    if selection == 'x':
-        ap_menu(config)
-    if selection == 'e':
-        sys.exit()
-    else:
-        main()
+    if selection == 'y': step_one(config)
+    if selection == '3': step_three()
+    if selection == 'x': ap_menu(config)
+    if selection == 'e': sys.exit()
+    else: main()
 
 
 def ap_menu(config):
@@ -190,12 +180,9 @@ def ap_menu(config):
         selection = input(f"""{Bcolors.GREEN}
                 'k' - OK '{Bcolors.ENDC}{Bcolors.YELLOW}
                 'b' - go back{Bcolors.ENDC}""")
-        if selection == 'k':
-            sys.exit()
-        if selection == 'b':
-            first_page(config)
-        else:
-            second_page()
+        if selection == 'k': sys.exit()
+        if selection == 'b': first_page(config)
+        else: second_page()
 
     def first_page(config):
         clear_the_screen()
@@ -221,12 +208,9 @@ def ap_menu(config):
                 's' - second page'{Bcolors.ENDC}{Bcolors.YELLOW}
                 'b' - go back
                 """)
-        if selection == 's':
-            second_page()
-        if selection == 'b':
-            main()
-        else:
-            first_page(config)
+        if selection == 's': second_page()
+        if selection == 'b': main()
+        else: first_page(config)
 
     first_page(config)
 
