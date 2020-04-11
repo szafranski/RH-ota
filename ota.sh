@@ -9,6 +9,23 @@ for i in {1 2 3 4 5 6 7}; do
 done
 printf "\n"
 }
+
+function check_package() {
+  if dpkg-query -l "$1" >/dev/null 2>&1 ; then
+    return 0
+  else
+    return 1
+  fi
+
+}
+
+function  check_python_package() {
+  if python3 -c "import $1" >/dev/null 2>&1; then
+    return 0
+  else
+    return 1
+  fi
+}
 ###############
 echo dependencies will be auto-detected and installed
 echo installing dependencies may need 'sudo' password
@@ -48,31 +65,29 @@ else
   echo pip3"       "found
 fi
 
-echo looking for dependencies
-echo please wait
-
-dots7 & pip3 freeze >pip3installed.tmp
-
-dots7 & apt list 2>/dev/null | tee aptinstalled.tmp >/dev/null
-
-if grep -q 'python3-gpiozero' aptinstalled.tmp; then
+if check_package 'python3-gpiozero'; then
   echo python3-gpiozero" "found
 else
   echo python3-gpiozero has to be installed && sudo apt install python3-gpiozero -y
 fi
 
-if grep -q 'python3-requests' aptinstalled.tmp; then
+if check_package 'python3-requests' ; then
   echo python3-requests" "found
 else
   echo python3-requests has to be installed && sudo apt install python3-requests -y
 fi
 
-if grep -q 'python3-dev' aptinstalled.tmp; then
+if check_package 'python3-dev' ; then
   echo python3-dev"      "found
 else
   echo python3-dev has to be installed && sudo apt install python3-dev -y
 fi
 
+if check_package 'fonts-symbola' ; then
+  echo fonts-symbola"     "found
+else
+  echo fonts-symbola has to be installed && sudo apt install fonts-symbola -y
+fi
 #if grep -q 'twemoji-svginot' aptinstalled.tmp; then
 #  echo fonts-twemoji"    "found
 #else
@@ -83,29 +98,22 @@ fi
 #  sudo apt-get install fonts-twemoji-svginot -y
 #fi
 
-if grep -q 'i2c-tools' aptinstalled.tmp; then
+if check_package 'i2c-tools' ; then
   echo i2c-tools"        "found
 else
   echo i2c-tools has to be installed && sudo apt install i2c-tools -y
 fi
 
-if grep -q 'RPi.GPIO' pip3installed.tmp; then
+if check_python_package 'RPi.GPIO' ; then
   echo python3-rpi.gpio" "found
 else
   echo python3-rpi.gpio has to be installed && pip3 install rpi.gpio || echo - only on Pi -
 fi
 
-if grep -q 'smbus' pip3installed.tmp; then
+if check_python_package 'smbus' ; then
   echo python3-smbus"    "found
 else
   echo python3-smbus has to be installed && pip3 install smbus
 fi
 
-# Cleanup after myself.
-rm pip3installed.tmp
-rm aptinstalled.tmp
-
 python3 update.py
-
-# shellcheck disable=SC2230
-# due to 'which' reporting
