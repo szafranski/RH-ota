@@ -300,7 +300,7 @@ def first_flashing(config):
     clear_the_screen()
     logo_top(config.debug_mode)
 
-    def flash(port):
+    def flash_node_first_time(port):
         uart_flashing_prompt = \
             "\n\n\t{bg}Hit 'Enter' and push reset button on next node after a second {e}{br}[e - exit] {e}".\
             format(br=Bcolors.RED + Bcolors.BOLD, bg=Bcolors.GREEN + Bcolors.BOLD, e=Bcolors.ENDC)
@@ -345,9 +345,9 @@ def first_flashing(config):
 """.format(green=Bcolors.GREEN_S, yellow=Bcolors.YELLOW_S, bold=Bcolors.BOLD, endc=Bcolors.ENDC)
         port_sel = input(first_flash_select)
         if port_sel == '1':
-            flash('S0')
+            flash_node_first_time('S0')
         elif port_sel == '2':
-            flash('USB0')
+            flash_node_first_time('USB0')
         elif port_sel == 'e':
             break
         else:
