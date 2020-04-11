@@ -292,6 +292,8 @@ def features_menu(config):
                         4 - Useful aliases
                         
                         5 - Update OTA software {endc}{yellow}{bold}
+                        
+                        6 - Create a log file
                             
                         e - Exit to main menu {endc}
     
@@ -310,6 +312,8 @@ def features_menu(config):
             aliases_menu(config)
         if selection == '5':
             self_updater(config)
+        if selection == '6':
+            log_to_dev(config)
         if selection == 'e':
             break
 
@@ -450,8 +454,6 @@ def main_menu(config):
             first_time()
         if selection == '6':
             config = conf_ota(config)
-        if selection == 'logme':
-            log_to_dev(config)
         if selection == 'e':
             end()
 
