@@ -1,7 +1,7 @@
 from time import sleep
 import os
 # import shutil
-from modules import load_config, dots_show, internet_check, get_ota_version
+from modules import load_config, dots_show, internet_check, get_ota_version, Bcolors
 
 
 def make_directories_accessible(config):
@@ -11,12 +11,12 @@ def make_directories_accessible(config):
     os.system(f"sudo chmod -R 777 {ota_dir} > /dev/null 2>&1") if os.stat(ota_dir).st_uid == 0 else None
 
 
-def self_update(config):
-    if not internet_check():
-        print("\nLooks like you don't have internet connection. Update canceled.\n")
+def self_update(config, internet_flag):
+    if not internet_flag:
+        print(f"\n\t{Bcolors.RED}Looks like you don't have internet connection. Update canceled.{Bcolors.ENDC}\n")
         sleep(2)
     else:
-        print("\nInternet connection - OK\n")
+        print(f"\n\t\t{Bcolors.GREEN}Internet connection - OK{Bcolors.ENDC}\n")
         sleep(1.5)
         make_directories_accessible(config)
         old_version_name = get_ota_version(True)
@@ -50,8 +50,8 @@ def self_update(config):
 
 def main():
     config = load_config()
-    internet_check()
-    self_update(config)
+    internet_flag = internet_check()
+    self_update(config, internet_flag)
 
 
 if __name__ == "__main__":
