@@ -64,10 +64,14 @@ def conf_wizard_net(config):
                             blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S)
         print(features_menu_content)
         selection = input()
-        if selection == '1': net_and_ap_conf(config)
-        if selection == '2': confirm_auto_hotspot(config)
-        if selection == 'e': break
+        if selection == '1':
+            net_and_ap_conf(config)
+        if selection == '2':
+            confirm_auto_hotspot(config)
+        if selection == 'e':
+            break
     pass
+
 
 def main():
     config = load_config()

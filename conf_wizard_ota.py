@@ -21,9 +21,12 @@ def conf_check():
                 break
             else:
                 print("\ntoo big fingers :( wrong command. try again! :)")
-        if cont_conf[0] == 'y': conf_now_flag = 1
-        if cont_conf[0] == 'n': conf_now_flag = 0
-    else: conf_now_flag = 1
+        if cont_conf[0] == 'y':
+            conf_now_flag = 1
+        if cont_conf[0] == 'n':
+            conf_now_flag = 0
+    else:
+        conf_now_flag = 1
     return conf_now_flag
 
 
@@ -78,11 +81,13 @@ Default values are not automatically applied. Type them if needed.
             if 1 < len(country_code) <= 3:
                 config.country = country_code
                 break
-            else: print("\nPlease enter correct value!")
+            else:
+                print("\nPlease enter correct value!")
 
         while True:
             nodes = input("\nHow many nodes will you use in your system? [min: 0/1 | max: 8]\t\t")
-            if not nodes.isdigit() or int(nodes) > 8: print("\nPlease enter correct value!")
+            if not nodes.isdigit() or int(nodes) > 8:
+                print("\nPlease enter correct value!")
             else:
                 config.nodes_number = int(nodes)
                 break
@@ -106,7 +111,8 @@ which pin will be used as GPIO reset pin?
         while True:
             debug_mode = input("\nWill you use OTA software in a debug mode? [yes/no | default: no]\t").lower()
             debug_mode_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']
-            if debug_mode not in debug_mode_allowed_values: print("\nPlease enter correct value!")
+            if debug_mode not in debug_mode_allowed_values:
+                print("\nPlease enter correct value!")
             else:
                 debug_mode_val = debug_mode in ['yes', '1', 'y']
                 config.debug_mode = debug_mode_val
@@ -115,7 +121,8 @@ which pin will be used as GPIO reset pin?
         if debug_mode_val:
             debug_user = input("\nWhat is your user name on debugging OS? \t\t\t\t")
             config.debug_user = debug_user
-        else: config.debug_user = 'racer'
+        else:
+            config.debug_user = 'racer'
         while True:
             old_hw_mod = input("""
 Are you using older, non-i2c hardware flashing mod? 
@@ -132,16 +139,19 @@ Are you using older, non-i2c hardware flashing mod?
         while old_hw_mod:
             pins_assign = input("\nPins assignment? [default/custom/PCB | default: default]\t\t").lower()
             pins_valid_options = ['default', 'PCB', 'pcb', 'custom']
-            if pins_assign not in pins_valid_options: print("\nPlease enter correct value!")
+            if pins_assign not in pins_valid_options:
+                print("\nPlease enter correct value!")
             else:
                 config.pins_assignment = pins_assign
                 break
-        else: config.pins_assignment = 'default'
+        else:
+            config.pins_assignment = 'default'
 
         while True:
             user_is_beta_tester = input("\nAre you a beta tester? [yes/no | default: no]\t\t\t\t")
             beta_tester_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']
-            if user_is_beta_tester not in beta_tester_allowed_values: print("\nPlease enter correct value!")
+            if user_is_beta_tester not in beta_tester_allowed_values:
+                print("\nPlease enter correct value!")
             else:
                 config.beta_tester = user_is_beta_tester in ['yes', '1', 'y']
                 break
@@ -166,7 +176,8 @@ Are you using older, non-i2c hardware flashing mod?
             selection = input().strip().lower()
             if selection in valid_options:
                 break
-            else: print("\ntoo big fingers :( wrong command. try again! :)")
+            else:
+                print("\ntoo big fingers :( wrong command. try again! :)")
         if selection == 'y' or selection == 'yes':
             write_json(config, f"{home_dir}/RH-ota/updater-config.json")
             # Once we write out the json config we should re-load it just

@@ -8,12 +8,17 @@ from modules import clear_the_screen, Bcolors, image_show, internet_check, load_
 
 def check_preferred_rh_version(config):
     rh_version = config.rh_version
-    if rh_version == 'master': server_version = 'master'
-    elif rh_version == 'beta': server_version = '2.1.0-beta.3'
-    elif rh_version == 'stable': server_version = '2.1.1'
-    else: server_version = rh_version
+    if rh_version == 'master':
+        server_version = 'master'
+    elif rh_version == 'beta':
+        server_version = '2.1.0-beta.3'
+    elif rh_version == 'stable':
+        server_version = '2.1.1'
+    else:
+        server_version = rh_version
 
     return server_version
+
 
 # Dave's thoughts:
 # TODO I would like to move th tags out of being hard-coded here.
@@ -93,8 +98,10 @@ def end_update(config, server_configured_flag, server_installed_flag):
             server_start()
         if selection == 'o':
             os.system("rm -rf ~/RotorHazard_*")
-            if old_installations_were_found: print("\n\t\t -- old RH installations cleaned --")
-            else: print("\n\t\t -- no more old RH installations --")
+            if old_installations_were_found:
+                print("\n\t\t -- old RH installations cleaned --")
+            else:
+                print("\n\t\t -- no more old RH installations --")
             sleep(2)
             clear_the_screen()
         if selection == 'c':
@@ -293,8 +300,10 @@ def main_window(config):
                     confirm_valid_options = ['y', 'yes', 'n', 'no', 'abort', 'a']
                     while True:
                         confirm = input("\n\t\tAre you sure? [yes/abort]\t").strip()
-                        if confirm in confirm_valid_options: break
-                        else: print("\ntoo big fingers :( wrong command. try again! :)")
+                        if confirm in confirm_valid_options:
+                            break
+                        else:
+                            print("\ntoo big fingers :( wrong command. try again! :)")
                     if confirm == 'y' or confirm == 'yes':
                         conf_allowed = True
                         installation(conf_allowed, config)

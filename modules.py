@@ -56,7 +56,8 @@ def ota_image():
 def check_if_string_in_file(file_name, string_to_search):
     with open(file_name, 'r') as read_obj:
         for line in read_obj:
-            if string_to_search in line: return True
+            if string_to_search in line:
+                return True
     return False
 
 
@@ -85,7 +86,7 @@ class Bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
-    BLINK =  '\033[5m'
+    BLINK = '\033[5m'
     GREEN_BACK = '\033[102m'
     ORANGE_BACK = '\033[103m'
     RED_MENU_HEADER = '\033[91m' + '\033[1m' + '\033[4m'
@@ -121,8 +122,10 @@ def internet_check():
 
 def load_ota_sys_markers(user):
     ota_config_file = f'/home/{user}/.ota_markers/ota_config.json'
-    if Path(ota_config_file).exists(): ota_config = load_json(ota_config_file)
-    else: ota_config = load_json(f'/home/{user}/RH-ota/resources/ota_config.json')
+    if Path(ota_config_file).exists():
+        ota_config = load_json(ota_config_file)
+    else:
+        ota_config = load_json(f'/home/{user}/RH-ota/resources/ota_config.json')
     return ota_config
 
 
@@ -133,8 +136,10 @@ def write_ota_sys_markers(ota_config, user):
 
 def get_ota_version(checking_from_updater):
     config = load_config()
-    if checking_from_updater: path = f'/home/{config.user}/RH-ota/'
-    else: path = os.path.dirname(os.path.realpath(__file__))
+    if checking_from_updater:
+        path = f'/home/{config.user}/RH-ota/'
+    else:
+        path = os.path.dirname(os.path.realpath(__file__))
     try:
         with open(f'{path}/version.txt', 'r') as open_file:
             version = open_file.readline().strip()
@@ -159,11 +164,15 @@ def server_start():
 
 
 def load_config():
-    if os.path.exists("./updater-config.json"): config = load_json("./updater-config.json")
-    else: config = load_json('./distr-updater-config.json')
+    if os.path.exists("./updater-config.json"):
+        config = load_json("./updater-config.json")
+    else:
+        config = load_json('./distr-updater-config.json')
 
-    if config.debug_mode: config.user = config.debug_user
-    else: config.user = config.pi_user
+    if config.debug_mode:
+        config.user = config.debug_user
+    else:
+        config.user = config.pi_user
     # paste custom version number here if you want to declare it manually
     return config
 
@@ -204,8 +213,10 @@ quick wrapper around write json to normalize our parameters.
 
 def write_json(to_dump, file_name):
     with open(file_name, 'w') as open_file:
-        if isinstance(to_dump, SimpleNamespace): json.dump(vars(to_dump), open_file, indent=4)
-        else: json.dump(to_dump, open_file, indent=4)
+        if isinstance(to_dump, SimpleNamespace):
+            json.dump(vars(to_dump), open_file, indent=4)
+        else:
+            json.dump(to_dump, open_file, indent=4)
 
 
 '''

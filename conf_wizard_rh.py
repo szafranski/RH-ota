@@ -44,7 +44,8 @@ Default values are not automatically applied. Type them if needed.\n""")
         rh_config["GENERAL"]["ADMIN_PASSWORD"] = admin_pass
         while True:
             port = input("\nWhich port will you use with RotorHazard? [default: 5000]\t\t")
-            if not port.isdigit() or int(port) < 0: print("\nPlease enter correct value!")
+            if not port.isdigit() or int(port) < 0:
+                print("\nPlease enter correct value!")
             else:
                 rh_config['GENERAL']['HTTP_PORT'] = int(port)
                 break
@@ -56,28 +57,34 @@ Default values are not automatically applied. Type them if needed.\n""")
         while True:
             selection = input("\t")
             if selection in valid_options:
-                if selection == 'y' or selection == 'yes': led_present_flag = True
-                if selection == 'n' or selection == 'no': led_present_flag = False
+                if selection == 'y' or selection == 'yes':
+                    led_present_flag = True
+                if selection == 'n' or selection == 'no':
+                    led_present_flag = False
                 break
-            else: print("\ntoo big fingers :( wrong command. try again! :)")
+            else:
+                print("\ntoo big fingers :( wrong command. try again! :)")
         if led_present_flag:
             while True:
                 led_count = input("\nHow many LEDs will you use in your system? [default: 0]\t\t\t")
-                if not led_count.isdigit() or int(led_count) < 0: print("\nPlease enter correct value!")
+                if not led_count.isdigit() or int(led_count) < 0:
+                    print("\nPlease enter correct value!")
                 else:
                     rh_config["LED"]['LED_COUNT'] = int(led_count)
                     break
             while True:
                 led_pin_nr = input("\nWhich GPIO pin is connected to your LEDs data pin? [default: 18]\t")
                 led_pins_allowed = [10, 12, 13, 18, 19, 21, 31, 38, 40, 41, 45, 52, 53]
-                if led_pin_nr not in str(led_pins_allowed): print("\nPlease enter correct value!")
+                if led_pin_nr not in str(led_pins_allowed):
+                    print("\nPlease enter correct value!")
                 else:
                     rh_config["LED"]['LED_PIN'] = int(led_pin_nr)
                     break
             while True:
                 led_inv = input("\nIs LED data pin output inverted? [yes/no | default: no]\t\t\t")
                 led_inv_allowed_values = ['yes', 'no', 'false', 'true', 'y', 'n']
-                if led_inv not in led_inv_allowed_values: print("\nPlease enter correct value!")
+                if led_inv not in led_inv_allowed_values:
+                    print("\nPlease enter correct value!")
                 else:
                     led_inv_val = True if led_inv in ['yes', '1', 'y'] else False
                     rh_config["LED"]['LED_INVERT'] = led_inv_val
@@ -92,7 +99,8 @@ Default values are not automatically applied. Type them if needed.\n""")
             while True:
                 panel_rot = input("\nBy how many degrees is your panel rotated? [0/90/180/270 | default: 0]\t")
                 panel_rot_values_allowed = ['0', '90', '180', '270']
-                if panel_rot not in panel_rot_values_allowed: print("\nPlease enter correct value!")
+                if panel_rot not in panel_rot_values_allowed:
+                    print("\nPlease enter correct value!")
                 else:
                     panel_val = (int(panel_rot) / 90)
                     rh_config["LED"]['PANEL_ROTATE'] = int(panel_val)
@@ -100,7 +108,8 @@ Default values are not automatically applied. Type them if needed.\n""")
             while True:
                 inv_rows = input("\nAre your panel rows inverted? [yes/no | default: no]\t\t\t")
                 inv_rows_allowed_values = ['yes', 'no', 'false', 'true', 'y', 'n']
-                if inv_rows not in inv_rows_allowed_values: print("\nPlease enter correct value!")
+                if inv_rows not in inv_rows_allowed_values:
+                    print("\nPlease enter correct value!")
                 else:
                     inv_rows_val = True if inv_rows in ['yes', '1', 'y'] else False
                     rh_config["LED"]['INVERTED_PANEL_ROWS'] = inv_rows_val
@@ -122,15 +131,19 @@ Default values are not automatically applied. Type them if needed.\n""")
             selection = input("\t").strip()
             if selection in valid_options:
                 break
-            else: print("\ntoo big fingers :( wrong command. try again! :)")
+            else:
+                print("\ntoo big fingers :( wrong command. try again! :)")
         adv_wiz_flag = False
-        if selection == 'y' or selection == 'yes': adv_wiz_flag = True
-        if selection == 'n' or selection == 'no': adv_wiz_flag = False
+        if selection == 'y' or selection == 'yes':
+            adv_wiz_flag = True
+        if selection == 'n' or selection == 'no':
+            adv_wiz_flag = False
 
         if adv_wiz_flag:
             while True:
                 led_dma = input("\nLED DMA you will use in your system? [default: 10]\t\t\t")
-                if not led_dma.isdigit() or int(led_dma) < 0: print("\nPlease enter correct value!")
+                if not led_dma.isdigit() or int(led_dma) < 0:
+                    print("\nPlease enter correct value!")
                 else:
                     rh_config["LED"]['LED_DMA'] = int(led_dma)
                     break
@@ -147,7 +160,8 @@ Default values are not automatically applied. Type them if needed.\n""")
             while True:
                 debug_mode = input("\nWill you use RotorHazard in debug mode? [yes/no | default: no]\t\t")
                 debug_mode_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']
-                if debug_mode not in debug_mode_allowed_values: print("\nPlease enter correct value!")
+                if debug_mode not in debug_mode_allowed_values:
+                    print("\nPlease enter correct value!")
                 else:
                     debug = True if debug_mode in ['yes', '1', 'y'] else False
                     rh_config['GENERAL']['DEBUG'] = debug
@@ -160,7 +174,8 @@ Default values are not automatically applied. Type them if needed.\n""")
                 elif len(cors) > 3:
                     rh_config['GENERAL']['CORS_ALLOWED_HOSTS'] = cors
                     break
-                else: print("\nPlease enter correct value!")
+                else:
+                    print("\nPlease enter correct value!")
             while True:
                 serial_ports = input("\nWhich USB ports you will use? [default: 'none']\t\t\t").strip()
                 if serial_ports in ['none', '0', 'no']:
@@ -203,7 +218,8 @@ Default values are not automatically applied. Type them if needed.\n""")
             selection = input().strip()
             if selection in valid_options:
                 break
-            else: print("\ntoo big fingers :( wrong command. try again! :)")
+            else:
+                print("\ntoo big fingers :( wrong command. try again! :)")
         if selection == 'y' or selection == 'yes':
             write_json(rh_config, f"{home_dir}/RotorHazard/src/server/config.json")
             print("Configuration saved.\n")

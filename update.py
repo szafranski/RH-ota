@@ -152,8 +152,10 @@ def serial_menu(config):
         e - Exit{endc}
             """.format(endc=Bcolors.ENDC, yellow=Bcolors.YELLOW_S))
         selection = input()
-        if selection == 'r': os.system("sudo reboot")
-        if selection == 'e': return
+        if selection == 'r':
+            os.system("sudo reboot")
+        if selection == 'e':
+            return
 
     while True:
         clear_the_screen()
@@ -235,7 +237,6 @@ def aliases_menu(config):
 
 
 def self_updater(config):
-
     def check_if_beta_user(config):
         if config.beta_tester:
             updater_info = f'{Bcolors.RED}' \
@@ -267,8 +268,10 @@ def self_updater(config):
                    yellow=Bcolors.YELLOW, updater_info=check_if_beta_user(config))
         print(updater)
         selection = input()
-        if selection == 'b': break
-        if selection == 'u': os.system(". ./scripts/updater_from_ota.sh")
+        if selection == 'b':
+            break
+        if selection == 'u':
+            os.system(". ./scripts/updater_from_ota.sh")
 
 
 def features_menu(config):
@@ -296,14 +299,19 @@ def features_menu(config):
                             blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, rmf=Bcolors.RED_MENU_HEADER)
         print(features_menu_content)
         selection = input()
-        if selection == '1': serial_menu(config)
-        if selection == '2': conf_wizard_net(config)
+        if selection == '1':
+            serial_menu(config)
+        if selection == '2':
+            conf_wizard_net(config)
         if selection == '3':
             os.system("pinout")
             input("\nDone? Hit 'Enter'\n")
-        if selection == '4': aliases_menu(config)
-        if selection == '5': self_updater(config)
-        if selection == 'e': break
+        if selection == '4':
+            aliases_menu(config)
+        if selection == '5':
+            self_updater(config)
+        if selection == 'e':
+            break
 
 
 def first_time():
@@ -341,9 +349,12 @@ def first_time():
                        orange=Bcolors.ORANGE_S)
             print(welcome_second_page)
             selection = input()
-            if selection == 'f': return False  # go back to first page
-            if selection == 'e': return True  # go back to main menu
-            if selection == 'u': show_update_notes()
+            if selection == 'f':
+                return False  # go back to first page
+            if selection == 'e':
+                return True  # go back to main menu
+            if selection == 'u':
+                show_update_notes()
 
     def first_page():
         while True:
@@ -373,9 +384,12 @@ def first_time():
             selection = input()
             if selection == 's':
                 go_back_again = second_page()
-                if go_back_again: break # user wants to go back to main menu.
-            if selection == 'u': show_update_notes()
-            if selection == 'e': break
+                if go_back_again:
+                    break  # user wants to go back to main menu.
+            if selection == 'u':
+                show_update_notes()
+            if selection == 'e':
+                break
 
     first_page()
 
@@ -419,18 +433,27 @@ def main_menu(config):
                            rmf=Bcolors.RED_MENU_HEADER)
         print(main_menu_content)
         selection = input()
-        if selection == '1': rpi_update(config)
+        if selection == '1':
+            rpi_update(config)
         if selection == '2':
             ota_status = load_ota_sys_markers(config.user)
-            if ota_status.uart_support_added: old_flash_gpio(config) if config.old_hw_mod else flashing_menu(config)
-                # enters "old" flashing menu only when "old_hw_mod" is confirmed
-            else: serial_menu(config)
-        if selection == '3': server_start()
-        if selection == '4': features_menu(config)
-        if selection == '5': first_time()
-        if selection == '6': config = conf_ota(config)
-        if selection == 'logme': log_to_dev(config)
-        if selection == 'e': end()
+            if ota_status.uart_support_added:
+                old_flash_gpio(config) if config.old_hw_mod else flashing_menu(config)
+            # enters "old" flashing menu only when "old_hw_mod" is confirmed
+            else:
+                serial_menu(config)
+        if selection == '3':
+            server_start()
+        if selection == '4':
+            features_menu(config)
+        if selection == '5':
+            first_time()
+        if selection == '6':
+            config = conf_ota(config)
+        if selection == 'logme':
+            log_to_dev(config)
+        if selection == 'e':
+            end()
 
 
 def main():

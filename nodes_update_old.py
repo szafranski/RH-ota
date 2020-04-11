@@ -3,11 +3,11 @@ import os
 from modules import clear_the_screen, Bcolors, logo_top, load_config
 from nodes_flash import main as new_flashing
 
-
 try:
     # GPIO is only definable on the pi.
     # Try and import it but continue if it is not found.
     import RPi.GPIO as GPIO
+
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
 except ModuleNotFoundError:
@@ -18,7 +18,6 @@ except RuntimeError:
     print("GPIO import - failed - works only on Pi")
     sleep(1)
 
-
 """
 This is obsolete flashing protocol, left here only for first users in mind.
 New version is in i2c_nodes_flash.py file. 
@@ -26,7 +25,6 @@ New version is in i2c_nodes_flash.py file.
 
 
 def pins_assignment(config):
-
     # default to default pins. only update if they said so.
     reset_pins = [
         12,  # node 1   # default 12
@@ -256,10 +254,14 @@ def nodes_update(config):
             flash_all_blink(config, pins_assignment(config))
             logo_update(config)
             sleep(3)
-        if selection == '3': flash_each_node(config)
-        if selection == '4': gpio_state(config)
-        if selection == '5': new_flashing()
-        if selection == 'e': break
+        if selection == '3':
+            flash_each_node(config)
+        if selection == '4':
+            gpio_state(config)
+        if selection == '5':
+            new_flashing()
+        if selection == 'e':
+            break
 
 
 def main():
