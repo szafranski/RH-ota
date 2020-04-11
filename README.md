@@ -8,11 +8,11 @@
 
 1. Wizard install/update of RotorHazard server software
      - Choose which version of RotorHazard to install
-     - Preserves existing rotorhazard config file.
+     - Preserves existing RotorHazard config file.
      - Backup of existing RH install.
      - Automatically performs much of the RotorHazard specific Pi setup steps
 
-1. Wizard install of RotorHazard nodes firmware.
+1. Wizard install and update of RotorHazard nodes firmware.
      - Requires some hardware modification to enable
 
 1. Automatic configuring Access Point
@@ -23,7 +23,7 @@
         - explanation: https://www.raspberryconnect.com/projects/65-raspberrypi-hotspot-accesspoints/158-raspberry-pi-auto-wifi-hotspot-switch-direct-connection
 
 Helpful developer/back-end options:
-1. Installing avrdude
+1. Installing AVRdude
 1. Adding aliases to the system
 1. Script for installing dependencies 
 1. Showing Raspberry GPIO in the terminal
