@@ -13,10 +13,10 @@ def make_directories_accessible(config):
 
 def self_update(config, internet_flag):
     if not internet_flag:
-        print(f"\n\t{Bcolors.RED}Looks like you don't have internet connection. Update canceled.{Bcolors.ENDC}\n")
+        print(f"\t{Bcolors.RED}Looks like you don't have internet connection. Update canceled.{Bcolors.ENDC}\n")
         sleep(2)
     else:
-        print(f"\n\t\t{Bcolors.GREEN}Internet connection - OK{Bcolors.ENDC}\n")
+        print(f"\t\t{Bcolors.GREEN}Internet connection - OK{Bcolors.ENDC}\n")
         sleep(1.5)
         make_directories_accessible(config)
         old_version_name = get_ota_version(True)

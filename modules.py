@@ -109,8 +109,10 @@ class Bcolors:
 
 def internet_check():
     print("""
+    
         Please wait - checking internet connection state....
-    """)  # todo this text shows 2 times during self-update. no idea why
+        
+    """)
     internet_flag = False
     for i in range(3):
         response = requests.get('https://github.com')
