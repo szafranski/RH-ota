@@ -73,10 +73,10 @@ else
   echo python3-dev has to be installed && sudo apt install python3-dev -y
 fi
 
-if grep -q 'fonts-symbola' aptinstalled.tmp;; then
-  echo fonts-symbola has to be installed && sudo apt install fonts-symbola -y
+if grep -q 'fonts-symbola' aptinstalled.tmp; then
+  echo fonts-symbola"    "found
 else
-  echo fonts-symbola"     "found
+  echo fonts-symbola has to be installed && sudo apt install fonts-symbola -y
 fi
 
 if grep -q 'i2c-tools' aptinstalled.tmp; then
