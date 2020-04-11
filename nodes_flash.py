@@ -300,10 +300,13 @@ def first_flashing(config):
     clear_the_screen()
     logo_top(config.debug_mode)
 
-    def flash(port):
-        uart_flashing_prompt = f"\n\n\t{Bcolors.BOLD}Hit 'Enter' and push reset key on next node after 1 second " \
-                               f"[e - exit] {Bcolors.ENDC}"
-        usb_flashing_prompt = f"\n\n\t{Bcolors.BOLD}Connect next Arduino and hit 'Enter' [e - exit] {Bcolors.ENDC}"
+    def flash_node_first_time(port):
+        uart_flashing_prompt = \
+            "\n\n\t{bg}Hit 'Enter' and push reset button on next node after a second {e}{br}[e - exit] {e}".\
+            format(br=Bcolors.RED + Bcolors.BOLD, bg=Bcolors.GREEN + Bcolors.BOLD, e=Bcolors.ENDC)
+        usb_flashing_prompt = \
+            "\n\n\t{bg}Connect next Arduino and hit 'Enter'{e} {br}[e - exit] {e}".\
+                format(br=Bcolors.RED + Bcolors.BOLD, bg=Bcolors.GREEN + Bcolors.BOLD, e=Bcolors.ENDC)
         flashing_prompt = 0
         if port == 'USB0':
             flashing_prompt = usb_flashing_prompt
@@ -325,8 +328,7 @@ def first_flashing(config):
         After selecting right port you will be asked to manually push
         reset button on each node according to instructions on the screen.
         
-        Number of iterations of this procedure will correspond to the number
-        of nodes declared during the configuration process.  
+        After flashing last node for the first time hit 'e' to exit.
           
         Will you flash your nodes for the first time via UART (on PCB) 
         or using USB* port? [default: UART]
@@ -343,16 +345,16 @@ def first_flashing(config):
 """.format(green=Bcolors.GREEN_S, yellow=Bcolors.YELLOW_S, bold=Bcolors.BOLD, endc=Bcolors.ENDC)
         port_sel = input(first_flash_select)
         if port_sel == '1':
-            flash('S0')
+            flash_node_first_time('S0')
         elif port_sel == '2':
-            flash('USB0')
+            flash_node_first_time('USB0')
         elif port_sel == 'e':
             break
         else:
             print("\n\tType: 'UART' or 'USB'\n\t")
             continue
         break
-    print(f"\n\n\t\t\t{Bcolors.BOLD}FIRMWARE FLASHING - DONE{Bcolors.ENDC}\n\n")
+    print(f"\n\n\t\t\t{Bcolors.BOLD + Bcolors.UNDERLINE}FIRMWARE FLASHING - DONE{Bcolors.ENDC}\n\n")
     sleep(2)
 
 

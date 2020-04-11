@@ -109,14 +109,21 @@ class Bcolors:
 
 def internet_check():
     print("""
+    
         Please wait - checking internet connection state....
+        
     """)
     internet_flag = False
     for i in range(3):
-        response = requests.get('https://github.com')
-        if response.status_code == requests.codes.ok:
+        try:
+            response = requests.get('https://github.com')
+        except Exception as e:
+            response = False
+
+        if response and response.status_code == requests.codes.ok:
             internet_flag = True
             break
+    os.system("rm ~/wget* > /dev/null 2>&1")
     return internet_flag
 
 

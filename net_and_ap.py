@@ -20,12 +20,13 @@ and than try again
 
 Now you should be able to enter the network typing in the browser:
 10.10.10.10:5000 - using WiFi
-172.20.20.20:5000 - using ethernet.""")
+172.20.20.20:5000 - using ethernet.
 
-    print(f"""{Bcolors.GREEN}
-            Reboot by pressing 'r' {Bcolors.ENDC}{Bcolors.YELLOW} 
-            Exit by pressing 'e'{Bcolors.ENDC}
-            """)
+
+        {green}Reboot by pressing 'r'{endc} 
+        
+       {yellow}Exit by pressing 'e'{endc}
+            """.format(yellow=Bcolors.YELLOW_S, green=Bcolors.GREEN_S, endc=Bcolors.ENDC))
     selection = input()
     if selection == 'r':
         os.system("sudo reboot")
@@ -45,11 +46,12 @@ def step_three():
     
     You can enter Access Point extra menu after rebooting
     and check how you can connect to the internet.
-    """)
-    print(f"""{Bcolors.GREEN} 
-                Reboot by pressing 'r' {Bcolors.ENDC}{Bcolors.YELLOW}
-                Exit by pressing 'e'{Bcolors.ENDC}
-            """)
+
+
+            {green}r - Reboot by pressing{endc}
+            
+           {yellow}e - Exit by pressing{endc}
+            """.format(yellow=Bcolors.YELLOW_S, green=Bcolors.GREEN_S, endc=Bcolors.ENDC))
     selection = input()
     if selection == 'r':
         os.system("sudo reboot")
@@ -115,10 +117,11 @@ def step_one(config):
     os.system("sudo apt install curl -y")
     os.system("curl -sL https://install.raspap.com | bash -s -- -y")
     step_two()
-    print(f"""{Bcolors.GREEN}
-                Reboot by pressing 'r' {Bcolors.ENDC}{Bcolors.YELLOW}
-                Exit by pressing 'e'{Bcolors.ENDC}
-            """)
+    print("""
+            {green}r - Reboot by pressing{endc}
+            
+           {yellow}e - Exit by pressing{endc}
+            """.format(yellow=Bcolors.YELLOW_S, green=Bcolors.GREEN_S, endc=Bcolors.ENDC))
     selection = input()
     if selection == 'r':
         os.system("sudo reboot")
@@ -133,20 +136,23 @@ def step_zero(config):
     print("""
     After performing this process your Raspberry Pi can be used as standalone
     Access Point. You won't need additional router for connecting with it. 
-    You will loose ability of connecting Raspberry wirelessly to any router or hotspot.
+    You will loose ability of connecting the Pi wirelessly to any router or hotspot.
     You will still have ability to connect it to the Internet sharing device, 
-    like router or PC via ethernet cable. You will also be able to connect with the timer
-    via Wifi from PC or mobile phone etc. - if you had range. 
+    like router or PC via ethernet cable. You will also be able to connect with 
+    the timer via Wifi from PC or mobile phone etc. - if you had range. 
     If during this process you would want to check detailed instructions,
     you can enter 'net_ap' folder from this repo, on your mobile phone etc.
     This process will require few reboots. Do you want to continue?
-    """)
-    print(f"""{Bcolors.GREEN}
-            'y' - Yes, let's do it{Bcolors.ENDC}
-            '3' - enters "Step 3." - check it after first two steps
-            'x' - enters Access Point extra menu - check it after operation{Bcolors.YELLOW}
-            'e' - exit to main menu{Bcolors.ENDC}
-            """)
+    
+    
+     {green}y - Yes, let's do it{endc}
+
+            3 - Enter "Step 3." - check it after first two steps
+
+            x - Enter Access Point extra menu - check it after operation
+
+    {yellow}e - Exit to main menu{endc}
+            """.format(yellow=Bcolors.YELLOW_S, green=Bcolors.GREEN_S, endc=Bcolors.ENDC))
     selection = input()
     if selection == 'y':
         step_one(config)
@@ -186,10 +192,12 @@ def ap_menu(config):
     
     You can also read/print those instructions. File 'detailed.txt',
     in net_ap folder.
-    """)
-        selection = input(f"""{Bcolors.GREEN}
-                'k' - OK '{Bcolors.ENDC}{Bcolors.YELLOW}
-                'b' - go back{Bcolors.ENDC}""")
+
+            {green}k - OK{endc}
+            
+           {yellow}b - go back{endc}
+           """.format(yellow=Bcolors.YELLOW_S, green=Bcolors.GREEN_S, endc=Bcolors.ENDC))
+        selection = input()
         if selection == 'k':
             sys.exit()
         if selection == 'b':
@@ -216,11 +224,13 @@ def ap_menu(config):
     when you left it or when some troubleshooting is required.
     
     Open second page, for detailed explanation.
-    """)
-        selection = input(f"""{Bcolors.GREEN}
-                's' - second page'{Bcolors.ENDC}{Bcolors.YELLOW}
-                'b' - go back
-                """)
+
+
+            {green}s - Second page{endc}
+           
+           {yellow}b - Bo back{endc}
+                """.format(yellow=Bcolors.YELLOW_S, green=Bcolors.GREEN_S, endc=Bcolors.ENDC))
+        selection = input()
         if selection == 's':
             second_page()
         if selection == 'b':

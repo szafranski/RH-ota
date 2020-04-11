@@ -8,22 +8,22 @@
 
 1. Wizard install/update of RotorHazard server software
      - Choose which version of RotorHazard to install
-     - Preserves existing rotorhazard config file.
+     - Preserves existing RotorHazard config file.
      - Backup of existing RH install.
      - Automatically performs much of the RotorHazard specific Pi setup steps
 
-1. Wizard install of RotorHazard nodes firmware.
-     - Requires some hardware modification to enable
+1. Wizard install and update of RotorHazard nodes firmware.
+     - Requires some hardware modification to enable - described [here](./how_to/hw_mod_instructions)
 
 1. Automatic configuring Access Point
      - Hotspot: Configure always-on hotspot using Pi's built in Wifi 
         - You lose the ability to connect to the internet using built in Wifi. 
-     - Auto-Hotspot: Automatically connect to known wifi if available, or become hotspot if no network is found. 
+     - [Auto-Hotspot:](./AUTO_HOTSPOT.md) Automatically connect to known wifi if available, or become hotspot if no network is found. 
         - If your Pi has been configured to connect to WIFI, this option allows you to use that wifi when in range, and still create a hotspot when not in range.
-        - explanation: https://www.raspberryconnect.com/projects/65-raspberrypi-hotspot-accesspoints/158-raspberry-pi-auto-wifi-hotspot-switch-direct-connection
+        - full explanation: [here](https://www.raspberryconnect.com/projects/65-raspberrypi-hotspot-accesspoints/158-raspberry-pi-auto-wifi-hotspot-switch-direct-connection)
 
 Helpful developer/back-end options:
-1. Installing avrdude
+1. Installing AVRdude
 1. Adding aliases to the system
 1. Script for installing dependencies 
 1. Showing Raspberry GPIO in the terminal
@@ -49,20 +49,28 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
 [Facebook Group](https://www.facebook.com/groups/207159263704015) members as well as  software and hardware testers
 </br>
 ##
-#### Commands to download the repo onto Raspberry Pi (or Linux):
+#### Commands to download the software onto Raspberry Pi (or Linux):
+**Note:**  This software will automatically install all necessary dependencies
+
     cd ~
     wget https://codeload.github.com/szafranski/RH-ota/zip/main_stable -O tempota.zip
     unzip tempota.zip
     rm tempota.zip
     mv RH-ota-* RH-ota
     
-    *Change 2nd line with what's below if you want to install beta version: 
+    *Change 2nd line with what's below if you want to install the beta version: 
     wget https://codeload.github.com/szafranski/RH-ota/zip/master -O tempota.zip
 
 #### Commands to open the software:
     
     cd ~/RH-ota
     sh ./ota.sh
+
+<br/>
+We assume in our instructions and provided setup process that you already have your Raspbian OS set up. 
+If not, please follow those instructions: 
+
+[raspbian setup instructions](https://www.raspberrypi.org/documentation/installation/installing-images/README.md)
 
 <br/>
 

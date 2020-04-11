@@ -327,26 +327,26 @@ def first_time():
         while True:
             clear_the_screen()
             welcome_second_page = """
-                            {bold}{underline}CONFIGURATION PROCESS{endc}
-    
-            {bold} 
-            Software configuration process can be assisted with a wizard. 
-            You have to enter point 5. of Main Menu and apply right values.
-            It will configure this software, not RotorHazard server itself. 
-            Thing like amount of used LEDs or password to admin page of RotorHazard
-            should be configured separately - check RotorHazard Manager in Main Menu.
-    
-    
-            Possible RotorHazard server versions:
-    
-            > {blue}'stable'{endc}{bold}- last stable release (can be from before few days or few months){endc}
+                        {bold}{underline}CONFIGURATION PROCESS{endc}
+
+        {bold} 
+        Software configuration process can be assisted with a wizard. 
+        You have to enter point 5. of Main Menu and apply right values.
+        It will configure this software, not RotorHazard server itself. 
+        Thing like amount of used LEDs or password to admin page of RotorHazard
+        should be configured separately - check RotorHazard Manager in Main Menu.
+
+
+        Possible RotorHazard server versions:
+
+        > {blue}'stable'{endc}{bold}- last stable release (can be from before few days or few months){endc}
+        
+        > {blue}'beta'  {endc}{bold}- last 'beta' release (usually has about few weeks, quite stable){endc}
+        
+        > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested){endc}  
             
-            > {blue}'beta'  {endc}{bold}- last 'beta' release (usually has about few weeks, quite stable){endc}
-            
-            > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested){endc}  
-                
-            
-                f - First page'         u - Update notes' {yellow}   e - Exit to menu{endc}
+        
+            f - First page'         u - Update notes' {yellow}   e - Exit to menu{endc}
                   
             """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
                        blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S,
@@ -365,24 +365,25 @@ def first_time():
             clear_the_screen()
             welcome_first_page = """{bold}  
     
-            You can use all implemented features, but if you want to be able to flash
-            Arduino-nodes, you have to use official PCB or have 'hardware mod" done.
-    
-            Please remember about setting up config file - check out second page.  
-    
-            This program has ability to perform 'self-updates' - in "Features Menu".
-    
-            More info about whole poject that this software is a part of: 
-            https://www.instructables.com/id/RotorHazard-Updater/
-            and in how_to folder - look for PDF file.
-            New features and changes - see update notes section.
-            If you found any bug - please report via GitHub or Facebook.
-            
-                    Enjoy!
-                                                    Szafran
-            
-                {green}
-            s - Second page {endc}        u - Update notes {yellow}e - Exit to main menu {endc}
+        You can use all implemented features, but if you want to be able to flash
+        Arduino-nodes, you have to use official PCB or have 'hardware mod" done.
+
+        Please remember about setting up config file - check out second page.  
+
+        This program has ability to perform 'self-updates' - in "Features Menu".
+
+        More info about whole poject that this software is a part of: 
+        https://www.instructables.com/id/RotorHazard-Updater/
+        and in how_to folder - look for PDF file.
+        
+        New features and changes - see update notes section.
+        If you found any bug - please report via GitHub or Facebook.
+        
+                Enjoy!
+                                                Szafran
+        
+            {green}
+        s - Second page {endc}        u - Update notes {yellow}e - Exit to main menu {endc}
             """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, yellow=Bcolors.YELLOW_S, bold=Bcolors.BOLD)
             print(welcome_first_page)
             selection = input()

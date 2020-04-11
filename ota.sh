@@ -10,8 +10,8 @@ done
 printf "\n"
 }
 ###############
-
-echo installing dependencies may need 'sudo'
+echo dependencies will be auto-detected and installed
+echo installing dependencies may need 'sudo' password
 
 which python3 >/dev/null
 if [ $? -gt 0 ]; then
@@ -73,18 +73,15 @@ else
   echo python3-dev has to be installed && sudo apt install python3-dev -y
 fi
 
-if grep -q 'RPI.GPIO' pip3installed.tmp; then
-  echo python3-rpi.gpio" "found
-else
-  echo python3-rpi.gpio has to be installed && pip3 install rpi.gpio || echo - only on Pi -
-fi
-# todo error - never shows as found, always tries to install it
-
-if grep -q 'smbus' pip3installed.tmp; then
-  echo python3-smbus"    "found
-else
-  echo python3-smbus has to be installed && pip3 install smbus
-fi
+#if grep -q 'twemoji-svginot' aptinstalled.tmp; then
+#  echo fonts-twemoji"    "found
+#else
+#  echo fonts-symbola has to be installed &&
+#  sudo apt-get install software-properties-common -y &&
+#  sudo apt-add-repository ppa:eosrei/fonts -y &&
+#  sudo apt-get update &&
+#  sudo apt-get install fonts-twemoji-svginot -y
+#fi
 
 if grep -q 'i2c-tools' aptinstalled.tmp; then
   echo i2c-tools"        "found
@@ -92,6 +89,17 @@ else
   echo i2c-tools has to be installed && sudo apt install i2c-tools -y
 fi
 
+if grep -q 'RPi.GPIO' pip3installed.tmp; then
+  echo python3-rpi.gpio" "found
+else
+  echo python3-rpi.gpio has to be installed && pip3 install rpi.gpio || echo - only on Pi -
+fi
+
+if grep -q 'smbus' pip3installed.tmp; then
+  echo python3-smbus"    "found
+else
+  echo python3-smbus has to be installed && pip3 install smbus
+fi
 
 # Cleanup after myself.
 rm pip3installed.tmp
