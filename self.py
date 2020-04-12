@@ -58,26 +58,12 @@ if os.path.exists(cfgdir1):
 else:
     config_file_exists = False
 
-if config_file_exists:
-    if check_if_string_in_file(myhomedir+'/RH-ota/updater-config.json', 'updates_without_pdf'):
-        if data['updates_without_pdf']:
-            no_pdf_update = True
-        else:
-            no_pdf_update = False
-    else:
-        no_pdf_update = False
-else: 
-    no_pdf_update = False
 
 def debug_info():
     if config_file_exists:
         print("config_file_exists = True")
     else:
         print("config_file_exists = False")
-    if no_pdf_update:
-        print("no_pdf_update = True")
-    else:
-        print("no_pdf_update = False")
     sleep(1)
 #debug_info()
 
@@ -114,22 +100,12 @@ def main():
         sleep(2)
         if config_file_exists:
             os.system("cp ~/RH-ota/updater-config.json ~/.ota_markers/updater-config.json")
-        if not no_pdf_update:
-            print("Update will contain PDF file - may be changed in config file.\n")
-            os.system("sudo rm -rf ~/RH-ota*")
-            os.system("rm tempota.zip > /dev/null  > /dev/null 2>&1")
-            os.system("wget https://codeload.github.com/szafranski/RH-ota/zip/main_stable -O tempota.zip")
-            os.system("unzip tempota.zip")
-            os.system("rm tempota.zip")
-            os.system("mv RH-ota-* RH-ota")
-        else:
-            print("Update won't contain PDF file - may be changed in config file.\n")
-            os.system("sudo rm -rf ~/RH-ota*")
-            os.system("rm tempota.zip > /dev/null  > /dev/null 2>&1")
-            os.system("wget https://codeload.github.com/szafranski/RH-ota/zip/no_pdf -O tempota.zip")
-            os.system("unzip tempota.zip")
-            os.system("rm tempota.zip")
-            os.system("mv RH-ota-* RH-ota")
+        os.system("sudo rm -rf ~/RH-ota*")
+        os.system("rm tempota.zip > /dev/null  > /dev/null 2>&1")
+        os.system("wget https://codeload.github.com/szafranski/RH-ota/zip/main_stable -O tempota.zip")
+        os.system("unzip tempota.zip")
+        os.system("rm tempota.zip")
+        os.system("mv RH-ota-* RH-ota")
         if config_file_exists:
             os.system("cp ~/.ota_markers/updater-config.json ~/RH-ota/updater-config.json")
         new_version_check()
