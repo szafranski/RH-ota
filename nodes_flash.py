@@ -27,6 +27,14 @@ def nodes_addresses():
     return addr_list
 
 
+def firmware_version_selection(config):
+    if config.rh_version in ['stable', 'beta', 'master']:
+        firmware_version = config.rh_version
+    else:  # in case of 'custom' RH version is chosen firmware defaults to 'stable'
+        firmware_version = 'stable'
+
+    return firmware_version
+
 def logo_update(config):
     print("""
     #######################################################################
@@ -63,7 +71,7 @@ def flash_blink(config):
 
 def flash_firmware(config):
     os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-    flash:w:/home/{config.user}/RH-ota/firmware/{config.rh_version}/node_0.hex:i || {show_flash_error_msg()}")
+    flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version_selection(config)}/node_0.hex:i || {show_flash_error_msg()}")
 
 
 def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
@@ -77,7 +85,7 @@ def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
         print(f"\n\t\t{Bcolors.BOLD}Flashing node {i + 1} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
         prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
         print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
-              f"flash:w:/home/{config.user}/RH-ota/firmware/{config.rh_version}/node_0.hex:i")
+              f"flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version_selection(config)}/node_0.hex:i")
         flash_firmware(config) if not config.debug_mode else None
         print(f"\n\t\t\t{Bcolors.BOLD}Node {i + 1} - flashed{Bcolors.ENDC}\n\n")
         sleep(2)
@@ -117,7 +125,7 @@ def flash_firmware_on_a_specific_node(config, selected_node_number):
     print(f"\n\t\t{Bcolors.BOLD}Flashing node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
     prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
     print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
-          f"flash:w:/home/{config.user}/RH-ota/firmware/{config.rh_version}/node_0.hex:i ")
+          f"flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version_selection(config)}/node_0.hex:i ")
     flash_firmware(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - flashed{Bcolors.ENDC}\n\n")
     sleep(2)
@@ -128,7 +136,7 @@ def flash_firmware_onto_gpio_node(config):
     print(f"\n\t\t{Bcolors.BOLD}Flashing node {config.nodes_number} {Bcolors.ENDC}(reset with GPIO pin: {rst})\n")
     reset_gpio_pin(config.gpio_reset_pin)
     print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
-          f"flash:w:/home/{config.user}/RH-ota/firmware/{config.rh_version}/node_0.hex:i")
+          f"flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version_selection(config)}/node_0.hex:i")
     flash_blink(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {config.nodes_number} - flashed{Bcolors.ENDC}\n\n")
     sleep(2)
@@ -319,7 +327,7 @@ def first_flashing(config):
             else:
                 sleep(0.5)
                 os.system(f"timeout 10 avrdude -v -p atmega328p -c arduino -P /dev/tty{port} -b 57600 -U \
-                flash:w:/home/{config.user}/RH-ota/firmware/{config.rh_version}/node_0.hex:i \
+                flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version_selection(config)}/node_0.hex:i \
                 || {show_flash_error_msg()}")
 
     while True:

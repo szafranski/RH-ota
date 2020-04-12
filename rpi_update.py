@@ -10,13 +10,14 @@ def check_preferred_rh_version(config):
     stable_release_name = '2.1.1'  # declare last stable release name here
     beta_release_name = '2.1.0-beta.3'  # declare last beta release name here
 
-    server_version = stable_release_name
-    # updater defaults to stable RH release if master or beta is not declared
-
-    if config.rh_version == 'master':
-        server_version = 'master'
+    if config.rh_version == 'stable':
+        server_version = stable_release_name
     elif config.rh_version == 'beta':
         server_version = beta_release_name
+    elif config.rh_version == 'master':
+        server_version = 'master'
+    else:  # in case of 'custom' version selected in wizard
+        server_version = config.rh_version
 
     return server_version
 
