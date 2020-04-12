@@ -60,20 +60,18 @@ Default values are not automatically applied. Type them if needed.
         config.pi_user = pi_user_name
         while True:
             version = input(f"\nChoose RotorHazard version? \
-[{Bcolors.UNDERLINE}stable{Bcolors.ENDC} | beta | master | custom]\t").lower()
+[{Bcolors.UNDERLINE}stable{Bcolors.ENDC} | beta | master ]\t\t\t").lower()
             version_valid_options = ['master', 'stable', 'beta', 'custom']
             if version not in version_valid_options:
                 print("\nPlease enter correct value!")
             else:
                 config.rh_version = version
+                # Below - hidden option, just for developers and testing.
+                # Nodes flashing will be defaulted to stable in that case
                 # If the user specifies custom for version, re-ask the question
                 # and ask exactly what version tag they want:
                 if version == 'custom':
-                    print("Support for custom versions of RH coming soon")
-                    input("Press Enter")
-                    continue  # todo add support for custom version of RotorHazard
-                    # maybe sth like "check_if_rh_version_is_custom()" in nodes_update
-                    # config.rh_version = ask_custom_rh_version()
+                    config.rh_version = ask_custom_rh_version()
                 break
 
         while True:
