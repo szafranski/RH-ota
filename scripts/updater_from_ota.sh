@@ -27,6 +27,5 @@ python3 ~/.ota_markers/old_RH-ota/self.py
 cd ~ || exit
 sleep 1.2
 cd ~/RH-ota || exit
-printf "\n\nUpdate process done, hit 'Enter' to continue \n\n"
-cd ~ || exit
-# todo exit to home folder - now it "ends" in RH-ota
+printf "\n\nUpdate process done, please re-enter RH-ota folder \n\n"
+printf "\n\n -- Hit 'Enter' to continue -- \n\n"
