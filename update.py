@@ -250,26 +250,27 @@ def self_updater(config):
         clear_the_screen()
         logo_top(config.debug_mode)
         updater = """{bold}
-        If you want to update this program and download new firmware, 
-        prepared for Arduino nodes - so you can next flash them 
-        - you can just hit 'u' now.
+        You can update OTA software by hitting 'u' now. It is advised step 
+        before updating the RotorHazard server or before flashing nodes,
+        so you can be sure you use the newest possible software.
         
-        Version of the updater is related to {blue}nodes firmware API number{endc},
-              {bold}
-        so you always know what firmware version updater contains.
+        OTA version number is related to {blue}nodes firmware API number{endc}{bold},
+        so you always know what firmware version given OTA release contains.
         For example "2.2.5c" contains nodes firmware with "API level 22".
-        Self-updater will test your internet connection during every update.
+        
+        Self-updater will test your internet connection before every update
+        and prevent update if there is no internet connection established.
         
         {updater_info}
         
-                {green}u - Update now{endc}
+            {green}u - Update OTA now{endc}
         
-                {yellow}b - Go back{endc}
-        """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, bold=Bcolors.BOLD, blue=Bcolors.BLUE,
-                   yellow=Bcolors.YELLOW, updater_info=check_if_beta_user(config))
+           {yellow}e - Exit to main menu{endc}
+        """.format(green=Bcolors.GREEN_S, endc=Bcolors.ENDC, bold=Bcolors.BOLD, blue=Bcolors.BLUE,
+                   yellow=Bcolors.YELLOW_S, updater_info=check_if_beta_user(config))
         print(updater)
         selection = input()
-        if selection == 'b':
+        if selection == 'e':
             break
         if selection == 'u':
             os.system(". ./scripts/updater_from_ota.sh")

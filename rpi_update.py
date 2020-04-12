@@ -7,20 +7,20 @@ from modules import clear_the_screen, Bcolors, image_show, internet_check, load_
 
 
 def check_preferred_rh_version(config):
-    rh_version = config.rh_version
-    if rh_version == 'master':
+    stable_release_name = '2.1.1'  # declare last stable release name here
+    beta_release_name = '2.1.0-beta.3'  # declare last beta release name here
+
+    server_version = stable_release_name
+    # updater defaults to stable RH release if master or beta is not declared
+
+    if config.rh_version == 'master':
         server_version = 'master'
-    elif rh_version == 'beta':
-        server_version = '2.1.0-beta.3'
-    elif rh_version == 'stable':
-        server_version = '2.1.1'
-    else:
-        server_version = rh_version
+    elif config.rh_version == 'beta':
+        server_version = beta_release_name
 
     return server_version
 
 
-# Dave's thoughts: # todo can be removed now?
 # TODO I would like to move th tags out of being hard-coded here.
 # Maybe get a list of tags and ask user to select from list
 # or automatically figure out the newest non-beta tag?
@@ -143,9 +143,10 @@ def installation(conf_allowed, config):
     clear_the_screen()
     internet_flag = internet_check()
     if not internet_flag:
-        print("\nLooks like you don't have internet connection. Installation canceled.")
+        print(f"\n\t{Bcolors.RED}Looks like you don't have internet connection. Installation canceled.{Bcolors.ENDC}")
+        sleep(2)
     else:
-        print("\nInternet connection - OK")
+        print(f"\n\t\t\t{Bcolors.GREEN}Internet connection - OK{Bcolors.ENDC}")
         sleep(2)
         clear_the_screen()
         print(f"{Bcolors.BOLD}Installation process has been started - please wait...{Bcolors.ENDC}\n")
@@ -179,10 +180,10 @@ def update(config):
     os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &") if not config.debug_mode else None
     internet_flag = internet_check()
     if not internet_flag:
-        print("\nLooks like you don't have internet connection. Update canceled.")
+        print(f"\n\t{Bcolors.RED}Looks like you don't have internet connection. Update canceled.{Bcolors.ENDC}")
         sleep(2)
     else:
-        print("\nInternet connection - OK")
+        print(f"\n\t\t\t{Bcolors.GREEN}Internet connection - OK{Bcolors.ENDC}")
         sleep(2)
         clear_the_screen()
         if not os.path.exists(f"/home/{config.user}/RotorHazard"):
