@@ -275,12 +275,7 @@ def self_updater():
     def add_updater():
         clear_the_screen()
         logo_top()
-        print("""\n
-    Permissions required so 'zip' and 'unzip' program can be downloaded.
-    Performed only during first instance of entering this sub-menu\n""")
         sleep(2)
-        os.system("sudo echo")
-        os.system("sudo apt install zip unzip")
         os.system("""echo 'alias updateupdater=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null""")
         os.system("""echo 'alias uu=\"cd ~ && cp ~/RH-ota/self.py ~/.ota_markers/self.py && python ~/.ota_markers/self.py \"  # part of self updater' | tee -a ~/.bashrc >/dev/null""")
         parser.set('added_functions','updater_planted','1')
