@@ -17,8 +17,7 @@ sudo echo
 printf "\n\nUpdating process has been started\n\n" & dots30
 kill -9 "$(pidof python3 update.py)"
 # todo:
-# 1. right now it kills ALL python3 processes, not just update.py - bad
-# 2. kill multiple instances of 'python3 update.py' if needed
+# for pid in $(pgrep -ax python3 | grep update.py | awk '{print $1}' ) ; do echo hello $pid ; done
 cd ~ || exit
 rm -rf ~/.ota_markers/old_RH-ota > /dev/null 2>&1
 cp -r ~/RH-ota ~/.ota_markers/old_RH-ota
