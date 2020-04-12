@@ -60,7 +60,7 @@ Default values are not automatically applied. Type them if needed.
         config.pi_user = pi_user_name
         while True:
             version = input(f"\nChoose RotorHazard version? \
-[{Bcolors.UNDERLINE}stable{Bcolors.ENDC} | beta | master | custom]").lower()
+[{Bcolors.UNDERLINE}stable{Bcolors.ENDC} | beta | master | custom]\t").lower()
             version_valid_options = ['master', 'stable', 'beta', 'custom']
             if version not in version_valid_options:
                 print("\nPlease enter correct value!")

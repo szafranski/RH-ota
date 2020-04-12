@@ -84,7 +84,7 @@ else
 fi
 
 if check_package 'fonts-symbola' ; then
-  echo fonts-symbola"     "found
+  echo fonts-symbola"    "found
 else
   echo fonts-symbola has to be installed && sudo apt install fonts-symbola -y
 fi

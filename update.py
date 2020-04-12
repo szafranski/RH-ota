@@ -253,6 +253,7 @@ def self_updater(config):
         If you want to update this program and download new firmware, 
         prepared for Arduino nodes - so you can next flash them 
         - you can just hit 'u' now.
+        
         Version of the updater is related to {blue}nodes firmware API number{endc},
               {bold}
         so you always know what firmware version updater contains.
