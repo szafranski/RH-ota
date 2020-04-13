@@ -186,6 +186,95 @@ def serial_menu(config):
             break
 
 
+def sys_config_menu(config):
+    def reboot_info():
+        print("Reboot after enabling all needed protocols\n")
+        sleep(1)
+
+    while True:
+        ota_status = load_ota_sys_markers(config.user)
+        uart_conf_stat = '' if ota_status.uart_support_added else Bcolors.GREEN
+        ssh_conf_stat = '' if ota_status.ssh_support_added else Bcolors.GREEN
+        spi_conf_stat = '' if ota_status.spi_support_added else Bcolors.GREEN
+        i2c_conf_stat = '' if ota_status.i2c_support_added else Bcolors.GREEN
+        clear_the_screen()
+        logo_top(config.debug_mode)
+        sys_config_menu_content = """
+    
+                                {rmf}SYSTEM CONFIGURATION MENU{endc}{bold}
+    
+             
+                    {uart_stat}1 - Enable UART{endc} - used for nodes flashing{bold}
+                        
+                    {ssh_stat}2 - Enable SSH{endc} - used for network access to Pi{bold}
+                        
+                    {spi_stat}3 - Enable SPI{endc} - used for LEDs{bold}
+                        
+                    {i2c_stat}4 - Enable I2C{endc} - used for RotorHazard and flashing{bold}
+                            
+                    {yellow}e - Exit to main menu{endc}
+    
+                 """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
+                            blue=Bcolors.BLUE_S, yellow=Bcolors.YELLOW, red=Bcolors.RED_S,
+                            rmf=Bcolors.RED_MENU_HEADER, uart_stat=uart_conf_stat, ssh_stat=ssh_conf_stat,
+                            spi_stat=spi_conf_stat, i2c_stat=i2c_conf_stat)
+        print(sys_config_menu_content)
+        selection = input()
+        if selection == '1':
+            serial_menu(config)
+        if selection == '2':
+            def ssh_enabling():
+                os.system("./scripts/sys_conf.sh ssh")
+                reboot_info()
+                ota_status.ssh_support_added = True
+                input("SSH enabled. Hit Enter to continue")
+            if not ota_status.ssh_support_added:
+                ssh_enabling()
+            else:
+                print("""
+                Looks like SSH is already enabled.\n
+                If you want to force it now anyway press 'f' or Enter to exit
+                """)
+                selection = input()
+                if selection == 'f':
+                    ssh_enabling()
+        if selection == '3':
+            def spi_enabling():
+                os.system("./scripts/sys_conf.sh spi")
+                reboot_info()
+                ota_status.spi_support_added = True
+                input("SPI enabled. Hit Enter to continue")
+            if not ota_status.ssh_support_added:
+                spi_enabling()
+            else:
+                print("""
+                Looks like SSH is already enabled.\n
+                If you want to force it now anyway press 'f' or Enter to exit
+                """)
+                selection = input()
+                if selection == 'f':
+                    spi_enabling()
+        if selection == '4':
+            def i2c_enabling():
+                os.system("./scripts/sys_conf.sh i2c")
+                reboot_info()
+                ota_status.i2c_support_added = True
+                input("SPI enabled. Hit Enter to continue")
+            if not ota_status.ssh_support_added:
+                i2c_enabling()
+            else:
+                print("""
+                Looks like SSH is already enabled.\n
+                If you want to force it now anyway press 'f' or Enter to exit
+                """)
+                selection = input()
+                if selection == 'f':
+                    i2c_enabling()
+        if selection == 'e':
+            break
+        write_ota_sys_markers(ota_status, config.user)
+
+
 def aliases_menu(config):
     ota_status = load_ota_sys_markers(config.user)
 
@@ -284,7 +373,7 @@ def features_menu(config):
                                 {rmf}FEATURES MENU{endc}{blue}{bold}
     
              
-                        1 - Enable serial protocol {endc}{bold}
+                        1 - Enter system configuration menu {endc}{bold}
                         
                         2 - Access Point and Internet 
                         
@@ -303,7 +392,7 @@ def features_menu(config):
         print(features_menu_content)
         selection = input()
         if selection == '1':
-            serial_menu(config)
+            sys_config_menu(config)
         if selection == '2':
             conf_wizard_net(config)
         if selection == '3':
