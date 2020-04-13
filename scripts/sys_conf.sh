@@ -11,9 +11,28 @@ ssh_enabling(){
   sudo systemctl start ssh
 }
 
+ssh_error(){
+  echo "
+     -- SSH enabling error --
+
+  try manual enabling with 'sudo raspi config'
+  "
+  sleep 3
+}
+
+
 spi_enabling(){
   echo "dtparam=spi=on" | sudo tee -a /boot/config.txt
   sudo sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf
+}
+
+spi_error(){
+  echo "
+     -- SPI enabling error --
+
+  try manual enabling with 'sudo raspi config'
+  "
+  sleep 3
 }
 
 i2c_enabling(){
@@ -25,6 +44,24 @@ dtparam=i2c1=on
 dtparam=i2c_arm=on
 " | sudo tee -a /boot/config.txt
   sudo sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf
+}
+
+spi_error(){
+  echo "
+     -- I2C enabling error --
+
+  try manual enabling with 'sudo raspi config'
+  "
+  sleep 3
+}
+
+uart_error(){
+  echo "
+     -- UART enabling error --
+
+  try manual enabling with 'sudo raspi config'
+  "
+  sleep 3
 }
 
 if [ "${1}" = "ssh" ]; then
@@ -39,9 +76,16 @@ if [ "${1}" = "i2c" ]; then
   i2c_enabling
 fi
 
+
+
 if [ "${1}" = "all" ]; then
-  ssh_enabling
-  spi_enabling
-  uart_enabling
-  i2c_enabling
+  ssh_enabling || ssh_error
+  spi_enabling || spi_error
+  i2c_enabling || i2c_error
+  uart_enabling || uart_error
+  echo "
+
+  Process completed. Please reboot now.
+
+  "
 fi
