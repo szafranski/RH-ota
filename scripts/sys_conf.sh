@@ -85,7 +85,7 @@ if [ "${1}" = "all" ]; then
   uart_enabling || uart_error
   echo "
 
-  Process completed. Please reboot now.
+  Process completed. Please reboot Raspberry now.
 
   "
 fi
