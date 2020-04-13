@@ -38,3 +38,10 @@ fi
 if [ "${1}" = "i2c" ]; then
   i2c_enabling
 fi
+
+if [ "${1}" = "all" ]; then
+  ssh_enabling
+  spi_enabling
+  uart_enabling
+  i2c_enabling
+fi
