@@ -16,7 +16,6 @@ sleep 1.2
 sudo echo
 printf "\n\nUpdating process has been started\n\n" & dots50
 printf "\n"
-# todo not always kills properly more than one instance:
 for pid in $(pgrep -ax python3 | grep update.py | awk '{print $1}' ) ; do kill -9 $pid ; done
 cd ~ || exit
 rm -rf ~/.ota_markers/old_RH-ota > /dev/null 2>&1
