@@ -66,7 +66,6 @@ def log_send(config):
         if selection == 'y' or selection == 'yes':
             log_name = input("\n\tPlease enter your name so we know who sent a log file: ")
             os.system(f"./scripts/log_send.sh {config.user} {log_name}")
-            # todo 'code' is saved with '<code>_log.txt', should be just <code> - to be changed
             f = open("./log_data/log_code.txt", "r")
             code = ''
             for line in f:
