@@ -5,22 +5,20 @@ from pathlib import Path
 
 
 def conf_check():
-    conf_now_flag = 0
+    conf_now_flag = 1
     if os.path.exists(f"./../RotorHazard/src/server/config.json"):
         print("\n\tLooks that you have Rotorhazard software already configured.")
-        valid_options_conf_check = ['Y', 'y', 'N', 'n']
         while True:
             cont_conf = input("\n\tOverwrite and continue anyway? [Y/n]\t\t").strip()
-            if cont_conf in valid_options_conf_check:
+            if cont_conf.lower() == 'y':
+                conf_now_flag = 1
+                break
+            elif cont_conf.lower() == 'n':
+                conf_now_flag = 0
                 break
             else:
                 print("\ntoo big fingers :( wrong command. try again! :)")
-        if cont_conf[0] == 'y':
-            conf_now_flag = 1
-        elif cont_conf[0] == 'n':
-            conf_now_flag = 0
-    else:
-        conf_now_flag = 1
+
     return conf_now_flag
 
 
