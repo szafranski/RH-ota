@@ -166,7 +166,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                     rh_config['GENERAL']['DEBUG'] = debug
                     break
             while True:
-                cors = input("\nCORS hosts allowed? [default: all]\t\t\t")
+                cors = input("\nCORS hosts allowed? [default: all]\t\t\t\t\t")
                 if cors in ['*', 'all']:
                     rh_config['GENERAL']['CORS_ALLOWED_HOSTS'] = "*"
                     break
@@ -176,7 +176,7 @@ Default values are not automatically applied. Type them if needed.\n""")
                 else:
                     print("\nPlease enter correct value!")
             while True:
-                serial_ports = input("\nWhich USB ports you will use? [default: 'none']\t\t\t").strip()
+                serial_ports = input("\nWhich USB ports you will use? [default: 'none']\t\t\t\t").strip()
                 if serial_ports in ['none', '0', 'no']:
                     rh_config['SERIAL_PORTS'] = []
                     break
