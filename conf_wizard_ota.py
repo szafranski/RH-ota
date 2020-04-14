@@ -11,33 +11,33 @@ ask the user if they want to overwrite it.
 
 
 def conf_check():
-    conf_now_flag = 0
+    conf_now_flag = 1
     if os.path.exists("./updater-config.json"):
         print("\n\tLooks that you have OTA software already configured.")
-        valid_options_conf_check = ['y', 'yes', 'n', 'no']
         while True:
-            cont_conf = input("\n\tOverwrite and continue anyway? [yes/no]\t\t").strip()
-            if cont_conf in valid_options_conf_check:
-                break
-            else:
+            cont_conf = input("\n\tOverwrite and continue anyway? [y/n]\t\t")
+            if cont_conf not in ['y','n','']:
                 print("\ntoo big fingers :( wrong command. try again! :)")
-        if cont_conf[0] == 'y':
-            conf_now_flag = 1
-        if cont_conf[0] == 'n':
-            conf_now_flag = 0
-    else:
-        conf_now_flag = 1
+                continue
+            elif not cont_conf:
+                print("answer defaulted to: yes")
+            elif cont_conf == 'y':
+                conf_now_flag = True
+            else:
+                conf_now_flag = False
+            break
+
     return conf_now_flag
 
 
 def ask_custom_rh_version():
     while True:
         version = input(f"\nPlease enter the version tag that you wish to install [EG: 2.1.0-beta.3]:\t")
-        confirm = input(f"""
+        custom_confirm = input(f"""
             You entered: '{version}' 
 
-            Confirm [yes/no]""")
-        if confirm.upper().startswith('Y'):
+            Confirm [Y/n]""")
+        if custom_confirm.lower() == 'Y' or not custom_confirm:
             return version
 
 
@@ -54,33 +54,44 @@ def do_config(config):
         print("""
         
 Please type your configuration data. It can be modified later.
-Default values are not automatically applied. Type them if needed.
+If you want to use value given as default, just hit 'Enter'.
 """)
         pi_user_name = input("\nWhat is your user name on Raspberry Pi? [default: pi]\t\t\t")
-        config.pi_user = pi_user_name
+        if not pi_user_name:
+            config.pi_user = 'pi'
+            print("defaulted to: 'pi'")
+        else:
+            config.pi_user = pi_user_name
         while True:
             version = input(f"\nChoose RotorHazard version? \
 [{Bcolors.UNDERLINE}stable{Bcolors.ENDC} | beta | master ]\t\t\t").lower()
-            version_valid_options = ['master', 'stable', 'beta', 'custom']
-            if version not in version_valid_options:
-                print("\nPlease enter correct value!")
-            else:
+            if not version:
+                config.rh_version = 'stable'
+                print("defaulted to: 'stable'")
+            elif version in ['master', 'stable', 'beta']:
                 config.rh_version = version
-                # Below - hidden option, just for developers and testing.
+            elif version == 'custom':
+                # custom - hidden option, just for developers and testing.
                 # Nodes flashing will be defaulted to stable in that case
                 # If the user specifies custom for version, re-ask the question
                 # and ask exactly what version tag they want:
-                if version == 'custom':
-                    config.rh_version = ask_custom_rh_version()
-                break
+                config.rh_version = ask_custom_rh_version()
+            else:
+                print("\nPlease enter correct value!")
+                continue
+            break
 
         while True:
             country_code = input("\nWhat is your country code? [default: GB]\t\t\t\t").upper()
-            if 1 < len(country_code) <= 3:
-                config.country = country_code
-                break
-            else:
+            if len(country_code) > 4:
                 print("\nPlease enter correct value!")
+                continue
+            elif not country_code:
+                config.country = 'GB'
+                print("defaulted to: 'GB'")
+            elif len(country_code) < 4:
+                config.country = country_code
+            break
 
         while True:
             nodes = input("\nHow many nodes will you use in your system? [min: 0/1 | max: 8]\t\t")
@@ -97,26 +108,34 @@ Since you declared odd number of nodes, please input,
 which pin will be used as GPIO reset pin? 
 [ default (used on official PCB): 17 ] \t\t\t\t\t"""
                 gpio_reset_pin = input(odd_nodes_note)
-                if int(gpio_reset_pin) > 40:
+                if not gpio_reset_pin:
+                    config.gpio_reset_pin = 17
+                    print("defaulted to: 17")
+                elif int(gpio_reset_pin) > 40:
                     print("\nPlease enter correct value!")
+                    continue
                 else:
                     config.gpio_reset_pin = int(gpio_reset_pin)
-                    break
+                break
         elif int(nodes) % 2 == 0:
-            gpio_reset_pin = False
-            config.gpio_reset_pin = gpio_reset_pin
+            config.gpio_reset_pin = False
 
         while True:
-            debug_mode = input("\nWill you use OTA software in a debug mode? [yes/no | default: no]\t").lower()
-            debug_mode_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']
-            if debug_mode not in debug_mode_allowed_values:
+            debug_mode = input("\nWill you use OTA software in a debug mode? [y/N | default: no]\t\t").lower()
+            if debug_mode.lower() not in ['y','n','']:
                 print("\nPlease enter correct value!")
+                continue
+            elif not debug_mode:
+                debug_mode = False
+                print("defaulted to: no")
+            elif debug_mode == 'y':
+                debug_mode = True
             else:
-                debug_mode_val = debug_mode in ['yes', '1', 'y']
-                config.debug_mode = debug_mode_val
-                break
+                debug_mode = False
+            config.debug_mode = debug_mode
+            break
 
-        if debug_mode_val:
+        if debug_mode:
             debug_user = input("\nWhat is your user name on debugging OS? \t\t\t\t")
             config.debug_user = debug_user
         else:
@@ -124,35 +143,45 @@ which pin will be used as GPIO reset pin?
         while True:
             old_hw_mod = input("""
 Are you using older, non-i2c hardware flashing mod? 
-(nodes reset pins connected to gpio pins) [ yes/no | default: no ]\t""").lower()[0]
-            # honestly, we only care about the first letter.
-            if old_hw_mod == "y":
+(nodes reset pins connected to gpio pins) [ y/N | default: no ]\t\t""").lower()
+            if old_hw_mod not in ['y','n','']:
+                print("\nPlease enter correct value!")
+                continue
+            elif old_hw_mod == "y":
                 old_hw_mod, config.old_hw_mod = True, True
-                break
             elif old_hw_mod == "n":
                 old_hw_mod, config.old_hw_mod = False, False
-                break
-            else:
-                print("\nPlease enter correct value!")
+            elif not old_hw_mod:
+                old_hw_mod, config.old_hw_mod = False, False
+                print("defaulted to: no")
+            break
         while old_hw_mod:
             pins_assign = input("\nPins assignment? [default/custom/PCB | default: default]\t\t").lower()
             pins_valid_options = ['default', 'PCB', 'pcb', 'custom']
             if pins_assign not in pins_valid_options:
                 print("\nPlease enter correct value!")
+                continue
+            elif not pins_assign:
+                config.pins_assignment = 'default'
             else:
                 config.pins_assignment = pins_assign
-                break
+            break
         else:
             config.pins_assignment = 'default'
 
         while True:
-            user_is_beta_tester = input("\nAre you a beta tester? [yes/no | default: no]\t\t\t\t")
-            beta_tester_allowed_values = ['yes', 'no', '1', '0', 'y', 'n']
-            if user_is_beta_tester not in beta_tester_allowed_values:
+            user_is_beta_tester = input("\nAre you a beta tester? [y/N | default: no]\t\t\t\t").lower()
+            if user_is_beta_tester.lower() not in ['y','n','']:
                 print("\nPlease enter correct value!")
-            else:
-                config.beta_tester = user_is_beta_tester in ['yes', '1', 'y']
-                break
+                continue
+            elif not user_is_beta_tester:
+                config.beta_tester = False
+                print("defaulted to: no")
+            elif user_is_beta_tester == 'y':
+                config.beta_tester = True
+            elif user_is_beta_tester == 'n':
+                config.beta_tester = False
+            break
 
         print(f"""\n\n
             {Bcolors.UNDERLINE}CONFIGURATION{Bcolors.ENDC}:
@@ -175,7 +204,7 @@ Are you using older, non-i2c hardware flashing mod?
             if selection in valid_options:
                 break
             else:
-                print("\ntoo big fingers :( wrong command. try again! :)")
+                print("\nwrong command. please type yes/abort/change")
         if selection == 'y' or selection == 'yes':
             write_json(config, f"{home_dir}/RH-ota/updater-config.json")
             # Once we write out the json config we should re-load it just
