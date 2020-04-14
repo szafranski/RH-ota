@@ -129,18 +129,16 @@ def welcome_screen(updater_version):
 def serial_menu(config):
     ota_status = load_ota_sys_markers(config.user)
 
-    def serial_content():
+    def uart_enabling():
         # TODO Make this repeatable without adding multiple copies at the end of config.txt.
         # P.F.: I added this to be performed when entering nodes flashing for the first time
-        os.system("echo 'enable_uart=1'| sudo tee -a /boot/config.txt")
-        os.system("sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt")
-        print("UART enabled")
+        os.system("./scripts/sys_conf.sh uart")
         ota_status.uart_support_added = True
         write_ota_sys_markers(ota_status, config.user)
         print("""
         
         Serial port enabled successfully.
-        You have toz reboot Raspberry now,
+        You have to reboot Raspberry now,
         so changes would be implemented. Ok?
         
         
@@ -174,12 +172,12 @@ def serial_menu(config):
                 print("\n\n\t\tLooks like you already enabled Serial port. \n\t\tDo you want to continue anyway?\n")
                 selection = input(f"\t\t\t{Bcolors.YELLOW}Press 'y' for yes or 'a' for abort{Bcolors.ENDC}\n")
                 if selection == 'y':
-                    serial_content()
+                    uart_enabling()
                     break
                 if selection == 'a':
                     break
             else:
-                serial_content()
+                uart_enabling()
                 break
         if selection == 'a':
             break

@@ -9,6 +9,10 @@
 ssh_enabling(){
   sudo systemctl enable ssh
   sudo systemctl start ssh
+  echo "
+     -- SSH ENABLED --   
+     "
+  sleep 3
 }
 
 ssh_error(){
@@ -16,7 +20,9 @@ ssh_error(){
      -- SSH enabling error --
 
   try manual enabling with 'sudo raspi config' later
-
+  please: disable end re-enable SSH interface
+  than reboot 
+  
   Hit 'Enter' to continue
 "
 read var
@@ -26,6 +32,10 @@ read var
 spi_enabling(){
   echo "dtparam=spi=on" | sudo tee -a /boot/config.txt
   sudo sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf
+  echo "
+     -- SPI ENABLED --   
+     "
+  sleep 3
 }
 
 spi_error(){
@@ -33,7 +43,9 @@ spi_error(){
      -- SPI enabling error --
 
   try manual enabling with 'sudo raspi config' later
-
+  please: disable end re-enable SPI interface
+  than reboot 
+  
   Hit 'Enter' to continue
   "
 read var
@@ -48,6 +60,10 @@ dtparam=i2c1=on
 dtparam=i2c_arm=on
 " | sudo tee -a /boot/config.txt
   sudo sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf
+  echo "
+     -- I2C ENABLED --   
+     "
+  sleep 3
 }
 
 i2c_error(){
@@ -55,10 +71,21 @@ i2c_error(){
      -- I2C enabling error --
 
   try manual enabling with 'sudo raspi config' later
-
+  please: disable end re-enable I2C interface
+  than reboot 
+  
   Hit 'Enter' to continue
   "
 read var
+}
+
+uart_enabling(){
+  echo 'enable_uart=1'| sudo tee -a /boot/config.txt
+  sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt
+  echo "
+     -- UART ENABLED --   
+     "
+  sleep 3
 }
 
 uart_error(){
@@ -66,20 +93,28 @@ uart_error(){
      -- UART enabling error --
 
   try manual enabling with 'sudo raspi config'
+  please: disable end re-enable UART interface
+  than reboot 
+    
+  Hit 'Enter' to continue
   "
-  sleep 3
+read var
 }
 
 if [ "${1}" = "ssh" ]; then
-  ssh_enabling
+  ssh_enabling || ssh_error
 fi
 
 if [ "${1}" = "spi" ]; then
-  spi_enabling
+  spi_enabling || spi_error
 fi
 
 if [ "${1}" = "i2c" ]; then
-  i2c_enabling
+  i2c_enabling || i2c_error
+fi
+
+if [ "${1}" = "uart" ]; then
+  uart_enabling || uart_error
 fi
 
 reboot_message(){
@@ -92,8 +127,8 @@ reboot_message(){
 
 
 if [ "${1}" = "all" ]; then
-  ssh_enabling || ssh_error
-  spi_enabling || spi_error
-  i2c_enabling || i2c_error
+  ssh_enabling
+  spi_enabling
+  i2c_enabling
 fi
 
