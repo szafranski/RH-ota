@@ -16,7 +16,7 @@ def conf_check():
         print("\n\tLooks that you have OTA software already configured.")
         while True:
             cont_conf = input("\n\tOverwrite and continue anyway? [y/n]\t\t")
-            if cont_conf not in ['y','n','']:
+            if cont_conf not in ['y', 'n', '']:
                 print("\ntoo big fingers :( wrong command. try again! :)")
                 continue
             elif not cont_conf:
@@ -122,7 +122,7 @@ which pin will be used as GPIO reset pin?
 
         while True:
             debug_mode = input("\nWill you use OTA software in a debug mode? [y/N | default: no]\t\t").lower()
-            if debug_mode.lower() not in ['y','n','']:
+            if debug_mode.lower() not in ['y', 'n', '']:
                 print("\nPlease enter correct value!")
                 continue
             elif not debug_mode:
@@ -144,7 +144,7 @@ which pin will be used as GPIO reset pin?
             old_hw_mod = input("""
 Are you using older, non-i2c hardware flashing mod? 
 (nodes reset pins connected to gpio pins) [ y/N | default: no ]\t\t""").lower()
-            if old_hw_mod not in ['y','n','']:
+            if old_hw_mod not in ['y', 'n', '']:
                 print("\nPlease enter correct value!")
                 continue
             elif old_hw_mod == "y":
@@ -171,7 +171,7 @@ Are you using older, non-i2c hardware flashing mod?
 
         while True:
             user_is_beta_tester = input("\nAre you a beta tester? [y/N | default: no]\t\t\t\t").lower()
-            if user_is_beta_tester.lower() not in ['y','n','']:
+            if user_is_beta_tester.lower() not in ['y', 'n', '']:
                 print("\nPlease enter correct value!")
                 continue
             elif not user_is_beta_tester:

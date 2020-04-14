@@ -1,6 +1,5 @@
 import os
-import sys
-from modules import clear_the_screen, Bcolors, logo_top, load_config
+from modules import clear_the_screen, Bcolors, load_config
 
 
 # Set the WiFi country in raspi-config's Localisation Options:
@@ -163,14 +162,14 @@ def step_zero(config):
         if selection == '3':
             step_three()
         if selection == 'x':
-            ap_menu(config)
+            ap_menu()
         if selection == 'e':
             break
         else:
             main()
 
 
-def ap_menu(config):
+def ap_menu():
     def second_page():
         while True:
             clear_the_screen()
@@ -208,11 +207,9 @@ def ap_menu(config):
             if selection == 'b':
                 first_page()
 
-
-    def first_page(config):
+    def first_page():
         while True:
             clear_the_screen()
-            logo_top(config.debug_mode)
             print("""\n
         Right now you have your Access Point configured. However,
         there is still an option to maintain internet connection.
@@ -241,7 +238,7 @@ def ap_menu(config):
             if selection == 'b':
                 break
 
-    first_page(config)
+    first_page()
 
 
 def net_and_ap_conf(config):

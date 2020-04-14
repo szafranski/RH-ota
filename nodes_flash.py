@@ -35,6 +35,7 @@ def firmware_version_selection(config):
 
     return firmware_version
 
+
 def logo_update(config):
     print("""
     #######################################################################
@@ -71,7 +72,8 @@ def flash_blink(config):
 
 def flash_firmware(config):
     os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-    flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version_selection(config)}/node_0.hex:i || {show_flash_error_msg()}")
+    flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version_selection(config)}/node_0.hex:i || \
+{show_flash_error_msg()}")
 
 
 def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
@@ -313,8 +315,8 @@ def first_flashing(config):
             "\n\n\t{bg}Hit 'Enter' and push reset button on next node after a second {e}{br}[e - exit] {e}".\
             format(br=Bcolors.RED + Bcolors.BOLD, bg=Bcolors.GREEN + Bcolors.BOLD, e=Bcolors.ENDC)
         usb_flashing_prompt = \
-            "\n\n\t{bg}Connect next Arduino and hit 'Enter'{e} {br}[e - exit] {e}".\
-                format(br=Bcolors.RED + Bcolors.BOLD, bg=Bcolors.GREEN + Bcolors.BOLD, e=Bcolors.ENDC)
+            "\n\n\t{bg}Connect next Arduino and hit 'Enter'{e} {br}[e - exit] {e}" \
+            "".format(br=Bcolors.RED + Bcolors.BOLD, bg=Bcolors.GREEN + Bcolors.BOLD, e=Bcolors.ENDC)
         flashing_prompt = 0
         if port == 'USB0':
             flashing_prompt = usb_flashing_prompt

@@ -1,6 +1,7 @@
 import os
 from time import sleep
 
+
 def main():
     print("\n")
     user_name = input("User name: ").strip()
@@ -23,6 +24,7 @@ def main():
             pass
     else:
         input("Downloading file - error")
+
 
 if __name__ == "__main__":
     main()

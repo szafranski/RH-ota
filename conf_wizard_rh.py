@@ -10,7 +10,7 @@ def conf_check():
         print("\n\tLooks that you have Rotorhazard software already configured.")
         while True:
             cont_conf = input("\n\tOverwrite and continue anyway? [y/n]\t\t")
-            if cont_conf not in ['y','n','']:
+            if cont_conf not in ['y', 'n', '']:
                 print("\ntoo big fingers :( wrong command. try again! :)")
                 continue
             elif not cont_conf:
@@ -127,7 +127,7 @@ If you want to use value given as default, just hit 'Enter'.
 
             while True:
                 inv_rows = input("\nAre your panel rows inverted? [y/N | default: no]\t\t\t")
-                inv_rows_allowed_values = ['y', 'Y', 'n', 'N','']
+                inv_rows_allowed_values = ['y', 'Y', 'n', 'N', '']
                 if not inv_rows:
                     inv_rows_val = False
                     print("defaulted to: no")
@@ -197,7 +197,6 @@ If you want to use value given as default, just hit 'Enter'.
                 else:
                     print("\nPlease enter correct value!")
             rh_config['GENERAL']['DEBUG'] = debug_mode
-
 
             while True:
                 cors = input("\nCORS hosts allowed? [default: all]\t\t\t\t\t")

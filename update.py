@@ -129,9 +129,8 @@ def welcome_screen(updater_version):
 def serial_menu(config):
     ota_status = load_ota_sys_markers(config.user)
 
-    def uart_enabling():
+    def uart_enabling():  # UART enabling prompt is also being shown when entering nodes flash menu for the first time
         # TODO Make this repeatable without adding multiple copies at the end of config.txt.
-        # P.F.: I added this to be performed when entering nodes flashing for the first time
         os.system("./scripts/sys_conf.sh uart")
         ota_status.uart_support_added = True
         write_ota_sys_markers(ota_status, config.user)
