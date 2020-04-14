@@ -168,8 +168,8 @@ def installation(conf_allowed, config):
 
         os.system("./scripts/sys_conf.sh all") if conf_allowed else None
         ota_config.sys_config_done = True
-        os.system(f"./scripts/install_rh.sh {config.user} {check_preferred_rh_version(config)}")
         write_ota_sys_markers(ota_config, config.user)
+        os.system(f"./scripts/install_rh.sh {config.user} {check_preferred_rh_version(config)}")
         input("press Enter to continue.")
         clear_the_screen()
         print(installation_completed)
