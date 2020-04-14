@@ -77,7 +77,6 @@ def log_send(config):
         Uploading to server process has failed.
             """
             code_report = f"""
-
 User code: {code}
 
 ------------------------------

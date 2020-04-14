@@ -10,7 +10,7 @@ echo "${2}" >./log_data/log_name.txt
 timeout 45 curl --upload-file ./log_data/log.txt https://transfer.sh/"${2}"_log.txt | tee -a ./log_data/log_code.txt
 echo
 sed -i 's/https:\/\/transfer.sh\///g' ./log_data/log_code.txt
-sed -i "s/\/${1}_log.txt//g" ./log_data/log_code.txt
+sed -i "s/\/${2}_log.txt//g" ./log_data/log_code.txt
 echo
 echo ------------------------------
 echo
