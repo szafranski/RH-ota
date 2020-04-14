@@ -9,15 +9,17 @@ def conf_check():
     if os.path.exists(f"./../RotorHazard/src/server/config.json"):
         print("\n\tLooks that you have Rotorhazard software already configured.")
         while True:
-            cont_conf = input("\n\tOverwrite and continue anyway? [Y/n]\t\t").strip()
-            if cont_conf.lower() == 'y':
-                conf_now_flag = 1
-                break
-            elif cont_conf.lower() == 'n':
-                conf_now_flag = 0
-                break
-            else:
+            cont_conf = input("\n\tOverwrite and continue anyway? [y/n]\t\t")
+            if cont_conf not in ['y','n','']:
                 print("\ntoo big fingers :( wrong command. try again! :)")
+                continue
+            elif len(cont_conf) == 0:
+                print("answer defaulted to: yes")
+            elif cont_conf == 'y':
+                conf_now_flag = True
+            else:
+                conf_now_flag = False
+            break
 
     return conf_now_flag
 

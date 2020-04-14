@@ -3,13 +3,14 @@
 ##################
 ### fun stuff
 dots7() { # done that way so it work on every terminal
-for i in {1 2 3 4 5 6 7}; do
+for i in {1 2 3 4 5 6 7};
+do
   printf "."
   sleep 0.2
 done
 printf "\n"
 }
-
+##################
 check_package() {
   if dpkg-query -l "$1" >/dev/null 2>&1 ; then
     return 0
@@ -26,7 +27,7 @@ check_python_package() {
     return 1
   fi
 }
-###############
+
 echo dependencies will be auto-detected and installed
 echo installing dependencies may need 'sudo' password
 
