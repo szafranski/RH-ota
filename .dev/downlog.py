@@ -1,5 +1,5 @@
 import os
-
+from time import sleep
 
 def main():
     print("\n")
@@ -10,19 +10,19 @@ def main():
 
     os.system(f"rm {user_name}_log_old.txt > /dev/null 2>&1")
     os.system(f"cp {user_name}_log.txt {user_name}_log_old.txt > /dev/null 2>&1")
-    os.system(f"curl https://transfer.sh/{user_code} -o {user_name}_log.txt")
+    os.system(f"curl https://transfer.sh/{user_code}/{user_name}_log.txt -o {user_name}_log.txt")
 
-    while True:
+    sleep(1)
+
+    if os.path.exists(f"./{user_name}_log.txt"):
         print("\n")
-        sel = input("Open file now? [y/n]")
+        sel = input("Open log file now? [y/n]")
         if sel == 'y':
             os.system(f"less {user_name}_log.txt")
-            break
-        if sel == 'n':
-            break
         else:
-            continue
-
+            pass
+    else:
+        input("Downloading file - error")
 
 if __name__ == "__main__":
     main()
