@@ -19,7 +19,7 @@ def conf_check():
             if cont_conf not in ['y','n','']:
                 print("\ntoo big fingers :( wrong command. try again! :)")
                 continue
-            elif len(cont_conf) == 0:
+            elif not cont_conf:
                 print("answer defaulted to: yes")
             elif cont_conf == 'y':
                 conf_now_flag = True
@@ -37,7 +37,7 @@ def ask_custom_rh_version():
             You entered: '{version}' 
 
             Confirm [Y/n]""")
-        if custom_confirm.lower() == 'Y' or len(custom_confirm) == 0:
+        if custom_confirm.lower() == 'Y' or not custom_confirm:
             return version
 
 
@@ -57,7 +57,7 @@ Please type your configuration data. It can be modified later.
 If you want to use value given as default, just hit 'Enter'.
 """)
         pi_user_name = input("\nWhat is your user name on Raspberry Pi? [default: pi]\t\t\t")
-        if len(pi_user_name) == 0:
+        if not pi_user_name:
             config.pi_user = 'pi'
             print("defaulted to: 'pi'")
         else:
@@ -65,7 +65,7 @@ If you want to use value given as default, just hit 'Enter'.
         while True:
             version = input(f"\nChoose RotorHazard version? \
 [{Bcolors.UNDERLINE}stable{Bcolors.ENDC} | beta | master ]\t\t\t").lower()
-            if len(version) == 0:
+            if not version:
                 config.rh_version = 'stable'
                 print("defaulted to: 'stable'")
             elif version in ['master', 'stable', 'beta']:
@@ -86,7 +86,7 @@ If you want to use value given as default, just hit 'Enter'.
             if len(country_code) > 4:
                 print("\nPlease enter correct value!")
                 continue
-            elif len(country_code) == 0:
+            elif not country_code:
                 config.country = 'GB'
                 print("defaulted to: 'GB'")
             elif len(country_code) < 4:
@@ -108,7 +108,7 @@ Since you declared odd number of nodes, please input,
 which pin will be used as GPIO reset pin? 
 [ default (used on official PCB): 17 ] \t\t\t\t\t"""
                 gpio_reset_pin = input(odd_nodes_note)
-                if len(gpio_reset_pin) == 0:
+                if not gpio_reset_pin:
                     config.gpio_reset_pin = 17
                     print("defaulted to: 17")
                 elif int(gpio_reset_pin) > 40:
@@ -125,7 +125,7 @@ which pin will be used as GPIO reset pin?
             if debug_mode.lower() not in ['y','n','']:
                 print("\nPlease enter correct value!")
                 continue
-            elif len(debug_mode) == 0:
+            elif not debug_mode:
                 debug_mode = False
                 print("defaulted to: no")
             elif debug_mode == 'y':
@@ -151,7 +151,7 @@ Are you using older, non-i2c hardware flashing mod?
                 old_hw_mod, config.old_hw_mod = True, True
             elif old_hw_mod == "n":
                 old_hw_mod, config.old_hw_mod = False, False
-            elif len(old_hw_mod) == 0:
+            elif not old_hw_mod:
                 old_hw_mod, config.old_hw_mod = False, False
                 print("defaulted to: no")
             break
@@ -161,7 +161,7 @@ Are you using older, non-i2c hardware flashing mod?
             if pins_assign not in pins_valid_options:
                 print("\nPlease enter correct value!")
                 continue
-            elif len(pins_assign) == 0:
+            elif not pins_assign:
                 config.pins_assignment = 'default'
             else:
                 config.pins_assignment = pins_assign
@@ -174,7 +174,7 @@ Are you using older, non-i2c hardware flashing mod?
             if user_is_beta_tester.lower() not in ['y','n','']:
                 print("\nPlease enter correct value!")
                 continue
-            elif len(user_is_beta_tester) == 0:
+            elif not user_is_beta_tester:
                 config.beta_tester = False
                 print("defaulted to: no")
             elif user_is_beta_tester == 'y':

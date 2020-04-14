@@ -13,7 +13,7 @@ def conf_check():
             if cont_conf not in ['y','n','']:
                 print("\ntoo big fingers :( wrong command. try again! :)")
                 continue
-            elif len(cont_conf) == 0:
+            elif not cont_conf:
                 print("answer defaulted to: yes")
             elif cont_conf == 'y':
                 conf_now_flag = True
@@ -39,18 +39,18 @@ If you want to use value given as default, just hit 'Enter'.
 """)
         rh_config["GENERAL"] = {}
         admin_name = input("\nWhat will be admin user name on RotorHazard page? [default: admin]\t")
-        if len(admin_name) == 0:
+        if not admin_name:
             admin_name = 'admin'
             print("defaulted to: 'admin'")
         rh_config["GENERAL"]["ADMIN_USERNAME"] = admin_name
         admin_pass = input("\nWhat will be admin password on RotorHazard page? [default: rotorhazard]\t")
-        if len(admin_pass) == 0:
+        if not admin_pass:
             admin_pass = 'rotorhazard'
             print("defaulted to: 'rotorhazard'")
         rh_config["GENERAL"]["ADMIN_PASSWORD"] = admin_pass
         while True:
             port = input("\nWhich port will you use with RotorHazard? [default: 5000]\t\t")
-            if len(port) == 0:
+            if not port:
                 port = 5000
                 print("defaulted to: 5000")
                 break
@@ -84,7 +84,7 @@ If you want to use value given as default, just hit 'Enter'.
             while True:
                 led_pin_nr = input("\nWhich GPIO pin is connected to your LEDs data pin? [default: 18]\t")
                 led_pins_allowed = [10, 12, 13, 18, 19, 21, 31, 38, 40, 41, 45, 52, 53]
-                if len(led_pin_nr) == 0:
+                if not led_pin_nr:
                     led_pin_nr = 18
                     print("defaulted to: 18")
                     break
@@ -94,7 +94,7 @@ If you want to use value given as default, just hit 'Enter'.
             while True:
                 led_inv = input("\nIs LED data pin output inverted? [y/N | default: no]\t\t\t")
                 led_inv_allowed_values = ['y', 'n', 'Y', 'N']
-                if len(led_inv) == 0:
+                if not led_inv:
                     led_inv = False
                     print("defaulted to: no")
                     break
@@ -103,7 +103,7 @@ If you want to use value given as default, just hit 'Enter'.
             rh_config["LED"]['LED_INVERT'] = led_inv
             while True:
                 led_channel = input("\nWhat channel (not pin!) will be used with your LEDs? [default: 0]\t")
-                if len(led_channel) == 0:
+                if not led_channel:
                     led_channel = 0
                     print("defaulted to: 0")
                     break
@@ -114,7 +114,7 @@ If you want to use value given as default, just hit 'Enter'.
             while True:
                 panel_rot = input("\nBy how many degrees is your panel rotated? [0/90/180/270 | default: 0]\t")
                 panel_rot_values_allowed = ['0', '90', '180', '270']
-                if len(panel_rot) == 0:
+                if not panel_rot:
                     panel_val = 0
                     print("defaulted to: 0")
                     break
@@ -128,7 +128,7 @@ If you want to use value given as default, just hit 'Enter'.
             while True:
                 inv_rows = input("\nAre your panel rows inverted? [y/N | default: no]\t\t\t")
                 inv_rows_allowed_values = ['y', 'Y', 'n', 'N','']
-                if len(inv_rows) == 0:
+                if not inv_rows:
                     inv_rows_val = False
                     print("defaulted to: no")
                     break
@@ -152,7 +152,7 @@ If you want to use value given as default, just hit 'Enter'.
         print("\nDo you want to enter advanced wizard? [y/N | default: no]\n")
         while True:
             adv_wiz_flag = input("\t").strip()
-            if adv_wiz_flag.lower() == 'n' or len(adv_wiz_flag) == 0:
+            if adv_wiz_flag.lower() == 'n' or not adv_wiz_flag:
                 adv_wiz_flag = False
                 break
             elif adv_wiz_flag.lower() == 'y':
@@ -164,7 +164,7 @@ If you want to use value given as default, just hit 'Enter'.
         if adv_wiz_flag:
             while True:
                 led_dma = input("\nLED DMA you will use in your system? [default: 10]\t\t\t")
-                if len(led_dma) == 0:
+                if not led_dma:
                     led_dma = 10
                     print("defaulted to: 10")
                     break
@@ -174,7 +174,7 @@ If you want to use value given as default, just hit 'Enter'.
 
             while True:
                 led_freq = input("\nWhat LED frequency will you use? [default: 800000]\t\t\t")
-                if len(led_freq) == 0:
+                if not led_freq:
                     led_freq = 800000
                     print("defaulted to: 800000")
                     break
@@ -184,7 +184,7 @@ If you want to use value given as default, just hit 'Enter'.
 
             while True:
                 debug_mode = input("\nWill you use RotorHazard in debug mode? [y/N | default: no]\t\t")
-                if len(debug_mode) == 0:
+                if not debug_mode:
                     debug_mode = False
                     print("defaulted to: no")
                     break
@@ -201,7 +201,7 @@ If you want to use value given as default, just hit 'Enter'.
 
             while True:
                 cors = input("\nCORS hosts allowed? [default: all]\t\t\t\t\t")
-                if len(cors) == 0:
+                if not cors:
                     cors = "*"
                     print("defaulted to: all")
                     break
@@ -213,7 +213,7 @@ If you want to use value given as default, just hit 'Enter'.
 
             while True:
                 serial_ports = input("\nWhich USB ports you will use? [default: 'none']\t\t\t\t").strip()
-                if len(serial_ports) == 0:
+                if not serial_ports:
                     serial_ports = []
                     print("defaulted to: none")
                     break
