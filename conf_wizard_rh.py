@@ -33,7 +33,8 @@ def do_config():
         rh_config = {}
         print("""\n
 Please type your configuration data. It can be modified later.
-If you want to use value given as default, just hit 'Enter'.\n""")
+If you want to use value given as default, just hit 'Enter'.
+""")
         rh_config["GENERAL"] = {}
         admin_name = input("\nWhat will be admin user name on RotorHazard page? [default: admin]\t")
         if len(admin_name) == 0:
