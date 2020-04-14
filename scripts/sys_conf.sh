@@ -11,7 +11,7 @@ ssh_enabling(){
   sudo systemctl start ssh
   echo "
      -- SSH ENABLED --   
-     "
+  "
   sleep 3
 }
 
@@ -24,8 +24,8 @@ ssh_error(){
   than reboot 
   
   Hit 'Enter' to continue
-"
-read var
+  "
+  read var
 }
 
 
@@ -34,7 +34,7 @@ spi_enabling(){
   sudo sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf
   echo "
      -- SPI ENABLED --   
-     "
+  "
   sleep 3
 }
 
@@ -48,17 +48,17 @@ spi_error(){
   
   Hit 'Enter' to continue
   "
-read var
+  read var
 }
 
 i2c_enabling(){
   echo "dtparam=i2c_baudrate=75000
-core_freq=250
-i2c-bcm2708
-i2c-dev
-dtparam=i2c1=on
-dtparam=i2c_arm=on
-" | sudo tee -a /boot/config.txt
+  core_freq=250
+  i2c-bcm2708
+  i2c-dev
+  dtparam=i2c1=on
+  dtparam=i2c_arm=on
+  " | sudo tee -a /boot/config.txt
   sudo sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf
   echo "
      -- I2C ENABLED --   
@@ -76,7 +76,7 @@ i2c_error(){
   
   Hit 'Enter' to continue
   "
-read var
+  read var
 }
 
 uart_enabling(){
@@ -98,7 +98,7 @@ uart_error(){
     
   Hit 'Enter' to continue
   "
-read var
+  read var
 }
 
 if [ "${1}" = "ssh" ]; then
