@@ -16,14 +16,14 @@ def conf_check():
         print("\n\tLooks that you have OTA software already configured.")
         while True:
             cont_conf = input("\n\tOverwrite and continue anyway? [y/n]\t\t")
-            if cont_conf == 'y':
-                conf_now_flag = 1
-                break
-            elif cont_conf == 'n':
-                conf_now_flag = 0
-                break
-            else:
+            if cont_conf not in ['y','n']:
                 print("\ntoo big fingers :( wrong command. try again! :)")
+                continue
+            elif cont_conf == 'y':
+                conf_now_flag = True
+            else:
+                conf_now_flag = False
+            break
 
     return conf_now_flag
 
@@ -119,7 +119,7 @@ which pin will be used as GPIO reset pin?
                 continue
             elif len(debug_mode) == 0:
                 debug_mode = False
-            elif debug_mode.lower() == 'y':
+            elif debug_mode == 'y':
                 debug_mode = True
             else:
                 debug_mode = False
@@ -134,8 +134,7 @@ which pin will be used as GPIO reset pin?
         while True:
             old_hw_mod = input("""
 Are you using older, non-i2c hardware flashing mod? 
-(nodes reset pins connected to gpio pins) [ yes/no | default: no ]\t""").lower()[0]
-            # honestly, we only care about the first letter.
+(nodes reset pins connected to gpio pins) [ y/N | default: no ]\t""").lower()
             if old_hw_mod == "y":
                 old_hw_mod, config.old_hw_mod = True, True
                 break
@@ -152,21 +151,20 @@ Are you using older, non-i2c hardware flashing mod?
                 continue
             elif len(pins_assign) == 0:
                 config.pins_assignment = 'default'
-                break
             else:
                 config.pins_assignment = pins_assign
-                break
+            break
         else:
             config.pins_assignment = 'default'
 
         while True:
-            user_is_beta_tester = input("\nAre you a beta tester? [y/N | default: no]\t\t\t\t")
-            if user_is_beta_tester.lower() not in ['y','n']:
+            user_is_beta_tester = input("\nAre you a beta tester? [y/N | default: no]\t\t\t\t").lower()
+            if user_is_beta_tester.lower() not in ['y','n','']:
                 print("\nPlease enter correct value!")
                 continue
-            elif user_is_beta_tester.lower() == 'y':
+            elif user_is_beta_tester == 'y':
                 config.beta_tester = True
-            elif user_is_beta_tester.lower() == 'n':
+            elif user_is_beta_tester == 'n' or len(user_is_beta_tester) == 0:
                 config.beta_tester = False
             break
 
