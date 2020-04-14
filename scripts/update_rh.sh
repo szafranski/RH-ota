@@ -32,7 +32,7 @@ mv /home/"${1}"/RotorHazard-"${2}" /home/"${1}"/RotorHazard
 sudo rm temp.zip
 sudo mkdir /home/"${1}"/backup_RH_data >/dev/null 2>&1
 sudo chmod 777 -R /home/"${1}"/RotorHazard/src/server
-sudo chmod 777 -R /home/"${1}"/RotorHazard_${upgradeDate}
+sudo chmod 777 -R /home/"${1}"/RotorHazard_"${upgradeDate}"
 sudo chmod 777 -R /home/"${1}"/backup_RH_data
 sudo chmod 777 -R /home/"${1}"/.ota_markers
 sudo chmod 777 -R ~/RotorHazard

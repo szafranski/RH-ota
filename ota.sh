@@ -3,7 +3,7 @@
 ##################
 ### fun stuff
 dots7() { # done that way so it work on every terminal
-for i in {1 2 3 4 5 6 7};
+for _ in {1..7};
 do
   printf "."
   sleep 0.2

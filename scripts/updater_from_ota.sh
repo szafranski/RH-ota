@@ -1,7 +1,7 @@
 #!/bin/bash
 
 dots50() {
-  for i in {1..50}; do
+  for _ in {1..50}; do
     printf "."
     sleep 0.05
   done
@@ -16,7 +16,7 @@ sleep 1.2
 sudo echo
 printf "\n\nUpdating process has been started\n\n" & dots50
 printf "\n"
-for pid in $(pgrep -ax python3 | grep update.py | awk '{print $1}' ) ; do kill -9 $pid ; done
+for pid in $(pgrep -ax python3 | grep update.py | awk '{print $1}' ) ; do kill -9 "$pid" ; done
 cd ~ || exit
 rm -rf ~/.ota_markers/old_RH-ota > /dev/null 2>&1
 cp -r ~/RH-ota ~/.ota_markers/old_RH-ota

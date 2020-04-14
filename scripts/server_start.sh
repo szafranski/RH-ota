@@ -1,7 +1,7 @@
 #!/bin/bash
 
 dots5() { # done that way so it work on every terminal
-  for i in {1 2 3 4 5}; do
+  for _ in {1..5}; do
     printf "."
     sleep 0.4
   done

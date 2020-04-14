@@ -25,7 +25,7 @@ ssh_error(){
   
   Hit 'Enter' to continue
   "
-  read var
+  read -r _
 }
 
 
@@ -48,7 +48,7 @@ spi_error(){
   
   Hit 'Enter' to continue
   "
-  read var
+  read -r _
 }
 
 i2c_enabling(){
@@ -76,7 +76,7 @@ i2c_error(){
   
   Hit 'Enter' to continue
   "
-  read var
+  read -r _
 }
 
 uart_enabling(){
@@ -98,7 +98,7 @@ uart_error(){
     
   Hit 'Enter' to continue
   "
-  read var
+  read -r _
 }
 
 if [ "${1}" = "ssh" ]; then
