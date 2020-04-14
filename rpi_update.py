@@ -166,7 +166,7 @@ def installation(conf_allowed, config):
                     """.format(thumbs="👍👍👍  ", bold=Bcolors.BOLD_S,
                                endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S)
 
-        os.system("./scripts/sys_conf.sh") if conf_allowed else None
+        os.system("./scripts/sys_conf.sh all") if conf_allowed else None
         os.system(f"./scripts/install_rh.sh {config.user} {check_preferred_rh_version(config)}")
         ota_config.rh_installation_done = True
         write_ota_sys_markers(ota_config, config.user)
