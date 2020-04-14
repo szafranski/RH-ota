@@ -167,8 +167,8 @@ def installation(conf_allowed, config):
                                endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S)
 
         os.system("./scripts/sys_conf.sh all") if conf_allowed else None
+        ota_config.sys_config_done = True
         os.system(f"./scripts/install_rh.sh {config.user} {check_preferred_rh_version(config)}")
-        ota_config.rh_installation_done = True
         write_ota_sys_markers(ota_config, config.user)
         input("press Enter to continue.")
         clear_the_screen()
@@ -225,6 +225,7 @@ def main_window(config):
         clear_the_screen()
         server_installed_flag, server_version_name = get_rotorhazard_server_version(config)
         ota_config = load_ota_sys_markers(config.user)
+        sys_configured_flag = ota_config.sys_config_done
         sleep(0.1)
         welcome_text = """
             \n\n{red} {bold}
@@ -271,30 +272,25 @@ def main_window(config):
         if selection == 'c':
             conf_rh() if server_installed_flag else print("Please install the server before configuring.")
         if selection == 'i':
-            if ota_config.rh_installation_done:
+            # rh_found_flag = os.path.exists(f"/home/{config.user}/RotorHazard")
+            if sys_configured_flag:
                 clear_the_screen()
-                already_installed_prompt = """
-                {bold}
-        Looks like you already have RotorHazard server installed.{endc}
-        
-        
-        If that's the case please use {underline}update mode{endc} - 'u'
-        or force installation {underline}without{endc} sys. config. - 'i'.
+                already_installed_prompt = """{bold}
                 
-                {green} 
-            u - Select update mode - recommended {endc}
+        Looks like you already have your system configured.{endc}{bold}
+        
+        If that's true, please perform installation without sys. config. - 'i'.
+                
+                            
+     {green}i - Force installation without sys. config. {endc}{bold}
             
-            i - Force installation without sys. config.
+            c - Force installation and system config. {yellow}
             
-            c - Force installation and sys. config. {yellow}
-            
-            a - Abort both  {endc}
+            a - Abort both {endc}
             """.format(bold=Bcolors.BOLD, endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE,
-                       yellow=Bcolors.YELLOW, green=Bcolors.GREEN)
+                       yellow=Bcolors.YELLOW, green=Bcolors.GREEN_S)
                 print(already_installed_prompt)
                 selection = input()
-                if selection == 'u':
-                    update(config)
                 if selection == 'i':
                     conf_allowed = False
                     installation(conf_allowed, config)
