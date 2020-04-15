@@ -16,16 +16,17 @@ def conf_check():
         print("\n\tLooks that you have OTA software already configured.")
         while True:
             cont_conf = input("\n\tOverwrite and continue anyway? [y/n]\t\t")
-            if cont_conf not in ['y', 'n', '']:
-                print("\ntoo big fingers :( wrong command. try again! :)")
-                continue
-            elif not cont_conf:
+            if not cont_conf:
                 print("answer defaulted to: yes")
+                break
             elif cont_conf == 'y':
                 conf_now_flag = True
-            else:
+                break
+            elif cont_conf == 'n':
                 conf_now_flag = False
-            break
+                break
+            else:
+                print("\ntoo big fingers :( wrong command. try again! :)")
 
     return conf_now_flag
 
@@ -68,30 +69,30 @@ If you want to use value given as default, just hit 'Enter'.
             if not version:
                 config.rh_version = 'stable'
                 print("defaulted to: 'stable'")
+                break
             elif version in ['master', 'stable', 'beta']:
                 config.rh_version = version
+                break
             elif version == 'custom':
                 # custom - hidden option, just for developers and testing.
                 # Nodes flashing will be defaulted to stable in that case
                 # If the user specifies custom for version, re-ask the question
                 # and ask exactly what version tag they want:
                 config.rh_version = ask_custom_rh_version()
+                break
             else:
                 print("\nPlease enter correct value!")
-                continue
-            break
 
         while True:
             country_code = input("\nWhat is your country code? [default: GB]\t\t\t\t").upper()
-            if len(country_code) > 4:
-                print("\nPlease enter correct value!")
-                continue
-            elif not country_code:
+            if not country_code:
                 config.country = 'GB'
                 print("defaulted to: 'GB'")
             elif len(country_code) < 4:
                 config.country = country_code
-            break
+                break
+            else:
+                print("\nPlease enter correct value!")
 
         while True:
             nodes = input("\nHow many nodes will you use in your system? [min: 0/1 | max: 8]\t\t")
@@ -111,13 +112,13 @@ which pin will be used as GPIO reset pin?
                 if not gpio_reset_pin:
                     config.gpio_reset_pin = 17
                     print("defaulted to: 17")
-                elif int(gpio_reset_pin) > 40:
-                    print("\nPlease enter correct value!")
-                    continue
-                else:
+                    break
+                elif int(gpio_reset_pin) < 40:
                     config.gpio_reset_pin = int(gpio_reset_pin)
-                break
-        elif int(nodes) % 2 == 0:
+                    break
+                else:
+                    print("\nPlease enter correct value!")
+        else:
             config.gpio_reset_pin = False
 
         while True:
@@ -144,17 +145,19 @@ which pin will be used as GPIO reset pin?
             old_hw_mod = input("""
 Are you using older, non-i2c hardware flashing mod? 
 (nodes reset pins connected to gpio pins) [ y/N | default: no ]\t\t""").lower()
-            if old_hw_mod not in ['y', 'n', '']:
-                print("\nPlease enter correct value!")
-                continue
-            elif old_hw_mod == "y":
+            if old_hw_mod == "y":
                 old_hw_mod, config.old_hw_mod = True, True
+                break
             elif old_hw_mod == "n":
                 old_hw_mod, config.old_hw_mod = False, False
+                break
             elif not old_hw_mod:
                 old_hw_mod, config.old_hw_mod = False, False
                 print("defaulted to: no")
-            break
+                break
+            else:
+                print("\nPlease enter correct value!")
+
         while old_hw_mod:
             pins_assign = input("\nPins assignment? [default/custom/PCB | default: default]\t\t").lower()
             pins_valid_options = ['default', 'PCB', 'pcb', 'custom']
@@ -171,17 +174,18 @@ Are you using older, non-i2c hardware flashing mod?
 
         while True:
             user_is_beta_tester = input("\nAre you a beta tester? [y/N | default: no]\t\t\t\t").lower()
-            if user_is_beta_tester.lower() not in ['y', 'n', '']:
-                print("\nPlease enter correct value!")
-                continue
-            elif not user_is_beta_tester:
+            if not user_is_beta_tester:
                 config.beta_tester = False
                 print("defaulted to: no")
+                break
             elif user_is_beta_tester == 'y':
                 config.beta_tester = True
+                break
             elif user_is_beta_tester == 'n':
                 config.beta_tester = False
-            break
+                break
+            else:
+                print("\nPlease enter correct value!")
 
         print(f"""\n\n
             {Bcolors.UNDERLINE}CONFIGURATION{Bcolors.ENDC}:
@@ -205,7 +209,7 @@ Are you using older, non-i2c hardware flashing mod?
                 break
             else:
                 print("\nwrong command. please type yes/abort/change")
-        if selection == 'y' or selection == 'yes':
+        if selection[0] == 'y':
             write_json(config, f"{home_dir}/RH-ota/updater-config.json")
             # Once we write out the json config we should re-load it just
             # to ensure consistency.
