@@ -7,12 +7,13 @@
 # can be implement into this file instead
 
 ssh_enabling(){
-  sudo systemctl enable ssh
-  sudo systemctl start ssh
+  sudo systemctl enable ssh || return 1
+  sudo systemctl start ssh || return 1
   echo "
      -- SSH ENABLED --   
   "
   sleep 3
+  return 0
 }
 
 ssh_error(){
@@ -30,12 +31,13 @@ ssh_error(){
 
 
 spi_enabling(){
-  echo "dtparam=spi=on" | sudo tee -a /boot/config.txt
-  sudo sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf
+  echo "dtparam=spi=on" | sudo tee -a /boot/config.txt || return 1
+  sudo sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf || return 1
   echo "
      -- SPI ENABLED --   
   "
   sleep 3
+  return 0
 }
 
 spi_error(){
@@ -58,12 +60,13 @@ i2c_enabling(){
   i2c-dev
   dtparam=i2c1=on
   dtparam=i2c_arm=on
-  " | sudo tee -a /boot/config.txt
-  sudo sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf
+  " | sudo tee -a /boot/config.txt || return 1
+  sudo sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf || return 1
   echo "
      -- I2C ENABLED --   
      "
   sleep 3
+  return 0
 }
 
 i2c_error(){
@@ -80,12 +83,13 @@ i2c_error(){
 }
 
 uart_enabling(){
-  echo 'enable_uart=1'| sudo tee -a /boot/config.txt
-  sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt
+  echo 'enable_uart=1'| sudo tee -a /boot/config.txt || return 1
+  sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt || return 1
   echo "
      -- UART ENABLED --   
      "
   sleep 3
+  return 0Z
 }
 
 uart_error(){
