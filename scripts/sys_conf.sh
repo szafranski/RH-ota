@@ -1,10 +1,42 @@
 #!/bin/bash
 
+# description of codes reported when is_pi_4 function is executed:
+#Model and PCB Revision	RAM	Hardware Revision Code from cpu info
+#Pi Zero v1.2	512MB	900092
+#Pi Zero v1.3	512MB	900093
+#Pi Zero W	512MB	9000C1
+#Pi 3 Model B	1GB	a02082 (Sony, UK)
+#Pi 3 Model B	1GB	a22082 (Embest, China)
+#Pi 3 Model B+	1GB	a020d3 (Sony, UK)
+#Pi 4	1GB	a03111 (Sony, UK)
+#Pi 4	2GB	b03111 (Sony, UK)
+#Pi 4	4GB	c03111 (Sony, UK)
+
 #if ./isPi4.sh ; then
 # sed -i 's/core_freq=250/#core_freq=250/' /boot/config.txt > /dev/null 2>&1
 #fi
-# todo shows error "isPi4... not found" - commented out temporary
-# can be implement into this file instead
+
+is_pi_4(){
+ifs=':' read -ra piversion <<< "$(cat /proc/cpuinfo | grep Revision)"
+if [ ${piversion[2]} == *"03111"*  ] ; then
+  sed -i 's/core_freq=250/#core_freq=250/' /boot/config.txt > /dev/null 2>&1 || return 1
+fi
+}
+
+
+is_pi_4_error(){
+  echo "
+     -- automatic Pi 4 detection error --
+
+  If you are using Raspberry Pi 4 please edit file '/boot/config.txt'
+  and change line 'core_freq=250' to '#core_freq=250'.
+
+  If you are using any other Pi model please ignore that message.
+
+  Hit 'Enter' to continue
+  "
+  read -r _
+}
 
 ssh_enabling(){
   sudo systemctl enable ssh || return 1
@@ -28,7 +60,6 @@ ssh_error(){
   "
   read -r _
 }
-
 
 spi_enabling(){
   echo "dtparam=spi=on" | sudo tee -a /boot/config.txt || return 1
@@ -62,6 +93,7 @@ i2c_enabling(){
   dtparam=i2c_arm=on
   " | sudo tee -a /boot/config.txt || return 1
   sudo sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf || return 1
+  is_pi_4 || is_pi_4_error
   echo "
      -- I2C ENABLED --   
      "
