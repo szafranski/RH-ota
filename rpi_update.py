@@ -282,7 +282,7 @@ def main_window(config):
                 
         Looks like you already have your system configured.{endc}{bold}
         
-        If that's true, please perform installation without sys. config. - 'i'.
+        If so, please perform installation without sys. config.
                 
                             
      {green}i - Force installation without sys. config. {endc}{bold}
