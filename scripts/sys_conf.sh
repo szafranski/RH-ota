@@ -89,7 +89,7 @@ uart_enabling(){
      -- UART ENABLED --   
      "
   sleep 3
-  return 0Z
+  return 0
 }
 
 uart_error(){
@@ -131,8 +131,8 @@ reboot_message(){
 
 
 if [ "${1}" = "all" ]; then
-  ssh_enabling
-  spi_enabling
-  i2c_enabling
+  ssh_enabling || ssh_error
+  spi_enabling || spi_error
+  i2c_enabling || spi_error
 fi
 
