@@ -129,12 +129,42 @@ def welcome_screen(updater_version):
 def serial_menu(config):
     ota_status = load_ota_sys_markers(config.user)
 
+    def all_sys_interfaces_enabling():
+        if not ota_status.sys_config_done:
+            while True:
+                print("""{bold}
+                
+        Since you just enabled UART and it is advised to reboot now,
+        you may also enable rest of needed interfaces before reboot.
+        Do you want to do it now?
+         
+        {green} y - Yes, enable those interfaces{endc}
+        
+        {yellow}n - No, don't do it now{endc}
+        
+        {endc}""".format(bold=Bcolors.BOLD, green=Bcolors.GREEN_S,
+                         yellow=Bcolors.YELLOW_S, endc=Bcolors.ENDC))
+                selection = input()
+                if selection == 'y':
+                    print("Enabling interfaces...")
+                    sleep(1)
+                    if os.system("./scripts/sys_conf.sh all"):
+                        print("\n\n\t\tInterfaces enabled successfully")
+                        ota_status.sys_config_done = True
+                    else:
+                        print("\n\n\t\tInterfaces enabling error")
+                    ota_status.sys_config_done = True
+                    break
+                elif selection == 'n':
+                    break
+
     def uart_enabling():  # UART enabling prompt is also being shown when entering nodes flash menu for the first time
         # TODO Make this repeatable without adding multiple copies at the end of config.txt.
         os.system("./scripts/sys_conf.sh uart")
         ota_status.uart_support_added = True
+        all_sys_interfaces_enabling()
         write_ota_sys_markers(ota_status, config.user)
-        print("""
+        print("""{bold}
         
         Serial port enabled successfully.
         You have to reboot Raspberry now,
@@ -142,10 +172,10 @@ def serial_menu(config):
         
         
         
-        r - Reboot now{yellow}
+            r - Reboot now{yellow}
         
-        e - Exit{endc}
-            """.format(endc=Bcolors.ENDC, yellow=Bcolors.YELLOW_S))
+            e - Exit{endc}
+            """.format(bold=Bcolors.BOLD, endc=Bcolors.ENDC, yellow=Bcolors.YELLOW_S))
         selection = input()
         if selection == 'r':
             os.system("sudo reboot")
