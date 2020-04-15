@@ -26,7 +26,7 @@ manually changing RH directory permissions with 'sudo chmod -R 777 ~/RotorHazard
 read -p "Hit Enter when done " var
 }
 
-printf "You can stop the server by pressing Ctrl+C "
+echo "You can stop the server by pressing Ctrl+C "
 printf "Server booting, please wait"
 dots5
 echo
