@@ -65,9 +65,9 @@ def conf_wizard_net(config):
         selection = input()
         if selection == '1':
             net_and_ap_conf(config)
-        if selection == '2':
+        elif selection == '2':
             confirm_auto_hotspot(config)
-        if selection == 'e':
+        elif selection == 'e':
             break
     pass
 

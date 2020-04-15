@@ -9,17 +9,18 @@ def conf_check():
     if os.path.exists(f"./../RotorHazard/src/server/config.json"):
         print("\n\tLooks that you have Rotorhazard software already configured.")
         while True:
-            cont_conf = input("\n\tOverwrite and continue anyway? [y/n]\t\t")
-            if cont_conf not in ['y', 'n', '']:
-                print("\ntoo big fingers :( wrong command. try again! :)")
-                continue
-            elif not cont_conf:
+            cont_conf = input("\n\tOverwrite and continue anyway? [y/n]\t\t").lower()
+            if not cont_conf:
                 print("answer defaulted to: yes")
+                break
             elif cont_conf == 'y':
                 conf_now_flag = True
-            else:
+                break
+            elif cont_conf == 'n':
                 conf_now_flag = False
-            break
+                break
+            else:
+                print("\ntoo big fingers :( wrong command. try again! :)")
 
     return conf_now_flag
 
@@ -62,52 +63,66 @@ If you want to use value given as default, just hit 'Enter'.
 
         while True:
             print("\nAre you planning to use LEDs in your system? [y/n]\n")
-            selection = input("\t")
+            selection = input("\t").lower()
             if selection == 'y':
                 led_present_flag = True
                 break
-            if selection == 'n':
+            elif selection == 'n':
                 led_present_flag = False
                 break
             else:
-                print("\ntoo big fingers :( wrong command. try again! :)")
+                print("\nPlease enter correct value!")
 
         if led_present_flag:
             while True:
                 led_count = input("\nHow many LEDs will you use in your system?\t\t\t\t")
-                if not led_count.isdigit():
-                    print("\nPlease enter correct value!")
-                else:
-                    rh_config["LED"]['LED_COUNT'] = int(led_count)
+                if led_count.isdigit():
                     break
+                else:
+                    print("\nPlease enter correct value!")
+            rh_config["LED"]['LED_COUNT'] = int(led_count)
 
             while True:
                 led_pin_nr = input("\nWhich GPIO pin is connected to your LEDs data pin? [default: 18]\t")
-                led_pins_allowed = [10, 12, 13, 18, 19, 21, 31, 38, 40, 41, 45, 52, 53]
+                led_pins_allowed = ['10', '12', '13', '18', '19', '21', '31', '38', '40', '41', '45', '52', '53']
                 if not led_pin_nr:
                     led_pin_nr = 18
                     print("defaulted to: 18")
                     break
-                elif led_pin_nr not in str(led_pins_allowed):
+                elif led_pin_nr in led_pins_allowed:
+                    led_pin_nr = int(led_pin_nr)
+                    break
+                elif led_pin_nr.isdigit() and led_pin_nr not in led_pins_allowed:
+                    print("That pin cannot be used for that purpose")
+                else:
                     print("\nPlease enter correct value!")
             rh_config["LED"]['LED_PIN'] = int(led_pin_nr)
+
             while True:
-                led_inv = input("\nIs LED data pin output inverted? [y/N | default: no]\t\t\t")
-                led_inv_allowed_values = ['y', 'n', 'Y', 'N']
+                led_inv = input("\nIs LED data pin output inverted? [y/N | default: no]\t\t\t").lower()
                 if not led_inv:
                     led_inv = False
                     print("defaulted to: no")
                     break
-                elif led_inv not in led_inv_allowed_values:
+                elif led_inv == 'y':
+                    led_inv = True
+                    break
+                elif led_inv == 'n':
+                    led_inv = False
+                    break
+                else:
                     print("\nPlease enter correct value!")
             rh_config["LED"]['LED_INVERT'] = led_inv
+
             while True:
                 led_channel = input("\nWhat channel (not pin!) will be used with your LEDs? [default: 0]\t")
                 if not led_channel:
                     led_channel = 0
                     print("defaulted to: 0")
                     break
-                elif not led_channel.isdigit() or int(led_channel) < 0 or int(led_channel) > 1:
+                elif led_channel.isdigit():
+                    break
+                else:
                     print("\nPlease enter correct value!")
             rh_config["LED"]['LED_CHANNEL'] = int(led_channel)
 
@@ -115,29 +130,31 @@ If you want to use value given as default, just hit 'Enter'.
                 panel_rot = input("\nBy how many degrees is your panel rotated? [0/90/180/270 | default: 0]\t")
                 panel_rot_values_allowed = ['0', '90', '180', '270']
                 if not panel_rot:
-                    panel_val = 0
+                    panel_rot = 0
                     print("defaulted to: 0")
                     break
                 elif panel_rot in panel_rot_values_allowed:
-                    panel_val = (int(panel_rot) / 90)
+                    panel_rot = (int(panel_rot) / 90)
                     break
                 else:
                     print("\nPlease enter correct value!")
-            rh_config["LED"]['PANEL_ROTATE'] = int(panel_val)
+            rh_config["LED"]['PANEL_ROTATE'] = int(panel_rot)
 
             while True:
-                inv_rows = input("\nAre your panel rows inverted? [y/N | default: no]\t\t\t")
-                inv_rows_allowed_values = ['y', 'Y', 'n', 'N', '']
+                inv_rows = input("\nAre your panel rows inverted? [y/N | default: no]\t\t\t").lower()
                 if not inv_rows:
-                    inv_rows_val = False
+                    inv_rows = False
                     print("defaulted to: no")
                     break
-                elif inv_rows in inv_rows_allowed_values:
-                    inv_rows_val = True
+                elif inv_rows == 'y':
+                    inv_rows = True
+                    break
+                elif inv_rows == 'n':
+                    inv_rows = False
                     break
                 else:
                     print("\nPlease enter correct value!")
-            rh_config["LED"]['INVERTED_PANEL_ROWS'] = inv_rows_val
+            rh_config["LED"]['INVERTED_PANEL_ROWS'] = inv_rows
 
         if not led_present_flag:
             rh_config["LED"]['LED_COUNT'] = 0
@@ -151,12 +168,16 @@ If you want to use value given as default, just hit 'Enter'.
 
         print("\nDo you want to enter advanced wizard? [y/N | default: no]\n")
         while True:
-            adv_wiz_flag = input("\t").strip()
-            if adv_wiz_flag.lower() == 'n' or not adv_wiz_flag:
+            adv_wiz_flag = input("\t").strip().lower()
+            if not adv_wiz_flag:
+                print("defaulted to: no")
                 adv_wiz_flag = False
                 break
-            elif adv_wiz_flag.lower() == 'y':
+            elif adv_wiz_flag == 'y':
                 adv_wiz_flag = True
+                break
+            elif adv_wiz_flag == 'n':
+                adv_wiz_flag = False
                 break
             else:
                 print("\ntoo big fingers :( wrong command. try again! :)")
@@ -168,7 +189,9 @@ If you want to use value given as default, just hit 'Enter'.
                     led_dma = 10
                     print("defaulted to: 10")
                     break
-                elif not led_dma.isdigit() or int(led_dma) < 0:
+                elif led_dma.isdigit():
+                    break
+                else:
                     print("\nPlease enter correct value!")
             rh_config["LED"]['LED_DMA'] = int(led_dma)
 
@@ -178,40 +201,38 @@ If you want to use value given as default, just hit 'Enter'.
                     led_freq = 800000
                     print("defaulted to: 800000")
                     break
-                if (led_freq.isalpha() or int(led_freq) < 0 or int(led_freq) > 800000) and led_freq != 'def':
+                elif led_freq.isdigit() and int(led_freq) < 800000:
+                    break
+                else:
                     print("\nPlease enter correct value!")
-            rh_config["LED"]['LED_FREQ_HZ'] = led_freq
+            rh_config["LED"]['LED_FREQ_HZ'] = int(led_freq)
 
             while True:
-                debug_mode = input("\nWill you use RotorHazard in debug mode? [y/N | default: no]\t\t")
+                debug_mode = input("\nWill you use RotorHazard in debug mode? [y/N | default: no]\t\t").lower()
                 if not debug_mode:
                     debug_mode = False
                     print("defaulted to: no")
                     break
-                elif debug_mode.lower() == 'n':
-                    debug_mode = False
-                    break
                 elif debug_mode.lower() == 'y':
                     debug_mode = True
+                    break
+                elif debug_mode.lower() == 'n':
+                    debug_mode = False
                     break
                 else:
                     print("\nPlease enter correct value!")
             rh_config['GENERAL']['DEBUG'] = debug_mode
 
-            while True:
-                cors = input("\nCORS hosts allowed? [default: all]\t\t\t\t\t")
-                if not cors:
-                    cors = "*"
-                    print("defaulted to: all")
-                    break
-                elif cors in ['*', 'all']:
-                    break
-                else:
-                    print("\nPlease enter correct value!")
+            cors = input("\nCORS hosts allowed? [default: all]\t\t\t\t\t")
+            if not cors:
+                cors = "*"
+                print("defaulted to: all")
+            elif cors in ['*', 'all']:
+                cors = "*"
             rh_config['GENERAL']['CORS_ALLOWED_HOSTS'] = cors
 
             while True:
-                serial_ports = input("\nWhich USB ports you will use? [default: 'none']\t\t\t\t").strip()
+                serial_ports = input("\nWhich USB ports you will use? [default: 'none']\t\t\t\t").strip().lower()
                 if not serial_ports:
                     serial_ports = []
                     print("defaulted to: none")
@@ -260,7 +281,7 @@ If you want to use value given as default, just hit 'Enter'.
                 break
             else:
                 print("\ntoo big fingers :( wrong command. try again! :)")
-        if selection == 'y' or selection == 'yes':
+        if selection[0] == 'y':
             write_json(rh_config, f"{home_dir}/RotorHazard/src/server/config.json")
             print("Configuration saved.\n")
             sleep(0.5)

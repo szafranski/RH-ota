@@ -221,7 +221,7 @@ def node_selection_menu(config):
                 elif int(selection) in range(8) and int(selection) not in range(config.nodes_number):
                     print("\n\n\tNode number higher than configured amount of nodes.")
                     sleep(1.5)
-            if not odd_number_of_nodes_check(config):
+            elif not odd_number_of_nodes_check(config):
                 if int(selection) in range(config.nodes_number + 1):
                     selected_node_number = selection
                     specific_node_menu(config, int(selected_node_number))
@@ -287,10 +287,10 @@ def odd_node_menu(config):
         if selection == '1':
             flash_firmware_onto_gpio_node(config)
             return
-        if selection == '2':
+        elif selection == '2':
             flash_custom_firmware_onto_gpio_node(config)
             break
-        if selection == '3':
+        elif selection == '3':
             print("""
             Remember to flash firmware back on the node - later. 
             Only one of the paired nodes can be flashed with 'blink'
@@ -298,7 +298,7 @@ def odd_node_menu(config):
             input("Hit Enter")
             flash_blink_onto_gpio_node(config)
             return
-        if selection == 'e':
+        elif selection == 'e':
             break
     else:
         clear_the_screen()
@@ -454,17 +454,17 @@ def flashing_menu(config):
         selection = input("")
         if selection == '1':
             flash_firmware_onto_all_nodes(config)
-        if selection == '2':
+        elif selection == '2':
             node_selection_menu(config)
-        if selection == '3':
+        elif selection == '3':
             first_flashing(config)
-        if selection == '4':
+        elif selection == '4':
             show_i2c_devices(config)
-        if selection == '5':
+        elif selection == '5':
             check_uart_devices(config)
-        if selection == 'custom':
+        elif selection == 'custom':
             flash_custom_firmware_onto_all_nodes(config)
-        if selection == 'e':
+        elif selection == 'e':
             break
 
 

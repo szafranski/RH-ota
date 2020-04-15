@@ -56,7 +56,7 @@ def step_three():
         selection = input()
         if selection == 'r':
             os.system("sudo reboot")
-        if selection == 'e':
+        elif selection == 'e':
             break
         else:
             main()
@@ -127,7 +127,7 @@ def step_one(config):
         selection = input()
         if selection == 'r':
             os.system("sudo reboot")
-        if selection == 'e':
+        elif selection == 'e':
             break
         else:
             main()
@@ -159,11 +159,11 @@ def step_zero(config):
         selection = input()
         if selection == 'y':
             step_one(config)
-        if selection == '3':
+        elif selection == '3':
             step_three()
-        if selection == 'x':
+        elif selection == 'x':
             ap_menu()
-        if selection == 'e':
+        elif selection == 'e':
             break
         else:
             main()
@@ -204,7 +204,7 @@ def ap_menu():
             selection = input()
             if selection == 'k':
                 break
-            if selection == 'b':
+            elif selection == 'b':
                 first_page()
 
     def first_page():
@@ -235,7 +235,7 @@ def ap_menu():
             selection = input()
             if selection == 's':
                 second_page()
-            if selection == 'b':
+            elif selection == 'b':
                 break
 
     first_page()

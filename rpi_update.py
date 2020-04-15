@@ -94,10 +94,10 @@ def end_update(config, server_configured_flag, server_installed_flag):
         selection = input()
         if selection == 'r':
             os.system("sudo reboot")
-        if selection == 's':
+        elif selection == 's':
             os.chdir(f"/home/{config.user}/RH-ota")
             server_start()
-        if selection == 'o':
+        elif selection == 'o':
             os.system("rm -rf ~/RotorHazard_*")
             if old_installations_were_found:
                 print("\n\t\t -- old RH installations cleaned --")
@@ -105,9 +105,9 @@ def end_update(config, server_configured_flag, server_installed_flag):
                 print("\n\t\t -- no more old RH installations --")
             sleep(2)
             clear_the_screen()
-        if selection == 'c':
+        elif selection == 'c':
             conf_rh()
-        if selection == 'e':
+        elif selection == 'e':
             return
 
 
@@ -127,12 +127,12 @@ def end_installation(config):
         selection = input()
         if selection == 'r':
             os.system("sudo reboot")
-        if selection == 'e':
+        elif selection == 'e':
             return
-        if selection == 'c':
+        elif selection == 'c':
             conf_rh()
             break
-        if selection == 's':
+        elif selection == 's':
             clear_the_screen()
             os.chdir(f"/home/{config.user}/RH-ota")
             os.system("./scripts/server_start.sh")
@@ -207,7 +207,7 @@ def update(config):
             if selection == 'i':
                 conf_allowed = True
                 installation(conf_allowed, config)
-            if selection == 'a':
+            elif selection == 'a':
                 clear_the_screen()
                 return
             else:
@@ -274,7 +274,7 @@ def main_window(config):
         selection = input()
         if selection == 'c':
             conf_rh() if server_installed_flag else print("Please install the server before configuring.")
-        if selection == 'i':
+        elif selection == 'i':
             # rh_found_flag = os.path.exists(f"/home/{config.user}/RotorHazard")
             if sys_configured_flag:
                 clear_the_screen()
@@ -297,7 +297,7 @@ def main_window(config):
                 if selection == 'i':
                     conf_allowed = False
                     installation(conf_allowed, config)
-                if selection == 'c':
+                elif selection == 'c':
                     confirm_valid_options = ['y', 'yes', 'n', 'no', 'abort', 'a']
                     while True:
                         confirm = input("\n\t\tAre you sure? [yes/abort]\t").strip()
@@ -310,7 +310,7 @@ def main_window(config):
                         installation(conf_allowed, config)
                     elif confirm in ['n', 'no', 'abort', 'a']:
                         pass
-                if selection == 'a':
+                elif selection == 'a':
                     clear_the_screen()
                     image_show()
                     sleep(0.5)
@@ -318,9 +318,9 @@ def main_window(config):
             else:
                 conf_allowed = True
                 installation(conf_allowed, config)
-        if selection == 'u':
+        elif selection == 'u':
             update(config)
-        if selection == 'e':
+        elif selection == 'e':
             clear_the_screen()
             os.chdir(f"/home/{config.user}/RH-ota")
             image_show()
