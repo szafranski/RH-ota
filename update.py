@@ -363,15 +363,9 @@ def first_time():
     
         You can use all implemented features, but if you want to be able to flash
         Arduino-nodes, you have to use official PCB or have 'hardware mod" done.
-
-        Please remember about setting up config file - check out second page.  
-
+  
         This program has ability to perform 'self-updates' - in "Features Menu".
-
-        More info about whole poject that this software is a part of: 
-        https://www.instructables.com/id/RotorHazard-Updater/
-        and in how_to folder - look for PDF file.
-        
+   
         New features and changes - see update notes section.
         If you found any bug - please report via GitHub or Facebook.
         

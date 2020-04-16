@@ -1,0 +1,14 @@
+Welcome to OTA! With this software you can easily install, update and manage your RotorHazard installation.
+You can also flash the newest firmware onto Arduino nodes without the need to open the timer again.
+You may also be interested in features like automatic hotspot configuration or adding aliases to your system.
+
+Please configure OTA using a wizard after reading that message. After that you will be asked about sys. config.
+Please perform it, if you haven’t done it manually already. Interfaces like: UART, SPI, I2C and SSH will be enabled. ￼
+
+
+You can always open this message in Main Menu - position 5
+
+Wish you good experience.
+
+
+szafran 
