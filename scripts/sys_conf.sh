@@ -18,15 +18,18 @@
 
 is_pi_4(){
 ifs=':' read -ra piversion <<< "$(cat /proc/cpuinfo | grep Revision)"
-if [ ${piversion[2]} == *"03111"*  ] ; then
+if [ ${piversion[2]} = *"03111"*  ] ; then
   sed -i 's/core_freq=250/#core_freq=250/' /boot/config.txt > /dev/null 2>&1 || return 1
 fi
 }
 
+green="\033[92m"
+red="\033[91m"
+endc="\033[0m"
 
 is_pi_4_error(){
   echo "
-     -- automatic Pi 4 detection error --
+     $red -- automatic Pi 4 detection error -- $endc
 
   If you are using Raspberry Pi 4 please edit file '/boot/config.txt'
   and change line 'core_freq=250' to '#core_freq=250'.
@@ -36,13 +39,14 @@ is_pi_4_error(){
   Hit 'Enter' to continue
   "
   read -r _
+  sleep 2
 }
 
 ssh_enabling(){
   sudo systemctl enable ssh || return 1
   sudo systemctl start ssh || return 1
   echo "
-     -- SSH ENABLED --   
+     $green -- SSH ENABLED -- $endc
   "
   sleep 3
   return 0
@@ -50,7 +54,7 @@ ssh_enabling(){
 
 ssh_error(){
   echo "
-     -- SSH enabling error --
+     $red -- SSH enabling error -- $endc
 
   try manual enabling with 'sudo raspi config' later
   please: disable end re-enable SSH interface
@@ -59,13 +63,14 @@ ssh_error(){
   Hit 'Enter' to continue
   "
   read -r _
+  sleep 2
 }
 
 spi_enabling(){
   echo "dtparam=spi=on" | sudo tee -a /boot/config.txt || return 1
   sudo sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf || return 1
   echo "
-     -- SPI ENABLED --   
+     $green -- SPI ENABLED -- $endc
   "
   sleep 3
   return 0
@@ -73,7 +78,7 @@ spi_enabling(){
 
 spi_error(){
   echo "
-     -- SPI enabling error --
+     $red -- SPI enabling error -- $endc
 
   try manual enabling with 'sudo raspi config' later
   please: disable end re-enable SPI interface
@@ -82,6 +87,7 @@ spi_error(){
   Hit 'Enter' to continue
   "
   read -r _
+  sleep 2
 }
 
 i2c_enabling(){
@@ -95,7 +101,7 @@ i2c_enabling(){
   sudo sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf || return 1
   is_pi_4 || is_pi_4_error
   echo "
-     -- I2C ENABLED --   
+     $green -- I2C ENABLED -- $endc
      "
   sleep 3
   return 0
@@ -103,7 +109,7 @@ i2c_enabling(){
 
 i2c_error(){
   echo "
-     -- I2C enabling error --
+     $red -- I2C enabling error -- $endc
 
   try manual enabling with 'sudo raspi config' later
   please: disable end re-enable I2C interface
@@ -112,13 +118,14 @@ i2c_error(){
   Hit 'Enter' to continue
   "
   read -r _
+  sleep 2
 }
 
 uart_enabling(){
   echo 'enable_uart=1'| sudo tee -a /boot/config.txt || return 1
   sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt || return 1
   echo "
-     -- UART ENABLED --   
+     $green -- UART ENABLED -- $endc
      "
   sleep 3
   return 0
@@ -126,7 +133,7 @@ uart_enabling(){
 
 uart_error(){
   echo "
-     -- UART enabling error --
+     $red -- UART enabling error -- $endc
 
   try manual enabling with 'sudo raspi config'
   please: disable end re-enable UART interface
@@ -135,6 +142,7 @@ uart_error(){
   Hit 'Enter' to continue
   "
   read -r _
+  sleep 2
 }
 
 if [ "${1}" = "ssh" ]; then
