@@ -166,10 +166,10 @@ def flash_each_node(config):
             if selection == '1':
                 flash_a_node(config, pins_assignment(config)[sel_node - 1], sel_node)
                 return
-            if selection == '2':
+            elif selection == '2':
                 flash_a_blink(config, pins_assignment(config)[sel_node - 1], sel_node)
                 return
-            if selection == 'a':
+            elif selection == 'a':
                 break
 
     def node_menu():
@@ -250,17 +250,17 @@ def nodes_update(config):
             flash_all_gnd(config, pins_assignment(config))
             logo_update(config)
             sleep(3)
-        if selection == '2':
+        elif selection == '2':
             flash_all_blink(config, pins_assignment(config))
             logo_update(config)
             sleep(3)
-        if selection == '3':
+        elif selection == '3':
             flash_each_node(config)
-        if selection == '4':
+        elif selection == '4':
             gpio_state(config)
-        if selection == '5':
+        elif selection == '5':
             new_flashing()
-        if selection == 'e':
+        elif selection == 'e':
             break
 
 

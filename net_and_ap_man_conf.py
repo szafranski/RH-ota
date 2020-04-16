@@ -30,7 +30,7 @@ Now you should be able to enter the network typing in the browser:
         selection = input()
         if selection == 'r':
             os.system("sudo reboot")
-        if selection == 'e':
+        elif selection == 'e':
             break
         else:
             main()

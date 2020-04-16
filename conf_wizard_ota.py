@@ -95,14 +95,14 @@ If you want to use value given as default, just hit 'Enter'.
                 print("\nPlease enter correct value!")
 
         while True:
-            nodes = input("\nHow many nodes will you use in your system? [min: 0/1 | max: 8]\t\t")
-            if not nodes.isdigit() or int(nodes) > 8:
+            nodes_number = input("\nHow many nodes will you use in your system? [min: 0/1 | max: 8]\t\t")
+            if not nodes_number.isdigit() or int(nodes_number) > 8:
                 print("\nPlease enter correct value!")
             else:
-                config.nodes_number = int(nodes)
+                config.nodes_number = int(nodes_number)
                 break
 
-        if int(nodes) % 2 != 0:
+        if int(nodes_number) % 2 != 0:
             while True:
                 odd_nodes_note = """
 Since you declared odd number of nodes, please input, 
@@ -137,37 +137,37 @@ which pin will be used as GPIO reset pin?
             break
 
         if debug_mode:
-            debug_user = input("\nWhat is your user name on debugging OS? \t\t\t\t")
-            config.debug_user = debug_user
+            debug_user_name = input("\nWhat is your user name on debugging OS? \t\t\t\t")
+            config.debug_user = debug_user_name
         else:
             config.debug_user = 'racer'
         while True:
-            old_hw_mod = input("""
+            old_hardware_mod = input("""
 Are you using older, non-i2c hardware flashing mod? 
 (nodes reset pins connected to gpio pins) [ y/N | default: no ]\t\t""").lower()
-            if old_hw_mod == "y":
-                old_hw_mod, config.old_hw_mod = True, True
+            if old_hardware_mod == "y":
+                old_hardware_mod, config.old_hw_mod = True, True
                 break
-            elif old_hw_mod == "n":
-                old_hw_mod, config.old_hw_mod = False, False
+            elif old_hardware_mod == "n":
+                old_hardware_mod, config.old_hw_mod = False, False
                 break
-            elif not old_hw_mod:
-                old_hw_mod, config.old_hw_mod = False, False
+            elif not old_hardware_mod:
+                old_hardware_mod, config.old_hw_mod = False, False
                 print("defaulted to: no")
                 break
             else:
                 print("\nPlease enter correct value!")
 
-        while old_hw_mod:
-            pins_assign = input("\nPins assignment? [default/custom/PCB | default: default]\t\t").lower()
+        while old_hardware_mod:
+            gpio_pins_assign = input("\nPins assignment? [default/custom/PCB | default: default]\t\t").lower()
             pins_valid_options = ['default', 'PCB', 'pcb', 'custom']
-            if pins_assign not in pins_valid_options:
+            if gpio_pins_assign not in pins_valid_options:
                 print("\nPlease enter correct value!")
                 continue
-            elif not pins_assign:
+            elif not gpio_pins_assign:
                 config.pins_assignment = 'default'
             else:
-                config.pins_assignment = pins_assign
+                config.pins_assignment = gpio_pins_assign
             break
         else:
             config.pins_assignment = 'default'

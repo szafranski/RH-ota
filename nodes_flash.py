@@ -95,7 +95,7 @@ def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
             break  # breaks the "flashing loop" after last even node
     flash_firmware_onto_gpio_node(config) if odd_number else None
     logo_update(config)
-    input("\nDone. Press ENTER to continue. ")
+    input("\nDone. Press ENTER to continue ")
     sleep(1)
 
 
@@ -118,7 +118,7 @@ def flash_custom_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numb
             break  # breaks the "flashing loop" after last even node
     flash_custom_firmware_onto_gpio_node(config) if odd_number else None
     logo_update(config)
-    input("\nPress ENTER to continue.")
+    input("\nPress ENTER to continue")
     sleep(2)
 
 
@@ -134,8 +134,8 @@ def flash_firmware_on_a_specific_node(config, selected_node_number):
 
 
 def flash_firmware_onto_gpio_node(config):
-    rst = config.gpio_reset_pin
-    print(f"\n\t\t{Bcolors.BOLD}Flashing node {config.nodes_number} {Bcolors.ENDC}(reset with GPIO pin: {rst})\n")
+    reset_pin = config.gpio_reset_pin
+    print(f"\n\t\t{Bcolors.BOLD}Flashing node {config.nodes_number} {Bcolors.ENDC}(reset with GPIO pin: {reset_pin})\n")
     reset_gpio_pin(config.gpio_reset_pin)
     print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
           f"flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version_selection(config)}/node_0.hex:i")
@@ -167,9 +167,9 @@ def flash_blink_on_a_specific_node(config, selected_node_number):
 
 
 def flash_custom_firmware_onto_gpio_node(config):
-    rst = config.gpio_reset_pin
+    reset_pin = config.gpio_reset_pin
     x = int(config.nodes_number)
-    print(f"\n\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with GPIO pin: {rst})\n")
+    print(f"\n\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with GPIO pin: {reset_pin})\n")
     reset_gpio_pin(config.gpio_reset_pin)
     print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
           f"flash:w:/home/{config.user}/RH-ota/firmware/custom_firmware/custom_node.hex:i ")
@@ -179,9 +179,9 @@ def flash_custom_firmware_onto_gpio_node(config):
 
 
 def flash_blink_onto_gpio_node(config):
-    rst = config.gpio_reset_pin
+    reset_pin = config.gpio_reset_pin
     x = int(config.nodes_number)
-    print(f"\n\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with GPIO pin: {rst})\n")
+    print(f"\n\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with GPIO pin: {reset_pin})\n")
     reset_gpio_pin(config.gpio_reset_pin)
     print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
           f"flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i ")
@@ -353,12 +353,12 @@ def first_flashing(config):
         
         *USB can be used only if node is only device connected to the Pi 
 """.format(green=Bcolors.GREEN_S, yellow=Bcolors.YELLOW_S, bold=Bcolors.BOLD, endc=Bcolors.ENDC)
-        port_sel = input(first_flash_select)
-        if port_sel == '1':
+        port_selection = input(first_flash_select)
+        if port_selection == '1':
             flash_node_first_time('S0')
-        elif port_sel == '2':
+        elif port_selection == '2':
             flash_node_first_time('USB0')
-        elif port_sel == 'e':
+        elif port_selection == 'e':
             break
         else:
             print("\n\tType: 'UART' or 'USB'\n\t")
@@ -388,18 +388,18 @@ def check_uart_con_with_a_node(config, selected_node_number):
     check_uart_connection() if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - checked{Bcolors.ENDC}\n\n")
     sleep(1)
-    input("\nPress ENTER to continue.")
+    input("\nPress ENTER to continue")
 
 
 def check_uart_con_with_gpio_node(config):
-    rst = config.gpio_reset_pin
-    print(f"\n\t\t{Bcolors.BOLD}Checking node {config.nodes_number} {Bcolors.ENDC}(reset with GPIO pin: {rst})\n")
+    reset_pin = config.gpio_reset_pin
+    print(f"\n\t\t{Bcolors.BOLD}Checking node {config.nodes_number} {Bcolors.ENDC}(reset with GPIO pin: {reset_pin})\n")
     reset_gpio_pin(config.gpio_reset_pin)
     print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600")
     check_uart_connection() if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {config.nodes_number} - checked{Bcolors.ENDC}\n\n")
     sleep(1)
-    input("\nPress ENTER to continue.")
+    input("\nPress ENTER to continue")
 
 
 # todo test gpio uart connection testing
@@ -417,12 +417,12 @@ def check_uart_devices(config):  # nodes have to be 'auto-numbered'
         check_uart_connection() if not config.debug_mode else None
         print(f"\n\t\t\t{Bcolors.BOLD}Node {i + 1} - checked{Bcolors.ENDC}\n\n")
         sleep(1)
-        input("\nPress ENTER to continue.\n")
+        input("\nPress ENTER to continue\n")
         if odd_number and ((nodes_num - i) == 2):
             break  # breaks the "flashing loop" after last even node
     check_uart_con_with_gpio_node(config) if odd_number else None
     # todo checking summary
-    input("\nPress ENTER to continue.")
+    input("\nPress ENTER to continue")
     sleep(1)
 
 
