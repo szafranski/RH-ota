@@ -117,7 +117,37 @@ def updated_check(config):
             break
 
 
-def welcome_screen(updater_version):
+def welcome_screen(config):
+    welcome_message = """{bold}{green}
+    Welcome to OTA! With this software you can easily install, update and manage 
+    your RotorHazard installation. You can also flash the firmware onto Arduino-nodes, 
+    without the need to open the timer again. You may also be interested in features 
+    like automatic hot-spot configuration or adding aliases to your system.
+    
+    Please configure OTA software using a wizard after reading this message. ￼
+    
+    Wish you good experience!
+    
+    szafran - OTA creator 
+    {endc}""".format(bold=Bcolors.BOLD, green=Bcolors.GREEN, endc=Bcolors.ENDC)
+
+    if os.path.exists("./.first_time_here"):
+        while True:
+            clear_the_screen()
+            logo_top(config.debug_mode)
+            print(welcome_message)
+            selection = input("\t\thit Enter")
+            if not selection:
+                os.system("rm ./.first_time_here")
+                break
+            else:
+                break
+"""
+    After that you will be asked about system configuring.
+    Please perform it, if you haven’t done it manually already. 
+    Interfaces like: UART, SPI, I2C and SSH will be enabled. 
+"""
+def opening_screen(updater_version):
     clear_the_screen()
     print("\n\n")
     image_show()
@@ -453,7 +483,8 @@ def main():
     compatibility()
     updater_version = get_ota_version(False)
     config = load_config()
-    welcome_screen(updater_version)
+    opening_screen(updater_version)
+    welcome_screen(config)
     updated_check(config)
     main_menu(config)
 
