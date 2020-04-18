@@ -120,9 +120,9 @@ def updated_check(config):
 def welcome_screen(config):
     welcome_message = """{bold}{green}
     Welcome to OTA! With this software you can easily install, update and manage 
-    your RotorHazard installation. You can also flash the firmware onto Arduino-nodes, 
-    without the need to open the timer again. You may also be interested in features 
-    like automatic hot-spot configuration or adding aliases to your system.
+    your RotorHazard installation. You can also flash the firmware onto nodes, 
+    without the need to open the timer ever again. You may also be interested 
+    in features like auto-hotspot configuration or adding aliases to your system.
     
     
     Please configure OTA software using a wizard after reading this message.
@@ -395,17 +395,17 @@ def first_time(config):
             clear_the_screen()
             welcome_first_page = """{bold}  
     
-        You can use all implemented features, but if you want to be able to flash
-        Arduino-nodes, you have to use official PCB or have 'hardware mod" done.
-  
-        This program has ability to perform 'self-updates' - in "Features Menu".
-   
-        New features and changes - see update notes section.
+    You can use all implemented features, but if you want to be able to flash
+    Arduino-nodes, you have to use official PCB or have 'hardware mod" done.
+
+    This program has ability to perform 'self-updates' - in "Features Menu".
+
+    New features and changes - see update notes section.
+    
+    If you found any bug - please report via GitHub or Facebook.
         
-        If you found any bug - please report via GitHub or Facebook.
         
-        
-   {green}n - Next page {endc}  {bold}u - Update notes {yellow}e - Exit to main menu {endc}
+{green}n - Next page {endc}  {bold}u - Update notes {yellow}e - Exit to main menu {endc}
             """.format(green=Bcolors.GREEN_S, endc=Bcolors.ENDC, yellow=Bcolors.YELLOW_S, bold=Bcolors.BOLD_S)
             logo_top(config.debug_mode)
             print(welcome_first_page)
