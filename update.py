@@ -130,14 +130,15 @@ def welcome_screen(config):
     Wish you good experience. Enjoy!
                                         
                                         
-                                                szafran - OTA creator 
+                                                    szafran - OTA creator 
+                                                    
     {endc}""".format(bold=Bcolors.BOLD, red=Bcolors.RED, green=Bcolors.GREEN, endc=Bcolors.ENDC)
 
     while os.path.exists("./.first_time_here"):
         clear_the_screen()
         logo_top(config.debug_mode)
         print(welcome_message)
-        selection = input(f"\n\t\t\t{Bcolors.BOLD}{Bcolors.GREEN}Open next page by typing 'n'{Bcolors.ENDC}\n\n").lower()
+        selection = input(f"\n\t\t\t{Bcolors.GREEN}Open next page by typing 'n'{Bcolors.ENDC}\n\n").lower()
         if selection == 'n':
             os.system("rm ./.first_time_here")
             first_time(config)
@@ -372,12 +373,12 @@ def first_time(config):
     
     > {blue}'beta'  {endc}{bold}- last 'beta' release (usually has about few weeks, quite stable){endc}{bold}
     
-    > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested){endc}{bold}  
+    > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested){endc}  
             
         
-   {green}c - Configuration wizard{endc}      {bold}
+   {green}c - Configuration wizard{endc}
           
-          u - Update notes{yellow}{bold} 
+          u - Update notes{yellow} 
           
           b - Go back{endc}
                   
@@ -407,11 +408,11 @@ def first_time(config):
     New features and changes - see update notes section.
     
     
-    If you found any bug - please report via GitHub or Facebook.
+    If you found any bug - please report via GitHub or Facebook. {endc}
         
         
         
-{green}n - Next page {endc}  {bold}
+{green}n - Next page {endc}
        
        u - Update notes {yellow}
        
