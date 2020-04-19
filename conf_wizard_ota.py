@@ -88,6 +88,7 @@ If you want to use value given as default, just hit 'Enter'.
             if not country_code:
                 config.country = 'GB'
                 print("defaulted to: 'GB'")
+                break
             elif len(country_code) < 4:
                 config.country = country_code
                 break
@@ -215,7 +216,7 @@ Are you using older, non-i2c hardware flashing mod?
             # to ensure consistency.
             config = load_config()
             print("Configuration saved.\n")
-            sleep(0.5)
+            sleep(1)
             conf_now_flag = 0
         if selection in ['change', 'n', 'no']:
             conf_now_flag = 1
