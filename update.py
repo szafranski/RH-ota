@@ -127,7 +127,7 @@ def welcome_screen(config):
     Please configure OTA software using a wizard after reading this message.
     
     
-                                        Wish you good experience. Enjoy!
+    Wish you good experience. Enjoy!
                                         
                                         
                                                 szafran - OTA creator 
@@ -363,7 +363,7 @@ def first_time(config):
     Software configuration process can be assisted with a wizard. 
     It will configure this software, not RotorHazard server itself. 
     Things like amount of LEDs or password to admin page of RotorHazard
-    should be configured separately in {blue}RotorHazard Manager{endc} in Main Menu.
+    should be configured separately in {blue}RotorHazard Manager{endc}{bold} in Main Menu.
 
 
     Possible RotorHazard server versions:
