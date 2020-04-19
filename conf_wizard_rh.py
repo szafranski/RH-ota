@@ -284,7 +284,7 @@ If you want to use value given as default, just hit 'Enter'.
         if selection[0] == 'y':
             write_json(rh_config, f"{home_dir}/RotorHazard/src/server/config.json")
             print("Configuration saved.\n")
-            sleep(0.5)
+            sleep(1)
             conf_now_flag = 0
         if selection in ['change', 'n', 'no']:
             conf_now_flag = 1
