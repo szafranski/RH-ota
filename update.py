@@ -19,11 +19,10 @@ def compatibility():  # adds compatibility and fixes with previous versions
 def config_check():
     if not os.path.exists("./updater-config.json"):
         prompt = """
-
           {prompt}  Looks that you haven't set up config file yet.     {endc}
           {prompt}  Please read about configuration process - point 5  {endc}
-          {prompt}  and next enter configuration wizard - point 6.     {endc}
-""".format(prompt=Bcolors.PROMPT, endc=Bcolors.ENDC)
+          {prompt}  and next enter configuration wizard - point 6.     {endc}"""\
+            .format(prompt=Bcolors.PROMPT, endc=Bcolors.ENDC)
         print(prompt)
         return False
     else:
@@ -118,7 +117,7 @@ def updated_check(config):
 
 
 def welcome_screen(config):
-    welcome_message = """{bold}{green}
+    welcome_message = """{bold}
     Welcome to OTA! With this software you can easily install, update and manage 
     your RotorHazard installation. You can also flash the firmware onto nodes, 
     without the need to open the timer ever again. You may also be interested 
@@ -128,22 +127,22 @@ def welcome_screen(config):
     Please configure OTA software using a wizard after reading this message.
     
     
-    Wish you good experience. Enjoy!
-    
-    
-    szafran - OTA creator 
-    {endc}""".format(bold=Bcolors.BOLD, green=Bcolors.GREEN, endc=Bcolors.ENDC)
+                                        Wish you good experience. Enjoy!
+                                        
+                                        
+                                                szafran - OTA creator 
+    {endc}""".format(bold=Bcolors.BOLD, red=Bcolors.RED, green=Bcolors.GREEN, endc=Bcolors.ENDC)
 
     while os.path.exists("./.first_time_here"):
         clear_the_screen()
         logo_top(config.debug_mode)
         print(welcome_message)
-        selection = input(f"\t\t\t{Bcolors.BOLD}Open next page by typing 'n'{Bcolors.ENDC}\n\n").lower()
+        selection = input(f"\n\t\t\t{Bcolors.BOLD}{Bcolors.GREEN}Open next page by typing 'n'{Bcolors.ENDC}\n\n").lower()
         if selection == 'n':
             os.system("rm ./.first_time_here")
             first_time(config)
         elif not selection:
-            first_time(config)
+            first_time(config)  # todo delete before merging
 
 """
     After that you will be asked about system configuring.
@@ -360,30 +359,34 @@ def first_time(config):
             welcome_second_page = """
                         {bold}{underline}CONFIGURATION PROCESS{endc}{bold}
 
-         
-        Software configuration process can be assisted with a wizard. 
-        It will configure this software, not RotorHazard server itself. 
-        Thing like amount of used LEDs or password to admin page of RotorHazard
-        should be configured separately - check RotorHazard Manager in Main Menu.
+     
+    Software configuration process can be assisted with a wizard. 
+    It will configure this software, not RotorHazard server itself. 
+    Things like amount of LEDs or password to admin page of RotorHazard
+    should be configured separately in {blue}RotorHazard Manager{endc} in Main Menu.
 
 
-        Possible RotorHazard server versions:
+    Possible RotorHazard server versions:
 
-        > {blue}'stable'{endc}{bold}- last stable release (can be from before few days or few months){endc}{bold}
-        
-        > {blue}'beta'  {endc}{bold}- last 'beta' release (usually has about few weeks, quite stable){endc}{bold}
-        
-        > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested){endc}{bold}  
+    > {blue}'stable'{endc}{bold}- last stable release (can be from before few days or few months){endc}{bold}
+    
+    > {blue}'beta'  {endc}{bold}- last 'beta' release (usually has about few weeks, quite stable){endc}{bold}
+    
+    > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested){endc}{bold}  
             
         
-    {green}c - Configuration wizard{endc}      {bold}u - Update notes'{yellow}{bold}   f - Go back'{endc}
+   {green}c - Configuration wizard{endc}      {bold}
+          
+          u - Update notes{yellow}{bold} 
+          
+          b - Go back{endc}
                   
             """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
                        blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S,
                        orange=Bcolors.ORANGE_S, green=Bcolors.GREEN_S)
             print(welcome_second_page)
             selection = input()
-            if selection == 'f':
+            if selection == 'b':
                 return False  # go back to first page
             elif selection == 'c':
                 config = conf_ota(config)
@@ -400,12 +403,19 @@ def first_time(config):
 
     This program has ability to perform 'self-updates' - in "Features Menu".
 
+
     New features and changes - see update notes section.
+    
     
     If you found any bug - please report via GitHub or Facebook.
         
         
-{green}n - Next page {endc}  {bold}u - Update notes {yellow}e - Exit to main menu {endc}
+        
+{green}n - Next page {endc}  {bold}
+       
+       u - Update notes {yellow}
+       
+       e - Exit to menu {endc}
             """.format(green=Bcolors.GREEN_S, endc=Bcolors.ENDC, yellow=Bcolors.YELLOW_S, bold=Bcolors.BOLD_S)
             logo_top(config.debug_mode)
             print(welcome_first_page)
@@ -480,7 +490,9 @@ def main_menu(config):
             config = conf_ota(config)
         elif selection == 'e':
             end()
-
+        elif selection == 'f':
+            os.system("here >> ./.first_time_here")
+        #  todo remove it before merging
 
 def main():
     compatibility()
