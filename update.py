@@ -123,15 +123,16 @@ def welcome_screen(config):
     without the need to open the timer ever again. You may also be interested 
     in features like smart-hotspot or adding aliases to your system, etc.
     
+    This program has ability to perform 'self-updates' - see "Features Menu".    
     
-    Please configure OTA software using a wizard after reading this message.
+    
+    If you found any bug - please report it via GitHub or Facebook. {endc}{bold}        
     
     
     Wish you good experience. Enjoy!
                                         
                                         
-                                                    szafran - OTA creator 
-                                                    
+                                                            szafran                                                
     {endc}""".format(bold=Bcolors.BOLD, red=Bcolors.RED, green=Bcolors.GREEN, endc=Bcolors.ENDC)
 
     while os.path.exists("./.first_time_here"):
@@ -350,49 +351,6 @@ def features_menu(config):
 
 
 def first_time(config):
-    def show_update_notes():
-        clear_the_screen()
-        os.system("less ./docs/update-notes.txt")
-
-    def second_page(config):
-        while True:
-            clear_the_screen()
-            welcome_second_page = """
-                        {bold}{underline}CONFIGURATION PROCESS{endc}{bold}
-
-     
-    Software configuration process can be assisted with a wizard. 
-    It will configure this software, not RotorHazard server itself. 
-    Things like amount of LEDs or password to admin page of RotorHazard
-    should be configured separately in {blue}RotorHazard Manager{endc}{bold} in Main Menu.
-
-
-    Possible RotorHazard server versions:
-
-    > {blue}'stable'{endc}{bold}- last stable release (can be from before few days or few months){endc}{bold}
-    
-    > {blue}'beta'  {endc}{bold}- last 'beta' release (usually has about few weeks, quite stable){endc}{bold}
-    
-    > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested){endc}  
-            
-        
-   {green}c - Configuration wizard{endc}
-          
-          u - Update notes{yellow} 
-          
-          b - Go back{endc}
-                  
-            """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
-                       blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S,
-                       orange=Bcolors.ORANGE_S, green=Bcolors.GREEN_S)
-            print(welcome_second_page)
-            selection = input()
-            if selection == 'b':
-                return False  # go back to first page
-            elif selection == 'c':
-                config = conf_ota(config)
-            elif selection == 'u':
-                show_update_notes()
 
     def first_page(config):
         while True:
@@ -402,31 +360,29 @@ def first_time(config):
     You can use all implemented features, but if you want to be able to flash
     Arduino-nodes, you have to use official PCB or have 'hardware mod" done.
 
-    This program has ability to perform 'self-updates' - in "Features Menu".
+    Please configure OTA software using a wizard after reading this message.
+        
+    This wizard will configure OTA software, not RotorHazard server itself. 
+    Things like amount of LEDs connected to the timer etc. should be configured 
+    separately in {blue}RotorHazard Manager{endc}{bold} in Main Menu.
 
+    Possible RotorHazard server versions that may be selected:
 
-    New features and changes - see update notes section.
+    > {blue}'stable'{endc}{bold}- last stable release (can be from before few days or few months){endc}{bold}
     
+    > {blue}'beta'  {endc}{bold}- last 'beta' release (usually has about few weeks, quite stable){endc}{bold}
     
-    If you found any bug - please report via GitHub or Facebook. {endc}
-        
-        
-        
-{green}n - Next page {endc}
+    > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested){endc} 
+     
+    {green}c - Configuration wizard{endc}{yellow}
        
-       u - Update notes {yellow}
-       
-       e - Exit to menu {endc}
-            """.format(green=Bcolors.GREEN_S, endc=Bcolors.ENDC, yellow=Bcolors.YELLOW_S, bold=Bcolors.BOLD_S)
-            logo_top(config.debug_mode)
+           e - Exit to menu {endc}
+            """.format(green=Bcolors.GREEN_S, blue=Bcolors.BLUE, endc=Bcolors.ENDC,
+                       yellow=Bcolors.YELLOW_S, bold=Bcolors.BOLD)
             print(welcome_first_page)
             selection = input()
             if selection == 'n':
-                go_back_again = second_page(config)
-                if go_back_again:
-                    break  # user wants to go back to main menu.
-            elif selection == 'u':
-                show_update_notes()
+                config = conf_ota(config)
             elif selection == 'e':
                 break
 
