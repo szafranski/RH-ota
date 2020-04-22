@@ -76,7 +76,7 @@ If not, please follow those instructions:
 <br/>
 
 <br/>
-~~ *Toss a coin to a Witcher* section ~~
+## ~~ *Toss a coin to a Witcher* section ~~
 <br/>
 I started this project as a way to help the community. I also found it very interesting and meaningful to explore new territories and do the best I can so end user can be satisfied to as high degree as possible. We spent long hours on testing, coding and troubleshooting. If you feel that this work was valuable and you want to say "thank you" that way, you can use
  
