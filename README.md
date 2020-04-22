@@ -13,7 +13,7 @@
      - Automatically performs much of the RotorHazard specific Pi setup steps
 
 1. Wizard install and update of RotorHazard nodes firmware.
-     - Requires some hardware modification to enable - described [here](./how_to/hw_mod_instructions)
+     - Requires some hardware modification to enable - described [here](how_to/hw_mod_instructions.txt)
 
 1. Automatic configuring Access Point
      - Hotspot: Configure always-on hotspot using Pi's built in Wifi 
@@ -30,8 +30,8 @@ Helpful developer/back-end options:
 1. Embedded logging feature with an option to upload log file to the cloud 
 <br/>
 
-If you want all hardware functionality - visit: [Instructables page](https://www.instructables.com/id/RotorHazard-Updater/)
-or check the [RotorHazard-Updater.pdf](/how_to/RotorHazard-Updater.pdf).
+If you use old, Delta5 boards but you still want all hardware functionalities - visit: [Instructables page](https://www.instructables.com/id/RotorHazard-Updater/) - to get some context
+or check the file with [hardware mod instructions](/how_to/hw_mod_instructions.txt).
 
 You may also read [update notes](/docs/update-notes.txt) - new features are present.
 </br></br>
@@ -72,8 +72,16 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
 We assume in our instructions and provided setup process that you already have your Raspbian OS set up. 
 If not, please follow those instructions: 
 
-[raspbian setup instructions](https://www.raspberrypi.org/documentation/installation/installing-images/README.md)
+[Raspbian setup instructions](https://www.raspberrypi.org/documentation/installation/installing-images/README.md).
+<br/>
 
+<br/>
+~~ *Toss a coin to a Witcher* section ~~
+<br/>
+I started this project as a way to help the community. I also found it very interesting and meaningful to explore new territories and do the best I can so end user can be satisfied to as high degree as possible. We spent long hours on testing, coding and troubleshooting. If you feel that this work was valuable and you want to say "thank you" that way, you can use
+ 
+ [PayPal donation link](https://www.paypal.com/donate/?token=9BLz3dIwcuO_YUjh43IHLai6ZgaOD9BpDkmSfdN_1_EDeJmSEeIqnWDqdiPs27nH9SFAiW&country.x=PL&locale.x=PL). Every amount is meaningful. Remember that our help and contribution is NOT conditional :)
+<br/> 
 <br/>
 
 >If you want detailed description of this software and actions that are being performed during operations</br>
