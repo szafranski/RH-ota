@@ -19,11 +19,10 @@ def compatibility():  # adds compatibility and fixes with previous versions
 def config_check():
     if not os.path.exists("./updater-config.json"):
         prompt = """
-
           {prompt}  Looks that you haven't set up config file yet.     {endc}
           {prompt}  Please read about configuration process - point 5  {endc}
-          {prompt}  and next enter configuration wizard - point 6.     {endc}
-""".format(prompt=Bcolors.PROMPT, endc=Bcolors.ENDC)
+          {prompt}  and next enter configuration wizard - point 6.     {endc}"""\
+            .format(prompt=Bcolors.PROMPT, endc=Bcolors.ENDC)
         print(prompt)
         return False
     else:
@@ -117,7 +116,43 @@ def updated_check(config):
             break
 
 
-def welcome_screen(updater_version):
+def welcome_screen(config):
+    welcome_message = """{bold}
+    Welcome to OTA! With this software you can easily install, update and manage 
+    your RotorHazard installation. You can also flash the firmware onto nodes, 
+    without the need to open the timer ever again. You may also be interested 
+    in features like auto-hotspot configuration or adding aliases to your system.
+    
+    
+    Please configure OTA software using a wizard after reading this message.
+    
+    
+    Wish you good experience. Enjoy!
+                                        
+                                        
+                                                    szafran - OTA creator 
+                                                    
+    {endc}""".format(bold=Bcolors.BOLD, red=Bcolors.RED, green=Bcolors.GREEN, endc=Bcolors.ENDC)
+
+    while os.path.exists("./.first_time_here"):
+        clear_the_screen()
+        logo_top(config.debug_mode)
+        print(welcome_message)
+        selection = input(f"\n\t\t\t{Bcolors.GREEN}Open next page by typing 'n'{Bcolors.ENDC}\n\n").lower()
+        if selection == 'n':
+            os.system("rm ./.first_time_here")
+            first_time(config)
+        elif not selection:
+            first_time(config)  # todo delete before merging
+
+"""
+    After that you will be asked about system configuring.
+    Please perform it, if you haven’t done it manually already. 
+    Interfaces like: UART, SPI, I2C and SSH will be enabled. 
+"""
+
+
+def opening_screen(updater_version):
     clear_the_screen()
     print("\n\n")
     image_show()
@@ -314,71 +349,80 @@ def features_menu(config):
             break
 
 
-def first_time():
+def first_time(config):
     def show_update_notes():
         clear_the_screen()
         os.system("less ./docs/update-notes.txt")
 
-    def second_page():
+    def second_page(config):
         while True:
             clear_the_screen()
             welcome_second_page = """
-                        {bold}{underline}CONFIGURATION PROCESS{endc}
+                        {bold}{underline}CONFIGURATION PROCESS{endc}{bold}
 
-        {bold} 
-        Software configuration process can be assisted with a wizard. 
-        You have to enter point 5. of Main Menu and apply right values.
-        It will configure this software, not RotorHazard server itself. 
-        Thing like amount of used LEDs or password to admin page of RotorHazard
-        should be configured separately - check RotorHazard Manager in Main Menu.
+     
+    Software configuration process can be assisted with a wizard. 
+    It will configure this software, not RotorHazard server itself. 
+    Things like amount of LEDs or password to admin page of RotorHazard
+    should be configured separately in {blue}RotorHazard Manager{endc}{bold} in Main Menu.
 
 
-        Possible RotorHazard server versions:
+    Possible RotorHazard server versions:
 
-        > {blue}'stable'{endc}{bold}- last stable release (can be from before few days or few months){endc}
-        
-        > {blue}'beta'  {endc}{bold}- last 'beta' release (usually has about few weeks, quite stable){endc}
-        
-        > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested){endc}  
+    > {blue}'stable'{endc}{bold}- last stable release (can be from before few days or few months){endc}{bold}
+    
+    > {blue}'beta'  {endc}{bold}- last 'beta' release (usually has about few weeks, quite stable){endc}{bold}
+    
+    > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested){endc}  
             
         
-            f - First page'         u - Update notes' {yellow}   e - Exit to menu{endc}
+   {green}c - Configuration wizard{endc}
+          
+          u - Update notes{yellow} 
+          
+          b - Go back{endc}
                   
             """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
                        blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S,
-                       orange=Bcolors.ORANGE_S)
+                       orange=Bcolors.ORANGE_S, green=Bcolors.GREEN_S)
             print(welcome_second_page)
             selection = input()
-            if selection == 'f':
+            if selection == 'b':
                 return False  # go back to first page
-            elif selection == 'e':
-                return True  # go back to main menu
+            elif selection == 'c':
+                config = conf_ota(config)
             elif selection == 'u':
                 show_update_notes()
 
-    def first_page():
+    def first_page(config):
         while True:
             clear_the_screen()
             welcome_first_page = """{bold}  
     
-        You can use all implemented features, but if you want to be able to flash
-        Arduino-nodes, you have to use official PCB or have 'hardware mod" done.
-  
-        This program has ability to perform 'self-updates' - in "Features Menu".
-   
-        New features and changes - see update notes section.
-        If you found any bug - please report via GitHub or Facebook.
+    You can use all implemented features, but if you want to be able to flash
+    Arduino-nodes, you have to use official PCB or have 'hardware mod" done.
+
+    This program has ability to perform 'self-updates' - in "Features Menu".
+
+
+    New features and changes - see update notes section.
+    
+    
+    If you found any bug - please report via GitHub or Facebook. {endc}
         
-                Enjoy!
-                                                Szafran
         
-            {green}
-        s - Second page {endc}        u - Update notes {yellow}e - Exit to main menu {endc}
-            """.format(green=Bcolors.GREEN, endc=Bcolors.ENDC, yellow=Bcolors.YELLOW_S, bold=Bcolors.BOLD)
+        
+{green}n - Next page {endc}
+       
+       u - Update notes {yellow}
+       
+       e - Exit to menu {endc}
+            """.format(green=Bcolors.GREEN_S, endc=Bcolors.ENDC, yellow=Bcolors.YELLOW_S, bold=Bcolors.BOLD_S)
+            logo_top(config.debug_mode)
             print(welcome_first_page)
             selection = input()
-            if selection == 's':
-                go_back_again = second_page()
+            if selection == 'n':
+                go_back_again = second_page(config)
                 if go_back_again:
                     break  # user wants to go back to main menu.
             elif selection == 'u':
@@ -386,7 +430,7 @@ def first_time():
             elif selection == 'e':
                 break
 
-    first_page()
+    first_page(config)
 
 
 def end():
@@ -442,18 +486,21 @@ def main_menu(config):
         elif selection == '4':
             features_menu(config)
         elif selection == '5':
-            first_time()
+            first_time(config)
         elif selection == '6':
             config = conf_ota(config)
         elif selection == 'e':
             end()
-
+        elif selection == 'f':
+            os.system("here >> ./.first_time_here")
+        #  todo remove it before merging
 
 def main():
     compatibility()
     updater_version = get_ota_version(False)
     config = load_config()
-    welcome_screen(updater_version)
+    opening_screen(updater_version)
+    welcome_screen(config)
     updated_check(config)
     main_menu(config)
 

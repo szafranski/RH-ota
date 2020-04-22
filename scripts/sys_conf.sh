@@ -18,7 +18,7 @@
 
 is_pi_4(){
 ifs=':' read -ra piversion <<< "$(cat /proc/cpuinfo | grep Revision)"
-if [[ ${piversion[2]} = *"03111"*  ]] ; then
+if [[ ${piversion[2]} == *"0311"* ]] ; then
   sed -i 's/core_freq=250/#core_freq=250/' /boot/config.txt > /dev/null 2>&1 || return 1
 fi
 }
