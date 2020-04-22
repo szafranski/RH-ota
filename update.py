@@ -118,10 +118,10 @@ def updated_check(config):
 
 def welcome_screen(config):
     welcome_message = """{bold}
-    Welcome to OTA! With this software you can easily install, update and manage 
+    Welcome to OTA! With our software you can easily install, update and manage 
     your RotorHazard installation. You can also flash the firmware onto nodes, 
     without the need to open the timer ever again. You may also be interested 
-    in features like auto-hotspot configuration or adding aliases to your system.
+    in features like smart-hotspot or adding aliases to your system, etc.
     
     
     Please configure OTA software using a wizard after reading this message.
