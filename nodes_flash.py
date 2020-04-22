@@ -145,7 +145,7 @@ def flash_firmware_onto_gpio_node(config):
     reset_gpio_pin(config.gpio_reset_pin)
     print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
           f"flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version_selection(config)}/node_0.hex:i")
-    flash_blink(config) if not config.debug_mode else None
+    flash_firmware(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {config.nodes_number} - flashed{Bcolors.ENDC}\n\n")
     sleep(2)
 
