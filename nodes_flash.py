@@ -70,6 +70,12 @@ def flash_blink(config):
     flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i || {show_flash_error_msg()}")
 
 
+def flash_custom_firmware(config):
+    os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
+    flash:w:/home/{config.user}/RH-ota/firmware/custom_firmware/custom_node.hex:i || \
+{show_flash_error_msg()}")
+
+
 def flash_firmware(config):
     os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version_selection(config)}/node_0.hex:i || \
@@ -111,7 +117,7 @@ def flash_custom_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numb
         prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
         print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
               f"flash:w:/home/{config.user}/RH-ota/firmware/custom_firmware/custom_node.hex:i ")
-        flash_firmware(config) if not config.debug_mode else None
+        flash_custom_firmware_onto_gpio_node(config) if not config.debug_mode else None
         print(f"\n\t\t\t{Bcolors.BOLD}Node {i + 1} - flashed{Bcolors.ENDC}\n\n")
         sleep(2)
         if odd_number and ((nodes_num - i) == 2):
@@ -150,7 +156,7 @@ def flash_custom_firmware_on_a_specific_node(config, selected_node_number):
     prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
     print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
           f"flash:w:/home/{config.user}/RH-ota/firmware/custom_firmware/custom_node.hex:i ")
-    flash_blink(config) if not config.debug_mode else None
+    flash_custom_firmware(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - flashed{Bcolors.ENDC}\n\n")
     sleep(2)
 
@@ -173,7 +179,7 @@ def flash_custom_firmware_onto_gpio_node(config):
     reset_gpio_pin(config.gpio_reset_pin)
     print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
           f"flash:w:/home/{config.user}/RH-ota/firmware/custom_firmware/custom_node.hex:i ")
-    flash_blink(config) if not config.debug_mode else None
+    flash_custom_firmware(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {x} - flashed{Bcolors.ENDC}\n\n")
     sleep(2)
 
