@@ -70,9 +70,7 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
 
 <br/>
 We assume in our instructions and provided setup process that you already have your Raspbian OS set up. 
-If not, please follow those instructions: 
-
-[Raspbian setup instructions](https://www.raspberrypi.org/documentation/installation/installing-images/README.md).
+If not, please follow those instructions: [Raspbian setup instructions](https://www.raspberrypi.org/documentation/installation/installing-images/README.md).
 <br/>
 <br/>
 
