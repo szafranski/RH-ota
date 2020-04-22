@@ -53,16 +53,12 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
 **Note:**  This software will automatically install all necessary dependencies
 
     cd ~
-    wget https://codeload.github.com/szafranski/RH-ota/zip/main_stable -O tempota.zip
+    wget https://codeload.github.com/szafranski/RH-ota/zip/stable -O tempota.zip
     unzip tempota.zip
     rm tempota.zip
     mv RH-ota-* RH-ota
     chmod +x ~/RH-ota/ota.sh
     
-    *Change 2nd line with what's below if you want to install the beta version: 
-    
-    wget https://codeload.github.com/szafranski/RH-ota/zip/master -O tempota.zip
-
 #### Commands to open the software:
     
     cd ~/RH-ota
