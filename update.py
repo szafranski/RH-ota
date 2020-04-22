@@ -358,7 +358,8 @@ def first_time(config):
         
     This wizard will configure OTA software, not RotorHazard server itself. 
     Things like amount of LEDs or RotorHazard password should be configured 
-    separately in {blue}RotorHazard Manager{endc}{bold} - see Main Menu.
+    separately in {blue}RotorHazard Manager{endc}{bold} - see in Main Menu.
+    
     
     
     Possible RotorHazard server versions that may be selected:
@@ -370,7 +371,8 @@ def first_time(config):
     > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested){endc} 
      
     
-    {green}c - Enter conf. wizard{endc}{yellow}
+    
+    {green}c - Enter configuration wizard{endc}{yellow}
        
            e - Exit to menu {endc}
     

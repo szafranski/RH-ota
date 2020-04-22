@@ -28,7 +28,7 @@ def self_update(config, internet_flag):
             source = 'master'
             print("This will be the 'beta' update - may be changed in config file.\n")
         else:
-            source = 'main_stable'
+            source = 'stable'
         os.system(f"./scripts/self_updater.sh {source}")
         # if config:  # if the config variable is not empty, then the config file must have existed.
         #   shutil.copyfile("~/.ota_markers/old_RH-ota/updater-config.json", "~/RH-ota/updater-config.json")
