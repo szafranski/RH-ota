@@ -1,4 +1,5 @@
 import os
+import glob
 from pathlib import Path
 from time import sleep
 from conf_wizard_rh import conf_rh
@@ -78,8 +79,9 @@ def end_update(config, server_configured_flag, server_installed_flag):
         print(show_update_completed())
         clearing_color = ''
         old_installations_were_found = False
-        if 'RotorHazard_' in os.popen('ls ~').read():
-            clearing_color = Bcolors.YELLOW
+        old_rh_directories_found = glob.glob('.././RotorHazard_*')
+        if old_rh_directories_found:
+            clearing_color = Bcolors.GREEN
             old_installations_were_found = True
         print(f"""
                 {configure}
