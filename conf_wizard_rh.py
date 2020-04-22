@@ -55,6 +55,8 @@ If you want to use value given as default, just hit 'Enter'.
                 led_port_nr = 5000
                 print("defaulted to: 5000")
                 break
+            elif led_port_nr.isdigit():
+                break
             elif not led_port_nr.isdigit():
                 print("\nPlease enter correct value!")
         rh_config['GENERAL']['HTTP_PORT'] = int(led_port_nr)
