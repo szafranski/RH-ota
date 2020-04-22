@@ -231,23 +231,23 @@ def main_window(config):
         sys_configured_flag = ota_config.sys_config_done
         sleep(0.1)
         welcome_text = """
-            \n\n{red} {bold}
-            AUTOMATIC UPDATE AND INSTALLATION OF ROTORHAZARD RACING TIMER SOFTWARE
-                {endc}{bold}
-            You can automatically install and update RotorHazard timing software. 
-            Additional dependencies and libraries also will be installed or updated.
-            Current database, configs and custom bitmaps will stay on their place.
-            Source of the software is set to {underline}{blue}{server_version}{endc}{bold} version from the official 
-            RotorHazard repository.
-             
-            Please update this software, before updating RotorHazard server.
-            Also make sure that you are logged as user {underline}{blue}{user}{endc}{bold}.
-            
-            You can change those in configuration wizard in Main Menu.
-            
-            Server installed right now: {server} {bold}
-            
-            RotorHazard configuration state: {config_soft}
+        \n\n{red} {bold}
+        AUTOMATIC UPDATE AND INSTALLATION OF ROTORHAZARD RACING TIMER SOFTWARE
+            {endc}{bold}
+        You can automatically install and update RotorHazard timing software. 
+        Additional dependencies and libraries also will be installed or updated.
+        Current database, configs and custom bitmaps will stay on their place.
+        Source of the software is set to {underline}{blue}{server_version}{endc}{bold} version from the official 
+        RotorHazard repository.
+         
+        Please update this software, before updating RotorHazard server.
+        Also make sure that you are logged as user {underline}{blue}{user}{endc}{bold}.
+        
+        You can change those in configuration wizard in Main Menu.
+        
+        Server installed right now: {server} {bold}
+        
+        RotorHazard configuration state: {config_soft}
             
             """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, blue=Bcolors.BLUE,
                        yellow=Bcolors.YELLOW, red=Bcolors.RED, orange=Bcolors.ORANGE, server_version=config.rh_version,
