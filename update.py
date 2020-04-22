@@ -144,8 +144,6 @@ def welcome_screen(config):
         if selection == 'n':
             os.system("rm ./.first_time_here")
             first_time(config)
-        elif not selection:
-            first_time(config)  # todo delete before merging
 
 """
     After that you will be asked about system configuring.
@@ -352,40 +350,38 @@ def features_menu(config):
 
 
 def first_time(config):
-
-    def first_page(config):
-        while True:
-            clear_the_screen()
-            welcome_first_page = """{bold}  
-
+    while True:
+        clear_the_screen()
+        welcome_first_page = """{bold}  
+    
     Please configure OTA software using a wizard after reading this page.
         
     This wizard will configure OTA software, not RotorHazard server itself. 
-    Things like amount of LEDs connected to the timer etc. should be configured 
-    separately in {blue}RotorHazard Manager{endc}{bold} in Main Menu.
-
-
+    Things like amount of LEDs or RotorHazard password should be configured 
+    separately in {blue}RotorHazard Manager{endc}{bold} - see Main Menu.
+    
+    
     Possible RotorHazard server versions that may be selected:
-
+    
     > {blue}'stable'{endc}{bold}- last stable release (can be from before few days or few months){endc}{bold}
     
     > {blue}'beta'  {endc}{bold}- last 'beta' release (usually has about few weeks, quite stable){endc}{bold}
     
     > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested){endc} 
      
-    {green}c - Configuration wizard{endc}{yellow}
+    
+    {green}c - Enter conf. wizard{endc}{yellow}
        
            e - Exit to menu {endc}
-            """.format(green=Bcolors.GREEN_S, blue=Bcolors.BLUE, endc=Bcolors.ENDC,
-                       yellow=Bcolors.YELLOW_S, bold=Bcolors.BOLD)
-            print(welcome_first_page)
-            selection = input()
-            if selection == 'c':
-                config = conf_ota(config)
-            elif selection == 'e':
-                break
-
-    first_page(config)
+    
+        """.format(green=Bcolors.GREEN_S, blue=Bcolors.BLUE, endc=Bcolors.ENDC,
+                   yellow=Bcolors.YELLOW_S, bold=Bcolors.BOLD)
+        print(welcome_first_page)
+        selection = input()
+        if selection == 'c':
+            config = conf_ota(config)
+        elif selection == 'e':
+            break
 
 
 def end():
@@ -446,9 +442,9 @@ def main_menu(config):
             config = conf_ota(config)
         elif selection == 'e':
             end()
-        elif selection == 'f':
+        elif selection == 'f':  # welcome page will be opened - hidden option
             os.system("here >> ./.first_time_here")
-        #  todo remove it before merging
+
 
 def main():
     compatibility()
