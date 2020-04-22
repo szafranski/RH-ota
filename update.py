@@ -120,11 +120,12 @@ def welcome_screen(config):
     welcome_message = """{bold}
     Welcome to OTA! With our software you can easily install, update and manage 
     your RotorHazard installation. You can also flash the firmware onto nodes, 
-    without the need to open the timer ever again. You may also be interested 
-    in features like smart-hotspot or adding aliases to your system, etc.
+    without the need to open the timer ever again. You have to use official PCB 
+    or have 'hardware mod" done for that functionality. You may also check 
+    features like smart-hotspot or adding aliases to your system, etc.
+    
     
     This program has ability to perform 'self-updates' - see "Features Menu".    
-    
     
     If you found any bug - please report it via GitHub or Facebook. {endc}{bold}        
     
@@ -356,15 +357,13 @@ def first_time(config):
         while True:
             clear_the_screen()
             welcome_first_page = """{bold}  
-    
-    You can use all implemented features, but if you want to be able to flash
-    Arduino-nodes, you have to use official PCB or have 'hardware mod" done.
 
-    Please configure OTA software using a wizard after reading this message.
+    Please configure OTA software using a wizard after reading this page.
         
     This wizard will configure OTA software, not RotorHazard server itself. 
     Things like amount of LEDs connected to the timer etc. should be configured 
     separately in {blue}RotorHazard Manager{endc}{bold} in Main Menu.
+
 
     Possible RotorHazard server versions that may be selected:
 
@@ -381,7 +380,7 @@ def first_time(config):
                        yellow=Bcolors.YELLOW_S, bold=Bcolors.BOLD)
             print(welcome_first_page)
             selection = input()
-            if selection == 'n':
+            if selection == 'c':
                 config = conf_ota(config)
             elif selection == 'e':
                 break
