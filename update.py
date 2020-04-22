@@ -426,7 +426,13 @@ def main_menu(config):
         print(main_menu_content)
         selection = input()
         if selection == '1':
-            rpi_update(config)
+            try:
+                rpi_update(config)
+            except AttributeError:
+                err_msg = "\n\n\tLooks that your username entered in the wizard is wrong."
+                print(err_msg)
+                input("\n\n\tHit Enter to continue and re-enter configuration wizard.")
+                clear_the_screen()
         elif selection == '2':
             ota_status = load_ota_sys_markers(config.user)
             if ota_status.uart_support_added:
