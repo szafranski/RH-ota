@@ -88,7 +88,7 @@ def end_update(config, server_configured_flag, server_installed_flag):
     
                 r - Reboot - recommended, not a must
                 
-                s - Start the server now {clearing_color}
+                s - Start RH server now {clearing_color}
                 
                 o - Clear old RotorHazard installations{Bcolors.YELLOW}
                 
@@ -118,11 +118,11 @@ def end_installation(config):
         print(f"""
     
             {Bcolors.GREEN}
-            c - Configure the server now - recommended {Bcolors.ENDC}
+            c - Configure RH server now - recommended {Bcolors.ENDC}
             
             r - Reboot - recommended after configuring
             
-            s - Start the server now{Bcolors.YELLOW}
+            s - Start RH server now{Bcolors.YELLOW}
             
             e - Exit now{Bcolors.ENDC}""")
 
@@ -275,7 +275,7 @@ def main_window(config):
                 """.format(yellow=Bcolors.YELLOW, endc=Bcolors.ENDC, configure=configure, install=install))
         selection = input()
         if selection == 'c':
-            conf_rh() if server_installed_flag else print("Please install the server before configuring.")
+            conf_rh() if server_installed_flag else print("Please install RH server before configuring.")
         elif selection == 'i':
             # rh_found_flag = os.path.exists(f"/home/{config.user}/RotorHazard")
             if sys_configured_flag:

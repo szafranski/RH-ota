@@ -12,7 +12,8 @@ warning_show(){
 
 sudo apt-get update && sudo apt-get upgrade -y
 sudo apt autoremove -y
-sudo apt install wget python2.7 ntp libjpeg-dev i2c-tools python-dev libffi-dev python-smbus build-essential python-pip python-rpi.gpio git scons swig zip -y
+sudo apt install wget python2.7 ntp libjpeg-dev i2c-tools python-dev libffi-dev python-smbus build-essential python-pip git scons swig zip -y
+sudo apt install python-rpi.gpio || echo -- no python-rpi.gpio module found - available only on Pi --
 sudo -H pip install cffi pillow
 cd /home/"${1}" || exit
 if [ -d "/home/${1}/RotorHazard" ]; then

@@ -20,8 +20,7 @@ def config_check():
     if not os.path.exists("./updater-config.json"):
         prompt = """
           {prompt}  Looks that you haven't set up config file yet.     {endc}
-          {prompt}  Please read about configuration process - point 5  {endc}
-          {prompt}  and next enter configuration wizard - point 6.     {endc}"""\
+          {prompt}  Please enter configuration wizard - point 5  {endc}"""\
             .format(prompt=Bcolors.PROMPT, endc=Bcolors.ENDC)
         print(prompt)
         return False
@@ -143,7 +142,7 @@ def welcome_screen(config):
         selection = input(f"\n\t\t\t{Bcolors.GREEN}Open next page by typing 'n'{Bcolors.ENDC}\n\n").lower()
         if selection == 'n':
             os.system("rm ./.first_time_here")
-            first_time(config)
+            show_about(config)
 
 """
     After that you will be asked about system configuring.
@@ -320,7 +319,7 @@ def features_menu(config):
                         
                         3 - Show actual Pi's GPIO
                         
-                        4 - Useful aliases
+                        4 - Add useful aliases
                         
                         5 - Update OTA software {endc}{bold}
                         
@@ -340,16 +339,22 @@ def features_menu(config):
             os.system("pinout")
             input("\nDone? Hit 'Enter'\n")
         elif selection == '4':
-            aliases_menu(config)
+            try:
+                aliases_menu(config)
+            except AttributeError:
+                err_msg = "\n\n\tLooks that your username entered in the wizard is wrong."
+                print(err_msg)
+                input("\n\n\tHit Enter to continue and re-enter configuration wizard.")
+                clear_the_screen()
         elif selection == '5':
-            self_updater(config)
+            self_updater(config)  # todo better "wrong user name" handling and added here too
         elif selection == '6':
             log_to_dev(config)
         elif selection == 'e':
             break
 
 
-def first_time(config):
+def show_about(config):
     while True:
         clear_the_screen()
         welcome_first_page = """{bold}  
@@ -412,12 +417,10 @@ def main_menu(config):
                             
                         3 - Start the server now
                             
-                        4 - Additional features
+                        4 - Additional features{configured}
                             
-                        5 - Info + first time here{configured}
-                            
-                        6 - Configuration wizard {endc}{yellow}
-                            
+                        5 - Configuration wizard{endc}{bold}{yellow}
+                                                
                         e - Exit {endc}
                             
                 """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, green=Bcolors.GREEN,
@@ -434,20 +437,24 @@ def main_menu(config):
                 input("\n\n\tHit Enter to continue and re-enter configuration wizard.")
                 clear_the_screen()
         elif selection == '2':
-            ota_status = load_ota_sys_markers(config.user)
-            if ota_status.uart_support_added:
-                old_flash_gpio(config) if config.old_hw_mod else flashing_menu(config)
-            # enters "old" flashing menu only when "old_hw_mod" is confirmed
-            else:
-                serial_menu(config)
+            try:
+                ota_status = load_ota_sys_markers(config.user)
+                if ota_status.uart_support_added:
+                    old_flash_gpio(config) if config.old_hw_mod else flashing_menu(config)
+                # enters "old" flashing menu only when "old_hw_mod" is confirmed
+                else:
+                    serial_menu(config)
+            except AttributeError:
+                err_msg = "\n\n\tLooks that your username entered in the wizard is wrong."
+                print(err_msg)
+                input("\n\n\tHit Enter to continue and re-enter configuration wizard.")
+                clear_the_screen()
         elif selection == '3':
             server_start()
         elif selection == '4':
             features_menu(config)
         elif selection == '5':
-            first_time(config)
-        elif selection == '6':
-            config = conf_ota(config)
+            show_about(config)
         elif selection == 'e':
             end()
         elif selection == 'f':  # welcome page will be opened - hidden option
