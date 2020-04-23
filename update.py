@@ -28,6 +28,19 @@ def config_check():
         return True
 
 
+def attribute_error_handling():
+    err_msg = """
+    
+    Looks that your username entered in the wizard is wrong.
+    
+    You may also try to re-open the ota software with './ota.sh' command.
+    
+    """
+    print(err_msg)
+    input("\n\n\tHit Enter to continue and re-enter configuration wizard.")
+    clear_the_screen()
+
+
 def read_aliases_file():
     aliases_to_show = []
     with open('./resources/aliases.txt', 'r') as aliases_file:
@@ -342,10 +355,7 @@ def features_menu(config):
             try:
                 aliases_menu(config)
             except AttributeError:
-                err_msg = "\n\n\tLooks that your username entered in the wizard is wrong."
-                print(err_msg)
-                input("\n\n\tHit Enter to continue and re-enter configuration wizard.")
-                clear_the_screen()
+                attribute_error_handling()
         elif selection == '5':
             self_updater(config)  # todo better "wrong user name" handling and added here too
         elif selection == '6':
@@ -432,10 +442,7 @@ def main_menu(config):
             try:
                 rpi_update(config)
             except AttributeError:
-                err_msg = "\n\n\tLooks that your username entered in the wizard is wrong."
-                print(err_msg)
-                input("\n\n\tHit Enter to continue and re-enter configuration wizard.")
-                clear_the_screen()
+                attribute_error_handling()
         elif selection == '2':
             try:
                 ota_status = load_ota_sys_markers(config.user)
@@ -445,10 +452,7 @@ def main_menu(config):
                 else:
                     serial_menu(config)
             except AttributeError:
-                err_msg = "\n\n\tLooks that your username entered in the wizard is wrong."
-                print(err_msg)
-                input("\n\n\tHit Enter to continue and re-enter configuration wizard.")
-                clear_the_screen()
+                attribute_error_handling()
         elif selection == '3':
             server_start()
         elif selection == '4':
