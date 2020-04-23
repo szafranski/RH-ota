@@ -18,13 +18,13 @@ error_handling(){
 
   echo "
 
-LOOKS LIKE ERROR OCCURRED
+LOOKS LIKE ERROR OCCURRED (or server was stopped with keyboard interrupt)
 
 Please try:
-manually enabling I2C interface with 'sudo raspi-config'
-manually changing RH directory permissions with 'sudo chmod -R 777 ~/RotorHazard'
+manually enable I2C interface with 'sudo raspi-config'
+manually change RH directory permissions with 'sudo chmod -R 777 ~/RotorHazard'
 "
-read -p "Hit Enter when done " var
+read -p "Hit Enter to exit now " var
 }
 
 echo "You can stop the server by pressing Ctrl+C "
