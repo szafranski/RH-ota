@@ -1,23 +1,26 @@
-Steps that you have to perform to make existing Delta5 PCB compatible with the newest RotorHazard and OTA software
-and firmware flashing.
+Steps that you have to perform to make existing Delta5 PCB compatible
+with the newest RotorHazard and OTA software and firmware flashing.
+
 ! Before any hardware changes will be performed !
 Flash all nodes with a simple 'blink' sketch.
+
 Hardware steps:
        Connect following pins – best way is to do it at the PCB’s bottom.
     1. Connect D9 pin of all nodes to the ground.
     2. Connect pin D12 of 1st node to reset pin of the 2nd node.
-    2. Connect pin D12 of 2nd node to reset pin of the 1st node.
-    3. Connect pin D12 of 3rd node to reset pin of the 4th node - if you have them in a system.
-    3. Connect pin D12 of 4th node to reset pin of the 3rd node - if you have them in a system.
-    4. Connect pin D12 of 5th node to reset pin of the 6th node - if you have them in a system.
-    4. Connect pin D12 of 6th node to reset pin of the 5th node - if you have them in a system.
-    5. Connect pin D12 of 7th node to reset pin of the 8th node - if you have them in a system.
-    5. Connect pin D12 of 8th node to reset pin of the 7th node - if you have them in a system.
-    6. You have to perform auto-numbering mod if you don’t already have it performed on your timer - instructions below
-    7. Connect pin TX of every node together.
-    8. Connect pin RX of every node together.
-    9. Connect RX line to Raspberry’s TX pin
-    10. Connect pin TX line to Raspberry’s TX using VOLTAGE DIVIDER or logic level converter.
+    3. Connect pin D12 of 2nd node to reset pin of the 1st node.
+    4. Connect pin D12 of 3rd node to reset pin of the 4th node - if you have them in a system.
+    5. Connect pin D12 of 4th node to reset pin of the 3rd node - if you have them in a system.
+    6. Connect pin D12 of 5th node to reset pin of the 6th node - if you have them in a system.
+    7. Connect pin D12 of 6th node to reset pin of the 5th node - if you have them in a system.
+    8. Connect pin D12 of 7th node to reset pin of the 8th node - if you have them in a system.
+    9. Connect pin D12 of 8th node to reset pin of the 7th node - if you have them in a system.
+    10. You have to perform auto-numbering mod if you don’t already have it performed on your timer - instructions below
+    11. Connect pin TX of every node together.
+    12. Connect pin RX of every node together.
+    13. Connect RX line to Raspberry’s TX pin
+    14. Connect pin TX line to Raspberry’s TX using VOLTAGE DIVIDER or logic level converter.
+
 Software steps – on the Pi:
     1. Make sure you have internet connection on your Raspberry Pi.
     2. Download and open OTA software on the Raspberry.
@@ -31,6 +34,7 @@ Software steps – on the Pi:
     Now you can close you timer enclosure for good if there were not any errors.
     9. You may also use OTA software to install or update RotorHazard server software.
     Another options like smart hotspot setup are also included.
+
    New auto-numbering mod:
    Pins mentioned below should be connected to ground.
    (note that pin D2 is close to GND - may be beneficial)
