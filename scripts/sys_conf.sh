@@ -175,5 +175,4 @@ if [ "${1}" = "all" ]; then
   spi_enabling || spi_error
   i2c_enabling || spi_error
   uart_enabling || uart_error
-
 fi
