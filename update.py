@@ -211,7 +211,7 @@ def serial_menu(config):
      {green}y - for yes {endc}
             
     {yellow}a - for abort{endc}
-            """.format(yellow=Bcolors.YELLOW, green=Bcolors.GREEN, endc=Bcolors.ENDC)
+            """.format(yellow=Bcolors.YELLOW_S, green=Bcolors.GREEN_S, endc=Bcolors.ENDC)
         selection = input(serial_adding_menu)
         if selection == 'y':
             if ota_status.uart_support_added:
