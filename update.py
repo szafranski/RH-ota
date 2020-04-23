@@ -397,7 +397,8 @@ def show_about(config):
         print(welcome_first_page)
         selection = input()
         if selection == 'c':
-            config = conf_ota(config)
+            conf_ota(config)
+            break
         elif selection == 'e':
             break
 
