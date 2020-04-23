@@ -11,14 +11,11 @@ dots5() { # done that way so it work on every terminal
 error_handling(){
   echo "
 
-  Error - trying to start the server again...
+  Error - trying to start the server with sudo...
 
   "
-  if [ "${1}" = "True" ]; then
-    sudo python server.py ;
-  else
-    python server.py
-  fi
+  sudo python2.7 server.py ;
+
   echo "
 
 LOOKS LIKE ERROR OCCURRED
@@ -35,11 +32,7 @@ printf "Server booting, please wait"
 dots5
 echo
 cd ~/RotorHazard/src/server || exit
-if [ "${1}" = "True" ]; then
-  sudo python2.7 server.py || error_handling
-else
-  python2.7 server.py || error_handling
-fi
+python2.7 server.py || error_handling
 
 # scripts like those ensures that files are being executed in right directory but main program
 # istelf can be continued from previous directory after such a script was executed or stopped
