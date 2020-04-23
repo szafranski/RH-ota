@@ -432,7 +432,7 @@ def main_menu(config):
                             
                         5 - Configuration wizard{endc}{bold}{yellow}
                                                 
-                        e - Exit {endc}
+                        e - Exit to Raspbian{endc}
                             
                 """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, green=Bcolors.GREEN,
                            blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, configured=conf_color,
