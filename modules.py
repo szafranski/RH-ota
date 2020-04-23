@@ -154,11 +154,23 @@ def get_ota_version(checking_from_updater):
     return version
 
 
-def server_start():
+def server_start():  # todo DRY
     server_stat = os.popen('service rotorhazard status').read()
     if 'running' not in server_stat:
         clear_the_screen()
-        os.system("./scripts/server_start.sh")
+        try:
+            os.system(f"./scripts/server_start.sh {False}")
+        except RuntimeError:
+            print("\nRuntimeError - If you are using pin 18 to run LEDs, please start the server with 'sudo'.")
+            while True:
+                selection = input("\nDo you want to start the server with 'sudo' now? [Y/n]").lower()
+                if selection == 'y':
+                    os.system(f"./scripts/server_start.sh {True}")
+                    break
+                if selection == 'n':
+                    print("Going back to the menu")
+                    sleep(1)
+                    break
     else:
         clear_the_screen()
         print("Server is already running as a service")
@@ -166,7 +178,19 @@ def server_start():
         if selection == 'y':
             os.system("sudo systemctl stop rotorhazard")
             print("Server service stopped. Please wait.\n")
-            os.system("./scripts/server_start.sh")
+            try:
+                os.system(f"./scripts/server_start.sh {False}")
+            except RuntimeError:
+                print("\nRuntimeError - If you are using pin 18 to run LEDs, please start the server with 'sudo'.")
+                while True:
+                    selection = input("\nDo you want to start the server with 'sudo' now? [Y/n]").lower()
+                    if selection == 'y':
+                        os.system(f"./scripts/server_start.sh {True}")
+                        break
+                    if selection == 'n':
+                        print("Going back to the menu")
+                        sleep(1)
+                        break
 
 
 def load_config():

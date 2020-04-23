@@ -11,6 +11,5 @@ nohup*
 /log_data
 /.dev/*_log.txt
 /venv
-/how_to
 /updater-config.json
 test.py

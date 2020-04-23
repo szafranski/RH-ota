@@ -157,6 +157,7 @@ def welcome_screen(config):
             os.system("rm ./.first_time_here")
             show_about(config)
 
+
 """
     After that you will be asked about system configuring.
     Please perform it, if you haven’t done it manually already. 
@@ -461,7 +462,7 @@ def main_menu(config):
             show_about(config)
         elif selection == 'e':
             end()
-        elif selection == 'f':  # welcome page will be opened - hidden option
+        elif selection == 'f':  # welcome page will be opened next time - hidden option
             os.system("here >> ./.first_time_here")
 
 

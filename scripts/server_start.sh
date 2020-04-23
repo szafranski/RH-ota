@@ -14,7 +14,11 @@ error_handling(){
   Error - trying to start the server again...
 
   "
-  python server.py ;
+  if [ "${1}" = "True" ]; then
+    sudo python server.py ;
+  else
+    python server.py
+  fi
   echo "
 
 LOOKS LIKE ERROR OCCURRED
@@ -31,7 +35,11 @@ printf "Server booting, please wait"
 dots5
 echo
 cd ~/RotorHazard/src/server || exit
-python2.7 server.py || error_handling
+if [ "${1}" = "True" ]; then
+  sudo python2.7 server.py || error_handling
+else
+  python2.7 server.py || error_handling
+fi
 
 # scripts like those ensures that files are being executed in right directory but main program
 # istelf can be continued from previous directory after such a script was executed or stopped
