@@ -174,4 +174,6 @@ if [ "${1}" = "all" ]; then
   ssh_enabling || ssh_error
   spi_enabling || spi_error
   i2c_enabling || spi_error
+  uart_enabling || uart_error
+
 fi
