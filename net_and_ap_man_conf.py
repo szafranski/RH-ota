@@ -12,20 +12,21 @@ def step_four():
         print("""Step 4.
 
     
-Connect PC to WiFi network:
-name: RH-TIMER
-password: timerpass
-if you have any problems connecting wifi with new name - try "forgetting" the (old) network in PC's WiFi settings 
-and than try again
+    Connect PC to WiFi network:
+    name: RH-TIMER
+    password: timerpass
+    if you have any problems connecting wifi with new name, 
+    try "forgetting" the (old) network in PC's WiFi settings 
+    and than try again
+    
+    Now you should be able to enter the network typing in the browser:
+    10.10.10.10:5000 - using WiFi
+    172.20.20.20:5000 - using ethernet.
 
-Now you should be able to enter the network typing in the browser:
-10.10.10.10:5000 - using WiFi
-172.20.20.20:5000 - using ethernet.
 
-
-        {green}Reboot by pressing 'r'{endc} 
-        
-       {yellow}Exit by pressing 'e'{endc}
+            {green}Reboot by pressing 'r'{endc} 
+            
+           {yellow}Exit by pressing 'e'{endc}
             """.format(yellow=Bcolors.YELLOW_S, green=Bcolors.GREEN_S, endc=Bcolors.ENDC))
         selection = input()
         if selection == 'r':
@@ -41,12 +42,12 @@ def step_three():
         print("\n\t\tStep 3.\n")
         os.system("sudo cp /etc/dhcpcd.conf /etc/dhcpcd.conf.ap")
         print("""
-        After rebooting you can connect to the timer, via Wifi or ethernet. 
-        WiFi: 10.10.10.10:5000 (10.10.10.10:5000 if connecting from a browser)
-        ethernet: 172.20.20.20 (172.20.20.20:5000 if connecting from a browser)
-        
-        You can enter Access Point extra menu after rebooting
-        and check how you can connect to the internet.
+    After rebooting you can connect to the timer, via Wifi or ethernet. 
+    WiFi: 10.10.10.10:5000 (10.10.10.10:5000 if connecting from a browser)
+    ethernet: 172.20.20.20 (172.20.20.20:5000 if connecting from a browser)
+    
+    You can enter Access Point extra menu after rebooting
+    and check how you can connect to the internet.
     
     
                 {green}r - Reboot by pressing{endc}
@@ -136,15 +137,15 @@ def step_zero(config):
     while True:
         clear_the_screen()
         print("""
-        After performing this process your Raspberry Pi can be used as standalone
-        Access Point. You won't need additional router for connecting with it. 
-        You will loose ability of connecting the Pi wirelessly to any router or hotspot.
-        You will still have ability to connect it to the Internet sharing device, 
-        like router or PC via ethernet cable. You will also be able to connect with 
-        the timer via Wifi from PC or mobile phone etc. - if you had range. 
-        If during this process you would want to check detailed instructions,
-        you can enter 'net_ap' folder from this repo, on your mobile phone etc.
-        This process will require few reboots. Do you want to continue?
+    After performing this process your Raspberry Pi can be used as standalone
+    Access Point. You won't need additional router for connecting with it. 
+    You won't be able to connect to any router or hotspot wirelessly.
+    You will still have ability to connect it to the Internet sharing device, 
+    like router or PC via ethernet cable. You will also be able to connect with 
+    the timer via Wifi from PC or mobile phone etc. - if you had range. 
+    If during this process you would want to check detailed instructions,
+    you can enter 'net_ap' folder from this repo, on your mobile phone etc.
+    This process will require few reboots. Do you want to continue?
         
         
          {green}y - Yes, let's do it{endc}
@@ -173,29 +174,29 @@ def ap_menu():
         while True:
             clear_the_screen()
             print("""
-        When Raspberry configuration has been changed so it performs
-        as Access Point or as a DHCP client (normal mode),
-        configuration file is being copied with a proper name.
-        Next you have to reboot, so changes can be applied.
-        When you setup Pi as a client, you can just connect
-        it to the router. If you are using PC as a internet sharing
-        device, you have to enable that option in OS settings.
-        Instructions for Windows can be found in net_ap folder.
-        
-        If you want to connect to Raspberry via SSH or VNC,
-        when it's in client mode you have to know its IP address.
-        Check it in router settings page or using special program 
-        'Advanced IP Scanner' on a PC. If you are using Pi as a AP, 
-        its IP is always 172.20.20.20 (ethernet). Remember to disable
-        internet sharing functionality on your PC's OS, when Raspberry
-        is in Access Point mode. 
-        
-        Remember that you can always connect to the timer (eg. from yet 
-        another device) via WiFi. It's wireless IP is 10.10.10.10.
-        
-        You can also read/print those instructions. File 'detailed.txt',
-        in net_ap folder.
+    When Raspberry configuration has been changed so it performs
+    as Access Point or as a DHCP client (normal mode),
+    configuration file is being copied with a proper name.
+    Next you have to reboot, so changes can be applied.
+    When you setup Pi as a client, you can just connect
+    it to the router. If you are using PC as a internet sharing
+    device, you have to enable that option in OS settings.
+    Instructions for Windows can be found in net_ap folder.
     
+    If you want to connect to Raspberry via SSH or VNC,
+    when it's in client mode you have to know its IP address.
+    Check it in router settings page or using special program 
+    'Advanced IP Scanner' on a PC. If you are using Pi as a AP, 
+    its IP is always 172.20.20.20 (ethernet). Remember to disable
+    internet sharing functionality on your PC's OS, when Raspberry
+    is in Access Point mode. 
+    
+    Remember that you can always connect to the timer (eg. from yet 
+    another device) via WiFi. It's wireless IP is 10.10.10.10.
+    
+    You can also read/print those instructions. File 'detailed.txt',
+    in net_ap folder.
+
                 {green}k - OK{endc}
                 
                {yellow}b - go back{endc}
@@ -210,21 +211,21 @@ def ap_menu():
         while True:
             clear_the_screen()
             print("""\n
-        Right now you have your Access Point configured. However,
-        there is still an option to maintain internet connection.
-        You will be able to connect the Pi via ethernet to the router 
-        or PC - with internet sharing option enbled. It requires chages
-        in configuration file. Those will be performed automatically,
-        after entering 'netcfg' or 'apcfg' in command line.
-        Remember to reboot the timer after every change. Instruction
-        can be also found in 'apconf.txt' file in net_ap folder.
-        
-        Remember that regardless how you have your Raspberry configured
-        in a given moment, you can always connect to it using WiFi.
-        It can be helpful if you don't remember how your timer was configured
-        when you left it or when some troubleshooting is required.
-        
-        Open second page, for detailed explanation.
+    Right now you have your Access Point configured. However,
+    there is still an option to maintain internet connection.
+    You will be able to connect the Pi via ethernet to the router 
+    or PC - with internet sharing option enabled. It requires changes
+    in configuration file. Those will be performed automatically,
+    after entering 'netcfg' or 'apcfg' in command line.
+    Remember to reboot the timer after every change. Instruction
+    can be also found in 'apconf.txt' file in net_ap folder.
+    
+    Remember that regardless how you have your Raspberry configured
+    in a given moment, you can always connect to it using WiFi.
+    It can be helpful if you don't remember how your timer was configured
+    when you left it or when some troubleshooting is required.
+    
+    Open second page, for detailed explanation.
     
     
                 {green}s - Second page{endc}

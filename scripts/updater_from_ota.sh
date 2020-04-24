@@ -9,7 +9,6 @@ dots50() {
 }
 
 green="\033[92m"
-red="\033[91m"
 endc="\033[0m"
 
 printf "\n\nSoftware will be automatically closed.\n"

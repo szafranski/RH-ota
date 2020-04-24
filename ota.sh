@@ -35,57 +35,57 @@ which python3 >/dev/null
 if [ $? -gt 0 ]; then
   echo python3 has to be installed && sudo apt install python3 -y
 else
-  echo python3"    "found # those  cure my ocd
+  echo python3"           "found # those  cure my ocd
 fi
 
 which avrdude >/dev/null
 if [ $? -gt 0 ]; then
   echo avrdude has to be installed && sudo apt install avrdude -y
 else
-  echo avrdude"    "found
+  echo avrdude"           "found
 fi
 
 which curl >/dev/null
 if [ $? -gt 0 ]; then
   echo curl has to be installed && sudo apt install curl -y
 else
-  echo curl"       "found
+  echo curl"              "found
 fi
 
 which cowsay >/dev/null
 if [ $? -gt 0 ]; then
   echo cowsay has to be installed && sudo apt install cowsay -y
 else
-  echo cowsay"     "found
+  echo cowsay"            "found
 fi
 
 which pip3 >/dev/null
 if [ $? -gt 0 ]; then
   echo pip3 package has to be installed && sudo apt install python3-pip -y
 else
-  echo pip3"       "found
+  echo pip3"              "found
 fi
 
 if check_package 'python3-gpiozero'; then
-  echo python3-gpiozero" "found
+  echo python3-gpiozero"  "found
 else
   echo python3-gpiozero has to be installed && sudo apt install python3-gpiozero -y
 fi
 
 if check_package 'python3-requests' ; then
-  echo python3-requests" "found
+  echo python3-requests"  "found
 else
   echo python3-requests has to be installed && sudo apt install python3-requests -y
 fi
 
 if check_package 'python3-dev' ; then
-  echo python3-dev"      "found
+  echo python3-dev"       "found
 else
   echo python3-dev has to be installed && sudo apt install python3-dev -y
 fi
 
 if check_package 'fonts-symbola' ; then
-  echo fonts-symbola"    "found
+  echo fonts-symbola"     "found
 else
   echo fonts-symbola has to be installed && sudo apt install fonts-symbola -y
 fi
@@ -100,19 +100,19 @@ fi
 #fi
 
 if check_package 'i2c-tools' ; then
-  echo i2c-tools"        "found
+  echo i2c-tools"         "found
 else
   echo i2c-tools has to be installed && sudo apt install i2c-tools -y
 fi
 
 if check_python_package 'RPi.GPIO' ; then
-  echo python3-rpi.gpio" "found
+  echo python3-rpi.gpio"  "found
 else
   echo python3-rpi.gpio has to be installed && pip3 install rpi.gpio || echo - only on Pi -
 fi
 
 if check_python_package 'smbus' ; then
-  echo python3-smbus"    "found
+  echo python3-smbus"     "found
 else
   echo python3-smbus has to be installed && pip3 install smbus
 fi
