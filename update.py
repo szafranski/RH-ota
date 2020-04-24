@@ -126,11 +126,11 @@ def updated_check(config):
         selection = input()
         if selection == 'r':
             os.system("less ./docs/update-notes.txt")
-            os.system(f"rm /home/{config.user}/.ota_markers/.was_updated >/dev/null 2>&1")
             break
         elif selection == 's':
-            os.system(f"rm /home/{config.user}/.ota_markers/.was_updated >/dev/null 2>&1")
             break
+    os.system(f"rm /home/{config.user}/.ota_markers/.was_updated_new >/dev/null 2>&1")
+    os.system(f"rm /home/{config.user}/.ota_markers/.was_updated_old >/dev/null 2>&1")
     if updated_recently_with_new_version_flag or updated_recently_with_old_version_flag:
         return True
     else:
