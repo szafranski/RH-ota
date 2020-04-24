@@ -102,8 +102,11 @@ User code: {code}
 
 
 def updated_check(config):
-    updated_recently_flag = os.path.exists(f"/home/{config.user}/.ota_markers/.was_updated")
-    while updated_recently_flag:
+    updated_recently_with_new_version_flag = os.path.exists(f"/home/{config.user}/.ota_markers/.was_updated_new")
+    # true if self update was performed and new version was available to downloaded
+    updated_recently_with_old_version_flag = os.path.exists(f"/home/{config.user}/.ota_markers/.was_updated_old")
+    # true if self update was performed and version was not available to downloaded
+    while updated_recently_with_new_version_flag:
         clear_the_screen()
         logo_top(config.debug_mode)
         os.system("rm ./.first_time_here > /dev/null 2>&1")
@@ -128,8 +131,10 @@ def updated_check(config):
         elif selection == 's':
             os.system(f"rm /home/{config.user}/.ota_markers/.was_updated >/dev/null 2>&1")
             break
-
-    return updated_recently_flag
+    if updated_recently_with_new_version_flag or updated_recently_with_old_version_flag:
+        return True
+    else:
+        return False
 
 
 def welcome_screen(config):
