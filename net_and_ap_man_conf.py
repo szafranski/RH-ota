@@ -75,6 +75,7 @@ def step_zero(config):
             os.system(
                 "echo 'alias apcfg=\"cp /etc/dhcpcd.conf.ap /etc/dhcpcd.conf \"  # net conf' | sudo tee -a ~/.bashrc")
             os.system(f"sudo cp /home/{config.user}/RH-ota/net_ap/dhcpcd.conf.net /etc/dhcpcd.conf.net")
+            os.system(f"sudo cp /home/{config.user}/RH-ota/net_ap/dhcpcd.conf.ap /etc/dhcpcd.conf.ap")
             os.system(f"sudo cp /home/{config.user}/RH-ota/net_ap/dnsmasq.conf.ap /etc/dnsmasq.conf.ap")
             os.system("sudo cp /etc/dhcpcd.conf /etc/dhcpcd.conf.orig")
             os.system("sudo cp /etc/dnsmasq.conf /etc/dnsmasq.conf.orig")
@@ -83,46 +84,46 @@ def step_zero(config):
         while True:
             after_installing_raspap = """
             
-                    {bold}Step 2.{endc}
-
-            Next step requires performing some actions in GUI.
-            You may write those information down or take a picture etc.
-            You can also print file 'step_two.txt' from 'net_ap' folder.
-            Remember to do it BEFORE rebooting.
-            After performing step 2. and connecting to timer again, 
-            come back to this menu and enter step 3.
-
-            connect PC to WiFi network: 
-            name: raspi-webgui
-            password: ChangeMe
-
-            enter IP address: 10.3.141.1 in browser
-            Username: admin
-            Password: secret  
-
-            Click:
-            "Hotspot" (left menu) -> SSID (enter name you want, eg. "RH-TIMER")
+            {bold}Step 2.{endc}
     
-            Wireless Mode (change to 802.11n - 2.4GHz)
+    Next step requires performing some actions in GUI.
+    You may write those information down or take a picture etc.
+    You can also print file 'step_two.txt' from 'net_ap' folder.
+    Remember to do it BEFORE rebooting.
+    After performing step 2. and connecting to timer again, 
+    come back to this menu and enter step 3.
     
-            save settings
+    connect PC to WiFi network: 
+    name: raspi-webgui
+    password: ChangeMe
     
-            Click:
-            "Security" tab
+    enter IP address: 10.3.141.1 in browser
+    Username: admin
+    Password: secret  
     
-            PSK (enter password that you want to have, eg. "timerpass")
+    Click:
+    "Hotspot" (left menu) -> SSID (enter name you want, eg. "RH-TIMER")
     
-            save settings
+    Wireless Mode (change to 802.11n - 2.4GHz)
     
-            DON'T CHANGE ANY OTHER SETTINGS IN GUI!
-
-            Click:
-            "System" (left menu) and "Reboot"
-            
-            reboot and connect to newly-created WiFi network using new password 
-            
+    save settings
     
-            {red} -- Read carefully whole instruction from above before rebooting --{endc}
+    Click:
+    "Security" tab
+    
+    PSK (enter password that you want to have, eg. "timerpass")
+    
+    save settings
+    
+    DON'T CHANGE ANY OTHER SETTINGS IN GUI!
+    
+    Click:
+    "System" (left menu) and "Reboot"
+    
+    reboot and connect to newly-created WiFi network using new password 
+    
+    
+    {red} -- Read carefully whole instruction from above before rebooting --{endc}
             
                         {green}r - Reboot by pressing{endc}
 
