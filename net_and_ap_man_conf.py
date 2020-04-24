@@ -39,9 +39,11 @@ def step_four():
 
 def step_three():
     while True:
-        print("\n\t\tStep 3.\n")
-        os.system("sudo cp /etc/dhcpcd.conf /etc/dhcpcd.conf.ap")
+        os.system("sudo cp /etc/dhcpcd.conf.ap /etc/dhcpcd.conf")
         print("""
+        
+                {bold}Step 3.{endc}
+                
     After rebooting you can connect to the timer, via Wifi or ethernet. 
     WiFi: 10.10.10.10:5000 (10.10.10.10:5000 if connecting from a browser)
     ethernet: 172.20.20.20 (172.20.20.20:5000 if connecting from a browser)
@@ -53,7 +55,7 @@ def step_three():
                 {green}r - Reboot by pressing{endc}
                 
                {yellow}e - Exit by pressing{endc}
-                """.format(yellow=Bcolors.YELLOW_S, green=Bcolors.GREEN_S, endc=Bcolors.ENDC))
+                """.format(bold=Bcolors.BOLD, yellow=Bcolors.YELLOW_S, green=Bcolors.GREEN_S, endc=Bcolors.ENDC))
         selection = input()
         if selection == 'r':
             os.system("sudo reboot")
@@ -61,44 +63,6 @@ def step_three():
             break
         else:
             main()
-
-
-def step_two():
-    print("""Step 2.
-        
-    Next step requires performing some actions in GUI.
-    You may write those information down or take a picture etc.
-    You can also print file 'step_two.txt' from 'net_ap' folder.
-    Remember to do it BEFORE rebooting.
-    After performing step 2. and connecting to timer again, 
-    come back to this menu and enter step 3.
-        
-    connect PC to WiFi network: 
-    name: raspi-webgui
-    password: ChangeMe
-    
-    enter IP address: 10.3.141.1 in browser
-    Username: admin
-    Password: secret  
-    
-    Click:
-    Configure hotspot -> SSID (enter name you want, eg. "RH-TIMER") 
-    
-    Wireless Mode (change to 802.11n - 2.4GHz)
-    
-    save settings 
-    
-    Click:
-    Configure hotspot -> security tab
-    
-    PSK (enter password that you want to have, eg. "timerpass")
-    
-    save settings
-    
-    DON'T CHANGE OTHER SETTINGS IN GUI!  
-    
-    
-    Read carefully whole instruction from above before rebooting!""")
 
 
 def step_zero(config):
@@ -117,17 +81,60 @@ def step_zero(config):
             # os.system(f"sudo cp /home/{config.user}/RH-ota/net_ap/dnsmasq.conf.net /etc/dnsmasq.conf.net")
 
         while True:
+            after_installing_raspap = """
+            
+                    {bold}Step 2.{endc}
+
+            Next step requires performing some actions in GUI.
+            You may write those information down or take a picture etc.
+            You can also print file 'step_two.txt' from 'net_ap' folder.
+            Remember to do it BEFORE rebooting.
+            After performing step 2. and connecting to timer again, 
+            come back to this menu and enter step 3.
+
+            connect PC to WiFi network: 
+            name: raspi-webgui
+            password: ChangeMe
+
+            enter IP address: 10.3.141.1 in browser
+            Username: admin
+            Password: secret  
+
+            Click:
+            "Hotspot" (left menu) -> SSID (enter name you want, eg. "RH-TIMER")
+    
+            Wireless Mode (change to 802.11n - 2.4GHz)
+    
+            save settings
+    
+            Click:
+            "Security" tab
+    
+            PSK (enter password that you want to have, eg. "timerpass")
+    
+            save settings
+    
+            DON'T CHANGE ANY OTHER SETTINGS IN GUI!
+
+            Click:
+            "System" (left menu) and "Reboot"
+            
+            reboot and connect to newly-created WiFi network using new password 
+            
+    
+            {red} -- Read carefully whole instruction from above before rebooting --{endc}
+            
+                        {green}r - Reboot by pressing{endc}
+
+                       {yellow}e - Exit by pressing{endc}
+            """.format(bold=Bcolors.BOLD, red=Bcolors.RED, endc=Bcolors.ENDC,
+                       yellow=Bcolors.YELLOW_S, green=Bcolors.GREEN_S)
             conf_copy(config)
             os.system("sudo sed -i 's/country/# country/g' /etc/wpa_supplicant/wpa_supplicant.conf")
             os.system(f"echo 'country={config.country}'| sudo  tee -a /boot/config.txt")
             os.system("sudo apt-get update && sudo apt-get upgrade -y")
             os.system("curl -sL https://install.raspap.com | bash -s -- -y")
-            step_two()
-            print("""
-                    {green}r - Reboot by pressing{endc}
-
-                   {yellow}e - Exit by pressing{endc}
-                    """.format(yellow=Bcolors.YELLOW_S, green=Bcolors.GREEN_S, endc=Bcolors.ENDC))
+            print(after_installing_raspap)
             selection = input()
             if selection == 'r':
                 os.system("sudo reboot")
@@ -137,6 +144,7 @@ def step_zero(config):
     while True:
         clear_the_screen()
         print("""
+        
     After performing this process your Raspberry Pi can be used as standalone
     Access Point. You won't need additional router for connecting with it. 
     You won't be able to connect to any router or hotspot wirelessly.
