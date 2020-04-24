@@ -30,7 +30,7 @@ cd ~ || exit
 sleep 1.2
 cd ~/RH-ota || exit
 printf "\n\n $green Update process done, please re-enter ~/RH-ota folder \n"
-printf "by typing:$endc cd ~/RH-ota"
+printf "  by typing:$endc cd ~/RH-ota\n"
 printf "\n\n"
 printf "         -- Hit Enter to continue --"
 printf "\n\n"
