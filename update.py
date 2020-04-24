@@ -19,8 +19,8 @@ def compatibility():  # adds compatibility and fixes with previous versions
 def config_check():
     if not os.path.exists("./updater-config.json"):
         prompt = """
-          {prompt}  Looks that you haven't set up config file yet.     {endc}
-          {prompt}  Please enter configuration wizard - point 5  {endc}"""\
+          {prompt}  Looks that you haven't set up config file yet.  {endc}
+          {prompt}  Please enter configuration wizard - point 5     {endc}"""\
             .format(prompt=Bcolors.PROMPT, endc=Bcolors.ENDC)
         print(prompt)
         return False
