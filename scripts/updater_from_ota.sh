@@ -8,6 +8,10 @@ dots50() {
   printf "\n\n"
 }
 
+green="\033[92m"
+red="\033[91m"
+endc="\033[0m"
+
 printf "\n\nSoftware will be automatically closed.\n"
 printf "\nWord 'Killed' may be shown.\n"
 sleep 1.2
@@ -25,7 +29,8 @@ python3 ~/.ota_markers/old_RH-ota/self.py
 cd ~ || exit
 sleep 1.2
 cd ~/RH-ota || exit
-printf "\n\nUpdate process done, please re-enter ~/RH-ota folder \n\n"
+printf "\n\n $green Update process done, please re-enter ~/RH-ota folder \n"
+printf "by typing:$endc cd ~/RH-ota"
 printf "\n\n"
 printf "         -- Hit Enter to continue --"
 printf "\n\n"
