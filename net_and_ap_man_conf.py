@@ -40,6 +40,7 @@ def step_four():
 def step_three():
     while True:
         os.system("sudo cp /etc/dhcpcd.conf.ap /etc/dhcpcd.conf")
+        os.system("sudo cp /etc/dnsmasq.conf.ap /etc/dnsmasq.conf")
         print("""
         
                 {bold}Step 3.{endc}
@@ -125,9 +126,9 @@ def step_zero(config):
     
     {red} -- Read carefully whole instruction from above before rebooting --{endc}
             
-                        {green}r - Reboot by pressing{endc}
+                    {green}r - Reboot by pressing{endc}
 
-                       {yellow}e - Exit by pressing{endc}
+                   {yellow}e - Exit by pressing{endc}
             """.format(bold=Bcolors.BOLD, red=Bcolors.RED, endc=Bcolors.ENDC,
                        yellow=Bcolors.YELLOW_S, green=Bcolors.GREEN_S)
             conf_copy(config)
@@ -208,13 +209,11 @@ def ap_menu():
 
                 {green}k - OK{endc}
                 
-               {yellow}b - go back{endc}
                """.format(yellow=Bcolors.YELLOW_S, green=Bcolors.GREEN_S, endc=Bcolors.ENDC))
             selection = input()
             if selection == 'k':
                 break
-            elif selection == 'b':
-                first_page()
+
 
     def first_page():
         while True:
@@ -239,12 +238,12 @@ def ap_menu():
     
                 {green}s - Second page{endc}
                
-               {yellow}b - Bo back{endc}
+               {yellow}e - Exit to menu{endc}
                     """.format(yellow=Bcolors.YELLOW_S, green=Bcolors.GREEN_S, endc=Bcolors.ENDC))
             selection = input()
             if selection == 's':
                 second_page()
-            elif selection == 'b':
+            elif selection == 'e':
                 break
 
     first_page()
