@@ -19,8 +19,8 @@ def compatibility():  # adds compatibility and fixes with previous versions
 def config_check():
     if not os.path.exists("./updater-config.json"):
         prompt = """
-          {prompt}  Looks that you haven't set up config file yet.     {endc}
-          {prompt}  Please enter configuration wizard - point 5  {endc}"""\
+          {prompt}  Looks that you haven't set up config file yet.  {endc}
+          {prompt}  Please enter configuration wizard - point 5     {endc}"""\
             .format(prompt=Bcolors.PROMPT, endc=Bcolors.ENDC)
         print(prompt)
         return False
@@ -102,30 +102,39 @@ User code: {code}
 
 
 def updated_check(config):
-    while os.path.exists(f"/home/{config.user}/.ota_markers/.was_updated"):
+    updated_recently_with_new_version_flag = os.path.exists(f"/home/{config.user}/.ota_markers/.was_updated_new")
+    # true if self update was performed and new version was available to downloaded
+    updated_recently_with_old_version_flag = os.path.exists(f"/home/{config.user}/.ota_markers/.was_updated_old")
+    # true if self update was performed and version was not available to downloaded
+    while updated_recently_with_new_version_flag:
         clear_the_screen()
         logo_top(config.debug_mode)
+        os.system("rm ./.first_time_here > /dev/null 2>&1")
         print("""\n\n {bold}
         
-        Software was updated recently to the new version.
-
-        You can read update notes now.
-
-
-         {endc}  {green} 
-            r - Read update notes {endc}{yellow}
-
-            s - Skip and don't show again{endc}
+            Software was updated recently to the new version.
+    
+            You can read update notes now.
+    
+    
+             {endc}  {green} 
+                r - Read update notes {endc}{yellow}
+    
+                s - Skip and don't show again{endc}
             """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC,
                        green=Bcolors.GREEN, yellow=Bcolors.YELLOW))
         selection = input()
         if selection == 'r':
             os.system("less ./docs/update-notes.txt")
-            os.system(f"rm /home/{config.user}/.ota_markers/.was_updated >/dev/null 2>&1")
             break
         elif selection == 's':
-            os.system(f"rm /home/{config.user}/.ota_markers/.was_updated >/dev/null 2>&1")
             break
+    os.system(f"rm /home/{config.user}/.ota_markers/.was_updated_new >/dev/null 2>&1")
+    os.system(f"rm /home/{config.user}/.ota_markers/.was_updated_old >/dev/null 2>&1")
+    if updated_recently_with_new_version_flag or updated_recently_with_old_version_flag:
+        return True
+    else:
+        return False
 
 
 def welcome_screen(config):
@@ -148,13 +157,15 @@ def welcome_screen(config):
                                                             szafran                                                
     {endc}""".format(bold=Bcolors.BOLD, red=Bcolors.RED, green=Bcolors.GREEN, endc=Bcolors.ENDC)
 
-    while os.path.exists("./.first_time_here"):
+    first_time_flag = os.path.exists("./.first_time_here")
+    while first_time_flag and not updated_check(config):
         clear_the_screen()
         logo_top(config.debug_mode)
         print(welcome_message)
         selection = input(f"\n\t\t\t{Bcolors.GREEN}Open next page by typing 'n'{Bcolors.ENDC}\n\n").lower()
         if selection == 'n':
             os.system("rm ./.first_time_here")
+            first_time_flag = False
             show_about(config)
 
 
@@ -397,7 +408,8 @@ def show_about(config):
         print(welcome_first_page)
         selection = input()
         if selection == 'c':
-            config = conf_ota(config)
+            conf_ota(config)
+            break
         elif selection == 'e':
             break
 

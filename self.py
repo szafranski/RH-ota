@@ -45,7 +45,9 @@ def self_update(config, internet_flag):
         os.system("cp ~/.ota_markers/old_RH-ota/updater-config.json ~/RH-ota/updater-config.json")
         # it had some bug with shutil - can be changed when resolved
         if new_version_name != old_version_name:
-            os.system("echo OTA was updated > ~/.ota_markers/.was_updated")
+            os.system("echo OTA was updated > ~/.ota_markers/.was_updated_new")
+        else:
+            os.system("echo OTA was not updated > ~/.ota_markers/.was_updated_old")
 
 
 def main():
