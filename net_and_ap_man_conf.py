@@ -134,7 +134,6 @@ def step_zero(config):
             conf_copy(config)
             os.system("sudo sed -i 's/country/# country/g' /etc/wpa_supplicant/wpa_supplicant.conf")
             os.system(f"echo 'country={config.country}'| sudo  tee -a /boot/config.txt")
-            os.system("sudo apt-get update && sudo apt-get upgrade -y")
             os.system("curl -sL https://install.raspap.com | bash -s -- -y")
             print(after_installing_raspap)
             selection = input()
