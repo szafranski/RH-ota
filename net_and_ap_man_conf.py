@@ -66,7 +66,7 @@ def step_two():
     print("""Step 2.
         
     Next step requires performing some actions in GUI.
-    You may write those informations down or take a picture etc.
+    You may write those information down or take a picture etc.
     You can also print file 'step_two.txt' from 'net_ap' folder.
     Remember to do it BEFORE rebooting.
     After performing step 2. and connecting to timer again, 
@@ -100,40 +100,39 @@ def step_two():
     Read carefully whole instruction from above before rebooting!""")
 
 
-def conf_copy():
-    os.system("echo 'alias netcfg=\"cp /etc/dhcpcd.conf.net /etc/dhcpcd.conf \"  # net conf' | sudo tee -a ~/.bashrc")
-    os.system("echo 'alias apcfg=\"cp /etc/dhcpcd.conf.ap /etc/dhcpcd.conf \"  # net conf' | sudo tee -a ~/.bashrc")
-    os.system("sudo cp ./net_ap/dhcpcd.conf.net /etc/dhcpcd.conf.net")
-    os.system("sudo cp ./net_ap/dhcpcd.conf.ap /etc/dhcpcd.conf.ap")
-    os.system("sudo cp /etc/dhcpcd.conf /etc/dhcpcd.conf.orig")
-    os.system("sudo cp /etc/dnsmasq.conf /etc/dnsmasq.conf.orig")
-    os.system("sudo cp ./net_ap/dnsmasq.conf.net /etc/dnsmasq.conf.net")
-
-
-def step_one(config):
-    while True:
-        conf_copy()
-        os.system("sudo sed -i 's/country/# country/g' /etc/wpa_supplicant/wpa_supplicant.conf")
-        os.system(f"echo 'country={config.country}'| sudo  tee -a /boot/config.txt")
-        os.system("sudo apt-get update && sudo apt-get upgrade -y")
-        os.system("sudo apt install curl -y")
-        os.system("curl -sL https://install.raspap.com | bash -s -- -y")
-        step_two()
-        print("""
-                {green}r - Reboot by pressing{endc}
-                
-               {yellow}e - Exit by pressing{endc}
-                """.format(yellow=Bcolors.YELLOW_S, green=Bcolors.GREEN_S, endc=Bcolors.ENDC))
-        selection = input()
-        if selection == 'r':
-            os.system("sudo reboot")
-        elif selection == 'e':
-            break
-        else:
-            main()
-
-
 def step_zero(config):
+
+    def step_one(config):
+
+        def conf_copy(config):
+            os.system(
+                "echo 'alias netcfg=\"cp /etc/dhcpcd.conf.net /etc/dhcpcd.conf \"  # net conf' | sudo tee -a ~/.bashrc")
+            os.system(
+                "echo 'alias apcfg=\"cp /etc/dhcpcd.conf.ap /etc/dhcpcd.conf \"  # net conf' | sudo tee -a ~/.bashrc")
+            os.system(f"sudo cp /home/{config.user}/RH-ota/net_ap/dhcpcd.conf.net /etc/dhcpcd.conf.net")
+            os.system(f"sudo cp /home/{config.user}/RH-ota/net_ap/dnsmasq.conf.ap /etc/dnsmasq.conf.ap")
+            os.system("sudo cp /etc/dhcpcd.conf /etc/dhcpcd.conf.orig")
+            os.system("sudo cp /etc/dnsmasq.conf /etc/dnsmasq.conf.orig")
+            # os.system(f"sudo cp /home/{config.user}/RH-ota/net_ap/dnsmasq.conf.net /etc/dnsmasq.conf.net")
+
+        while True:
+            conf_copy(config)
+            os.system("sudo sed -i 's/country/# country/g' /etc/wpa_supplicant/wpa_supplicant.conf")
+            os.system(f"echo 'country={config.country}'| sudo  tee -a /boot/config.txt")
+            os.system("sudo apt-get update && sudo apt-get upgrade -y")
+            os.system("curl -sL https://install.raspap.com | bash -s -- -y")
+            step_two()
+            print("""
+                    {green}r - Reboot by pressing{endc}
+
+                   {yellow}e - Exit by pressing{endc}
+                    """.format(yellow=Bcolors.YELLOW_S, green=Bcolors.GREEN_S, endc=Bcolors.ENDC))
+            selection = input()
+            if selection == 'r':
+                os.system("sudo reboot")
+            elif selection == 'e':
+                break
+
     while True:
         clear_the_screen()
         print("""
@@ -243,7 +242,6 @@ def ap_menu():
 
 def net_and_ap_conf(config):
     step_zero(config)
-    step_one(config)
 
 
 def main():

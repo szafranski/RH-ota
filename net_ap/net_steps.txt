@@ -19,7 +19,8 @@
 
         Next step requires performing some actions in GUI.
         You may write those information down or take a picture etc.
-        You can also print file 'step_two.txt' from 'net_ap' folder.
+        You can also print or check on GitHub the file named
+        'net_steps.txt' from 'net_ap' folder.
         Remember to do it BEFORE rebooting.
         After performing step 2. and connecting to timer again,
         come back to this menu and enter step 3.
