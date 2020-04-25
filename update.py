@@ -328,7 +328,7 @@ def self_updater(config):
         if selection == 'e':
             break
         elif selection == 'u':
-            os.system(". ./scripts/updater_from_ota.sh")
+            os.system("./scripts/updater_from_ota.sh")
 
 
 def features_menu(config):
@@ -440,7 +440,7 @@ def main_menu(config):
                             
                         2 - Nodes flash and update {endc}{bold}
                             
-                        3 - Start the server now
+                        3 - Start RH server now
                             
                         4 - Additional features{configured}
                             

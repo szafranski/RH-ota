@@ -213,7 +213,6 @@ def ap_menu():
             if selection == 'k':
                 break
 
-
     def first_page():
         while True:
             clear_the_screen()
