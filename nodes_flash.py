@@ -379,12 +379,13 @@ def show_i2c_devices():
         clear_the_screen()
         detected_i2c_devices = os.popen("i2cdetect -y 1").read()
 
-        print("\n\t\tI2C devices found:\n")
+        print(f"\n\t\t{Bcolors.BOLD}I2C devices found:\n")
         print(detected_i2c_devices)
 
         # done that way because of the way how python is reading/converting hex numbers
         # and how raspberry is reporting addresses
         # space after an address is needed so line "number" is not being read as an address by mistake
+        print(Bcolors.GREEN)
         nodes_found = 0
         if '08 ' in detected_i2c_devices:
             print("Nodes detected:")
@@ -438,8 +439,10 @@ def show_i2c_devices():
         else:
             print("\n\nNo RTC found")
 
-        selection = input("\n\n\tPress Enter to exit to menu or 'r' to refresh\n")
-        if not selection:
+        print(Bcolors.ENDC)
+        print(f"\n\n\t{Bcolors.RED}Press 'e' to exit to menu or {Bcolors.GREEN}hit 'Enter' to refresh{Bcolors.ENDC}")
+        selection = input("\n")
+        if selection == 'e':
             break
 
 
@@ -478,7 +481,7 @@ def check_uart_devices(config):  # nodes have to be 'auto-numbered'
     addresses = nodes_addresses()
     for i in range(0, nodes_num):
         addr = addresses[i]
-        print(f"\n\t\t\t{Bcolors.BOLD}Checking node {i + 1} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
+        print(f"\n\t\t{Bcolors.BOLD}Checking node {i + 1} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
         prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
         print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600")
         check_uart_connection() if not config.debug_mode else None
