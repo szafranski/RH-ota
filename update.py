@@ -5,7 +5,7 @@ from time import sleep
 from conf_wizard_net import conf_wizard_net
 from conf_wizard_ota import conf_ota
 from modules import clear_the_screen, Bcolors, logo_top, image_show, ota_image, load_config, load_ota_sys_markers, \
-    write_ota_sys_markers, get_ota_version, server_start
+    write_ota_sys_markers, get_ota_version
 from rpi_update import main_window as rpi_update
 from nodes_flash import flashing_menu
 from nodes_update_old import nodes_update as old_flash_gpio
@@ -20,7 +20,7 @@ def config_check():
     if not os.path.exists("./updater-config.json"):
         prompt = """
           {prompt}  Looks that you haven't set up config file yet.  {endc}
-          {prompt}  Please enter configuration wizard - point 5     {endc}"""\
+          {prompt}  Please enter configuration wizard - point 4     {endc}"""\
             .format(prompt=Bcolors.PROMPT, endc=Bcolors.ENDC)
         print(prompt)
         return False
@@ -439,12 +439,10 @@ def main_menu(config):
                         1 - RotorHazard Manager
                             
                         2 - Nodes flash and update {endc}{bold}
+                                                        
+                        3 - Additional features{configured}
                             
-                        3 - Start RH server now
-                            
-                        4 - Additional features{configured}
-                            
-                        5 - Configuration wizard{endc}{bold}{yellow}
+                        4 - Configuration wizard{endc}{bold}{yellow}
                                                 
                         e - Exit to Raspbian{endc}
                             
@@ -469,15 +467,11 @@ def main_menu(config):
             except AttributeError:
                 attribute_error_handling()
         elif selection == '3':
-            server_start()
-        elif selection == '4':
             features_menu(config)
-        elif selection == '5':
+        elif selection == '4':
             show_about(config)
         elif selection == 'e':
             end()
-        elif selection == 'f':  # welcome page will be opened next time - hidden option
-            os.system("here >> ./.first_time_here")
 
 
 def main():

@@ -255,10 +255,12 @@ def main_window(config):
                        yellow=Bcolors.YELLOW, red=Bcolors.RED, orange=Bcolors.ORANGE, server_version=config.rh_version,
                        user=config.user, config_soft=rh_config_text, server=server_version_name)
         print(welcome_text)
-        if not rh_config_flag:
+        if not rh_config_flag and server_installed_flag:
             configure = f"{Bcolors.GREEN}c - Configure RotorHazard server{Bcolors.ENDC}"
-        else:
+        elif not rh_config_flag and not server_installed_flag:
             configure = "c - Reconfigure RotorHazard server"
+        else:
+            configure = "c - Configure RotorHazard server"
         if not server_installed_flag:
             install = f"{Bcolors.GREEN}i - Install software from scratch{Bcolors.ENDC}"
         else:
@@ -268,14 +270,26 @@ def main_window(config):
                     
                     {configure}
                     
-                    u - Update existing installation {yellow}
+                    u - Update existing installation 
+                    
+                    s - Start RotorHazard server now{yellow}
                         
                     e - Exit to Main Menu{endc}
                     
                 """.format(yellow=Bcolors.YELLOW, endc=Bcolors.ENDC, configure=configure, install=install))
         selection = input()
         if selection == 'c':
-            conf_rh() if server_installed_flag else print("Please install RH server before configuring.")
+            if server_installed_flag:
+                conf_rh()
+            else:
+                print("Please install RH server before configuring.")
+                sleep(2)
+        elif selection == 's':
+            if server_installed_flag:
+                server_start()
+            else:
+                print("Please install the RotorHazard server first")
+                sleep(2)
         elif selection == 'i':
             # rh_found_flag = os.path.exists(f"/home/{config.user}/RotorHazard")
             if sys_configured_flag:
