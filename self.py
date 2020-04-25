@@ -17,9 +17,9 @@ def self_update(config):
         print(f"\t{Bcolors.RED}Looks like you don't have internet connection.{Bcolors.ENDC}")
         sleep(0.5)
         os.system("./scripts/net_fixer.sh")
-    print("Trying again...")
-    internet_flag = internet_check()
-    if not internet_flag:
+        print("Trying again...")
+        internet_flag = internet_check()
+    if not internet_flag:  # don't change to elif - it is second check after a repair
         print(f"\t{Bcolors.RED}Looks like you still don't have internet connection. Update canceled.{Bcolors.ENDC}")
         sleep(2)
     else:
