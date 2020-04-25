@@ -125,17 +125,17 @@ which pin will be used as GPIO reset pin?
         while True:
             debug_mode = input("\nWill you use OTA software in a debug mode? [y/N | default: no]\t\t").lower()
             if not debug_mode:
-                debug_mode = False
+                config.debug_mode = False
                 print("defaulted to: no")
+                break
             elif debug_mode[0] == 'y':
-                debug_mode = True
+                config.debug_mode = True
+                break
             elif debug_mode[0] == 'n':
-                debug_mode = False
+                config.debug_mode = False
+                break
             else:
                 print("\nPlease enter correct value!")
-                continue
-            config.debug_mode = debug_mode
-            break
 
         if debug_mode:
             debug_user_name = input("\nWhat is your user name on debugging OS? \t\t\t\t")
@@ -179,10 +179,10 @@ Are you using older, non-i2c hardware flashing mod?
                 config.beta_tester = False
                 print("defaulted to: no")
                 break
-            elif user_is_beta_tester == 'y':
+            elif user_is_beta_tester[0] == 'y':
                 config.beta_tester = True
                 break
-            elif user_is_beta_tester == 'n':
+            elif user_is_beta_tester[0] == 'n':
                 config.beta_tester = False
                 break
             else:
@@ -227,7 +227,7 @@ Are you using older, non-i2c hardware flashing mod?
 
         # Must return the new config from inside the if statements variable context.
         return conf_now_flag, config
-    #Return the old config without change. 
+    # Return the old config without change.
     return conf_now_flag, old_config
 
 
