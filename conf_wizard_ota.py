@@ -42,7 +42,7 @@ def ask_custom_rh_version():
             return version
 
 
-def do_config(config):
+def do_config(old_config):
     home_dir = str(Path.home())
     clear_the_screen()
     logo_top(False)
@@ -225,7 +225,10 @@ Are you using older, non-i2c hardware flashing mod?
             sleep(0.5)
             conf_now_flag = 0
 
-    return conf_now_flag, config
+        # Must return the new config from inside the if statements variable context.
+        return conf_now_flag, config
+    #Return the old config without change. 
+    return conf_now_flag, old_config
 
 
 def conf_ota(config):
