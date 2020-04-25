@@ -85,10 +85,10 @@ If you want to use value given as default, just hit 'Enter'.
             rh_config["LED"]['LED_COUNT'] = int(led_amount)
 
             while True:
-                led_data_pin_nr = input("\nWhich GPIO pin is connected to your LEDs data pin? [default: 18]\t")
+                led_data_pin_nr = input("\nWhich GPIO pin is connected to your LEDs data pin? [default: 10]\t")
                 led_pins_allowed = ['10', '12', '13', '18', '19', '21', '31', '38', '40', '41', '45', '52', '53']
                 if not led_data_pin_nr:
-                    led_data_pin_nr = 18
+                    led_data_pin_nr = 10
                     print("defaulted to: 18")
                     break
                 elif led_data_pin_nr in led_pins_allowed:
@@ -210,7 +210,7 @@ If you want to use value given as default, just hit 'Enter'.
             rh_config["LED"]['LED_FREQ_HZ'] = int(led_frequency)
 
             while True:
-                debug_mode = input("\nWill you use RotorHazard in debug mode? [y/N | default: no]\t\t").lower()
+                debug_mode = input("\nWill you use RotorHazard in a debug mode? [y/N | default: no]\t\t").lower()
                 if not debug_mode:
                     debug_mode = False
                     print("defaulted to: no")
@@ -239,7 +239,7 @@ If you want to use value given as default, just hit 'Enter'.
                     serial_ports = []
                     print("defaulted to: none")
                     break
-                elif serial_ports in ['none', 'n', 'N']:
+                elif serial_ports[0] == 'n':
                     serial_ports = []
                     break
                 else:
@@ -282,7 +282,7 @@ If you want to use value given as default, just hit 'Enter'.
             if selection in valid_options:
                 break
             else:
-                print("\ntoo big fingers :( wrong command. try again! :)")
+                print("\ntoo big fingers ;) - please type yes/abort/change")
         if selection[0] == 'y':
             write_json(rh_config, f"{home_dir}/RotorHazard/src/server/config.json")
             print("Configuration saved.\n")
