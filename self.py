@@ -14,9 +14,10 @@ def make_directories_accessible(config):
 def self_update(config):
     internet_flag = internet_check()
     if not internet_flag:
-        print(f"\t{Bcolors.RED}Looks like you don't have internet connection. Auto-repair process.{Bcolors.ENDC}")
-        sleep(1)
+        print(f"\t{Bcolors.RED}Looks like you don't have internet connection.{Bcolors.ENDC}")
+        sleep(0.5)
         os.system("./scripts/net_fixer.sh")
+    print("Trying again...")
     internet_flag = internet_check()
     if not internet_flag:
         print(f"\t{Bcolors.RED}Looks like you still don't have internet connection. Update canceled.{Bcolors.ENDC}")
