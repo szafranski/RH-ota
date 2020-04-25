@@ -14,6 +14,6 @@ So you can ssh to your rotorhazard by doing: `ssh pi@rasberrypi.local`
 **rotorhazard**  then your timer would be assessable as `ssh pi@rotorhazard.local`
 
 * When the timer is not within range of a known wifi network, it will setup a hotspot for you.
- Connect to the hostpot and go to `10.0.0.5` to access the timer. eg: `ssh pi@10.0.0.5` 
+ Connect to the hotspot and go to `10.0.0.5` to access the timer. eg: `ssh pi@10.0.0.5` 
  
 

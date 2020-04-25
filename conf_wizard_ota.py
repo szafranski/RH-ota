@@ -42,7 +42,7 @@ def ask_custom_rh_version():
             return version
 
 
-def do_config(config):
+def do_config(old_config):
     home_dir = str(Path.home())
     clear_the_screen()
     logo_top(False)
@@ -124,18 +124,18 @@ which pin will be used as GPIO reset pin?
 
         while True:
             debug_mode = input("\nWill you use OTA software in a debug mode? [y/N | default: no]\t\t").lower()
-            if debug_mode.lower() not in ['y', 'n', '']:
-                print("\nPlease enter correct value!")
-                continue
-            elif not debug_mode:
-                debug_mode = False
+            if not debug_mode:
+                config.debug_mode = False
                 print("defaulted to: no")
-            elif debug_mode == 'y':
-                debug_mode = True
+                break
+            elif debug_mode[0] == 'y':
+                config.debug_mode = True
+                break
+            elif debug_mode[0] == 'n':
+                config.debug_mode = False
+                break
             else:
-                debug_mode = False
-            config.debug_mode = debug_mode
-            break
+                print("\nPlease enter correct value!")
 
         if debug_mode:
             debug_user_name = input("\nWhat is your user name on debugging OS? \t\t\t\t")
@@ -179,10 +179,10 @@ Are you using older, non-i2c hardware flashing mod?
                 config.beta_tester = False
                 print("defaulted to: no")
                 break
-            elif user_is_beta_tester == 'y':
+            elif user_is_beta_tester[0] == 'y':
                 config.beta_tester = True
                 break
-            elif user_is_beta_tester == 'n':
+            elif user_is_beta_tester[0] == 'n':
                 config.beta_tester = False
                 break
             else:
@@ -225,7 +225,10 @@ Are you using older, non-i2c hardware flashing mod?
             sleep(0.5)
             conf_now_flag = 0
 
-    return conf_now_flag, config
+        # Must return the new config from inside the if statements variable context.
+        return conf_now_flag, config
+    # Return the old config without change.
+    return conf_now_flag, old_config
 
 
 def conf_ota(config):

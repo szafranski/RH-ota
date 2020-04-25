@@ -6,8 +6,11 @@
         ^^^^^^^^^^^^
 
 
-2.3.0c
+2.3.0d
+Automatic 'nameserver' fixing implemented
+Simpler main menu, server start moved to RH Manager
 
+2.3.0c
 Added automatic I2C devices detection
 
 

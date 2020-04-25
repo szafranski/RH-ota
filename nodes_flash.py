@@ -377,7 +377,10 @@ def first_flashing(config):
 def show_i2c_devices():
     while True:
         clear_the_screen()
-        detected_i2c_devices = os.popen("i2cdetect -y 1").read()
+        try:
+            detected_i2c_devices = os.popen("i2cdetect -y 1").read()
+        except:
+            detected_i2c_devices = 'i2cdetect command - error'
 
         print(f"\n\t\t{Bcolors.BOLD}I2C devices found:\n")
         print(detected_i2c_devices)
@@ -434,7 +437,7 @@ def show_i2c_devices():
             print("No additional sensors found")
 
         # possible RTC addresses besides 68 are 50 - 57 - needed to be coded?
-        if '68 'in detected_i2c_devices or 'UU ' in detected_i2c_devices:
+        if '68 ' in detected_i2c_devices or 'UU ' in detected_i2c_devices:
             print(f"\n\nRTC (DS3231 or PCF8523 or DS1307) found")
         else:
             print("\n\nNo RTC found")
@@ -491,7 +494,6 @@ def check_uart_devices(config):  # nodes have to be 'auto-numbered'
         if odd_number and ((nodes_num - i) == 2):
             break  # breaks the "flashing loop" after last even node
     check_uart_con_with_gpio_node(config) if odd_number else None
-    # todo checking summary
     input("\nPress ENTER to continue")
     sleep(1)
 

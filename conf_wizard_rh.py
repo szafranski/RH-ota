@@ -13,10 +13,10 @@ def conf_check():
             if not cont_conf:
                 print("answer defaulted to: yes")
                 break
-            elif cont_conf == 'y':
+            elif cont_conf[0] == 'y':
                 conf_now_flag = True
                 break
-            elif cont_conf == 'n':
+            elif cont_conf[0] == 'n':
                 conf_now_flag = False
                 break
             else:
@@ -66,10 +66,10 @@ If you want to use value given as default, just hit 'Enter'.
         while True:
             print("\nAre you planning to use LEDs in your system? [y/n]\n")
             selection = input("\t").lower()
-            if selection == 'y':
+            if selection[0] == 'y':
                 led_present_flag = True
                 break
-            elif selection == 'n':
+            elif selection[0] == 'n':
                 led_present_flag = False
                 break
             else:
@@ -106,10 +106,10 @@ If you want to use value given as default, just hit 'Enter'.
                     led_output_inverted = False
                     print("defaulted to: no")
                     break
-                elif led_output_inverted == 'y':
+                elif led_output_inverted[0] == 'y':
                     led_output_inverted = True
                     break
-                elif led_output_inverted == 'n':
+                elif led_output_inverted[0] == 'n':
                     led_output_inverted = False
                     break
                 else:
@@ -148,10 +148,10 @@ If you want to use value given as default, just hit 'Enter'.
                     led_rows_inverted = False
                     print("defaulted to: no")
                     break
-                elif led_rows_inverted == 'y':
+                elif led_rows_inverted[0] == 'y':
                     led_rows_inverted = True
                     break
-                elif led_rows_inverted == 'n':
+                elif led_rows_inverted[0] == 'n':
                     led_rows_inverted = False
                     break
                 else:
@@ -175,10 +175,10 @@ If you want to use value given as default, just hit 'Enter'.
                 print("defaulted to: no")
                 advanced_wizard_flag = False
                 break
-            elif advanced_wizard_flag == 'y':
+            elif advanced_wizard_flag[0] == 'y':
                 advanced_wizard_flag = True
                 break
-            elif advanced_wizard_flag == 'n':
+            elif advanced_wizard_flag[0] == 'n':
                 advanced_wizard_flag = False
                 break
             else:
@@ -215,10 +215,10 @@ If you want to use value given as default, just hit 'Enter'.
                     debug_mode = False
                     print("defaulted to: no")
                     break
-                elif debug_mode.lower() == 'y':
+                elif debug_mode[0] == 'y':
                     debug_mode = True
                     break
-                elif debug_mode.lower() == 'n':
+                elif debug_mode[0] == 'n':
                     debug_mode = False
                     break
                 else:

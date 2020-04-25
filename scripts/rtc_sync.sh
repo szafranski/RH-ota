@@ -13,7 +13,7 @@ sudo apt-get -y remove fake-hwclock
 sudo update-rc.d -f fake-hwclock remove
 sudo systemctl disable fake-hwclock
 
-# todo comment out those lines 2 and 3 below only when they are right below that first below
+# todo comment out those lines 2 and 3 below only when they are right below that first below - waiting for Clayton
 sed -i 's/if [ -e \/run\/systemd\/system ] ; then/#if [ -e \/run\/systemd\/system ] ; then/g' /lib/udev/hwclock-set
 sed -i 's/if [ -e /run/systemd/system ] ; then/#if [ -e /run/systemd/system ] ; then/g' /lib/udev/hwclock-set
 sed -i 's/if [ -e /run/systemd/system ] ; then/#if [ -e /run/systemd/system ] ; then/g' /lib/udev/hwclock-set

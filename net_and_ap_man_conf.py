@@ -131,6 +131,27 @@ def step_zero(config):
                    {yellow}e - Exit by pressing{endc}
             """.format(bold=Bcolors.BOLD, red=Bcolors.RED, endc=Bcolors.ENDC,
                        yellow=Bcolors.YELLOW_S, green=Bcolors.GREEN_S)
+            print("""
+            
+    If you will see 'WiFi was blocked by rfkill...' when entering the Pi by SSH,
+    please enter 'sudo raspi-config' and 'Change WiFi Country' in Localisation Options.
+    
+    Do you want to do it now? 
+    
+            y - yes, let's do it now
+            
+            n - no, I don't have that issue
+            
+    """)
+            while True:
+                selection = input().lower()
+                if selection == 'y':
+                    os.system("sudo raspi-config")
+                    break
+                elif selection == 'n':
+                    break
+                else:
+                    print("\nPlease type 'y' or 'n'.\n")
             conf_copy(config)
             os.system("sudo sed -i 's/country/# country/g' /etc/wpa_supplicant/wpa_supplicant.conf")
             os.system(f"echo 'country={config.country}'| sudo  tee -a /boot/config.txt")
@@ -212,7 +233,6 @@ def ap_menu():
             selection = input()
             if selection == 'k':
                 break
-
 
     def first_page():
         while True:
