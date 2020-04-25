@@ -408,10 +408,10 @@ def show_i2c_devices():
         print(f"Node 8 found")
         nodes_found += 1
 
-    if nodes_found > 0:
-        print(f"\nDetected nodes: {nodes_found}")
-    else:
+    if nodes_found == 0:
         print("\nNo nodes detected")
+    else:
+        print(f"\nDetected nodes: {nodes_found}")
 
     input("\n\n\tPress Enter to exit to menu\n")
 
