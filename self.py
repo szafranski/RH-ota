@@ -21,11 +21,11 @@ def self_update(config):
         It can often be caused by a wrong nameserver configuration.
         Do you want to try to fix it? [Y/n] """)
             selection = input().strip().lower()
-            if selection.lower() == 'y':
+            if selection == 'y':
                 os.system("./scripts/net_fixer.sh")
                 sleep(1)
                 continue
-            if selection.lower() == 'n':
+            elif selection == 'n':
                 sleep(1)
                 break
         else:
