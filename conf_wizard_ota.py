@@ -147,15 +147,15 @@ which pin will be used as GPIO reset pin?
             old_hardware_mod = input("""
 Are you using older, non-i2c hardware flashing mod? 
 (nodes reset pins connected to gpio pins) [ y/N | default: no ]\t\t""").lower()
-            if old_hardware_mod[0] == "y":
+            if not old_hardware_mod:
+                old_hardware_mod, config.old_hw_mod = False, False
+                print("defaulted to: no")
+                break
+            elif old_hardware_mod[0] == "y":
                 old_hardware_mod, config.old_hw_mod = True, True
                 break
             elif old_hardware_mod[0] == "n":
                 old_hardware_mod, config.old_hw_mod = False, False
-                break
-            elif not old_hardware_mod:
-                old_hardware_mod, config.old_hw_mod = False, False
-                print("defaulted to: no")
                 break
             else:
                 print("\nPlease enter correct value!")
@@ -163,14 +163,16 @@ Are you using older, non-i2c hardware flashing mod?
         while old_hardware_mod:
             gpio_pins_assign = input("\nPins assignment? [default/custom/PCB | default: default]\t\t").lower()
             pins_valid_options = ['default', 'pcb', 'custom']
-            if gpio_pins_assign not in pins_valid_options:
+            if not gpio_pins_assign:
+                config.pins_assignment = 'default'
+                print("defaulted to: default")
+                break
+            elif gpio_pins_assign not in pins_valid_options:
                 print("\nPlease enter correct value!")
                 continue
-            elif not gpio_pins_assign:
-                config.pins_assignment = 'default'
             else:
                 config.pins_assignment = gpio_pins_assign
-            break
+                break
         else:
             config.pins_assignment = 'default'
 
