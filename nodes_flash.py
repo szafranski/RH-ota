@@ -494,7 +494,6 @@ def check_uart_devices(config):  # nodes have to be 'auto-numbered'
         if odd_number and ((nodes_num - i) == 2):
             break  # breaks the "flashing loop" after last even node
     check_uart_con_with_gpio_node(config) if odd_number else None
-    # todo checking summary
     input("\nPress ENTER to continue")
     sleep(1)
 

@@ -372,7 +372,7 @@ def features_menu(config):
                 attribute_error_handling()
         elif selection == '5':
             self_updater(config)  # todo better "wrong user name" handling and added here too
-        elif selection == '6':
+        elif selection == '6':    # maybe add a general checking if username is setup right?
             log_to_dev(config)
         elif selection == 'e':
             break
