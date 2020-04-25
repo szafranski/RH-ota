@@ -13,7 +13,7 @@ def make_directories_accessible(config):
 
 def self_update(config):
     while True:
-        internet_flag = False
+        internet_flag = internet_check()
         if not internet_flag:
             print(f"\t{Bcolors.RED}Looks like you don't have internet connection. Update canceled.{Bcolors.ENDC}")
             sleep(1)
