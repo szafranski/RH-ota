@@ -148,8 +148,10 @@ def step_zero(config):
                 if selection == 'y':
                     os.system("sudo raspi-config")
                     break
-                else:
+                elif selection == 'n':
                     break
+                else:
+                    print("\nPlease type 'y' or 'n'.\n")
             conf_copy(config)
             os.system("sudo sed -i 's/country/# country/g' /etc/wpa_supplicant/wpa_supplicant.conf")
             os.system(f"echo 'country={config.country}'| sudo  tee -a /boot/config.txt")
