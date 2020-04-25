@@ -377,7 +377,10 @@ def first_flashing(config):
 def show_i2c_devices():
     while True:
         clear_the_screen()
-        detected_i2c_devices = os.popen("i2cdetect -y 1").read()
+        try:
+            detected_i2c_devices = os.popen("i2cdetect -y 1").read()
+        except:
+            detected_i2c_devices = 'i2cdetect command - error'
 
         print(f"\n\t\t{Bcolors.BOLD}I2C devices found:\n")
         print(detected_i2c_devices)
