@@ -124,16 +124,16 @@ which pin will be used as GPIO reset pin?
 
         while True:
             debug_mode = input("\nWill you use OTA software in a debug mode? [y/N | default: no]\t\t").lower()
-            if debug_mode.lower() not in ['y', 'n', '']:
-                print("\nPlease enter correct value!")
-                continue
-            elif not debug_mode:
+            if not debug_mode:
                 debug_mode = False
                 print("defaulted to: no")
-            elif debug_mode == 'y':
+            elif debug_mode[0] == 'y':
                 debug_mode = True
-            else:
+            elif debug_mode[0] == 'n':
                 debug_mode = False
+            else:
+                print("\nPlease enter correct value!")
+                continue
             config.debug_mode = debug_mode
             break
 
