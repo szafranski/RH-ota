@@ -375,45 +375,70 @@ def first_flashing(config):
 
 
 def show_i2c_devices():
+    while True:
+        clear_the_screen()
+        detected_i2c_devices = os.popen("i2cdetect -y 1").read()
 
-    clear_the_screen()
-    detected_i2c_devices = os.popen("i2cdetect -y 1").read()
+        print("\t\tI2C devices found:\n")
+        print(detected_i2c_devices)
 
-    print(detected_i2c_devices)
+        # done that way because of the way how python is reading/converting hex numbers
+        # and how raspberry is reporting addresses
+        nodes_found = 0
+        if '08 ' in detected_i2c_devices:
+            print("Nodes detected:")
+            print(f"Node 1 found")
+            nodes_found += 1
+        if '0a ' in detected_i2c_devices:
+            print(f"Node 2 found")
+            nodes_found += 1
+        if '0c ' in detected_i2c_devices:
+            print(f"Node 3 found")
+            nodes_found += 1
+        if '0e ' in detected_i2c_devices:
+            print(f"Node 4 found")
+            nodes_found += 1
+        if '10 :' in detected_i2c_devices:
+            print(f"Node 5 found")
+            nodes_found += 1
+        if '12 ' in detected_i2c_devices:
+            print(f"Node 6 found")
+            nodes_found += 1
+        if '14 ' in detected_i2c_devices:
+            print(f"Node 7 found")
+            nodes_found += 1
+        if '16 ' in detected_i2c_devices:
+            print(f"Node 8 found")
+            nodes_found += 1
 
-    nodes_found = 0
-    if '08 ' in detected_i2c_devices:
-        print("Nodes detected:")
-        print(f"Node 1 found")
-        nodes_found += 1
-    if '0a ' in detected_i2c_devices:
-        print(f"Node 2 found")
-        nodes_found += 1
-    if '0c ' in detected_i2c_devices:
-        print(f"Node 3 found")
-        nodes_found += 1
-    if '0e ' in detected_i2c_devices:
-        print(f"Node 4 found")
-        nodes_found += 1
-    if '10 :' in detected_i2c_devices:
-        print(f"Node 5 found")
-        nodes_found += 1
-    if '12 ' in detected_i2c_devices:
-        print(f"Node 6 found")
-        nodes_found += 1
-    if '14 ' in detected_i2c_devices:
-        print(f"Node 7 found")
-        nodes_found += 1
-    if '16 ' in detected_i2c_devices:
-        print(f"Node 8 found")
-        nodes_found += 1
+        if nodes_found == 0:
+            print("\nNo nodes detected")
+        else:
+            print(f"\nDetected nodes: {nodes_found}\n")
 
-    if nodes_found == 0:
-        print("\nNo nodes detected")
-    else:
-        print(f"\nDetected nodes: {nodes_found}")
+        bme_found_flag, ina_found_flag = False, False
+        if '76 ' in detected_i2c_devices:
+            bme_found_flag = True
+        if '40 ' in detected_i2c_devices or '41 ' in detected_i2c_devices:
+            ina_found_flag = True
 
-    input("\n\n\tPress Enter to exit to menu\n")
+        if bme_found_flag or ina_found_flag:
+            print("\nSensors found: ")
+            if bme_found_flag:
+                print(f"BME 280 found")
+            if ina_found_flag:
+                print(f"INA 219 found")
+        else:
+            print("No additional sensors found")
+
+        if '57 ' in detected_i2c_devices or '68 'in detected_i2c_devices:
+            print(f"\n\nRTC (DS3231) found")
+        else:
+            print("\n\nNo RTC found")
+
+        selection = input("\n\n\tPress Enter to exit to menu or 'r' to refresh\n")
+        if not selection:
+            break
 
 
 def check_uart_connection():
