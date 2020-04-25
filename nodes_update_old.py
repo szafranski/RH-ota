@@ -88,7 +88,6 @@ def all_pins_high(config, reset_pins):
         GPIO.output(reset_pins[7], GPIO.HIGH)
         sleep(0.05)
     else:
-        print(f"\n\n\t\t\t/home/{config.user}/RH-ota/firmware/obsolete/{config.rh_version}/X.hex")
         print("\n\t\t\t\t\t Linux - PC\n\n")
         sleep(0.3)
 
