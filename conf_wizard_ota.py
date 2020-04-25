@@ -123,8 +123,10 @@ which pin will be used as GPIO reset pin?
             config.gpio_reset_pin = False
 
         while True:
-            debug_mode = input("\nWill you use OTA software in a debug mode? [y/N | default: no]\t\t").lower()
-            if debug_mode.lower() not in ['y', 'n', '']:
+            debug_mode = input("\nWill you use OTA software in a debug mode? [y/N | default: no]\t\t").lower().strip()
+            # cleanup to only first character or empty string.
+            debug_mode = debug_mode[0] if len(debug_mode) > 0 else ''
+            if debug_mode in ['y', 'n', '']:
                 print("\nPlease enter correct value!")
                 continue
             elif not debug_mode:
@@ -227,7 +229,7 @@ Are you using older, non-i2c hardware flashing mod?
 
         # Must return the new config from inside the if statements variable context.
         return conf_now_flag, config
-    #Return the old config without change. 
+    #Return the old config without change.
     return conf_now_flag, old_config
 
 
