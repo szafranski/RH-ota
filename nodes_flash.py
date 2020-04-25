@@ -374,11 +374,45 @@ def first_flashing(config):
     sleep(2)
 
 
-def show_i2c_devices(config):
+def show_i2c_devices():
+
     clear_the_screen()
-    logo_top(config.debug_mode)
-    print("\n\n")
-    os.system("i2cdetect -y 1")
+    detected_i2c_devices = os.popen("i2cdetect -y 1").read()
+
+    print(detected_i2c_devices)
+
+    nodes_found = 0
+    if '08 ' in detected_i2c_devices:
+        print("Nodes detected:")
+        print(f"Node 1 found")
+        nodes_found += 1
+    if '0a ' in detected_i2c_devices:
+        print(f"Node 2 found")
+        nodes_found += 1
+    if '0c ' in detected_i2c_devices:
+        print(f"Node 3 found")
+        nodes_found += 1
+    if '0e ' in detected_i2c_devices:
+        print(f"Node 4 found")
+        nodes_found += 1
+    if '10 :' in detected_i2c_devices:
+        print(f"Node 5 found")
+        nodes_found += 1
+    if '12 ' in detected_i2c_devices:
+        print(f"Node 6 found")
+        nodes_found += 1
+    if '14 ' in detected_i2c_devices:
+        print(f"Node 7 found")
+        nodes_found += 1
+    if '16 ' in detected_i2c_devices:
+        print(f"Node 8 found")
+        nodes_found += 1
+
+    if nodes_found > 0:
+        print(f"\nDetected nodes: {nodes_found}")
+    else:
+        print("\nNo nodes detected")
+
     input("\n\n\tPress Enter to exit to menu\n")
 
 
@@ -465,7 +499,7 @@ def flashing_menu(config):
         elif selection == '3':
             first_flashing(config)
         elif selection == '4':
-            show_i2c_devices(config)
+            show_i2c_devices()
         elif selection == '5':
             check_uart_devices(config)
         elif selection == 'custom':
