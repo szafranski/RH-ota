@@ -434,8 +434,8 @@ def show_i2c_devices():
             print("No additional sensors found")
 
         # possible RTC addresses besides 68 are 50 - 57 - needed to be coded?
-        if '68 'in detected_i2c_devices:
-            print(f"\n\nRTC (DS3231) found")
+        if '68 'in detected_i2c_devices or 'UU ' in detected_i2c_devices:
+            print(f"\n\nRTC (DS3231 or PCF8523 or DS1307) found")
         else:
             print("\n\nNo RTC found")
 
