@@ -6,8 +6,10 @@
         ^^^^^^^^^^^^
 
 
-2.3.0c
+2.3.0d
+Automatic 'nameserver' fixing implemented
 
+2.3.0c
 Added automatic I2C devices detection
 
 
