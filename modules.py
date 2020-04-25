@@ -117,7 +117,7 @@ def internet_check():
     for i in range(3):
         try:
             response = requests.get('https://github.com')
-        except Exception as e:
+        except Exception:
             response = False
 
         if response and response.status_code == requests.codes.ok:
