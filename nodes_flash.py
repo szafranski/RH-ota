@@ -505,7 +505,7 @@ def flashing_menu(config):
                           {rmh}FLASHING MENU{endc}
             
             
-       {green}{bold}1 - Flash each node automatically - rec.{endc}{bold}
+       {green}{bold}1 - Flash each node automatically{endc}{bold}
     
                     2 - Flash nodes individually
     
