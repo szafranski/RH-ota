@@ -122,7 +122,7 @@ def updated_check(config):
                 s - Skip and don't show again{endc}
             """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC,
                        green=Bcolors.GREEN, yellow=Bcolors.YELLOW))
-        while True
+        while True:
             selection = input()
             if selection == 'r':
                 os.system("less ./docs/update-notes.txt")
