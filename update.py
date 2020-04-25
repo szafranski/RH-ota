@@ -126,6 +126,7 @@ def updated_check(config):
             selection = input()
             if selection == 'r':
                 os.system("less ./docs/update-notes.txt")
+                sleep(0.5)
                 break
             elif selection == 's':
                 break
