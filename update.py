@@ -106,10 +106,9 @@ def updated_check(config):
     # true if self update was performed and new version was available to downloaded
     updated_recently_with_old_version_flag = os.path.exists(f"/home/{config.user}/.ota_markers/.was_updated_old")
     # true if self update was performed and version was not available to downloaded
-    while updated_recently_with_new_version_flag:
+    if updated_recently_with_new_version_flag:
         clear_the_screen()
         logo_top(config.debug_mode)
-        os.system("rm ./.first_time_here > /dev/null 2>&1")
         print("""\n\n {bold}
         
             Software was updated recently to the new version.
@@ -123,15 +122,17 @@ def updated_check(config):
                 s - Skip and don't show again{endc}
             """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC,
                        green=Bcolors.GREEN, yellow=Bcolors.YELLOW))
-        selection = input()
-        if selection == 'r':
-            os.system("less ./docs/update-notes.txt")
-            break
-        elif selection == 's':
-            break
+        while True
+            selection = input()
+            if selection == 'r':
+                os.system("less ./docs/update-notes.txt")
+                break
+            elif selection == 's':
+                break
     os.system(f"rm /home/{config.user}/.ota_markers/.was_updated_new >/dev/null 2>&1")
     os.system(f"rm /home/{config.user}/.ota_markers/.was_updated_old >/dev/null 2>&1")
     if updated_recently_with_new_version_flag or updated_recently_with_old_version_flag:
+        os.system("rm ./.first_time_here > /dev/null 2>&1")
         return True
     else:
         return False
@@ -176,7 +177,7 @@ def welcome_screen(config):
 """
 
 
-def opening_screen(updater_version):
+def splash_screen(updater_version):
     clear_the_screen()
     print("\n\n")
     image_show()
@@ -482,9 +483,9 @@ def main():
     compatibility()
     updater_version = get_ota_version(False)
     config = load_config()
-    opening_screen(updater_version)
-    welcome_screen(config)
+    splash_screen(updater_version)
     updated_check(config)
+    welcome_screen(config)
     main_menu(config)
 
 
