@@ -379,11 +379,12 @@ def show_i2c_devices():
         clear_the_screen()
         detected_i2c_devices = os.popen("i2cdetect -y 1").read()
 
-        print("\t\tI2C devices found:\n")
+        print("\n\t\tI2C devices found:\n")
         print(detected_i2c_devices)
 
         # done that way because of the way how python is reading/converting hex numbers
         # and how raspberry is reporting addresses
+        # space after an address is needed so line "number" is not being read as an address by mistake
         nodes_found = 0
         if '08 ' in detected_i2c_devices:
             print("Nodes detected:")
@@ -414,7 +415,7 @@ def show_i2c_devices():
         if nodes_found == 0:
             print("\nNo nodes detected")
         else:
-            print(f"\nDetected nodes: {nodes_found}\n")
+            print(f"\nDetected nodes: {nodes_found}\n\n")
 
         bme_found_flag, ina_found_flag = False, False
         if '76 ' in detected_i2c_devices:
@@ -431,7 +432,8 @@ def show_i2c_devices():
         else:
             print("No additional sensors found")
 
-        if '57 ' in detected_i2c_devices or '68 'in detected_i2c_devices:
+        # possible RTC addresses besides 68 are 50 - 57 - needed to be coded?
+        if '68 'in detected_i2c_devices:
             print(f"\n\nRTC (DS3231) found")
         else:
             print("\n\nNo RTC found")
