@@ -13,14 +13,14 @@ def make_directories_accessible(config):
 
 def self_update(config):
     while True:
-        internet_flag = internet_check()
+        internet_flag = False
         if not internet_flag:
             print(f"\t{Bcolors.RED}Looks like you don't have internet connection. Update canceled.{Bcolors.ENDC}")
             sleep(1)
             print("""
         It can often be caused by a wrong nameserver configuration.
         Do you want to try to fix it? [Y/n] """)
-            selection = input().strip().lower()
+            selection = input().lower()
             if selection == 'y':
                 os.system("./scripts/net_fixer.sh")
                 sleep(1)
