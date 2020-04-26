@@ -390,15 +390,14 @@ def show_i2c_devices():
 
         print(f"\n\t\t{Bcolors.BOLD}I2C devices found:\n")
         print(detected_i2c_devices)
-
+        print(Bcolors.ENDC)
         # done that way because of the way how python is reading/converting hex numbers
         # and how raspberry is reporting addresses
         # space after an address is needed so line "number" is not being read as an address by mistake
-        print(Bcolors.GREEN)
         nodes_found = 0
+        print("Nodes detected:")
         # don't change below to 'elif' - each node is a separate instance of "found"
         if '08 ' in detected_i2c_devices:
-            print("Nodes detected:")
             print(f"Node 1 found")
             nodes_found += 1
         if '0a ' in detected_i2c_devices:
@@ -424,9 +423,9 @@ def show_i2c_devices():
             nodes_found += 1
 
         if nodes_found == 0:
-            print("\nNo nodes detected")
+            print(f"{Bcolors.RED}\nNo nodes detected{Bcolors.ENDC}")
         else:
-            print(f"\nDetected nodes: {nodes_found}\n\n")
+            print(f"\n{Bcolors.GREEN}Detected nodes: {nodes_found}{Bcolors.ENDC}\n\n")
 
         if '76 ' in detected_i2c_devices or '77 ' in detected_i2c_devices:
             bme_found_flag = True
@@ -445,9 +444,9 @@ def show_i2c_devices():
         if bme_found_flag or ina_found_flag:
             print("\nSensors found: ")
             if bme_found_flag:
-                print(f"BME 280 found")
+                print(f"{Bcolors.GREEN}BME sensor 280 found{Bcolors.ENDC}")
             if ina_found_flag:
-                print(f"INA 219 found")
+                print(f"{Bcolors.GREEN}INA sensor 219 found{Bcolors.ENDC}")
         else:
             print("No additional sensors found")
 
@@ -461,12 +460,12 @@ def show_i2c_devices():
             rtc_found_flag = False
 
         if rtc_found_flag:
-            print(f"\n\nRTC (DS3231 or PCF8523 or DS1307) found")
+            print(f"{Bcolors.GREEN}\n\nRTC (DS3231 or PCF8523 or DS1307) found{Bcolors.ENDC}")
         else:
             print("\n\nNo RTC found")
 
         print(Bcolors.ENDC)
-        print(f"\n\n\t{Bcolors.RED}Press 'e' to exit to menu or {Bcolors.GREEN}hit 'Enter' to refresh{Bcolors.ENDC}")
+        print(f"\n\n\t{Bcolors.RED}Press 'e' to exit to menu {Bcolors.ENDC}or hit 'Enter' to refresh")
         selection = input("\n")
         if selection == 'e':
             break
