@@ -136,6 +136,7 @@ def flash_firmware_on_a_specific_node(config, selected_node_number):
           f"flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version_selection(config)}/node_0.hex:i ")
     flash_firmware_onto_a_node(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - flashed{Bcolors.ENDC}\n\n")
+    input("\nPress ENTER to continue")
     sleep(2)
 
 
@@ -147,6 +148,7 @@ def flash_firmware_onto_a_gpio_node(config):
           f"flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version_selection(config)}/node_0.hex:i")
     flash_firmware_onto_a_node(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {config.nodes_number} - flashed{Bcolors.ENDC}\n\n")
+    input("\nPress ENTER to continue")
     sleep(2)
 
 
@@ -158,6 +160,7 @@ def flash_custom_firmware_on_a_specific_node(config, selected_node_number):
           f"flash:w:/home/{config.user}/RH-ota/firmware/custom_firmware/custom_node.hex:i ")
     flash_custom_firmware_onto_a_node(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - flashed{Bcolors.ENDC}\n\n")
+    input("\nPress ENTER to continue")
     sleep(2)
 
 
@@ -169,6 +172,7 @@ def flash_blink_on_a_specific_node(config, selected_node_number):
           f"flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i ")
     flash_blink_onto_a_node(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - flashed{Bcolors.ENDC}\n\n")
+    input("\nPress ENTER to continue")
     sleep(2)
 
 
@@ -181,6 +185,7 @@ def flash_custom_firmware_onto_gpio_node(config):
           f"flash:w:/home/{config.user}/RH-ota/firmware/custom_firmware/custom_node.hex:i ")
     flash_custom_firmware_onto_a_node(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {x} - flashed{Bcolors.ENDC}\n\n")
+    input("\nPress ENTER to continue")
     sleep(2)
 
 
@@ -193,6 +198,7 @@ def flash_blink_onto_gpio_node(config):
           f"flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i ")
     flash_blink_onto_a_node(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {x} - flashed{Bcolors.ENDC}\n\n")
+    input("\nPress ENTER to continue")
     sleep(2)
 
 
@@ -212,7 +218,7 @@ def node_selection_menu(config):
 
                 4 - Flash node 4        8 - Flash node 8 
                             
-                   {yellow}e- Exit to main menu{endc}
+                   {yellow}e - Exit to main menu{endc}
                     
         """.format(bold=Bcolors.BOLD_S, red=Bcolors.RED_S, yellow=Bcolors.YELLOW_S, endc=Bcolors.ENDC)
         print(flash_node_menu)
