@@ -422,10 +422,17 @@ def show_i2c_devices():
             print(f"\nDetected nodes: {nodes_found}\n\n")
 
         bme_found_flag, ina_found_flag = False, False
-        if '76 ' in detected_i2c_devices:
+        if '76 ' in detected_i2c_devices or '77 ' in detected_i2c_devices:
             bme_found_flag = True
-        if '40 ' in detected_i2c_devices or '41 ' in detected_i2c_devices:
-            ina_found_flag = True
+
+        # todo below possibly can be changed to some one-liner 'if' + 'for'
+        possible_ina_addr = ['40 ', '41 ', '43 ', '44 ']
+        for item in possible_ina_addr:
+            if item in detected_i2c_devices:
+                ina_found_flag = True
+                break
+        else:
+            ina_found_flag = False
 
         if bme_found_flag or ina_found_flag:
             print("\nSensors found: ")
@@ -435,9 +442,17 @@ def show_i2c_devices():
                 print(f"INA 219 found")
         else:
             print("No additional sensors found")
+            
+        # todo below possibly can be changed to some one-liner 'if' + 'for'
+        possible_rtc_addr = ['68 ', 'UU ','50 ','51 ','52 ','53 ','54 ','55 ','56 ','57 ']
+        for item in possible_rtc_addr:
+            if item in detected_i2c_devices:
+                rtc_found_flag = True
+                break
+        else:
+            rtc_found_flag = False
 
-        # possible RTC addresses besides 68 are 50 - 57 - needed to be coded?
-        if '68 ' in detected_i2c_devices or 'UU ' in detected_i2c_devices:
+        if rtc_found_flag:
             print(f"\n\nRTC (DS3231 or PCF8523 or DS1307) found")
         else:
             print("\n\nNo RTC found")
