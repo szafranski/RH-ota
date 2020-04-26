@@ -318,8 +318,8 @@ def first_flashing(config):
 
     def flash_node_first_time(port):
         uart_flashing_prompt = \
-            "\n\n\t{bg}Hit 'Enter' and push reset button on next node after a second {e}{br}[e - exit] {e}".\
-            format(br=Bcolors.RED + Bcolors.BOLD, bg=Bcolors.GREEN + Bcolors.BOLD, e=Bcolors.ENDC)
+            "\n\n\t{bg}Hit 'Enter' and push reset button on next node after a second {e}{br}[e - exit] {e}" \
+            "".format(br=Bcolors.RED + Bcolors.BOLD, bg=Bcolors.GREEN + Bcolors.BOLD, e=Bcolors.ENDC)
         usb_flashing_prompt = \
             "\n\n\t{bg}Connect next Arduino and hit 'Enter'{e} {br}[e - exit] {e}" \
             "".format(br=Bcolors.RED + Bcolors.BOLD, bg=Bcolors.GREEN + Bcolors.BOLD, e=Bcolors.ENDC)
@@ -390,6 +390,7 @@ def show_i2c_devices():
         # space after an address is needed so line "number" is not being read as an address by mistake
         print(Bcolors.GREEN)
         nodes_found = 0
+        # don't change below to 'elif' - each node is a separate instance of "found"
         if '08 ' in detected_i2c_devices:
             print("Nodes detected:")
             print(f"Node 1 found")
@@ -421,11 +422,19 @@ def show_i2c_devices():
         else:
             print(f"\nDetected nodes: {nodes_found}\n\n")
 
-        bme_found_flag, ina_found_flag = False, False
-        if '76 ' in detected_i2c_devices:
+        if '76 ' in detected_i2c_devices or '77 ' in detected_i2c_devices:
             bme_found_flag = True
-        if '40 ' in detected_i2c_devices or '41 ' in detected_i2c_devices:
-            ina_found_flag = True
+        else:
+            bme_found_flag = False
+
+        # todo below possibly can be changed to some one-liner 'if' + 'for'
+        possible_ina_addr = ['40 ', '41 ', '43 ', '44 ']
+        for item in possible_ina_addr:
+            if item in detected_i2c_devices:
+                ina_found_flag = True
+                break
+        else:
+            ina_found_flag = False
 
         if bme_found_flag or ina_found_flag:
             print("\nSensors found: ")
@@ -436,8 +445,16 @@ def show_i2c_devices():
         else:
             print("No additional sensors found")
 
-        # possible RTC addresses besides 68 are 50 - 57 - needed to be coded?
-        if '68 ' in detected_i2c_devices or 'UU ' in detected_i2c_devices:
+        # todo below possibly can be changed to some one-liner 'if' + 'for'
+        possible_rtc_addr = ['68 ', 'UU ', '50 ', '51 ', '52 ', '53 ', '54 ', '55 ', '56 ', '57 ']
+        for item in possible_rtc_addr:
+            if item in detected_i2c_devices:
+                rtc_found_flag = True
+                break
+        else:
+            rtc_found_flag = False
+
+        if rtc_found_flag:
             print(f"\n\nRTC (DS3231 or PCF8523 or DS1307) found")
         else:
             print("\n\nNo RTC found")
@@ -473,9 +490,6 @@ def check_uart_con_with_gpio_node(config):
     print(f"\n\t\t\t{Bcolors.BOLD}Node {config.nodes_number} - checked{Bcolors.ENDC}\n\n")
     sleep(1)
     input("\nPress ENTER to continue")
-
-
-# todo test gpio uart connection testing
 
 
 def check_uart_devices(config):  # nodes have to be 'auto-numbered'
