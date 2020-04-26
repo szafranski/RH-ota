@@ -390,6 +390,7 @@ def show_i2c_devices():
         # space after an address is needed so line "number" is not being read as an address by mistake
         print(Bcolors.GREEN)
         nodes_found = 0
+        # don't change below to 'elif' - each node is a separate instance of "found"
         if '08 ' in detected_i2c_devices:
             print("Nodes detected:")
             print(f"Node 1 found")
@@ -489,9 +490,6 @@ def check_uart_con_with_gpio_node(config):
     print(f"\n\t\t\t{Bcolors.BOLD}Node {config.nodes_number} - checked{Bcolors.ENDC}\n\n")
     sleep(1)
     input("\nPress ENTER to continue")
-
-
-# todo test gpio uart connection testing
 
 
 def check_uart_devices(config):  # nodes have to be 'auto-numbered'
