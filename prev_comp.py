@@ -24,8 +24,6 @@ def aliases_clean(start, end, file_name, *words):
         with open(file_name, 'w') as write_obj:
             write_obj.write("".join(write_lines))
             return False
-    else:
-        pass
 
 
 def main():

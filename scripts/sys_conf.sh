@@ -91,12 +91,13 @@ spi_error(){
 }
 
 i2c_enabling(){
-  echo "dtparam=i2c_baudrate=75000
-  core_freq=250
-  i2c-bcm2708
-  i2c-dev
-  dtparam=i2c1=on
-  dtparam=i2c_arm=on
+  echo "
+dtparam=i2c_baudrate=75000
+core_freq=250
+i2c-bcm2708
+i2c-dev
+dtparam=i2c1=on
+dtparam=i2c_arm=on
   " | sudo tee -a /boot/config.txt || return 1
   sudo sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf || return 1
   is_pi_4 || is_pi_4_error
