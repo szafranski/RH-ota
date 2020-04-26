@@ -318,8 +318,8 @@ def first_flashing(config):
 
     def flash_node_first_time(port):
         uart_flashing_prompt = \
-            "\n\n\t{bg}Hit 'Enter' and push reset button on next node after a second {e}{br}[e - exit] {e}".\
-            format(br=Bcolors.RED + Bcolors.BOLD, bg=Bcolors.GREEN + Bcolors.BOLD, e=Bcolors.ENDC)
+            "\n\n\t{bg}Hit 'Enter' and push reset button on next node after a second {e}{br}[e - exit] {e}" \
+            "".format(br=Bcolors.RED + Bcolors.BOLD, bg=Bcolors.GREEN + Bcolors.BOLD, e=Bcolors.ENDC)
         usb_flashing_prompt = \
             "\n\n\t{bg}Connect next Arduino and hit 'Enter'{e} {br}[e - exit] {e}" \
             "".format(br=Bcolors.RED + Bcolors.BOLD, bg=Bcolors.GREEN + Bcolors.BOLD, e=Bcolors.ENDC)
@@ -421,9 +421,10 @@ def show_i2c_devices():
         else:
             print(f"\nDetected nodes: {nodes_found}\n\n")
 
-        bme_found_flag, ina_found_flag = False, False
         if '76 ' in detected_i2c_devices or '77 ' in detected_i2c_devices:
             bme_found_flag = True
+        else:
+            bme_found_flag = False
 
         # todo below possibly can be changed to some one-liner 'if' + 'for'
         possible_ina_addr = ['40 ', '41 ', '43 ', '44 ']
@@ -442,9 +443,9 @@ def show_i2c_devices():
                 print(f"INA 219 found")
         else:
             print("No additional sensors found")
-            
+
         # todo below possibly can be changed to some one-liner 'if' + 'for'
-        possible_rtc_addr = ['68 ', 'UU ','50 ','51 ','52 ','53 ','54 ','55 ','56 ','57 ']
+        possible_rtc_addr = ['68 ', 'UU ', '50 ', '51 ', '52 ', '53 ', '54 ', '55 ', '56 ', '57 ']
         for item in possible_rtc_addr:
             if item in detected_i2c_devices:
                 rtc_found_flag = True
