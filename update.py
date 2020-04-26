@@ -4,8 +4,8 @@ from time import sleep
 
 from conf_wizard_net import conf_wizard_net
 from conf_wizard_ota import conf_ota
-from modules import clear_the_screen, Bcolors, logo_top, triangle_image_show, ota_asci_image_show, load_config, load_ota_sys_markers, \
-    write_ota_sys_markers, get_ota_version
+from modules import clear_the_screen, Bcolors, logo_top, triangle_image_show, ota_asci_image_show, load_config, \
+    load_ota_sys_markers, write_ota_sys_markers, get_ota_version
 from rpi_update import main_window as rpi_update
 from nodes_flash import flashing_menu
 from nodes_update_old import nodes_update as old_flash_gpio

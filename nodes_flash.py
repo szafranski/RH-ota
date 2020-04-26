@@ -56,16 +56,16 @@ def odd_number_of_nodes_check(config):
 
 
 def show_flash_error_msg():
-    flash_error = f'"\n\n{Bcolors.RED}    !!! ---- Flashing error - try again ---- !!! {Bcolors.ENDC}\n\n"'
+    flash_error = f'printf "\n\n{Bcolors.RED}    !!! ---- Flashing error - try again ---- !!! {Bcolors.ENDC}\n\n"'
     return flash_error
 
 
 def show_uart_con_error_msg():
-    uart_error = f'"\n\n{Bcolors.RED}    !!! ---- No UART connection with a device ---- !!! {Bcolors.ENDC}\n\n"'
+    uart_error = f'printf "\n\n{Bcolors.RED}    !!! ---- No UART connection with a device ---- !!! {Bcolors.ENDC}\n\n"'
     return uart_error
 
 
-def flash_blink(config):
+def flash_blink_onto_a_node(config):
     os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
     flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i || {show_flash_error_msg()}")
 
@@ -167,7 +167,7 @@ def flash_blink_on_a_specific_node(config, selected_node_number):
     prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
     print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
           f"flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i ")
-    flash_blink(config) if not config.debug_mode else None
+    flash_blink_onto_a_node(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - flashed{Bcolors.ENDC}\n\n")
     sleep(2)
 
@@ -191,7 +191,7 @@ def flash_blink_onto_gpio_node(config):
     reset_gpio_pin(config.gpio_reset_pin)
     print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
           f"flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i ")
-    flash_blink(config) if not config.debug_mode else None
+    flash_blink_onto_a_node(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {x} - flashed{Bcolors.ENDC}\n\n")
     sleep(2)
 
