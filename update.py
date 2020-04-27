@@ -410,10 +410,12 @@ def show_about(config):
         print(welcome_first_page)
         selection = input()
         if selection == 'c':
-            conf_ota(config)
+            config = conf_ota(config)
             break
         elif selection == 'e':
             break
+
+    return config
 
 
 def end():
@@ -469,7 +471,7 @@ def main_menu(config):
         elif selection == '3':
             features_menu(config)
         elif selection == '4':
-            show_about(config)
+            config = show_about(config)
         elif selection == 'e':
             end()
 
