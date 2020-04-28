@@ -483,6 +483,9 @@ def main():
     welcome_screen(config)
     main_menu(config)
 
+def app_update():
+    content = main()
+    return content
 
 if __name__ == "__main__":
     main()
