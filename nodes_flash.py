@@ -443,7 +443,8 @@ def flashing_menu(config):
                     
                     5 - Check all UART connected devices
             
-            {yellow}e - Exit to main menu{endc}\n
+            {yellow}e - Exit to main menu{endc}
+            
             """.format(bold=Bcolors.BOLD_S, green=Bcolors.GREEN_S, yellow=Bcolors.YELLOW_S,
                        endc=Bcolors.ENDC, red=Bcolors.RED_S, underline=Bcolors.UNDERLINE_S,
                        rmh=Bcolors.RED_MENU_HEADER)
