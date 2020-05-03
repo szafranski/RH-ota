@@ -58,8 +58,16 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
     rm tempota.zip
     mv RH-ota-* RH-ota
     chmod +x ~/RH-ota/ota.sh
+
+##### In case of errors during "wget" please try: 
+    First: make sure that you have internet connection established
     
-#### Commands to open the software:
+    Second:
+    sudo apt update
+    sudo apt upgrade -y
+    sudo apt install wget
+    
+#### Commands to open the software after successful installation:
     
     cd ~/RH-ota
     ./ota.sh
