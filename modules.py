@@ -41,19 +41,19 @@ def percent_count():
         time.sleep(0.05)
 
 
-def image_show():
+def triangle_image_show():
     with open('./resources/image.txt', 'r') as logo:
         f = logo.read()
         print(f"{Bcolors.YELLOW}{f}{Bcolors.ENDC}")
 
 
-def ota_image():
+def ota_asci_image_show():
     with open('./resources/ota_image.txt', 'r') as file:
         f = file.read()
         print(f)
 
 
-def check_if_string_in_file(file_name, string_to_search):
+def check_if_string_is_in_file(file_name, string_to_search):
     with open(file_name, 'r') as read_obj:
         for line in read_obj:
             if string_to_search in line:
@@ -117,7 +117,7 @@ def internet_check():
     for i in range(3):
         try:
             response = requests.get('https://github.com')
-        except Exception as e:
+        except Exception:
             response = False
 
         if response and response.status_code == requests.codes.ok:
@@ -162,7 +162,7 @@ def server_start():
     else:
         clear_the_screen()
         print("Server is already running as a service")
-        selection = input("Do you want to stop it and than start the server? [y/n] ")
+        selection = input("Do you want to stop it and than start the server again? [y/n] ")
         if selection == 'y':
             os.system("sudo systemctl stop rotorhazard")
             print("Server service stopped. Please wait.\n")

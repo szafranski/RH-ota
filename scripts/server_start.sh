@@ -18,11 +18,16 @@ error_handling(){
 
   echo "
 
-LOOKS LIKE ERROR OCCURRED (or server was stopped with keyboard interrupt)
+LOOKS LIKE ERROR OCCURRED
 
-Please try:
-manually enable I2C interface with 'sudo raspi-config'
-manually change RH directory permissions with 'sudo chmod -R 777 ~/RotorHazard'
+You may want to try:
+- manually enable I2C interface with 'sudo raspi-config'
+- manually change RH directory permissions with 'sudo chmod -R 777 ~/RotorHazard'
+- if you see 'sqlalchemy.exc.OperiationalError' you may try to remove old 'database.db'
+file from '~/RotorHazard/src/server/' directory and attempt to restart the server then
+
+-- If you just stopped the server with a keyboard (Ctrl+C) - ignore that message --
+
 "
 read -p "Hit Enter to exit now " var
 }

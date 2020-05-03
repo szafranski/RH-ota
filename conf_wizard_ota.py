@@ -19,10 +19,10 @@ def conf_check():
             if not cont_conf:
                 print("answer defaulted to: yes")
                 break
-            elif cont_conf == 'y':
+            elif cont_conf[0] == 'y':
                 conf_now_flag = True
                 break
-            elif cont_conf == 'n':
+            elif cont_conf[0] == 'n':
                 conf_now_flag = False
                 break
             else:
@@ -33,7 +33,8 @@ def conf_check():
 
 def ask_custom_rh_version():
     while True:
-        version = input(f"\nPlease enter the version tag that you wish to install [EG: 2.1.0-beta.3]:\t")
+        version = input("\nPlease enter the version tag that you wish to install [EG: 2.1.0-beta.3]:\t")
+        print("Available firmware to flash will be defaulted to 'stable' version.\n")
         custom_confirm = input(f"""
             You entered: '{version}' 
 
@@ -42,7 +43,7 @@ def ask_custom_rh_version():
             return version
 
 
-def do_config(config):
+def do_config(old_config):
     home_dir = str(Path.home())
     clear_the_screen()
     logo_top(False)
@@ -124,18 +125,18 @@ which pin will be used as GPIO reset pin?
 
         while True:
             debug_mode = input("\nWill you use OTA software in a debug mode? [y/N | default: no]\t\t").lower()
-            if debug_mode.lower() not in ['y', 'n', '']:
-                print("\nPlease enter correct value!")
-                continue
-            elif not debug_mode:
-                debug_mode = False
+            if not debug_mode:
+                config.debug_mode = False
                 print("defaulted to: no")
-            elif debug_mode == 'y':
-                debug_mode = True
+                break
+            elif debug_mode[0] == 'y':
+                config.debug_mode = True
+                break
+            elif debug_mode[0] == 'n':
+                config.debug_mode = False
+                break
             else:
-                debug_mode = False
-            config.debug_mode = debug_mode
-            break
+                print("\nPlease enter correct value!")
 
         if debug_mode:
             debug_user_name = input("\nWhat is your user name on debugging OS? \t\t\t\t")
@@ -146,30 +147,32 @@ which pin will be used as GPIO reset pin?
             old_hardware_mod = input("""
 Are you using older, non-i2c hardware flashing mod? 
 (nodes reset pins connected to gpio pins) [ y/N | default: no ]\t\t""").lower()
-            if old_hardware_mod == "y":
-                old_hardware_mod, config.old_hw_mod = True, True
-                break
-            elif old_hardware_mod == "n":
-                old_hardware_mod, config.old_hw_mod = False, False
-                break
-            elif not old_hardware_mod:
+            if not old_hardware_mod:
                 old_hardware_mod, config.old_hw_mod = False, False
                 print("defaulted to: no")
+                break
+            elif old_hardware_mod[0] == "y":
+                old_hardware_mod, config.old_hw_mod = True, True
+                break
+            elif old_hardware_mod[0] == "n":
+                old_hardware_mod, config.old_hw_mod = False, False
                 break
             else:
                 print("\nPlease enter correct value!")
 
         while old_hardware_mod:
             gpio_pins_assign = input("\nPins assignment? [default/custom/PCB | default: default]\t\t").lower()
-            pins_valid_options = ['default', 'PCB', 'pcb', 'custom']
-            if gpio_pins_assign not in pins_valid_options:
+            pins_valid_options = ['default', 'pcb', 'custom']
+            if not gpio_pins_assign:
+                config.pins_assignment = 'default'
+                print("defaulted to: default")
+                break
+            elif gpio_pins_assign not in pins_valid_options:
                 print("\nPlease enter correct value!")
                 continue
-            elif not gpio_pins_assign:
-                config.pins_assignment = 'default'
             else:
                 config.pins_assignment = gpio_pins_assign
-            break
+                break
         else:
             config.pins_assignment = 'default'
 
@@ -179,10 +182,10 @@ Are you using older, non-i2c hardware flashing mod?
                 config.beta_tester = False
                 print("defaulted to: no")
                 break
-            elif user_is_beta_tester == 'y':
+            elif user_is_beta_tester[0] == 'y':
                 config.beta_tester = True
                 break
-            elif user_is_beta_tester == 'n':
+            elif user_is_beta_tester[0] == 'n':
                 config.beta_tester = False
                 break
             else:
@@ -209,7 +212,7 @@ Are you using older, non-i2c hardware flashing mod?
             if selection in valid_options:
                 break
             else:
-                print("\nwrong command. please type yes/abort/change")
+                print("\ntoo big fingers ;) - please type yes/abort/change")
         if selection[0] == 'y':
             write_json(config, f"{home_dir}/RH-ota/updater-config.json")
             # Once we write out the json config we should re-load it just
@@ -225,7 +228,10 @@ Are you using older, non-i2c hardware flashing mod?
             sleep(0.5)
             conf_now_flag = 0
 
-    return conf_now_flag, config
+        # Must return the new config from inside the if statements variable context.
+        return conf_now_flag, config
+    # Return the old config without change.
+    return conf_now_flag, old_config
 
 
 def conf_ota(config):

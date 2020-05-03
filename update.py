@@ -4,8 +4,8 @@ from time import sleep
 
 from conf_wizard_net import conf_wizard_net
 from conf_wizard_ota import conf_ota
-from modules import clear_the_screen, Bcolors, logo_top, image_show, ota_image, load_config, load_ota_sys_markers, \
-    write_ota_sys_markers, get_ota_version, server_start
+from modules import clear_the_screen, Bcolors, logo_top, triangle_image_show, ota_asci_image_show, load_config, \
+    load_ota_sys_markers, write_ota_sys_markers, get_ota_version
 from rpi_update import main_window as rpi_update
 from nodes_flash import flashing_menu
 from nodes_update_old import nodes_update as old_flash_gpio
@@ -19,8 +19,8 @@ def compatibility():  # adds compatibility and fixes with previous versions
 def config_check():
     if not os.path.exists("./updater-config.json"):
         prompt = """
-          {prompt}  Looks that you haven't set up config file yet.     {endc}
-          {prompt}  Please enter configuration wizard - point 5  {endc}"""\
+          {prompt}  Looks that you haven't set up config file yet.  {endc}
+          {prompt}  Please enter configuration wizard - point 4     {endc}"""\
             .format(prompt=Bcolors.PROMPT, endc=Bcolors.ENDC)
         print(prompt)
         return False
@@ -102,30 +102,41 @@ User code: {code}
 
 
 def updated_check(config):
-    while os.path.exists(f"/home/{config.user}/.ota_markers/.was_updated"):
+    updated_recently_with_new_version_flag = os.path.exists(f"/home/{config.user}/.ota_markers/.was_updated_new")
+    # true if self update was performed and new version was available to downloaded
+    updated_recently_with_old_version_flag = os.path.exists(f"/home/{config.user}/.ota_markers/.was_updated_old")
+    # true if self update was performed and version was not available to downloaded
+    if updated_recently_with_new_version_flag:
         clear_the_screen()
         logo_top(config.debug_mode)
         print("""\n\n {bold}
         
-        Software was updated recently to the new version.
-
-        You can read update notes now.
-
-
-         {endc}  {green} 
-            r - Read update notes {endc}{yellow}
-
-            s - Skip and don't show again{endc}
+            Software was updated recently to the new version.
+    
+            You can read update notes now.
+    
+    
+             {endc}  {green} 
+                r - Read update notes {endc}{yellow}
+    
+                s - Skip and don't show again{endc}
             """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC,
                        green=Bcolors.GREEN, yellow=Bcolors.YELLOW))
-        selection = input()
-        if selection == 'r':
-            os.system("less ./docs/update-notes.txt")
-            os.system(f"rm /home/{config.user}/.ota_markers/.was_updated >/dev/null 2>&1")
-            break
-        elif selection == 's':
-            os.system(f"rm /home/{config.user}/.ota_markers/.was_updated >/dev/null 2>&1")
-            break
+        while True:
+            selection = input()
+            if selection == 'r':
+                os.system("less ./docs/update-notes.txt")
+                sleep(0.5)
+                break
+            elif selection == 's':
+                break
+    os.system(f"rm /home/{config.user}/.ota_markers/.was_updated_new >/dev/null 2>&1")
+    os.system(f"rm /home/{config.user}/.ota_markers/.was_updated_old >/dev/null 2>&1")
+    if updated_recently_with_new_version_flag or updated_recently_with_old_version_flag:
+        os.system("rm ./.first_time_here > /dev/null 2>&1")
+        return True
+    else:
+        return False
 
 
 def welcome_screen(config):
@@ -148,13 +159,18 @@ def welcome_screen(config):
                                                             szafran                                                
     {endc}""".format(bold=Bcolors.BOLD, red=Bcolors.RED, green=Bcolors.GREEN, endc=Bcolors.ENDC)
 
-    while os.path.exists("./.first_time_here"):
+    first_time_flag = os.path.exists("./.first_time_here")
+    while first_time_flag and not updated_check(config):
         clear_the_screen()
         logo_top(config.debug_mode)
         print(welcome_message)
         selection = input(f"\n\t\t\t{Bcolors.GREEN}Open next page by typing 'n'{Bcolors.ENDC}\n\n").lower()
         if selection == 'n':
             os.system("rm ./.first_time_here")
+            first_time_flag = False #  done that way so after configuration user won't be redirected back here
+            show_about(config)
+        if selection == 'f': # helpful when troubleshooting, going further without changing the folder contents
+            first_time_flag = False
             show_about(config)
 
 
@@ -165,10 +181,10 @@ def welcome_screen(config):
 """
 
 
-def opening_screen(updater_version):
+def splash_screen(updater_version):
     clear_the_screen()
     print("\n\n")
-    image_show()
+    triangle_image_show()
     print(f"\t\t\t{Bcolors.BOLD} Updater version: {str(updater_version)}{Bcolors.ENDC}")
     sleep(1)
 
@@ -315,7 +331,7 @@ def self_updater(config):
         if selection == 'e':
             break
         elif selection == 'u':
-            os.system(". ./scripts/updater_from_ota.sh")
+            os.system("./scripts/updater_from_ota.sh")
 
 
 def features_menu(config):
@@ -359,7 +375,7 @@ def features_menu(config):
                 attribute_error_handling()
         elif selection == '5':
             self_updater(config)  # todo better "wrong user name" handling and added here too
-        elif selection == '6':
+        elif selection == '6':    # maybe add a general checking if username is setup right?
             log_to_dev(config)
         elif selection == 'e':
             break
@@ -398,14 +414,17 @@ def show_about(config):
         selection = input()
         if selection == 'c':
             config = conf_ota(config)
+            break
         elif selection == 'e':
             break
+
+    return config
 
 
 def end():
     clear_the_screen()
     print("\n\n")
-    ota_image()
+    ota_asci_image_show()
     print(f"\t\t\t{Bcolors.BOLD}Happy flyin'!{Bcolors.ENDC}\n")
     sleep(1.3)
     clear_the_screen()
@@ -425,14 +444,12 @@ def main_menu(config):
                         1 - RotorHazard Manager
                             
                         2 - Nodes flash and update {endc}{bold}
+                                                        
+                        3 - Additional features{configured}
                             
-                        3 - Start the server now
-                            
-                        4 - Additional features{configured}
-                            
-                        5 - Configuration wizard{endc}{bold}{yellow}
+                        4 - Configuration wizard{endc}{bold}{yellow}
                                                 
-                        e - Exit {endc}
+                        e - Exit to Raspbian{endc}
                             
                 """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, green=Bcolors.GREEN,
                            blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, configured=conf_color,
@@ -455,24 +472,20 @@ def main_menu(config):
             except AttributeError:
                 attribute_error_handling()
         elif selection == '3':
-            server_start()
-        elif selection == '4':
             features_menu(config)
-        elif selection == '5':
-            show_about(config)
+        elif selection == '4':
+            config = show_about(config)
         elif selection == 'e':
             end()
-        elif selection == 'f':  # welcome page will be opened next time - hidden option
-            os.system("here >> ./.first_time_here")
 
 
 def main():
     compatibility()
     updater_version = get_ota_version(False)
     config = load_config()
-    opening_screen(updater_version)
-    welcome_screen(config)
+    splash_screen(updater_version)
     updated_check(config)
+    welcome_screen(config)
     main_menu(config)
 
 

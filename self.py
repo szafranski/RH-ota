@@ -11,9 +11,16 @@ def make_directories_accessible(config):
     os.system(f"sudo chmod -R 777 {ota_dir} > /dev/null 2>&1") if os.stat(ota_dir).st_uid == 0 else None
 
 
-def self_update(config, internet_flag):
+def self_update(config):
+    internet_flag = internet_check()
     if not internet_flag:
-        print(f"\t{Bcolors.RED}Looks like you don't have internet connection. Update canceled.{Bcolors.ENDC}\n")
+        print(f"\t{Bcolors.RED}Looks like you don't have internet connection.{Bcolors.ENDC}")
+        sleep(0.5)
+        os.system("./scripts/net_fixer.sh")
+        print("Trying again...")
+        internet_flag = internet_check()
+    if not internet_flag:  # don't change to 'elif' - it is second check after a repair!
+        print(f"\t{Bcolors.RED}Looks like you still don't have internet connection. Update canceled.{Bcolors.ENDC}")
         sleep(2)
     else:
         print(f"\t\t{Bcolors.GREEN}Internet connection - OK{Bcolors.ENDC}\n")
@@ -45,13 +52,14 @@ def self_update(config, internet_flag):
         os.system("cp ~/.ota_markers/old_RH-ota/updater-config.json ~/RH-ota/updater-config.json")
         # it had some bug with shutil - can be changed when resolved
         if new_version_name != old_version_name:
-            os.system("echo OTA was updated > ~/.ota_markers/.was_updated")
+            os.system("echo OTA was updated > ~/.ota_markers/.was_updated_new")
+        else:
+            os.system("echo OTA was not updated > ~/.ota_markers/.was_updated_old")
 
 
 def main():
     config = load_config()
-    internet_flag = internet_check()
-    self_update(config, internet_flag)
+    self_update(config)
 
 
 if __name__ == "__main__":

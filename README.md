@@ -85,7 +85,7 @@ If not, please follow those instructions:
 <br/>
 I started this project as a way to help the community. I also found it very interesting and meaningful to explore new territories and do the best I can so end user can be satisfied to as high degree as possible. We spent long hours on testing, coding and troubleshooting. If you feel that this work was valuable and you want to say "thank you" that way, you can use
  
- [PayPal donation link](https://www.paypal.com/donate/?token=9BLz3dIwcuO_YUjh43IHLai6ZgaOD9BpDkmSfdN_1_EDeJmSEeIqnWDqdiPs27nH9SFAiW&country.x=PL&locale.x=PL). Every amount is appreciated. Remember that our help and contribution is NOT conditional :)
+ [PayPal donation link](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ULZYQPB38C8UQ&source=url). Every amount is appreciated. Remember that our help and contribution is NOT conditional :)
 <br/> 
 <br/>
 
