@@ -61,6 +61,11 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
     rm tempota.zip
     mv RH-ota-* RH-ota
 
+#### Commands to open the software after successful installation:
+    
+    cd ~/RH-ota
+    ./ota.sh
+
 ##### In case of errors - please try: 
     First: make sure that you have internet connection established
     
@@ -69,12 +74,7 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
     sudo apt upgrade -y
     sudo apt install wget zip unzip
     chmod +x ~/RH-ota/ota.sh
-
-#### Commands to open the software after successful installation:
     
-    cd ~/RH-ota
-    ./ota.sh
-
 <br/>
 We assume in our instructions and provided setup process that you already have your Raspbian OS set up. 
 If not, please follow those instructions: 
