@@ -8,24 +8,27 @@
 
 1. Wizard install/update of RotorHazard server software
      - Choose which version of RotorHazard to install
-     - Preserves existing RotorHazard config file.
-     - Backup of existing RH install.
+     - Preserves existing RotorHazard config file
+     - Backup of existing RH install
      - Automatically performs much of the RotorHazard specific Pi setup steps
 
 1. Wizard install and update of RotorHazard nodes firmware.
-     - Requires some hardware modification to enable - described [here](how_to/hw_mod_instructions.txt)
+     - Works with offcial RotorHazard PCB (in beta now) out of the box 
+     - Possible to use with older PCBs or with custom builds - described [here](how_to/hw_mod_instructions.txt)
 
 1. Automatic configuring Access Point
      - Hotspot: Configure always-on hotspot using Pi's built in Wifi 
-        - You lose the ability to connect to the internet using built in Wifi. 
+        - You lose the ability to connect to the internet using built in Wifi
      - [Auto-Hotspot:](./AUTO_HOTSPOT.md) Automatically connect to known wifi if available, or become hotspot if no network is found. 
-        - If your Pi has been configured to connect to WIFI, this option allows you to use that wifi when in range, and still create a hotspot when not in range.
+        - If your Pi has been configured to connect to WIFI, this option allows you to use that wifi when in range, and still create a hotspot when not in range
         - full explanation: [here](https://www.raspberryconnect.com/projects/65-raspberrypi-hotspot-accesspoints/158-raspberry-pi-auto-wifi-hotspot-switch-direct-connection)
 
-Helpful developer/back-end options:
-1. Installing AVRdude
+Helpful developer/back-end stuffs:
+1. Wizard setup of the OTA software
+1. Embedded self-updating feature
+1. Automatic installation of all required dependencies
 1. Adding aliases to the system
-1. Script for installing dependencies 
+1. Showing connected I2C devices
 1. Showing Raspberry GPIO in the terminal
 1. Embedded logging feature with an option to upload log file to the cloud 
 <br/>
@@ -57,16 +60,16 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
     unzip tempota.zip
     rm tempota.zip
     mv RH-ota-* RH-ota
-    chmod +x ~/RH-ota/ota.sh
 
-##### In case of errors during "wget" please try: 
+##### In case of errors - please try: 
     First: make sure that you have internet connection established
     
-    Second:
+    Next:
     sudo apt update
     sudo apt upgrade -y
-    sudo apt install wget
-    
+    sudo apt install wget zip unzip
+    chmod +x ~/RH-ota/ota.sh
+
 #### Commands to open the software after successful installation:
     
     cd ~/RH-ota
