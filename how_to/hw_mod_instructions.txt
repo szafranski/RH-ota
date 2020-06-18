@@ -19,7 +19,7 @@ Hardware steps:
     11. Connect pin TX of every node together.
     12. Connect pin RX of every node together.
     13. Connect RX line to Raspberry’s TX pin
-    14. Connect pin TX line to Raspberry’s RX using VOLTAGE DIVIDER or logic level converter.
+    14. Connect pin TX line to Raspberry’s RX pin using VOLTAGE DIVIDER or logic level converter.
 
 Software steps – on the Pi:
     1. Make sure you have internet connection on your Raspberry Pi.
