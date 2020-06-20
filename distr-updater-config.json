@@ -8,5 +8,6 @@
     "old_hw_mod" : false,
     "pins_assignment" : "default",
     "gpio_reset_pin" : false,
-    "beta_tester" : false
+    "beta_tester" : false,
+    "port_name" : "ttyS0"
 }

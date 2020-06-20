@@ -124,7 +124,9 @@ which pin will be used as GPIO reset pin?
             config.gpio_reset_pin = False
 
         while True:
-            debug_mode = input("\nWill you use OTA software in a debug mode? [y/N | default: no]\t\t").lower()
+            debug_mode = input("""
+    Will you use OTA software in a debug mode? [y/N | default: no]
+    Flashing itself is not possible in debug mode!\t\t""").lower()
             if not debug_mode:
                 debug_mode, config.debug_mode = False, False
                 print("defaulted to: no")
