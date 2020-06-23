@@ -91,7 +91,7 @@ def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
     for i in range(0, nodes_num):
         addr = addresses[i]
         print(f"\n\t\t{Bcolors.BOLD}Flashing node {i + 1} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
-        prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
+        prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
         print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U "
               f"flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version_selection(config)}/node_0.hex:i")
         flash_firmware_onto_a_node(config) if not config.debug_mode else None
@@ -114,7 +114,7 @@ def flash_custom_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numb
     for i in range(0, nodes_num):
         addr = addresses[i]
         print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {i + 1} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
-        prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
+        prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
         print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U "
               f"flash:w:/home/{config.user}/RH-ota/firmware/custom_firmware/custom_node.hex:i ")
         flash_custom_firmware_onto_gpio_node(config) if not config.debug_mode else None
@@ -131,7 +131,7 @@ def flash_custom_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numb
 def flash_firmware_on_a_specific_node(config, selected_node_number):
     addr = nodes_addresses()[selected_node_number - 1]
     print(f"\n\t\t{Bcolors.BOLD}Flashing node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
-    prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
+    prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
     print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U "
           f"flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version_selection(config)}/node_0.hex:i ")
     flash_firmware_onto_a_node(config) if not config.debug_mode else None
@@ -155,7 +155,7 @@ def flash_firmware_onto_a_gpio_node(config):
 def flash_custom_firmware_on_a_specific_node(config, selected_node_number):
     addr = nodes_addresses()[selected_node_number - 1]
     print(f"\n\t\t{Bcolors.BOLD}Flashing node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
-    prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
+    prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
     print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U "
           f"flash:w:/home/{config.user}/RH-ota/firmware/custom_firmware/custom_node.hex:i ")
     flash_custom_firmware_onto_a_node(config) if not config.debug_mode else None
@@ -167,7 +167,7 @@ def flash_custom_firmware_on_a_specific_node(config, selected_node_number):
 def flash_blink_on_a_specific_node(config, selected_node_number):
     addr = nodes_addresses()[selected_node_number - 1]
     print(f"\n\t\t{Bcolors.BOLD}Flashing node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
-    prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
+    prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
     print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U "
           f"flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i ")
     flash_blink_onto_a_node(config) if not config.debug_mode else None
@@ -491,7 +491,7 @@ def check_uart_connection():
 def check_uart_con_with_a_node(config, selected_node_number):
     addr = nodes_addresses()[selected_node_number - 1]
     print(f"\n\t\t{Bcolors.BOLD}Checking node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
-    prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
+    prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
     print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600")
     check_uart_connection() if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - checked{Bcolors.ENDC}\n\n")
@@ -517,7 +517,7 @@ def check_uart_devices(config):  # nodes have to be 'auto-numbered'
     for i in range(0, nodes_num):
         addr = addresses[i]
         print(f"\n\t\t{Bcolors.BOLD}Checking node {i + 1} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
-        prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
+        prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
         print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600")
         check_uart_connection() if not config.debug_mode else None
         print(f"\n\t\t\t{Bcolors.BOLD}Node {i + 1} - checked{Bcolors.ENDC}\n\n")
