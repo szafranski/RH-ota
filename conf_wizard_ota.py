@@ -124,7 +124,21 @@ which pin will be used as GPIO reset pin?
             config.gpio_reset_pin = False
 
         while True:
-            debug_mode = input("\nWill you use OTA software in a debug mode? [y/N | default: no]\t\t").lower()
+            flashing_port_name = input("""
+What is the name of the "flashing port" on your system?
+Usually 'ttyS0' or 'ttyAMA0' (on older OSes) [default: ttyS0]\t\t""")
+            if not flashing_port_name:
+                config.port_name = 'ttyS0'
+                print("defaulted to 'ttyS0'")
+                break
+            else:
+                config.port_name = flashing_port_name
+                break
+
+        while True:
+            debug_mode = input("""
+Will you use OTA software in a simulation mode? [y/N | default: no]
+Flashing itself is not possible in "sim" mode!\t\t\t\t""").lower()
             if not debug_mode:
                 debug_mode, config.debug_mode = False, False
                 print("defaulted to: no")
@@ -139,7 +153,7 @@ which pin will be used as GPIO reset pin?
                 print("\nPlease enter correct value!")
 
         if debug_mode:
-            debug_user_name = input("\nWhat is your user name on debugging OS? \t\t\t\t")
+            debug_user_name = input("\nWhat is your user name on sim/debug OS? \t\t\t\t")
             config.debug_user = debug_user_name
         else:
             config.debug_user = 'racer'
@@ -196,11 +210,12 @@ Are you using older, non-i2c hardware flashing mod?
 
         User name:              {config.pi_user}
         RotorHazard version:    {config.rh_version}
-        Debug user name:        {config.debug_user}
         Country code:           {config.country}
         Nodes amount:           {config.nodes_number}
+        Flashing port name:     {config.port_name}
         Old hardware mod:       {config.old_hw_mod}    
-        Debug mode:             {config.debug_mode}    
+        Simulation mode:        {config.debug_mode}    
+        Sim/Debug user name:    {config.debug_user}
         Pins assignment:        {config.pins_assignment}
         GPIO reset pin:         {config.gpio_reset_pin}
         Beta tester:            {config.beta_tester}

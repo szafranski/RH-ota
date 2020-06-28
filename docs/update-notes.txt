@@ -6,6 +6,15 @@
         ^^^^^^^^^^^^
 
 
+2.5.0a
+API-level 25 supported
+Ports name as a wizard configuration point
+
+2.3.0e
+Added „ttyAMA0” port and custom port selection in „port selection” part
+More descriptive USB first time flashing
+Debug mode changed name to simulation mode 
+
 2.3.0d
 Automatic 'nameserver' fixing implemented
 Simpler main menu, server start moved to RH Manager

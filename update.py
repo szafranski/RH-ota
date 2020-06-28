@@ -31,7 +31,8 @@ def config_check():
 def attribute_error_handling():
     err_msg = """
     
-    Looks that your username entered in the wizard is wrong.
+    Looks that your username entered in the wizard is probably wrong.
+    There may also be another json config file error present.
     
     You may also try to re-open the ota software with './ota.sh' command.
     
