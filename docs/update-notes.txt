@@ -6,6 +6,10 @@
         ^^^^^^^^^^^^
 
 
+2.5.0b
+RotorHazard 2.2.0 stable supported
+API-level 25 as stable firmware supported
+
 2.5.0a
 API-level 25 supported
 Ports name as a wizard configuration point
