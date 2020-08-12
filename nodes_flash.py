@@ -424,7 +424,7 @@ def show_i2c_devices():
         if '0e ' in detected_i2c_devices:
             print(f"Node 4 found")
             nodes_found += 1
-        if '10 :' in detected_i2c_devices:
+        if '10 ' in detected_i2c_devices:
             print(f"Node 5 found")
             nodes_found += 1
         if '12 ' in detected_i2c_devices:
