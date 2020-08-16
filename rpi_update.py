@@ -3,13 +3,13 @@ import glob
 from pathlib import Path
 from time import sleep
 from conf_wizard_rh import conf_rh
-from modules import clear_the_screen, Bcolors, image_show, internet_check, load_ota_sys_markers, \
+from modules import clear_the_screen, Bcolors, triangle_image_show, internet_check, load_ota_sys_markers, \
     write_ota_sys_markers, load_config, server_start
 
 
 def check_preferred_rh_version(config):
-    stable_release_name = '2.1.1'  # declare last stable release name here
-    beta_release_name = '2.1.0-beta.3'  # declare last beta release name here
+    stable_release_name = '2.2.0'  # declare last stable release name here
+    beta_release_name = '2.2.0-beta.3'  # declare last beta release name here
 
     if config.rh_version == 'stable':
         server_version = stable_release_name
@@ -328,7 +328,7 @@ def main_window(config):
                         pass
                 elif selection == 'a':
                     clear_the_screen()
-                    image_show()
+                    triangle_image_show()
                     sleep(0.5)
                     break
             else:
@@ -339,7 +339,7 @@ def main_window(config):
         elif selection == 'e':
             clear_the_screen()
             os.chdir(f"/home/{config.user}/RH-ota")
-            image_show()
+            triangle_image_show()
             sleep(0.3)
             break
 

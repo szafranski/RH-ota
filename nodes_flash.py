@@ -30,7 +30,7 @@ def nodes_addresses():
 def firmware_version_selection(config):
     if config.rh_version in ['stable', 'beta', 'master']:
         firmware_version = config.rh_version
-    else:  # in case of 'custom' RH version is chosen firmware defaults to 'stable'
+    else:  # in case of 'custom' RH version - firmware defaults to 'stable'
         firmware_version = 'stable'
 
     return firmware_version
@@ -56,28 +56,28 @@ def odd_number_of_nodes_check(config):
 
 
 def show_flash_error_msg():
-    flash_error = '"\n\n    !!! ---- Flashing error - try again ---- !!! \n\n"'
+    flash_error = f'printf "\n\n{Bcolors.RED}    !!! ---- Flashing error - try again ---- !!! {Bcolors.ENDC}\n\n"'
     return flash_error
 
 
 def show_uart_con_error_msg():
-    uart_error = '"\n\n    !!! ---- No UART connection with device ---- !!! \n\n"'
+    uart_error = f'printf "\n\n{Bcolors.RED}    !!! ---- No UART connection with a device ---- !!! {Bcolors.ENDC}\n\n"'
     return uart_error
 
 
-def flash_blink(config):
-    os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
+def flash_blink_onto_a_node(config):
+    os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U \
     flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i || {show_flash_error_msg()}")
 
 
-def flash_custom_firmware(config):
-    os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
+def flash_custom_firmware_onto_a_node(config):
+    os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U \
     flash:w:/home/{config.user}/RH-ota/firmware/custom_firmware/custom_node.hex:i || \
 {show_flash_error_msg()}")
 
 
-def flash_firmware(config):
-    os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
+def flash_firmware_onto_a_node(config):
+    os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U \
     flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version_selection(config)}/node_0.hex:i || \
 {show_flash_error_msg()}")
 
@@ -91,15 +91,15 @@ def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
     for i in range(0, nodes_num):
         addr = addresses[i]
         print(f"\n\t\t{Bcolors.BOLD}Flashing node {i + 1} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
-        prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
-        print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
+        prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
+        print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U "
               f"flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version_selection(config)}/node_0.hex:i")
-        flash_firmware(config) if not config.debug_mode else None
+        flash_firmware_onto_a_node(config) if not config.debug_mode else None
         print(f"\n\t\t\t{Bcolors.BOLD}Node {i + 1} - flashed{Bcolors.ENDC}\n\n")
         sleep(2)
         if odd_number and ((nodes_num - i) == 2):
             break  # breaks the "flashing loop" after last even node
-    flash_firmware_onto_gpio_node(config) if odd_number else None
+    flash_firmware_onto_a_gpio_node(config) if odd_number else None
     logo_update(config)
     input("\nDone. Press ENTER to continue ")
     sleep(1)
@@ -114,8 +114,8 @@ def flash_custom_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numb
     for i in range(0, nodes_num):
         addr = addresses[i]
         print(f"\n\t\t\t{Bcolors.BOLD}Flashing node {i + 1} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
-        prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
-        print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
+        prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
+        print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U "
               f"flash:w:/home/{config.user}/RH-ota/firmware/custom_firmware/custom_node.hex:i ")
         flash_custom_firmware_onto_gpio_node(config) if not config.debug_mode else None
         print(f"\n\t\t\t{Bcolors.BOLD}Node {i + 1} - flashed{Bcolors.ENDC}\n\n")
@@ -131,44 +131,48 @@ def flash_custom_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numb
 def flash_firmware_on_a_specific_node(config, selected_node_number):
     addr = nodes_addresses()[selected_node_number - 1]
     print(f"\n\t\t{Bcolors.BOLD}Flashing node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
-    prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
-    print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
+    prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
+    print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U "
           f"flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version_selection(config)}/node_0.hex:i ")
-    flash_firmware(config) if not config.debug_mode else None
+    flash_firmware_onto_a_node(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - flashed{Bcolors.ENDC}\n\n")
+    input("\nPress ENTER to continue")
     sleep(2)
 
 
-def flash_firmware_onto_gpio_node(config):
+def flash_firmware_onto_a_gpio_node(config):
     reset_pin = config.gpio_reset_pin
     print(f"\n\t\t{Bcolors.BOLD}Flashing node {config.nodes_number} {Bcolors.ENDC}(reset with GPIO pin: {reset_pin})\n")
     reset_gpio_pin(config.gpio_reset_pin)
-    print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
+    print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U "
           f"flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version_selection(config)}/node_0.hex:i")
-    flash_firmware(config) if not config.debug_mode else None
+    flash_firmware_onto_a_node(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {config.nodes_number} - flashed{Bcolors.ENDC}\n\n")
+    input("\nPress ENTER to continue")
     sleep(2)
 
 
 def flash_custom_firmware_on_a_specific_node(config, selected_node_number):
     addr = nodes_addresses()[selected_node_number - 1]
     print(f"\n\t\t{Bcolors.BOLD}Flashing node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
-    prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
-    print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
+    prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
+    print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U "
           f"flash:w:/home/{config.user}/RH-ota/firmware/custom_firmware/custom_node.hex:i ")
-    flash_custom_firmware(config) if not config.debug_mode else None
+    flash_custom_firmware_onto_a_node(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - flashed{Bcolors.ENDC}\n\n")
+    input("\nPress ENTER to continue")
     sleep(2)
 
 
 def flash_blink_on_a_specific_node(config, selected_node_number):
     addr = nodes_addresses()[selected_node_number - 1]
     print(f"\n\t\t{Bcolors.BOLD}Flashing node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
-    prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
-    print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
+    prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
+    print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U "
           f"flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i ")
-    flash_blink(config) if not config.debug_mode else None
+    flash_blink_onto_a_node(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - flashed{Bcolors.ENDC}\n\n")
+    input("\nPress ENTER to continue")
     sleep(2)
 
 
@@ -177,10 +181,11 @@ def flash_custom_firmware_onto_gpio_node(config):
     x = int(config.nodes_number)
     print(f"\n\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with GPIO pin: {reset_pin})\n")
     reset_gpio_pin(config.gpio_reset_pin)
-    print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
+    print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U "
           f"flash:w:/home/{config.user}/RH-ota/firmware/custom_firmware/custom_node.hex:i ")
-    flash_custom_firmware(config) if not config.debug_mode else None
+    flash_custom_firmware_onto_a_node(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {x} - flashed{Bcolors.ENDC}\n\n")
+    input("\nPress ENTER to continue")
     sleep(2)
 
 
@@ -189,10 +194,11 @@ def flash_blink_onto_gpio_node(config):
     x = int(config.nodes_number)
     print(f"\n\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with GPIO pin: {reset_pin})\n")
     reset_gpio_pin(config.gpio_reset_pin)
-    print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U "
+    print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U "
           f"flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i ")
-    flash_blink(config) if not config.debug_mode else None
+    flash_blink_onto_a_node(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {x} - flashed{Bcolors.ENDC}\n\n")
+    input("\nPress ENTER to continue")
     sleep(2)
 
 
@@ -212,7 +218,7 @@ def node_selection_menu(config):
 
                 4 - Flash node 4        8 - Flash node 8 
                             
-                   {yellow}e- Exit to main menu{endc}
+                   {yellow}e - Exit to main menu{endc}
                     
         """.format(bold=Bcolors.BOLD_S, red=Bcolors.RED_S, yellow=Bcolors.YELLOW_S, endc=Bcolors.ENDC)
         print(flash_node_menu)
@@ -291,7 +297,7 @@ def odd_node_menu(config):
         e - Exit{Bcolors.ENDC}""")
         selection = input()
         if selection == '1':
-            flash_firmware_onto_gpio_node(config)
+            flash_firmware_onto_a_gpio_node(config)
             return
         elif selection == '2':
             flash_custom_firmware_onto_gpio_node(config)
@@ -318,15 +324,15 @@ def first_flashing(config):
 
     def flash_node_first_time(port):
         uart_flashing_prompt = \
-            "\n\n\t{bg}Hit 'Enter' and push reset button on next node after a second {e}{br}[e - exit] {e}".\
-            format(br=Bcolors.RED + Bcolors.BOLD, bg=Bcolors.GREEN + Bcolors.BOLD, e=Bcolors.ENDC)
+            "\n\n\t{bg}Hit 'Enter' and push reset button on next node after a second {e}{br}[e - exit] {e}" \
+            "".format(br=Bcolors.RED + Bcolors.BOLD, bg=Bcolors.GREEN + Bcolors.BOLD, e=Bcolors.ENDC)
         usb_flashing_prompt = \
             "\n\n\t{bg}Connect next Arduino and hit 'Enter'{e} {br}[e - exit] {e}" \
             "".format(br=Bcolors.RED + Bcolors.BOLD, bg=Bcolors.GREEN + Bcolors.BOLD, e=Bcolors.ENDC)
         flashing_prompt = 0
-        if port == 'USB0':
+        if port == 'ttyUSB0':
             flashing_prompt = usb_flashing_prompt
-        elif port == 'S0':
+        else:
             flashing_prompt = uart_flashing_prompt
         while True:
             selection = input(flashing_prompt)
@@ -334,7 +340,7 @@ def first_flashing(config):
                 break
             else:
                 sleep(0.5)
-                os.system(f"timeout 10 avrdude -v -p atmega328p -c arduino -P /dev/tty{port} -b 57600 -U \
+                os.system(f"timeout 10 avrdude -v -p atmega328p -c arduino -P /dev/{port} -b 57600 -U \
                 flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version_selection(config)}/node_0.hex:i \
                 || {show_flash_error_msg()}")
 
@@ -349,21 +355,36 @@ def first_flashing(config):
         Will you flash your nodes for the first time via UART (on PCB) 
         or using USB* port? [default: UART]
 
-     {green}1 - UART{endc}{bold}
+     {green}1 - UART (port ttyS0 - default){endc}{bold}
+
+            2 - UART (port ttyAMA0 - try in case of errors)
     
-            2 - USB 
+            3 - USB (node connected to Pi's USB port)
             
+            4 - Custom port selection
             
     {yellow}e - Exit{endc} 
         
         
-        *USB can be used only if node is only device connected to the Pi 
 """.format(green=Bcolors.GREEN_S, yellow=Bcolors.YELLOW_S, bold=Bcolors.BOLD, endc=Bcolors.ENDC)
         port_selection = input(first_flash_select)
         if port_selection == '1':
-            flash_node_first_time('S0')
+            flash_node_first_time('ttyS0')
         elif port_selection == '2':
-            flash_node_first_time('USB0')
+            flash_node_first_time('ttyAMA0')
+        elif port_selection == '3':
+            usb_msg = """
+    You are about to attempt first time firmware flashing via Pi's USB port.
+    Node has to be ONLY device connected to Raspberrys's USB 
+    or connected to port named 'USB0'.
+    Note that Arduino has to be DISCONNECTED from the PCB during the operation."""
+
+            print(usb_msg)
+            input("\n\tHit Enter when you will be ready ")
+            flash_node_first_time('ttyUSB0')
+        elif port_selection == '4':
+            custom_port_selected = str(input("\n\tEnter custom port name here: "))
+            flash_node_first_time(custom_port_selected)
         elif port_selection == 'e':
             break
         else:
@@ -384,14 +405,14 @@ def show_i2c_devices():
 
         print(f"\n\t\t{Bcolors.BOLD}I2C devices found:\n")
         print(detected_i2c_devices)
-
+        print(Bcolors.ENDC)
         # done that way because of the way how python is reading/converting hex numbers
         # and how raspberry is reporting addresses
         # space after an address is needed so line "number" is not being read as an address by mistake
-        print(Bcolors.GREEN)
         nodes_found = 0
+        print("Nodes detected:")
+        # don't change below to 'elif' - each node is a separate instance of "found"
         if '08 ' in detected_i2c_devices:
-            print("Nodes detected:")
             print(f"Node 1 found")
             nodes_found += 1
         if '0a ' in detected_i2c_devices:
@@ -403,7 +424,7 @@ def show_i2c_devices():
         if '0e ' in detected_i2c_devices:
             print(f"Node 4 found")
             nodes_found += 1
-        if '10 :' in detected_i2c_devices:
+        if '10 ' in detected_i2c_devices:
             print(f"Node 5 found")
             nodes_found += 1
         if '12 ' in detected_i2c_devices:
@@ -417,47 +438,61 @@ def show_i2c_devices():
             nodes_found += 1
 
         if nodes_found == 0:
-            print("\nNo nodes detected")
+            print(f"{Bcolors.RED}\nNo nodes detected{Bcolors.ENDC}")
         else:
-            print(f"\nDetected nodes: {nodes_found}\n\n")
+            print(f"\n{Bcolors.GREEN}Detected nodes: {nodes_found}{Bcolors.ENDC}\n\n")
 
-        bme_found_flag, ina_found_flag = False, False
-        if '76 ' in detected_i2c_devices:
+        if '76 ' in detected_i2c_devices or '77 ' in detected_i2c_devices:
             bme_found_flag = True
-        if '40 ' in detected_i2c_devices or '41 ' in detected_i2c_devices:
-            ina_found_flag = True
+        else:
+            bme_found_flag = False
+
+        possible_ina_addr = ['40 ', '41 ', '43 ', '44 ']
+        for item in possible_ina_addr:
+            if item in detected_i2c_devices:
+                ina_found_flag = True
+                break
+        else:
+            ina_found_flag = False
 
         if bme_found_flag or ina_found_flag:
             print("\nSensors found: ")
             if bme_found_flag:
-                print(f"BME 280 found")
+                print(f"{Bcolors.GREEN}BME sensor 280 found{Bcolors.ENDC}")
             if ina_found_flag:
-                print(f"INA 219 found")
+                print(f"{Bcolors.GREEN}INA sensor 219 found{Bcolors.ENDC}")
         else:
             print("No additional sensors found")
 
-        # possible RTC addresses besides 68 are 50 - 57 - needed to be coded?
-        if '68 ' in detected_i2c_devices or 'UU ' in detected_i2c_devices:
-            print(f"\n\nRTC (DS3231 or PCF8523 or DS1307) found")
+        possible_rtc_addr = ['68 ', 'UU ', '50 ', '51 ', '52 ', '53 ', '54 ', '55 ', '56 ', '57 ']
+        for item in possible_rtc_addr:
+            if item in detected_i2c_devices:
+                rtc_found_flag = True
+                break
+        else:
+            rtc_found_flag = False
+
+        if rtc_found_flag:
+            print(f"{Bcolors.GREEN}\n\nRTC (DS3231 or PCF8523 or DS1307) found{Bcolors.ENDC}")
         else:
             print("\n\nNo RTC found")
 
         print(Bcolors.ENDC)
-        print(f"\n\n\t{Bcolors.RED}Press 'e' to exit to menu or {Bcolors.GREEN}hit 'Enter' to refresh{Bcolors.ENDC}")
+        print(f"\n\n\t{Bcolors.RED}Press 'e' to exit to menu {Bcolors.ENDC}or hit 'Enter' to refresh")
         selection = input("\n")
         if selection == 'e':
             break
 
 
 def check_uart_connection():
-    os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 || {show_uart_con_error_msg()}")
+    os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 || {show_uart_con_error_msg()}")
 
 
 def check_uart_con_with_a_node(config, selected_node_number):
     addr = nodes_addresses()[selected_node_number - 1]
     print(f"\n\t\t{Bcolors.BOLD}Checking node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
-    prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
-    print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600")
+    prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
+    print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600")
     check_uart_connection() if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - checked{Bcolors.ENDC}\n\n")
     sleep(1)
@@ -468,14 +503,11 @@ def check_uart_con_with_gpio_node(config):
     reset_pin = config.gpio_reset_pin
     print(f"\n\t\t{Bcolors.BOLD}Checking node {config.nodes_number} {Bcolors.ENDC}(reset with GPIO pin: {reset_pin})\n")
     reset_gpio_pin(config.gpio_reset_pin)
-    print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600")
+    print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600")
     check_uart_connection() if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {config.nodes_number} - checked{Bcolors.ENDC}\n\n")
     sleep(1)
     input("\nPress ENTER to continue")
-
-
-# todo test gpio uart connection testing
 
 
 def check_uart_devices(config):  # nodes have to be 'auto-numbered'
@@ -485,8 +517,8 @@ def check_uart_devices(config):  # nodes have to be 'auto-numbered'
     for i in range(0, nodes_num):
         addr = addresses[i]
         print(f"\n\t\t{Bcolors.BOLD}Checking node {i + 1} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
-        prepare_mate_node(addr) if not config.debug_mode else print("debug mode")
-        print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600")
+        prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
+        print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600")
         check_uart_connection() if not config.debug_mode else None
         print(f"\n\t\t\t{Bcolors.BOLD}Node {i + 1} - checked{Bcolors.ENDC}\n\n")
         sleep(1)

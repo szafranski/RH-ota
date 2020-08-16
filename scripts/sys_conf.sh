@@ -91,12 +91,13 @@ spi_error(){
 }
 
 i2c_enabling(){
-  echo "dtparam=i2c_baudrate=75000
-  core_freq=250
-  i2c-bcm2708
-  i2c-dev
-  dtparam=i2c1=on
-  dtparam=i2c_arm=on
+  echo "
+dtparam=i2c_baudrate=75000
+core_freq=250
+i2c-bcm2708
+i2c-dev
+dtparam=i2c1=on
+dtparam=i2c_arm=on
   " | sudo tee -a /boot/config.txt || return 1
   sudo sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf || return 1
   is_pi_4 || is_pi_4_error
@@ -122,6 +123,8 @@ i2c_error(){
 }
 
 uart_enabling(){
+  sudo cp /boot/cmdline.txt /boot/cmdline.txt.dist
+  sudo cp /boot/config.txt /boot/config.txt.dist
   echo 'enable_uart=1'| sudo tee -a /boot/config.txt || return 1
   sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt || return 1
   printf "
@@ -173,6 +176,6 @@ reboot_message(){
 if [ "${1}" = "all" ]; then
   ssh_enabling || ssh_error
   spi_enabling || spi_error
-  i2c_enabling || spi_error
+  i2c_enabling || i2c_error
   uart_enabling || uart_error
 fi

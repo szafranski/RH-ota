@@ -41,19 +41,19 @@ def percent_count():
         time.sleep(0.05)
 
 
-def image_show():
+def triangle_image_show():
     with open('./resources/image.txt', 'r') as logo:
         f = logo.read()
         print(f"{Bcolors.YELLOW}{f}{Bcolors.ENDC}")
 
 
-def ota_image():
+def ota_asci_image_show():
     with open('./resources/ota_image.txt', 'r') as file:
         f = file.read()
         print(f)
 
 
-def check_if_string_in_file(file_name, string_to_search):
+def check_if_string_is_in_file(file_name, string_to_search):
     with open(file_name, 'r') as read_obj:
         for line in read_obj:
             if string_to_search in line:
@@ -62,7 +62,7 @@ def check_if_string_in_file(file_name, string_to_search):
 
 
 def logo_top(linux_testing):
-    debug_status = f"{Bcolors.PROMPT}Linux PC version - debug mode{Bcolors.ENDC}" if linux_testing else 29 * ' '
+    debug_status = f"{Bcolors.PROMPT}Debug 'PC' version - sim mode{Bcolors.ENDC}" if linux_testing else 29 * ' '
     print("""
     
     #######################################################################

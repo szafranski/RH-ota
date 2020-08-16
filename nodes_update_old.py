@@ -88,7 +88,7 @@ def all_pins_high(config, reset_pins):
         GPIO.output(reset_pins[7], GPIO.HIGH)
         sleep(0.05)
     else:
-        print("\n\t\t\t\t\t Linux - PC\n\n")
+        print("\n\t\t\t\t\t Linux PC - sim mode\n\n")
         sleep(0.3)
 
 

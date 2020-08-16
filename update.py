@@ -4,8 +4,8 @@ from time import sleep
 
 from conf_wizard_net import conf_wizard_net
 from conf_wizard_ota import conf_ota
-from modules import clear_the_screen, Bcolors, logo_top, image_show, ota_image, load_config, load_ota_sys_markers, \
-    write_ota_sys_markers, get_ota_version
+from modules import clear_the_screen, Bcolors, logo_top, triangle_image_show, ota_asci_image_show, load_config, \
+    load_ota_sys_markers, write_ota_sys_markers, get_ota_version
 from rpi_update import main_window as rpi_update
 from nodes_flash import flashing_menu
 from nodes_update_old import nodes_update as old_flash_gpio
@@ -31,7 +31,8 @@ def config_check():
 def attribute_error_handling():
     err_msg = """
     
-    Looks that your username entered in the wizard is wrong.
+    Looks that your username entered in the wizard is probably wrong.
+    There may also be another json config file error present.
     
     You may also try to re-open the ota software with './ota.sh' command.
     
@@ -167,6 +168,9 @@ def welcome_screen(config):
         selection = input(f"\n\t\t\t{Bcolors.GREEN}Open next page by typing 'n'{Bcolors.ENDC}\n\n").lower()
         if selection == 'n':
             os.system("rm ./.first_time_here")
+            first_time_flag = False #  done that way so after configuration user won't be redirected back here
+            show_about(config)
+        if selection == 'f': # helpful when troubleshooting, going further without changing the folder contents
             first_time_flag = False
             show_about(config)
 
@@ -181,7 +185,7 @@ def welcome_screen(config):
 def splash_screen(updater_version):
     clear_the_screen()
     print("\n\n")
-    image_show()
+    triangle_image_show()
     print(f"\t\t\t{Bcolors.BOLD} Updater version: {str(updater_version)}{Bcolors.ENDC}")
     sleep(1)
 
@@ -410,16 +414,18 @@ def show_about(config):
         print(welcome_first_page)
         selection = input()
         if selection == 'c':
-            conf_ota(config)
+            config = conf_ota(config)
             break
         elif selection == 'e':
             break
+
+    return config
 
 
 def end():
     clear_the_screen()
     print("\n\n")
-    ota_image()
+    ota_asci_image_show()
     print(f"\t\t\t{Bcolors.BOLD}Happy flyin'!{Bcolors.ENDC}\n")
     sleep(1.3)
     clear_the_screen()
@@ -469,7 +475,7 @@ def main_menu(config):
         elif selection == '3':
             features_menu(config)
         elif selection == '4':
-            show_about(config)
+            config = show_about(config)
         elif selection == 'e':
             end()
 
