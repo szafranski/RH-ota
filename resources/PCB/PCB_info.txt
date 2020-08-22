@@ -1,4 +1,0 @@
-PCB project designed in EasyEda tool. Can be opened with that editor in on-line or off-line mode.
-Gerber files will be added later.
-
-Link to the project - can be forked and modified:
