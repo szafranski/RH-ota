@@ -6,6 +6,10 @@
         ^^^^^^^^^^^^
 
 
+2.5.0c
+Small bug fixes in "configuration wizard"
+Readme added to "how_to" directory
+
 2.5.0b
 RotorHazard 2.2.0 stable supported
 API-level 25 as stable firmware supported
