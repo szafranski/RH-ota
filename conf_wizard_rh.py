@@ -50,22 +50,26 @@ If you want to use value given as default, just hit 'Enter'.
             print("defaulted to: 'rotorhazard'")
         rh_config["GENERAL"]["ADMIN_PASSWORD"] = admin_pswd
         while True:
-            led_port_nr = input("\nWhich port will you use with RotorHazard? [default: 5000]\t\t")
-            if not led_port_nr:
-                led_port_nr = 5000
+            http_port_nr = input("\nWhich port will you use with RotorHazard? [default: 5000]\t\t")
+            if not http_port_nr:
+                http_port_nr = 5000
                 print("defaulted to: 5000")
                 break
-            elif led_port_nr.isdigit():
+            elif http_port_nr.isdigit():
                 break
-            elif not led_port_nr.isdigit():
+            elif not http_port_nr.isdigit():
                 print("\nPlease enter correct value!")
-        rh_config['GENERAL']['HTTP_PORT'] = int(led_port_nr)
+        rh_config['GENERAL']['HTTP_PORT'] = int(http_port_nr)
         rh_config["SENSORS"] = {}
         rh_config["LED"] = {}
 
         while True:
-            print("\nAre you planning to use LEDs in your system? [y/n]\n")
+            print("\nAre you planning to use LEDs in your system? [y/N]\n")
             selection = input("\t").lower()
+            if not selection:
+                led_present_flag = False
+                print("defaulted to: no")
+                break
             if selection[0] == 'y':
                 led_present_flag = True
                 break
