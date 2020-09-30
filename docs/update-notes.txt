@@ -6,6 +6,9 @@
         ^^^^^^^^^^^^
 
 
+2.5.0d
+new "static/user" directory being copied during RH update
+
 2.5.0c
 Small bug fixes in "configuration wizard"
 Readme added to "how_to" directory
