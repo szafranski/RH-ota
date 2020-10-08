@@ -6,6 +6,12 @@
         ^^^^^^^^^^^^
 
 
+2.5.0e
+Update to RotorHazard 2.3 is supported during an update
+
+2.5.0d
+New "static/user" directory being copied during RH update
+
 2.5.0c
 Small bug fixes in "configuration wizard"
 Readme added to "how_to" directory
