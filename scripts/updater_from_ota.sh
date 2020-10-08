@@ -13,6 +13,7 @@ endc="\033[0m"
 
 printf "\n\nSoftware will be automatically closed.\n"
 printf "\nWord 'Killed' may be shown.\n"
+printf "\nPlease wait...\n"
 sleep 1.2
 printf "\n\nEnter 'sudo' password if prompted.\n"
 sleep 1.2
