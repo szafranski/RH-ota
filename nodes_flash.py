@@ -493,7 +493,7 @@ def check_uart_con_with_a_node(config, selected_node_number):
     print(f"\n\t\t{Bcolors.BOLD}Checking node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
     prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
     print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600")
-    check_uart_connection() if not config.debug_mode else None
+    check_uart_connection(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - checked{Bcolors.ENDC}\n\n")
     sleep(1)
     input("\nPress ENTER to continue")
