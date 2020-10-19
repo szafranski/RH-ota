@@ -484,7 +484,7 @@ def show_i2c_devices():
             break
 
 
-def check_uart_connection():
+def check_uart_connection(config):
     os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 || {show_uart_con_error_msg()}")
 
 
@@ -504,7 +504,7 @@ def check_uart_con_with_gpio_node(config):
     print(f"\n\t\t{Bcolors.BOLD}Checking node {config.nodes_number} {Bcolors.ENDC}(reset with GPIO pin: {reset_pin})\n")
     reset_gpio_pin(config.gpio_reset_pin)
     print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600")
-    check_uart_connection() if not config.debug_mode else None
+    check_uart_connection(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {config.nodes_number} - checked{Bcolors.ENDC}\n\n")
     sleep(1)
     input("\nPress ENTER to continue")
@@ -519,7 +519,7 @@ def check_uart_devices(config):  # nodes have to be 'auto-numbered'
         print(f"\n\t\t{Bcolors.BOLD}Checking node {i + 1} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
         prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
         print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600")
-        check_uart_connection() if not config.debug_mode else None
+        check_uart_connection(config) if not config.debug_mode else None
         print(f"\n\t\t\t{Bcolors.BOLD}Node {i + 1} - checked{Bcolors.ENDC}\n\n")
         sleep(1)
         input("\nPress ENTER to continue\n")
@@ -580,3 +580,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

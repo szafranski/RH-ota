@@ -6,6 +6,9 @@
         ^^^^^^^^^^^^
 
 
+2.5.0f
+"Checking UART connection" in "flashing menu" - fixed 
+
 2.5.0e
 Update to RotorHazard 2.3 is supported during an update
 
