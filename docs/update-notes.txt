@@ -6,6 +6,9 @@
         ^^^^^^^^^^^^
 
 
+2.5.0g
+One-node systems flashing support - fixed
+
 2.5.0f
 "Checking UART connection" in "flashing menu" - fixed 
 
