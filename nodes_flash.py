@@ -88,18 +88,21 @@ def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
     nodes_num = config.nodes_number
     odd_number = odd_number_of_nodes_check(config)
     addresses = nodes_addresses()
-    for i in range(0, nodes_num):
-        addr = addresses[i]
-        print(f"\n\t\t{Bcolors.BOLD}Flashing node {i + 1} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
-        prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
-        print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U "
-              f"flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version_selection(config)}/node_0.hex:i")
-        flash_firmware_onto_a_node(config) if not config.debug_mode else None
-        print(f"\n\t\t\t{Bcolors.BOLD}Node {i + 1} - flashed{Bcolors.ENDC}\n\n")
-        sleep(2)
-        if odd_number and ((nodes_num - i) == 2):
-            break  # breaks the "flashing loop" after last even node
-    flash_firmware_onto_a_gpio_node(config) if odd_number else None
+    if nodes_num == 1:
+        flash_firmware_onto_a_gpio_node(config) if odd_number else None
+    else:
+        for i in range(0, nodes_num):
+            addr = addresses[i]
+            print(f"\n\t\t{Bcolors.BOLD}Flashing node {i + 1} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
+            prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
+            print(f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U "
+                  f"flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version_selection(config)}/node_0.hex:i")
+            flash_firmware_onto_a_node(config) if not config.debug_mode else None
+            print(f"\n\t\t\t{Bcolors.BOLD}Node {i + 1} - flashed{Bcolors.ENDC}\n\n")
+            sleep(2)
+            if odd_number and ((nodes_num - i) == 2):
+                break  # breaks the "flashing loop" after last even node
+        flash_firmware_onto_a_gpio_node(config) if odd_number else None
     logo_update(config)
     input("\nDone. Press ENTER to continue ")
     sleep(1)
