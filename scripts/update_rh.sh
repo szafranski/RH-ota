@@ -8,8 +8,8 @@ warning_show(){
 "
 }
 
-sudo -H python -m pip install --upgrade pip
-sudo -H pip install pillow
+sudo -H python -m pip3 install --upgrade pip
+sudo -H pip3 install pillow
 sudo apt-get install libjpeg-dev ntp -y
 sudo apt-get update && sudo apt-get --with-new-pkgs upgrade -y
 sudo apt autoremove -y
@@ -47,5 +47,5 @@ cp /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/database.db /home/"${1}"
 cp /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/database.db /home/"${1}"/backup_RH_data >/dev/null 2>&1 &
 cd /home/"${1}"/RotorHazard/src/server || exit
 warning_show
-sudo pip install --upgrade --no-cache-dir -r requirements.txt
+sudo pip3 install --upgrade --no-cache-dir -r requirements.txt
 
