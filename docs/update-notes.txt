@@ -6,6 +6,9 @@
         ^^^^^^^^^^^^
 
 
+2.5.0i
+Added support for RotorHazard 2.3.0 beta 3 installation 
+
 2.5.0h
 Added support for RotorHazard 2.3.0 beta 2 installation 
 
