@@ -1,4 +1,4 @@
-2.5.0h1
+2.5.0i
 
 Version of this program - it has nothing to do with the RH version.
 It refers to the API level of newest contained nodes firmware.
