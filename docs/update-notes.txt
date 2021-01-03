@@ -6,6 +6,10 @@
         ^^^^^^^^^^^^
 
 
+23.25.1a
+Changed naming scheme - described in a file "~/RH-ota/version.txt"
+Only python3 is being used to handle all RotorHazard stuff
+
 2.5.1
 Added support for RotorHazard 2.3.0 stable installation 
 
