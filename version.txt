@@ -1,9 +1,13 @@
-2.5.1
+23.25.1a
 
 Version of this program - it has nothing to do with the RH version.
-It refers to the API level of newest contained nodes firmware.
-For example version 2.2.10 contains firmware with API level 22.
-Third number refers to actual version of the OTA updater itself.
+First number refers to last stable RH version that can be installed using particular release.
+Second number is the API level of the newest contained nodes firmware.
+Third number refers to the actual version of the OTA updater itself.
+
+For example version 22.25.1a could handle installation/update of the RotorHazard server v 2.2.0,
+would contain firmware with the API level 25 and the OTA release "name" is "1a".
+Done this way so the user would know at a glance if he has to update OTA to install newer version of RH.
 
 Features and functions are described in files in /docs folder.
 
