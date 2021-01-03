@@ -8,7 +8,7 @@ warning_show(){
 "
 }
 
-sudo -H python -m pip3 install --upgrade pip
+sudo -H python3 -m pip install --upgrade pip
 sudo -H pip3 install pillow
 sudo apt-get install libjpeg-dev ntp -y
 sudo apt-get update && sudo apt-get --with-new-pkgs upgrade -y
