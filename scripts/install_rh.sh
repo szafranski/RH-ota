@@ -12,8 +12,8 @@ warning_show(){
 
 sudo apt-get update && sudo apt-get --with-new-pkgs upgrade -y
 sudo apt autoremove -y
-sudo apt install wget python2.7 ntp libjpeg-dev i2c-tools python-dev libffi-dev python-smbus build-essential python-pip git scons swig zip -y
-sudo apt install python-rpi.gpio || echo -- no python-rpi.gpio module found - available only on Pi --
+sudo apt install wget python3 ntp libjpeg-dev i2c-tools python3-dev libffi-dev python3-smbus build-essential python3-pip git scons swig zip -y
+sudo apt install python-rpi.gpio || echo -- no python-rpi.gpio module found - available only on Pi -- #to be checked
 sudo -H pip3 install cffi pillow
 cd /home/"${1}" || exit
 if [ -d "/home/${1}/RotorHazard" ]; then
@@ -39,17 +39,17 @@ cd /home/"${1}"/rpi_ws281x || exit
 warning_show
 sudo scons
 cd /home/"${1}"/rpi_ws281x/python || exit
-sudo python setup.py install
+sudo python3 setup.py install
 cd /home/"${1}" || exit
 sudo git clone https://github.com/chrisb2/pi_ina219.git
 cd /home/"${1}"/pi_ina219 || exit
 warning_show
-sudo python setup.py install
+sudo python3 setup.py install
 cd /home/"${1}" || exit
 sudo git clone https://github.com/rm-hull/bme280.git
 cd /home/"${1}"/bme280 || exit
 warning_show
-sudo python setup.py install
+sudo python3 setup.py install
 sudo apt-get install openjdk-8-jdk-headless -y
 sudo rm /lib/systemd/system/rotorhazard.service > /dev/null 2>&1
 echo
@@ -60,7 +60,7 @@ After=multi-user.target
 
 [Service]
 WorkingDirectory=/home/${1}/RotorHazard/src/server
-ExecStart=/usr/bin/python server.py
+ExecStart=/usr/bin/python3 server.py
 
 [Install]
 WantedBy=multi-user.target
