@@ -14,7 +14,7 @@ sudo apt-get update && sudo apt-get --with-new-pkgs upgrade -y
 sudo apt autoremove -y
 sudo apt install wget python2.7 ntp libjpeg-dev i2c-tools python-dev libffi-dev python-smbus build-essential python-pip git scons swig zip -y
 sudo apt install python-rpi.gpio || echo -- no python-rpi.gpio module found - available only on Pi --
-sudo -H pip install cffi pillow
+sudo -H pip3 install cffi pillow
 cd /home/"${1}" || exit
 if [ -d "/home/${1}/RotorHazard" ]; then
   # Control will enter here if $DIRECTORY exists.
@@ -31,7 +31,7 @@ rm temp.zip
 rm ~/wget* > /dev/null 2>&1
 mv /home/"${1}"/RotorHazard-"${2}" /home/"${1}"/RotorHazard || exit 1
 warning_show
-sudo -H pip install -r /home/"${1}"/RotorHazard/src/server/requirements.txt
+sudo -H pip3 install -r /home/"${1}"/RotorHazard/src/server/requirements.txt
 sudo chmod 777 -R /home/"${1}"/RotorHazard/src/server
 cd /home/"${1}" || exit
 sudo git clone https://github.com/jgarff/rpi_ws281x.git
