@@ -14,7 +14,7 @@ sudo -H pip3 install pillow
 sudo apt-get install libjpeg-dev ntp -y
 sudo apt-get update && sudo apt-get --with-new-pkgs upgrade -y
 sudo apt autoremove -y
-sudo chmod 777 "/home/${1}/RotorHazard*"
+sudo chmod -R 777 "/home/${1}/RotorHazard*"
 upgradeDate="$(date +%Y%m%d%H%M)"
 cd /home/"${1}" || exit
 if [ -d "/home/${1}/RotorHazard" ]; then
