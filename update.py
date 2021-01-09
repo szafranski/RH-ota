@@ -20,7 +20,7 @@ def config_check():
     if not os.path.exists("./updater-config.json"):
         prompt = """
           {prompt}  Looks that you haven't set up config file yet.  {endc}
-          {prompt}  Please enter configuration wizard - point 4     {endc}"""\
+          {prompt}  Please enter configuration wizard - point 4     {endc}""" \
             .format(prompt=Bcolors.PROMPT, endc=Bcolors.ENDC)
         print(prompt)
         return False
@@ -168,9 +168,9 @@ def welcome_screen(config):
         selection = input(f"\n\t\t\t{Bcolors.GREEN}Open next page by typing 'n'{Bcolors.ENDC}\n\n").lower()
         if selection == 'n':
             os.system("rm ./.first_time_here")
-            first_time_flag = False #  done that way so after configuration user won't be redirected back here
+            first_time_flag = False  # done that way so after configuration user won't be redirected back here
             show_about(config)
-        if selection == 'f': # helpful when troubleshooting, going further without changing the folder contents
+        if selection == 'f':  # helpful when troubleshooting, going further without changing the folder contents
             first_time_flag = False
             show_about(config)
 
@@ -376,7 +376,7 @@ def features_menu(config):
                 attribute_error_handling()
         elif selection == '5':
             self_updater(config)  # todo better "wrong user name" handling and added here too
-        elif selection == '6':    # maybe add a general checking if username is setup right?
+        elif selection == '6':  # maybe add a general checking if username is setup right?
             log_to_dev(config)
         elif selection == 'e':
             break
