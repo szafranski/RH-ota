@@ -50,8 +50,10 @@ How - what commands to use*:
 18. sudo apt upgrade -y
 19. sudo apt update 
 20. sudo apt dist-upgrade -y (note - it is not the same command as 2 points above)
-21. sudo reboot - you may reboot at this point but it is not required
-22. now everything should work - you can check python3 version - as described 
+21. sudo apt autoremove
+22. sudo reboot - you may reboot at this point but it is not required
+
+Now everything should work - you can check python3 version - as described 
 at the top of this document 
 
 * If you get some prompts during update etc. you have to answer accordingly. 
