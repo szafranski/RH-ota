@@ -12,7 +12,7 @@ printf "\n"
 }
 
 ### wrong python version (obsolete os) error handling
-python36error(){
+old_python_error_message(){
 echo "
 
 
@@ -139,4 +139,4 @@ else
   echo python3-smbus has to be installed && pip3 install smbus
 fi
 
-python3 update.py || python36error
+python3 update.py || old_python_error_message
