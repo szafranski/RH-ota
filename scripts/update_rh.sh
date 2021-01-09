@@ -8,7 +8,7 @@ warning_show(){
 "
 }
 
-sudo -H python -m pip3 install --upgrade pip
+sudo -H python -m pip3 install --upgrade pip || echo "no pip3 module - skipping to pip"
 sudo -H python -m pip install --upgrade pip
 sudo -H pip install pillow
 sudo apt-get install libjpeg-dev ntp -y
