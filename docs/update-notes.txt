@@ -6,6 +6,10 @@
         ^^^^^^^^^^^^
 
 
+2.5.2
+Small pip installation bug fixes
+Last "old python for RotorHazard" version of OTA 
+
 2.5.1
 Added support for RotorHazard 2.3.0 stable installation 
 

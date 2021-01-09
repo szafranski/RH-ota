@@ -218,7 +218,7 @@ def update(config):
                 return
         else:
             clear_the_screen()
-            print(f"\n\t{Bcolors.BOLD}Updating existing installation - please wait...{Bcolors.ENDC} \n")
+            print(f"\n\n\t{Bcolors.BOLD}Updating existing installation - please wait...{Bcolors.ENDC} \n\n")
             os.system(f"./scripts/update_rh.sh {config.user} {check_preferred_rh_version(config)}")
             config_flag, config_soft = check_rotorhazard_config_status(config)
             server_installed_flag, server_version_name = get_rotorhazard_server_version(config)
