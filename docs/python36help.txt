@@ -38,13 +38,15 @@ How - what commands to use:
 7. sudo nano sources.list
 8. change word "stretch" to "buster" (only that word, keep spaces etc in place)
 9. save - Ctrl + S and than Ctrl + X
-10. cd /etc/apt/sources.list.d
-11. sudo nano raspi.list
-12. change word "stretch" to "buster" (only that word, keep spaces etc in place)
-13. save - Ctrl + S and than Ctrl + X
-14. cd ~
-15. sudo apt update 
-16. sudo apt upgrade -y
-17. sudo reboot - you may reboot at this point but it is not required
-18. now everything should work - you can check python3 version - as described 
+10. confirm changes with: cat /etc/apt/sources.list
+11. cd /etc/apt/sources.list.d
+12. sudo nano raspi.list
+13. change word "stretch" to "buster" (only that word, keep spaces etc in place)
+14. save - Ctrl + S and than Ctrl + X
+15. confirm changes with: cat /etc/apt/sources.list.d/raspi.list
+16. cd ~
+17. sudo apt update 
+18. sudo apt upgrade -y
+19. sudo reboot - you may reboot at this point but it is not required
+20. now everything should work - you can check python3 version - as described 
 at the top of this document 
