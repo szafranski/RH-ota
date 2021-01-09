@@ -10,6 +10,9 @@
 1. Changed naming scheme - described in a file "~/RH-ota/version.txt"
 (user knows at a glance if he has to update OTA to install newer RH)
 2. Only python3 is being used to handle all RotorHazard stuff
+3. Implemented automatic transition to python3 for RotorHazard during update
+4. Better error handling and tutorial in case of obsolete OS
+5. Some visual and grammar-related tweaks and fixes
 
 2.5.1
 Added support for RotorHazard 2.3.0 stable installation 
