@@ -17,3 +17,6 @@ fi
 else
     echo "no RotorHazard autostart service found - no changes"
 fi
+
+# below ensures that if user had "server start" alias added it will be updated as well
+sed -i 's/python server.py/python3 server.py/g' ~/.bashrc
