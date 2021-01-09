@@ -19,9 +19,10 @@ echo "
 If you see SyntaxError above there is a chance that you use python 3.5 or lower.
 This software requires python 3.6 or higher. You can manually update apt sources
 for your OS - that process is described with details in the file 
-'~/RH-ota/docs/python36help.txt' - check here or on GitHub. 
+'~/RH-ota/docs/python36help.txt' - check here or on the GitHub repo page.
+
 You could also just burn SD-Card with Raspbian Buster (10) or newer since those
-support python 3.6+ natively. Using newer OS is adviced anyways.
+support python 3.6+ natively. Using newer OS is advised anyways.
 
 If you want to check current Raspbian OS version - type: cat /etc/os-release
 
