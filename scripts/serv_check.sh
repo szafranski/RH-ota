@@ -18,7 +18,7 @@ else
     echo "no RotorHazard autostart service found - no changes"
 fi
 
-
+printf "\n"
 
 if grep -Fxq "python server.py" "/home/"$USER"/.bashrc"; then
     echo "old python based server-start alias found"
