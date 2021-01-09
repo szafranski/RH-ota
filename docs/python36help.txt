@@ -29,7 +29,7 @@ many megs of data and install it. Going that route should keep all your user
 folder directory files in place. It can be also very benefitial when using boards
 like Banana Pi etc. - those often doesn't offer newest Raspbian OS versions.
 
-How - what commands to use:
+How - what commands to use*:
 1. cd ~
 2. sudo apt update
 3. sudo apt upgrade -y
@@ -48,6 +48,12 @@ How - what commands to use:
 16. cd ~
 17. sudo apt update 
 18. sudo apt upgrade -y
-19. sudo reboot - you may reboot at this point but it is not required
-20. now everything should work - you can check python3 version - as described 
+19. sudo apt update 
+20. sudo apt dist-upgrade -y (note - it is not the same command as 2 points above)
+21. sudo reboot - you may reboot at this point but it is not required
+22. now everything should work - you can check python3 version - as described 
 at the top of this document 
+
+* If you get some prompts during update etc. you have to answer accordingly. 
+Please read asked question. But don't worry - giving "wrong" answers should not
+be very "dangerous". :)
