@@ -12,7 +12,7 @@ warning_show(){
 
 sudo apt-get update && sudo apt-get --with-new-pkgs upgrade -y
 sudo apt autoremove -y
-sudo apt install wget python3 ntp libjpeg-dev libffi-dev build-essential git scons swig zip i2c-tools python3-smbus python3-pip python3-dev -y
+sudo apt install wget python3 ntp htop libjpeg-dev libffi-dev build-essential git scons swig zip i2c-tools python3-smbus python3-pip python3-dev -y
 sudo apt install python-rpi.gpio || echo -- no python-rpi.gpio module found - available only on Pi -- #to be checked
 sudo -H pip3 install cffi pillow
 cd /home/"${1}" || exit
