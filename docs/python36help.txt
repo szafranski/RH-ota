@@ -25,8 +25,9 @@ How: Just google 'burning Raspberry SD card' etc :)
 
 3. Changing apt sources to newer OS despite U use older OS - not elegant,
 but works most of the time. Would take some time cause U have to download 
-few megs of data and install it. Going that route should keep all your user
-folder directory files in place. 
+many megs of data and install it. Going that route should keep all your user
+folder directory files in place. It can be also very benefitial when using boards
+like Banana Pi etc. - those often doesn't offer newest Raspbian OS versions.
 
 How - what commands to use:
 1. cd ~
