@@ -1,0 +1,50 @@
+OTA software requires python version 3.6 or newer. 
+
+
+First - check your current python3 version. 
+Command:  python3 -v
+You will see in a wall-of-text lines like
+"(...)/usr/lib/python3.5/(...)" etc.
+Exit with: Ctrl + Z
+
+If you see python 3.5 or lower, check your currently installes OS version.
+Command: cat /etc/os-release
+You will see version name and number in a first line mainly.
+
+
+If you see Raspbian Stretch (9) you have 3 options:
+
+1. Compile newer python - hard, tedious and doesn't allways work
+
+2. Burn SD-Card with newer OS version - simple, takes like 20 minutes
+and would solve this and other problems quickly. 
+Note: That would wipe your SD-Card content so remember about back-up
+if U have something that U want to keep on it. 
+
+How: Just google 'burning Raspberry SD card' etc :)
+
+3. Changing apt sources to newer OS despite U use older OS - not elegant,
+but works most of the time. Would take some time cause U have to download 
+few megs of data and install it. Going that route should keep all your user
+folder directory files in place. 
+
+How - what commands to use:
+1. cd ~
+2. sudo apt update
+3. sudo apt upgrade -y
+4. sudo reboot - you may reboot at this point but it is not required
+5. cd ~ 
+6. cd /etc/apt
+7. sudo nano sources.list
+8. change word "stretch" to "buster" (only that word, keep spaces etc in place)
+9. save - Ctrl + S and than Ctrl + X
+10. cd /etc/apt/sources.list.d
+11. sudo nano raspi.list
+12. change word "stretch" to "buster" (only that word, keep spaces etc in place)
+13. save - Ctrl + S and than Ctrl + X
+14. cd ~
+15. sudo apt update 
+16. sudo apt upgrade -y
+17. sudo reboot - you may reboot at this point but it is not required
+18. now everything should work - you can check python3 version - as described 
+at the top of this document 
