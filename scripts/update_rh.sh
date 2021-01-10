@@ -40,16 +40,16 @@ sudo chmod 777 -R /home/"${1}"/.ota_markers
 sudo chmod 777 -R ~/RotorHazard
 cp /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/config.json /home/"${1}"/RotorHazard/src/server/ >/dev/null 2>&1 &
 cp -r /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/static /home/"${1}"/backup_RH_data
-cp -r /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/static/user/* /home/"${1}"/RotorHazard/src/server/static/user/ || echo '\n\t no user folder found in this RotorHazard version - skipping' #rh_pr
+cp -r /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/static/user/* /home/"${1}"/RotorHazard/src/server/static/user/ || printf "\n no user folder found in this RotorHazard version - skipping \n" #rh_pr
 mkdir /home/"${1}"/RotorHazard/src/server/db_bkp
-cp -r /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/db_bkp/* /home/"${1}"/RotorHazard/src/server/db_bkp/ || printf '\nno backup folder found in previous RotorHazard version - skipping' #rh_pr
+cp -r /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/db_bkp/* /home/"${1}"/RotorHazard/src/server/db_bkp/ || printf "\n no backup folder found in this RotorHazard version - skipping \n" #rh_pr
 cp -r /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/static/image /home/"${1}"/RotorHazard/src/server/static/image
 cp /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/config.json /home/"${1}"/backup_RH_data >/dev/null 2>&1 &
 cp /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/database.db /home/"${1}"/RotorHazard/src/server/ >/dev/null 2>&1 &
 cp /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/database.db /home/"${1}"/backup_RH_data >/dev/null 2>&1 &
 cd /home/"${1}"/RotorHazard/src/server || exit
 warning_show
-sudo pip3 install --upgrade --no-cache-dir -r requirements.txt
+sudo pip install --upgrade --no-cache-dir -r requirements.txt
 
 ### python 3 transition handling ###
 
