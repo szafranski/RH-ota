@@ -6,7 +6,7 @@
         ^^^^^^^^^^^^
 
 
-23.25.1a
+231.25.3a
 1. Changed naming scheme - described in a file "~/RH-ota/version.txt"
 (user knows at a glance if he has to update OTA to install newer RH)
 2. Only python3 is being used to handle all RotorHazard stuff
