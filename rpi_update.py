@@ -244,8 +244,9 @@ def main_window(config):
         Source of the software is set to {underline}{blue}{server_version}{endc}{bold} version from the official 
         RotorHazard repository.
          
-        Please update this software, before updating RotorHazard server.
-        Also make sure that you are logged as user {underline}{blue}{user}{endc}{bold}.
+        Please update this (OTA) software, before updating RotorHazard server.
+        Also make sure that you are logged as user {underline}{blue}{user}{endc}{bold} and that you don't have 
+        other terminal windows opened - especially in RotorHazard directory.
         
         You can change those in configuration wizard in Main Menu.
         

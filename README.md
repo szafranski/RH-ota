@@ -14,17 +14,17 @@
 
 1. Wizard install and update of RotorHazard nodes firmware.
      - Works with offcial RotorHazard PCB (in beta now) out of the box 
-     - Possible to use with older PCBs or with custom builds - described [here](how_to/hw_mod_instructions.txt)
+     - Possible to use with older PCBs or with custom-builds - described [here](how_to/hw_mod_instructions.txt)
 
 1. Automatic configuring Access Point
-     - Hotspot: Configure always-on hotspot using Pi's built in Wifi 
-        - You lose the ability to connect to the internet using built in Wifi
-     - [Auto-Hotspot:](./AUTO_HOTSPOT.md) Automatically connect to known wifi if available, or become hotspot if no network is found. 
-        - If your Pi has been configured to connect to WIFI, this option allows you to use that wifi when in range, and still create a hotspot when not in range
+     - Hotspot: Configure always-on hotspot using Pi's built-in Wi-Fi 
+        - You lose the ability to connect to the internet using built in Wi-Fi
+     - [Auto-Hotspot:](./AUTO_HOTSPOT.md) Automatically connect to known Wi-Fi if available, or become hotspot if no network is found. 
+        - If your Pi has been configured to connect to Wi-Fi, this option allows you to use that Wi-Fi when in range, and still create a hotspot when not in range
         - full explanation: [here](https://www.raspberryconnect.com/projects/65-raspberrypi-hotspot-accesspoints/158-raspberry-pi-auto-wifi-hotspot-switch-direct-connection)
 
 Helpful developer/back-end stuffs:
-1. Wizard setup of the OTA software
+1. A wizard setup of the OTA software
 1. Embedded self-updating feature
 1. Automatic installation of all required dependencies
 1. Adding aliases to the system
@@ -33,7 +33,7 @@ Helpful developer/back-end stuffs:
 1. Embedded logging feature with an option to upload log file to the cloud 
 <br/>
 
-If you use old, Delta5 boards but you still want all hardware functionalities - visit: [Instructables page](https://www.instructables.com/id/RotorHazard-Updater/) - to get some context
+If you use old, Delta5 boards, but you still want all hardware functionalities - visit: [Instructables page](https://www.instructables.com/id/RotorHazard-Updater/) - to get some context
 or check the file with [hardware mod instructions](/how_to/hw_mod_instructions.txt).
 
 You may also read [update notes](/docs/update-notes.txt) - new features are present.
@@ -76,11 +76,14 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
     chmod +x ~/RH-ota/ota.sh
     
 <br/>
-We assume in our instructions and provided setup process that you already have your Raspbian OS set up. 
+We assume in our instructions and provided setup process that you already have your Raspbian OS set up. <br/>
 If not, please follow those instructions: 
 
 [Raspbian setup instructions](https://www.raspberrypi.org/documentation/installation/installing-images/README.md).
-<br/>
+<br/><br/>
+OTA software works best with Raspbian Buster or newer (due to native python3.6+ support). 
+
+Read more about supported python and OS versions [here](/docs/python36_help.txt).
 <br/>
 
 ### ~~ *Toss a coin to a Witcher* section ~~

@@ -1,5 +1,5 @@
 # RH-access_point
-additional simple instruction how to make RotorHazard race timer working on raspberry without using external router.
+additional simple instruction how to make RotorHazard race timer working on a Raspberry without using external router.
 
 <br/>
 Confirmed to work on Raspberry Pi 3 B+ with Raspbian Buster Lite installed.
@@ -22,11 +22,11 @@ ________________
 
 <br/>
 
-Set the WiFi country in raspi-config's Localisation Options: 
+Set the Wi-Fi country in raspi-config's Localisation Options: 
 
 In terminal (SSH):<br/>
 sudo raspi-config <br/>
-( 4. point -> I4 - Change WiFi country -> select -> enter -> finish )
+( 4. point -> I4 - Change Wi-Fi country -> select -> enter -> finish )
 
 <br/>
 
@@ -45,7 +45,7 @@ sudo reboot + unplug the Ethernet cable if was connected
 ________________
 <br/>
 
-connect PC to WiFi network: <br/>
+connect PC to Wi-Fi network: <br/>
 name: raspi-webgui<br/>
 password: ChangeMe<br/><br/><br/>
 
@@ -62,7 +62,7 @@ Password: secret<br/>  <br/>
 
 
 Click:
-Configure hotspot -> SSID (enter name you want, eg. "RH-TIMER") 
+Configure hotspot -> SSID (enter the name you want, e.g. "RH-TIMER") 
 
 Wireless Mode (change to 802.11n - 2.4GHz)
 
@@ -73,7 +73,7 @@ save settings
 Click:
 Configure hotspot -> security tab
 
-PSK (enter password that you want to have, eg. "timerpass")
+PSK (enter the password that you want to have, e.g. "timerpass")
 
 save settings
 <br/>
@@ -116,7 +116,7 @@ sudo cp /etc/dnsmasq.conf /etc/dnsmasq.conf.orig<br/>
 
 sudo nano /etc/dnsmasq.conf
 
-and change the file so it looks like:
+and change the file, so it looks like:
 ________________
 
 interface=wlan0<br/>
@@ -143,15 +143,15 @@ sudo reboot
 <br/>
 
   
-Connect PC to WiFi network: <br/>
+Connect PC to Wi-Fi network: <br/>
 name: RH-TIMER<br/>
 password: timerpass <br/> <br/>
-if you have any problems connecting wifi with new name - try "forgetting" the (old) network in PC's WiFi settings and than try again
+if you have any problems connecting Wi-Fi with a new name - try "forgetting" the (old) network in PC's Wi-Fi settings and then try again
 
 <br/> <br/>
 
 Now you should be able to enter the network typing in the browser:
-10.10.10.10:5000 - using WiFi
+10.10.10.10:5000 - using Wi-Fi
 172.20.20.20:5000 - using ethernet.
 
 <br/> <br/>
@@ -172,7 +172,7 @@ If for any reasons you would have problems in the future with connecting to the 
 /etc/dnsmasq.conf<br/>
 
 Check those first - connecting with SSH using external router or plug sd card to Linux PC/VM (or Windows using special drivers - cause Windows can't write any changes to ext4 partitions natively) and manually check those.<br/>
-If you decide to use external router for troubleshooting - after saving the changes in the files, remember to reboot raspberry.
+If you decide to use an external router for troubleshooting - after saving the changes in the files, remember to reboot raspberry.
 
 The easiest way to make sure those files are configured correctly is:
 ________________

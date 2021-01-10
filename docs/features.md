@@ -1,13 +1,13 @@
 # Main features of the software:
 
 
-1. Wizard install/update of RotorHazard server software
+1. Wizard installation/update of RotorHazard server software
      - Choose which version of RotorHazard to install
      - Preserves existing RotorHazard config file.
      - Backup of existing RH install.
      - Automatically performs much of the RotorHazard specific Pi setup steps
 
-1. Wizard install of RotorHazard nodes firmware.
+1. Wizard installation of RotorHazard nodes firmware.
      - Requires some hardware modification to enable
 
 1. Automatic configuring Access Point

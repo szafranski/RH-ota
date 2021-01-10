@@ -6,6 +6,16 @@
         ^^^^^^^^^^^^
 
 
+231.25.3a
+1. Changed naming scheme - described in detail in the file "~/RH-ota/version.txt"
+(user knows at a glance if he has to update OTA to install newer RH)
+2. Only python3 is being used to handle all RotorHazard stuff
+3. Automatic transition to python3 for RotorHazard during update implemented
+4. Better error handling and tutorial in case of obsolete OS
+5. Some visual tweaks
+
+______________________________________________________________________________
+
 2.5.2
 Small pip installation bug fixes
 Last "old python for RotorHazard" version of OTA 

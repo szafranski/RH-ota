@@ -14,7 +14,7 @@ error_handling(){
   Error - trying to start the server with sudo...
 
   "
-  sudo python2.7 server.py ;
+  sudo python3 server.py ;
 
   echo "
 
@@ -37,7 +37,7 @@ printf "Server booting, please wait"
 dots5
 echo
 cd ~/RotorHazard/src/server || exit
-python2.7 server.py || error_handling
+python3 server.py || error_handling
 
 # scripts like those ensures that files are being executed in right directory but main program
 # istelf can be continued from previous directory after such a script was executed or stopped

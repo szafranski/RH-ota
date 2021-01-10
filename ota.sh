@@ -10,6 +10,27 @@ do
 done
 printf "\n"
 }
+
+### wrong python version (obsolete os) error handling
+old_python_error_message(){
+echo "
+
+
+If you got SyntaxError above there is a chance that you use python 3.5 or lower.
+This software requires python 3.6 or higher. You can manually update apt sources
+for your OS - that process is described with details in the file 
+'~/RH-ota/docs/python36help.txt' - check here or on the GitHub repo page.
+
+You could also just burn SD-Card with Raspbian Buster (10) or newer since those
+support python 3.6+ natively. Using newer OS is advised anyways.
+
+If you want to check current Raspbian OS version - type: cat /etc/os-release
+
+"
+}
+
+
+
 ##################
 check_package() {
   if dpkg-query -l "$1" >/dev/null 2>&1 ; then
@@ -28,8 +49,10 @@ check_python_package() {
   fi
 }
 
-echo dependencies will be auto-detected and installed
-echo installing dependencies may need 'sudo' password
+echo "dependencies will be auto-detected and installed"
+echo "installing dependencies may need 'sudo' password"
+
+
 
 which python3 >/dev/null
 if [ $? -gt 0 ]; then
@@ -117,4 +140,4 @@ else
   echo python3-smbus has to be installed && pip3 install smbus
 fi
 
-python3 update.py
+python3 update.py || old_python_error_message

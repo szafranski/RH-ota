@@ -3,17 +3,18 @@
 warning_show(){
   echo "
 
-  Installing additional software may take few minuts
+
+      Installing additional software may take few minuts
 
 "
 }
 
-sudo -H python -m pip3 install --upgrade pip || echo "no pip3 module - skipping to pip"
-sudo -H python -m pip install --upgrade pip
-sudo -H pip install pillow
-sudo apt-get install libjpeg-dev ntp -y
+sudo -H python3 -m pip install --upgrade pip
+sudo -H pip3 install pillow
+sudo apt-get install libjpeg-dev ntp htop -y
 sudo apt-get update && sudo apt-get --with-new-pkgs upgrade -y
 sudo apt autoremove -y
+sudo chmod -R 777 "/home/${1}/RotorHazard"   # to ensure smooth operation if files in RH directory were edited etc. and permissions changed
 upgradeDate="$(date +%Y%m%d%H%M)"
 cd /home/"${1}" || exit
 if [ -d "/home/${1}/RotorHazard" ]; then
@@ -50,3 +51,29 @@ cd /home/"${1}"/RotorHazard/src/server || exit
 warning_show
 sudo pip install --upgrade --no-cache-dir -r requirements.txt
 
+### python 3 transition handling ###
+
+SERVICE_FILE=/lib/systemd/system/rotorhazard.service
+old_python_service_statement="ExecStart=/usr/bin/python server.py"
+
+if test -f "$SERVICE_FILE"; then
+
+if grep -Fxq "$old_python_service_statement" "$SERVICE_FILE"; then
+    printf "\n"
+    echo "old python based RotorHazard autostart service found"
+    sudo sed -i 's/python/python3/g' "$SERVICE_FILE"
+    echo "changed to python3 based service"
+else
+    echo "RotorHazard autostart service is up to date"
+fi
+else
+    echo "no RotorHazard autostart service found - no changes"
+fi
+
+printf "\n"
+
+if grep -Fq "python server.py" "/home/"${1}"/.bashrc"; then
+    echo "old python based server-start alias found"
+    sed -i 's/python server.py/python3 server.py/g' ~/.bashrc
+    echo "'ss' alias changed to python3 version"
+fi
