@@ -12,7 +12,7 @@
 2. Only python3 is being used to handle all RotorHazard stuff
 3. Automatic transition to python3 for RotorHazard during update implemented
 4. Better error handling and tutorial in case of obsolete OS
-5. Some visual and grammar-related tweaks and fixes
+5. Some visual tweaks
 
 ______________________________________________________________________________
 
