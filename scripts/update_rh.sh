@@ -59,6 +59,7 @@ old_python_service_statement="ExecStart=/usr/bin/python server.py"
 if test -f "$SERVICE_FILE"; then
 
 if grep -Fxq "$old_python_service_statement" "$SERVICE_FILE"; then
+    printf "\n"
     echo "old python based RotorHazard autostart service found"
     sudo sed -i 's/python/python3/g' "$SERVICE_FILE"
     echo "changed to python3 based service"
