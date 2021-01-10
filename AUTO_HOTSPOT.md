@@ -8,7 +8,7 @@ It also helps to have the timer off the ground to improve range, and do not shie
 If you are going to shield your nodes to improve accuracy, it would be good to have the pie outside that shielding.
 
 
-* When connected to Wi-Fi, most routers will allow you to use bonjour to connect to the raspberry pi
+* When connected to Wi-Fi, most routers will allow you to use bonjour to connect to the Raspberry Pi
 So you can ssh to your RotorHazard device by doing: `ssh pi@rasberrypi.local`
 * If you change the hostname: ether through GUI or via `raspi-config` > `networking` > `hostname` to something like:
 **rotorhazard**  then your timer would be assessable as `ssh pi@rotorhazard.local`
