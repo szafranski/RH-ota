@@ -6,6 +6,9 @@
         ^^^^^^^^^^^^
 
 
+230.25.3b
+Small bug fixes
+
 230.25.3a
 1. Changed naming scheme - described in detail in the file "~/RH-ota/version.txt"
 (user knows at a glance if he has to update OTA to install newer RH)

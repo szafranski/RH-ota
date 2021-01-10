@@ -313,9 +313,11 @@ def self_updater(config):
         before updating the RotorHazard server or before flashing nodes,
         so you can be sure you use the newest possible software.
         
-        OTA version number is related to {blue}nodes firmware API number{endc}{bold},
+        OTA version number is related to the {red}latest supported RotorHazard 
+        server version{endc}{bold) and {blue}nodes firmware API number{endc}{bold},
         so you always know what firmware version given OTA release contains.
-        For example "2.2.5c" contains nodes firmware with "API level 22".
+        For example "{red}230{endc}{bold}.{blue}25.{endc}{bold}3a" supports 
+        RotorHazard 2.3.0 stable and contains nodes firmware with "API level 22".
         
         Self-updater will test your internet connection before every update
         and prevent update if there is no internet connection established.
@@ -326,7 +328,7 @@ def self_updater(config):
         
            {yellow}e - Exit to main menu{endc}
         """.format(green=Bcolors.GREEN_S, endc=Bcolors.ENDC, bold=Bcolors.BOLD, blue=Bcolors.BLUE,
-                   yellow=Bcolors.YELLOW_S, updater_info=check_if_beta_user(config))
+                   yellow=Bcolors.YELLOW_S, red=Bcolors.RED, updater_info=check_if_beta_user(config))
         print(updater)
         selection = input()
         if selection == 'e':
