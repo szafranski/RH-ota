@@ -71,4 +71,8 @@ fi
 
 printf "\n"
 
-sed -i 's/python server.py/python3 server.py/g' /home/"${1}"/.bashrc
+if grep -Fq "python server.py" "/home/"${1}"/.bashrc"; then
+    echo "old python based server-start alias found"
+    sed -i 's/python server.py/python3 server.py/g' ~/.bashrc
+    echo "'ss' alias changed to python3 version"
+fi
