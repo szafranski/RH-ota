@@ -16,7 +16,7 @@ old_python_error_message(){
 echo "
 
 
-If you got SyntaxError above there is a chance that you use python 3.5 or lower.
+Program detected that you are using python version 3.5 or lower.
 This software requires python 3.6 or higher. You can manually update apt sources
 for your OS - that process is described with details in the file 
 '~/RH-ota/docs/python36help.txt' - check here or on the GitHub repo page.
@@ -140,4 +140,4 @@ else
   echo python3-smbus has to be installed && pip3 install smbus
 fi
 
-python3 update.py || old_python_error_message
+python3 update.py

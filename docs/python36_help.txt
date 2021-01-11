@@ -2,12 +2,10 @@ OTA software requires python version 3.6 or newer.
 
 
 First - check your current python3 version. 
-Command:  python3 -v
-You will see in a wall-of-text lines like
-"(...)/usr/lib/python3.5/(...)" etc.
-Exit with: Ctrl + Z
+Command:  python3 --version
 
-If you see python 3.5 or lower, check your currently installes OS version.
+
+If you see python 3.5 or lower, check your currently installed OS version.
 Command: cat /etc/os-release
 You will see version name and number in a first line mainly.
 
