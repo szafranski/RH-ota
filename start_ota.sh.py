@@ -1,6 +1,8 @@
 import sys
 
-old_python_error_message = """
+
+def main():
+    old_python_error_message = """
 
 Program detected that you are using python version 3.5 or lower.
 This software requires python 3.6 or higher. You can manually update apt sources
@@ -14,8 +16,6 @@ If you want to check currently used Raspbian OS version - type: 'cat /etc/os-rel
 If you want to check currently used python3 version - type: 'python3 --version'
 If you want to list all python versions on your OS right now - type: 'python' and hit Tab twice
 """
-
-if __name__ == "__main__":
     if (sys.version_info.major == 3) and (sys.version_info.minor < 6):
         print("This program requires python3.6 or newer")
         print(old_python_error_message)
@@ -23,3 +23,7 @@ if __name__ == "__main__":
         print("Program starts...")
         import update
         update.main()
+
+
+if __name__ == "__main__":
+    main()
