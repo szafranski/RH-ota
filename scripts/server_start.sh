@@ -8,13 +8,13 @@ dots5() { # done that way so it work on every terminal
   printf "\n\n"
 }
 
-error_handling(){
+error_handling() {
   echo "
 
   Error - trying to start the server with sudo...
 
   "
-  sudo python3 server.py ;
+  sudo python3 server.py
 
   echo "
 
@@ -29,7 +29,7 @@ file from '~/RotorHazard/src/server/' directory and attempt to restart the serve
 -- If you just stopped the server with a keyboard (Ctrl+C) - ignore that message --
 
 "
-read -p "Hit Enter to exit now " var
+  read -p "Hit Enter to exit now " var
 }
 
 echo "You can stop the server by pressing Ctrl+C "

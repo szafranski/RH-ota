@@ -18,11 +18,12 @@ sleep 1.2
 printf "\n\nEnter 'sudo' password if prompted.\n"
 sleep 1.2
 sudo echo
-printf "\n\nUpdating process has been started\n\n" & dots50
+printf "\n\nUpdating process has been started\n\n" &
+dots50
 printf "\n"
-for pid in $(pgrep -ax python3 | grep start_ota.py | awk '{print $1}' ) ; do kill -9 "$pid" ; done
+for pid in $(pgrep -ax python3 | grep start_ota.py | awk '{print $1}'); do kill -9 "$pid"; done
 cd ~ || exit
-rm -rf ~/.ota_markers/old_RH-ota > /dev/null 2>&1
+rm -rf ~/.ota_markers/old_RH-ota >/dev/null 2>&1
 cp -r ~/RH-ota ~/.ota_markers/old_RH-ota
 cd ~/.ota_markers/old_RH-ota || exit
 python3 ~/.ota_markers/old_RH-ota/self.py
