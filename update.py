@@ -316,7 +316,7 @@ def self_updater(config):
         OTA version number is related to the {red}latest supported RotorHazard 
         stable server version{endc}{bold} and {blue}nodes firmware API number{endc}{bold} that OTA contains.
         Thanks to that you allways know is there a need to update.
-        For example version {red}230{endc}{bold}.{blue}25.{endc}{bold}3a supports RotorHazard 2.3.0 stable 
+        For example version {red}230{endc}{bold}.{blue}25{endc}{bold}.3a supports RotorHazard 2.3.0 stable 
         and contains nodes firmware with "API level 25".
         
         Self-updater will test your internet connection before every update
