@@ -3,19 +3,16 @@
 ##################
 ### fun stuff
 dots7() { # done that way so it work on every terminal
-for _ in {1..7};
-do
-  printf "."
-  sleep 0.2
-done
-printf "\n"
+  for _ in {1..7}; do
+    printf "."
+    sleep 0.2
+  done
+  printf "\n"
 }
-
-
 
 ##################
 check_package() {
-  if dpkg-query -l "$1" >/dev/null 2>&1 ; then
+  if dpkg-query -l "$1" >/dev/null 2>&1; then
     return 0
   else
     return 1
@@ -33,8 +30,6 @@ check_python_package() {
 
 echo "dependencies will be auto-detected and installed"
 echo "installing dependencies may need 'sudo' password"
-
-
 
 which python3 >/dev/null
 if [ $? -gt 0 ]; then
@@ -77,19 +72,19 @@ else
   echo python3-gpiozero has to be installed && sudo apt install python3-gpiozero -y
 fi
 
-if check_package 'python3-requests' ; then
+if check_package 'python3-requests'; then
   echo python3-requests"  "found
 else
   echo python3-requests has to be installed && sudo apt install python3-requests -y
 fi
 
-if check_package 'python3-dev' ; then
+if check_package 'python3-dev'; then
   echo python3-dev"       "found
 else
   echo python3-dev has to be installed && sudo apt install python3-dev -y
 fi
 
-if check_package 'fonts-symbola' ; then
+if check_package 'fonts-symbola'; then
   echo fonts-symbola"     "found
 else
   echo fonts-symbola has to be installed && sudo apt install fonts-symbola -y
@@ -104,19 +99,19 @@ fi
 #  sudo apt-get install fonts-twemoji-svginot -y
 #fi
 
-if check_package 'i2c-tools' ; then
+if check_package 'i2c-tools'; then
   echo i2c-tools"         "found
 else
   echo i2c-tools has to be installed && sudo apt install i2c-tools -y
 fi
 
-if check_python_package 'RPi.GPIO' ; then
+if check_python_package 'RPi.GPIO'; then
   echo python3-rpi.gpio"  "found
 else
   echo python3-rpi.gpio has to be installed && pip3 install rpi.gpio || echo - only on Pi -
 fi
 
-if check_python_package 'smbus' ; then
+if check_python_package 'smbus'; then
   echo python3-smbus"     "found
 else
   echo python3-smbus has to be installed && pip3 install smbus
