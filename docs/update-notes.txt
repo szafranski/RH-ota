@@ -6,6 +6,11 @@
         ^^^^^^^^^^^^
 
 
+230.25.3b
+1. More descriptive self-update section
+2. Even better obsolete python3 usage handling
+3. Small bugs fixes
+
 230.25.3a
 1. Changed naming scheme - described in detail in the file "~/RH-ota/version.txt"
 (user knows at a glance if he has to update OTA to install newer RH)
@@ -67,9 +72,7 @@ Added automatic I2C devices detection
 
 
 2.3.0
-
 First release of "new OTA" - all benefits listed in README.md this time
-
 New firmware with API level 23 (when 'master' release of RH is selected)
 
 _________________________________________________________________
