@@ -16,6 +16,7 @@ sudo apt install wget python3 ntp htop libjpeg-dev libffi-dev build-essential gi
 sudo apt install python-rpi.gpio || echo "-- no python-rpi.gpio module found - available only on Pi --"  #to be checked
 sudo apt install python3-rpi.gpio || echo "-- no python-rpi.gpio module found - available only on Pi --" #is this redundant?
 sudo -H pip3 install cffi pillow
+sudo -H python3 -m pip install --upgrade pip
 cd /home/"${1}" || exit
 if [ -d "/home/${1}/RotorHazard" ]; then
   # Control will enter here if $DIRECTORY exists.
