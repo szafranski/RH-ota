@@ -49,7 +49,7 @@ cp /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/database.db /home/"${1}"
 cp /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/database.db /home/"${1}"/backup_RH_data >/dev/null 2>&1 &
 cd /home/"${1}"/RotorHazard/src/server || exit
 warning_show
-sudo pip install --upgrade --no-cache-dir -r requirements.txt
+sudo pip3 install --upgrade --no-cache-dir -r requirements.txt
 
 ### python 3 transition handling ###
 
