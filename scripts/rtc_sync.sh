@@ -21,7 +21,6 @@ sed -i 's/if [ -e /run/systemd/system ] ; then/#if [ -e /run/systemd/system ] ; 
 sed -i 's/\/sbin\/hwclock --rtc=$dev --systz --badyear/#\/sbin\/hwclock --rtc=$dev --systz --badyear/g' /lib/udev/hwclock-set
 sed -i 's/\/sbin\/hwclock --rtc=$dev --systz/#\/sbin\/hwclock --rtc=$dev --systz/g' /lib/udev/hwclock-set
 
-
 #Comment out those:
 #if [ -e /run/systemd/system ] ; then
 #exit 0

@@ -6,6 +6,9 @@
         ^^^^^^^^^^^^
 
 
+130.25.3c
+1. Python3 (pip3) dependencies installation bug fix 
+
 230.25.3b
 1. More descriptive self-update section
 2. Even better obsolete python3 usage handling

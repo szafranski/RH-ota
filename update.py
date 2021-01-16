@@ -263,7 +263,7 @@ def aliases_menu(config):
         aliases_description = f""" 
         Aliases in Linux act like shortcuts or references to another commands. 
         You can use them every time when you operates in the terminal window. 
-        For example instead of typing 'python ~/RotorHazard/src/server/server.py' 
+        For example instead of typing 'python3 ~/RotorHazard/src/server/server.py' 
         you can just type 'ss' (server start) etc. Aliases can be modified and added 
         anytime you want. You just have to open '~./bashrc' file in text editor 
         - like 'nano'. After that you have reboot or type 'source ~/.bashrc'. 

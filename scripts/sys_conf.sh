@@ -16,18 +16,18 @@
 # sed -i 's/core_freq=250/#core_freq=250/' /boot/config.txt > /dev/null 2>&1
 #fi
 
-is_pi_4(){
-ifs=':' read -ra piversion <<< "$(cat /proc/cpuinfo | grep Revision)"
-if [[ ${piversion[2]} == *"0311"* ]] ; then
-  sed -i 's/core_freq=250/#core_freq=250/' /boot/config.txt > /dev/null 2>&1 || return 1
-fi
+is_pi_4() {
+  ifs=':' read -ra piversion <<<"$(cat /proc/cpuinfo | grep Revision)"
+  if [[ ${piversion[2]} == *"0311"* ]]; then
+    sed -i 's/core_freq=250/#core_freq=250/' /boot/config.txt >/dev/null 2>&1 || return 1
+  fi
 }
 
 green="\033[92m"
 red="\033[91m"
 endc="\033[0m"
 
-is_pi_4_error(){
+is_pi_4_error() {
   printf "
      $red -- automatic Pi 4 detection error -- $endc
 
@@ -42,7 +42,7 @@ is_pi_4_error(){
   sleep 2
 }
 
-ssh_enabling(){
+ssh_enabling() {
   sudo systemctl enable ssh || return 1
   sudo systemctl start ssh || return 1
   printf "
@@ -52,7 +52,7 @@ ssh_enabling(){
   return 0
 }
 
-ssh_error(){
+ssh_error() {
   printf "
      $red -- SSH enabling error -- $endc
 
@@ -66,7 +66,7 @@ ssh_error(){
   sleep 2
 }
 
-spi_enabling(){
+spi_enabling() {
   echo "dtparam=spi=on" | sudo tee -a /boot/config.txt || return 1
   sudo sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf || return 1
   printf "
@@ -76,7 +76,7 @@ spi_enabling(){
   return 0
 }
 
-spi_error(){
+spi_error() {
   printf "
      $red -- SPI enabling error -- $endc
 
@@ -90,7 +90,7 @@ spi_error(){
   sleep 2
 }
 
-i2c_enabling(){
+i2c_enabling() {
   echo "
 dtparam=i2c_baudrate=75000
 core_freq=250
@@ -108,7 +108,7 @@ dtparam=i2c_arm=on
   return 0
 }
 
-i2c_error(){
+i2c_error() {
   printf "
      $red -- I2C enabling error -- $endc
 
@@ -122,10 +122,10 @@ i2c_error(){
   sleep 2
 }
 
-uart_enabling(){
+uart_enabling() {
   sudo cp /boot/cmdline.txt /boot/cmdline.txt.dist
   sudo cp /boot/config.txt /boot/config.txt.dist
-  echo 'enable_uart=1'| sudo tee -a /boot/config.txt || return 1
+  echo 'enable_uart=1' | sudo tee -a /boot/config.txt || return 1
   sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt || return 1
   printf "
      $green -- UART ENABLED -- $endc
@@ -134,7 +134,7 @@ uart_enabling(){
   return 0
 }
 
-uart_error(){
+uart_error() {
   printf "
      $red -- UART enabling error -- $endc
 
@@ -164,14 +164,13 @@ if [ "${1}" = "uart" ]; then
   uart_enabling || uart_error
 fi
 
-reboot_message(){
+reboot_message() {
   echo "
 
   Process completed. Please reboot Raspberry now.
 
   "
 }
-
 
 if [ "${1}" = "all" ]; then
   ssh_enabling || ssh_error
