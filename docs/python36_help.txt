@@ -55,5 +55,5 @@ Now everything should work - you can check python3 version - as described
 at the top of this document 
 
 * If you get some prompts during update etc. you have to answer accordingly. 
-Please read asked question. But don't worry - giving "wrong" answers should not
-be very "dangerous". :)
+Please read asked question. U can probably anwer "no" or "keep the current version"
+to most (or possibly all) of them.
