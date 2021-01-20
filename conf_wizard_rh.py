@@ -62,6 +62,7 @@ If you want to use value given as default, just hit 'Enter'.
         rh_config['GENERAL']['HTTP_PORT'] = int(http_port_nr)
         rh_config["SENSORS"] = {}
         rh_config["LED"] = {}
+        rh_config["HARDWARE"] = {}
 
         while True:
             print("\nAre you planning to use LEDs in your system? [y/N]\n")
@@ -172,7 +173,7 @@ If you want to use value given as default, just hit 'Enter'.
             print("\nLED configuration set to default values.\n\n")
             sleep(1.2)
 
-        print("\nDo you want to enter advanced wizard? [y/N | default: no]\n")
+        print("\nDo you want to enter advanced part of a wizard? [y/N | default: no]\n")
         while True:
             advanced_wizard_flag = input("\t").strip().lower()
             if not advanced_wizard_flag:
@@ -189,6 +190,19 @@ If you want to use value given as default, just hit 'Enter'.
                 print("\ntoo big fingers :( wrong command. try again! :)")
 
         if advanced_wizard_flag:
+
+            while True:
+                i2c_bus_nr = input("\nWhat is the I2C bus number on your device? [default: 1]\t\t\t")
+                if not i2c_bus_nr:
+                    i2c_bus_nr = 1
+                    print("defaulted to: 1")
+                    break
+                elif i2c_bus_nr.isdigit() and int(i2c_bus_nr) < 3:
+                    break
+                else:
+                    print("\nPlease enter correct value!")
+            rh_config["HARDWARE"]['I2C_BUS'] = int(i2c_bus_nr)
+
             while True:
                 led_dma_nr = input("\nLED DMA you will use in your system? [default: 10]\t\t\t")
                 if not led_dma_nr:
@@ -252,6 +266,7 @@ If you want to use value given as default, just hit 'Enter'.
             rh_config['SERIAL_PORTS'] = serial_ports
 
         if not advanced_wizard_flag:
+            rh_config["HARDWARE"]['I2C_BUS'] = 1
             rh_config['GENERAL']['DEBUG'] = False
             rh_config['GENERAL']['CORS_ALLOWED_HOSTS'] = '*'
             rh_config['SERIAL_PORTS'] = []
@@ -274,6 +289,7 @@ If you want to use value given as default, just hit 'Enter'.
         LED rows inverted:  {rh_config["LED"]['INVERTED_PANEL_ROWS']}
         LED DMA:            {rh_config['LED']['LED_DMA']}
         LED frequency:      {rh_config['LED']['LED_FREQ_HZ']}
+        I2C bus number:     {rh_config["HARDWARE"]['I2C_BUS']}
         Debug mode:         {rh_config['GENERAL']['DEBUG']}
         CORS allowed:       {rh_config['GENERAL']['CORS_ALLOWED_HOSTS']}
         Serial ports:       {rh_config['SERIAL_PORTS']}

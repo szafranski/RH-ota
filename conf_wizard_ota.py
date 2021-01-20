@@ -58,7 +58,7 @@ def do_config(old_config):
 Please type your configuration data. It can be modified later.
 If you want to use value given as default, just hit 'Enter'.
 """)
-        pi_user_name = input("\nWhat is your user name on Raspberry Pi? [default: pi]\t\t\t")
+        pi_user_name = input("\nWhat is your user name on the Raspberry Pi? [default: pi]\t\t\t")
         if not pi_user_name:
             config.pi_user = 'pi'
             print("defaulted to: 'pi'")
@@ -135,75 +135,102 @@ Usually 'ttyS0' or 'ttyAMA0' (on older OSes) [default: ttyS0]\t\t""")
                 config.port_name = flashing_port_name
                 break
 
+        print("\nDo you want to enter advanced part of a wizard? [y/N | default: no]")
         while True:
-            debug_mode = input("""
+            advanced_wizard_flag = input("\t").strip().lower()
+            if not advanced_wizard_flag:
+                print("defaulted to: no")
+                advanced_wizard_flag = False
+                break
+            elif advanced_wizard_flag[0] == 'y':
+                advanced_wizard_flag = True
+                break
+            elif advanced_wizard_flag[0] == 'n':
+                advanced_wizard_flag = False
+                break
+            else:
+                print("\ntoo big fingers :( wrong command. try again! :)")
+
+        if advanced_wizard_flag:
+
+            while True:
+                debug_mode = input("""
 Will you use OTA software in a simulation mode? [y/N | default: no]
 Flashing itself is not possible in "sim" mode!\t\t\t\t""").lower()
-            if not debug_mode:
-                debug_mode, config.debug_mode = False, False
-                print("defaulted to: no")
-                break
-            elif debug_mode[0] == 'y':
-                debug_mode, config.debug_mode = True, True
-                break
-            elif debug_mode[0] == 'n':
-                debug_mode, config.debug_mode = False, False
-                break
-            else:
-                print("\nPlease enter correct value!")
+                if not debug_mode:
+                    debug_mode, config.debug_mode = False, False
+                    print("defaulted to: no")
+                    break
+                elif debug_mode[0] == 'y':
+                    debug_mode, config.debug_mode = True, True
+                    break
+                elif debug_mode[0] == 'n':
+                    debug_mode, config.debug_mode = False, False
+                    break
+                else:
+                    print("\nPlease enter correct value!")
 
-        if debug_mode:
-            debug_user_name = input("\nWhat is your user name on sim/debug OS? \t\t\t\t")
-            config.debug_user = debug_user_name
-        else:
-            config.debug_user = 'racer'
-        while True:
-            old_hardware_mod = input("""
+            if debug_mode:
+                debug_user_name = input("\nWhat is your user name on sim/debug OS? \t\t\t\t")
+                config.debug_user = debug_user_name
+            else:
+                config.debug_user = 'default'
+            while True:
+                old_hardware_mod = input("""
 Are you using older, non-i2c hardware flashing mod? 
 (nodes reset pins connected to gpio pins) [ y/N | default: no ]\t\t""").lower()
-            if not old_hardware_mod:
-                old_hardware_mod, config.old_hw_mod = False, False
-                print("defaulted to: no")
-                break
-            elif old_hardware_mod[0] == "y":
-                old_hardware_mod, config.old_hw_mod = True, True
-                break
-            elif old_hardware_mod[0] == "n":
-                old_hardware_mod, config.old_hw_mod = False, False
-                break
-            else:
-                print("\nPlease enter correct value!")
+                if not old_hardware_mod:
+                    old_hardware_mod, config.old_hw_mod = False, False
+                    print("defaulted to: no")
+                    break
+                elif old_hardware_mod[0] == "y":
+                    old_hardware_mod, config.old_hw_mod = True, True
+                    break
+                elif old_hardware_mod[0] == "n":
+                    old_hardware_mod, config.old_hw_mod = False, False
+                    break
+                else:
+                    print("\nPlease enter correct value!")
 
-        while old_hardware_mod:
-            gpio_pins_assign = input("\nPins assignment? [default/custom/PCB | default: default]\t\t").lower()
-            pins_valid_options = ['default', 'pcb', 'custom']
-            if not gpio_pins_assign:
+            while old_hardware_mod:
+                gpio_pins_assign = input("\nPins assignment? [default/custom/PCB | default: default]\t\t").lower()
+                pins_valid_options = ['default', 'pcb', 'custom']
+                if not gpio_pins_assign:
+                    config.pins_assignment = 'default'
+                    print("defaulted to: default")
+                    break
+                elif gpio_pins_assign not in pins_valid_options:
+                    print("\nPlease enter correct value!")
+                    continue
+                else:
+                    config.pins_assignment = gpio_pins_assign
+                    break
+            else:
                 config.pins_assignment = 'default'
-                print("defaulted to: default")
-                break
-            elif gpio_pins_assign not in pins_valid_options:
-                print("\nPlease enter correct value!")
-                continue
-            else:
-                config.pins_assignment = gpio_pins_assign
-                break
-        else:
-            config.pins_assignment = 'default'
 
-        while True:
-            user_is_beta_tester = input("\nAre you a beta tester? [y/N | default: no]\t\t\t\t").lower()
-            if not user_is_beta_tester:
-                config.beta_tester = False
-                print("defaulted to: no")
-                break
-            elif user_is_beta_tester[0] == 'y':
-                config.beta_tester = True
-                break
-            elif user_is_beta_tester[0] == 'n':
-                config.beta_tester = False
-                break
-            else:
-                print("\nPlease enter correct value!")
+            while True:
+                user_is_beta_tester = input("\nAre you a beta tester? [y/N | default: no]\t\t\t\t").lower()
+                if not user_is_beta_tester:
+                    config.beta_tester = False
+                    print("defaulted to: no")
+                    break
+                elif user_is_beta_tester[0] == 'y':
+                    config.beta_tester = True
+                    break
+                elif user_is_beta_tester[0] == 'n':
+                    config.beta_tester = False
+                    break
+                else:
+                    print("\nPlease enter correct value!")
+
+        if not advanced_wizard_flag:
+            config.debug_mode = False
+            config.debug_user = 'default'
+            config.old_hw_mod = False
+            config.pins_assignment = 'default'
+            config.gpio_reset_pin = 17
+            config.beta_tester = False
+
 
         print(f"""\n\n
             {Bcolors.UNDERLINE}CONFIGURATION{Bcolors.ENDC}:
