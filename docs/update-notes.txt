@@ -6,7 +6,11 @@
         ^^^^^^^^^^^^
 
 
-130.25.3c
+230.25.3d
+1. Added i2c bus number selection to the RotorHazard configuration wizard
+2. OTA configuration wizard splitted into 2 sections (added advanced wizard)
+
+230.25.3c
 1. Python3 (pip3) dependencies installation bug fix 
 
 230.25.3b
