@@ -228,7 +228,7 @@ Are you using older, non-i2c hardware flashing mod?
             config.debug_user = 'default'
             config.old_hw_mod = False
             config.pins_assignment = 'default'
-            config.gpio_reset_pin = 17
+            config.gpio_reset_pin = False
             config.beta_tester = False
 
 
