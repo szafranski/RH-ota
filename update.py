@@ -157,7 +157,7 @@ def welcome_screen(config):
     Wish you good experience. Enjoy!
                                         
                                         
-                                                            szafran                                                
+                                                            Pawel F.                                                
     {endc}""".format(bold=Bcolors.BOLD, red=Bcolors.RED, green=Bcolors.GREEN, endc=Bcolors.ENDC)
 
     first_time_flag = os.path.exists("./.first_time_here")

@@ -52,7 +52,7 @@ sudo git clone https://github.com/rm-hull/bme280.git
 cd /home/"${1}"/bme280 || exit
 warning_show
 sudo python3 setup.py install
-sudo apt-get install openjdk-8-jdk-headless -y
+sudo apt-get install openjdk-11-jdk-headless -y
 sudo rm /lib/systemd/system/rotorhazard.service >/dev/null 2>&1
 echo
 echo "
