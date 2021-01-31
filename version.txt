@@ -11,4 +11,4 @@ Done this way so the user would know at a glance if he has to update OTA to inst
 
 Features and functions are described in files in /docs folder.
 
-# keep version number in first line of this file
+# keep the version number in first line of this file
