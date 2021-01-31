@@ -6,6 +6,9 @@
         ^^^^^^^^^^^^
 
 
+231.25.3d
+1. RotorHazard relase 2.3.1 support added
+
 230.25.3d
 1. Added i2c bus number selection to the RotorHazard configuration wizard
 2. OTA configuration wizard splitted into 2 sections (added advanced wizard)

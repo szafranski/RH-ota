@@ -1,4 +1,4 @@
-230.25.3d
+231.25.3d
 
 Version of this program - it has nothing to do with the RH version.
 First number refers to last stable RH version that can be installed using particular release.
@@ -11,4 +11,4 @@ Done this way so the user would know at a glance if he has to update OTA to inst
 
 Features and functions are described in files in /docs folder.
 
-# keep version number in first line of this file
+# keep the version number in first line of this file
