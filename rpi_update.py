@@ -9,7 +9,7 @@ from modules import clear_the_screen, Bcolors, triangle_image_show, internet_che
 
 def check_preferred_rh_version(config):
 
-    stable_release_name = '2.3.1'  # declare last stable release name here
+    stable_release_name = '2.3.2'  # declare last stable release name here
 
     beta_release_name = '2.3.0-beta.3'  # declare last beta release name here
 
