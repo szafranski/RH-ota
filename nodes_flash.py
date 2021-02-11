@@ -550,7 +550,7 @@ def flashing_menu(config):
     
                     4 - Show I2C connected devices
                     
-                    5 - Check all UART connected devices
+                    5 - Check all I2C connected devices
             
             {yellow}e - Exit to main menu{endc}\n
             """.format(bold=Bcolors.BOLD_S, green=Bcolors.GREEN_S, yellow=Bcolors.YELLOW_S,
