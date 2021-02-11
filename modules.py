@@ -14,7 +14,7 @@ def clear_the_screen():
     sleep(0.02)
     if platform.system() == "Windows":
         os.system("cls")
-    elif platform.system() == "Linux":
+    elif platform.system() == "Linux" or platform.system() == "Darwin":
         os.system("clear")
     else:
         print(("\n" * 200))
