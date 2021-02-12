@@ -87,7 +87,7 @@ fi
 
 ### sensors transition to python3 handling ###
 
-printf "\n\n    Converting existing libraries to python3 friendly versions \n\n"
+printf "\n\n    Converting existing sensors libraries to python3 versions \n\n"
 
 INA_SENSOR_FILES=/home/"${1}"/pi_ina219
 
@@ -123,6 +123,8 @@ if test -d "$LEDS_LIBRARY_FILES"; then
   cd /home/"${1}"/rpi_ws281x/python || exit
   sudo python3 setup.py install
 fi
+
+touch "$PYTHON3_CONVERSION_FLAG_FILE"
 
 echo "
 
