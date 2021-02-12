@@ -93,34 +93,34 @@ fi
 
 INA_SENSOR_FILES=/home/"${1}"/pi_ina219
 
-if test -f "$INA_SENSOR_FILES"; then
+if test -d "$INA_SENSOR_FILES"; then
   cd /home/"${1}" || exit
   sudo rm -r "$INA_SENSOR_FILES" || exit
   sudo git clone https://github.com/chrisb2/pi_ina219.git
   cd /home/"${1}"/pi_ina219 || exit
-  python3_libraries_transition_warning_show
+  echo "  INA sensor library will be updated to python3"
   sudo python3 setup.py install
 fi
 
 BME_SENSOR_FILES=/home/"${1}"/bme280
 
-if test -f "$INA_SENSOR_FILES"; then
+if test -d "$INA_SENSOR_FILES"; then
   cd /home/"${1}" || exit
   sudo rm -r "$BME_SENSOR_FILES" || exit
   sudo git clone https://github.com/rm-hull/bme280.git
   cd /home/"${1}"/bme280 || exit
-  python3_libraries_transition_warning_show
+  echo "  BME sensor library will be updated to python3"
   sudo python3 setup.py install
 fi
 
 LEDS_LIBRARY_FILES=/home/"${1}"/rpi_ws281x
 
-if test -f "$LEDS_LIBRARY_FILES"; then
+if test -d "$LEDS_LIBRARY_FILES"; then
   cd /home/"${1}" || exit
   sudo rm -r "$LEDS_LIBRARY_FILES" || exit
   sudo git clone https://github.com/jgarff/rpi_ws281x.git
   cd /home/"${1}"/rpi_ws281x || exit
-  python3_libraries_transition_warning_show
+  echo "  LEDs controller library will be updated to python3"
   sudo scons
   cd /home/"${1}"/rpi_ws281x/python || exit
   sudo python3 setup.py install
@@ -128,7 +128,7 @@ fi
 
 echo "
 
-      libraries updated
+      supporting libraries updated to python3
 
 "
 
