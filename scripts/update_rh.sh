@@ -4,17 +4,7 @@ warning_show() {
   echo "
 
 
-      Installing additional software may take few minuts
-
-"
-}
-
-
-python3_libraries_transition_warning_show() {
-  echo "
-
-
-      Converting existing libraries to python3 friendly versions
+      Installing additional software may take few minutes
 
 "
 }
@@ -62,7 +52,13 @@ cd /home/"${1}"/RotorHazard/src/server || exit
 warning_show
 sudo pip3 install --upgrade --no-cache-dir -r requirements.txt
 
+
 ### python 3 transition handling ###
+
+PYTHON3_CONVERSION_FLAG_FILE=/home/"${1}"/.ota_markers/python3_support_was_added
+
+if ! test -f "$PYTHON3_CONVERSION_FLAG_FILE"; then
+
 
 SERVICE_FILE=/lib/systemd/system/rotorhazard.service
 old_python_service_statement="ExecStart=/usr/bin/python server.py"
@@ -91,6 +87,8 @@ fi
 
 ### sensors transition to python3 handling ###
 
+printf "\n\n    Converting existing libraries to python3 friendly versions \n\n"
+
 INA_SENSOR_FILES=/home/"${1}"/pi_ina219
 
 if test -d "$INA_SENSOR_FILES"; then
@@ -98,7 +96,7 @@ if test -d "$INA_SENSOR_FILES"; then
   sudo rm -r "$INA_SENSOR_FILES" || exit
   sudo git clone https://github.com/chrisb2/pi_ina219.git
   cd /home/"${1}"/pi_ina219 || exit
-  echo "  INA sensor library will be updated to python3"
+  printf "\n\n  INA sensor library will be updated to python3 \n\n"
   sudo python3 setup.py install
 fi
 
@@ -109,7 +107,7 @@ if test -d "$INA_SENSOR_FILES"; then
   sudo rm -r "$BME_SENSOR_FILES" || exit
   sudo git clone https://github.com/rm-hull/bme280.git
   cd /home/"${1}"/bme280 || exit
-  echo "  BME sensor library will be updated to python3"
+  printf "\n\n  BME sensor library will be updated to python3 \n\n"
   sudo python3 setup.py install
 fi
 
@@ -120,7 +118,7 @@ if test -d "$LEDS_LIBRARY_FILES"; then
   sudo rm -r "$LEDS_LIBRARY_FILES" || exit
   sudo git clone https://github.com/jgarff/rpi_ws281x.git
   cd /home/"${1}"/rpi_ws281x || exit
-  echo "  LEDs controller library will be updated to python3"
+  printf "\n\n  LEDs controller library will be updated to python3  \n\n"
   sudo scons
   cd /home/"${1}"/rpi_ws281x/python || exit
   sudo python3 setup.py install
@@ -131,5 +129,7 @@ echo "
       supporting libraries updated to python3
 
 "
+
+fi
 
 cd /home/"${1}" || exit
