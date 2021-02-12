@@ -9,6 +9,17 @@ warning_show() {
 "
 }
 
+
+python3_libraries_transition_warning_show() {
+  echo "
+
+
+      Converting existing libraries to python3 friendly versions
+
+"
+}
+
+
 sudo -H python3 -m pip install --upgrade pip
 sudo -H pip3 install pillow
 sudo apt-get install libjpeg-dev ntp htop -y
@@ -77,3 +88,48 @@ if grep -Fq "python server.py" "/home/"${1}"/.bashrc"; then
   sed -i 's/python server.py/python3 server.py/g' ~/.bashrc
   echo "'ss' alias changed to python3 version"
 fi
+
+### sensors transition to python3 handling ###
+
+INA_SENSOR_FILES=/home/"${1}"/pi_ina219
+
+if test -f "$INA_SENSOR_FILES"; then
+  cd /home/"${1}" || exit
+  sudo rm -r "$INA_SENSOR_FILES" || exit
+  sudo git clone https://github.com/chrisb2/pi_ina219.git
+  cd /home/"${1}"/pi_ina219 || exit
+  python3_libraries_transition_warning_show
+  sudo python3 setup.py install
+fi
+
+BME_SENSOR_FILES=/home/"${1}"/bme280
+
+if test -f "$INA_SENSOR_FILES"; then
+  cd /home/"${1}" || exit
+  sudo rm -r "$BME_SENSOR_FILES" || exit
+  sudo git clone https://github.com/rm-hull/bme280.git
+  cd /home/"${1}"/bme280 || exit
+  python3_libraries_transition_warning_show
+  sudo python3 setup.py install
+fi
+
+LEDS_LIBRARY_FILES=/home/"${1}"/rpi_ws281x
+
+if test -f "$LEDS_LIBRARY_FILES"; then
+  cd /home/"${1}" || exit
+  sudo rm -r "$LEDS_LIBRARY_FILES" || exit
+  sudo git clone https://github.com/jgarff/rpi_ws281x.git
+  cd /home/"${1}"/rpi_ws281x || exit
+  python3_libraries_transition_warning_show
+  sudo scons
+  cd /home/"${1}"/rpi_ws281x/python || exit
+  sudo python3 setup.py install
+fi
+
+echo "
+
+      libraries updated
+
+"
+
+cd /home/"${1}" || exit
