@@ -11,6 +11,19 @@ dots7() { # done that way so it work on every terminal
 }
 
 ##################
+
+check_for_new_ota()
+{
+
+if ! test -f .first_time_here; then
+wget https://raw.githubusercontent.com/szafranski/RH-ota/stable/version.txt -q -O .new_ota_version_check_file.txt
+diff version.txt .new_version_check_file.txt > .new_ota_version_diff_file
+fi
+}
+
+dependencies_check()
+{
+
 check_package() {
   if dpkg-query -l "$1" >/dev/null 2>&1; then
     return 0
@@ -27,6 +40,7 @@ check_python_package() {
     return 1
   fi
 }
+
 
 echo "dependencies will be auto-detected and installed"
 echo "installing dependencies may need 'sudo' password"
@@ -89,15 +103,6 @@ if check_package 'fonts-symbola'; then
 else
   echo fonts-symbola has to be installed && sudo apt install fonts-symbola -y
 fi
-#if grep -q 'twemoji-svginot' aptinstalled.tmp; then
-#  echo fonts-twemoji"    "found
-#else
-#  echo fonts-symbola has to be installed &&
-#  sudo apt-get install software-properties-common -y &&
-#  sudo apt-add-repository ppa:eosrei/fonts -y &&
-#  sudo apt-get update &&
-#  sudo apt-get install fonts-twemoji-svginot -y
-#fi
 
 if check_package 'i2c-tools'; then
   echo i2c-tools"         "found
@@ -117,4 +122,10 @@ else
   echo python3-smbus has to be installed && pip3 install smbus
 fi
 
+}
+
+
+check_for_new_ota &
+dependencies_check &
+wait
 python3 start_ota.py
