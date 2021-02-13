@@ -5,14 +5,17 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+232.25.3f
+1. Automatic conversion existing sensors libraries to python3 versions added
+
 232.25.3e
-1. RotorHazard relase 2.3.2 support added
+1. Minor code tweaks
 
 232.25.3d
-1. RotorHazard relase 2.3.2 support added
+1. RotorHazard release 2.3.2 support added
 
 231.25.3d
-1. RotorHazard relase 2.3.1 support added
+1. RotorHazard release 2.3.1 support added
 
 230.25.3d
 1. Added i2c bus number selection to the RotorHazard configuration wizard

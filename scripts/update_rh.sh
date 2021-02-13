@@ -1,10 +1,10 @@
 #!/bin/bash
 
-warning_show() {
+time_warning_show() {
   echo "
 
 
-      Installing additional software may take few minuts
+      Installing additional software may take few minutes
 
 "
 }
@@ -48,32 +48,88 @@ cp /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/config.json /home/"${1}"
 cp /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/database.db /home/"${1}"/RotorHazard/src/server/ >/dev/null 2>&1 &
 cp /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/database.db /home/"${1}"/backup_RH_data >/dev/null 2>&1 &
 cd /home/"${1}"/RotorHazard/src/server || exit
-warning_show
+time_warning_show
 sudo pip3 install --upgrade --no-cache-dir -r requirements.txt
 
 ### python 3 transition handling ###
 
-SERVICE_FILE=/lib/systemd/system/rotorhazard.service
-old_python_service_statement="ExecStart=/usr/bin/python server.py"
+PYTHON3_CONVERSION_FLAG_FILE=/home/"${1}"/.ota_markers/python3_support_was_added
 
-if test -f "$SERVICE_FILE"; then
+if ! test -f "$PYTHON3_CONVERSION_FLAG_FILE"; then
 
-  if grep -Fxq "$old_python_service_statement" "$SERVICE_FILE"; then
-    printf "\n"
-    echo "old python based RotorHazard autostart service found"
-    sudo sed -i 's/python/python3/g' "$SERVICE_FILE"
-    echo "changed to python3 based service"
+  SERVICE_FILE=/lib/systemd/system/rotorhazard.service
+  old_python_service_statement="ExecStart=/usr/bin/python server.py"
+
+  if test -f "$SERVICE_FILE"; then
+
+    if grep -Fxq "$old_python_service_statement" "$SERVICE_FILE"; then
+      printf "\n"
+      echo "old python based RotorHazard autostart service found"
+      sudo sed -i 's/python/python3/g' "$SERVICE_FILE"
+      echo "changed to python3 based service"
+    else
+      echo "RotorHazard autostart service is up to date"
+    fi
   else
-    echo "RotorHazard autostart service is up to date"
+    echo "no RotorHazard autostart service found - no changes"
   fi
-else
-  echo "no RotorHazard autostart service found - no changes"
+
+  printf "\n"
+
+  if grep -Fq "python server.py" "/home/"${1}"/.bashrc"; then
+    echo "old python based server-start alias found"
+    sed -i 's/python server.py/python3 server.py/g' ~/.bashrc
+    echo "'ss' alias changed to python3 version"
+  fi
+
+  ### sensors transition to python3 handling ###
+
+  printf "\n\n    Converting existing sensors libraries to python3 versions \n\n\n"
+
+  INA_SENSOR_FILES=/home/"${1}"/pi_ina219
+
+  if test -d "$INA_SENSOR_FILES"; then
+    cd /home/"${1}" || exit
+    sudo rm -r "$INA_SENSOR_FILES" || exit
+    sudo git clone https://github.com/chrisb2/pi_ina219.git
+    cd /home/"${1}"/pi_ina219 || exit
+    printf "\n\n  INA sensor library will be updated to python3 \n\n"
+    sudo python3 setup.py install
+  fi
+
+  BME_SENSOR_FILES=/home/"${1}"/bme280
+
+  if test -d "$INA_SENSOR_FILES"; then
+    cd /home/"${1}" || exit
+    sudo rm -r "$BME_SENSOR_FILES" || exit
+    sudo git clone https://github.com/rm-hull/bme280.git
+    cd /home/"${1}"/bme280 || exit
+    printf "\n\n  BME sensor library will be updated to python3 \n\n"
+    sudo python3 setup.py install
+  fi
+
+  LEDS_LIBRARY_FILES=/home/"${1}"/rpi_ws281x
+
+  if test -d "$LEDS_LIBRARY_FILES"; then
+    cd /home/"${1}" || exit
+    sudo rm -r "$LEDS_LIBRARY_FILES" || exit
+    sudo git clone https://github.com/jgarff/rpi_ws281x.git
+    cd /home/"${1}"/rpi_ws281x || exit
+    printf "\n\n  LEDs controller library will be updated to python3  \n\n"
+    sudo scons
+    cd /home/"${1}"/rpi_ws281x/python || exit
+    sudo python3 setup.py install
+  fi
+
+  touch "$PYTHON3_CONVERSION_FLAG_FILE"
+
+  echo "
+
+
+      supporting libraries updated to python3
+
+"
+
 fi
 
-printf "\n"
-
-if grep -Fq "python server.py" "/home/"${1}"/.bashrc"; then
-  echo "old python based server-start alias found"
-  sed -i 's/python server.py/python3 server.py/g' ~/.bashrc
-  echo "'ss' alias changed to python3 version"
-fi
+cd /home/"${1}" || exit
