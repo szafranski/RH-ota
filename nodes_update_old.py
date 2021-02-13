@@ -11,11 +11,11 @@ try:
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
 except ModuleNotFoundError:
-    print("GPIO import - failed - works only on Pi")
-    print("Try manually install RPI.GPIO with 'pip3 install rpi.gpio'")
+    print("GPIO import failed - works only on Pi")
+    print("Try manually installing RPI.GPIO with 'pip3 install rpi.gpio'")
     sleep(1)
 except RuntimeError:
-    print("GPIO import - failed - works only on Pi")
+    print("GPIO import failed - works only on Pi")
     sleep(1)
 
 """

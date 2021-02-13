@@ -12,7 +12,7 @@ def com_init():
     bus = 0
     try:
         from smbus import SMBus  # works only on Pi
-        bus = SMBus(1)  # indicates /dev/ic2-1 - correct i2c bus for most Pies
+        bus = SMBus(1)  # check with "ls /dev/ | grep i2c" (Raspberry Pi - 1; Banana Pi - 0)
     except PermissionError as perm_error:
         print(error_msg)
         print(perm_error)
@@ -65,15 +65,18 @@ def prepare_mate_node(addr):
     on.append(calculate_checksum(on))
     off.append(calculate_checksum(off))
     sleep(sleep_amt)
-    bus.write_i2c_block_data(addr, reset_mate_node_command, on)
-    print("on command sent")
-    sleep(sleep_amt)
-    bus.write_i2c_block_data(addr, reset_mate_node_command, off)
-    print("off command sent")
-    sleep(sleep_amt)
-    bus.write_i2c_block_data(addr, reset_mate_node_command, on)
-    print("on command sent")
-    sleep(0.2)
+    try:
+        bus.write_i2c_block_data(addr, reset_mate_node_command, on)
+        print("on command sent")
+        sleep(sleep_amt)
+        bus.write_i2c_block_data(addr, reset_mate_node_command, off)
+        print("off command sent")
+        sleep(sleep_amt)
+        bus.write_i2c_block_data(addr, reset_mate_node_command, on)
+        print("on command sent")
+        sleep(0.2)
+    except OSError:
+        print("\nOSError - please check I2C bus number configuration and wiring\n")
 
 
 def flash_mate_node(config, firmware_version):
