@@ -145,7 +145,7 @@ def ota_update_available_check(config):
     # updated_not_available_flag = os.path.exists(f"/home/{config.user}/.ota_markers/.was_updated_old")
 
     # TODO move to ota_markers directory?
-    if os.path.getsize(f"/home/{config.user}/RH-ota/.new_version_diff_file"):
+    if os.path.getsize(f"/home/{config.user}/RH-ota/.new_ota_version_diff_file"):
         ota_update_available_flag = True
     else:
         ota_update_available_flag = False
