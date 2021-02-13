@@ -6,7 +6,7 @@
         ^^^^^^^^^^^^
 
 232.25.3f
-1. Automatic converting existing sensors libraries to python3 versions
+1. Automatic conversion existing sensors libraries to python3 versions added
 
 232.25.3e
 1. Minor code tweaks
