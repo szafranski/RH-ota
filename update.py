@@ -155,21 +155,22 @@ def ota_update_available_check(config):
         logo_top(config.debug_mode)
         print("""\n\n {bold}
 
-            New OTA software release is available.
+                New OTA software release is available.
 
-            Consider updating now.
+                Consider updating now.
+
 
 
              {endc}  {green} 
-                u - Update now {endc}{yellow}
+                    u - Update now {endc}{yellow}
 
-                s - Skip{endc}
+                    s - Skip{endc}
             """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC, red=Bcolors.RED,
                        green=Bcolors.GREEN, yellow=Bcolors.YELLOW))
         while True:
             selection = input()
             if selection == 'u':
-                self_updater(config)
+                self_updater(config) # TODO bad exiting from that loop after update
                 break
             elif selection == 's':
                 break
