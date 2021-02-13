@@ -16,12 +16,12 @@ check_for_new_ota()
 {
 
 if ! test -f .first_time_here; then
-wget https://raw.githubusercontent.com/szafranski/RH-ota/stable/version.txt -q -O .new_version_check_file.txt
-diff version.txt .new_version_check_file.txt > .new_version_diff_file
+wget https://raw.githubusercontent.com/szafranski/RH-ota/stable/version.txt -q -O .new_ota_version_check_file.txt
+diff version.txt .new_version_check_file.txt > .new_ota_version_diff_file
 fi
 }
 
-main_program_load()
+dependencies_check()
 {
 
 check_package() {
@@ -126,6 +126,6 @@ fi
 
 
 check_for_new_ota &
-main_program_load &
+dependencies_check &
 wait
 python3 start_ota.py
