@@ -16,7 +16,7 @@ check_for_new_ota() {
 
   if ! test -f .first_time_here; then
     wget https://raw.githubusercontent.com/szafranski/RH-ota/stable/version.txt -q -O .new_ota_version_check_file.txt
-    diff version.txt .new_ota_version_check_file.txt >.new_ota_version_diff_file
+    diff version.txt .new_ota_version_check_file.txt > .new_ota_version_diff_file
   fi
 }
 
@@ -39,8 +39,8 @@ dependencies_check() {
     fi
   }
 
-  printf "\ndependencies will be auto-detected and installed \n"
-  prinf "\ninstalling dependencies may need 'sudo' password\n\n"
+  printf "dependencies will be auto-detected and installed \n"
+  printf "\ninstalling dependencies may need 'sudo' password\n\n"
 
   which python3 >/dev/null
   if [ $? -gt 0 ]; then
