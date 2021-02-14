@@ -58,7 +58,7 @@ def do_config(old_config):
 Please type your configuration data. It can be modified later.
 If you want to use value given as default, just hit 'Enter'.
 """)
-        pi_user_name = input("\nWhat is your user name on the Raspberry Pi? [default: pi]\t\t\t")
+        pi_user_name = input("\nWhat is your user name on the Raspberry Pi? [default: pi]\t\t")
         if not pi_user_name:
             config.pi_user = 'pi'
             print("defaulted to: 'pi'")
