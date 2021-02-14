@@ -86,6 +86,8 @@ OTA software works best with Raspbian Buster or newer (due to native python3.6+ 
 Read more about supported python and OS versions [here](/docs/python36_help.txt).
 <br/>
 
+In case of any issues - consider checking out [FAQ section](/docs/FAQ.md).
+
 ### ~~ *Toss a coin to a Witcher* section ~~
 
 <br/>
