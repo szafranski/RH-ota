@@ -170,7 +170,7 @@ def ota_update_available_check(config):
         while True:
             selection = input()
             if selection == 'u':
-                self_updater(config)  # TODO bad exiting from that loop after update
+                self_updater(config)  # TODO check bad exiting from that loop after update
                 break
             elif selection == 's':
                 break
