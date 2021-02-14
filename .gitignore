@@ -4,7 +4,6 @@
 .travis.yml
 .idea
 .wizarded*
-.first_time_here
 index.html*
 RH-ota
 wget-log*
