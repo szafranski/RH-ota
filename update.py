@@ -156,8 +156,8 @@ def ota_update_available_check(config):
         print("""\n\n {bold}
 
                 New OTA software release is available.
-
-                Consider updating now.
+                
+                Consider updating now (takes ~20 secs).
 
 
 
@@ -170,17 +170,10 @@ def ota_update_available_check(config):
         while True:
             selection = input()
             if selection == 'u':
-                self_updater(config) # TODO bad exiting from that loop after update
+                self_updater(config)  # TODO bad exiting from that loop after update
                 break
             elif selection == 's':
                 break
-
-
-#   if updated_recently_with_new_version_flag or updated_recently_with_old_version_flag:
-#       os.system("rm ./.first_time_here > /dev/null 2>&1")
-#       return True
-#   else:
-#       return False
 
 
 def welcome_screen(config):
