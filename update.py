@@ -145,8 +145,9 @@ def ota_update_available_check(config):
     # updated_not_available_flag = os.path.exists(f"/home/{config.user}/.ota_markers/.was_updated_old")
 
     # no config.user usage due to order of operations
-    if os.path.getsize("./.new_ota_version_diff_file") and os.path.exists("./updater-config.json"):
-        ota_update_available_flag = True
+    if os.path.exists("./.new_ota_version_diff_file") and os.path.exists("./updater-config.json"):
+        if os.path.getsize("./.new_ota_version_diff_file"):
+            ota_update_available_flag = True
     else:
         ota_update_available_flag = False
 
