@@ -5,6 +5,11 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+232.25.3g
+1. Automatically generated prompt when newer version of OTA is available
+(requires internet connection)
+2. FAQ section added - mostly focused on ISP programming
+
 232.25.3f
 1. Automatic conversion existing sensors libraries to python3 versions added
 
