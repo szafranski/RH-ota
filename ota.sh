@@ -40,7 +40,7 @@ dependencies_check() {
   }
 
   printf "dependencies will be auto-detected and installed \n"
-  printf "\ninstalling dependencies may need 'sudo' password\n\n"
+  printf "installing dependencies may need 'sudo' password\n\n"
 
   which python3 >/dev/null
   if [ $? -gt 0 ]; then
