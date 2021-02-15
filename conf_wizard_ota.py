@@ -153,9 +153,9 @@ Usually 'ttyS0' or 'ttyAMA0' (on older OSes) [default: ttyS0]\t\t""")
 
         if advanced_wizard_flag:
 
-            while True:  # TODO grammar below
+            while True:
                 bus_number = input("""
-            What is the I2C bus number that is connected to the nodes? [0/1 | default: 1]""")
+What is the number of the I2C bus connected to the nodes? [0/1 | default: 1]""")
                 if not bus_number:
                     bus_number, config.i2c_bus_number = 1, 1
                     print("defaulted to: 1")
