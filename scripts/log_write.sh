@@ -15,6 +15,11 @@ echo | tee -a ./log_data/log.txt
 cat ~/RH-ota/version.txt | tee -a ./log_data/log.txt
 echo | tee -a ./log_data/log.txt
 echo -------------------------------- | tee -a ./log_data/log.txt
+echo RH-ota directory | tee -a ./log_data/log.txt
+echo | tee -a ./log_data/log.txt
+find ~/RH-ota | tee -a ./log_data/log.txt
+echo | tee -a ./log_data/log.txt
+echo -------------------------------- | tee -a ./log_data/log.txt
 echo FILE /boot/config.txt | tee -a ./log_data/log.txt
 echo | tee -a ./log_data/log.txt
 cat /boot/config.txt | tee -a ./log_data/log.txt
@@ -24,6 +29,11 @@ echo -------------------------------- | tee -a ./log_data/log.txt
 echo FILE /boot/cmdline.txt | tee -a ./log_data/log.txt
 echo | tee -a ./log_data/log.txt
 cat /boot/cmdline.txt | tee -a ./log_data/log.txt
+echo | tee -a ./log_data/log.txt
+echo -------------------------------- | tee -a ./log_data/log.txt
+echo DEVICES LIST | tee -a ./log_data/log.txt
+echo | tee -a ./log_data/log.txt
+ls /dev | grep tty | tee -a ./log_data/log.txt
 echo | tee -a ./log_data/log.txt
 echo -------------------------------- | tee -a ./log_data/log.txt
 echo FILE updater-config.json | tee -a ./log_data/log.txt
