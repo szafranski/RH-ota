@@ -577,7 +577,7 @@ def flashing_menu(config):
 
 def main():
     config = load_config()
-    com_init()
+    com_init(config)
     flashing_menu(config)
 
 

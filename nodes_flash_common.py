@@ -2,7 +2,7 @@ from time import sleep
 import os
 
 
-def com_init():
+def com_init(config):
     error_msg = """
     SMBus(1) - error\nI2C communication doesn't work properly
     Check if I2C interface is enabled with 'sudo raspi-config'
@@ -12,7 +12,10 @@ def com_init():
     bus = 0
     try:
         from smbus import SMBus  # works only on Pi
-        bus = SMBus(1)  # check with "ls /dev/ | grep i2c" (Raspberry Pi - 1; Banana Pi - 0)
+        try:
+            bus = SMBus(config.i2c_bus_number)  # check with "ls /dev/ | grep i2c" (Raspberry Pi - 1; Banana Pi - 0)
+        except:
+            bus = SMBus(1)  # TODO test on the Pi
     except PermissionError as perm_error:
         print(error_msg)
         print(perm_error)
