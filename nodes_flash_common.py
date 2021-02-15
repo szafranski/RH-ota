@@ -12,10 +12,10 @@ def com_init(config):
     bus = 0
     try:
         from smbus import SMBus  # works only on Pi
-        try:
+        if "i2c_bus_number" in config:
             bus = SMBus(config.i2c_bus_number)  # check with "ls /dev/ | grep i2c" (Raspberry Pi - 1; Banana Pi - 0)
-        except:
-            bus = SMBus(1)  # TODO test on the Pi
+        else:
+            bus = SMBus(1)
     except PermissionError as perm_error:
         print(error_msg)
         print(perm_error)
