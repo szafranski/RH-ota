@@ -5,24 +5,32 @@ import serial
 
 
 def serial_test_write(serial_port_name):
-    ser = serial.Serial(f'/dev/{serial_port_name}', 9600)
+    my_serial = serial.Serial(f'/dev/{serial_port_name}', 9600)
 
-    ser.write(serial_port_name)
     print(f"""
-    Writing to ttyS0 for 10 seconds - check Arduino's built-in LED
+    Writing to {serial_port_name} for 10 seconds - check Arduino's built-in LED
     
     Watch for 2 short, one long. If present - {serial_port_name} is your Serial port.
     """)
+    for _ in range(3):
+        my_serial.write(1)
 
 
 def custom_port_selection():
-    selection = input("Would you like to enter custom UART port name or exit? | y/N").lower()
+    serial_port_name = input("Please enter custom UART port name or exit? like: 'ttyS0':\t").replace(" ","")
+    serial_test_write(serial_port_name)
     while True:
+        selection = input("Would you like to enter another port name? | [y/n]\t").lower()
         if selection == "n":
             break
         elif selection == "y":
-            serial_port_name = input("Enter port name you'd like to try")
+            serial_port_name = input("\nEnter port name you'd like to try:\t\t").replace(" ","")
             serial_test_write(serial_port_name)
-            break
-        else:
-            print("Please type 'y' or 'n'")
+
+
+def main():
+    custom_port_selection()
+
+
+if __name__ == "__main__":
+    main()
