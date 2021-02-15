@@ -6,8 +6,8 @@ Means that you the Raspberry Pi cannot write information to an Arduinos via UART
 1. Bad wiring - most common
 1. Bad Raspberry Pi UART/Serial configuration - less common
 1. Arduino contains code that makes UART line „busy” - possible
-1. Arduino has incompatible bootloader burnt - not likely but possible
-1. One (or more) Arduinos are just broken - meeeh
+1. Arduino has an incompatible bootloader burnt - not likely but possible
+1. One (or more) Arduino is just broken hardware-wise - not impossible
 
 ## Fixes for each cause:
 
