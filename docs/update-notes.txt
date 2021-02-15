@@ -8,7 +8,7 @@
 232.25.3g
 1. Automatically generated prompt when newer version of OTA is available
 (if internet connection is available)
-2. FAQ section added - mostly focused on ISP programming issues
+2. FAQ section added - mostly focused on ISP programming issues for now
 3. More verbose log output
 
 232.25.3f
