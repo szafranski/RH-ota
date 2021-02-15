@@ -7,6 +7,7 @@ Means that you the Raspberry Pi cannot write information to an Arduinos via UART
 1. Bad Raspberry Pi UART/Serial configuration - less common
 1. Arduino contains code that makes UART line „busy” - possible
 1. Arduino has incompatible bootloader burnt - not likely but possible
+1. One (or more) Arduinos are just broken - meeeh
 
 ## Fixes for each cause:
 
@@ -65,6 +66,11 @@ If it can be successfully flashed with „newer booloader” selected - that may
 If you want to do that, you can use external programmer such as USB-ASP or just program one Arduino as a temporary programmer 
 utilizing feature named „Arduino as ISP” (NOT: "ArduinoISP"). To performing that just Google sth like „Burning bootloader using Arduino as ISP”.
 There are a lot of tutorials in that regard.
+
+If you have Arduinos from few different batches (they are often different color-wise etc) try to remove variables. Use those from same batch, check. Use those from different one, check.
+
+### 5. Everything can just "be broken"
+Assume that one Arduino is broken and try with other ones. Remove it and check etc. 
 
 ### * You can handle that :) * 
 Remember - when everyting is configured properly hardware and software -wise it just HAVE TO work. Don't be frustrated, check 3 times, have fun. It works :)
