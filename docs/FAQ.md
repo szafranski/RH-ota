@@ -70,7 +70,7 @@ There are a lot of tutorials in that regard.
 If you have Arduinos from few different batches (they are often different color-wise etc) try to remove variables. Use those from same batch, check. Use those from different one, check.
 
 ### 5. Everything can just "be broken"
-Assume that one Arduino is broken and try with other ones. Remove it and check etc. 
+Assume that one Arduino is broken and try with other ones. Remove one and check etc.
 
 ### * You can handle that :) * 
 Remember - when everyting is configured properly hardware and software -wise it just HAVE TO work. Don't be frustrated, check 3 times, have fun. It works :)
