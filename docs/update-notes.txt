@@ -10,6 +10,7 @@
 (if internet connection is available)
 2. FAQ section added - mostly focused on ISP programming issues for now
 3. More verbose log output
+4. Basic Serial interface diagnostic tool added
 
 232.25.3f
 1. Automatic conversion existing sensors libraries to python3 versions added
