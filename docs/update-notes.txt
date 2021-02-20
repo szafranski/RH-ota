@@ -14,7 +14,6 @@
 4. More verbose log output
 5. Basic Serial interface diagnostic tool added
 
-
 232.25.3f
 1. Automatic conversion existing sensors libraries to python3 versions added
 
