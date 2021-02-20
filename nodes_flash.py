@@ -398,13 +398,13 @@ def first_flashing(config):
     sleep(2)
 
 
-def show_i2c_devices():
+def show_i2c_devices(config):
     while True:
         clear_the_screen()
         try:
-            detected_i2c_devices = os.popen("i2cdetect -y 1").read()
+            detected_i2c_devices = os.popen(f"i2cdetect -y {config.i2c_bus_number}").read()
         except:
-            detected_i2c_devices = 'i2cdetect command - error'
+            detected_i2c_devices = 'OSError - please check I2C bus number in the config file (or wiring)'
 
         print(f"\n\t\t{Bcolors.BOLD}I2C devices found:\n")
         print(detected_i2c_devices)
@@ -566,7 +566,7 @@ def flashing_menu(config):
         elif selection == '3':
             first_flashing(config)
         elif selection == '4':
-            show_i2c_devices()
+            show_i2c_devices(config)
         elif selection == '5':
             check_uart_devices(config)
         elif selection == 'custom':
@@ -577,7 +577,7 @@ def flashing_menu(config):
 
 def main():
     config = load_config()
-    com_init()
+    com_init(config)
     flashing_menu(config)
 
 

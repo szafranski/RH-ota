@@ -154,6 +154,19 @@ Usually 'ttyS0' or 'ttyAMA0' (on older OSes) [default: ttyS0]\t\t""")
         if advanced_wizard_flag:
 
             while True:
+                bus_number = input("""
+What is the number of the I2C bus connected to the nodes? [0/1 | default: 1]""")
+                if not bus_number:
+                    bus_number, config.i2c_bus_number = 1, 1
+                    print("defaulted to: 1")
+                    break
+                elif bus_number.isdigit():
+                    config.i2c_bus_number = bus_number
+                    break
+                else:
+                    print("\nPlease enter correct value!")
+
+            while True:
                 debug_mode = input("""
 Will you use OTA software in a simulation mode? [y/N | default: no]
 Flashing itself is not possible in "sim" mode!\t\t\t\t""").lower()
@@ -229,8 +242,8 @@ Are you using older, non-i2c hardware flashing mod?
             config.old_hw_mod = False
             config.pins_assignment = 'default'
             config.gpio_reset_pin = False
+            config.i2c_bus_number = 1
             config.beta_tester = False
-
 
         print(f"""\n\n
             {Bcolors.UNDERLINE}CONFIGURATION{Bcolors.ENDC}:
@@ -245,6 +258,7 @@ Are you using older, non-i2c hardware flashing mod?
         Sim/Debug user name:    {config.debug_user}
         Pins assignment:        {config.pins_assignment}
         GPIO reset pin:         {config.gpio_reset_pin}
+        I2C bus number:         {config.i2c_bus_number}
         Beta tester:            {config.beta_tester}
          
         Please check. Confirm? [yes/change/abort]\n""")
