@@ -191,10 +191,10 @@ Flashing itself is not possible in "sim" mode!\t\t\t\t""").lower()
             while True:
                 old_hardware_mod = input("""
 Are you using older, non-i2c hardware flashing mod? 
-(nodes reset pins connected to gpio pins) [ y/N | default: no ]\t\t""").lower()
+(nodes reset pins connected to gpio pins) [y/N | default: no]\t\t""").lower()
                 if not old_hardware_mod:
                     old_hardware_mod, config.old_hw_mod = False, False
-                    print("\ndefaulted to: no")
+                    print("defaulted to: no")
                     break
                 elif old_hardware_mod[0] == "y":
                     old_hardware_mod, config.old_hw_mod = True, True
