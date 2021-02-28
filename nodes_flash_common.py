@@ -1,6 +1,6 @@
 from time import sleep
 import os
-from modules import load_config
+from modules import load_config, Bcolors
 
 
 def com_init(bus_number):
@@ -62,7 +62,7 @@ def prepare_mate_node(addr):
     try:
         bus_number = config.i2c_bus_number  # check with "ls /dev/ | grep i2c" (Raspberry Pi - 1; Banana Pi - 0)
     except AttributeError:
-        bus_number = 1  # defaulting to "1"cause Raspberry Pi uses it; in case of older configs with no i2c_bus key
+        bus_number = 1  # defaulting to "1" cause Raspberry Pi uses it; in case of older json with no i2c_bus key
     bus = com_init(bus_number)
     sleep_amt = 1
     on, off = [1], [0]
@@ -81,7 +81,7 @@ def prepare_mate_node(addr):
         print("on command sent")
         sleep(0.2)
     except OSError:
-        print("\nOSError - please check I2C bus number configuration and wiring\n")
+        print(f"\n{Bcolors.RED}OSError - please check I2C bus number in the config file (or wiring){Bcolors.ENDC}\n")
 
 
 def flash_mate_node(config, firmware_version):

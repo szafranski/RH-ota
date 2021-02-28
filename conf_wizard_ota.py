@@ -155,7 +155,7 @@ Usually 'ttyS0' or 'ttyAMA0' (on older OSes) [default: ttyS0]\t\t""")
 
             while True:
                 bus_number = input("""
-What is the number of the I2C bus used with nodes? [0/1 | default: 1]""")
+What is the number of the I2C bus used with nodes? [0/1 | default: 1]\t""")
                 if not bus_number:
                     bus_number, config.i2c_bus_number = 1, 1
                     print("defaulted to: 1")
@@ -194,7 +194,7 @@ Are you using older, non-i2c hardware flashing mod?
 (nodes reset pins connected to gpio pins) [ y/N | default: no ]\t\t""").lower()
                 if not old_hardware_mod:
                     old_hardware_mod, config.old_hw_mod = False, False
-                    print("defaulted to: no")
+                    print("\ndefaulted to: no")
                     break
                 elif old_hardware_mod[0] == "y":
                     old_hardware_mod, config.old_hw_mod = True, True

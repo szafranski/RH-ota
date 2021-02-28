@@ -17,14 +17,14 @@ def serial_test_write(serial_port_name):
 
 
 def custom_port_selection():
-    serial_port_name = input("Please enter custom UART port name or exit? like: 'ttyS0':\t").replace(" ","")
+    serial_port_name = input("Please enter custom UART port name or exit? like: 'ttyS0':\t").replace(" ", "")
     serial_test_write(serial_port_name)
     while True:
         selection = input("Would you like to enter another port name? | [y/n]\t").lower()
         if selection == "n":
             break
         elif selection == "y":
-            serial_port_name = input("\nEnter port name you'd like to try:\t\t").replace(" ","")
+            serial_port_name = input("\nEnter port name you'd like to try:\t\t").replace(" ", "")
             serial_test_write(serial_port_name)
 
 
