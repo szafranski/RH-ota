@@ -398,15 +398,16 @@ def first_flashing(config):
     sleep(2)
 
 
-def show_i2c_devices():
+def show_i2c_devices(config):
     while True:
         clear_the_screen()
         try:
-            detected_i2c_devices = os.popen("i2cdetect -y 1").read()
-        except:
-            detected_i2c_devices = 'i2cdetect command - error'
-
-        print(f"\n\t\t{Bcolors.BOLD}I2C devices found:\n")
+            bus_number = config.i2c_bus_number
+        except AttributeError:
+            bus_number = 1  # defaulting to "1" cause Raspberry Pi uses it; in case of older json with no i2c_bus key
+        detected_i2c_devices = os.popen(f"i2cdetect -y {bus_number}").read()
+        print(f"\n\t{Bcolors.BOLD}Devices found on the {Bcolors.UNDERLINE}I2C bus {bus_number}{Bcolors.ENDC}:\n")
+        print(Bcolors.BOLD)
         print(detected_i2c_devices)
         print(Bcolors.ENDC)
         # done that way because of the way how python is reading/converting hex numbers
@@ -550,7 +551,7 @@ def flashing_menu(config):
     
                     4 - Show I2C connected devices
                     
-                    5 - Check all I2C connected devices
+                    5 - Check connection with nodes
             
             {yellow}e - Exit to main menu{endc}\n
             """.format(bold=Bcolors.BOLD_S, green=Bcolors.GREEN_S, yellow=Bcolors.YELLOW_S,
@@ -566,7 +567,7 @@ def flashing_menu(config):
         elif selection == '3':
             first_flashing(config)
         elif selection == '4':
-            show_i2c_devices()
+            show_i2c_devices(config)
         elif selection == '5':
             check_uart_devices(config)
         elif selection == 'custom':
@@ -577,10 +578,9 @@ def flashing_menu(config):
 
 def main():
     config = load_config()
-    com_init()
+    com_init(config)
     flashing_menu(config)
 
 
 if __name__ == "__main__":
     main()
-

@@ -30,12 +30,12 @@ def config_check():
 
 def attribute_error_handling():
     err_msg = """
-    
+
     Looks that your username entered in the wizard is probably wrong.
     There may also be another json config file error present.
-    
+
     You may also try to re-open the ota software with './ota.sh' command.
-    
+
     """
     print(err_msg)
     input("\n\n\tHit Enter to continue and re-enter configuration wizard.")
@@ -83,7 +83,7 @@ def log_send(config):
                 code = line
             code_error_msg = """
                 -- Error occurred --
-                
+
         Please send log file manually - from 'log_data' folder. 
         Uploading to server process has failed.
             """
@@ -111,15 +111,15 @@ def updated_check(config):
         clear_the_screen()
         logo_top(config.debug_mode)
         print("""\n\n {bold}
-        
+
             Software was updated recently to the new version.
-    
+
             You can read update notes now.
-    
-    
+
+
              {endc}  {green} 
                 r - Read update notes {endc}{yellow}
-    
+
                 s - Skip and don't show again{endc}
             """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC,
                        green=Bcolors.GREEN, yellow=Bcolors.YELLOW))
@@ -140,6 +140,42 @@ def updated_check(config):
         return False
 
 
+def ota_update_available_check(config):
+    # no config.user usage due to order of operations
+    if os.path.exists("./.new_ota_version_diff_file") and os.path.exists("./updater-config.json"):
+        if os.path.getsize("./.new_ota_version_diff_file"):
+            ota_update_available_flag = True
+        else:
+            ota_update_available_flag = False  # done this way due to development purposes and weird edge cases
+    else:
+        ota_update_available_flag = False
+
+    if ota_update_available_flag:
+        clear_the_screen()
+        logo_top(config.debug_mode)
+        print("""\n\n {bold}
+
+                New OTA software release is available.
+                
+                Consider updating now (takes ~20 secs).
+
+
+
+             {endc}  {green} 
+                    u - Update now {endc}{yellow}
+
+                    s - Skip{endc}
+            """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC, red=Bcolors.RED,
+                       green=Bcolors.GREEN, yellow=Bcolors.YELLOW))
+        while True:
+            selection = input()
+            if selection == 'u':
+                self_updater(config)  # TODO check bad exiting from that loop after update
+                break
+            elif selection == 's':
+                break
+
+
 def welcome_screen(config):
     welcome_message = """{bold}
     Welcome to OTA! With our software you can easily install, update and manage 
@@ -147,16 +183,16 @@ def welcome_screen(config):
     without the need to open the timer ever again. You have to use official PCB 
     or have 'hardware mod" done for that functionality. You may also check 
     features like smart-hotspot or adding aliases to your system, etc.
-    
-    
+
+
     This program has ability to perform 'self-updates' - see "Features Menu".    
-    
+
     If you found any bug - please report it via GitHub or Facebook. {endc}{bold}        
-    
-    
+
+
     Wish you good experience. Enjoy!
-                                        
-                                        
+
+
                                                             Pawel F.                                                
     {endc}""".format(bold=Bcolors.BOLD, red=Bcolors.RED, green=Bcolors.GREEN, endc=Bcolors.ENDC)
 
@@ -199,15 +235,15 @@ def serial_menu(config):
         ota_status.uart_support_added = True
         write_ota_sys_markers(ota_status, config.user)
         print("""
-        
+
         Serial port enabled successfully.
         You have to reboot Raspberry now,
         so changes would be implemented. Ok?
-        
-        
-        
+
+
+
         r - Reboot now{yellow}
-        
+
         e - Exit{endc}
             """.format(endc=Bcolors.ENDC, yellow=Bcolors.YELLOW_S))
         selection = input()
@@ -223,10 +259,10 @@ def serial_menu(config):
             Serial port (UART) has to be enabled. 
             Without it Arduino-nodes cannot be programmed.
             Do you want to enable it now?
-            
-            
+
+
      {green}y - for yes {endc}
-            
+
     {yellow}a - for abort{endc}
             """.format(yellow=Bcolors.YELLOW_S, green=Bcolors.GREEN_S, endc=Bcolors.ENDC)
         selection = input(serial_adding_menu)
@@ -277,10 +313,10 @@ def aliases_menu(config):
         if selection == 'y':
             if ota_status.aliases_implemented:
                 print("""
-                
+
             Looks like you already have aliases added. 
             Do you want to continue anyway?
-        
+
         """)
                 selection = input(f"\t\t\t{Bcolors.YELLOW}Press 'y' for yes or 'a' for abort{Bcolors.ENDC}\n")
                 if selection == 'y':
@@ -312,20 +348,20 @@ def self_updater(config):
         You can update OTA software by hitting 'u' now. It is advised step 
         before updating the RotorHazard server or before flashing nodes,
         so you can be sure you use the newest possible software.
-        
+
         OTA version number is related to the {red}latest supported RotorHazard 
         stable server version{endc}{bold} and {blue}nodes firmware API number{endc}{bold} that OTA contains.
         Thanks to that you allways know is there a need to update.
         For example version {red}230{endc}{bold}.{blue}25{endc}{bold}.3a supports RotorHazard 2.3.0 stable 
         and contains nodes firmware with "API level 25".
-        
+
         Self-updater will test your internet connection before every update
         and prevent update if there is no internet connection established.
-        
+
         {updater_info}
-        
+
             {green}u - Update OTA now{endc}
-        
+
            {yellow}e - Exit to main menu{endc}
         """.format(green=Bcolors.GREEN_S, endc=Bcolors.ENDC, bold=Bcolors.BOLD, blue=Bcolors.BLUE,
                    yellow=Bcolors.YELLOW_S, red=Bcolors.RED, updater_info=check_if_beta_user(config))
@@ -342,24 +378,24 @@ def features_menu(config):
         clear_the_screen()
         logo_top(config.debug_mode)
         features_menu_content = """
-    
+
                                 {rmf}FEATURES MENU{endc}{blue}{bold}
-    
-             
+
+
                         1 - Enable serial protocol {endc}{bold}
-                        
+
                         2 - Access Point and Internet 
-                        
+
                         3 - Show actual Pi's GPIO
-                        
+
                         4 - Add useful aliases
-                        
+
                         5 - Update OTA software {endc}{bold}
-                        
+
                         6 - Create a log file{yellow}
-                            
+
                         e - Exit to main menu {endc}
-    
+
                  """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC,
                             blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, rmf=Bcolors.RED_MENU_HEADER)
         print(features_menu_content)
@@ -388,29 +424,29 @@ def show_about(config):
     while True:
         clear_the_screen()
         welcome_first_page = """{bold}  
-    
+
     Please configure OTA software using a wizard after reading this page.
-        
+
     This wizard will configure OTA software, not RotorHazard server itself. 
     Things like amount of LEDs or RotorHazard password should be configured 
     separately in {blue}RotorHazard Manager{endc}{bold} - see in Main Menu.
-    
-    
-    
+
+
+
     Possible RotorHazard server versions that may be selected:
-    
+
     > {blue}'stable'{endc}{bold}- last stable release (can be from before few days or few months){endc}{bold}
-    
+
     > {blue}'beta'  {endc}{bold}- last 'beta' release (usually has about few weeks, quite stable){endc}{bold}
-    
+
     > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested){endc} 
-     
-    
-    
+
+
+
     {green}c - Enter configuration wizard{endc}{yellow}
-       
+
            e - Exit to menu {endc}
-    
+
         """.format(green=Bcolors.GREEN_S, blue=Bcolors.BLUE, endc=Bcolors.ENDC,
                    yellow=Bcolors.YELLOW_S, bold=Bcolors.BOLD)
         print(welcome_first_page)
@@ -440,20 +476,20 @@ def main_menu(config):
         logo_top(config.debug_mode)
         conf_color = Bcolors.GREEN if config_check() is False else ''
         main_menu_content = """
-        
+
                                 {rmf}MAIN MENU{endc}
-                    
+
                            {blue}{bold}  
                         1 - RotorHazard Manager
-                            
+
                         2 - Nodes flash and update {endc}{bold}
-                                                        
+
                         3 - Additional features{configured}
-                            
+
                         4 - Configuration wizard{endc}{bold}{yellow}
-                                                
+
                         e - Exit to Raspberry OS{endc}
-                            
+
                 """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, green=Bcolors.GREEN,
                            blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, configured=conf_color,
                            rmf=Bcolors.RED_MENU_HEADER)
@@ -488,6 +524,7 @@ def main():
     config = load_config()
     splash_screen(updater_version)
     updated_check(config)
+    ota_update_available_check(config)
     welcome_screen(config)
     main_menu(config)
 

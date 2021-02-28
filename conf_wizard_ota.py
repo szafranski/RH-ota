@@ -15,7 +15,7 @@ def conf_check():
     if os.path.exists("./updater-config.json"):
         print("\n\tLooks that you have OTA software already configured.")
         while True:
-            cont_conf = input("\n\tOverwrite and continue anyway? [y/n]\t\t")
+            cont_conf = input("\n\tOverwrite and continue anyway? [Y/n]\t\t")
             if not cont_conf:
                 print("answer defaulted to: yes")
                 break
@@ -58,7 +58,7 @@ def do_config(old_config):
 Please type your configuration data. It can be modified later.
 If you want to use value given as default, just hit 'Enter'.
 """)
-        pi_user_name = input("\nWhat is your user name on the Raspberry Pi? [default: pi]\t\t\t")
+        pi_user_name = input("\nWhat is your user name on the Raspberry Pi? [default: pi]\t\t")
         if not pi_user_name:
             config.pi_user = 'pi'
             print("defaulted to: 'pi'")
@@ -154,6 +154,19 @@ Usually 'ttyS0' or 'ttyAMA0' (on older OSes) [default: ttyS0]\t\t""")
         if advanced_wizard_flag:
 
             while True:
+                bus_number = input("""
+What is the number of the I2C bus used with nodes? [0/1 | default: 1]\t""")
+                if not bus_number:
+                    bus_number, config.i2c_bus_number = 1, 1
+                    print("defaulted to: 1")
+                    break
+                elif bus_number.isdigit():
+                    config.i2c_bus_number = int(bus_number)
+                    break
+                else:
+                    print("\nPlease enter correct value!")
+
+            while True:
                 debug_mode = input("""
 Will you use OTA software in a simulation mode? [y/N | default: no]
 Flashing itself is not possible in "sim" mode!\t\t\t\t""").lower()
@@ -178,7 +191,7 @@ Flashing itself is not possible in "sim" mode!\t\t\t\t""").lower()
             while True:
                 old_hardware_mod = input("""
 Are you using older, non-i2c hardware flashing mod? 
-(nodes reset pins connected to gpio pins) [ y/N | default: no ]\t\t""").lower()
+(nodes reset pins connected to gpio pins) [y/N | default: no]\t\t""").lower()
                 if not old_hardware_mod:
                     old_hardware_mod, config.old_hw_mod = False, False
                     print("defaulted to: no")
@@ -229,8 +242,8 @@ Are you using older, non-i2c hardware flashing mod?
             config.old_hw_mod = False
             config.pins_assignment = 'default'
             config.gpio_reset_pin = False
+            config.i2c_bus_number = 1
             config.beta_tester = False
-
 
         print(f"""\n\n
             {Bcolors.UNDERLINE}CONFIGURATION{Bcolors.ENDC}:
@@ -245,6 +258,7 @@ Are you using older, non-i2c hardware flashing mod?
         Sim/Debug user name:    {config.debug_user}
         Pins assignment:        {config.pins_assignment}
         GPIO reset pin:         {config.gpio_reset_pin}
+        I2C bus number:         {config.i2c_bus_number}
         Beta tester:            {config.beta_tester}
          
         Please check. Confirm? [yes/change/abort]\n""")

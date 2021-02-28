@@ -9,5 +9,6 @@
     "pins_assignment" : "default",
     "gpio_reset_pin" : false,
     "beta_tester" : false,
-    "port_name" : "ttyS0"
+    "port_name" : "ttyS0",
+    "i2c_bus_number" : 1
 }

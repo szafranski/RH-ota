@@ -33,7 +33,7 @@ def self_update(config):
         #     shutil.copyfile('~/RH-ota/updater-config.json', '~/.ota_markers/updater-config.json')
         if config.beta_tester:
             source = 'master'
-            print("This will be the 'beta' update - may be changed in config file.\n")
+            print("This will be the 'beta' update - may be changed in config wizard.\n")
         else:
             source = 'stable'
         os.system(f"./scripts/self_updater.sh {source}")

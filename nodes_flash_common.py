@@ -1,8 +1,9 @@
 from time import sleep
 import os
+from modules import load_config, Bcolors
 
 
-def com_init():
+def com_init(bus_number):
     error_msg = """
     SMBus(1) - error\nI2C communication doesn't work properly
     Check if I2C interface is enabled with 'sudo raspi-config'
@@ -12,7 +13,7 @@ def com_init():
     bus = 0
     try:
         from smbus import SMBus  # works only on Pi
-        bus = SMBus(1)  # indicates /dev/ic2-1 - correct i2c bus for most Pies
+        bus = SMBus(bus_number)
     except PermissionError as perm_error:
         print(error_msg)
         print(perm_error)
@@ -57,23 +58,30 @@ def prepare_mate_node(addr):
     def calculate_checksum(data):
         checksum = sum(data) & 0xFF
         return checksum
-
-    bus = com_init()
+    config = load_config()
+    try:
+        bus_number = config.i2c_bus_number  # check with "ls /dev/ | grep i2c" (Raspberry Pi - 1; Banana Pi - 0)
+    except AttributeError:
+        bus_number = 1  # defaulting to "1" cause Raspberry Pi uses it; in case of older json with no i2c_bus key
+    bus = com_init(bus_number)
     sleep_amt = 1
     on, off = [1], [0]
     reset_mate_node_command = 0x79
     on.append(calculate_checksum(on))
     off.append(calculate_checksum(off))
     sleep(sleep_amt)
-    bus.write_i2c_block_data(addr, reset_mate_node_command, on)
-    print("on command sent")
-    sleep(sleep_amt)
-    bus.write_i2c_block_data(addr, reset_mate_node_command, off)
-    print("off command sent")
-    sleep(sleep_amt)
-    bus.write_i2c_block_data(addr, reset_mate_node_command, on)
-    print("on command sent")
-    sleep(0.2)
+    try:
+        bus.write_i2c_block_data(addr, reset_mate_node_command, on)
+        print("on command sent")
+        sleep(sleep_amt)
+        bus.write_i2c_block_data(addr, reset_mate_node_command, off)
+        print("off command sent")
+        sleep(sleep_amt)
+        bus.write_i2c_block_data(addr, reset_mate_node_command, on)
+        print("on command sent")
+        sleep(0.2)
+    except OSError:
+        print(f"\n{Bcolors.RED}OSError - please check I2C bus number in the config file (or wiring){Bcolors.ENDC}\n")
 
 
 def flash_mate_node(config, firmware_version):
