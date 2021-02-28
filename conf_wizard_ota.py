@@ -161,7 +161,7 @@ What is the number of the I2C bus connected to the nodes? [0/1 | default: 1]""")
                     print("defaulted to: 1")
                     break
                 elif bus_number.isdigit():
-                    config.i2c_bus_number = bus_number
+                    config.i2c_bus_number = int(bus_number)
                     break
                 else:
                     print("\nPlease enter correct value!")
