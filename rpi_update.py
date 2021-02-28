@@ -12,7 +12,6 @@ def check_preferred_rh_version(config):
         first_line = file.readline()
 
     no_dots_rh_version = first_line.split(".")[0].strip()
-
     converted_rh_version_name = no_dots_rh_version[0] + "." + no_dots_rh_version[1] + "." + no_dots_rh_version[2:]
 
     stable_release_name = str(converted_rh_version_name)  # stable rh target is being loaded from the version.txt file
@@ -256,7 +255,7 @@ def main_window(config):
         
         You can change those in configuration wizard in Main Menu.
         
-        Server installed right now: {server} {bold}
+        Server version currently installed: {server} {bold}
         
         RotorHazard configuration state: {config_soft}
             
