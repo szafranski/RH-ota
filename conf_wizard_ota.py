@@ -15,7 +15,7 @@ def conf_check():
     if os.path.exists("./updater-config.json"):
         print("\n\tLooks that you have OTA software already configured.")
         while True:
-            cont_conf = input("\n\tOverwrite and continue anyway? [y/n]\t\t")
+            cont_conf = input("\n\tOverwrite and continue anyway? [Y/n]\t\t")
             if not cont_conf:
                 print("answer defaulted to: yes")
                 break
@@ -155,7 +155,7 @@ Usually 'ttyS0' or 'ttyAMA0' (on older OSes) [default: ttyS0]\t\t""")
 
             while True:
                 bus_number = input("""
-What is the number of the I2C bus connected to the nodes? [0/1 | default: 1]""")
+What is the number of the I2C bus used with nodes? [0/1 | default: 1]""")
                 if not bus_number:
                     bus_number, config.i2c_bus_number = 1, 1
                     print("defaulted to: 1")

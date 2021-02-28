@@ -13,9 +13,6 @@ def com_init(bus_number):
     bus = 0
     try:
         from smbus import SMBus  # works only on Pi
-        # if "i2c_bus_number" in config:
-        #     bus = SMBus(config.i2c_bus_number)  # check with "ls /dev/ | grep i2c" (Raspberry Pi - 1; Banana Pi - 0)
-        # else:
         bus = SMBus(bus_number)
     except PermissionError as perm_error:
         print(error_msg)
@@ -63,9 +60,9 @@ def prepare_mate_node(addr):
         return checksum
     config = load_config()
     try:
-        bus_number = config.i2c_bus_number
+        bus_number = config.i2c_bus_number  # check with "ls /dev/ | grep i2c" (Raspberry Pi - 1; Banana Pi - 0)
     except AttributeError:
-        bus_number = 1
+        bus_number = 1  # defaulting to "1"cause Raspberry Pi uses it; in case of older configs with no i2c_bus key
     bus = com_init(bus_number)
     sleep_amt = 1
     on, off = [1], [0]
