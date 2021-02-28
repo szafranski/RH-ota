@@ -11,9 +11,10 @@
 2. FAQ section added - mostly focused on ISP programming issues for now
 3. I2C bus number selection added to a config file and a flashing protocol
 (useful when using Banana Pi type SBCs etc)
-4. More useful "show i2c devices" menu - with i2c bus number indication
+4. More useful "Show I2C devices" menu - with I2C bus number indication
 5. More verbose log output
 6. Basic Serial interface diagnostic tool added
+7. Better error handling in few circumstances
 
 232.25.3f
 1. Automatic conversion existing sensors libraries to python3 versions added
