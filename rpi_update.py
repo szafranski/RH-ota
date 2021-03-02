@@ -51,7 +51,7 @@ def get_rotorhazard_server_version(config):
                     server_installed_flag = True
                     break
     else:
-        server_version_name = f'{Bcolors.YELLOW}{Bcolors.UNDERLINE}installation not found{Bcolors.ENDC}'
+        colored_server_version_name = f'{Bcolors.YELLOW}{Bcolors.UNDERLINE}installation not found{Bcolors.ENDC}'
         server_installed_flag = False
     return server_installed_flag, server_version_name, colored_server_version_name
 

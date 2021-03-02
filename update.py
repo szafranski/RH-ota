@@ -179,7 +179,7 @@ def ota_update_available_check(config):
 
 
 def rh_update_check(config):
-    update_prompt = f"{Bcolors.RED}(pending stable update){Bcolors.ENDC}"
+    update_prompt = f"{Bcolors.RED}-> pending stable update{Bcolors.ENDC}"
     # above is showed only when stable version is newer than current
     raw_installed_rh_server = installed_rh_version(config)[1]  # 3.0.0-dev2
     installed_rh_server = raw_installed_rh_server.split("-")[0]  # 3.0.0
