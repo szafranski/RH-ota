@@ -6,7 +6,8 @@ from conf_wizard_net import conf_wizard_net
 from conf_wizard_ota import conf_ota
 from modules import clear_the_screen, Bcolors, logo_top, triangle_image_show, ota_asci_image_show, load_config, \
     load_ota_sys_markers, write_ota_sys_markers, get_ota_version
-from rpi_update import main_window as rpi_update
+from rpi_update import main_window as rpi_update, get_rotorhazard_server_version as installed_rh_version, \
+    check_preferred_rh_version as possible_rh_version
 from nodes_flash import flashing_menu
 from nodes_update_old import nodes_update as old_flash_gpio
 
@@ -175,6 +176,22 @@ def ota_update_available_check(config):
                 break
             elif selection == 's':
                 break
+
+
+def rh_update_check(config):
+    update_prompt = f"{Bcolors.RED}(update available){Bcolors.ENDC}"
+    installed_rh_server = installed_rh_version(config)[1]
+    installed_rh_server_number = int(installed_rh_server.replace(".", ""))
+    server_installed_flag = installed_rh_version(config)[0]
+    newest_possible_rh_version = int(possible_rh_version(config)[1])
+    if installed_rh_server_number < newest_possible_rh_version and server_installed_flag is True:
+        rh_update_available_flag = True
+    else:
+        rh_update_available_flag = False
+    if rh_update_available_flag:
+        return update_prompt
+    else:
+        return ''
 
 
 def welcome_screen(config):
@@ -475,16 +492,17 @@ def main_menu(config):
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
+        rh_update_prompt = rh_update_check(config)
         conf_color = Bcolors.GREEN if config_check() is False else ''
         main_menu_content = """
 
                                 {rmf}MAIN MENU{endc}
 
-                           {blue}{bold}  
-                        1 - RotorHazard Manager
-
+                            {blue}{bold}  
+                        1 - RotorHazard Manager {rh_update_prompt} 
+                            {blue}{bold}
                         2 - Nodes flash and update {endc}{bold}
-
+                            
                         3 - Additional features{configured}
 
                         4 - Configuration wizard{endc}{bold}{yellow}
@@ -492,8 +510,8 @@ def main_menu(config):
                         e - Exit to Raspberry OS{endc}
 
                 """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, green=Bcolors.GREEN,
-                           blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, configured=conf_color,
-                           rmf=Bcolors.RED_MENU_HEADER)
+                           blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED, configured=conf_color,
+                           rmf=Bcolors.RED_MENU_HEADER, rh_update_prompt=rh_update_prompt)
         print(main_menu_content)
         selection = input()
         if selection == '1':
