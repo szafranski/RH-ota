@@ -494,7 +494,10 @@ def main_menu(config):
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
-        rh_update_prompt = rh_update_check(config)
+        try:
+            rh_update_prompt = rh_update_check(config)
+        except ValueError:
+            rh_update_prompt = ''
         conf_color = Bcolors.GREEN if config_check() is False else ''
         main_menu_content = """
 
