@@ -227,7 +227,8 @@ def update(config):
             print(f"\n\n\t{Bcolors.BOLD}Updating existing installation - please wait...{Bcolors.ENDC}\n\n")
             os.system(f"./scripts/update_rh.sh {config.user} {check_preferred_rh_version(config)[0]}")
             config_flag, config_soft = check_rotorhazard_config_status(config)
-            server_installed_flag, server_version_name, colored_server_version_name = get_rotorhazard_server_version(config)
+            server_installed_flag, server_version_name, colored_server_version_name = \
+                get_rotorhazard_server_version(config)
             os.system("sudo chmod -R 777 ~/RotorHazard")
             end_update(config, config_flag, server_installed_flag)
 

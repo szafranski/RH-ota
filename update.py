@@ -172,7 +172,7 @@ def ota_update_available_check(config):
         while True:
             selection = input()
             if selection == 'u':
-                self_updater(config)  # TODO check bad exiting from that loop after update
+                self_updater(config)
                 break
             elif selection == 's':
                 break
@@ -180,11 +180,12 @@ def ota_update_available_check(config):
 
 def rh_update_check(config):
     update_prompt = f"{Bcolors.RED}(pending stable update){Bcolors.ENDC}"
-    raw_installed_rh_server = installed_rh_version(config)[1]
-    installed_rh_server = raw_installed_rh_server.split("-")[0]
-    installed_rh_server_number = int(installed_rh_server.replace(".", ""))
-    server_installed_flag = installed_rh_version(config)[0]
-    newest_possible_rh_version = int(possible_rh_version(config)[1])
+    # above is showed only when stable version is newer than current
+    raw_installed_rh_server = installed_rh_version(config)[1]  # 3.0.0-dev2
+    installed_rh_server = raw_installed_rh_server.split("-")[0]  # 3.0.0
+    installed_rh_server_number = int(installed_rh_server.replace(".", ""))  # 300
+    server_installed_flag = installed_rh_version(config)[0]  # check if RH is installed
+    newest_possible_rh_version = int(possible_rh_version(config)[1])  # derived from OTA name 232.25.3h -> 232
     if installed_rh_server_number < newest_possible_rh_version and server_installed_flag is True:
         rh_update_available_flag = True
     else:
