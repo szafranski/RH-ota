@@ -5,6 +5,10 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+232.25.3h
+1. Automatic prompt when newer version of RotorHazard is available
+(when OTA is up-to-date, checks only for stable releases)
+
 232.25.3g
 1. Automatically generated prompt when newer version of OTA is available
 (if internet connection is available)
