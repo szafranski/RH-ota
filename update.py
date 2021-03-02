@@ -152,7 +152,7 @@ def ota_update_available_check(config):
     else:
         ota_update_available_flag = False
 
-    if ota_update_available_flag:
+    if ota_update_available_flag and config.beta_tester is False:  # don't show update prompt to beta-testers
         clear_the_screen()
         logo_top(config.debug_mode)
         print("""\n\n {bold}
