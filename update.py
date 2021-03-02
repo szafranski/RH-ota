@@ -179,8 +179,9 @@ def ota_update_available_check(config):
 
 
 def rh_update_check(config):
-    update_prompt = f"{Bcolors.RED}(update available){Bcolors.ENDC}"
-    installed_rh_server = installed_rh_version(config)[1]
+    update_prompt = f"{Bcolors.RED}(pending stable update){Bcolors.ENDC}"
+    raw_installed_rh_server = installed_rh_version(config)[1]
+    installed_rh_server = raw_installed_rh_server.split("-")[0]
     installed_rh_server_number = int(installed_rh_server.replace(".", ""))
     server_installed_flag = installed_rh_version(config)[0]
     newest_possible_rh_version = int(possible_rh_version(config)[1])
