@@ -6,8 +6,7 @@ from conf_wizard_net import conf_wizard_net
 from conf_wizard_ota import conf_ota
 from modules import clear_the_screen, Bcolors, logo_top, triangle_image_show, ota_asci_image_show, load_config, \
     load_ota_sys_markers, write_ota_sys_markers, get_ota_version
-from rpi_update import main_window as rpi_update, get_rotorhazard_server_version as installed_rh_version, \
-    check_preferred_rh_version as possible_rh_version
+from rpi_update import main_window as rpi_update, rh_update_check
 from nodes_flash import flashing_menu
 from nodes_update_old import nodes_update as old_flash_gpio
 
@@ -176,24 +175,6 @@ def ota_update_available_check(config):
                 break
             elif selection == 's':
                 break
-
-
-def rh_update_check(config):
-    update_prompt = f"{Bcolors.RED}-> pending stable update{Bcolors.ENDC}"
-    # above is showed only when stable version is newer than current
-    raw_installed_rh_server = installed_rh_version(config)[1]  # 3.0.0-dev2
-    installed_rh_server = raw_installed_rh_server.split("-")[0]  # 3.0.0
-    installed_rh_server_number = int(installed_rh_server.replace(".", ""))  # 300
-    server_installed_flag = installed_rh_version(config)[0]  # check if RH is installed
-    newest_possible_rh_version = int(possible_rh_version(config)[1])  # derived from OTA name 232.25.3h -> 232
-    if installed_rh_server_number < newest_possible_rh_version and server_installed_flag is True:
-        rh_update_available_flag = True
-    else:
-        rh_update_available_flag = False
-    if rh_update_available_flag:
-        return update_prompt
-    else:
-        return ''
 
 
 def welcome_screen(config):
@@ -494,10 +475,7 @@ def main_menu(config):
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
-        try:
-            rh_update_prompt = rh_update_check(config)
-        except ValueError:
-            rh_update_prompt = ''
+        rh_update_prompt = rh_update_check(config)
         conf_color = Bcolors.GREEN if config_check() is False else ''
         main_menu_content = """
 

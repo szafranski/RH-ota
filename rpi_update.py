@@ -38,7 +38,6 @@ def check_preferred_rh_version(config):
 
 def get_rotorhazard_server_version(config):
     server_py = Path(f"/home/{config.user}/RotorHazard/src/server/server.py")
-    server_version_name = ''
     server_installed_flag = False
     if server_py.exists():
         with open(server_py, 'r') as open_file:
@@ -46,14 +45,31 @@ def get_rotorhazard_server_version(config):
                 if line.startswith('RELEASE_VERSION'):
                     # RELEASE_VERSION = "2.2.0 (dev 1)" # Public release version code
                     server_version_name = line.strip().split('=')[1].strip()
-                    server_version_name = server_version_name.strip().split('#')[0].replace('"', '')
-                    colored_server_version_name = f"{Bcolors.GREEN}{server_version_name}{Bcolors.ENDC} "
+                    server_version_name = server_version_name.split('#')[0].replace('"', '').strip()
                     server_installed_flag = True
                     break
     else:
-        colored_server_version_name = f'{Bcolors.YELLOW}{Bcolors.UNDERLINE}installation not found{Bcolors.ENDC}'
+        server_version_name = '0'  # string so string operations like .split can be perfomed
         server_installed_flag = False
-    return server_installed_flag, server_version_name, colored_server_version_name
+    return server_installed_flag, server_version_name
+
+
+def rh_update_check(config):
+    update_prompt = f"{Bcolors.RED}-> pending stable update{Bcolors.ENDC}"
+    # above is showed only when stable version is newer than current
+    raw_installed_rh_server = get_rotorhazard_server_version(config)[1]  # 3.0.0-dev2
+    installed_rh_server = raw_installed_rh_server.split("-")[0]  # 3.0.0
+    installed_rh_server_number = int(installed_rh_server.replace(".", ""))  # 300
+    server_installed_flag = get_rotorhazard_server_version(config)[0]  # check if RH is installed
+    newest_possible_rh_version = int(check_preferred_rh_version(config)[1])  # derived from OTA name 232.25.3h -> 232
+    if installed_rh_server_number < newest_possible_rh_version and server_installed_flag is True:
+        rh_update_available_flag = True
+    else:
+        rh_update_available_flag = False
+    if rh_update_available_flag:
+        return update_prompt
+    else:
+        return ''
 
 
 def check_rotorhazard_config_status(config):
@@ -227,8 +243,7 @@ def update(config):
             print(f"\n\n\t{Bcolors.BOLD}Updating existing installation - please wait...{Bcolors.ENDC}\n\n")
             os.system(f"./scripts/update_rh.sh {config.user} {check_preferred_rh_version(config)[0]}")
             config_flag, config_soft = check_rotorhazard_config_status(config)
-            server_installed_flag, server_version_name, colored_server_version_name = \
-                get_rotorhazard_server_version(config)
+            server_installed_flag, server_version_name = get_rotorhazard_server_version(config)
             os.system("sudo chmod -R 777 ~/RotorHazard")
             end_update(config, config_flag, server_installed_flag)
 
@@ -237,7 +252,12 @@ def main_window(config):
     while True:
         rh_config_text, rh_config_flag = check_rotorhazard_config_status(config)
         clear_the_screen()
-        server_installed_flag, server_version_name, colored_server_version_name = get_rotorhazard_server_version(config)
+        server_installed_flag, server_version_name = get_rotorhazard_server_version(config)
+        if server_installed_flag:
+            colored_server_version_name = f"{Bcolors.GREEN}{server_version_name}{Bcolors.ENDC}"
+        else:
+            colored_server_version_name = f'{Bcolors.YELLOW}{Bcolors.UNDERLINE}installation not found{Bcolors.ENDC}'
+        update_prompt = rh_update_check(config)
         ota_config = load_ota_sys_markers(config.user)
         sys_configured_flag = ota_config.sys_config_done
         sleep(0.1)
@@ -257,13 +277,14 @@ def main_window(config):
         
         You can change those in configuration wizard in Main Menu.
         
-        Server version currently installed: {server} {bold}
+        Server version currently installed: {server} {bold}{update_prompt} {bold}
         
         RotorHazard configuration state: {config_soft}
             
             """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, blue=Bcolors.BLUE,
                        yellow=Bcolors.YELLOW, red=Bcolors.RED, orange=Bcolors.ORANGE, server_version=config.rh_version,
-                       user=config.user, config_soft=rh_config_text, server=colored_server_version_name)
+                       user=config.user, config_soft=rh_config_text, server=colored_server_version_name,
+                       update_prompt=update_prompt)
         print(welcome_text)
         if not rh_config_flag and server_installed_flag:
             configure = f"{Bcolors.GREEN}c - Configure RotorHazard server{Bcolors.ENDC}"
