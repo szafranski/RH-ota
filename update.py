@@ -6,7 +6,7 @@ from conf_wizard_net import conf_wizard_net
 from conf_wizard_ota import conf_ota
 from modules import clear_the_screen, Bcolors, logo_top, triangle_image_show, ota_asci_image_show, load_config, \
     load_ota_sys_markers, write_ota_sys_markers, get_ota_version
-from rpi_update import main_window as rpi_update
+from rpi_update import main_window as rpi_update, rh_update_check
 from nodes_flash import flashing_menu
 from nodes_update_old import nodes_update as old_flash_gpio
 
@@ -30,15 +30,16 @@ def config_check():
 
 def attribute_error_handling():
     err_msg = """
+    AttributeError
 
-    Looks that your username entered in the wizard is probably wrong.
-    There may also be another json config file error present.
+    Looks that you may have some configuration mismatch. 
+    Check entered username and other parameters in config wizard.
 
     You may also try to re-open the ota software with './ota.sh' command.
 
     """
     print(err_msg)
-    input("\n\n\tHit Enter to continue and re-enter configuration wizard.")
+    input("\n\n\tHit Enter to continue and next check your configuration.")
     clear_the_screen()
 
 
@@ -150,7 +151,7 @@ def ota_update_available_check(config):
     else:
         ota_update_available_flag = False
 
-    if ota_update_available_flag:
+    if ota_update_available_flag and config.beta_tester is False:  # don't show update prompt to beta-testers
         clear_the_screen()
         logo_top(config.debug_mode)
         print("""\n\n {bold}
@@ -170,7 +171,7 @@ def ota_update_available_check(config):
         while True:
             selection = input()
             if selection == 'u':
-                self_updater(config)  # TODO check bad exiting from that loop after update
+                self_updater(config)
                 break
             elif selection == 's':
                 break
@@ -474,16 +475,17 @@ def main_menu(config):
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
+        rh_update_prompt = rh_update_check(config)
         conf_color = Bcolors.GREEN if config_check() is False else ''
         main_menu_content = """
 
                                 {rmf}MAIN MENU{endc}
 
-                           {blue}{bold}  
-                        1 - RotorHazard Manager
-
+                            {blue}{bold}  
+                        1 - RotorHazard Manager {rh_update_prompt} 
+                            {blue}{bold}
                         2 - Nodes flash and update {endc}{bold}
-
+                            
                         3 - Additional features{configured}
 
                         4 - Configuration wizard{endc}{bold}{yellow}
@@ -491,8 +493,8 @@ def main_menu(config):
                         e - Exit to Raspberry OS{endc}
 
                 """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, green=Bcolors.GREEN,
-                           blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S, configured=conf_color,
-                           rmf=Bcolors.RED_MENU_HEADER)
+                           blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED, configured=conf_color,
+                           rmf=Bcolors.RED_MENU_HEADER, rh_update_prompt=rh_update_prompt)
         print(main_menu_content)
         selection = input()
         if selection == '1':

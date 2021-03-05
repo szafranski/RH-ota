@@ -1,14 +1,16 @@
-232.25.3g
+232.25.3h
 
 Version of this program - it has nothing to do with the RH version.
 First number refers to last stable RH version that can be installed using particular release.
 Second number is the API level of the newest contained nodes firmware.
 Third number refers to the actual version of the OTA updater itself.
 
-For example version 22.25.1a could handle installation/update of the RotorHazard server v 2.2.0,
+For example version 220.25.1a could handle installation/update of the RotorHazard server v 2.2.0,
 would contain firmware with the API level 25 and the OTA release "name" is "1a".
 Done this way so the user would know at a glance if he has to update OTA to install newer version of RH.
 
 Features and functions are described in files in /docs folder.
 
 # keep the version number in first line of this file
+# this file is important cause stable RotorHazard target is being generated from the first number in first line
+# in the rpi_update.py file - first function - KEEP IT THAT WAY!!!
