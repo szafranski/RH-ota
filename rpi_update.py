@@ -221,12 +221,12 @@ def update(config):
 
     Looks like you don't have RotorHazard server software installed for now. 
 
-    If so please install your server software first or you won't be able to use the timer.{Bcolors.ENDC}{Bcolors.GREEN} 
+    If so please install your server software first.{Bcolors.ENDC}{Bcolors.GREEN} 
           
         
         i - Install the software - recommended{Bcolors.ENDC}
 
-        a - Abort both  {Bcolors.ENDC}
+        a - Abort {Bcolors.ENDC}
 
 """)
             selection = input()
