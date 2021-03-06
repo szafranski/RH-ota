@@ -221,12 +221,12 @@ def update(config):
 
     Looks like you don't have RotorHazard server software installed for now. 
 
-    If so please install your server software first or you won't be able to use the timer.{Bcolors.ENDC}{Bcolors.GREEN} 
+    If so please install your server software first.{Bcolors.ENDC}{Bcolors.GREEN} 
           
         
         i - Install the software - recommended{Bcolors.ENDC}
 
-        a - Abort both  {Bcolors.ENDC}
+        a - Abort {Bcolors.ENDC}
 
 """)
             selection = input()
@@ -260,6 +260,7 @@ def main_window(config):
         update_prompt = rh_update_check(config)
         ota_config = load_ota_sys_markers(config.user)
         sys_configured_flag = ota_config.sys_config_done
+        configured_server_target = check_preferred_rh_version(config)[0]
         sleep(0.1)
         welcome_text = """
         \n\n{red} {bold}
@@ -282,9 +283,9 @@ def main_window(config):
         RotorHazard configuration state: {config_soft}
             
             """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, blue=Bcolors.BLUE,
-                       yellow=Bcolors.YELLOW, red=Bcolors.RED, orange=Bcolors.ORANGE, server_version=config.rh_version,
-                       user=config.user, config_soft=rh_config_text, server=colored_server_version_name,
-                       update_prompt=update_prompt)
+                       yellow=Bcolors.YELLOW, red=Bcolors.RED, orange=Bcolors.ORANGE,
+                       server_version=configured_server_target, user=config.user, config_soft=rh_config_text,
+                       server=colored_server_version_name, update_prompt=update_prompt)
         print(welcome_text)
         if not rh_config_flag and server_installed_flag:
             configure = f"{Bcolors.GREEN}c - Configure RotorHazard server{Bcolors.ENDC}"
