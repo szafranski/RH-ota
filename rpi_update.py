@@ -23,8 +23,8 @@ def check_preferred_rh_version(config):
         server_version = stable_release_name
     elif config.rh_version == 'beta':
         server_version = beta_release_name
-    elif config.rh_version == 'master':
-        server_version = 'master'
+    elif config.rh_version == 'master' or config.rh_version == 'main':
+        server_version = 'main'
     else:  # in case of 'custom' version selected in wizard
         server_version = config.rh_version
 
