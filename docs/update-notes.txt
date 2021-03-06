@@ -5,10 +5,13 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+232.25.3h1
+1. RotorHazard target "master" changed to "main"
+
 232.25.3h
 1. Automatic prompt when newer version of RotorHazard is available
 (when OTA is up-to-date, checks only for stable releases)
-2. Beta RotorHazard "3.0.0-beta.1" support
+2. Beta RotorHazard "3.0.0-beta.1" support added
 
 232.25.3g
 1. Automatically generated prompt when newer version of OTA is available
