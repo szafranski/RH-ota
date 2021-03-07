@@ -259,9 +259,10 @@ def main_window(config):
         server_installed_flag, server_version_name = get_rotorhazard_server_version(config)
         if server_installed_flag:
             colored_server_version_name = f"{Bcolors.GREEN}{server_version_name}{Bcolors.ENDC}"
+            update_prompt = rh_update_check(config)
         else:
             colored_server_version_name = f'{Bcolors.YELLOW}{Bcolors.UNDERLINE}installation not found{Bcolors.ENDC}'
-        update_prompt = rh_update_check(config)
+            update_prompt = ''
         ota_config = load_ota_sys_markers(config.user)
         sys_configured_flag = ota_config.sys_config_done
         configured_server_target = check_preferred_rh_version(config)[0]
