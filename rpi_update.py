@@ -56,6 +56,7 @@ def get_rotorhazard_server_version(config):
 
 def rh_update_check(config):
     update_prompt = f"{Bcolors.RED}-> pending stable update{Bcolors.ENDC}"
+    install_prompt = f"{Bcolors.RED}-> install RotorHazard{Bcolors.ENDC}"
     # above is showed only when stable version is newer than current
     raw_installed_rh_server = get_rotorhazard_server_version(config)[1]  # 3.0.0-dev2
     installed_rh_server = raw_installed_rh_server.split("-")[0]  # 3.0.0
@@ -66,10 +67,13 @@ def rh_update_check(config):
         rh_update_available_flag = True
     else:
         rh_update_available_flag = False
-    if rh_update_available_flag:
-        return update_prompt
+    if server_installed_flag is False:
+        return install_prompt
     else:
-        return ''
+        if rh_update_available_flag:
+            return update_prompt
+        else:
+            return ''
 
 
 def check_rotorhazard_config_status(config):

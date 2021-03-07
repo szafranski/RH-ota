@@ -475,14 +475,14 @@ def main_menu(config):
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
-        rh_update_prompt = rh_update_check(config)
+        rh_install_or_update_prompt = rh_update_check(config)
         conf_color = Bcolors.GREEN if config_check() is False else ''
         main_menu_content = """
 
                                 {rmf}MAIN MENU{endc}
 
                             {blue}{bold}  
-                        1 - RotorHazard Manager {rh_update_prompt} 
+                        1 - RotorHazard Manager {rh_prompt} 
                             {blue}{bold}
                         2 - Nodes flash and update {endc}{bold}
                             
@@ -494,7 +494,7 @@ def main_menu(config):
 
                 """.format(bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, green=Bcolors.GREEN,
                            blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED, configured=conf_color,
-                           rmf=Bcolors.RED_MENU_HEADER, rh_update_prompt=rh_update_prompt)
+                           rmf=Bcolors.RED_MENU_HEADER, rh_prompt=rh_install_or_update_prompt)
         print(main_menu_content)
         selection = input()
         if selection == '1':

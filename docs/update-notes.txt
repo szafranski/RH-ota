@@ -5,6 +5,9 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+232.25.3h2
+1. "install RotorHazard" prompt added
+
 232.25.3h1
 1. RotorHazard target "master" changed to "main"
 
