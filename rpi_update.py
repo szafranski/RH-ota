@@ -299,9 +299,9 @@ def main_window(config):
         else:
             configure = "c - Configure RotorHazard server"
         if not server_installed_flag:
-            install = f"{Bcolors.GREEN}i - Install software from scratch{Bcolors.ENDC}"
+            install = f"{Bcolors.GREEN}i - Install RotorHazard from scratch{Bcolors.ENDC}"
         else:
-            install = "i - Install software from scratch"
+            install = "i - Install RotorHazard from scratch"
         print("""
                     {install}
                     
