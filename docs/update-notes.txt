@@ -5,7 +5,7 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
-233.25.3h1
+233.25.3h2
 1. RotorHazard 2.3.3 installation and update support added
 
 232.25.3h1
