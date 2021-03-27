@@ -20,7 +20,7 @@ except RuntimeError:
 
 """
 This is obsolete flashing protocol, left here only for first users in mind.
-New version is in i2c_nodes_flash.py file. 
+New version is in nodes_flash.py file. 
 """
 
 
@@ -100,7 +100,9 @@ def logo_update(config):
     #                                                                     #
     #                          {bold}Thank you!{endc}                     #
     #                                                                     #
-    #######################################################################\n\n
+    #######################################################################
+    
+    
     """.format(nodes_number=config.nodes_number, bold=Bcolors.BOLD_S, underline=Bcolors.UNDERLINE_S,
                endc=Bcolors.ENDC_S, blue=Bcolors.BLUE, yellow=Bcolors.YELLOW_S, red=Bcolors.RED_S,
                orange=Bcolors.ORANGE_S, s=10 * ' '))

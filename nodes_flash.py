@@ -28,8 +28,10 @@ def nodes_addresses():
 
 
 def firmware_version_selection(config):
-    if config.rh_version in ['stable', 'beta', 'master']:
+    if config.rh_version in ['stable', 'beta']:
         firmware_version = config.rh_version
+    elif config.rh_version in ['master', 'main']:
+        firmware_version = 'main'
     else:  # in case of 'custom' RH version - firmware defaults to 'stable'
         firmware_version = 'stable'
 
