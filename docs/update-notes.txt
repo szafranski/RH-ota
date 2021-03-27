@@ -5,10 +5,10 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
-233.25.3h3
+233.25.3h2
 1. Nodes firmware updated for 'beta' (API: 34) and 'main' (API: 35) RH targets
 
-233.25.3h2
+233.25.3h1
 1. RotorHazard 2.3.3 installation and update support added
 
 232.25.3h1
