@@ -39,7 +39,7 @@ def ask_custom_rh_version():
             You entered: '{version}' 
 
             Confirm [Y/n]""")
-        if custom_confirm.lower() == 'Y' or not custom_confirm:
+        if custom_confirm.lower() == 'y' or not custom_confirm:
             return version
 
 
