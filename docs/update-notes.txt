@@ -5,6 +5,9 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+233.25.3h3
+1. Minor custom RotorHazard version selection bug fix (in a wizard)
+
 233.25.3h2
 1. Nodes firmware updated for 'beta' (API: 34) and 'main' (API: 35) RH targets
 
