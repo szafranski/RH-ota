@@ -33,12 +33,13 @@ def conf_check():
 
 def ask_custom_rh_version():
     while True:
-        version = input("\nPlease enter the version tag that you wish to install [EG: 2.1.0-beta.3]:\t")
-        print("Available firmware to flash will be defaulted to 'stable' version.\n")
+        version = input("\nPlease enter the version tag that you wish to install [e.g. 2.1.0-beta.3]:\n")
+        print("Firmware available to flash will be defaulted to 'stable' version.\n")
         custom_confirm = input(f"""
-            You entered: '{version}' 
+            You entered version: '{version}' 
 
-            Confirm [Y/n]""")
+            Confirm [Y/n]
+                                """)
         if custom_confirm.lower() == 'y' or not custom_confirm:
             return version
 
