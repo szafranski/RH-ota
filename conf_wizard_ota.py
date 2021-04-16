@@ -19,7 +19,7 @@ def conf_check():
             if not cont_conf:
                 print("answer defaulted to: yes")
                 break
-            elif cont_conf[0] == 'y':
+            elif cont_conf[0].lower() == 'y':
                 conf_now_flag = True
                 break
             elif cont_conf[0] == 'n':
@@ -38,8 +38,7 @@ def ask_custom_rh_version():
         custom_confirm = input(f"""
             You entered version: '{version}' 
 
-            Confirm [Y/n]
-                                """)
+            Confirm [Y/n]       """)
         if custom_confirm.lower() == 'y' or not custom_confirm:
             return version
 
