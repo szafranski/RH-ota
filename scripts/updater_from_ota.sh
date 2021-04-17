@@ -27,7 +27,7 @@ cd ~ || exit
 rm -rf ~/.ota_markers/old_RH-ota >/dev/null 2>&1
 cp -r ~/RH-ota ~/.ota_markers/old_RH-ota
 cd ~/.ota_markers/old_RH-ota || exit
-python3 ~/.ota_markers/old_RH-ota/self.py
+python3 ~/.ota_markers/old_RH-ota/self_update.py
 cd ~ || exit
 sleep 1.2
 cd ~/RH-ota || exit

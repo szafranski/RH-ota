@@ -5,6 +5,9 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+233.25.3i1
+1. RH-ota beta branch name refactored from 'master' to 'main'
+
 233.25.3i
 1. Firmware api-levels description updated
 2. RotorHazard server versions targets descriptions updated
