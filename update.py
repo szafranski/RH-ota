@@ -440,7 +440,7 @@ def show_about(config):
 
     > {blue}'beta'  {endc}{bold}- last 'beta' release (usually has about few weeks, quite stable){endc}{bold}
 
-    > {blue}'master'{endc}{bold}- absolutely newest features implemented (even if not well tested){endc} 
+    > {blue}'main'{endc}{bold}- absolutely newest features implemented (even if not well tested){endc} 
 
 
 
