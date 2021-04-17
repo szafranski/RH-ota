@@ -5,6 +5,10 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+233.25.3i
+1. Firmware api-levels description updated
+2. RotorHazard server versions targets descriptions updated
+
 233.25.3h3
 1. Minor custom RotorHazard version selection bug fix (in a wizard)
 
