@@ -8,6 +8,7 @@
 233.25.3i2
 1. Minor visual tweaks
 2. Raspberry Pi 4 detection fixed
+3. Port forwarding added
 
 233.25.3i1
 1. RH-ota beta branch name refactored from 'master' to 'main'
