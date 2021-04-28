@@ -2,15 +2,39 @@
 
 # description of codes reported when is_pi_4 function is executed:
 #Model and PCB Revision	RAM	Hardware Revision Code from cpu info
-#Pi Zero v1.2	512MB	900092
-#Pi Zero v1.3	512MB	900093
-#Pi Zero W	512MB	9000C1
-#Pi 3 Model B	1GB	a02082 (Sony, UK)
-#Pi 3 Model B	1GB	a22082 (Embest, China)
-#Pi 3 Model B+	1GB	a020d3 (Sony, UK)
-#Pi 4	1GB	a03111 (Sony, UK)
-#Pi 4	2GB	b03111 (Sony, UK)
-#Pi 4	4GB	c03111 (Sony, UK)
+#Code	Model	Revision	RAM	Manufacturer
+#900021	A+	1.1	512MB	Sony UK
+#900032	B+	1.2	512MB	Sony UK
+#900092	Zero	1.2	512MB	Sony UK
+#900093	Zero	1.3	512MB	Sony UK
+#9000c1	Zero W	1.1	512MB	Sony UK
+#9020e0	3A+	1.0	512MB	Sony UK
+#920092	Zero	1.2	512MB	Embest
+#920093	Zero	1.3	512MB	Embest
+#900061	CM	1.1	512MB	Sony UK
+#a01040	2B	1.0	1GB	Sony UK
+#a01041	2B	1.1	1GB	Sony UK
+#a02082	3B	1.2	1GB	Sony UK
+#a020a0	CM3	1.0	1GB	Sony UK
+#a020d3	3B+	1.3	1GB	Sony UK
+#a02042	2B (with BCM2837)	1.2	1GB	Sony UK
+#a21041	2B	1.1	1GB	Embest
+#a22042	2B (with BCM2837)	1.2	1GB	Embest
+#a22082	3B	1.2	1GB	Embest
+#a220a0	CM3	1.0	1GB	Embest
+#a32082	3B	1.2	1GB	Sony Japan
+#a52082	3B	1.2	1GB	Stadium
+#a22083	3B	1.3	1GB	Embest
+#a02100	CM3+	1.0	1GB	Sony UK
+#a03111	4B	1.1	1GB	Sony UK
+#b03111	4B	1.1	2GB	Sony UK
+#b03112	4B	1.2	2GB	Sony UK
+#b03114	4B	1.4	2GB	Sony UK
+#c03111	4B	1.1	4GB	Sony UK
+#c03112	4B	1.2	4GB	Sony UK
+#c03114	4B	1.4	4GB	Sony UK
+#d03114	4B	1.4	8GB	Sony UK
+#c03130	Pi 400	1.0	4GB	Sony UK
 
 #if ./isPi4.sh ; then
 # sed -i 's/core_freq=250/#core_freq=250/' /boot/config.txt > /dev/null 2>&1
@@ -19,7 +43,9 @@
 is_pi_4() {
   ifs=':' read -ra piversion <<<"$(cat /proc/cpuinfo | grep Revision)"
   if [[ ${piversion[2]} == *"0311"* ]]; then
-    sed -i 's/core_freq=250/#core_freq=250/' /boot/config.txt >/dev/null 2>&1 || return 1
+    sudo sed -i 's/core_freq=250/#core_freq=250/' /boot/config.txt >/dev/null 2>&1 || return 1
+    printf "Raspberry Pi 4 chipset found
+    "
   fi
 }
 
@@ -37,6 +63,7 @@ is_pi_4_error() {
   If you are using any other Pi model please ignore that message.
 
   Hit 'Enter' to continue
+
   "
   read -r _
   sleep 2
@@ -47,6 +74,8 @@ ssh_enabling() {
   sudo systemctl start ssh || return 1
   printf "
      $green -- SSH ENABLED -- $endc
+
+
   "
   sleep 3
   return 0
@@ -61,6 +90,7 @@ ssh_error() {
   than reboot
 
   Hit 'Enter' to continue
+
   "
   read -r _
   sleep 2
@@ -71,6 +101,8 @@ spi_enabling() {
   sudo sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf || return 1
   printf "
      $green -- SPI ENABLED -- $endc
+
+
   "
   sleep 3
   return 0
@@ -85,6 +117,8 @@ spi_error() {
   than reboot
 
   Hit 'Enter' to continue
+
+
   "
   read -r _
   sleep 2
@@ -103,6 +137,8 @@ dtparam=i2c_arm=on
   is_pi_4 || is_pi_4_error
   printf "
      $green -- I2C ENABLED -- $endc
+
+
      "
   sleep 3
   return 0
@@ -117,6 +153,7 @@ i2c_error() {
   than reboot
 
   Hit 'Enter' to continue
+
   "
   read -r _
   sleep 2
@@ -129,6 +166,8 @@ uart_enabling() {
   sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt || return 1
   printf "
      $green -- UART ENABLED -- $endc
+
+
      "
   sleep 3
   return 0
@@ -143,6 +182,7 @@ uart_error() {
   than reboot
 
   Hit 'Enter' to continue
+
   "
   read -r _
   sleep 2
