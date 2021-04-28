@@ -9,3 +9,9 @@ sudo iptables-save
 
 exit 0
 " | sudo tee -a /etc/rc.local
+
+echo "
+
+port forwarding added
+
+"

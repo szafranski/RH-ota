@@ -5,6 +5,9 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+233.25.3i3
+1. Port forwarding added - automatically after update or installation of RH
+
 233.25.3i2
 1. Minor visual tweaks
 2. Raspberry Pi 4 detection fixed
