@@ -127,10 +127,8 @@ spi_error() {
 i2c_enabling() {
   is_pi_4 || is_pi_4_error
  if [ "$pi_4_found" = true ] ; then
-     printf "Raspberry Pi 4 chipset found"
-
-sudo sed -i 's/dtparam=i2c_arm=off/dtparam=i2c_arm=on/' /boot/config.txt || return 1
-
+    printf "Raspberry Pi 4 chipset found"
+    sudo sed -i 's/dtparam=i2c_arm=off/dtparam=i2c_arm=on/' /boot/config.txt || return 1
 
 else
   echo "
