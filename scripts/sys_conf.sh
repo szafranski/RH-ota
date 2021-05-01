@@ -129,6 +129,9 @@ i2c_enabling() {
  if [ "$pi_4_found" = true ] ; then
      printf "Raspberry Pi 4 chipset found"
 
+sudo sed -i 's/dtparam=i2c_arm=off/dtparam=i2c_arm=on/' /boot/config.txt || return 1
+
+
 else
   echo "
 dtparam=i2c_baudrate=75000
