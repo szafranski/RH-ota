@@ -43,9 +43,9 @@
 is_pi_4() {
   ifs=':' read -ra piversion <<<"$(cat /proc/cpuinfo | grep Revision)"
   if [[ ${piversion[2]} == *"0311"* ]]; then
-    sudo sed -i 's/core_freq=250/#core_freq=250/' /boot/config.txt >/dev/null 2>&1 || return 1
-    printf "Raspberry Pi 4 chipset found
-    "
+    pi_4_found=true
+    else
+    pi_4_found=false
   fi
 }
 
@@ -125,6 +125,11 @@ spi_error() {
 }
 
 i2c_enabling() {
+  is_pi_4 || is_pi_4_error
+ if [ "$pi_4_found" = true ] ; then
+     printf "Raspberry Pi 4 chipset found"
+
+else
   echo "
 dtparam=i2c_baudrate=75000
 core_freq=250
@@ -134,7 +139,8 @@ dtparam=i2c1=on
 dtparam=i2c_arm=on
   " | sudo tee -a /boot/config.txt || return 1
   sudo sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf || return 1
-  is_pi_4 || is_pi_4_error
+
+  fi
   printf "
      $green -- I2C ENABLED -- $endc
 
