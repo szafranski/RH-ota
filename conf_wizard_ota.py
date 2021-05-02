@@ -135,6 +135,25 @@ Usually 'ttyS0' or 'ttyAMA0' (on older OSes) [default: ttyS0]\t\t""")
                 config.port_name = flashing_port_name
                 break
 
+        while True:
+            nano_bootloader_version = input("""
+Which bootloader version your Arduino Nano have?
+"New" or "Old Bootloader" [new/OLD | default: old]\t\t\t\t""")
+            if not nano_bootloader_version:
+                config.nano_new_bootloader = False
+                print("defaulted to 'Old Bootloader'")
+                break
+            elif str(nano_bootloader_version.strip().lower())[0] is "o":
+                config.nano_new_bootloader = False
+                print("'Old Bootloader' will be used")
+                break
+            elif str(nano_bootloader_version.strip().lower())[0] is "n":
+                config.nano_new_bootloader = True
+                print("'New Bootloader' will be used")
+                break
+            else:
+                print("\ntoo big fingers :( wrong command. try again! :)")
+
         print("\nDo you want to enter advanced part of a wizard? [y/N | default: no]")
         while True:
             advanced_wizard_flag = input("\t").strip().lower()
@@ -253,6 +272,7 @@ Are you using older, non-i2c hardware flashing mod?
         Country code:           {config.country}
         Nodes amount:           {config.nodes_number}
         Flashing port name:     {config.port_name}
+        New Nano Bootloader:    {config.nano_new_bootloader}
         Old hardware mod:       {config.old_hw_mod}    
         Simulation mode:        {config.debug_mode}    
         Sim/Debug user name:    {config.debug_user}

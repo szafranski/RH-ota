@@ -5,10 +5,11 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
-233.25.3i4
+233.25.3i3
 1. Better Pi 4 detection - during I2C enabling
 2. Better interfaces enabling (spi, i2c, uart)
 3. Improved flashing procedure - timeout added
+4. Arduino Nano "new bootloader" flashing supported
 
 233.25.3i2
 1. Minor visual tweaks
