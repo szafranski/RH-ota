@@ -138,7 +138,7 @@ Usually 'ttyS0' or 'ttyAMA0' (on older OSes) [default: ttyS0]\t\t""")
         while True:
             nano_bootloader_version = input("""
 Which bootloader version your Arduino Nano have?
-"New" or "Old Bootloader" [new/OLD | default: old]\t\t\t\t""")
+"New" or "Old Bootloader" [new/OLD | default: old]\t\t\t""")
             if not nano_bootloader_version:
                 config.nano_new_bootloader = False
                 print("defaulted to 'Old Bootloader'")
