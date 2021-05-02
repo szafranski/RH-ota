@@ -143,11 +143,11 @@ Which bootloader version your Arduino Nano have?
                 config.nano_new_bootloader = False
                 print("defaulted to 'Old Bootloader'")
                 break
-            elif str(nano_bootloader_version.strip().lower())[0] is "o":
+            elif str(nano_bootloader_version.strip().lower())[0] == "o":
                 config.nano_new_bootloader = False
                 print("'Old Bootloader' will be used")
                 break
-            elif str(nano_bootloader_version.strip().lower())[0] is "n":
+            elif str(nano_bootloader_version.strip().lower())[0] == "n":
                 config.nano_new_bootloader = True
                 print("'New Bootloader' will be used")
                 break
