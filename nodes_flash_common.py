@@ -1,5 +1,5 @@
 from time import sleep
-import os
+#import os
 from modules import load_config, Bcolors
 
 
