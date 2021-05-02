@@ -347,7 +347,7 @@ def first_flashing(config):
             else:
                 sleep(0.5)
                 os.system(f"timeout 12 avrdude -v -p atmega328p -c arduino -P /dev/{port} -b 57600 -U \
-                flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version_selection(config)}/node_0.hex:i \
+                flash:w:/home/{config.user}/RH-ota/firmware/old_bootloader/{firmware_version_selection(config)}/node_0.hex:i \
                 || {show_flash_error_msg()}")
 
     while True:
