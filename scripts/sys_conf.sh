@@ -97,7 +97,9 @@ ssh_error() {
 }
 
 spi_enabling() {
-  echo "dtparam=spi=on" | sudo tee -a /boot/config.txt || return 1
+  echo "
+  [RH-OTA SPI enabled]
+  dtparam=spi=on" | sudo tee -a /boot/config.txt || return 1
   sudo sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf || return 1
   printf "
      $green -- SPI ENABLED -- $endc
@@ -128,10 +130,15 @@ i2c_enabling() {
   is_pi_4 || is_pi_4_error
  if [ "$pi_4_found" = true ] ; then
     printf "Raspberry Pi 4 chipset found"
-    sudo sed -i 's/dtparam=i2c_arm=off/dtparam=i2c_arm=on/' /boot/config.txt || return 1
+    #sudo sed -i 's/dtparam=i2c/#dtparam=i2c/' /boot/config.txt || return 1
+    echo "
+    [RH-OTA I2C enabled]
+    dtparam=i2c_arm=on
+  " | sudo tee -a /boot/config.txt || return 1
 
 else
   echo "
+  [RH-OTA I2C enabled]
 dtparam=i2c_baudrate=75000
 core_freq=250
 i2c-bcm2708
@@ -169,8 +176,11 @@ i2c_error() {
 uart_enabling() {
   sudo cp /boot/cmdline.txt /boot/cmdline.txt.dist
   sudo cp /boot/config.txt /boot/config.txt.dist
-  echo 'enable_uart=1' | sudo tee -a /boot/config.txt || return 1
-  sudo sed -i 's/console=serial0,115200//g' /boot/cmdline.txt || return 1
+  echo "
+  [RH-OTA UART enabled]
+  enable_uart=1
+  " | sudo tee -a /boot/config.txt || return 1
+  sudo sed -i "s/console=serial0,115200//g' /boot/cmdline.txt || return 1
   printf "
      $green -- UART ENABLED -- $endc
 
