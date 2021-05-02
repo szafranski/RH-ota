@@ -84,10 +84,11 @@ def prepare_mate_node(addr):
         print(f"\n{Bcolors.RED}OSError - please check I2C bus number in the config file (or wiring){Bcolors.ENDC}\n")
 
 
-def flash_mate_node(config, firmware_version):
-    avrdude_action = f"avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U \
-    flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version}.hex:i"
-    os.system(f"{avrdude_action}")
+# below - unused?
+# def flash_mate_node(config, firmware_version):
+#     avrdude_action = f"timeout 12 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U \
+#     flash:w:/home/{config.user}/RH-ota/firmware/{firmware_version}.hex:i"
+#     os.system(f"{avrdude_action}")
 
 
 def main():
