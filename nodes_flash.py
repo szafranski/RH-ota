@@ -70,24 +70,18 @@ def show_uart_con_error_msg():
 def flash_blink_onto_a_node(config):
     os.system(f"timeout 12 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U \
     flash:w:/home/{config.user}/RH-ota/firmware/old_bootloader/blink.hex:i || \
-    timeout 12 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 115200 -U \
-    flash:w:/home/{config.user}/RH-ota/firmware/new_bootloader/blink.hex:i || \
     {show_flash_error_msg()}")
 
 
 def flash_custom_firmware_onto_a_node(config):
     os.system(f"timeout 12 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U \
     flash:w:/home/{config.user}/RH-ota/firmware/old_bootloader/custom_firmware/custom_node.hex:i || \
-    timeout 12 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 115200 -U \
-    flash:w:/home/{config.user}/RH-ota/firmware/new_bootloader/custom_firmware/custom_node.hex:i || \
     {show_flash_error_msg()}")
 
 
 def flash_firmware_onto_a_node(config):
     os.system(f"timeout 12 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U \
     flash:w:/home/{config.user}/RH-ota/firmware/old_bootloader/{firmware_version_selection(config)}/node_0.hex:i || \
-    timeout 12 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 115200 -U \
-    flash:w:/home/{config.user}/RH-ota/firmware/new_bootloader/{firmware_version_selection(config)}/node_0.hex:i || \
     {show_flash_error_msg()}")
 
 
