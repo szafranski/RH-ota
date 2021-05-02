@@ -68,24 +68,65 @@ def show_uart_con_error_msg():
 
 
 def flash_blink_onto_a_node(config):
-    os.system(f"timeout 12 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U \
-    flash:w:/home/{config.user}/RH-ota/firmware/old_bootloader/blink.hex:i || \
+    try:
+        if config.nano_new_bootloader:
+            bootloader_version = "new_bootloader"
+            flashing_baudrate = "115200"
+        else:
+            bootloader_version = "old_bootloader"
+            flashing_baudrate = "57600"
+    except AttributeError:
+        bootloader_version = "old_bootloader"
+        flashing_baudrate = "57600"
+    os.system(f"timeout 12 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {flashing_baudrate} -U \
+    flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/blink.hex:i || \
     {show_flash_error_msg()}")
 
 
 def flash_custom_firmware_onto_a_node(config):
-    os.system(f"timeout 12 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U \
-    flash:w:/home/{config.user}/RH-ota/firmware/old_bootloader/custom_firmware/custom_node.hex:i || \
+    try:
+        if config.nano_new_bootloader:
+            bootloader_version = "new_bootloader"
+            flashing_baudrate = "115200"
+        else:
+            bootloader_version = "old_bootloader"
+            flashing_baudrate = "57600"
+    except AttributeError:
+        bootloader_version = "old_bootloader"
+        flashing_baudrate = "57600"
+        bootloader_version = "old_bootloader"
+    os.system(f"timeout 12 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {flashing_baudrate} -U \
+    flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/custom_firmware/custom_node.hex:i || \
     {show_flash_error_msg()}")
 
 
 def flash_firmware_onto_a_node(config):
-    os.system(f"timeout 12 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U \
-    flash:w:/home/{config.user}/RH-ota/firmware/old_bootloader/{firmware_version_selection(config)}/node_0.hex:i || \
+    try:
+        if config.nano_new_bootloader:
+            bootloader_version = "new_bootloader"
+            flashing_baudrate = "115200"
+        else:
+            bootloader_version = "old_bootloader"
+            flashing_baudrate = "57600"
+    except AttributeError:
+        bootloader_version = "old_bootloader"
+        flashing_baudrate = "57600"
+    os.system(f"timeout 12 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {flashing_baudrate} -U \
+    flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/{firmware_version_selection(config)}/node_0.hex:i || \
     {show_flash_error_msg()}")
 
 
 def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
+    try:
+        if config.nano_new_bootloader:
+            bootloader_version = "new_bootloader"
+            flashing_baudrate = "115200"
+        else:
+            bootloader_version = "old_bootloader"
+            flashing_baudrate = "57600"
+    except AttributeError:
+        bootloader_version = "old_bootloader"
+        flashing_baudrate = "57600"
     clear_the_screen()
     print(f"\n\t\t\t{Bcolors.BOLD}Flashing procedure started{Bcolors.BOLD}\n\n")
     nodes_num = config.nodes_number
@@ -98,8 +139,8 @@ def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
             addr = addresses[i]
             print(f"\n\t\t{Bcolors.BOLD}Flashing node {i + 1} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
             prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
-            print(f"timeout 12 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U "
-                  f"flash:w:/home/{config.user}/RH-ota/firmware/old_bootloader/{firmware_version_selection(config)}/node_0.hex:i")
+            print(f"timeout 12 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {flashing_baudrate} -U "
+                  f"flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/{firmware_version_selection(config)}/node_0.hex:i")
             flash_firmware_onto_a_node(config) if not config.debug_mode else None
             print(f"\n\t\t\t{Bcolors.BOLD}Node {i + 1} - flashed{Bcolors.ENDC}\n\n")
             sleep(2)
