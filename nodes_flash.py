@@ -67,65 +67,26 @@ def show_uart_con_error_msg():
     return uart_error
 
 
-def flash_blink_onto_a_node(config):
-    try:
-        if config.nano_new_bootloader:
-            bootloader_version = "new_bootloader"
-            flashing_baudrate = "115200"
-        else:
-            bootloader_version = "old_bootloader"
-            flashing_baudrate = "57600"
-    except AttributeError:
-        bootloader_version = "old_bootloader"
-        flashing_baudrate = "57600"
+def flash_blink_onto_a_node(config, bootloader_version="old_bootloader", flashing_baudrate="57600"):
     os.system(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {flashing_baudrate} -U \
     flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/blink.hex:i || \
     {show_flash_error_msg()}")
 
 
-def flash_custom_firmware_onto_a_node(config):
-    try:
-        if config.nano_new_bootloader:
-            bootloader_version = "new_bootloader"
-            flashing_baudrate = "115200"
-        else:
-            bootloader_version = "old_bootloader"
-            flashing_baudrate = "57600"
-    except AttributeError:
-        bootloader_version = "old_bootloader"
-        flashing_baudrate = "57600"
+def flash_custom_firmware_onto_a_node(config, bootloader_version="old_bootloader", flashing_baudrate="57600"):
     os.system(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {flashing_baudrate} -U \
     flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/custom_firmware/custom_node.hex:i || \
     {show_flash_error_msg()}")
 
 
-def flash_firmware_onto_a_node(config):
-    try:
-        if config.nano_new_bootloader:
-            bootloader_version = "new_bootloader"
-            flashing_baudrate = "115200"
-        else:
-            bootloader_version = "old_bootloader"
-            flashing_baudrate = "57600"
-    except AttributeError:
-        bootloader_version = "old_bootloader"
-        flashing_baudrate = "57600"
+def flash_firmware_onto_a_node(config, bootloader_version="old_bootloader", flashing_baudrate="57600"):
     os.system(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {flashing_baudrate} -U \
     flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/{firmware_version_selection(config)}/node_0.hex:i \
     || {show_flash_error_msg()}")
 
 
-def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
-    try:
-        if config.nano_new_bootloader:
-            bootloader_version = "new_bootloader"
-            flashing_baudrate = "115200"
-        else:
-            bootloader_version = "old_bootloader"
-            flashing_baudrate = "57600"
-    except AttributeError:
-        bootloader_version = "old_bootloader"
-        flashing_baudrate = "57600"
+# below works when are 'auto-numbered'
+def flash_firmware_onto_all_nodes(config, bootloader_version="old_bootloader", flashing_baudrate="57600"):
     clear_the_screen()
     print(f"\n\t\t\t{Bcolors.BOLD}Flashing procedure started{Bcolors.BOLD}\n\n")
     nodes_num = config.nodes_number
@@ -151,17 +112,8 @@ def flash_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
     sleep(1)
 
 
-def flash_custom_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numbered'
-    try:
-        if config.nano_new_bootloader:
-            bootloader_version = "new_bootloader"
-            flashing_baudrate = "115200"
-        else:
-            bootloader_version = "old_bootloader"
-            flashing_baudrate = "57600"
-    except AttributeError:
-        bootloader_version = "old_bootloader"
-        flashing_baudrate = "57600"
+# below works when are 'auto-numbered'
+def flash_custom_firmware_onto_all_nodes(config, bootloader_version="old_bootloader", flashing_baudrate="57600"):
     clear_the_screen()
     print(f"\n\t\t\t{Bcolors.BOLD}Flashing procedure started{Bcolors.BOLD}\n\n")
     nodes_num = config.nodes_number
@@ -184,17 +136,7 @@ def flash_custom_firmware_onto_all_nodes(config):  # nodes have to be 'auto-numb
     sleep(2)
 
 
-def flash_firmware_on_a_specific_node(config, selected_node_number):
-    try:
-        if config.nano_new_bootloader:
-            bootloader_version = "new_bootloader"
-            flashing_baudrate = "115200"
-        else:
-            bootloader_version = "old_bootloader"
-            flashing_baudrate = "57600"
-    except AttributeError:
-        bootloader_version = "old_bootloader"
-        flashing_baudrate = "57600"
+def flash_firmware_on_a_specific_node(config, selected_node_number, bootloader_version="old_bootloader", flashing_baudrate="57600"):
     addr = nodes_addresses()[selected_node_number - 1]
     print(f"\n\t\t{Bcolors.BOLD}Flashing node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
     prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
@@ -206,17 +148,7 @@ flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/{firmware_versi
     sleep(2)
 
 
-def flash_firmware_onto_a_gpio_node(config):
-    try:
-        if config.nano_new_bootloader:
-            bootloader_version = "new_bootloader"
-            flashing_baudrate = "115200"
-        else:
-            bootloader_version = "old_bootloader"
-            flashing_baudrate = "57600"
-    except AttributeError:
-        bootloader_version = "old_bootloader"
-        flashing_baudrate = "57600"
+def flash_firmware_onto_a_gpio_node(config, bootloader_version="old_bootloader", flashing_baudrate="57600"):
     reset_pin = config.gpio_reset_pin
     print(f"\n\t\t{Bcolors.BOLD}Flashing node {config.nodes_number} {Bcolors.ENDC}(reset with GPIO pin: {reset_pin})\n")
     reset_gpio_pin(config.gpio_reset_pin)
@@ -228,17 +160,7 @@ flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/{firmware_versi
     sleep(2)
 
 
-def flash_custom_firmware_on_a_specific_node(config, selected_node_number):
-    try:
-        if config.nano_new_bootloader:
-            bootloader_version = "new_bootloader"
-            flashing_baudrate = "115200"
-        else:
-            bootloader_version = "old_bootloader"
-            flashing_baudrate = "57600"
-    except AttributeError:
-        bootloader_version = "old_bootloader"
-        flashing_baudrate = "57600"
+def flash_custom_firmware_on_a_specific_node(config, selected_node_number, bootloader_version="old_bootloader", flashing_baudrate="57600"):
     addr = nodes_addresses()[selected_node_number - 1]
     print(f"\n\t\t{Bcolors.BOLD}Flashing node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
     prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
@@ -250,17 +172,7 @@ def flash_custom_firmware_on_a_specific_node(config, selected_node_number):
     sleep(2)
 
 
-def flash_blink_on_a_specific_node(config, selected_node_number):
-    try:
-        if config.nano_new_bootloader:
-            bootloader_version = "new_bootloader"
-            flashing_baudrate = "115200"
-        else:
-            bootloader_version = "old_bootloader"
-            flashing_baudrate = "57600"
-    except AttributeError:
-        bootloader_version = "old_bootloader"
-        flashing_baudrate = "57600"
+def flash_blink_on_a_specific_node(config, selected_node_number, bootloader_version="old_bootloader", flashing_baudrate="57600"):
     addr = nodes_addresses()[selected_node_number - 1]
     print(f"\n\t\t{Bcolors.BOLD}Flashing node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
     prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
@@ -272,17 +184,7 @@ def flash_blink_on_a_specific_node(config, selected_node_number):
     sleep(2)
 
 
-def flash_custom_firmware_onto_gpio_node(config):
-    try:
-        if config.nano_new_bootloader:
-            bootloader_version = "new_bootloader"
-            flashing_baudrate = "115200"
-        else:
-            bootloader_version = "old_bootloader"
-            flashing_baudrate = "57600"
-    except AttributeError:
-        bootloader_version = "old_bootloader"
-        flashing_baudrate = "57600"
+def flash_custom_firmware_onto_gpio_node(config, bootloader_version="old_bootloader", flashing_baudrate="57600"):
     reset_pin = config.gpio_reset_pin
     x = int(config.nodes_number)
     print(f"\n\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with GPIO pin: {reset_pin})\n")
@@ -295,17 +197,7 @@ def flash_custom_firmware_onto_gpio_node(config):
     sleep(2)
 
 
-def flash_blink_onto_gpio_node(config):
-    try:
-        if config.nano_new_bootloader:
-            bootloader_version = "new_bootloader"
-            flashing_baudrate = "115200"
-        else:
-            bootloader_version = "old_bootloader"
-            flashing_baudrate = "57600"
-    except AttributeError:
-        bootloader_version = "old_bootloader"
-        flashing_baudrate = "57600"
+def flash_blink_onto_gpio_node(config, bootloader_version="old_bootloader", flashing_baudrate="57600"):
     reset_pin = config.gpio_reset_pin
     x = int(config.nodes_number)
     print(f"\n\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with GPIO pin: {reset_pin})\n")
@@ -434,21 +326,11 @@ def odd_node_menu(config):
         print("\n\n\t\tEven number of nodes detected\n\n")
 
 
-def first_flashing(config):
+def first_flashing(config, bootloader_version="old_bootloader", flashing_baudrate="57600"):
     clear_the_screen()
     logo_top(config.debug_mode)
 
     def flash_node_first_time(port):
-        try:
-            if config.nano_new_bootloader:
-                bootloader_version = "new_bootloader"
-                flashing_baudrate = "115200"
-            else:
-                bootloader_version = "old_bootloader"
-                flashing_baudrate = "57600"
-        except AttributeError:
-            bootloader_version = "old_bootloader"
-            flashing_baudrate = "57600"
         uart_flashing_prompt = \
             "\n\n\t{bg}Hit 'Enter' and push reset button on next node after a second {e}{br}[e - exit] {e}" \
             "".format(br=Bcolors.RED + Bcolors.BOLD, bg=Bcolors.GREEN + Bcolors.BOLD, e=Bcolors.ENDC)
@@ -611,26 +493,12 @@ def show_i2c_devices(config):
             break
 
 
-def check_uart_connection(config):
-    try:
-        if config.nano_new_bootloader:
-            flashing_baudrate = "115200"
-        else:
-            flashing_baudrate = "57600"
-    except AttributeError:
-        flashing_baudrate = "57600"
+def check_uart_connection(config, flashing_baudrate="57600"):
     os.system(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {flashing_baudrate} \
     || {show_uart_con_error_msg()}")
 
 
-def check_uart_con_with_a_node(config, selected_node_number):
-    try:
-        if config.nano_new_bootloader:
-            flashing_baudrate = "115200"
-        else:
-            flashing_baudrate = "57600"
-    except AttributeError:
-        flashing_baudrate = "57600"
+def check_uart_con_with_a_node(config, selected_node_number, flashing_baudrate="57600"):
     addr = nodes_addresses()[selected_node_number - 1]
     print(f"\n\t\t{Bcolors.BOLD}Checking node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
     prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
@@ -641,14 +509,7 @@ def check_uart_con_with_a_node(config, selected_node_number):
     input("\nPress ENTER to continue")
 
 
-def check_uart_con_with_gpio_node(config):
-    try:
-        if config.nano_new_bootloader:
-            flashing_baudrate = "115200"
-        else:
-            flashing_baudrate = "57600"
-    except AttributeError:
-        flashing_baudrate = "57600"
+def check_uart_con_with_gpio_node(config, flashing_baudrate="57600"):
     reset_pin = config.gpio_reset_pin
     print(f"\n\t\t{Bcolors.BOLD}Checking node {config.nodes_number} {Bcolors.ENDC}(reset with GPIO pin: {reset_pin})\n")
     reset_gpio_pin(config.gpio_reset_pin)
@@ -659,14 +520,7 @@ def check_uart_con_with_gpio_node(config):
     input("\nPress ENTER to continue")
 
 
-def check_uart_devices(config):  # nodes have to be 'auto-numbered'
-    try:
-        if config.nano_new_bootloader:
-            flashing_baudrate = "115200"
-        else:
-            flashing_baudrate = "57600"
-    except AttributeError:
-        flashing_baudrate = "57600"
+def check_uart_devices(config, flashing_baudrate="57600"):  # nodes have to be 'auto-numbered'
     nodes_num = config.nodes_number
     odd_number = odd_number_of_nodes_check(config)
     addresses = nodes_addresses()
