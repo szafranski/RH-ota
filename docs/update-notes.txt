@@ -5,7 +5,7 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
-233.25.3i3
+233.25.3i4
 1. Better Pi 4 detection - during I2C enabling
 2. Better interfaces enabling (spi, i2c, uart)
 3. Improved flashing procedure - timeout added
