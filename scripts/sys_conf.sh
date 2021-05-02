@@ -99,7 +99,8 @@ ssh_error() {
 spi_enabling() {
   echo "
 [SPI enabled - RH-OTA]
-dtparam=spi=on" | sudo tee -a /boot/config.txt || return 1
+dtparam=spi=on
+" | sudo tee -a /boot/config.txt || return 1
   sudo sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf || return 1
   printf "
      $green -- SPI ENABLED -- $endc

@@ -7,6 +7,7 @@
 
 233.25.3i3
 1. Better Pi 4 detection - during I2C enabling
+2. Better interfaces enabling (spi, i2c, uart)
 
 233.25.3i2
 1. Minor visual tweaks
