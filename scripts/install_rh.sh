@@ -89,5 +89,8 @@ exit 0
 " | sudo tee -a /etc/rc.local
 
 echo "
-port forwarding added - server available on port default 80
+port forwarding added - server available on default port 80
+no need to type server port number in a browser address bar
+just type RotorHazard server IP address
+
 "
