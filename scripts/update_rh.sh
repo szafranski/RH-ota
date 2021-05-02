@@ -134,27 +134,8 @@ fi
 
 # port forwarding
 if ! grep -q "sudo iptables -A PREROUTING -t nat -p tcp --dport 80 -j REDIRECT --to-ports 5000" /etc/rc.local; then
-
-sudo cp /etc/rc.local /etc/rc.local.save_iptables
-
-sudo iptables -A PREROUTING -t nat -p tcp --dport 80 -j REDIRECT --to-ports 5000
-sudo iptables-save
-
-
-sudo sed -i 's/exit 0//' /etc/rc.local
-
-echo "
-sudo iptables -A PREROUTING -t nat -p tcp --dport 80 -j REDIRECT --to-ports 5000
-sudo iptables-save
-exit 0
-" | sudo tee -a /etc/rc.local
-
-echo "
-port forwarding added - server available on default port 80
-no need to type server port number in a browser address bar
-just type RotorHazard server IP address
-
-"
+cd /home/"${1}"/RH-ota/scripts/ || exit
+sudo ./iptables_conf.sh
 fi
 
 cd /home/"${1}" || exit
