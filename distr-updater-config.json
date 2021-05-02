@@ -10,6 +10,5 @@
     "gpio_reset_pin" : false,
     "beta_tester" : false,
     "port_name" : "ttyS0",
-    "i2c_bus_number" : 1,
-    "nano_new_bootloader" : false
+    "i2c_bus_number" : 1
 }
