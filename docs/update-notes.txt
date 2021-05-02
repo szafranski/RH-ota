@@ -5,6 +5,9 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+233.25.3i3
+1. Better Pi 4 detection - during I2C enabling
+
 233.25.3i2
 1. Minor visual tweaks
 2. Raspberry Pi 4 detection fixed
