@@ -24,13 +24,15 @@ check_for_new_ota() {
 open_software_alias_check() {
 
 if ! grep -q "alias ota=" ../.bashrc; then
-  echo '[added automatically during OTA setup]'
-  echo 'alias ota="cd ~/RH-ota && sh ./ota.sh"                          # opens OTA software ' >> ../.bashrc
+  echo '
+[added automatically during RH-OTA setup]
+alias ota="cd ~/RH-ota && sh ./ota.sh"                          # opens OTA software' >> ../.bashrc
 fi
 
 if ! grep -q "alias rh=" ../.bashrc; then
-  echo '[added automatically during OTA setup]'
-  echo 'alias rh="cd ~/RotorHazard/src/server && python3 server.py"     # starts RH-server' >> ../.bashrc
+  echo '
+[added automatically during RH-OTA setup]
+alias rh="cd ~/RotorHazard/src/server && python3 server.py"     # starts RH-server' >> ../.bashrc
 fi
 }
 
