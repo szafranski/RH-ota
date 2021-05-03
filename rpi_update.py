@@ -193,9 +193,7 @@ def installation(conf_allowed, config):
                                endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S)
 
         os.system("./scripts/sys_conf.sh all") if conf_allowed else None
-        ota_config.sys_config_done = True
-        os.system("./scripts/sys_conf.sh uart") if not ota_config.uart_support_added else None
-        ota_config.uart_support_added = True
+        ota_config.sys_config_done, ota_config.uart_support_added = True, True
         # UART enabling added here so user won't have to reboot Pi again after doing it in Features Menu
         write_ota_sys_markers(ota_config, config.user)
         os.system(f"./scripts/install_rh.sh {config.user} {check_preferred_rh_version(config)[0]}")
