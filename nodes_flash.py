@@ -64,7 +64,7 @@ def show_flashing_error_msg():
 
 
 def old_bootloader_flashing_error_handler(config):
-    old_boot_flashing_error = f'(printf "\n\n{Bcolors.YELLOW}      Flashing error - trying with new bootloader  {Bcolors.ENDC}\n\n" \
+    old_boot_flashing_error = f'(printf "\n\n{Bcolors.YELLOW}Unsuccessful flashing - trying with new bootloader  {Bcolors.ENDC}\n\n" \
                   && touch /home/{config.user}/RH-ota/.flashing_error) && sleep 1'
     return old_boot_flashing_error
 
@@ -128,7 +128,7 @@ def flash_firmware_onto_all_nodes(config):
             if old_bootloader_flashing_error:
                 print(
                     f"\n\t\t{Bcolors.BOLD}Flashing node {i + 1} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
-                print("new bootloader\n")
+                print("new bootloader")
                 prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
                 print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 115200 -U "
                       f"flash:w:/home/{config.user}/RH-ota/firmware/new_bootloader/{firmware_version_selection(config)}/node_0.hex:i")
@@ -179,7 +179,7 @@ def flash_firmware_on_a_specific_node(config, selected_node_number):
     if old_bootloader_flashing_error:
         print(
             f"\n\t\t{Bcolors.BOLD}Flashing node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
-        print("new bootloader\n")
+        print("new bootloader")
         prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
         print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 115200 -U "
               f"flash:w:/home/{config.user}/RH-ota/firmware/new_bootloader/{firmware_version_selection(config)}/node_0.hex:i")
@@ -201,7 +201,7 @@ def flash_firmware_onto_a_gpio_node(config):
     if old_bootloader_flashing_error:
         print(
             f"\n\t\t{Bcolors.BOLD}Flashing node {config.nodes_number} {Bcolors.ENDC}(reset with GPIO pin: {reset_pin})\n")
-        print("new bootloader\n")
+        print("new bootloader")
         reset_gpio_pin(config.gpio_reset_pin)
         print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 115200 -U "
               f"flash:w:/home/{config.user}/RH-ota/firmware/new_bootloader/{firmware_version_selection(config)}/node_0.hex:i")
@@ -223,7 +223,7 @@ def flash_custom_firmware_on_a_specific_node(config, selected_node_number):
     if old_bootloader_flashing_error:
         print(
             f"\n\t\t{Bcolors.BOLD}Flashing node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
-        print("new bootloader\n")
+        print("new bootloader")
         prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
         print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 115200 -U "
               f"flash:w:/home/{config.user}/RH-ota/firmware/new_bootloader/custom_firmware/custom_node.hex:i ")
@@ -245,7 +245,7 @@ def flash_blink_on_a_specific_node(config, selected_node_number):
     if old_bootloader_flashing_error:
         print(
             f"\n\t\t{Bcolors.BOLD}Flashing node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
-        print("new bootloader\n")
+        print("new bootloader")
         prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
         print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 115200 -U "
               f"flash:w:/home/{config.user}/RH-ota/firmware/new_bootloader/blink.hex:i")
@@ -267,7 +267,7 @@ def flash_custom_firmware_onto_gpio_node(config):
     old_bootloader_flashing_error = os.path.exists(f"/home/{config.user}/RH-ota/.flashing_error")
     if old_bootloader_flashing_error:
         print(f"\n\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with GPIO pin: {reset_pin})\n")
-        print("new bootloader\n")
+        print("new bootloader")
         reset_gpio_pin(config.gpio_reset_pin)
         print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 115200 -U "
               f"flash:w:/home/{config.user}/RH-ota/firmware/new_bootloader/custom_firmware/custom_node.hex:i ")
@@ -289,7 +289,7 @@ def flash_blink_onto_gpio_node(config):
     old_bootloader_flashing_error = os.path.exists(f"/home/{config.user}/RH-ota/.flashing_error")
     if old_bootloader_flashing_error:
         print(f"\n\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with GPIO pin: {reset_pin})\n")
-        print("new bootloader\n")
+        print("new bootloader")
         reset_gpio_pin(config.gpio_reset_pin)
         print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 115200 -U "
               f"flash:w:/home/{config.user}/RH-ota/firmware/new_bootloader/blink.hex:i ")
@@ -424,7 +424,7 @@ def first_flashing(config):
         first_attempt = f"timeout 20 avrdude -v -p atmega328p -c arduino -P /dev/{port} -b 57600 -U \
         flash:w:/home/{config.user}/RH-ota/firmware/old_bootloader/{firmware_version_selection(config)}/node_0.hex:i"
         first_attempt_error_msg = f'printf "\n\n{Bcolors.YELLOW}Unsuccessful flashing - trying with new bootloader {Bcolors.ENDC}\n\n"'
-        second_attempt = f"sleep 3 && timeout 20 avrdude -v -p atmega328p -c arduino -P /dev/{port} -b 115200 -U \
+        second_attempt = f"sleep 2 && timeout 20 avrdude -v -p atmega328p -c arduino -P /dev/{port} -b 115200 -U \
         flash:w:/home/{config.user}/RH-ota/firmware/new_bootloader/{firmware_version_selection(config)}/node_0.hex:i"
         uart_flashing_prompt = \
             "\n\n\t{bg}Hit 'Enter' and push reset button on next node after a second {e}{br}[e - exit] {e}" \
