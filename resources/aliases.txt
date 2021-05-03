@@ -2,8 +2,9 @@
 ### Aliases can be used in a terminal window ###
 #       ALIAS                           WHAT IT DOES
 alias ss="cd ~/RotorHazard/src/server && python3 server.py"    # starts the RH-server
+alias rh="cd ~/RotorHazard/src/server && python3 server.py"    # starts the RH-server
 alias cfg="nano ~/RotorHazard/src/server/config.json"          # opens config.json file
-alias rh="cd ~/RotorHazard/src/server"                         # goes to server file location
+alias rhdir="cd ~/RotorHazard/src/server"                      # goes to server file location
 alias py="python"                                              # "py" can be used instead of "python"
 alias py3="python3"                                            # "py3" can be used instead of "python3"
 alias sts="sudo systemctl stop rotorhazard"                    # stops RotorHazard service
