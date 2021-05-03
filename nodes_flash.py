@@ -64,7 +64,7 @@ def show_flashing_error_msg():
 
 
 def old_bootloader_flashing_error_handler(config):
-    old_boot_flashing_error = f'(printf "\n\n{Bcolors.YELLOW}      Flashing error - trying another bootloader  {Bcolors.ENDC}\n\n" \
+    old_boot_flashing_error = f'(printf "\n\n{Bcolors.YELLOW}      Flashing error - trying with another bootloader  {Bcolors.ENDC}\n\n" \
                   && touch /home/{config.user}/RH-ota/.flashing_error) && sleep 1'
     return old_boot_flashing_error
 
@@ -86,10 +86,15 @@ def flash_custom_firmware_onto_a_node(config, bootloader_version="old_bootloader
     {old_bootloader_flashing_error_handler(config)}")
 
 
-def flash_firmware_onto_a_node(config, bootloader_version="old_bootloader", flashing_baudrate="57600"):
-    os.system(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {flashing_baudrate} -U \
-    flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/{firmware_version_selection(config)}/node_0.hex:i \
+def flash_firmware_onto_a_node(config, bootloader_version=0):  # 0 - old bootloader; 1 - new bootloader
+    if bootloader_version == 0:
+        os.system(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U \
+    flash:w:/home/{config.user}/RH-ota/firmware/old_bootloader/{firmware_version_selection(config)}/node_0.hex:i \
     || {old_bootloader_flashing_error_handler(config)}")
+    else:
+        os.system(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 115200 -U \
+    flash:w:/home/{config.user}/RH-ota/firmware/old_bootloader/{firmware_version_selection(config)}/node_0.hex:i \
+    || {show_flashing_error_msg()}")
 
 
 # below works when are 'auto-numbered'
@@ -104,22 +109,20 @@ def flash_firmware_onto_all_nodes(config):
     else:
         for i in range(0, nodes_num):
             addr = addresses[i]
-            bootloader_version, flashing_baudrate = "old_bootloader", "57600"
             print(f"\n\t\t{Bcolors.BOLD}Flashing node {i + 1} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
             prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
-            print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {flashing_baudrate} "
-                  f"-U flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/{firmware_version_selection(config)}/node_0.hex:i")
-            flash_firmware_onto_a_node(config) if not config.debug_mode else None
+            print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 "
+                  f"-U flash:w:/home/{config.user}/RH-ota/firmware/old_bootloader/{firmware_version_selection(config)}/node_0.hex:i")
+            flash_firmware_onto_a_node(config, 0) if not config.debug_mode else None
             old_bootloader_flashing_error = os.path.exists(f"/home/{config.user}/RH-ota/.flashing_error")
             if old_bootloader_flashing_error:
                 print(
                     f"\n\t\t{Bcolors.BOLD}Flashing node {i + 1} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
                 print("trying with new bootloader")
-                bootloader_version, flashing_baudrate = "new_bootloader", "115200"
                 prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
-                print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {flashing_baudrate} -U "
-                      f"flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/{firmware_version_selection(config)}/node_0.hex:i")
-                flash_firmware_onto_a_node(config, bootloader_version, flashing_baudrate) if not config.debug_mode else None
+                print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 115200 -U "
+                      f"flash:w:/home/{config.user}/RH-ota/firmware/new_bootloader/{firmware_version_selection(config)}/node_0.hex:i")
+                flash_firmware_onto_a_node(config, 1) if not config.debug_mode else None
                 os.system(f"rm /home/{config.user}/RH-ota/.flashing_error")
             print(f"\n\t\t\t{Bcolors.BOLD}Node {i + 1} - flashed{Bcolors.ENDC}\n\n")
             sleep(2)
@@ -157,21 +160,20 @@ def flash_custom_firmware_onto_all_nodes(config, bootloader_version="old_bootloa
 
 def flash_firmware_on_a_specific_node(config, selected_node_number):
     addr = nodes_addresses()[selected_node_number - 1]
-    bootloader_version, flashing_baudrate = "old_bootloader", "57600"
     print(f"\n\t\t{Bcolors.BOLD}Flashing node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
     prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
-    print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {flashing_baudrate} -U "
-          f"flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/{firmware_version_selection(config)}/node_0.hex:i")
+    print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U "
+          f"flash:w:/home/{config.user}/RH-ota/firmware/old_bootloader/{firmware_version_selection(config)}/node_0.hex:i")
     flash_firmware_onto_a_node(config) if not config.debug_mode else None
     old_bootloader_flashing_error = os.path.exists(f"/home/{config.user}/RH-ota/.flashing_error")
     if old_bootloader_flashing_error:
         print(
             f"\n\t\t{Bcolors.BOLD}Flashing node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
-        print("trying new bootloader")
+        print("trying with new bootloader")
         prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
-        print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {flashing_baudrate} -U \
-        flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/{firmware_version_selection(config)}/node_0.hex:i")
-        flash_firmware_onto_a_node(config, "new_bootloader", "115200") if not config.debug_mode else None
+        print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 115200 -U "
+              f"flash:w:/home/{config.user}/RH-ota/firmware/new_bootloader/{firmware_version_selection(config)}/node_0.hex:i")
+        flash_firmware_onto_a_node(config, 1) if not config.debug_mode else None
         os.system(f"rm /home/{config.user}/RH-ota/.flashing_error")
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - flashed{Bcolors.ENDC}\n\n")
     input("\nPress ENTER to continue")
@@ -358,11 +360,16 @@ def odd_node_menu(config):
         print("\n\n\t\tEven number of nodes detected\n\n")
 
 
-def first_flashing(config, bootloader_version="old_bootloader", flashing_baudrate="57600"):
+def first_flashing(config):
     clear_the_screen()
     logo_top(config.debug_mode)
 
     def flash_node_first_time(port):
+        first_attempt = f"timeout 20 avrdude -v -p atmega328p -c arduino -P /dev/{port} -b 57600 -U \
+        flash:w:/home/{config.user}/RH-ota/firmware/old_bootloader/{firmware_version_selection(config)}/node_0.hex:i"
+        first_attempt_error_msg = f'printf "\n\n{Bcolors.YELLOW}Unsuccessful flashing - trying with another bootloader {Bcolors.ENDC}\n\n"'
+        second_attempt = f"sleep 3 && timeout 20 avrdude -v -p atmega328p -c arduino -P /dev/{port} -b 115200 -U \
+        flash:w:/home/{config.user}/RH-ota/firmware/new_bootloader/{firmware_version_selection(config)}/node_0.hex:i"
         uart_flashing_prompt = \
             "\n\n\t{bg}Hit 'Enter' and push reset button on next node after a second {e}{br}[e - exit] {e}" \
             "".format(br=Bcolors.RED + Bcolors.BOLD, bg=Bcolors.GREEN + Bcolors.BOLD, e=Bcolors.ENDC)
@@ -380,9 +387,7 @@ def first_flashing(config, bootloader_version="old_bootloader", flashing_baudrat
                 break
             else:
                 sleep(0.5)
-                os.system(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{port} -b {flashing_baudrate} -U \
-flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/{firmware_version_selection(config)}/node_0.hex:i \
-|| {show_flashing_error_msg()}")  # TODO first time?
+                os.system(f"""{first_attempt} || ({first_attempt_error_msg} && {second_attempt}) || {show_flashing_error_msg()}""")
 
     while True:
         first_flash_select = """
