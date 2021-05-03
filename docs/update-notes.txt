@@ -12,6 +12,7 @@
 4. Improved Pi 4 detection - during I2C enabling
 5. Automatically added alias "ota" and "rh"- easier software starting
 6. Improved interfaces enabling (SSH, SPI, I2C, UART)
+7. Minor tweaks, visual and logical improvements
 
 233.25.3i2
 1. Minor visual tweaks
