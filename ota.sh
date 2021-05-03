@@ -125,3 +125,5 @@ check_for_new_ota &
 dependencies_check &
 wait
 python3 start_ota.py
+
+# TODO add automatic aliases
