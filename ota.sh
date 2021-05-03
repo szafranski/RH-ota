@@ -20,6 +20,14 @@ check_for_new_ota() {
   fi
 }
 
+
+open_ota_alias_check() {
+
+if ! grep -q "alias ota=" ../.bashrc; then
+echo 'alias ota="cd ~/RH-ota && sh ./ota.sh"                # opens OTA software - added automatically' >> ../.bashrc
+fi
+}
+
 dependencies_check() {
 
   check_package() {
@@ -122,8 +130,7 @@ dependencies_check() {
 }
 
 check_for_new_ota &
+open_ota_alias_check &
 dependencies_check &
 wait
 python3 start_ota.py
-
-# TODO add automatic aliases

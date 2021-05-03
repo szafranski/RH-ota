@@ -6,11 +6,12 @@
         ^^^^^^^^^^^^
 
 233.25.3i3
-1. Better Pi 4 detection - during I2C enabling
-2. Better interfaces enabling (spi, i2c, uart)
+1. Improved Pi 4 detection - during I2C enabling
+2. Improved interfaces enabling (spi, i2c, uart)
 3. Improved flashing procedure - timeout added
-4. Arduino Nano "new bootloader" flashing supported
-5. Port forwarding added - server available on default port 80
+4. Arduino Nano with "new bootloader" flashing supported - automatically
+5. Automatically added alias "ota" - easier software starting
+6. Port forwarding added - server available on default port 80
 
 233.25.3i2
 1. Minor visual tweaks
