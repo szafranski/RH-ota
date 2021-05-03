@@ -164,7 +164,7 @@ def flash_custom_firmware_onto_all_nodes(config, bootloader_version="old_bootloa
             break  # breaks the "flashing loop" after last even node
     flash_custom_firmware_onto_gpio_node(config) if odd_number else None
     logo_update(config)
-    input("\nPress ENTER to continue")
+    input("\nPress ENTER to continue")  # TODO
     sleep(2)
 
 
@@ -223,7 +223,7 @@ def flash_custom_firmware_on_a_specific_node(config, selected_node_number):
     if old_bootloader_flashing_error:
         print(
             f"\n\t\t{Bcolors.BOLD}Flashing node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
-        print("trying with new bootloader")
+        print("new bootloader\n")
         prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
         print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 115200 -U "
               f"flash:w:/home/{config.user}/RH-ota/firmware/new_bootloader/custom_firmware/custom_node.hex:i ")
@@ -245,7 +245,7 @@ def flash_blink_on_a_specific_node(config, selected_node_number):
     if old_bootloader_flashing_error:
         print(
             f"\n\t\t{Bcolors.BOLD}Flashing node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n")
-        print("trying with new bootloader")
+        print("new bootloader\n")
         prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
         print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 115200 -U "
               f"flash:w:/home/{config.user}/RH-ota/firmware/new_bootloader/blink.hex:i")
@@ -264,20 +264,37 @@ def flash_custom_firmware_onto_gpio_node(config):
     print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U "
           f"flash:w:/home/{config.user}/RH-ota/firmware/old_bootloader/custom_firmware/custom_node.hex:i ")
     flash_custom_firmware_onto_a_node(config, 0) if not config.debug_mode else None
-
+    old_bootloader_flashing_error = os.path.exists(f"/home/{config.user}/RH-ota/.flashing_error")
+    if old_bootloader_flashing_error:
+        print(f"\n\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with GPIO pin: {reset_pin})\n")
+        print("new bootloader\n")
+        reset_gpio_pin(config.gpio_reset_pin)
+        print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 115200 -U "
+              f"flash:w:/home/{config.user}/RH-ota/firmware/new_bootloader/custom_firmware/custom_node.hex:i ")
+        flash_custom_firmware_onto_a_node(config, 1) if not config.debug_mode else None
+        os.system(f"rm /home/{config.user}/RH-ota/.flashing_error")
     print(f"\n\t\t\t{Bcolors.BOLD}Node {x} - flashed{Bcolors.ENDC}\n\n")
     input("\nPress ENTER to continue")
     sleep(2)
 
 
-def flash_blink_onto_gpio_node(config, bootloader_version="old_bootloader", flashing_baudrate="57600"):
+def flash_blink_onto_gpio_node(config):
     reset_pin = config.gpio_reset_pin
     x = int(config.nodes_number)
     print(f"\n\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with GPIO pin: {reset_pin})\n")
     reset_gpio_pin(config.gpio_reset_pin)
-    print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {flashing_baudrate} -U "
-          f"flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/blink.hex:i ")
-    flash_blink_onto_a_node(config) if not config.debug_mode else None
+    print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U "
+          f"flash:w:/home/{config.user}/RH-ota/firmware/old_bootloader/blink.hex:i ")
+    flash_blink_onto_a_node(config, 0) if not config.debug_mode else None
+    old_bootloader_flashing_error = os.path.exists(f"/home/{config.user}/RH-ota/.flashing_error")
+    if old_bootloader_flashing_error:
+        print(f"\n\t\t{Bcolors.BOLD}Flashing node {x} {Bcolors.ENDC}(reset with GPIO pin: {reset_pin})\n")
+        print("new bootloader\n")
+        reset_gpio_pin(config.gpio_reset_pin)
+        print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 115200 -U "
+              f"flash:w:/home/{config.user}/RH-ota/firmware/new_bootloader/blink.hex:i ")
+        flash_custom_firmware_onto_a_node(config, 1) if not config.debug_mode else None
+        os.system(f"rm /home/{config.user}/RH-ota/.flashing_error")
     print(f"\n\t\t\t{Bcolors.BOLD}Node {x} - flashed{Bcolors.ENDC}\n\n")
     input("\nPress ENTER to continue")
     sleep(2)
@@ -571,7 +588,7 @@ def show_i2c_devices(config):
 
 def check_uart_connection(config, flashing_baudrate="57600"):
     os.system(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {flashing_baudrate} \
-    || {show_uart_con_error_msg()}")
+    || {show_uart_con_error_msg()}")  # TODO
 
 
 def check_uart_con_with_a_node(config, selected_node_number, flashing_baudrate="57600"):
@@ -581,7 +598,7 @@ def check_uart_con_with_a_node(config, selected_node_number, flashing_baudrate="
     print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {flashing_baudrate}")
     check_uart_connection(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - checked{Bcolors.ENDC}\n\n")
-    sleep(1)
+    sleep(1)  # TODO
     input("\nPress ENTER to continue")
 
 
@@ -592,13 +609,13 @@ def check_uart_con_with_gpio_node(config, flashing_baudrate="57600"):
     print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {flashing_baudrate}")
     check_uart_connection(config) if not config.debug_mode else None
     print(f"\n\t\t\t{Bcolors.BOLD}Node {config.nodes_number} - checked{Bcolors.ENDC}\n\n")
-    sleep(1)
+    sleep(1)# TODO
     input("\nPress ENTER to continue")
 
 
 # below works when nodes are 'auto-numbered'
 def check_uart_devices(config, flashing_baudrate="57600"):
-    nodes_num = config.nodes_number
+    nodes_num = config.nodes_number# TODO
     odd_number = odd_number_of_nodes_check(config)
     addresses = nodes_addresses()
     for i in range(0, nodes_num):
