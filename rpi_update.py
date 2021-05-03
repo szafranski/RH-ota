@@ -197,7 +197,7 @@ def installation(conf_allowed, config):
         # UART enabling added here so user won't have to reboot Pi again after doing it in Features Menu
         write_ota_sys_markers(ota_config, config.user)
         os.system(f"./scripts/install_rh.sh {config.user} {check_preferred_rh_version(config)[0]}")
-        input("press Enter to continue.")
+        input("\n\npress Enter to continue.")
         clear_the_screen()
         print(installation_completed)
         os.system("sudo chmod 777 -R ~/RotorHazard")

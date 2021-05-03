@@ -16,6 +16,4 @@ exit 0
 echo "
 port forwarding added - server available on default port 80
 no need to type server port number in a browser address bar
-just type RotorHazard server IP address
-
-"
+just type RotorHazard server IP address (probably: $(hostname -I | awk '{ print $1 }'))"
