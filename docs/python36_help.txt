@@ -32,12 +32,16 @@ How - what commands to use*:
 2. sudo apt update
 3. sudo apt upgrade -y
 4. sudo reboot - you may reboot at this point but it is not required
-5. cd ~ 
+5. cd ~
+Note: points 6-9 can be performed with a simple command:
+sudo sed -i 's/stretch/buster/' /etc/apt/sources.list
 6. cd /etc/apt
 7. sudo nano sources.list
 8. change word "stretch" to "buster" (only that word, keep spaces etc in place)
 9. save - Ctrl + S and than Ctrl + X
 10. confirm changes with: cat /etc/apt/sources.list
+Note: points 11-14 can be performed with a simple command:
+sudo sed -i 's/stretch/buster/' /etc/apt/sources.list.d/raspi.list
 11. cd /etc/apt/sources.list.d
 12. sudo nano raspi.list
 13. change word "stretch" to "buster" (only that word, keep spaces etc in place)
