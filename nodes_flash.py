@@ -77,7 +77,7 @@ def show_uart_con_error_msg():
 def flash_blink_onto_a_node(config, bootloader_version=0):
     if bootloader_version == 0:
         os.system(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600 -U \
-    flash:w:/home/{config.user}/RH-ota/firmware/old_bootloader/{firmware_version_selection(config)}/node_0.hex:i \
+    flash:w:/home/{config.user}/RH-ota/firmware/new_bootloader/blink.hex:i \
     || {old_bootloader_flashing_error_handler(config)}")
     else:
         os.system(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 115200 -U \
