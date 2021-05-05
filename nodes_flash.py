@@ -58,7 +58,6 @@ def odd_number_of_nodes_check(config):
 
 
 def firmware_flash(config, bootloader_version=0, flashing_target="firmware", attempt=0):
-
     if bootloader_version == 0:
         flashing_baudrate = 57600
         bootloader_version = "old_bootloader"
@@ -74,19 +73,19 @@ def firmware_flash(config, bootloader_version=0, flashing_target="firmware", att
         firmware_version = "custom_node/custom_node.hex"
 
     if attempt == 0:
-        flashing_error_handler = f"\n\n{Bcolors.YELLOW}Unsuccessful flashing - trying with another bootloader  " \
-                                 f"{Bcolors.ENDC}\n\n && touch /home/{config.user}/RH-ota/.flashing_error) && sleep 1"
+        flashing_error_handler = f"(printf '\n\n{Bcolors.YELLOW}Unsuccessful flashing - trying with another bootloader{Bcolors.ENDC}\n\n' && touch /home/{config.user}/RH-ota/.flashing_error && sleep 1)"
     else:
-        flashing_error_handler = "\n{Bcolors.RED}    " \
-                                 "!!! ---- Flashing error - both bootloaders - try again ---- !!! ' {Bcolors.ENDC}\n\n"
+        flashing_error_handler = f"printf '\n{Bcolors.RED}    " \
+                                 f"!!! ---- Flashing error - both bootloaders - try again ---- !!! ' {Bcolors.ENDC}\n\n"
 
     print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {str(flashing_baudrate)} -U "
-          f"flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/{firmware_version}.hex:i")
+          f"flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/{firmware_version}:i")
 
     if not config.debug_mode:
-        os.system(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {str(flashing_baudrate)} -U "
-                  f"flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/{firmware_version}.hex "
-                  f"|| {flashing_error_handler}")
+        os.system(
+            f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {str(flashing_baudrate)} -U "
+            f"flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/{firmware_version}:i"
+            f"|| {flashing_error_handler}")
 
 
 # below works when nodes are 'auto-numbered' - as when official PCB is used
@@ -151,7 +150,6 @@ def flash_firmware_onto_a_node(config, selected_node_number, gpio_node=False):
 
 
 def check_uart_connection(config, bootloader_version=0, attempt=0):
-
     if bootloader_version == 0:
         flashing_baudrate = 57600
     else:
@@ -159,16 +157,17 @@ def check_uart_connection(config, bootloader_version=0, attempt=0):
 
     if attempt == 0:
         uart_error_handler = f"\n\n{Bcolors.YELLOW}Unsuccessful flashing - trying with another bootloader  " \
-                                 f"{Bcolors.ENDC}\n\n && touch /home/{config.user}/RH-ota/.flashing_error) && sleep 1"
+                             f"{Bcolors.ENDC}\n\n && touch /home/{config.user}/RH-ota/.flashing_error) && sleep 1"
     else:
         uart_error_handler = "\n{Bcolors.RED}    " \
-                                 " ---- UART response error - both bootloaders - try again ----  ' {Bcolors.ENDC}\n\n"
+                             " ---- UART response error - both bootloaders - try again ----  ' {Bcolors.ENDC}\n\n"
 
     print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {str(flashing_baudrate)}")
 
     if not config.debug_mode:
-        os.system(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {str(flashing_baudrate)}"
-                  f"|| {uart_error_handler}")
+        os.system(
+            f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {str(flashing_baudrate)}"
+            f"|| {uart_error_handler}")
 
 
 def check_uart_con_with_a_node(config, selected_node_number, gpio_node=False):  # TODO - new bootloader
