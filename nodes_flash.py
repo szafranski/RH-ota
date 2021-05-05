@@ -73,10 +73,11 @@ def firmware_flash(config, bootloader_version=0, flashing_target="firmware", att
         firmware_version = "custom_node/custom_node.hex"
 
     if attempt == 0:
-        flashing_error_handler = f"(printf '\n\n{Bcolors.YELLOW}Unsuccessful flashing - trying with another bootloader{Bcolors.ENDC}\n\n' && touch /home/{config.user}/RH-ota/.flashing_error && sleep 1)"
+        flashing_error_handler = f"(printf '\n\n{Bcolors.YELLOW}Unsuccessful flashing - trying with another bootloader" \
+                                 f"{Bcolors.ENDC}\n\n' && touch /home/{config.user}/RH-ota/.flashing_error && sleep 1)"
     else:
-        flashing_error_handler = f"printf '\n{Bcolors.RED}    " \
-                                 f"!!! ---- Flashing error - both bootloaders - try again ---- !!! ' {Bcolors.ENDC}\n\n"
+        flashing_error_handler = f"printf '\n\n{Bcolors.RED}    " \
+                                 f"!!! ---- Flashing error - both bootloaders - try again ---- !!!  {Bcolors.ENDC}\n\n'"
 
     print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {str(flashing_baudrate)} -U "
           f"flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/{firmware_version}:i")
@@ -156,11 +157,11 @@ def check_uart_connection(config, bootloader_version=0, attempt=0):
         flashing_baudrate = 115200
 
     if attempt == 0:
-        uart_error_handler = f"\n\n{Bcolors.YELLOW}Unsuccessful flashing - trying with another bootloader  " \
+        uart_error_handler = f"printf '\n\n{Bcolors.YELLOW}Unsuccessful flashing - trying with another bootloader  " \
                              f"{Bcolors.ENDC}\n\n && touch /home/{config.user}/RH-ota/.flashing_error) && sleep 1"
     else:
-        uart_error_handler = "\n{Bcolors.RED}    " \
-                             " ---- UART response error - both bootloaders - try again ----  ' {Bcolors.ENDC}\n\n"
+        uart_error_handler = "printf '\n{Bcolors.RED}    " \
+                             " ---- UART response error - both bootloaders - try again ----   {Bcolors.ENDC}\n\n'"
 
     print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {str(flashing_baudrate)}")
 
