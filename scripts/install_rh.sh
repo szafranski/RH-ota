@@ -72,3 +72,8 @@ sudo chmod 644 /lib/systemd/system/rotorhazard.service
 sudo systemctl daemon-reload
 sudo systemctl enable rotorhazard.service
 echo
+
+
+# port forwarding
+cd /home/"${1}"/RH-ota/scripts/ || exit
+sudo ./iptables_conf.sh

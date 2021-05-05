@@ -239,7 +239,7 @@ def serial_menu(config):
 
         Serial port enabled successfully.
         You have to reboot Raspberry now,
-        so changes would be implemented. Ok?
+        so changes can be implemented. Ok?
 
 
 
@@ -262,9 +262,16 @@ def serial_menu(config):
             Do you want to enable it now?
 
 
-     {green}y - for yes {endc}
 
-    {yellow}a - for abort{endc}
+         {green}y - yes, enable UART now {endc}
+     
+                s - skip this prompt
+            
+                d - don't show this prompt again
+
+        {yellow}a - abort{endc}
+        
+        
             """.format(yellow=Bcolors.YELLOW_S, green=Bcolors.GREEN_S, endc=Bcolors.ENDC)
         selection = input(serial_adding_menu)
         if selection == 'y':
@@ -279,6 +286,14 @@ def serial_menu(config):
             else:
                 uart_enabling()
                 break
+        elif selection == 's':
+            old_flash_gpio(config) if config.old_hw_mod else flashing_menu(config)
+            break
+        elif selection == 'd':
+            ota_status.uart_support_added = True
+            write_ota_sys_markers(ota_status, config.user)
+            old_flash_gpio(config) if config.old_hw_mod else flashing_menu(config)
+            break
         elif selection == 'a':
             break
 

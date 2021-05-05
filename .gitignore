@@ -13,3 +13,4 @@ nohup*
 /venv
 /updater-config.json
 test.py
+.first_time_here

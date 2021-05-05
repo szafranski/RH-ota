@@ -15,6 +15,9 @@ support python 3.6+ natively. Using newer OS is advised anyways.
 To check currently used Raspbian OS version - type: 'cat /etc/os-release'
 To check currently used python3 version - type: 'python3 --version'
 To list all python versions installed on your OS - type: 'python' and hit Tab twice
+
+Detailed instructions what to do now can be found in: RH-ota/docs/python36_help.txt
+
 """
     if sys.version_info < (3, 6):
         print(2 * "\n" + 80 * "-" + "\n" + 80 * "-")
