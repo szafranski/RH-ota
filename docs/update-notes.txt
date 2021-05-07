@@ -5,6 +5,9 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+233.25.3i4
+1. Nodes firmware updated - API level 35 in newest Beta target
+
 233.25.3i3
 1. Arduino Nano with "new bootloader" flashing supported - automatically
 2. Port forwarding added - server available on default port 80
