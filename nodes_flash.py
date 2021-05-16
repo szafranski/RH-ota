@@ -79,7 +79,7 @@ def firmware_flash(config, bootloader_version=0, flashing_target="firmware", att
         flashing_error_handler = f"printf '\n\n{Bcolors.RED}    " \
                                  f"!!! ---- Flashing error - both bootloaders - try again ---- !!!  {Bcolors.ENDC}\n\n'"
 
-    print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {str(flashing_baudrate)} -U "
+    print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {str(flashing_baudrate)} -U \n"
           f"flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/{firmware_version}:i")
 
     if not config.debug_mode:
@@ -128,7 +128,6 @@ def flash_firmware_onto_a_node(config, selected_node_number, gpio_node=False):
                            f"{Bcolors.ENDC}(reset with I2C address: {addr})\n"
     gpio_flashing_message = f"\n\t\t{Bcolors.BOLD}Flashing node {config.nodes_number} " \
                             f"{Bcolors.ENDC}(reset with GPIO pin: {config.gpio_reset_pin})\n"
-    old_bootloader_flashing_error = os.path.exists(f"/home/{config.user}/RH-ota/.flashing_error")
     if not gpio_node:
         print(i2c_flashing_message)
         prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
@@ -136,6 +135,7 @@ def flash_firmware_onto_a_node(config, selected_node_number, gpio_node=False):
         print(gpio_flashing_message)
         reset_gpio_pin(config.gpio_reset_pin)
     firmware_flash(config, 0, "firmware", 0)
+    old_bootloader_flashing_error = os.path.exists(f"/home/{config.user}/RH-ota/.flashing_error")
     if old_bootloader_flashing_error:
         if not gpio_node:
             print(i2c_flashing_message)
@@ -210,9 +210,12 @@ def node_selection_menu(config):
         print(flash_node_menu)
         selection = input(f"\t\t{Bcolors.BOLD}Which node do you want to program: {Bcolors.ENDC}")
         if selection.isdigit():
-            if int(selection) in range(8) and int(selection) not in range(config.nodes_number):
-                print("\n\n\tNode number higher than configured amount of nodes.")
-                sleep(1.5)
+            if int(selection) not in range(config.nodes_number+1):
+                selection_confirm = input("\n\n\tNode number higher than configured amount of nodes."
+                      "\n\tAre you sure you want to continue? [y/N]\t")
+                if selection_confirm.lower() == 'y':
+                    selected_node_number = selection
+                    specific_node_menu(config, int(selected_node_number))
             else:
                 selected_node_number = selection
                 specific_node_menu(config, int(selected_node_number))
