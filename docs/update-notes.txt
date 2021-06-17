@@ -5,6 +5,9 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+300.35.3i6
+1. RotorHazard 3.1.0-beta.2 installation and update support added
+
 300.35.3i5
 1. RotorHazard 3.1.0-beta.1 installation and update support added
 
