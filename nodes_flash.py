@@ -423,6 +423,19 @@ def show_i2c_devices(config):
         else:
             print("\n\nNo RTC found")
 
+        possible_oled_addr = ['3c']  #possible other oled screens addresses
+        for item in possible_oled_addr:
+            if item in detected_i2c_devices:
+                oled_found_flag = True
+                break
+        else:
+            oled_found_flag = False
+
+        if oled_found_flag:
+            print(f"{Bcolors.GREEN}\n\nOLED screen found{Bcolors.ENDC}")
+        else:
+            print("\n\nNo OLED screen found")
+
         print(Bcolors.ENDC)
         print(f"\n\n\t{Bcolors.RED}Press 'e' to exit to menu {Bcolors.ENDC}or hit 'Enter' to refresh")
         selection = input("\n")
