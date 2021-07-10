@@ -39,7 +39,7 @@ ________________
 
 (takes several minutes - if nothing happened in the terminal - you don't have internet access which is required)
 ________________
-sudo reboot + unplug the Ethernet cable if was connected
+sudo reboot + unplug the Ethernet cable if it was connected
 <br/>
 
 ________________
@@ -54,6 +54,7 @@ password: ChangeMe<br/><br/><br/>
 
 
 enter IP address: 10.3.141.1 in browser
+(or: 10.3.141.1:8080)
 
 Username: admin
 
@@ -62,7 +63,7 @@ Password: secret<br/>  <br/>
 
 
 Click:
-Configure hotspot -> SSID (enter the name you want, e.g. "RH-TIMER") 
+Configure hotspot -> SSID (enter the name you want, e.g., "RH-TIMER") 
 
 Wireless Mode (change to 802.11n - 2.4GHz)
 
@@ -150,15 +151,15 @@ if you have any problems connecting Wi-Fi with a new name - try "forgetting" the
 
 <br/> <br/>
 
-Now you should be able to enter the network typing in the browser:
-10.10.10.10:5000 - using Wi-Fi
-172.20.20.20:5000 - using ethernet.
+Now you should be able to enter the timer typing in the browser:
+10.10.10.10:5000 (or 10.10.10.10)- using Wi-Fi
+172.20.20.20:5000 (or 172.20.20.20)- using ethernet.
 
 <br/> <br/>
 
 Optional but not recommended:
 
-You can change network name and password entering 10.10.10.10 and logging using: <br/>
+You can change network name and password entering 10.10.10.10 (or 10.10.10.10:8080) and logging using: <br/>
 Username: admin <br/>
 Password: secret <br/>
 You can change this logging info as well in Configure Auth in the gui if you want.
