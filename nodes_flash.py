@@ -210,9 +210,9 @@ def node_selection_menu(config):
         print(flash_node_menu)
         selection = input(f"\t\t{Bcolors.BOLD}Which node do you want to program: {Bcolors.ENDC}")
         if selection.isdigit():
-            if int(selection) not in range(config.nodes_number+1):
+            if int(selection) not in range(config.nodes_number + 1):
                 selection_confirm = input("\n\n\tNode number higher than configured amount of nodes."
-                      "\n\tAre you sure you want to continue? [y/N]\t")
+                                          "\n\tAre you sure you want to continue? [y/N]\t")
                 if selection_confirm.lower() == 'y':
                     selected_node_number = selection
                     specific_node_menu(config, int(selected_node_number))
@@ -241,14 +241,17 @@ def specific_node_menu(config, selected_node_number):
         e - Exit{Bcolors.ENDC}"""
         print(node_selected_menu)
         selection = input()
+        gpio_node = False
+        if selected_node_number == config.nodes_number and config.gpio_reset_pin is not False:
+            gpio_node = True
         if selection == '1':
-            flash_firmware_onto_a_node(config, selected_node_number)
+            flash_firmware_onto_a_node(config, selected_node_number, gpio_node)
         elif selection == '2':
-            flash_firmware_onto_a_node(config, selected_node_number)
+            flash_firmware_onto_a_node(config, selected_node_number, gpio_node)
         elif selection == '3':
-            flash_firmware_onto_a_node(config, selected_node_number)
+            flash_firmware_onto_a_node(config, selected_node_number, gpio_node)
         elif selection == '4':
-            check_uart_con_with_a_node(config, selected_node_number)
+            check_uart_con_with_a_node(config, selected_node_number, gpio_node)
         elif selection == 'e':
             break
         else:
@@ -423,7 +426,7 @@ def show_i2c_devices(config):
         else:
             print("\n\nNo RTC found")
 
-        possible_oled_addr = ['3c']  #possible other oled screens addresses
+        possible_oled_addr = ['3c']  # possible other oled screens addresses
         for item in possible_oled_addr:
             if item in detected_i2c_devices:
                 oled_found_flag = True
