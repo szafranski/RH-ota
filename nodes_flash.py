@@ -240,10 +240,11 @@ def specific_node_menu(config, selected_node_number):
 
         e - Exit{Bcolors.ENDC}"""
         print(node_selected_menu)
-        selection = input()
-        gpio_node = False
-        if selected_node_number == config.nodes_number and config.gpio_reset_pin is not False:
+        if odd_number_of_nodes_check(config) and selected_node_number == config.nodes_number:
             gpio_node = True
+        else:
+            gpio_node = False
+        selection = input()
         if selection == '1':
             flash_firmware_onto_a_node(config, selected_node_number, gpio_node)
         elif selection == '2':
