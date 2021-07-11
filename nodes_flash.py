@@ -389,6 +389,7 @@ def show_i2c_devices(config):
 
         if nodes_found == 0:
             print(f"{Bcolors.RED}\nNo nodes detected{Bcolors.ENDC}")
+            print("Note: nodes have to be programmed before being discoverable\n")
         else:
             print(f"\n{Bcolors.GREEN}Detected nodes: {nodes_found}{Bcolors.ENDC}\n\n")
 
