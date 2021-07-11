@@ -70,7 +70,7 @@ def firmware_flash(config, bootloader_version=0, flashing_target="firmware", att
     elif flashing_target == "blink":
         firmware_version = "blink.hex"
     else:
-        firmware_version = "custom_node/custom_node.hex"
+        firmware_version = "custom_firmware/custom_node.hex"
 
     if attempt == 0:
         flashing_error_handler = f"(printf '\n\n{Bcolors.YELLOW}Unsuccessful flashing - trying with another bootloader" \
@@ -157,7 +157,7 @@ def check_uart_connection(config, bootloader_version=0, attempt=0):
         flashing_baudrate = 115200
 
     if attempt == 0:
-        uart_error_handler = f"printf '\n\n{Bcolors.YELLOW}Unsuccessful flashing - trying with another bootloader  " \
+        uart_error_handler = f"printf '\n\n{Bcolors.YELLOW}Unsuccessful connection - trying with another bootloader  " \
                              f"{Bcolors.ENDC}\n\n && touch /home/{config.user}/RH-ota/.flashing_error) && sleep 1"
     else:
         uart_error_handler = "printf '\n{Bcolors.RED}    " \
@@ -167,7 +167,7 @@ def check_uart_connection(config, bootloader_version=0, attempt=0):
 
     if not config.debug_mode:
         os.system(
-            f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {str(flashing_baudrate)}"
+            f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {str(flashing_baudrate)} "
             f"|| {uart_error_handler}")
 
 
@@ -232,11 +232,11 @@ def specific_node_menu(config, selected_node_number):
                 Choose flashing type:\n{Bcolors.ENDC}
         1 - {Bcolors.GREEN}Node ground-auto selection firmware - recommended{Bcolors.ENDC}{Bcolors.BOLD}
 
-        2 - Flash custom firmware on the node
+        2 - Flash custom firmware onto the node - advanced
 
-        3 - Flash 'blink' on the node - only for test purposes
+        3 - Flash 'blink' onto the node - only for test purposes
 
-        4 - Check UART connection with a node
+        4 - Check UART connection with the node
 
         e - Exit{Bcolors.ENDC}"""
         print(node_selected_menu)
@@ -481,7 +481,7 @@ def flashing_menu(config):
             first_flashing(config)
         elif selection == '4':
             show_i2c_devices(config)
-        elif selection == 'custom':  # hidden option
+        elif selection == 'custom':  # hidden option TODO remove?
             all_nodes_flash(config)
         elif selection == 'e':
             break
