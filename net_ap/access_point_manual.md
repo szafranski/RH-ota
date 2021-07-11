@@ -57,7 +57,6 @@ enter IP address: 10.3.141.1 in browser
 (or: 10.3.141.1:8080)
 
 Username: admin
-
 Password: secret<br/>  <br/>
 
 

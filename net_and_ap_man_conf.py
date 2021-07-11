@@ -209,7 +209,7 @@ def ap_menu():
     You will be able to connect the Pi via ethernet to the router 
     or PC - with internet sharing option enabled. It requires changes
     in configuration file. Those will be performed automatically,
-    after entering 'netcfg' or 'apcfg' in command line.
+    after entering '{green}netcfg{endc}' or '{green}apcfg{endc}' in command line.
     Remember to reboot the timer after every change. Instruction
     can be also found in 'apconf.txt' file in net_ap folder.
     
@@ -221,10 +221,10 @@ def ap_menu():
     Open second page, for detailed explanation.
     
     
-                {green}s - Second page{endc}
+                {green_s}s - Second page{endc}
                
                {yellow}e - Exit to menu{endc}
-                    """.format(yellow=Bcolors.YELLOW_S, green=Bcolors.GREEN_S, endc=Bcolors.ENDC))
+                    """.format(yellow=Bcolors.YELLOW_S, green_s=Bcolors.GREEN_S, green=Bcolors.GREEN, endc=Bcolors.ENDC))
             selection = input()
             if selection == 's':
                 second_page()
