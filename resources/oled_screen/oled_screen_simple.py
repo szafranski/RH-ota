@@ -116,7 +116,8 @@ def load_oled_screen():
         cmd = "hostname"
         hostname = subprocess.check_output(cmd, shell=True)
         cpu_usage = str(psutil.cpu_percent()).split(".")[0]
-        cpu_x_pos = (8 - len(cpu_usage))
+        proc_char_x_pos = 44
+        cpu_x_pos = proc_char_x_pos - len(cpu_usage)*6
         raw_temp = subprocess.check_output("vcgencmd measure_temp |cut -f 2 -d '='", shell=True)
         temp = str(raw_temp).split(".")[0].split("\"")[1]
 
@@ -124,7 +125,7 @@ def load_oled_screen():
         draw.text((x, top + 16), str(hostname, 'utf-8'), font=font, fill=255)
         draw.text((x, top + 32), str("CPU: "), font=font, fill=255)
         draw.text((cpu_x_pos, top + 32), str(f"{cpu_usage}"), font=font, fill=255)
-        draw.text((8, top + 32), str("%"), font=font, fill=255)
+        draw.text((proc_char_x_pos, top + 32), str("%"), font=font, fill=255)
         draw.text((64, top + 32), str(f"TEMP: {temp}*C"), font=font, fill=255)
         draw.text((x, top + 48), str(f"Temp: {temp}*C"), font=font, fill=255)
 
