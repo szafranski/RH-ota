@@ -122,7 +122,7 @@ def all_nodes_flash(config):
     sleep(1)
 
 
-def flash_firmware_onto_a_node(config, selected_node_number, gpio_node=False):
+def flash_firmware_onto_a_node(config, selected_node_number, gpio_node=False, firmware_type="firmware"):
     addr = nodes_addresses()[selected_node_number - 1]
     i2c_flashing_message = f"\n\t\t{Bcolors.BOLD}Flashing node {selected_node_number} " \
                            f"{Bcolors.ENDC}(reset with I2C address: {addr})\n"
@@ -134,7 +134,7 @@ def flash_firmware_onto_a_node(config, selected_node_number, gpio_node=False):
     else:
         print(gpio_flashing_message)
         reset_gpio_pin(config.gpio_reset_pin)
-    firmware_flash(config, 0, "firmware", 0)
+    firmware_flash(config, 0, firmware_type, 0)
     old_bootloader_flashing_error = os.path.exists(f"/home/{config.user}/RH-ota/.flashing_error")
     if old_bootloader_flashing_error:
         if not gpio_node:
@@ -143,7 +143,7 @@ def flash_firmware_onto_a_node(config, selected_node_number, gpio_node=False):
         else:
             print(gpio_flashing_message)
             reset_gpio_pin(config.gpio_reset_pin)
-        firmware_flash(config, 1, "firmware", 1)
+        firmware_flash(config, 1, firmware_type, 1)
         os.system(f"rm /home/{config.user}/RH-ota/.flashing_error > /dev/null 2>&1 ")
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - flashed{Bcolors.ENDC}\n\n")
     input("\nPress ENTER to continue")
@@ -246,11 +246,11 @@ def specific_node_menu(config, selected_node_number):
             gpio_node = False
         selection = input()
         if selection == '1':
-            flash_firmware_onto_a_node(config, selected_node_number, gpio_node)
+            flash_firmware_onto_a_node(config, selected_node_number, gpio_node, "firmware")
         elif selection == '2':
-            flash_firmware_onto_a_node(config, selected_node_number, gpio_node)
+            flash_firmware_onto_a_node(config, selected_node_number, gpio_node, "custom")
         elif selection == '3':
-            flash_firmware_onto_a_node(config, selected_node_number, gpio_node)
+            flash_firmware_onto_a_node(config, selected_node_number, gpio_node, "blink")
         elif selection == '4':
             check_uart_con_with_a_node(config, selected_node_number, gpio_node)
         elif selection == 'e':
