@@ -110,6 +110,7 @@ def load_oled_screen():
         # Draw a black filled box to clear the image.
         draw.rectangle((0, 0, width, height), outline=0, fill=0)
 
+        # cpu usage and temperature values are rounded down to the closest integer
         cmd = "hostname -I | cut -d\' \' -f1"
         ip_addr = subprocess.check_output(cmd, shell=True)
         cmd = "hostname"
