@@ -158,10 +158,10 @@ def check_uart_connection(config, bootloader_version=0, attempt=0):
 
     if attempt == 0:
         uart_error_handler = f"printf '\n\n{Bcolors.YELLOW}Unsuccessful connection - trying with another bootloader  " \
-                             f"{Bcolors.ENDC}\n\n && touch /home/{config.user}/RH-ota/.flashing_error) && sleep 1"
+                             f"{Bcolors.ENDC}\n\n' && touch /home/{config.user}/RH-ota/.flashing_error) && sleep 1"
     else:
-        uart_error_handler = "printf '\n{Bcolors.RED}    " \
-                             " ---- UART response error - both bootloaders - try again ----   {Bcolors.ENDC}\n\n'"
+        uart_error_handler = f"printf '\n{Bcolors.RED}    " \
+                             f" ---- UART response error - both bootloaders - try again ----   {Bcolors.ENDC}\n\n'"
 
     print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {str(flashing_baudrate)}")
 
