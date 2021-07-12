@@ -157,8 +157,8 @@ def check_uart_connection(config, bootloader_version=0, attempt=0):
         flashing_baudrate = 115200
 
     if attempt == 0:
-        uart_error_handler = f"printf '\n\n{Bcolors.YELLOW}Connection unsuccessful  - trying with another baudrate  " \
-                             f"{Bcolors.ENDC}\n\n' && touch /home/{config.user}/RH-ota/.flashing_error && sleep 1"
+        uart_error_handler = f"(printf '\n\n{Bcolors.YELLOW}Connection unsuccessful  - trying with another baudrate  " \
+                             f"{Bcolors.ENDC}\n\n' && touch /home/{config.user}/RH-ota/.flashing_error && sleep 1)"
     else:
         uart_error_handler = f"printf '\n{Bcolors.RED}    " \
                              f" ---- UART response error - both baudrates - try again ----   {Bcolors.ENDC}\n\n'"
