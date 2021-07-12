@@ -70,7 +70,7 @@ def firmware_flash(config, bootloader_version=0, flashing_target="firmware", att
     elif flashing_target == "blink":
         firmware_version = "blink.hex"
     else:
-        firmware_version = "custom_node/custom_node.hex"
+        firmware_version = "custom_firmware/custom_node.hex"
 
     if attempt == 0:
         flashing_error_handler = f"(printf '\n\n{Bcolors.YELLOW}Unsuccessful flashing - trying with another bootloader" \
@@ -122,7 +122,7 @@ def all_nodes_flash(config):
     sleep(1)
 
 
-def flash_firmware_onto_a_node(config, selected_node_number, gpio_node=False):
+def flash_firmware_onto_a_node(config, selected_node_number, gpio_node=False, firmware_type="firmware"):
     addr = nodes_addresses()[selected_node_number - 1]
     i2c_flashing_message = f"\n\t\t{Bcolors.BOLD}Flashing node {selected_node_number} " \
                            f"{Bcolors.ENDC}(reset with I2C address: {addr})\n"
@@ -133,8 +133,8 @@ def flash_firmware_onto_a_node(config, selected_node_number, gpio_node=False):
         prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
     else:
         print(gpio_flashing_message)
-        reset_gpio_pin(config.gpio_reset_pin)
-    firmware_flash(config, 0, "firmware", 0)
+        reset_gpio_pin(config.gpio_reset_pin) if not config.debug_mode else print("simulation mode - flashing disabled")
+    firmware_flash(config, 0, firmware_type, 0) if not config.debug_mode else None
     old_bootloader_flashing_error = os.path.exists(f"/home/{config.user}/RH-ota/.flashing_error")
     if old_bootloader_flashing_error:
         if not gpio_node:
@@ -142,8 +142,8 @@ def flash_firmware_onto_a_node(config, selected_node_number, gpio_node=False):
             prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
         else:
             print(gpio_flashing_message)
-            reset_gpio_pin(config.gpio_reset_pin)
-        firmware_flash(config, 1, "firmware", 1)
+            reset_gpio_pin(config.gpio_reset_pin) if not config.debug_mode else print("simulation mode - flashing disabled")
+        firmware_flash(config, 1, firmware_type, 1) if not config.debug_mode else None
         os.system(f"rm /home/{config.user}/RH-ota/.flashing_error > /dev/null 2>&1 ")
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - flashed{Bcolors.ENDC}\n\n")
     input("\nPress ENTER to continue")
@@ -157,32 +157,41 @@ def check_uart_connection(config, bootloader_version=0, attempt=0):
         flashing_baudrate = 115200
 
     if attempt == 0:
-        uart_error_handler = f"printf '\n\n{Bcolors.YELLOW}Unsuccessful flashing - trying with another bootloader  " \
-                             f"{Bcolors.ENDC}\n\n && touch /home/{config.user}/RH-ota/.flashing_error) && sleep 1"
+        uart_error_handler = f"(printf '\n\n{Bcolors.YELLOW}Connection unsuccessful  - trying with another baudrate  " \
+                             f"{Bcolors.ENDC}\n\n' && touch /home/{config.user}/RH-ota/.flashing_error && sleep 1)"
     else:
-        uart_error_handler = "printf '\n{Bcolors.RED}    " \
-                             " ---- UART response error - both bootloaders - try again ----   {Bcolors.ENDC}\n\n'"
+        uart_error_handler = f"printf '\n{Bcolors.RED}    " \
+                             f" ---- UART response error - both baudrates - try again ----   {Bcolors.ENDC}\n\n'"
 
     print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {str(flashing_baudrate)}")
 
     if not config.debug_mode:
         os.system(
-            f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {str(flashing_baudrate)}"
+            f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {str(flashing_baudrate)} "
             f"|| {uart_error_handler}")
 
 
-def check_uart_con_with_a_node(config, selected_node_number, gpio_node=False):  # TODO - new bootloader
+def check_uart_con_with_a_node(config, selected_node_number, gpio_node=False):  # TODO - new bootloader check for uart
     addr = nodes_addresses()[selected_node_number - 1]
     gpio_uart_check_message = f"\n\t\t{Bcolors.BOLD}Checking node {config.nodes_number} {Bcolors.ENDC}(reset with GPIO pin: {config.gpio_reset_pin})\n"
     i2c_uart_check_message = f"\n\t\t{Bcolors.BOLD}Checking node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n"
     if not gpio_node:
         print(i2c_uart_check_message)
-        prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
+        prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - UART unavailable")
     else:
         print(gpio_uart_check_message)
-        reset_gpio_pin(config.gpio_reset_pin)
-    print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600")
-    check_uart_connection(config) if not config.debug_mode else None
+        reset_gpio_pin(config.gpio_reset_pin) if not config.debug_mode else print("simulation mode - UART unavailable")
+    check_uart_connection(config, 0, 0) if not config.debug_mode else None
+    old_bootloader_flashing_error = os.path.exists(f"/home/{config.user}/RH-ota/.flashing_error")
+    if old_bootloader_flashing_error:
+        if not gpio_node:
+            print(i2c_uart_check_message)
+            prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - UART unavailable")
+        else:
+            print(gpio_uart_check_message)
+            reset_gpio_pin(config.gpio_reset_pin) if not config.debug_mode else print("simulation mode - UART unavailable")
+        check_uart_connection(config, 1, 1) if not config.debug_mode else None
+        os.system(f"rm /home/{config.user}/RH-ota/.flashing_error > /dev/null 2>&1 ")
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - checked{Bcolors.ENDC}\n\n")
     sleep(1)
     input("\nPress ENTER to continue")
@@ -210,9 +219,9 @@ def node_selection_menu(config):
         print(flash_node_menu)
         selection = input(f"\t\t{Bcolors.BOLD}Which node do you want to program: {Bcolors.ENDC}")
         if selection.isdigit():
-            if int(selection) not in range(config.nodes_number+1):
+            if int(selection) not in range(config.nodes_number + 1):
                 selection_confirm = input("\n\n\tNode number higher than configured amount of nodes."
-                      "\n\tAre you sure you want to continue? [y/N]\t")
+                                          "\n\tAre you sure you want to continue? [y/N]\t")
                 if selection_confirm.lower() == 'y':
                     selected_node_number = selection
                     specific_node_menu(config, int(selected_node_number))
@@ -232,23 +241,27 @@ def specific_node_menu(config, selected_node_number):
                 Choose flashing type:\n{Bcolors.ENDC}
         1 - {Bcolors.GREEN}Node ground-auto selection firmware - recommended{Bcolors.ENDC}{Bcolors.BOLD}
 
-        2 - Flash custom firmware on the node
+        2 - Flash custom firmware onto the node - advanced
 
-        3 - Flash 'blink' on the node - only for test purposes
+        3 - Flash 'blink' onto the node - only for test purposes
 
-        4 - Check UART connection with a node
+        4 - Check UART connection with the node
 
         e - Exit{Bcolors.ENDC}"""
         print(node_selected_menu)
+        if odd_number_of_nodes_check(config) and selected_node_number == config.nodes_number:
+            gpio_node = True
+        else:
+            gpio_node = False
         selection = input()
         if selection == '1':
-            flash_firmware_onto_a_node(config, selected_node_number)
+            flash_firmware_onto_a_node(config, selected_node_number, gpio_node, "firmware")
         elif selection == '2':
-            flash_firmware_onto_a_node(config, selected_node_number)
+            flash_firmware_onto_a_node(config, selected_node_number, gpio_node, "custom")
         elif selection == '3':
-            flash_firmware_onto_a_node(config, selected_node_number)
+            flash_firmware_onto_a_node(config, selected_node_number, gpio_node, "blink")
         elif selection == '4':
-            check_uart_con_with_a_node(config, selected_node_number)
+            check_uart_con_with_a_node(config, selected_node_number, gpio_node)
         elif selection == 'e':
             break
         else:
@@ -385,6 +398,7 @@ def show_i2c_devices(config):
 
         if nodes_found == 0:
             print(f"{Bcolors.RED}\nNo nodes detected{Bcolors.ENDC}")
+            print(f"\n{Bcolors.UNDERLINE}Note: nodes have to be programmed before being discoverable\n\n{Bcolors.ENDC}")
         else:
             print(f"\n{Bcolors.GREEN}Detected nodes: {nodes_found}{Bcolors.ENDC}\n\n")
 
@@ -422,6 +436,19 @@ def show_i2c_devices(config):
             print(f"{Bcolors.GREEN}\n\nRTC (DS3231 or PCF8523 or DS1307) found{Bcolors.ENDC}")
         else:
             print("\n\nNo RTC found")
+
+        possible_oled_addr = ['3c']  # possible other oled screens addresses
+        for item in possible_oled_addr:
+            if item in detected_i2c_devices:
+                oled_found_flag = True
+                break
+        else:
+            oled_found_flag = False
+
+        if oled_found_flag:
+            print(f"{Bcolors.GREEN}\n\nOLED screen found{Bcolors.ENDC}")
+        else:
+            print("\n\nNo OLED screen found")
 
         print(Bcolors.ENDC)
         print(f"\n\n\t{Bcolors.RED}Press 'e' to exit to menu {Bcolors.ENDC}or hit 'Enter' to refresh")
@@ -463,7 +490,7 @@ def flashing_menu(config):
             first_flashing(config)
         elif selection == '4':
             show_i2c_devices(config)
-        elif selection == 'custom':  # hidden option
+        elif selection == 'custom':  # hidden option TODO remove?
             all_nodes_flash(config)
         elif selection == 'e':
             break

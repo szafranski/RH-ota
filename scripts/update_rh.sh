@@ -133,7 +133,7 @@ if ! test -f "$PYTHON3_CONVERSION_FLAG_FILE"; then
 fi
 
 # port forwarding
-if ! grep -q "sudo iptables -A PREROUTING -t nat -p tcp --dport 80 -j REDIRECT --to-ports 5000" /etc/rc.local; then
+if ! grep -q "sudo iptables -A PREROUTING -t nat -p tcp --dport 8080 -j REDIRECT --to-ports 80" /etc/rc.local; then
 cd /home/"${1}"/RH-ota/scripts/ || exit
 sudo ./iptables_conf.sh
 fi
