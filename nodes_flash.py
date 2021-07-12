@@ -171,7 +171,7 @@ def check_uart_connection(config, bootloader_version=0, attempt=0):
             f"|| {uart_error_handler}")
 
 
-def check_uart_con_with_a_node(config, selected_node_number, gpio_node=False):  # TODO - new bootloader
+def check_uart_con_with_a_node(config, selected_node_number, gpio_node=False):  # TODO - new bootloader check for uart
     addr = nodes_addresses()[selected_node_number - 1]
     gpio_uart_check_message = f"\n\t\t{Bcolors.BOLD}Checking node {config.nodes_number} {Bcolors.ENDC}(reset with GPIO pin: {config.gpio_reset_pin})\n"
     i2c_uart_check_message = f"\n\t\t{Bcolors.BOLD}Checking node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n"
