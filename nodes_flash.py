@@ -133,8 +133,8 @@ def flash_firmware_onto_a_node(config, selected_node_number, gpio_node=False, fi
         prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
     else:
         print(gpio_flashing_message)
-        reset_gpio_pin(config.gpio_reset_pin)
-    firmware_flash(config, 0, firmware_type, 0)
+        reset_gpio_pin(config.gpio_reset_pin) if not config.debug_mode else print("simulation mode - flashing disabled")
+    firmware_flash(config, 0, firmware_type, 0) if not config.debug_mode else None
     old_bootloader_flashing_error = os.path.exists(f"/home/{config.user}/RH-ota/.flashing_error")
     if old_bootloader_flashing_error:
         if not gpio_node:
@@ -142,8 +142,8 @@ def flash_firmware_onto_a_node(config, selected_node_number, gpio_node=False, fi
             prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
         else:
             print(gpio_flashing_message)
-            reset_gpio_pin(config.gpio_reset_pin)
-        firmware_flash(config, 1, firmware_type, 1)
+            reset_gpio_pin(config.gpio_reset_pin) if not config.debug_mode else print("simulation mode - flashing disabled")
+        firmware_flash(config, 1, firmware_type, 1) if not config.debug_mode else None
         os.system(f"rm /home/{config.user}/RH-ota/.flashing_error > /dev/null 2>&1 ")
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - flashed{Bcolors.ENDC}\n\n")
     input("\nPress ENTER to continue")
@@ -157,11 +157,11 @@ def check_uart_connection(config, bootloader_version=0, attempt=0):
         flashing_baudrate = 115200
 
     if attempt == 0:
-        uart_error_handler = f"printf '\n\n{Bcolors.YELLOW}Unsuccessful connection - trying with another bootloader  " \
-                             f"{Bcolors.ENDC}\n\n' && touch /home/{config.user}/RH-ota/.flashing_error) && sleep 1"
+        uart_error_handler = f"printf '\n\n{Bcolors.YELLOW}Connection unsuccessful  - trying with another baudrate  " \
+                             f"{Bcolors.ENDC}\n\n' && touch /home/{config.user}/RH-ota/.flashing_error && sleep 1"
     else:
         uart_error_handler = f"printf '\n{Bcolors.RED}    " \
-                             f" ---- UART response error - both bootloaders - try again ----   {Bcolors.ENDC}\n\n'"
+                             f" ---- UART response error - both baudrates - try again ----   {Bcolors.ENDC}\n\n'"
 
     print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {str(flashing_baudrate)}")
 
@@ -177,12 +177,21 @@ def check_uart_con_with_a_node(config, selected_node_number, gpio_node=False):  
     i2c_uart_check_message = f"\n\t\t{Bcolors.BOLD}Checking node {selected_node_number} {Bcolors.ENDC}(reset with I2C address: {addr})\n"
     if not gpio_node:
         print(i2c_uart_check_message)
-        prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
+        prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - UART unavailable")
     else:
         print(gpio_uart_check_message)
-        reset_gpio_pin(config.gpio_reset_pin)
-    print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b 57600")
-    check_uart_connection(config) if not config.debug_mode else None
+        reset_gpio_pin(config.gpio_reset_pin) if not config.debug_mode else print("simulation mode - UART unavailable")
+    check_uart_connection(config, 0, 0) if not config.debug_mode else None
+    old_bootloader_flashing_error = os.path.exists(f"/home/{config.user}/RH-ota/.flashing_error")
+    if old_bootloader_flashing_error:
+        if not gpio_node:
+            print(i2c_uart_check_message)
+            prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - UART unavailable")
+        else:
+            print(gpio_uart_check_message)
+            reset_gpio_pin(config.gpio_reset_pin) if not config.debug_mode else print("simulation mode - UART unavailable")
+        check_uart_connection(config, 1, 1) if not config.debug_mode else None
+        os.system(f"rm /home/{config.user}/RH-ota/.flashing_error > /dev/null 2>&1 ")
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - checked{Bcolors.ENDC}\n\n")
     sleep(1)
     input("\nPress ENTER to continue")
