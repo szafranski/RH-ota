@@ -1,3 +1,5 @@
+#!/bin/bash
+
 cd ~
 wget https://codeload.github.com/adafruit/Adafruit_Python_SSD1306/zip/master -O oled_screen.zip
 unzip oled_screen.zip
