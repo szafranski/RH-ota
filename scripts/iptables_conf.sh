@@ -1,18 +1,19 @@
 #!/bin/bash
 
+sudo iptables -A PREROUTING -t nat -p tcp --dport 80 -j REDIRECT --to-ports 5000
+sudo iptables -A PREROUTING -t nat -p tcp --dport 8080 -j REDIRECT --to-ports 80
+sudo iptables-save
+
 sudo cp /etc/rc.local /etc/rc.local.iptables1_saved
 
 sudo sed -i 's/exit 0//' /etc/rc.local
 
-sudo iptables -A PREROUTING -t nat -p tcp --dport 80 -j REDIRECT --to-ports 5000
-sudo iptables -A PREROUTING -t nat -p tcp --dport 8080 -j REDIRECT --to-ports 80
-sudo iptables-save
-
 echo "
+# [Port Forwarding - RH-OTA]
 sudo iptables -A PREROUTING -t nat -p tcp --dport 80 -j REDIRECT --to-ports 5000
 sudo iptables -A PREROUTING -t nat -p tcp --dport 8080 -j REDIRECT --to-ports 80
-
 sudo iptables-save
+
 exit 0
 " | sudo tee -a /etc/rc.local
 
