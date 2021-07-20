@@ -7,8 +7,9 @@
 
 300.35.3i6-b1
 1. Better flashing protocol code
-2. Port forwarding for services that run on default port 80
+2. Port forwarding added for services that run on default port 80
 Services like RaspAP that use port 80 are available on port 8080
+(can be undone or configured by editing /etc/rc.local)
 3. Improved procedures like AccessPoint config with better manuals
 4. OLED screen being recognized in "show I2C devices"
 

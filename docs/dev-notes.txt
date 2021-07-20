@@ -36,11 +36,11 @@ Most of the features works flawlessly now. We try to catch any possible edga-cas
 
 Branch 'stable' is up-to-date and valid to be used.
 
-Branch 'master' is ongoing work in progress - used when "beta_tester" flag in enabled.
+Branch 'main' is ongoing work in progress - used when "beta_tester" flag in enabled.
 
 Feedback is welcome. Use GitHub or contact me via Facebook.
 
-New discaimer - read below
+New disclaimer - read below
 
 Old disclaimer - not really a thing since David Just joined me in the project:
 If you are seriously skilled developer and you can see that my software contains some bugs or implemented 
