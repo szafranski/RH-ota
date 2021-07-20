@@ -32,7 +32,7 @@ cd ~ || exit
 sleep 1.2
 cd ~/RH-ota || exit
 printf "\n\n $green Update process done, please "$underline"re-enter$endc$green ~/RH-ota directory \n"
-printf "  by typing:$endc 'cd ~/RH-ota'$green or just type$endc 'ota'\n"
+printf "  by typing$endc 'cd ~/RH-ota'$green or just type$endc 'ota'\n"
 printf "\n\n"
 printf "         -- Hit Enter to continue --"
 printf "\n\n"
