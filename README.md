@@ -40,7 +40,7 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
 </br></br>
 ##
 ### Credits:
-[szafranski](https://github.com/szafranski) - project idea, first implementations, flashing part, initial coding
+[Paweł F.](https://github.com/szafranski) - project idea, first implementations, flashing protocol, initial coding
 </br>
 
 [Dave](https://github.com/just-david) - ongoing contribution, BIG coding help, debugging, smart hot-spot
