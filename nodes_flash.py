@@ -276,8 +276,8 @@ def first_flashing(config):
     def flash_node_first_time(port):
         first_attempt = f"timeout 20 avrdude -v -p atmega328p -c arduino -P /dev/{port} -b 57600 -U \
         flash:w:/home/{config.user}/RH-ota/firmware/old_bootloader/{firmware_version_selection(config)}/node_0.hex:i"
-        first_attempt_error_msg = f'printf "\n\n{Bcolors.YELLOW}Unsuccessful flashing - trying with new bootloader ' \
-                                  f'{Bcolors.ENDC}\n\n"'
+        first_attempt_error_msg = f'printf "\n\n{Bcolors.YELLOW}Unsuccessful flashing - trying with new bootloader {Bcolors.ENDC}\n\n\n"'
+        ready_to_second_flash_msg = f'printf "{Bcolors.GREEN}{Bcolors.BOLD}Push reset button after seeing some characters below{Bcolors.ENDC}\n\n" '
         second_attempt = f"sleep 2 && timeout 20 avrdude -v -p atmega328p -c arduino -P /dev/{port} -b 115200 -U \
         flash:w:/home/{config.user}/RH-ota/firmware/new_bootloader/{firmware_version_selection(config)}/node_0.hex:i"
         second_attempt_error_msg = f'printf "\n\n{Bcolors.RED}Unsuccessful flashing - both bootloaders ' \
@@ -300,7 +300,7 @@ def first_flashing(config):
             else:
                 sleep(0.5)
                 os.system(
-                    f"""{first_attempt} || ({first_attempt_error_msg} && {second_attempt}) || {second_attempt_error_msg}""")
+                    f"""{first_attempt} || ({first_attempt_error_msg} && sleep 0.5 && {ready_to_second_flash_msg} && sleep 2 && {second_attempt}) || {second_attempt_error_msg}""")
 
     while True:
         first_flash_select = """
