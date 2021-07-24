@@ -352,7 +352,7 @@ def self_updater(config):
         if config.beta_tester is not False:
             ota_source_name = "beta" if config.beta_tester is True else config.beta_tester
             updater_info = f'{Bcolors.RED}' \
-                           f'Source of the update is set to "{Bcolors.UNDERLINE}{ota_source_name}{Bcolors.ENDC}{Bcolors.RED}" branch.{Bcolors.ENDC}\n'
+                           f'Source of the update is set to the "{Bcolors.UNDERLINE}{ota_source_name}{Bcolors.ENDC}{Bcolors.RED}" branch.{Bcolors.ENDC}\n'
         else:
             updater_info = ''
 
