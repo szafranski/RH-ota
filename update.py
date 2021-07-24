@@ -349,9 +349,10 @@ def aliases_menu(config):
 
 def self_updater(config):
     def check_if_beta_user(config):
-        if config.beta_tester:
+        if config.beta_tester is not False:
+            ota_source_name = "beta" if config.beta_tester is True else config.beta_tester
             updater_info = f'{Bcolors.RED}' \
-                           f'Beta-tester mode is enabled - update will contain OTA in beta version.{Bcolors.ENDC}\n'
+                           f'Source of the update is set to the "{Bcolors.UNDERLINE}{ota_source_name}{Bcolors.ENDC}{Bcolors.RED}" branch.{Bcolors.ENDC}\n'
         else:
             updater_info = ''
 
