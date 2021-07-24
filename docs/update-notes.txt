@@ -13,6 +13,9 @@ Services like RaspAP that use port 80 are available on port 8080
 3. Improved procedures like AccessPoint config with better manuals
 4. Popular OLED screen being recognized in "show I2C devices"
 
+300.35.3i6
+1. RotorHazard 3.1.0-beta.2 installation and update support added
+
 300.35.3i5
 1. RotorHazard 3.1.0-beta.1 installation and update support added
 
