@@ -5,6 +5,14 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+300.35.3j
+1. Better flashing protocol code
+2. Port forwarding added for services that run on default port 80
+Services like RaspAP that use port 80 are available on port 8080
+(can be undone or configured by editing /etc/rc.local)
+3. Improved procedures like AccessPoint config with better manuals
+4. Popular OLED screen being recognized in "show I2C devices"
+
 300.35.3i6
 1. RotorHazard 3.1.0-beta.2 installation and update support added
 

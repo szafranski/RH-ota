@@ -50,7 +50,7 @@ If you want to use value given as default, just hit 'Enter'.
             print("defaulted to: 'rotorhazard'")
         rh_config["GENERAL"]["ADMIN_PASSWORD"] = admin_pswd
         while True:
-            http_port_nr = input("\nWhich port will you use with RotorHazard? [default: 5000]\t\t")
+            http_port_nr = input("\nWhich port will you use with RotorHazard? [default (and advised): 5000]\t")
             if not http_port_nr:
                 http_port_nr = 5000
                 print("defaulted to: 5000")

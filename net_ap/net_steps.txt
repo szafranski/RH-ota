@@ -30,6 +30,7 @@
         password: ChangeMe
 
         enter IP address: 10.3.141.1 in browser
+        (or: 10.3.141.1:8080)
         Username: admin
         Password: secret
 
@@ -64,9 +65,9 @@
 
                 Step 3.
         After rebooting you can connect to the timer, via Wifi or ethernet.
-        WiFi: 10.10.10.10:5000 (10.10.10.10:5000 if connecting from a browser)
-        ethernet: 172.20.20.20 (172.20.20.20:5000 if connecting from a browser)
-        You can enter Access Point extra menu after rebooing
+        WiFi: 10.10.10.10 (or: 10.10.10.10:5000)
+        ethernet: 172.20.20.20 (or: 172.20.20.20:5000)
+        You can enter Access Point extra menu after rebooting
         and check how you can connect to the internet.
 ####
 
@@ -81,8 +82,8 @@
         the (old) network in PC's WiFi settings and than try again
 
         Now you should be able to enter the network typing in the browser:
-        10.10.10.10:5000 - using WiFi
-        172.20.20.20:5000 - using ethernet
+        10.10.10.10 (or: 10.10.10.10:5000) - using WiFi
+        172.20.20.20 (or: 172.20.20.20:5000) - using ethernet
 ####
 
 

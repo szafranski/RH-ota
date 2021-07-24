@@ -145,9 +145,7 @@ def end_installation(config):
             c - Configure RH server now - recommended {Bcolors.ENDC}
             
             r - Reboot - recommended after configuring
-            
-            s - Start RH server now{Bcolors.YELLOW}
-            
+                        
             e - Exit now{Bcolors.ENDC}""")
 
         selection = input()
@@ -158,10 +156,6 @@ def end_installation(config):
         elif selection == 'c':
             conf_rh()
             break
-        elif selection == 's':
-            clear_the_screen()
-            os.chdir(f"/home/{config.user}/RH-ota")
-            os.system("./scripts/server_start.sh")
 
 
 def installation(conf_allowed, config):
@@ -187,7 +181,7 @@ def installation(conf_allowed, config):
             ######################################################
 
 
-        After rebooting please check by typing 'sudo raspi-config' 
+        After rebooting you can confirm by typing 'sudo raspi-config' 
         if I2C, SPI and SSH protocols are active.
                     """.format(thumbs="👍👍👍  ", bold=Bcolors.BOLD_S,
                                endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S)

@@ -19,9 +19,9 @@ def step_four():
     try "forgetting" the (old) network in PC's WiFi settings 
     and than try again
     
-    Now you should be able to enter the network typing in the browser:
-    10.10.10.10:5000 - using WiFi
-    172.20.20.20:5000 - using ethernet.
+    Now you should be able to enter the timer typing in the browser:
+    10.10.10.10 (or: 10.10.10.10:5000) - using WiFi
+    172.20.20.20 (or: 172.20.20.20:5000) - using ethernet.
 
 
             {green}Reboot by pressing 'r'{endc} 
@@ -46,8 +46,8 @@ def step_three():
                 {bold}Step 3.{endc}
                 
     After rebooting you can connect to the timer, via Wifi or ethernet. 
-    WiFi: 10.10.10.10:5000 (10.10.10.10:5000 if connecting from a browser)
-    ethernet: 172.20.20.20 (172.20.20.20:5000 if connecting from a browser)
+    WiFi: 10.10.10.10 (or: 10.10.10.10:5000)
+    ethernet: 172.20.20.20 (172.20.20.20:5000)
     
     You can enter Access Point extra menu after rebooting
     and check how you can connect to the internet.
@@ -86,7 +86,7 @@ def step_zero(config):
     name: raspi-webgui
     password: ChangeMe
     
-    enter IP address: 10.3.141.1 in browser
+    enter IP address: 10.3.141.1 (or: 10.3.141.1:8080) in the browser
     Username: admin
     Password: secret  
     
@@ -209,7 +209,7 @@ def ap_menu():
     You will be able to connect the Pi via ethernet to the router 
     or PC - with internet sharing option enabled. It requires changes
     in configuration file. Those will be performed automatically,
-    after entering 'netcfg' or 'apcfg' in command line.
+    after entering '{green}netcfg{endc}' or '{green}apcfg{endc}' in command line.
     Remember to reboot the timer after every change. Instruction
     can be also found in 'apconf.txt' file in net_ap folder.
     
@@ -221,10 +221,10 @@ def ap_menu():
     Open second page, for detailed explanation.
     
     
-                {green}s - Second page{endc}
+                {green_s}s - Second page{endc}
                
                {yellow}e - Exit to menu{endc}
-                    """.format(yellow=Bcolors.YELLOW_S, green=Bcolors.GREEN_S, endc=Bcolors.ENDC))
+                    """.format(yellow=Bcolors.YELLOW_S, green_s=Bcolors.GREEN_S, green=Bcolors.GREEN, endc=Bcolors.ENDC))
             selection = input()
             if selection == 's':
                 second_page()
