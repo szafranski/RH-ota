@@ -10,6 +10,7 @@
 (Pi Zero compatible java installation script added)
 2. Main readme file updated
 3. Possible update from custom source - developer tool
+4. "Show firmware info" menu part added
 
 300.35.3j
 1. Better flashing protocol code

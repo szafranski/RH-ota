@@ -463,15 +463,15 @@ def firmware_info(config):
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
-        print("\n\n\t\t")
+        print(f"\n\n")
         show_firmware = []
         with open(f'/home/{config.user}/RH-ota/firmware/current_api_levels.txt', 'r') as firmware_file:
             for line in firmware_file:
-                show_firmware.append(line)
+                show_firmware.append(f"\t\t{line}")
 
-        firmware_output = ('\n\t\t\t'.join(show_firmware))
-        print(firmware_output)
-        selection = input("\nExit by typing 'e'\n")
+        firmware_output = ('\n\t\t'.join(show_firmware))
+        print(f"{Bcolors.BOLD}{firmware_output}{Bcolors.ENDC}")
+        selection = input(f"\n\n\t\t{Bcolors.BOLD}{Bcolors.GREEN}Exit by typing 'e'{Bcolors.ENDC}\t")
         if selection == 'e':
             break
 
