@@ -142,7 +142,8 @@ def flash_firmware_onto_a_node(config, selected_node_number, gpio_node=False, fi
             prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - flashing disabled")
         else:
             print(gpio_flashing_message)
-            reset_gpio_pin(config.gpio_reset_pin) if not config.debug_mode else print("simulation mode - flashing disabled")
+            reset_gpio_pin(config.gpio_reset_pin) if not config.debug_mode else print(
+                "simulation mode - flashing disabled")
         firmware_flash(config, 1, firmware_type, 1) if not config.debug_mode else None
         os.system(f"rm /home/{config.user}/RH-ota/.flashing_error > /dev/null 2>&1 ")
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - flashed{Bcolors.ENDC}\n\n")
@@ -189,7 +190,8 @@ def check_uart_con_with_a_node(config, selected_node_number, gpio_node=False):  
             prepare_mate_node(addr) if not config.debug_mode else print("simulation mode - UART unavailable")
         else:
             print(gpio_uart_check_message)
-            reset_gpio_pin(config.gpio_reset_pin) if not config.debug_mode else print("simulation mode - UART unavailable")
+            reset_gpio_pin(config.gpio_reset_pin) if not config.debug_mode else print(
+                "simulation mode - UART unavailable")
         check_uart_connection(config, 1, 1) if not config.debug_mode else None
         os.system(f"rm /home/{config.user}/RH-ota/.flashing_error > /dev/null 2>&1 ")
     print(f"\n\t\t\t{Bcolors.BOLD}Node {selected_node_number} - checked{Bcolors.ENDC}\n\n")
@@ -457,6 +459,19 @@ def show_i2c_devices(config):
             break
 
 
+def firmware_info(config):
+    while True:
+        clear_the_screen()
+        logo_top(config.debug_mode)
+        show_firmware = []
+        with open('~/RH-ota/firmware/current_api_levels.txt', 'r') as firmware_file:
+            for line in firmware_file:
+                show_firmware.append(line)
+
+        firmware_output = ('\n\t\t'.join(show_firmware))
+        return firmware_output
+
+
 def flashing_menu(config):
     while True:
         os.system(f"rm /home/{config.user}/RH-ota/.flashing_error > /dev/null 2>&1 ")
@@ -474,6 +489,8 @@ def flashing_menu(config):
                     3 - First time flashing
 
                     4 - Show I2C connected devices
+                    
+                    5 - Show firmware info 
 
             {yellow}e - Exit to main menu{endc}\n
             """.format(bold=Bcolors.BOLD_S, green=Bcolors.GREEN_S, yellow=Bcolors.YELLOW_S,
@@ -490,6 +507,8 @@ def flashing_menu(config):
             first_flashing(config)
         elif selection == '4':
             show_i2c_devices(config)
+        elif selection == '5':
+            firmware_info(config)
         elif selection == 'custom':  # hidden option TODO remove?
             all_nodes_flash(config)
         elif selection == 'e':
