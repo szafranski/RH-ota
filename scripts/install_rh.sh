@@ -5,7 +5,7 @@
 warning_show() {
   echo "
 
-  Installing additional software may take few minuts
+  Installing additional software may take few minutes
 
 "
 }
