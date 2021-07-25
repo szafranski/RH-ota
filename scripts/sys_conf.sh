@@ -1,61 +1,32 @@
 #!/bin/bash
 
-# description of codes reported when is_pi_4 function is executed:
-#Model and PCB Revision	RAM	Hardware Revision Code from cpu info
-#Code	Model	Revision	RAM	Manufacturer
-#900021	A+	1.1	512MB	Sony UK
-#900032	B+	1.2	512MB	Sony UK
-#900092	Zero	1.2	512MB	Sony UK
-#900093	Zero	1.3	512MB	Sony UK
-#9000c1	Zero W	1.1	512MB	Sony UK
-#9020e0	3A+	1.0	512MB	Sony UK
-#920092	Zero	1.2	512MB	Embest
-#920093	Zero	1.3	512MB	Embest
-#900061	CM	1.1	512MB	Sony UK
-#a01040	2B	1.0	1GB	Sony UK
-#a01041	2B	1.1	1GB	Sony UK
-#a02082	3B	1.2	1GB	Sony UK
-#a020a0	CM3	1.0	1GB	Sony UK
-#a020d3	3B+	1.3	1GB	Sony UK
-#a02042	2B (with BCM2837)	1.2	1GB	Sony UK
-#a21041	2B	1.1	1GB	Embest
-#a22042	2B (with BCM2837)	1.2	1GB	Embest
-#a22082	3B	1.2	1GB	Embest
-#a220a0	CM3	1.0	1GB	Embest
-#a32082	3B	1.2	1GB	Sony Japan
-#a52082	3B	1.2	1GB	Stadium
-#a22083	3B	1.3	1GB	Embest
-#a02100	CM3+	1.0	1GB	Sony UK
-#a03111	4B	1.1	1GB	Sony UK
-#b03111	4B	1.1	2GB	Sony UK
-#b03112	4B	1.2	2GB	Sony UK
-#b03114	4B	1.4	2GB	Sony UK
-#c03111	4B	1.1	4GB	Sony UK
-#c03112	4B	1.2	4GB	Sony UK
-#c03114	4B	1.4	4GB	Sony UK
-#d03114	4B	1.4	8GB	Sony UK
-#c03130	Pi 400	1.0	4GB	Sony UK
+### Automatic Pi model detection script checks for Pi Zero, Pi 4 or defaults to Pi 3
+### Raspberry Pi 0 -          BCM2835
+### Raspberry Pi 1 -          BCM2835
+### Raspberry Pi 2 -          BCM2836/7
+### Raspberry Pi 3 B -        BCM2837A0/B0
+### Raspberry Pi 3 A+/B+ -    BCM2837A0/B0
+### Raspberry Pi 4 -          BCM2711
 
-#if ./isPi4.sh ; then
-# sed -i 's/core_freq=250/#core_freq=250/' /boot/config.txt > /dev/null 2>&1
-#fi
-
-is_pi_4() {
-  ifs=':' read -ra piversion <<<"$(cat /proc/cpuinfo | grep Revision)"
-  if [[ ${piversion[2]} == *"0311"* ]]; then
-    pi_4_found=true
-    else
-    pi_4_found=false
-  fi
+pi_model_check()
+{
+pi_version=$(echo "$(tr -d '\0' < /proc/device-tree/compatible)" | rev | awk -F"," '{print $1}' | rev | xargs)
+if [[ $pi_version == "bcm2835" ]]; then
+  echo "Raspberry_Pi_0"
+elif [[ $pi_version == "bcm2711" ]]; then
+  echo "Raspberry_Pi_4"
+else
+  echo "Raspberry_Pi_3"
+fi
 }
 
 green="\033[92m"
 red="\033[91m"
 endc="\033[0m"
 
-is_pi_4_error() {
+pi_model_check_error() {
   printf "
-     $red -- automatic Pi 4 detection error -- $endc
+     $red -- automatic Pi model detection error -- $endc
 
   If you are using Raspberry Pi 4 please edit file '/boot/config.txt'
   and change line 'core_freq=250' to '#core_freq=250'.
@@ -128,7 +99,7 @@ spi_error() {
 }
 
 i2c_enabling() {
-  is_pi_4 || is_pi_4_error
+  pi_model_check || pi_model_check_error
  if [ "$pi_4_found" = true ] ; then
     echo "
 Raspberry Pi 4 chipset found
