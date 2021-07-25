@@ -56,7 +56,6 @@ sudo python3 setup.py install
 
 java_installation()
 {
-
 if [[ $(~/RH-ota/scripts/pi_model_check.sh) == "pi_zero"  ]]; then
   sudo apt-get install openjdk-8-jdk-headless -y
 else
