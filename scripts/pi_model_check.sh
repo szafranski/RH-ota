@@ -9,7 +9,6 @@
 ### Raspberry Pi 4 -          BCM2711
 
 
-
 pi_version=$(echo "$(tr -d '\0' < /proc/device-tree/compatible)" | rev | awk -F"," '{print $1}' | rev | xargs)
 
 if [[ $pi_version == "bcm2835" ]]; then

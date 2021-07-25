@@ -1,48 +1,9 @@
 #!/bin/bash
 
-### Automatic Pi model detection script checks for Pi Zero, Pi 4 or defaults to Pi 3
-### Raspberry Pi 0 -          BCM2835
-### Raspberry Pi 1 -          BCM2835
-### Raspberry Pi 2 -          BCM2836/7
-### Raspberry Pi 3 B -        BCM2837A0/B0
-### Raspberry Pi 3 A+/B+ -    BCM2837A0/B0
-### Raspberry Pi 4 -          BCM2711
-#
-#pi_model_check()
-#{
-#  pi_0_found=false
-#  pi_4_found=false
-#  default_to_pi_3=false
-#
-#pi_version=$(echo "$(tr -d '\0' < /proc/device-tree/compatible)" | rev | awk -F"," '{print $1}' | rev | xargs)
-#if [[ $pi_version == "bcm2835" ]]; then
-#  pi_0_found=true
-#elif [[ $pi_version == "bcm2711" ]]; then
-#  pi_4_found=true
-#else
-#  default_to_pi_3=true
-#fi
-#}
-
 green="\033[92m"
 red="\033[91m"
 endc="\033[0m"
 
-#pi_model_check_error() {
-#  printf "
-#     $red -- automatic Pi model detection error -- $endc
-#
-#  If you are using Raspberry Pi 4 please edit file '/boot/config.txt'
-#  and change line 'core_freq=250' to '#core_freq=250'.
-#
-#  If you are using any other Pi model please ignore that message.
-#
-#  Hit 'Enter' to continue
-#
-#  "
-#  read -r _
-#  sleep 2
-#}
 
 ssh_enabling() {
   sudo systemctl enable ssh || return 1
