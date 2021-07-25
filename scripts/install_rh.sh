@@ -10,21 +10,6 @@ warning_show() {
 "
 }
 
-pi_model_check()
-{
-  pi_0_found=false
-  pi_4_found=false
-  default_to_pi_3=false
-
-pi_version=$(echo "$(tr -d '\0' < /proc/device-tree/compatible)" | rev | awk -F"," '{print $1}' | rev | xargs)
-if [[ $pi_version == "bcm2835" ]]; then
-  pi_0_found=true
-elif [[ $pi_version == "bcm2711" ]]; then
-  pi_4_found=true
-else
-  default_to_pi_3=true
-fi
-}
 
 sudo apt-get update && sudo apt-get --with-new-pkgs upgrade -y
 sudo apt autoremove -y
@@ -71,9 +56,8 @@ sudo python3 setup.py install
 
 java_installation()
 {
-pi_model_check || pi_model_check_error
 
-if [ "$pi_0_found" = true ] ; then
+if [[ $(~/RH-ota/scripts/pi_model_check.sh) == "pi_zero"  ]]; then
   sudo apt-get install openjdk-8-jdk-headless -y
 else
   sudo apt-get install openjdk-11-jdk-headless -y

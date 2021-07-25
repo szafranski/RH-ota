@@ -10,14 +10,14 @@
 
 
 
-pi_version=$(echo $(tr -d '\0' < /proc/device-tree/compatible) | rev | awk -F"," '{print $1}' | rev | xargs)
+pi_version=$(echo "$(tr -d '\0' < /proc/device-tree/compatible)" | rev | awk -F"," '{print $1}' | rev | xargs)
 
 if [[ $pi_version == "bcm2835" ]]; then
-  echo "Raspberry_Pi_0"
+  echo "pi_zero"
 elif [[ $pi_version == "bcm2711" ]]; then
-  echo "Raspberry_Pi_4"
+  echo "pi_4"
 else
-  echo "Raspberry_Pi_3"
+  echo "pi_3_default"
 fi
 
 
