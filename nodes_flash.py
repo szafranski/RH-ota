@@ -463,13 +463,17 @@ def firmware_info(config):
     while True:
         clear_the_screen()
         logo_top(config.debug_mode)
+        print("\n\n\t\t")
         show_firmware = []
-        with open('~/RH-ota/firmware/current_api_levels.txt', 'r') as firmware_file:
+        with open(f'/home/{config.user}/RH-ota/firmware/current_api_levels.txt', 'r') as firmware_file:
             for line in firmware_file:
                 show_firmware.append(line)
 
-        firmware_output = ('\n\t\t'.join(show_firmware))
-        return firmware_output
+        firmware_output = ('\n\t\t\t'.join(show_firmware))
+        print(firmware_output)
+        selection = input("\nExit by typing 'e'\n")
+        if selection == 'e':
+            break
 
 
 def flashing_menu(config):
