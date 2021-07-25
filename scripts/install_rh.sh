@@ -10,6 +10,22 @@ warning_show() {
 "
 }
 
+pi_model_check()
+{
+  pi_0_found=false
+  pi_4_found=false
+  default_to_pi_3=false
+
+pi_version=$(echo "$(tr -d '\0' < /proc/device-tree/compatible)" | rev | awk -F"," '{print $1}' | rev | xargs)
+if [[ $pi_version == "bcm2835" ]]; then
+  pi_0_found=true
+elif [[ $pi_version == "bcm2711" ]]; then
+  pi_4_found=true
+else
+  default_to_pi_3=true
+fi
+}
+
 sudo apt-get update && sudo apt-get --with-new-pkgs upgrade -y
 sudo apt autoremove -y
 sudo apt install wget python3 ntp htop libjpeg-dev libffi-dev build-essential git scons swig zip i2c-tools python3-smbus python3-pip python3-dev -y
@@ -52,7 +68,20 @@ sudo git clone https://github.com/rm-hull/bme280.git
 cd /home/"${1}"/bme280 || exit
 warning_show
 sudo python3 setup.py install
-sudo apt-get install openjdk-11-jdk-headless -y
+
+java_installation()
+{
+pi_model_check || pi_model_check_error
+
+if [ "$pi_0_found" = true ] ; then
+  sudo apt-get install openjdk-8-jdk-headless -y
+else
+  sudo apt-get install openjdk-11-jdk-headless -y
+fi
+}
+
+java_installation
+
 sudo rm /lib/systemd/system/rotorhazard.service >/dev/null 2>&1
 echo
 echo "

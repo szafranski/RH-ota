@@ -10,13 +10,17 @@
 
 pi_model_check()
 {
+  pi_0_found=false
+  pi_4_found=false
+  default_to_pi_3=false
+
 pi_version=$(echo "$(tr -d '\0' < /proc/device-tree/compatible)" | rev | awk -F"," '{print $1}' | rev | xargs)
 if [[ $pi_version == "bcm2835" ]]; then
-  echo "Raspberry_Pi_0"
+  pi_0_found=true
 elif [[ $pi_version == "bcm2711" ]]; then
-  echo "Raspberry_Pi_4"
+  pi_4_found=true
 else
-  echo "Raspberry_Pi_3"
+  default_to_pi_3=true
 fi
 }
 
@@ -104,7 +108,6 @@ i2c_enabling() {
     echo "
 Raspberry Pi 4 chipset found
     "
-    #sudo sed -i 's/dtparam=i2c/#dtparam=i2c/' /boot/config.txt || return 1
     echo "
 [I2C enabled - RH-OTA]
 dtparam=i2c_arm=on
