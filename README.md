@@ -13,7 +13,7 @@
      - Automatically performs much of the RotorHazard specific Pi setup steps
 
 1. Wizard install and update of RotorHazard nodes firmware.
-     - Works with official RotorHazard PCB out of the box 
+     - Works with official RotorHazard [PCB](https://github.com/RotorHazard/RotorHazard/blob/main/resources/PCB/README.md) out of the box 
      - Possible to use with older PCBs or with custom-builds - described [here](how_to/hw_mod_instructions.txt)
 
 1. Automatic configuring Access Point
