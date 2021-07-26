@@ -6,24 +6,25 @@
 
 ### Main features of the software:
 
-1. Wizard install/update of RotorHazard server software
+1. Wizard install/update of RotorHazard server software:
      - Choose which version of RotorHazard to install
      - Preserves existing RotorHazard config file
      - Backup of existing RH install
      - Automatically performs much of the RotorHazard specific Pi setup steps
+     - Automatically detects used Pi model and performs system setup accordingly
 
 1. Wizard install and update of RotorHazard nodes firmware.
      - Works with official RotorHazard [PCB](https://github.com/RotorHazard/RotorHazard/blob/main/resources/PCB/README.md) out of the box 
      - Possible to use with older PCBs or with custom-builds - described [here](how_to/hw_mod_instructions.txt)
 
 1. Automatic configuring Access Point
-     - Hotspot: Configure always-on hotspot using Pi's built-in Wi-Fi 
+     - Hotspot: Configure always-on hotspot using Pi's built-in Wi-Fi and Ethernet port
         - You lose the ability to connect to the internet using built in Wi-Fi
      - [Auto-Hotspot:](./AUTO_HOTSPOT.md) Automatically connect to known Wi-Fi if available, or become hotspot if no network is found. 
         - If your Pi has been configured to connect to Wi-Fi, this option allows you to use that Wi-Fi when in range, and still create a hotspot when not in range
         - full explanation: [here](https://www.raspberryconnect.com/projects/65-raspberrypi-hotspot-accesspoints/158-raspberry-pi-auto-wifi-hotspot-switch-direct-connection)
 
-Helpful developer/back-end stuffs:
+Helpful developer/back-end stuff:
 1. A wizard setup of the OTA software
 1. Embedded self-updating feature
 1. Automatic installation of all required dependencies
