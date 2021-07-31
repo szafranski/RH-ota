@@ -8,8 +8,8 @@
 300.35.3j1
 1. Enhanced Raspberry Pi model detection protocol
 (Pi Zero compatible java installation script added)
-2. Updated Main readme file and FAQ section
-3. Possible update from custom source - developer tool
+2. Updated main readme file and FAQ section
+3. Possible update from the custom source - developer tool
 4. "Show firmware info" menu part added
 
 300.35.3j
