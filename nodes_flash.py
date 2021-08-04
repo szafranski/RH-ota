@@ -38,7 +38,7 @@ def firmware_version_selection(config):
     return firmware_version
 
 
-def logo_update(config):
+def successful_update_image(config):
     print("""
     #######################################################################
     #                                                                     #
@@ -49,6 +49,19 @@ def logo_update(config):
     #######################################################################\n\n
     """.format(nodes_number=config.nodes_number, bold=Bcolors.BOLD_S,
                bg=Bcolors.BOLD_S + Bcolors.GREEN, endc=Bcolors.ENDC_S, s=(9 * ' ')))
+
+
+def unsuccessful_update_image():
+    print("""{yellow}
+    #######################################################################
+    #                                                                     #
+    #              There were some errors during flashing                 #
+    #              Scroll up and check.                                   #
+    #                                                                     # 
+    #                                                                     #
+    #######################################################################\n\n
+    {endc}""".format(bold=Bcolors.BOLD_S, bg=Bcolors.BOLD_S + Bcolors.GREEN,
+                     yellow=Bcolors.YELLOW, endc=Bcolors.ENDC_S, s=(9 * ' ')))
 
 
 def odd_number_of_nodes_check(config):
@@ -92,6 +105,7 @@ def firmware_flash(config, bootloader_version=0, flashing_target="firmware", att
 # below works when nodes are 'auto-numbered' - as when official PCB is used
 def all_nodes_flash(config):
     clear_the_screen()
+    os.system(f"rm /home/{config.user}/RH-ota/.unsuccessful_flashing_error > /dev/null 2>&1 ")
     print(f"\n\t\t\t{Bcolors.BOLD}Flashing procedure started{Bcolors.BOLD}\n\n")
     nodes_num = config.nodes_number
     odd_number = odd_number_of_nodes_check(config)
@@ -117,7 +131,8 @@ def all_nodes_flash(config):
             if odd_number and ((nodes_num - i) == 2):
                 break  # breaks the "flashing loop" after last even node
         flash_firmware_onto_a_node(config, config.nodes_number, True) if odd_number else None
-    logo_update(config)
+    unsuccessful_flashing_error_flag = os.path.exists(f"/home/{config.user}/RH-ota/.unsuccessful_flashing_error")
+    successful_update_image(config) if not unsuccessful_flashing_error_flag else unsuccessful_update_image
     input("\nDone. Press ENTER to continue ")
     sleep(1)
 
