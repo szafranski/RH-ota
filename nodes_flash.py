@@ -55,10 +55,10 @@ def unsuccessful_update_image():
     print("""{yellow}
     #######################################################################
     #                                                                     #
-    #              There were some errors during flashing                 #
-    #              Scroll up and check.                                   #
-    #                                                                     # 
+    #            There were some nodes that couldn't be flashed.          #
     #                                                                     #
+    #                    Please scroll up and check.                      #
+    #                                                                     # 
     #######################################################################\n\n
     {endc}""".format(bold=Bcolors.BOLD_S, bg=Bcolors.BOLD_S + Bcolors.GREEN,
                      yellow=Bcolors.YELLOW, endc=Bcolors.ENDC_S, s=(9 * ' ')))
