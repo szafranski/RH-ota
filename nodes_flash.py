@@ -89,9 +89,9 @@ def firmware_flash(config, bootloader_version=0, flashing_target="firmware", att
         flashing_error_handler = f"(printf '\n\n{Bcolors.YELLOW}Unsuccessful flashing - trying with another bootloader" \
                                  f"{Bcolors.ENDC}\n\n' && touch /home/{config.user}/RH-ota/.flashing_error && sleep 1)"
     else:
-        flashing_error_handler = f"printf '\n\n{Bcolors.RED}    " \
+        flashing_error_handler = f"(printf '\n\n{Bcolors.RED}    " \
                                  f"!!! ---- Flashing error - both bootloaders - try again ---- !!!  {Bcolors.ENDC}\n\n'" \
-                                 f"&& touch /home/{config.user}/RH-ota/.unsuccessful_flashing_error"
+                                 f"&& touch /home/{config.user}/RH-ota/.unsuccessful_flashing_error && sleep 1)"
 
     print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {str(flashing_baudrate)} -U \n"
           f"flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/{firmware_version}:i")
