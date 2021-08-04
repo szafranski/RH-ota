@@ -90,7 +90,8 @@ def firmware_flash(config, bootloader_version=0, flashing_target="firmware", att
                                  f"{Bcolors.ENDC}\n\n' && touch /home/{config.user}/RH-ota/.flashing_error && sleep 1)"
     else:
         flashing_error_handler = f"printf '\n\n{Bcolors.RED}    " \
-                                 f"!!! ---- Flashing error - both bootloaders - try again ---- !!!  {Bcolors.ENDC}\n\n'"
+                                 f"!!! ---- Flashing error - both bootloaders - try again ---- !!!  {Bcolors.ENDC}\n\n'" \
+                                 f"&& touch /home/{config.user}/RH-ota/.unsuccessful_flashing_error"
 
     print(f"timeout 13 avrdude -v -p atmega328p -c arduino -P /dev/{config.port_name} -b {str(flashing_baudrate)} -U \n"
           f"flash:w:/home/{config.user}/RH-ota/firmware/{bootloader_version}/{firmware_version}:i")
@@ -132,7 +133,7 @@ def all_nodes_flash(config):
                 break  # breaks the "flashing loop" after last even node
         flash_firmware_onto_a_node(config, config.nodes_number, True) if odd_number else None
     unsuccessful_flashing_error_flag = os.path.exists(f"/home/{config.user}/RH-ota/.unsuccessful_flashing_error")
-    successful_update_image(config) if not unsuccessful_flashing_error_flag else unsuccessful_update_image
+    unsuccessful_update_image() if unsuccessful_flashing_error_flag else successful_update_image(config)
     input("\nDone. Press ENTER to continue ")
     sleep(1)
 
