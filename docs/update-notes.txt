@@ -5,6 +5,14 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+300.35.3j1
+1. Enhanced Raspberry Pi model detection protocol
+(Pi Zero compatible java installation script added)
+2. Updated main readme file and FAQ section
+3. Possible update from the custom source - developer tool
+4. "Show firmware info" menu part added
+5. Simple error report after unsuccessful automatic flashing added
+
 300.35.3j
 1. Better flashing protocol code
 2. Port forwarding added for services that run on default port 80

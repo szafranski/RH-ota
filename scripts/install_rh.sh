@@ -5,10 +5,11 @@
 warning_show() {
   echo "
 
-  Installing additional software may take few minuts
+  Installing additional software may take few minutes
 
 "
 }
+
 
 sudo apt-get update && sudo apt-get --with-new-pkgs upgrade -y
 sudo apt autoremove -y
@@ -52,7 +53,18 @@ sudo git clone https://github.com/rm-hull/bme280.git
 cd /home/"${1}"/bme280 || exit
 warning_show
 sudo python3 setup.py install
-sudo apt-get install openjdk-11-jdk-headless -y
+
+java_installation()
+{
+if [[ $(~/RH-ota/scripts/pi_model_check.sh) == "pi_zero"  ]]; then
+  sudo apt-get install openjdk-8-jdk-headless -y
+else
+  sudo apt-get install openjdk-11-jdk-headless -y
+fi
+}
+
+java_installation
+
 sudo rm /lib/systemd/system/rotorhazard.service >/dev/null 2>&1
 echo
 echo "

@@ -6,8 +6,7 @@ Means that you the Raspberry Pi cannot write information to an Arduinos via UART
 1. Bad wiring - most common
 1. Bad Raspberry Pi UART/Serial configuration - less common
 1. Arduino contains code that makes UART line „busy” - possible
-1. Arduino has an incompatible bootloader burnt - not likely but possible
-1. One (or more) Arduino is just broken hardware-wise - not impossible
+1. One (or more) Arduino is just broken hardware or contains corrupted bootloader- not impossible
 
 ## Fixes for each cause:
 
@@ -58,12 +57,12 @@ when there are no other USB devices connected - assuming you wouldn’t manually
 you just skip one step that some people find as tricky. It is advised to perform „Automatic flashing” after initial setup 
 and first „manual flashing” so you’d know that it will still work in a future.
 
-### 4. Arduino in its infinite wisdom came up with an idea to make second iteration of Arduino Nano (with another bootloader) and cheap clones are not helping
-It is not „better” - it is just different. There is a small chance that your Arduinos contains that „newer” bootloader, that there is 
+### 4. Arduino may have corrupted bootloader and cheap clones are not helping
+There is a small chance that your Arduinos have 
 no bootloader at all or that the bootloader is just corrupted - cheap Chinese closes sometimes have that issue. You can check 
-the bootloader version by trying to flash Arduino (using PC) with „newer booloader" selected in a Tools/Board menu.
-If it can be successfully flashed with „newer booloader” selected - that may indicates that you have to burn normal/older bootloader.
-If you want to do that, you can use external programmer such as USB-ASP or just program one Arduino as a temporary programmer 
+the bootloader condition by trying to flash Arduino using PC. Try with „newer booloader" selected in a Tools/Board and with "old bootloader" as well.
+If it can be successfully flashed using PC - that  indicates that your Arduinos are rather fine.
+If you had any problems or you want to just be on a safe side (especially if no standoffs are in use and you solder Arduinos directly to the PCB), you can use external programmer such as USB-ASP or just program one Arduino as a temporary programmer 
 utilizing feature named „Arduino as ISP” (NOT: "ArduinoISP"). To performing that just Google sth like „Burning bootloader using Arduino as ISP”.
 There are a lot of tutorials in that regard.
 

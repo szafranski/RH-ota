@@ -31,11 +31,13 @@ def self_update(config):
         dots_show(2)
         # if config:  # if config is not empty, then the file exited to load.
         #     shutil.copyfile('~/RH-ota/updater-config.json', '~/.ota_markers/updater-config.json')
-        if config.beta_tester:
+        if config.beta_tester is True:
             source = 'main'
             print("This will be the 'beta' update - may be changed in config wizard.\n")
-        else:
+        elif config.beta_tester is False:
             source = 'stable'
+        else:
+            source = config.beta_tester
         os.system(f"./scripts/self_updater.sh {source}")
         # if config:  # if the config variable is not empty, then the config file must have existed.
         #   shutil.copyfile("~/.ota_markers/old_RH-ota/updater-config.json", "~/RH-ota/updater-config.json")
