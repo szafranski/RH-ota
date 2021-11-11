@@ -13,7 +13,7 @@ warning_show() {
 
 sudo apt-get update && sudo apt-get --with-new-pkgs upgrade -y
 sudo apt autoremove -y
-sudo apt install wget python3 ntp htop libjpeg-dev libffi-dev build-essential git scons swig zip i2c-tools python3-smbus python3-pip python3-dev -y
+sudo apt install wget python3 ntp htop libjpeg-dev libffi-dev build-essential git scons swig zip i2c-tools python3-smbus python3-pip python3-dev iptables -y
 sudo apt install python-rpi.gpio || echo "-- no python-rpi.gpio module found - available only on Pi --"  #to be checked
 sudo apt install python3-rpi.gpio || echo "-- no python-rpi.gpio module found - available only on Pi --" #is this redundant?
 sudo -H pip3 install cffi pillow
@@ -35,6 +35,7 @@ rm ~/wget* >/dev/null 2>&1
 mv /home/"${1}"/RotorHazard-"${2}" /home/"${1}"/RotorHazard || exit 1
 warning_show
 sudo -H pip3 install -r /home/"${1}"/RotorHazard/src/server/requirements.txt
+sudo pip3 uninstall Adafruit_GPIO
 sudo chmod 777 -R /home/"${1}"/RotorHazard/src/server
 cd /home/"${1}" || exit
 sudo git clone https://github.com/jgarff/rpi_ws281x.git
