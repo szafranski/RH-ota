@@ -50,7 +50,7 @@ cp /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/database.db /home/"${1}"
 cd /home/"${1}"/RotorHazard/src/server || exit
 time_warning_show
 sudo pip3 install --upgrade --no-cache-dir -r requirements.txt
-sudo pip3 uninstall Adafruit_GPIO
+sudo pip3 uninstall Adafruit_GPIO -y
 
 ### python 3 transition handling ###
 
