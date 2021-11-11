@@ -35,7 +35,6 @@ rm ~/wget* >/dev/null 2>&1
 mv /home/"${1}"/RotorHazard-"${2}" /home/"${1}"/RotorHazard || exit 1
 warning_show
 sudo -H pip3 install -r /home/"${1}"/RotorHazard/src/server/requirements.txt
-sudo pip3 uninstall Adafruit_GPIO -y
 sudo chmod 777 -R /home/"${1}"/RotorHazard/src/server
 cd /home/"${1}" || exit
 sudo git clone https://github.com/jgarff/rpi_ws281x.git
@@ -54,6 +53,7 @@ sudo git clone https://github.com/rm-hull/bme280.git
 cd /home/"${1}"/bme280 || exit
 warning_show
 sudo python3 setup.py install
+sudo pip3 uninstall Adafruit_GPIO -y
 
 java_installation()
 {

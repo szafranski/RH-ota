@@ -50,7 +50,7 @@ cp /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/database.db /home/"${1}"
 cd /home/"${1}"/RotorHazard/src/server || exit
 time_warning_show
 sudo pip3 install --upgrade --no-cache-dir -r requirements.txt
-sudo pip3 uninstall Adafruit_GPIO -y
+
 
 ### python 3 transition handling ###
 
@@ -132,6 +132,8 @@ if ! test -f "$PYTHON3_CONVERSION_FLAG_FILE"; then
 "
 
 fi
+
+sudo pip3 uninstall Adafruit_GPIO -y
 
 # port forwarding
 if ! grep -q "sudo iptables -A PREROUTING -t nat -p tcp --dport 8080 -j REDIRECT --to-ports 80" /etc/rc.local; then
