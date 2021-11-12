@@ -22,6 +22,11 @@ check_for_new_ota() {
   fi
 }
 
+print_info_message() {
+  printf "dependencies will be auto-detected and installed \n"
+  printf "installing dependencies may need 'sudo' password\n\n"
+}
+
 open_software_alias_check() {
 
   if ! grep -q "alias ota=" ../.bashrc; then
@@ -55,9 +60,6 @@ dependencies_check() {
       return 1
     fi
   }
-
-  printf "dependencies will be auto-detected and installed \n"
-  printf "installing dependencies may need 'sudo' password\n\n"
 
   which python3 >/dev/null
   if [ $? -gt 0 ]; then
@@ -138,7 +140,8 @@ dependencies_check() {
 
 }
 
-check_for_new_ota &
+print_info_message
+check_for_new_ota
 open_software_alias_check &
 dependencies_check &
 wait
