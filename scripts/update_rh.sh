@@ -10,9 +10,9 @@ time_warning_show() {
 }
 
 sudo -H python3 -m pip install --upgrade pip
+sudo apt-get update && sudo apt-get --with-new-pkgs upgrade -y
 sudo -H pip3 install pillow
 sudo apt-get install libjpeg-dev ntp htop iptables -y
-sudo apt-get update && sudo apt-get --with-new-pkgs upgrade -y
 sudo apt autoremove -y
 sudo chmod -R 777 "/home/${1}/RotorHazard" # to ensure smooth operation if files in RH directory were edited etc. and permissions changed
 upgradeDate="$(date +%Y%m%d%H%M)"
