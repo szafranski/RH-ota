@@ -13,7 +13,7 @@ warning_show() {
 
 sudo apt-get update && sudo apt-get --with-new-pkgs upgrade -y
 sudo apt autoremove -y
-sudo apt install wget python3 ntp htop libjpeg-dev libffi-dev build-essential git scons swig zip i2c-tools python3-smbus python3-pip python3-dev -y
+sudo apt install wget python3 ntp htop libjpeg-dev libffi-dev build-essential git scons swig zip i2c-tools python3-smbus python3-pip python3-dev iptables -y
 sudo apt install python-rpi.gpio || echo "-- no python-rpi.gpio module found - available only on Pi --"  #to be checked
 sudo apt install python3-rpi.gpio || echo "-- no python-rpi.gpio module found - available only on Pi --" #is this redundant?
 sudo -H pip3 install cffi pillow
@@ -53,6 +53,7 @@ sudo git clone https://github.com/rm-hull/bme280.git
 cd /home/"${1}"/bme280 || exit
 warning_show
 sudo python3 setup.py install
+sudo pip3 uninstall Adafruit_GPIO -y
 
 java_installation()
 {
