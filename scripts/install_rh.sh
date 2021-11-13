@@ -53,7 +53,9 @@ sudo git clone https://github.com/rm-hull/bme280.git
 cd /home/"${1}"/bme280 || exit
 warning_show
 sudo python3 setup.py install
-sudo sed -i 's/UNKNOWN          = 0/UNKNOWN          = 1/' /usr/local/lib/python*/dist-packages/Adafruit_GPIO/Platform.py || echo "Adafruit_GPIO error"
+
+# added because of the broken Adafruit_GPIO compatibility on Raspbian 11 Bullseye
+sudo sed -i 's/UNKNOWN          = 0/UNKNOWN          = 1/' /usr/local/lib/python3*/dist-packages/Adafruit_GPIO/Platform.py || echo "Adafruit_GPIO error"
 
 
 java_installation()

@@ -21,7 +21,7 @@ ssh_error() {
   printf "
      $red -- SSH enabling error -- $endc
 
-  try manual enabling with 'sudo raspi config' later
+  try manually enabling using 'sudo raspi-config' later
   please: disable end re-enable SSH interface
   than reboot
 
@@ -51,7 +51,7 @@ spi_error() {
   printf "
      $red -- SPI enabling error -- $endc
 
-  try manual enabling with 'sudo raspi-config' later
+  try manually enabling using 'sudo raspi-config' later
   please: disable end re-enable SPI interface
   than reboot
 
@@ -99,7 +99,7 @@ i2c_error() {
   printf "
      $red -- I2C enabling error -- $endc
 
-  try manual enabling with 'sudo raspi config' later
+  try manually enabling using 'sudo raspi-config' later
   please: disable end re-enable I2C interface
   than reboot
 
@@ -131,7 +131,7 @@ uart_error() {
   printf "
      $red -- UART enabling error -- $endc
 
-  try manual enabling with 'sudo raspi config'
+  try manually enabling using 'sudo raspi-config'
   please: disable end re-enable UART interface
   than reboot
 
