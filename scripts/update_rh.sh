@@ -134,7 +134,7 @@ if ! test -f "$PYTHON3_CONVERSION_FLAG_FILE"; then
 fi
 
 # added because of the broken Adafruit_GPIO compatibility on Raspbian 11 Bullseye
-sudo sed -i 's/UNKNOWN          = 0/UNKNOWN          = 1/' /usr/local/lib/python3*/dist-packages/Adafruit_GPIO/Platform.py || echo "Adafruit_GPIO error"
+(sudo sed -i 's/UNKNOWN          = 0/UNKNOWN          = 1/' /usr/local/lib/python3*/dist-packages/Adafruit_GPIO/Platform.py && printf "Adafruit_GPIO compatibility fixed") || echo "Adafruit_GPIO compatibility fix error"
 
 # port forwarding
 if ! grep -q "sudo iptables -A PREROUTING -t nat -p tcp --dport 8080 -j REDIRECT --to-ports 80" /etc/rc.local; then

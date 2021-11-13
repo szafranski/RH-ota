@@ -55,7 +55,7 @@ warning_show
 sudo python3 setup.py install
 
 # added because of the broken Adafruit_GPIO compatibility on Raspbian 11 Bullseye
-sudo sed -i 's/UNKNOWN          = 0/UNKNOWN          = 1/' /usr/local/lib/python3*/dist-packages/Adafruit_GPIO/Platform.py || echo "Adafruit_GPIO error"
+(sudo sed -i 's/UNKNOWN          = 0/UNKNOWN          = 1/' /usr/local/lib/python3*/dist-packages/Adafruit_GPIO/Platform.py && printf "Adafruit_GPIO compatibility fixed") || echo "Adafruit_GPIO compatibility fix error"
 
 
 java_installation()
