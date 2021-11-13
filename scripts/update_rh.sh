@@ -133,7 +133,7 @@ if ! test -f "$PYTHON3_CONVERSION_FLAG_FILE"; then
 
 fi
 
-sudo pip3 uninstall Adafruit_GPIO -y
+sudo sed -i 's/UNKNOWN          = 0/UNKNOWN          = 1/' /usr/local/lib/python*/dist-packages/Adafruit_GPIO/Platform.py || echo "Adafruit_GPIO error"
 
 # port forwarding
 if ! grep -q "sudo iptables -A PREROUTING -t nat -p tcp --dport 8080 -j REDIRECT --to-ports 80" /etc/rc.local; then
