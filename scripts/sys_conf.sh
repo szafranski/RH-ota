@@ -51,7 +51,7 @@ spi_error() {
   printf "
      $red -- SPI enabling error -- $endc
 
-  try manual enabling with 'sudo raspi config' later
+  try manual enabling with 'sudo raspi-config' later
   please: disable end re-enable SPI interface
   than reboot
 
