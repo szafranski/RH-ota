@@ -2,6 +2,10 @@
 # $1 is linux user name
 # $2 is actual version of RotorHazard to get.
 
+red="\033[91m"
+yellow="\033[93m"
+endc="\033[0m"
+
 warning_show() {
   echo "
 
@@ -55,7 +59,9 @@ warning_show
 sudo python3 setup.py install
 
 # added because of the broken Adafruit_GPIO compatibility on Raspbian 11 Bullseye
-(sudo sed -i 's/UNKNOWN          = 0/UNKNOWN          = 1/' /usr/local/lib/python3*/dist-packages/Adafruit_GPIO/Platform.py && printf "Adafruit_GPIO compatibility fixed") || echo "Adafruit_GPIO compatibility fix error"
+(sudo sed -i 's/UNKNOWN          = 0/UNKNOWN          = 1/' /usr/local/lib/python3*/dist-packages/Adafruit_GPIO/Platform.py && \
+printf "\n $yellow Adafruit_GPIO compatibility fixed $endc \n\n") || \
+(printf "$red \nAdafruit_GPIO compatibility fix error\n\n $endc" && sleep 2)
 
 
 java_installation()
