@@ -12,19 +12,19 @@ dots7() { # done that way so it work on every terminal
 
 ##################
 
+print_info_message() {
+  printf "dependencies will be auto-detected and installed \n"
+  printf "installing dependencies may need 'sudo' password\n\n"
+}
+
 check_for_new_ota() {
 
   if ! test -f .first_time_here; then
     wget https://raw.githubusercontent.com/szafranski/RH-ota/stable/version.txt -q -O .new_ota_version_check_file.txt
     diff version.txt .new_ota_version_check_file.txt >.new_ota_version_diff_file
   else
-    sudo apt update
+    sudo apt update || printf "repositories have not been updated \n"
   fi
-}
-
-print_info_message() {
-  printf "dependencies will be auto-detected and installed \n"
-  printf "installing dependencies may need 'sudo' password\n\n"
 }
 
 open_software_alias_check() {
