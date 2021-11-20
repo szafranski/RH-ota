@@ -12,28 +12,34 @@ dots7() { # done that way so it work on every terminal
 
 ##################
 
+print_info_message() {
+  printf "dependencies will be auto-detected and installed \n"
+  printf "installing dependencies may need 'sudo' password\n\n"
+}
+
 check_for_new_ota() {
 
   if ! test -f .first_time_here; then
     wget https://raw.githubusercontent.com/szafranski/RH-ota/stable/version.txt -q -O .new_ota_version_check_file.txt
     diff version.txt .new_ota_version_check_file.txt > .new_ota_version_diff_file
+  else
+    sudo apt update || printf "repositories have not been updated \n"
   fi
 }
 
-
 open_software_alias_check() {
 
-if ! grep -q "alias ota=" ../.bashrc; then
-  echo '
+  if ! grep -q "alias ota=" ../.bashrc; then
+    echo '
 #[added during RH-OTA setup]
 alias ota="cd ~/RH-ota && sh ./ota.sh"                        # opens OTA software' >> ../.bashrc
-fi
+  fi
 
-if ! grep -q "alias rh=" ../.bashrc; then
-  echo '
+  if ! grep -q "alias rh=" ../.bashrc; then
+    echo '
 #[added during RH-OTA setup]
 alias rh="cd ~/RotorHazard/src/server && python3 server.py"   # starts RH-server' >> ../.bashrc
-fi
+  fi
 }
 
 dependencies_check() {
@@ -54,9 +60,6 @@ dependencies_check() {
       return 1
     fi
   }
-
-  printf "dependencies will be auto-detected and installed \n"
-  printf "installing dependencies may need 'sudo' password\n\n"
 
   which python3 >/dev/null
   if [ $? -gt 0 ]; then
@@ -137,7 +140,8 @@ dependencies_check() {
 
 }
 
-check_for_new_ota &
+print_info_message
+check_for_new_ota
 open_software_alias_check &
 dependencies_check &
 wait

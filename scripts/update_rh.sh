@@ -1,5 +1,9 @@
 #!/bin/bash
 
+red="\033[91m"
+yellow="\033[93m"
+endc="\033[0m"
+
 time_warning_show() {
   echo "
 
@@ -10,9 +14,9 @@ time_warning_show() {
 }
 
 sudo -H python3 -m pip install --upgrade pip
-sudo -H pip3 install pillow
-sudo apt-get install libjpeg-dev ntp htop -y
 sudo apt-get update && sudo apt-get --with-new-pkgs upgrade -y
+sudo -H pip3 install pillow
+sudo apt-get install libjpeg-dev ntp htop iptables -y
 sudo apt autoremove -y
 sudo chmod -R 777 "/home/${1}/RotorHazard" # to ensure smooth operation if files in RH directory were edited etc. and permissions changed
 upgradeDate="$(date +%Y%m%d%H%M)"
@@ -50,6 +54,7 @@ cp /home/"${1}"/RotorHazard_"${upgradeDate}"/src/server/database.db /home/"${1}"
 cd /home/"${1}"/RotorHazard/src/server || exit
 time_warning_show
 sudo pip3 install --upgrade --no-cache-dir -r requirements.txt
+
 
 ### python 3 transition handling ###
 
@@ -131,6 +136,11 @@ if ! test -f "$PYTHON3_CONVERSION_FLAG_FILE"; then
 "
 
 fi
+
+# added because of the broken Adafruit_GPIO compatibility on Raspbian 11 Bullseye
+(sudo sed -i 's/UNKNOWN          = 0/UNKNOWN          = 1/' /usr/local/lib/python3*/dist-packages/Adafruit_GPIO/Platform.py && \
+printf "\n $yellow Adafruit_GPIO compatibility is now OK $endc \n\n") || \
+(printf "$red \nAdafruit_GPIO compatibility fix error\n\n $endc" && sleep 2)
 
 # port forwarding
 if ! grep -q "sudo iptables -A PREROUTING -t nat -p tcp --dport 8080 -j REDIRECT --to-ports 80" /etc/rc.local; then
