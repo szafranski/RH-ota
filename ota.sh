@@ -21,7 +21,7 @@ check_for_new_ota() {
 
   if ! test -f .first_time_here; then
     wget https://raw.githubusercontent.com/szafranski/RH-ota/stable/version.txt -q -O .new_ota_version_check_file.txt
-    diff version.txt .new_ota_version_check_file.txt >.new_ota_version_diff_file
+    diff version.txt .new_ota_version_check_file.txt > .new_ota_version_diff_file
   else
     sudo apt update || printf "repositories have not been updated \n"
   fi
@@ -32,13 +32,13 @@ open_software_alias_check() {
   if ! grep -q "alias ota=" ../.bashrc; then
     echo '
 #[added during RH-OTA setup]
-alias ota="cd ~/RH-ota && sh ./ota.sh"                        # opens OTA software' >>../.bashrc
+alias ota="cd ~/RH-ota && sh ./ota.sh"                        # opens OTA software' >> ../.bashrc
   fi
 
   if ! grep -q "alias rh=" ../.bashrc; then
     echo '
 #[added during RH-OTA setup]
-alias rh="cd ~/RotorHazard/src/server && python3 server.py"   # starts RH-server' >>../.bashrc
+alias rh="cd ~/RotorHazard/src/server && python3 server.py"   # starts RH-server' >> ../.bashrc
   fi
 }
 
