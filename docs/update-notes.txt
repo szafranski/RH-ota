@@ -5,6 +5,9 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+310.35.3j3
+1. Supports RotorHazard 3.1.0 (stable release) installation
+
 300.35.3j3
 1. Tweaks allowing smooth operation on Raspbian 11 Bullseye added
 
