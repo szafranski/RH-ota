@@ -177,7 +177,6 @@ Simpler main menu, server start moved to RH Manager
 2.3.0c
 Added automatic I2C devices detection
 
-
 2.3.0
 First release of "new OTA" - all benefits listed in README.md this time
 New firmware with API level 23 (when 'master' release of RH is selected)
