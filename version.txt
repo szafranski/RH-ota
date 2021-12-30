@@ -12,5 +12,5 @@ Done this way so the user would know at a glance if he has to update OTA to inst
 Features and functions are described in files in /docs folder.
 
 # keep the version number in first line of this file
-# this file is important cause stable RotorHazard target is being generated from the first number in first line
+# this file is important cause stable RotorHazard target is being deducted from the first number in first line
 # in the rpi_update.py file - first function - KEEP IT THAT WAY!!!
