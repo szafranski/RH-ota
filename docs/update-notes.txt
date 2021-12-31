@@ -5,6 +5,9 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+311.35.3j3
+1. Supports RotorHazard 3.1.1 (stable release) installation
+
 310.35.3j3
 1. Supports RotorHazard 3.1.0 (stable release) installation
 
@@ -173,7 +176,6 @@ Simpler main menu, server start moved to RH Manager
 
 2.3.0c
 Added automatic I2C devices detection
-
 
 2.3.0
 First release of "new OTA" - all benefits listed in README.md this time
