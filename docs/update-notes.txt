@@ -5,6 +5,10 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+311.35.3k1
+1. More robust installation script - not exiting when errors with sensors installation occur
+2. More verbose installation script
+
 311.35.3k
 1. RotorHazard 3.2.0-beta.1 installation and update support added
 

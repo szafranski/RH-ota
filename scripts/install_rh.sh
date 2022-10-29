@@ -4,16 +4,12 @@
 
 red="\033[91m"
 yellow="\033[93m"
+green="\033[92m"
 endc="\033[0m"
 
-warning_show() {
-  echo "
-
-  Installing additional software may take few minutes
-
-"
+add_ons_info_show() {
+  printf "\n\n   Installing additional software may take few minutes \n\n"
 }
-
 
 sudo apt-get update && sudo apt-get --with-new-pkgs upgrade -y
 sudo apt autoremove -y
@@ -37,31 +33,55 @@ unzip temp.zip
 rm temp.zip
 rm ~/wget* >/dev/null 2>&1
 mv /home/"${1}"/RotorHazard-"${2}" /home/"${1}"/RotorHazard || exit 1
-warning_show
+add_ons_info_show
 sudo -H pip3 install -r /home/"${1}"/RotorHazard/src/server/requirements.txt
 sudo chmod 777 -R /home/"${1}"/RotorHazard/src/server
 cd /home/"${1}" || exit
+
+add_ons_info_show
+
+led_support()
+{
+printf "\n\n LEDs support installation \n\n\n"
+sudo rm -r /home/"${1}"/rpi_ws281x >> /dev/null 2>&1  # in case of old installation present
 sudo git clone https://github.com/jgarff/rpi_ws281x.git
-cd /home/"${1}"/rpi_ws281x || exit
-warning_show
+cd /home/"${1}"/rpi_ws281x
 sudo scons
-cd /home/"${1}"/rpi_ws281x/python || exit
+cd /home/"${1}"/rpi_ws281x/python
 sudo python3 setup.py install
-cd /home/"${1}" || exit
+}
+
+ina219_support()
+{
+printf "\n\n INA219 support installation \n\n\n"
+cd /home/"${1}"
+sudo rm -r /home/"${1}"/pi_ina219 >> /dev/null 2>&1  # in case of old installation present
 sudo git clone https://github.com/chrisb2/pi_ina219.git
-cd /home/"${1}"/pi_ina219 || exit
-warning_show
+cd /home/"${1}"/pi_ina219
 sudo python3 setup.py install
-cd /home/"${1}" || exit
+}
+
+bme280_support()
+{
+printf "\n\n BME280 support installation \n\n\n"
+cd /home/"${1}"
+sudo rm -r /home/"${1}"/bme280 >> /dev/null 2>&1  # in case of old installation present
 sudo git clone https://github.com/rm-hull/bme280.git
-cd /home/"${1}"/bme280 || exit
-warning_show
+cd /home/"${1}"/bme280
 sudo python3 setup.py install
+}
+
+(led_support "${1}" && printf "\n\n $green LEDs support added successfully  $endc \n\n" && sleep 1) || \
+(printf "\n $yellow LEDs support installation error $endc \n\n" && sleep 2)
+(ina219_support "${1}" && printf "\n\n $green INA219 support added successfully  $endc \n\n" && sleep 1) || \
+(printf "\n $yellow INA219 support installation error $endc \n\n" && sleep 2)
+(bme280_support "${1}" printf "\n\n $green BME280 support added successfully  $endc \n\n" && sleep 1) || \
+(printf "\n $yellow BME280 support installation error $endc \n\n" && sleep 2)
 
 # added because of the broken Adafruit_GPIO compatibility on Raspbian 11 Bullseye
 (sudo sed -i 's/UNKNOWN          = 0/UNKNOWN          = 1/' /usr/local/lib/python3*/dist-packages/Adafruit_GPIO/Platform.py && \
-printf "\n $yellow Adafruit_GPIO compatibility is now OK $endc \n\n") || \
-(printf "$red \nAdafruit_GPIO compatibility fix error\n\n $endc" && sleep 2)
+printf "\n $green Adafruit_GPIO compatibility is now OK $endc \n\n\n" && sleep 1) || \
+(printf "$red \nAdafruit_GPIO compatibility fix error\n\n\n $endc" && sleep 2)
 
 
 java_installation()
