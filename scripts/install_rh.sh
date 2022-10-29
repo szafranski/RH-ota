@@ -75,7 +75,7 @@ sudo python3 setup.py install
 (printf "\n $yellow LEDs support installation error $endc \n\n" && sleep 2)
 (ina219_support "${1}" && printf "\n\n $green INA219 support added successfully  $endc \n\n" && sleep 1) || \
 (printf "\n $yellow INA219 support installation error $endc \n\n" && sleep 2)
-(bme280_support "${1}" printf "\n\n $green BME280 support added successfully  $endc \n\n" && sleep 1) || \
+(bme280_support "${1}" && "${1}" printf "\n\n $green BME280 support added successfully  $endc \n\n" && sleep 1) || \
 (printf "\n $yellow BME280 support installation error $endc \n\n" && sleep 2)
 
 # added because of the broken Adafruit_GPIO compatibility on Raspbian 11 Bullseye
