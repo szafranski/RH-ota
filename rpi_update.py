@@ -1,6 +1,7 @@
 import os
 import glob
 from pathlib import Path
+import linecache
 from time import sleep
 from conf_wizard_rh import conf_rh
 from modules import clear_the_screen, Bcolors, triangle_image_show, internet_check, load_ota_sys_markers, \
@@ -17,7 +18,10 @@ def check_preferred_rh_version(config):
 
     stable_release_name = str(converted_rh_version_name)  # stable rh target is being loaded from the version.txt file
 
-    beta_release_name = '3.2.0-beta.2'  # declare last beta release name here
+    imported_beta_release_name = linecache.getline(r"./version.txt", 3).strip()
+    linecache.clearcache()
+
+    beta_release_name = str(imported_beta_release_name)
 
     if config.rh_version == 'stable':
         server_version = stable_release_name
