@@ -1,7 +1,6 @@
 import os
 import glob
 from pathlib import Path
-import linecache
 from time import sleep
 from conf_wizard_rh import conf_rh
 from modules import clear_the_screen, Bcolors, triangle_image_show, internet_check, load_ota_sys_markers, \
@@ -9,17 +8,25 @@ from modules import clear_the_screen, Bcolors, triangle_image_show, internet_che
 
 
 def check_preferred_rh_version(config):
-    with open("version.txt", "r") as file:
-        first_line = file.readline()
+    with open("lines.txt", "r") as file:
+        Lines = file.readlines()
+        line_number = 0
 
-    no_dots_preferred_rh_version = first_line.split(".")[0].strip()
+        for line in Lines:
+            line_number += 1
+            if line_number == 1:
+                stable_name_line = line.strip()
+            if line_number == 3:
+                beta_name_line = line.strip()
+                break
+
+    no_dots_preferred_rh_version = stable_name_line.split(".")[0].strip()
     converted_rh_version_name = \
         no_dots_preferred_rh_version[0] + "." + no_dots_preferred_rh_version[1] + "." + no_dots_preferred_rh_version[2:]
 
     stable_release_name = str(converted_rh_version_name)  # stable rh target is being loaded from the version.txt file
 
-    imported_beta_release_name = linecache.getline(r"./version.txt", 3).strip()
-    linecache.clearcache()
+    imported_beta_release_name = str(beta_name_line)
 
     beta_release_name = str(imported_beta_release_name)
 
