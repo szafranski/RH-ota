@@ -6,19 +6,14 @@ red="\033[91m"
 yellow="\033[93m"
 endc="\033[0m"
 
-warning_show() {
-  echo "
-
-  Installing additional software may take few minutes
-
-"
+add_ons_info_show() {
+  printf "\n\n   Installing additional software may take few minutes \n\n"
 }
-
 
 sudo apt-get update && sudo apt-get --with-new-pkgs upgrade -y
 sudo apt autoremove -y
 sudo apt install wget python3 ntp htop libjpeg-dev libffi-dev build-essential git scons swig zip i2c-tools python3-smbus python3-pip python3-dev iptables -y
-sudo apt install python-rpi.gpio || echo "-- no python-rpi.gpio module found - available only on Pi --"  #to be checked
+sudo apt install python-rpi.gpio >> /dev/null 2&>1 # || echo "-- no python-rpi.gpio module found - available only on Pi --"  #obsolete, just in case here
 sudo apt install python3-rpi.gpio || echo "-- no python-rpi.gpio module found - available only on Pi --" #is this redundant?
 sudo -H pip3 install cffi pillow
 sudo -H python3 -m pip install --upgrade pip
@@ -37,32 +32,15 @@ unzip temp.zip
 rm temp.zip
 rm ~/wget* >/dev/null 2>&1
 mv /home/"${1}"/RotorHazard-"${2}" /home/"${1}"/RotorHazard || exit 1
-warning_show
+add_ons_info_show
 sudo -H pip3 install -r /home/"${1}"/RotorHazard/src/server/requirements.txt
 sudo chmod 777 -R /home/"${1}"/RotorHazard/src/server
 cd /home/"${1}" || exit
-sudo git clone https://github.com/jgarff/rpi_ws281x.git
-cd /home/"${1}"/rpi_ws281x || exit
-warning_show
-sudo scons
-cd /home/"${1}"/rpi_ws281x/python || exit
-sudo python3 setup.py install
-cd /home/"${1}" || exit
-sudo git clone https://github.com/chrisb2/pi_ina219.git
-cd /home/"${1}"/pi_ina219 || exit
-warning_show
-sudo python3 setup.py install
-cd /home/"${1}" || exit
-sudo git clone https://github.com/rm-hull/bme280.git
-cd /home/"${1}"/bme280 || exit
-warning_show
-sudo python3 setup.py install
 
 # added because of the broken Adafruit_GPIO compatibility on Raspbian 11 Bullseye
 (sudo sed -i 's/UNKNOWN          = 0/UNKNOWN          = 1/' /usr/local/lib/python3*/dist-packages/Adafruit_GPIO/Platform.py && \
-printf "\n $yellow Adafruit_GPIO compatibility is now OK $endc \n\n") || \
-(printf "$red \nAdafruit_GPIO compatibility fix error\n\n $endc" && sleep 2)
-
+printf "\n $yellow Adafruit_GPIO compatibility is now OK $endc \n\n\n" && sleep 1) || \
+(printf "$red \nAdafruit_GPIO compatibility fix error\n\n\n $endc" && sleep 2)
 
 java_installation()
 {
@@ -75,6 +53,7 @@ fi
 
 java_installation
 
+# run as a service
 sudo rm /lib/systemd/system/rotorhazard.service >/dev/null 2>&1
 echo
 echo "
