@@ -9,10 +9,10 @@ from modules import clear_the_screen, Bcolors, triangle_image_show, internet_che
 
 def check_preferred_rh_version(config):
     with open("lines.txt", "r") as file:
-        Lines = file.readlines()
+        lines = file.readlines()
         line_number = 0
 
-        for line in Lines:
+        for line in lines:
             line_number += 1
             if line_number == 1:
                 stable_name_line = line.strip()
