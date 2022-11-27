@@ -17,7 +17,7 @@ def check_preferred_rh_version(config):
 
     stable_release_name = str(converted_rh_version_name)  # stable rh target is being loaded from the version.txt file
 
-    beta_release_name = '3.2.0-beta.1'  # declare last beta release name here
+    beta_release_name = '3.2.0-beta.2'  # declare last beta release name here
 
     if config.rh_version == 'stable':
         server_version = stable_release_name
