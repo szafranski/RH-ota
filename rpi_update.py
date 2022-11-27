@@ -8,7 +8,7 @@ from modules import clear_the_screen, Bcolors, triangle_image_show, internet_che
 
 
 def check_preferred_rh_version(config):
-    with open("lines.txt", "r") as file:
+    with open("version.txt", "r") as file:
         lines = file.readlines()
         line_number = 0
 
