@@ -113,18 +113,19 @@ if ! test -f "$PYTHON3_CONVERSION_FLAG_FILE"; then
     sudo python3 setup.py install
   fi
 
-  LEDS_LIBRARY_FILES=/home/"${1}"/rpi_ws281x
-
-  if test -d "$LEDS_LIBRARY_FILES"; then
-    cd /home/"${1}" || exit
-    sudo rm -r "$LEDS_LIBRARY_FILES" || exit
-    sudo git clone https://github.com/jgarff/rpi_ws281x.git
-    cd /home/"${1}"/rpi_ws281x || exit
-    printf "\n\n  LEDs controller library will be updated to python3  \n\n"
-    sudo scons
-    cd /home/"${1}"/rpi_ws281x/python || exit
-    sudo python3 setup.py install
-  fi
+#  LEDS_LIBRARY_FILES=/home/"${1}"/rpi_ws281x
+#
+#  if test -d "$LEDS_LIBRARY_FILES"; then
+#    cd /home/"${1}" || exit
+#    sudo rm -r "$LEDS_LIBRARY_FILES" || exit
+#    sudo git clone https://github.com/jgarff/rpi_ws281x.git
+#    cd /home/"${1}"/rpi_ws281x || exit
+#    printf "\n\n  LEDs controller library will be updated to python3  \n\n"
+#    sudo scons
+#    cd /home/"${1}"/rpi_ws281x/python || exit
+#    sudo python3 setup.py install
+#  fi
+# above - obsolete - keeping here for now
 
   touch "$PYTHON3_CONVERSION_FLAG_FILE"
 
