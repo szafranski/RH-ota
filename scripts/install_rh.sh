@@ -37,7 +37,6 @@ sudo -H pip3 install -r /home/"${1}"/RotorHazard/src/server/requirements.txt
 sudo chmod 777 -R /home/"${1}"/RotorHazard/src/server
 cd /home/"${1}" || exit
 
-
 # added because of the broken Adafruit_GPIO compatibility on Raspbian 11 Bullseye
 (sudo sed -i 's/UNKNOWN          = 0/UNKNOWN          = 1/' /usr/local/lib/python3*/dist-packages/Adafruit_GPIO/Platform.py && \
 printf "\n $yellow Adafruit_GPIO compatibility is now OK $endc \n\n\n" && sleep 1) || \
