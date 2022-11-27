@@ -41,22 +41,7 @@ warning_show
 sudo -H pip3 install -r /home/"${1}"/RotorHazard/src/server/requirements.txt
 sudo chmod 777 -R /home/"${1}"/RotorHazard/src/server
 cd /home/"${1}" || exit
-sudo git clone https://github.com/jgarff/rpi_ws281x.git
-cd /home/"${1}"/rpi_ws281x || exit
-warning_show
-sudo scons
-cd /home/"${1}"/rpi_ws281x/python || exit
-sudo python3 setup.py install
-cd /home/"${1}" || exit
-sudo git clone https://github.com/chrisb2/pi_ina219.git
-cd /home/"${1}"/pi_ina219 || exit
-warning_show
-sudo python3 setup.py install
-cd /home/"${1}" || exit
-sudo git clone https://github.com/rm-hull/bme280.git
-cd /home/"${1}"/bme280 || exit
-warning_show
-sudo python3 setup.py install
+
 
 # added because of the broken Adafruit_GPIO compatibility on Raspbian 11 Bullseye
 (sudo sed -i 's/UNKNOWN          = 0/UNKNOWN          = 1/' /usr/local/lib/python3*/dist-packages/Adafruit_GPIO/Platform.py && \
