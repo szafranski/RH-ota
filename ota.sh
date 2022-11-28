@@ -82,6 +82,13 @@ dependencies_check() {
     echo curl"              "found
   fi
 
+  which procps >/dev/null
+  if [ $? -gt 0 ]; then
+    echo procps has to be installed && sudo apt install procps -y
+  else
+    echo procps"              "found
+  fi
+
   which cowsay >/dev/null
   if [ $? -gt 0 ]; then
     echo cowsay has to be installed && sudo apt install cowsay -y
