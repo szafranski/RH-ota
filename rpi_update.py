@@ -195,7 +195,13 @@ def installation(conf_allowed, config):
                     """.format(thumbs="👍👍👍  ", bold=Bcolors.BOLD_S,
                                endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S)
 
-        os.system("./scripts/sys_conf.sh all") if conf_allowed else None
+        if conf_allowed:
+            if not config.debug_mode:
+                os.system("./scripts/sys_conf.sh all")
+            else:
+                os.system("./scripts/sys_conf.sh ssh")
+                print("\n\nsimulation mode - SPI, I2C and UART won't be configured\n\n\n")
+                sleep(3)
         ota_config.sys_config_done, ota_config.uart_support_added = True, True
         # UART enabling added here so user won't have to reboot Pi again after doing it in Features Menu
         write_ota_sys_markers(ota_config, config.user)
