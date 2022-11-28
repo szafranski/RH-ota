@@ -82,13 +82,6 @@ dependencies_check() {
     echo curl"              "found
   fi
 
-  which procps >/dev/null
-  if [ $? -gt 0 ]; then
-    echo procps has to be installed && sudo apt install procps -y
-  else
-    echo procps"              "found
-  fi
-
   which cowsay >/dev/null
   if [ $? -gt 0 ]; then
     echo cowsay has to be installed && sudo apt install cowsay -y
@@ -101,6 +94,12 @@ dependencies_check() {
     echo pip3 package has to be installed && sudo apt install python3-pip -y
   else
     echo pip3"              "found
+  fi
+
+  if check_package 'procps'; then
+    echo procps"            "found
+  else
+    echo procps has to be installed && sudo apt install procps -y
   fi
 
   if check_package 'python3-gpiozero'; then
@@ -140,7 +139,7 @@ dependencies_check() {
   fi
 
   if check_python_package 'requests'; then
-    echo requests"  "found
+    echo requests"          "found
   else
     echo requests has to be installed && pip3 install requests
   fi
