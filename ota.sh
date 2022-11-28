@@ -139,6 +139,12 @@ dependencies_check() {
     echo python3-rpi.gpio has to be installed && pip3 install rpi.gpio || echo - only on Pi -
   fi
 
+  if check_python_package 'requests'; then
+    echo requests"  "found
+  else
+    echo requests has to be installed && pip3 install requests
+  fi
+
   if check_python_package 'smbus'; then
     echo python3-smbus"     "found
   else
