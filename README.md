@@ -54,7 +54,12 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
 </br>
 ##
 #### Commands to download the software onto Raspberry Pi (or Linux):
-**Note:**  This software will automatically install all necessary dependencies
+**Automatic download:**
+
+    curl https://raw.githubusercontent.com/szafranski/RH-ota/automatic_download/scripts/automatic_download.sh | sh
+
+
+**Manual download**
 
     cd ~
     wget https://codeload.github.com/szafranski/RH-ota/zip/stable -O tempota.zip
@@ -63,7 +68,8 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
     mv RH-ota-* RH-ota
 
 #### Commands to open the software after successful installation:
-    
+(Note:  This software will automatically install all necessary dependencies)
+####
     cd ~/RH-ota
     ./ota.sh
 
