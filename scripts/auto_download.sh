@@ -12,7 +12,6 @@ wget https://codeload.github.com/szafranski/RH-ota/zip/stable -O tempota.zip || 
 unzip tempota.zip || return 1
 rm tempota.zip || return 1
 mv RH-ota-* RH-ota || return 1
-cd RH-ota || return 1
 
 printf "
 $green
@@ -29,5 +28,6 @@ script || printf "
 $red
 errors encountered - try manual installation -> more info od github
 $endc
+
 "
 

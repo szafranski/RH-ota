@@ -1,4 +1,4 @@
-![OTA Logo](./resources/ota_logo.png)
+![OTA Logo](resources/ota_logo.png)
 
 # Easy mange and update your [RotorHazard](https://github.com/RotorHazard/RotorHazard) installation. 
 
@@ -79,7 +79,7 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
     Next:
     sudo apt update
     sudo apt upgrade -y
-    sudo apt install wget zip unzip
+    sudo apt install wget zip unzip curl -y
     chmod +x ~/RH-ota/ota.sh
     
 <br/>
