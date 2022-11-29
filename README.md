@@ -54,12 +54,12 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
 </br>
 ##
 ## Commands to download the software onto Raspberry Pi (or Linux):
-**Automatic download:**
+####Automatic download:
 
     curl -sSL https://raw.githubusercontent.com/szafranski/RH-ota/automatic_download/scripts/auto_download.sh | bash
 
 
-**Manual download:**
+####Manual download:
 
     cd ~
     wget https://codeload.github.com/szafranski/RH-ota/zip/stable -O tempota.zip
