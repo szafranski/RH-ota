@@ -5,6 +5,11 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+311.35.3k2
+1. Removed obsolete sensors installation scripts
+2. No SPI, I2C and UART configuration when in simulation mode
+3. Coding improvements - beta name extrapolation, more update sources
+
 311.35.3k1
 1. RotorHazard 3.2.0-beta.2 installation and update support added
 

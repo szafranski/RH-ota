@@ -230,11 +230,12 @@ Are you using older, non-i2c hardware flashing mod?
                 elif user_is_beta_tester[0] == 'y':
                     config.beta_tester = True
                     break
-                elif user_is_beta_tester[0] == 'n':
+                elif user_is_beta_tester == 'no':
                     config.beta_tester = False
                     break
                 else:
-                    print("\nPlease enter correct value!")
+                    config.beta_tester = user_is_beta_tester
+                    break
 
         if not advanced_wizard_flag:
             config.debug_mode = False

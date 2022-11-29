@@ -9,15 +9,24 @@ from modules import clear_the_screen, Bcolors, triangle_image_show, internet_che
 
 def check_preferred_rh_version(config):
     with open("version.txt", "r") as file:
-        first_line = file.readline()
+        lines = file.readlines()
+        line_number = 0
 
-    no_dots_preferred_rh_version = first_line.split(".")[0].strip()
+        for line in lines:
+            line_number += 1
+            if line_number == 1:
+                stable_name_line = line.strip()
+            if line_number == 3:
+                beta_name_line = line.strip()
+                break
+
+    no_dots_preferred_rh_version = stable_name_line.split(".")[0].strip()
     converted_rh_version_name = \
         no_dots_preferred_rh_version[0] + "." + no_dots_preferred_rh_version[1] + "." + no_dots_preferred_rh_version[2:]
 
     stable_release_name = str(converted_rh_version_name)  # stable rh target is being loaded from the version.txt file
 
-    beta_release_name = '3.2.0-beta.2'  # declare last beta release name here
+    beta_release_name = str(beta_name_line)
 
     if config.rh_version == 'stable':
         server_version = stable_release_name
@@ -186,7 +195,13 @@ def installation(conf_allowed, config):
                     """.format(thumbs="👍👍👍  ", bold=Bcolors.BOLD_S,
                                endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S)
 
-        os.system("./scripts/sys_conf.sh all") if conf_allowed else None
+        if conf_allowed:
+            if not config.debug_mode:
+                os.system("./scripts/sys_conf.sh all")
+            else:
+                os.system("./scripts/sys_conf.sh ssh")
+                print("\n\nsimulation mode - SPI, I2C and UART won't be configured\n\n\n")
+                sleep(3)
         ota_config.sys_config_done, ota_config.uart_support_added = True, True
         # UART enabling added here so user won't have to reboot Pi again after doing it in Features Menu
         write_ota_sys_markers(ota_config, config.user)

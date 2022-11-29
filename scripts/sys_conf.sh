@@ -161,7 +161,7 @@ fi
 reboot_message() {
   echo "
 
-  Process completed. Please reboot Raspberry now.
+  Process completed. Please reboot Raspberry Pi now.
 
   "
 }
