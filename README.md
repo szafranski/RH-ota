@@ -1,4 +1,4 @@
-![OTA Logo](resources/ota_logo.png)
+![OTA Logo](./resources/ota_logo.png)
 
 # Easy mange and update your [RotorHazard](https://github.com/RotorHazard/RotorHazard) installation. 
 
@@ -38,7 +38,7 @@ If you use old, Delta5 boards, but you still want all hardware functionalities -
 or check the file with [hardware mod instructions](/how_to/hw_mod_instructions.txt).
 
 You may also read [update notes](/docs/update-notes.txt) - new features are present.
-</br></br>
+</br>
 ##
 ### Credits:
 [Paweł F.](https://github.com/szafranski) - project idea, first implementations, flashing protocol, initial coding
@@ -53,7 +53,7 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
 [Facebook Group](https://www.facebook.com/groups/207159263704015) members as well as  software and hardware testers
 </br>
 ##
-### Commands to download the software onto Raspberry Pi (or Linux):
+## Commands to download the software onto Raspberry Pi (or Linux):
 **Automatic download:**
 
     curl -sSL https://raw.githubusercontent.com/szafranski/RH-ota/automatic_download/scripts/auto_download.sh | bash
