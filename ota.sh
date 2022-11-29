@@ -96,6 +96,12 @@ dependencies_check() {
     echo pip3"              "found
   fi
 
+  if check_package 'procps'; then
+    echo procps"            "found
+  else
+    echo procps has to be installed && sudo apt install procps -y
+  fi
+
   if check_package 'python3-gpiozero'; then
     echo python3-gpiozero"  "found
   else
@@ -130,6 +136,12 @@ dependencies_check() {
     echo python3-rpi.gpio"  "found
   else
     echo python3-rpi.gpio has to be installed && pip3 install rpi.gpio || echo - only on Pi -
+  fi
+
+  if check_python_package 'requests'; then
+    echo requests"          "found
+  else
+    echo requests has to be installed && pip3 install requests
   fi
 
   if check_python_package 'smbus'; then
