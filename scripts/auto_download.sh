@@ -18,7 +18,7 @@ printf "
 $green
 Program downloaded successfully. To open the program now type:
 $endc
-cd RH-ota
+cd ~/RH-ota
 ./ota.sh
 
 "
