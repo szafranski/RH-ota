@@ -5,6 +5,9 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+311.35.3k4
+1. More robust scripts for installation on Ubuntu etc.
+
 311.35.3k3
 1. RotorHazard 3.2.0-beta.3 installation and update support added
 
