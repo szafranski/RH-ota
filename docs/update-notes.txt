@@ -4,13 +4,16 @@
 
         UPDATE NOTES:
         ^^^^^^^^^^^^
-        
-311.35.3k5
-1. RotorHazard 3.2.0-beta.4 installation and update support added
+
+320.35.4b
+1. RotorHazard 3.2.0 installation and update support added
 
 311.35.4a
-1. Updated readme file
-2. Automatic download added
+1. Updated main readme file
+2. Automatic download feature added
+
+311.35.3k5
+1. RotorHazard 3.2.0-beta.4 installation and update support added
 
 311.35.3k4
 1. More robust scripts for installation on Ubuntu etc.
