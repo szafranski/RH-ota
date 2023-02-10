@@ -5,6 +5,9 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+320.35.4c
+1. RotorHazard 3.2.0 stable installation and update support added
+
 320.35.4b
 1. RotorHazard 3.2.0 installation and update support added
 
