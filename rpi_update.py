@@ -154,7 +154,7 @@ def end_installation(config):
             {Bcolors.GREEN}
             c - Configure RH server now - recommended {Bcolors.ENDC}
             
-            r - Reboot - recommended after configuring
+            r - Reboot - STRONGLY recommended after configuring
                         
             e - Exit now{Bcolors.ENDC}""")
 
