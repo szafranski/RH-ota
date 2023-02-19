@@ -227,10 +227,10 @@ Are you using older, non-i2c hardware flashing mod?
                     config.beta_tester = False
                     print("defaulted to: no")
                     break
-                elif user_is_beta_tester[0] == 'y':
+                elif user_is_beta_tester in ['y', 'yes']:
                     config.beta_tester = True
                     break
-                elif user_is_beta_tester == 'no':
+                elif user_is_beta_tester in ['n', 'no']:
                     config.beta_tester = False
                     break
                 else:
@@ -263,7 +263,7 @@ Are you using older, non-i2c hardware flashing mod?
         Beta tester:            {config.beta_tester}
          
         Please check. Confirm? [yes/change/abort]\n""")
-        valid_options = ['y', 'yes', 'n', 'no', 'change', 'abort']
+        valid_options = ['y', 'yes', 'n', 'no', "ch", 'change', 'abort']
         while True:
             selection = input().strip().lower()
             if selection in valid_options:
@@ -278,7 +278,7 @@ Are you using older, non-i2c hardware flashing mod?
             print("Configuration saved.\n")
             sleep(1)
             conf_now_flag = 0
-        if selection in ['change', 'n', 'no']:
+        if selection in ['ch', 'change', 'n', 'no']:
             conf_now_flag = 1
         if selection == 'abort':
             print("Configuration aborted.\n")

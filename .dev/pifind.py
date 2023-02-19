@@ -16,6 +16,7 @@ port = 22  # default port used for ssh
 
 pi_pswd = 'raspberry'
 
+
 # phrase=pi_user+"@"+10.42.0.245's password :"
 
 

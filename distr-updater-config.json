@@ -1,14 +1,14 @@
 {
-    "pi_user" : "pi",
-    "rh_version": "stable",
-    "debug_user" : "racer",
-    "country" : "GB",
-    "nodes_number" : 8,
-    "debug_mode" : false,
-    "old_hw_mod" : false,
-    "pins_assignment" : "default",
-    "gpio_reset_pin" : false,
-    "beta_tester" : false,
-    "port_name" : "ttyS0",
-    "i2c_bus_number" : 1
+  "pi_user": "pi",
+  "rh_version": "stable",
+  "debug_user": "racer",
+  "country": "GB",
+  "nodes_number": 8,
+  "debug_mode": false,
+  "old_hw_mod": false,
+  "pins_assignment": "default",
+  "gpio_reset_pin": false,
+  "beta_tester": false,
+  "port_name": "ttyS0",
+  "i2c_bus_number": 1
 }

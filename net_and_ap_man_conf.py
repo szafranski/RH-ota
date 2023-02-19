@@ -67,7 +67,6 @@ def step_three():
 
 
 def step_zero(config):
-
     def step_one(config):
 
         while True:
@@ -224,7 +223,8 @@ def ap_menu():
                 {green_s}s - Second page{endc}
                
                {yellow}e - Exit to menu{endc}
-                    """.format(yellow=Bcolors.YELLOW_S, green_s=Bcolors.GREEN_S, green=Bcolors.GREEN, endc=Bcolors.ENDC))
+                    """.format(yellow=Bcolors.YELLOW_S, green_s=Bcolors.GREEN_S, green=Bcolors.GREEN,
+                               endc=Bcolors.ENDC))
             selection = input()
             if selection == 's':
                 second_page()
