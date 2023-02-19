@@ -8,14 +8,13 @@ green="\033[92m"
 endc="\033[0m"
 
 add_ons_info_show() {
-  printf "\n\n   Installing additional software may take few minutes \n\n"
+  printf "\n\n   Installing additional software may take few minutes \n\n\n"
 }
 
 sudo apt-get update && sudo apt-get --with-new-pkgs upgrade -y
 sudo apt autoremove -y
 sudo apt install wget python3 ntp htop libjpeg-dev libffi-dev build-essential git scons swig zip i2c-tools python3-smbus python3-pip python3-dev iptables -y
-sudo apt install python-rpi.gpio >> /dev/null 2&>1 # || echo "-- no python-rpi.gpio module found - available only on Pi --"  #obsolete, just in case here
-sudo apt install python3-rpi.gpio || echo "-- no python-rpi.gpio module found - available only on Pi --" #is this redundant?
+sudo apt install python3-rpi.gpio -y || echo "-- no python-rpi.gpio module found - available only on Pi --" #is this redundant?
 sudo -H pip3 install cffi pillow
 sudo -H python3 -m pip install --upgrade pip
 cd /home/"${1}" || exit

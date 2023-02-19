@@ -14,3 +14,5 @@ nohup*
 /updater-config.json
 test.py
 .first_time_here
+.new_ota_version_check_file.txt
+.new_ota_version_diff_file

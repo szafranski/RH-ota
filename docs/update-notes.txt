@@ -5,8 +5,29 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+320.35.4b
+1. RotorHazard 3.2.0 installation and update support added
+
+311.35.4a
+1. Updated main readme file
+2. Automatic download feature added
+
+311.35.3k5
+1. RotorHazard 3.2.0-beta.4 installation and update support added
+
+311.35.3k4
+1. More robust scripts for installation on Ubuntu etc.
+
+311.35.3k3
+1. RotorHazard 3.2.0-beta.3 installation and update support added
+
+311.35.3k2
+1. Removed obsolete sensors installation scripts
+2. No SPI, I2C and UART configuration when in simulation mode
+3. Coding improvements - beta name extrapolation, more update sources
+
 311.35.3k1
-1. Updated installation script - no redundant addons installation
+1. RotorHazard 3.2.0-beta.2 installation and update support added
 
 311.35.3k
 1. RotorHazard 3.2.0-beta.1 installation and update support added

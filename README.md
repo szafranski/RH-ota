@@ -38,7 +38,7 @@ If you use old, Delta5 boards, but you still want all hardware functionalities -
 or check the file with [hardware mod instructions](/how_to/hw_mod_instructions.txt).
 
 You may also read [update notes](/docs/update-notes.txt) - new features are present.
-</br></br>
+</br>
 ##
 ### Credits:
 [Paweł F.](https://github.com/szafranski) - project idea, first implementations, flashing protocol, initial coding
@@ -53,8 +53,13 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
 [Facebook Group](https://www.facebook.com/groups/207159263704015) members as well as  software and hardware testers
 </br>
 ##
-#### Commands to download the software onto Raspberry Pi (or Linux):
-**Note:**  This software will automatically install all necessary dependencies
+## Commands to download the software onto Raspberry Pi (or Linux):
+#### Automatic download:
+
+    curl -sSL https://raw.githubusercontent.com/szafranski/RH-ota/automatic_download/scripts/auto_download.sh | bash
+
+
+#### Manual download:
 
     cd ~
     wget https://codeload.github.com/szafranski/RH-ota/zip/stable -O tempota.zip
@@ -63,7 +68,8 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
     mv RH-ota-* RH-ota
 
 #### Commands to open the software after successful installation:
-    
+(Note:  This software will automatically install all necessary dependencies)
+####
     cd ~/RH-ota
     ./ota.sh
 
@@ -73,7 +79,8 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
     Next:
     sudo apt update
     sudo apt upgrade -y
-    sudo apt install wget zip unzip
+    sudo ntpd -qg (in case of errors with system updates)
+    sudo apt install wget zip unzip curl -y
     chmod +x ~/RH-ota/ota.sh
     
 <br/>
