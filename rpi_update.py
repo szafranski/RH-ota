@@ -24,7 +24,8 @@ def check_preferred_rh_version(config):
     converted_rh_version_name = \
         no_dots_preferred_rh_version[0] + "." + no_dots_preferred_rh_version[1] + "." + no_dots_preferred_rh_version[2:]
 
-    stable_release_name = str(converted_rh_version_name)  # stable rh target is being loaded from the version.txt file
+    stable_release_name = str(
+        "v" + converted_rh_version_name)  # stable rh target is being loaded from the version.txt file
 
     beta_release_name = str(beta_name_line)
 
