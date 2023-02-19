@@ -363,25 +363,26 @@ def self_updater(config):
         clear_the_screen()
         logo_top(config.debug_mode)
         updater = """{bold}
-        You can update OTA software by hitting 'u' now. It is advised step 
-        before updating the RotorHazard server or before flashing nodes,
-        so you can be sure you use the newest possible software.
+        You can update OTA software by hitting '{green}u{endc}{bold}' now. It is advised step 
+        before updating the RotorHazard server or before flashing nodes.
 
         OTA version number is related to the {red}latest supported RotorHazard 
         stable server version{endc}{bold} and {blue}nodes firmware API number{endc}{bold} that OTA contains.
-        Thanks to that you allways know is there a need to update.
-        For example version {red}230{endc}{bold}.{blue}25{endc}{bold}.3a supports RotorHazard 2.3.0 stable 
+        For example, version {red}230{endc}{bold}.{blue}25{endc}{bold}.3a supports RotorHazard 2.3.0 stable 
         and contains nodes firmware with "API level 25".
 
         Self-updater will test your internet connection before every update
         and prevent update if there is no internet connection established.
+        
+        {underline}Version of this program installed right now{endc}{bold}: {version}
 
         {updater_info}
 
-            {green}u - Update OTA now{endc}
+            {green_s}u - Update OTA now{endc}
 
            {yellow}e - Exit to main menu{endc}
-        """.format(green=Bcolors.GREEN_S, endc=Bcolors.ENDC, bold=Bcolors.BOLD, blue=Bcolors.BLUE,
+        """.format(green=Bcolors.GREEN, green_s=Bcolors.GREEN_S, endc=Bcolors.ENDC, bold=Bcolors.BOLD,
+                   underline=Bcolors.UNDERLINE, blue=Bcolors.BLUE, version=get_ota_version(False),
                    yellow=Bcolors.YELLOW_S, red=Bcolors.RED, updater_info=check_if_beta_user(config))
         print(updater)
         selection = input()
