@@ -5,6 +5,9 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+321.35.4e
+1. RotorHazard 3.2.1 (stable release) installation and update support added
+
 320.35.4d
 1. Prepared for merge into RotorHazard repository
 
