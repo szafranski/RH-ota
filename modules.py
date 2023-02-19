@@ -162,7 +162,7 @@ def server_start():
     else:
         clear_the_screen()
         print("Server is already running as a service")
-        selection = input("Do you want to stop it and than start the server again? [y/n] ")
+        selection = input("Do you want to stop it and than start the server again? [y/N] ")
         if selection == 'y':
             os.system("sudo systemctl stop rotorhazard")
             print("Server service stopped. Please wait.\n")

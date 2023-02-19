@@ -5,6 +5,9 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+321.35.4f
+1. Better SPI and I2C interfaces enabling handling for Raspberry Pi 4 users
+
 321.35.4e
 1. RotorHazard 3.2.1 (stable release) installation and update support added
 
