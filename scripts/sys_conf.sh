@@ -4,7 +4,6 @@ green="\033[92m"
 red="\033[91m"
 endc="\033[0m"
 
-
 ssh_enabling() {
   sudo systemctl enable ssh || return 1
   sudo systemctl start ssh || return 1
@@ -33,16 +32,31 @@ ssh_error() {
 }
 
 spi_enabling() {
-  echo "
+  if [[ $(~/RH-ota/scripts/pi_model_check.sh) == "pi_4" ]]; then
+    echo "
+Raspberry Pi 4 chipset found
+    "
+    #  echo "
+    #[SPI enabled - RH-OTA]
+    #dtparam=spi=on
+    #" | sudo tee -a /boot/config.txt || return 1
+    #  sudo sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf || return 1
+
+    sudo raspi-config nonint do_spi 0 || return 1 # works better than above and tested on Pi 4
+
+  else
+    echo "
 [SPI enabled - RH-OTA]
 dtparam=spi=on
 " | sudo tee -a /boot/config.txt || return 1
-  sudo sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf || return 1
+    sudo sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf || return 1
+
+  fi
   printf "
      $green -- SPI ENABLED -- $endc
 
 
-  "
+     "
   sleep 3
   return 0
 }
@@ -57,24 +71,25 @@ spi_error() {
 
   Hit 'Enter' to continue
 
-
   "
   read -r _
   sleep 2
 }
 
 i2c_enabling() {
-if [[ $(~/RH-ota/scripts/pi_model_check.sh) == "pi_4"  ]]; then
+  if [[ $(~/RH-ota/scripts/pi_model_check.sh) == "pi_4" ]]; then
     echo "
 Raspberry Pi 4 chipset found
     "
-    echo "
-[I2C enabled - RH-OTA]
-dtparam=i2c_arm=on
-  " | sudo tee -a /boot/config.txt || return 1
+    #    echo "
+    #[I2C enabled - RH-OTA]
+    #dtparam=i2c_arm=on
+    #  " | sudo tee -a /boot/config.txt || return 1
 
-else
-  echo "
+    sudo raspi-config nonint do_i2c 0 || return 1 # works better than above and tested on Pi 4
+
+  else
+    echo "
 [I2C enabled - RH-OTA]
 dtparam=i2c_baudrate=75000
 core_freq=250
@@ -83,7 +98,7 @@ i2c-dev
 dtparam=i2c1=on
 dtparam=i2c_arm=on
   " | sudo tee -a /boot/config.txt || return 1
-  sudo sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf || return 1
+    sudo sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf || return 1
 
   fi
   printf "
