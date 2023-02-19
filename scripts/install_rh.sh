@@ -17,6 +17,7 @@ sudo apt install wget python3 ntp htop libjpeg-dev libffi-dev build-essential gi
 sudo apt install python3-rpi.gpio -y || echo "-- no python-rpi.gpio module found - available only on Pi --" #is this redundant?
 sudo -H pip3 install cffi pillow
 sudo -H python3 -m pip install --upgrade pip
+sudo rm -r /home/"${1}"/temp.zip >/dev/null 2>&1 # in case of weird sys config or previous unsuccessful installations
 cd /home/"${1}" || exit
 if [ -d "/home/${1}/RotorHazard" ]; then
   # Control will enter here if $DIRECTORY exists.
@@ -31,7 +32,7 @@ wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"${2}" -O temp.zip
 unzip temp.zip
 rm temp.zip
 rm ~/wget* >/dev/null 2>&1
-mv /home/"${1}"/RotorHazard-"${2}" /home/"${1}"/RotorHazard || exit 1
+mv /home/"${1}"/RotorHazard-* /home/"${1}"/RotorHazard || exit 1
 add_ons_info_show
 sudo -H pip3 install -r /home/"${1}"/RotorHazard/src/server/requirements.txt
 sudo chmod 777 -R /home/"${1}"/RotorHazard/src/server

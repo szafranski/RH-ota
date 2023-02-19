@@ -2,6 +2,7 @@
 
 red="\033[91m"
 yellow="\033[93m"
+green="\033[92m"
 endc="\033[0m"
 
 time_warning_show() {
@@ -25,16 +26,16 @@ if [ -d "/home/${1}/RotorHazard" ]; then
   # Control will enter here if $DIRECTORY exists.
   mv "/home/${1}/RotorHazard" "/home/${1}/RotorHazard_${upgradeDate}" || exit 1
 fi
-if [ -d "/home/${1}/RotorHazard-${2}" ]; then
+if [ -d "/home/${1}/RotorHazard-*" ]; then
   # Control will enter here if $DIRECTORY exists.
-  mv "/home/${1}/RotorHazard-${2}" "/home/${1}/RotorHazard_${2}_${upgradeDate}" || exit 1
+  mv "/home/${1}/RotorHazard-*" "/home/${1}/RotorHazard_${2}_${upgradeDate}" || exit 1
 fi
-sudo rm -r /home/"${1}"/temp.zip >/dev/null 2>&1 # just in case of weird sys config
+sudo rm -r /home/"${1}"/temp.zip >/dev/null 2>&1 # in case of weird sys config or previous unsuccessful installations
 cd /home/"${1}" || exit
 wget https://codeload.github.com/RotorHazard/RotorHazard/zip/"${2}" -O temp.zip
 unzip temp.zip
 rm ~/wget* >/dev/null 2>&1
-mv /home/"${1}"/RotorHazard-"${2}" /home/"${1}"/RotorHazard
+mv /home/"${1}"/RotorHazard-* /home/"${1}"/RotorHazard
 sudo rm temp.zip
 sudo mkdir /home/"${1}"/backup_RH_data >/dev/null 2>&1
 sudo chmod 777 -R /home/"${1}"/RotorHazard/src/server
@@ -140,7 +141,7 @@ fi
 
 # added because of the broken Adafruit_GPIO compatibility on Raspbian 11 Bullseye
 (sudo sed -i 's/UNKNOWN          = 0/UNKNOWN          = 1/' /usr/local/lib/python3*/dist-packages/Adafruit_GPIO/Platform.py && \
-printf "\n $yellow Adafruit_GPIO compatibility is now OK $endc \n\n") || \
+printf "\n $green Adafruit_GPIO compatibility is now OK $endc \n\n") || \
 (printf "$red \nAdafruit_GPIO compatibility fix error\n\n $endc" && sleep 2)
 
 # port forwarding

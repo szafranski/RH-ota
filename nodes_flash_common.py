@@ -57,6 +57,7 @@ def prepare_mate_node(addr):
     def calculate_checksum(data):
         checksum = sum(data) & 0xFF
         return checksum
+
     config = load_config()
     try:
         bus_number = config.i2c_bus_number  # check with "ls /dev/ | grep i2c" (Raspberry Pi - 1; Banana Pi - 0)

@@ -286,6 +286,7 @@ def main_window(config):
         
         You can change those in configuration wizard in Main Menu.
         
+        
         Server version currently installed: {server} {bold}{update_prompt} {bold}
         
         RotorHazard configuration state: {config_soft}
