@@ -5,11 +5,15 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+320.35.4d
+1. Prepared for merge into RotorHazard repository
+
 320.35.4c
-1. RotorHazard 3.2.0 stable installation and update support added
+1. Bugs fixes - related to new RotorHazard releases naming convention
+2. Minor code cleanup
 
 320.35.4b
-1. RotorHazard 3.2.0 installation and update support added
+1. RotorHazard 3.2.0 (stable release) installation and update support added
 
 311.35.4a
 1. Updated main readme file
