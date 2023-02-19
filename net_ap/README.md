@@ -1,4 +1,5 @@
 # RH-access_point
+
 additional simple instruction how to make RotorHazard race timer working on a Raspberry without using external router.
 
 <br/>
@@ -6,11 +7,12 @@ Confirmed to work on Raspberry Pi 3 B+ with Raspbian Buster Lite installed.
 
 <br/><br/>
 
-The best moment to do that is after fresh installation of RotorHazard and Raspbian when you still have internet access on your raspberry.<br/><br/> 
+The best moment to do that is after fresh installation of RotorHazard and Raspbian when you still have internet access
+on your raspberry.<br/><br/>
 
 <br/> 
 
-Update raspberry - in terminal:<br/> 
+Update raspberry - in terminal:<br/>
 (you have to have internet connection)
 
 ________________
@@ -22,7 +24,7 @@ ________________
 
 <br/>
 
-Set the Wi-Fi country in raspi-config's Localisation Options: 
+Set the Wi-Fi country in raspi-config's Localisation Options:
 
 In terminal (SSH):<br/>
 sudo raspi-config <br/>
@@ -30,7 +32,7 @@ sudo raspi-config <br/>
 
 <br/>
 
-  
+
 In terminal (SSH):
 ________________
 
@@ -49,10 +51,6 @@ connect PC to Wi-Fi network: <br/>
 name: raspi-webgui<br/>
 password: ChangeMe<br/><br/><br/>
 
-
-
-
-
 enter IP address: 10.3.141.1 in browser
 (or: 10.3.141.1:8080)
 
@@ -60,10 +58,8 @@ Username: admin
 
 Password: secret<br/>  <br/>
 
-
-
 Click:
-Configure hotspot -> SSID (enter a name you want, e.g. "RH-TIMER") 
+Configure hotspot -> SSID (enter a name you want, e.g. "RH-TIMER")
 
 Wireless Mode (change to 802.11n - 2.4GHz)
 
@@ -82,7 +78,6 @@ save settings
 DON'T CHANGE OTHER SETTINGS IN GUI!  
 <br/>
 <br/>
-
 
 In terminal (SSH):
 
@@ -121,11 +116,11 @@ and change the file, so it looks like:
 ________________
 
 interface=wlan0<br/>
-  dhcp-range=10.10.10.11,10.10.10.255,255.255.255.0,24h
+dhcp-range=10.10.10.11,10.10.10.255,255.255.255.0,24h
 <br/>
 
 interface=eth0<br/>
-  dhcp-range=172.20.20.21,172.20.20.255,255.255.255.0,24h
+dhcp-range=172.20.20.21,172.20.20.255,255.255.255.0,24h
 ________________
 
 and save (Ctrl+X -> y -> enter)<br/>
@@ -138,16 +133,15 @@ In terminal (SSH):
 
 sudo cp /etc/dnsmasq.conf /etc/dnsmasq.conf.my
 
-
 sudo reboot
 <br/>
 <br/>
 
-  
 Connect PC to Wi-Fi network: <br/>
 name: RH-TIMER<br/>
 password: timerpass <br/> <br/>
-if you have any problems connecting Wi-Fi with a new name - try "forgetting" the (old) network in PC's Wi-Fi settings and then try again
+if you have any problems connecting Wi-Fi with a new name - try "forgetting" the (old) network in PC's Wi-Fi settings
+and then try again
 
 <br/> <br/>
 
@@ -172,8 +166,10 @@ If for any reasons you would have problems in the future with connecting to the 
 /etc/dhcpcd.conf<br/>
 /etc/dnsmasq.conf<br/>
 
-Check those first - connecting with SSH using external router or plug sd card to Linux PC/VM (or Windows using special drivers - cause Windows can't write any changes to ext4 partitions natively) and manually check those.<br/>
-If you decide to use an external router for troubleshooting - after saving the changes in the files, remember to reboot raspberry.
+Check those first - connecting with SSH using external router or plug sd card to Linux PC/VM (or Windows using special
+drivers - cause Windows can't write any changes to ext4 partitions natively) and manually check those.<br/>
+If you decide to use an external router for troubleshooting - after saving the changes in the files, remember to reboot
+raspberry.
 
 The easiest way to make sure those files are configured correctly is:
 ________________
@@ -181,7 +177,6 @@ ________________
 sudo cp /etc/dnsmasq.conf.my /etc/dnsmasq.conf
 
 sudo cp /etc/dhcpcd.conf.my /etc/dhcpcd.conf
-
 
 Reboot and unplug from the router- if was connected.
 ________________
@@ -191,5 +186,5 @@ If you are making any changes in raspberry configuration (changing Wi-Fi passwor
 
 <br/><br/>
 !!!!!!!!!!
-If you want to have internet connection on your raspberry after this mod check out the file: 
+If you want to have internet connection on your raspberry after this mod check out the file:
 https://github.com/szafranski/RH-access_point/blob/master/internet_connection
