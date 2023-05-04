@@ -4,7 +4,11 @@
 
         UPDATE NOTES:
         ^^^^^^^^^^^^
-321.35.46
+
+321.35.4h
+1. RotorHazard 4.0.0 (beta 3 release) installation and update support added
+
+321.35.4g
 1. RotorHazard 4.0.0 (beta 2 release) installation and update support added
 
 321.35.4f
