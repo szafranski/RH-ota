@@ -45,7 +45,7 @@ printf "\n $green Adafruit_GPIO compatibility is now OK $endc \n\n\n" && sleep 1
 
 java_installation()
 {
-if [[ $(~/RH-ota/scripts/pi_model_check.sh) == "pi_zero"  ]]; then
+if [[ $(~/RH_Install-Manager/scripts/pi_model_check.sh) == "pi_zero"  ]]; then
   sudo apt-get install openjdk-8-jdk-headless -y
 else
   sudo apt-get install openjdk-11-jdk-headless -y
@@ -77,5 +77,5 @@ echo
 
 
 # port forwarding
-cd /home/"${1}"/RH-ota/scripts/ || exit
+cd /home/"${1}"/RH_Install-Manager/scripts/ || exit
 sudo ./iptables_conf.sh

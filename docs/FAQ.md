@@ -63,7 +63,7 @@ one by one to given USB port of the Raspberry Pi (note: they have to be unplugge
 works
 when there are no other USB devices connected - assuming you wouldn’t manually select USB port other than USB0).
 
-<b>Note:</b> you can still got errors mentioned above when trying to perform „Automatic flashing” later so above are not
+<b>Note:</b> you can still get errors mentioned above when trying to perform „Automatic flashing” later so above are not
 a „fixes”,
 you just skip one step that some people find as tricky. It is advised to perform „Automatic flashing” after initial
 setup
@@ -80,11 +80,11 @@ If it can be successfully flashed using PC - that indicates that your Arduinos a
 If you had any problems or you want to just be on a safe side (especially if no standoffs are in use and you solder
 Arduinos directly to the PCB), you can use external programmer such as USB-ASP or just program one Arduino as a
 temporary programmer
-utilizing feature named „Arduino as ISP” (NOT: "ArduinoISP"). To performing that just Google sth like „Burning
+utilizing feature named „Arduino as ISP” (NOT: "ArduinoISP"). To perform that, just Google sth like „Burning
 bootloader using Arduino as ISP”.
 There are a lot of tutorials in that regard.
 
-If you have Arduinos from few different batches (they are often different color-wise etc) try to remove variables. Use
+If you have Arduinos from few different batches (they are often different color-wise etc.) try to remove variables. Use
 those from same batch, check. Use those from different one, check.
 
 ### 5. Everything can just "be broken"
@@ -93,5 +93,5 @@ Assume that one Arduino is broken and try with other ones. Remove one and check 
 
 ###  * You can handle that :) * 
 
-Remember - when everyting is configured properly hardware and software -wise it just HAVE TO work. Don't be frustrated,
+Remember - when everyting is configured properly hardware and software-wise it just HAVE TO work. Don't be frustrated,
 check 3 times, have fun. It works :)

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/"${1}"/RH-ota || exit
+cd /home/"${1}"/RH_Install-Manager || exit
 echo
 echo Please wait, file is being uploaded...
 echo
@@ -17,4 +17,4 @@ echo
 echo Tell your favourite developer those:
 echo
 echo User name: "${2}"
-cd /home/"${1}"/RH-ota || exit
+cd /home/"${1}"/RH_Install-Manager || exit

@@ -13,7 +13,7 @@ Next:
 
 Next - find a file named like 'my_file.ino.with_bootloader.eightanaloginputs.hex'.
 Change its name to 'custom_node.hex'. Next place that file (using scp, winscp etc.)
-in '~/RH-ota/firmware/custom_firmware/' in the Raspbian OS on the Pi.
+in '~/RH_Install-Manager/firmware/custom_firmware/' in the Raspbian OS on the Pi.
 
 Next - open OTA software, enter Nodes Flashing in Main Menu and navigate
 to 'Flash custom firmware'. Use integrated steps to flash the firmware.

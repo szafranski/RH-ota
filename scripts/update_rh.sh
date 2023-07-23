@@ -146,7 +146,7 @@ printf "\n $green Adafruit_GPIO compatibility is now OK $endc \n\n") || \
 
 # port forwarding
 if ! grep -q "sudo iptables -A PREROUTING -t nat -p tcp --dport 8080 -j REDIRECT --to-ports 80" /etc/rc.local; then
-cd /home/"${1}"/RH-ota/scripts/ || exit
+cd /home/"${1}"/RH_Install-Manager/scripts/ || exit
 sudo ./iptables_conf.sh
 fi
 

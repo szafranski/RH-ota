@@ -131,7 +131,7 @@ def end_update(config, server_configured_flag, server_installed_flag):
         if selection == 'r':
             os.system("sudo reboot")
         elif selection == 's':
-            os.chdir(f"/home/{config.user}/RH-ota")
+            os.chdir(f"/home/{config.user}/RH_Install-Manager")
             server_start()
         elif selection == 'o':
             os.system("rm -rf ~/RotorHazard_*")
@@ -379,7 +379,7 @@ def main_window(config):
             update(config)
         elif selection == 'e':
             clear_the_screen()
-            os.chdir(f"/home/{config.user}/RH-ota")
+            os.chdir(f"/home/{config.user}/RH_Install-Manager")
             triangle_image_show()
             sleep(0.3)
             break

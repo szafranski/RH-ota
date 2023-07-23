@@ -10,7 +10,7 @@ terminal_used = 'xterm'  # may be changed to 'default' - not recommended
 
 slow_pc = 0  # change to 1 if you have PC based on Core 2 Duo etc.
 
-pi_user = 'pi'  # user name on the pi
+pi_user = 'pi'  # username on the pi
 ip_first = '10.42.0.'
 port = 22  # default port used for ssh
 
