@@ -1,4 +1,4 @@
-![OTA Logo](./resources/ota_logo.png)
+![OTA Logo](./resources/rhim_logo.png)
 
 # Easy mange and update your [RotorHazard](https://github.com/RotorHazard/RotorHazard) installation.
 
@@ -30,7 +30,7 @@
 
 Helpful developer/back-end stuff:
 
-1. A wizard setup of the OTA software
+1. A wizard setup of the Install-Manager software
 1. Embedded self-updating feature
 1. Automatic installation of all required dependencies
 1. Adding aliases to the system
@@ -68,15 +68,15 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
 
 #### Automatic download:
 
-    curl -sSL https://raw.githubusercontent.com/szafranski/RH-ota/automatic_download/scripts/auto_download.sh | bash
+    curl -sSL https://raw.githubusercontent.com/RotorHazard/Install-Manager/stable/scripts/auto_download.sh | bash
 
 #### Manual download:
 
     cd ~
-    wget https://codeload.github.com/szafranski/RH-ota/zip/stable -O tempota.zip
+    wget https://codeload.github.com/RotorHazard/Install-Manager/zip/stable -O tempota.zip
     unzip tempota.zip
     rm tempota.zip
-    mv RH-ota-* RH-ota
+    mv RH_Install-Manager-* RH_Install-Manager
 
 #### Commands to open the software after successful installation:
 
@@ -84,8 +84,8 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
 
 ####
 
-    cd ~/RH-ota
-    ./ota.sh
+    cd ~/RH_Install-Manager
+    ./rhim.sh
 
 ##### In case of errors - please try:
 
@@ -96,7 +96,7 @@ You may also read [update notes](/docs/update-notes.txt) - new features are pres
     sudo apt upgrade -y
     sudo ntpd -qg (in case of errors with date related system updates)
     sudo apt install wget zip unzip curl -y
-    chmod +x ~/RH-ota/ota.sh
+    chmod +x ~/RH_Install-Manager/rhim.sh
 
 <br/>
 We assume in our instructions and provided setup process that you already have your Raspbian OS set up. <br/>
@@ -104,7 +104,7 @@ If not, please follow those instructions:
 
 [Raspbian setup instructions](https://www.raspberrypi.org/documentation/installation/installing-images/README.md).
 <br/><br/>
-OTA software works best with Raspbian Buster or newer (due to native python3.6+ support).
+This software works best with Raspbian Buster or newer (due to native python3.6+ support).
 
 Read more about supported python and OS versions [here](/docs/python36_help.txt).
 <br/>

@@ -2,7 +2,7 @@ import os
 from modules import clear_the_screen, Bcolors, load_config
 
 
-# Set the WiFi country in raspi-config's Localisation Options:
+# Set the Wi-Fi country in raspi-config's Localisation Options:
 # sudo raspi-config
 # ( 4. point -> I4 - Change WiFi country -> select -> enter -> finish )
 

@@ -28,7 +28,7 @@ def confirm_auto_hotspot(config):
         selection = input()
         if selection == 'y':
             clear_the_screen()
-            os.system(f"sudo /home/{config.user}/RH-ota/resources/autohotspot/setup_autohotspot.sh")
+            os.system(f"sudo /home/{config.user}/RH_Install-Manager/resources/autohotspot/setup_autohotspot.sh")
             print("""
                 #######################################################################
                 #                                                                     #

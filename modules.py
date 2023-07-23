@@ -48,7 +48,7 @@ def triangle_image_show():
 
 
 def ota_asci_image_show():
-    with open('./resources/ota_image.txt', 'r') as file:
+    with open('resources/rhim_image.txt', 'r') as file:
         f = file.read()
         print(f)
 
@@ -69,7 +69,7 @@ def logo_top(linux_testing):
     ###                                                                 ###
     ###    {orange}{bold}        RotorHazard             {endc}         ###
     ###                                                                 ###
-    ###        {bold}      OTA Updater and Manager     {endc}           ###
+    ###          {bold}        Install-Manager      {endc}              ###
     ###                 {place_for_debug_status_here}                   ###
     #######################################################################
     """.format(bold=Bcolors.BOLD_S, endc=Bcolors.ENDC_S, place_for_debug_status_here=debug_status,
@@ -127,23 +127,23 @@ def internet_check():
 
 
 def load_ota_sys_markers(user):
-    ota_config_file = f'/home/{user}/.ota_markers/ota_config.json'
+    ota_config_file = f'/home/{user}/.ota_markers/rhim_config.json'
     if Path(ota_config_file).exists():
         ota_config = load_json(ota_config_file)
     else:
-        ota_config = load_json(f'/home/{user}/RH-ota/resources/ota_config.json')
+        ota_config = load_json(f'/home/{user}/RH_Install-Manager/resources/rhim_config.json')
     return ota_config
 
 
 def write_ota_sys_markers(ota_config, user):
-    ota_config_file = f'/home/{user}/.ota_markers/ota_config.json'
+    ota_config_file = f'/home/{user}/.ota_markers/rhim_config.json'
     write_json(ota_config, ota_config_file)
 
 
 def get_ota_version(checking_from_updater):
     config = load_config()
     if checking_from_updater:
-        path = f'/home/{config.user}/RH-ota/'
+        path = f'/home/{config.user}/RH_Install-Manager/'
     else:
         path = os.path.dirname(os.path.realpath(__file__))
     try:

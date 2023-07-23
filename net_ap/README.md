@@ -162,7 +162,7 @@ You can change this logging info as well in Configure Auth in the gui if you wan
 <br/> <br/>
 Sometimes connecting ethernet cable to any DHCP-server capable device like another router can mess up the configuration.
 <br/> <br/>
-If for any reasons you would have problems in the future with connecting to the timer - eg. if everything worked well but you entered the RaspAP configuration site, saved some changes (like WiFi password) or you connected raspberry to the router one time etc. and since than you have problems with achieving the connection -  the most probable reason is wrong configuration in 2 files:<br/>
+If for any reasons you would have problems in the future with connecting to the timer - e.g. if everything worked well but you entered the RaspAP configuration site, saved some changes (like WiFi password) or you connected raspberry to the router one time etc. and since than you have problems with achieving the connection -  the most probable reason is wrong configuration in 2 files:<br/>
 /etc/dhcpcd.conf<br/>
 /etc/dnsmasq.conf<br/>
 
@@ -178,7 +178,7 @@ sudo cp /etc/dnsmasq.conf.my /etc/dnsmasq.conf
 
 sudo cp /etc/dhcpcd.conf.my /etc/dhcpcd.conf
 
-Reboot and unplug from the router- if was connected.
+Reboot and unplug from the router - if was connected.
 ________________
 
 <br/>

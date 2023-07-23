@@ -5,6 +5,18 @@
         UPDATE NOTES:
         ^^^^^^^^^^^^
 
+322.35.5a
+1. RotorHazard 3.2.2 (stable release) installation and update support added
+2. RotorHazard 4.0.0 (beta 4 release) installation and update support added
+3. Name of the main directory of the program changed
+4. Files names changed
+5. Aliases, Read-me files and typos - updated
+
+321.35.4f
+1. Program itself and download "targets" migrated to the official RotorHazard repo
+2. Changes in code, aliases and instructions due to the migration
+3. Minor code and readme files changes
+
 321.35.4e
 1. RotorHazard 3.2.1 (stable release) installation and update support added
 
@@ -125,7 +137,7 @@ Services like RaspAP that use port 80 are available on port 8080
 (if internet connection is available)
 2. FAQ section added - mostly focused on ISP programming issues for now
 3. I2C bus number selection added to a config file and a flashing protocol
-(useful when using Banana Pi type SBCs etc)
+(useful when using Banana Pi type SBCs etc.)
 4. More useful "Show I2C devices" menu - with I2C bus number indication
 5. More verbose log output
 6. Basic Serial interface diagnostic tool added
@@ -145,7 +157,7 @@ Services like RaspAP that use port 80 are available on port 8080
 
 230.25.3d
 1. Added i2c bus number selection to the RotorHazard configuration wizard
-2. OTA configuration wizard splitted into 2 sections (added advanced wizard)
+2. OTA configuration wizard split into 2 sections (added advanced wizard)
 
 230.25.3c
 1. Python3 (pip3) dependencies installation bug fix 

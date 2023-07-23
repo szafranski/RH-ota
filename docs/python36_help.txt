@@ -19,10 +19,10 @@ and would solve this and other problems quickly.
 Note: That would wipe your SD-Card content so remember about back-up
 if you have something that you want to keep on it. 
 
-How: Just google 'burning Raspberry SD card' etc :)
+How: Just google 'burning Raspberry SD card' etc. :)
 
 3. Changing apt sources to newer OS despite you use older OS - not elegant,
-but works most of the time. Would take some time cause you have to download 
+but works most of the time. Would take some time because you have to download
 many megs of data and install it. Going that route should keep all your user
 folder directory files in place. It can be also very benefitial when using boards
 like Banana Pi etc. - those often doesn't offer newest Raspbian OS versions.
@@ -37,15 +37,15 @@ Note: points 6-9 can be performed with a simple command:
 sudo sed -i 's/stretch/buster/' /etc/apt/sources.list
 6. cd /etc/apt
 7. sudo nano sources.list
-8. change word "stretch" to "buster" (only that word, keep spaces etc in place)
-9. save - Ctrl + S and than Ctrl + X
+8. change word "stretch" to "buster" (only that word, keep spaces etc. in place)
+9. save - Ctrl + S and then Ctrl + X
 10. confirm changes with: cat /etc/apt/sources.list
 Note: points 11-14 can be performed with a simple command:
 sudo sed -i 's/stretch/buster/' /etc/apt/sources.list.d/raspi.list
 11. cd /etc/apt/sources.list.d
 12. sudo nano raspi.list
-13. change word "stretch" to "buster" (only that word, keep spaces etc in place)
-14. save - Ctrl + S and than Ctrl + X
+13. change word "stretch" to "buster" (only that word, keep spaces etc. in place)
+14. save - Ctrl + S and then Ctrl + X
 15. confirm changes with: cat /etc/apt/sources.list.d/raspi.list
 16. cd ~
 17. sudo apt update 
@@ -53,7 +53,7 @@ sudo sed -i 's/stretch/buster/' /etc/apt/sources.list.d/raspi.list
 19. sudo apt update 
 20. sudo apt dist-upgrade -y (note - it is not the same command as 2 points above)
 21. sudo apt autoremove
-22. sudo reboot - you may reboot at this point but it is not required
+22. sudo reboot - you may reboot at this point, but it is not required
 
 Now everything should work - you can check python3 version - as described 
 at the top of this document 

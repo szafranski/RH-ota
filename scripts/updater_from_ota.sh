@@ -24,15 +24,15 @@ dots50
 printf "\n"
 for pid in $(pgrep -ax python3 | grep start_ota.py | awk '{print $1}'); do kill -9 "$pid"; done
 cd ~ || exit
-rm -rf ~/.ota_markers/old_RH-ota >/dev/null 2>&1
-cp -r ~/RH-ota ~/.ota_markers/old_RH-ota
-cd ~/.ota_markers/old_RH-ota || exit
-python3 ~/.ota_markers/old_RH-ota/self_update.py
+rm -rf ~/.ota_markers/old_RH_Install-Manager >/dev/null 2>&1
+cp -r ~/RH_Install-Manager ~/.ota_markers/old_RH_Install-Manager
+cd ~/.ota_markers/old_RH_Install-Manager || exit
+python3 ~/.ota_markers/old_RH_Install-Manager/self_update.py
 cd ~ || exit
 sleep 1.2
-cd ~/RH-ota || exit
-printf "\n\n $green Update process done, please "$underline"re-enter$endc$green ~/RH-ota directory \n"
-printf "  by typing$endc 'cd ~/RH-ota'$green or just type$endc 'ota'\n"
+cd ~/RH_Install-Manager || exit
+printf "\n\n $green Update process done, please "$underline"re-enter$endc$green ~/RH_Install-Manager directory \n"
+printf "  by typing$endc 'cd ~/RH_Install-Manager'$green or just type$endc 'ota'\n"
 printf "\n\n"
 printf "         -- Hit Enter to continue --"
 printf "\n\n"

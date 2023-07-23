@@ -35,7 +35,7 @@ def attribute_error_handling():
     Looks that you may have some configuration mismatch. 
     Check entered username and other parameters in config wizard.
 
-    You may also try to re-open the ota software with './ota.sh' command.
+    You may also try to re-open this program with './rhim.sh' command.
 
     """
     print(err_msg)
@@ -96,7 +96,7 @@ User code: {code}
 """
             print(code_report) if code != '' else print(code_error_msg)
         if selection == 'n' or selection == 'no':
-            print("\n\nOK - your log file is stored as 'log.txt' in RH-ota/log_data/ directory.")
+            print("\n\nOK - your log file is stored as 'log.txt' in RH_Install-Manager/log_data/ directory.")
         input("\nHit 'Enter' to continue\n\n")
         if not os.system("cowsay You are awesome! Fly safe."):
             sleep(3)
@@ -156,7 +156,7 @@ def ota_update_available_check(config):
         logo_top(config.debug_mode)
         print("""\n\n {bold}
 
-                New OTA software release is available.
+                New Install-Manager version is available.
                 
                 Consider updating now (takes ~20 secs).
 
@@ -179,7 +179,7 @@ def ota_update_available_check(config):
 
 def welcome_screen(config):
     welcome_message = """{bold}
-    Welcome to OTA! With our software you can easily install, update and manage 
+    Welcome! With our software you can easily install, update and manage 
     your RotorHazard installation. You can also flash the firmware onto nodes, 
     without the need to open the timer ever again. You have to use official PCB 
     or have 'hardware mod" done for that functionality. You may also check 
@@ -363,11 +363,11 @@ def self_updater(config):
         clear_the_screen()
         logo_top(config.debug_mode)
         updater = """{bold}
-        You can update OTA software by hitting '{green}u{endc}{bold}' now. It is advised step 
+        You can update Manager software by hitting '{green}u{endc}{bold}' now. It is advised step 
         before updating the RotorHazard server or before flashing nodes.
 
-        OTA version number is related to the {red}latest supported RotorHazard 
-        stable server version{endc}{bold} and {blue}nodes firmware API number{endc}{bold} that OTA contains.
+        Manager version number is related to the {red}latest supported RotorHazard 
+        stable server version{endc}{bold} and {blue}nodes firmware API number{endc}{bold} that it contains.
         For example, version {red}230{endc}{bold}.{blue}25{endc}{bold}.3a supports RotorHazard 2.3.0 stable 
         and contains nodes firmware with "API level 25".
 
@@ -444,9 +444,9 @@ def show_about(config):
         clear_the_screen()
         welcome_first_page = """{bold}  
 
-    Please configure OTA software using a wizard after reading this page.
+    Please configure Manager software using a wizard after reading this page.
 
-    This wizard will configure OTA software, not RotorHazard server itself. 
+    This wizard will configure this software, not RotorHazard server itself. 
     Things like amount of LEDs or RotorHazard password should be configured 
     separately in {blue}RotorHazard Manager{endc}{bold} - see in Main Menu.
 

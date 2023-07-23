@@ -115,10 +115,10 @@ def flash_a_node(config, reset_pin, node_number):
         sleep(0.1)
         GPIO.output(reset_pin, GPIO.HIGH)
         os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-                flash:w:/home/{config.user}/RH-ota/firmware/{config.rh_version}/node_0.hex:i ")
+                flash:w:/home/{config.user}/RH_Install-Manager/firmware/{config.rh_version}/node_0.hex:i ")
     if config.debug_mode:
         print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-                flash:w:/home/{config.user}/RH-ota/firmware/{config.rh_version}/node_0.hex:i ")
+                flash:w:/home/{config.user}/RH_Install-Manager/firmware/{config.rh_version}/node_0.hex:i ")
     print(f"\n\t\t\t\t{Bcolors.BOLD}Node {node_number} - flashed{Bcolors.ENDC}\n\n")
     input("\nPress ENTER to continue.\n")
 
@@ -130,10 +130,10 @@ def flash_a_blink(config, reset_pin, node_number):
         sleep(0.1)
         GPIO.output(reset_pin, GPIO.HIGH)
         os.system(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-                flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i ")
+                flash:w:/home/{config.user}/RH_Install-Manager/firmware/blink.hex:i ")
     if config.debug_mode:
         print(f"avrdude -v -p atmega328p -c arduino -P /dev/ttyS0 -b 57600 -U \
-                flash:w:/home/{config.user}/RH-ota/firmware/blink.hex:i ")
+                flash:w:/home/{config.user}/RH_Install-Manager/firmware/blink.hex:i ")
     print(f"\n\t\t\t\t{Bcolors.BOLD}Node {node_number} - flashed{Bcolors.ENDC}\n\n")
     input("\nPress ENTER to continue.\n")
 

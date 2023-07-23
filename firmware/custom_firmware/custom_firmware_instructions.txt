@@ -15,9 +15,9 @@ Next:
 
 Next - find a file named like 'my_file.ino.with_bootloader.eightanaloginputs.hex'.
 Change its name to 'custom_node.hex'. Next place that file (using scp, winscp etc.)
-in '~/RH-ota/firmware/<chosen_bootloader_version>/custom_firmware/' in the Raspbian OS on the Pi,
-so the path looks like: '~/RH-ota/firmware/new_bootloader/custom_firmware/custom_node.hex'
-or '~/RH-ota/firmware/old_bootloader/custom_firmware/custom_node.hex'
+in '~/RH_Install-Manager/firmware/<chosen_bootloader_version>/custom_firmware/' in the Raspbian OS on the Pi,
+so the path looks like: '~/RH_Install-Manager/firmware/new_bootloader/custom_firmware/custom_node.hex'
+or '~/RH_Install-Manager/firmware/old_bootloader/custom_firmware/custom_node.hex'
 
 Next - open OTA software, enter Nodes flash and update in Main Menu and navigate
 to 'Flash nodes individually' choose the node and use the option "Flash custom firmware..."

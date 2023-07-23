@@ -271,7 +271,7 @@ Are you using older, non-i2c hardware flashing mod?
             else:
                 print("\ntoo big fingers ;) - please type yes/abort/change")
         if selection[0] == 'y':
-            write_json(config, f"{home_dir}/RH-ota/updater-config.json")
+            write_json(config, f"{home_dir}/RH_Install-Manager/updater-config.json")
             # Once we write out the json config we should re-load it just
             # to ensure consistency.
             config = load_config()
@@ -294,7 +294,7 @@ Are you using older, non-i2c hardware flashing mod?
 def conf_ota(config):
     """
         repeat the configuration script until
-        the user ether aborts, configures ota
+        the user either aborts, configures ota
         or it was already configured.
     :return:
     """

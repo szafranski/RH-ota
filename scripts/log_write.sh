@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/"${1}"/RH-ota || exit
+cd /home/"${1}"/RH_Install-Manager || exit
 mkdir log_data >/dev/null 2>&1
 rm log_data/log.txt >/dev/null 2>&1
 echo >./ log_data / log.txt
@@ -12,12 +12,12 @@ echo | tee -a ./log_data/log.txt
 echo -------------------------------- | tee -a ./log_data/log.txt
 echo OTA Version | tee -a ./log_data/log.txt
 echo | tee -a ./log_data/log.txt
-cat ~/RH-ota/version.txt | tee -a ./log_data/log.txt
+cat ~/RH_Install-Manager/version.txt | tee -a ./log_data/log.txt
 echo | tee -a ./log_data/log.txt
 echo -------------------------------- | tee -a ./log_data/log.txt
-echo RH-ota directory | tee -a ./log_data/log.txt
+echo RH_Install-Manager directory | tee -a ./log_data/log.txt
 echo | tee -a ./log_data/log.txt
-find ~/RH-ota | tee -a ./log_data/log.txt
+find ~/RH_Install-Manager | tee -a ./log_data/log.txt
 echo | tee -a ./log_data/log.txt
 echo -------------------------------- | tee -a ./log_data/log.txt
 echo FILE /boot/config.txt | tee -a ./log_data/log.txt
@@ -38,12 +38,12 @@ echo | tee -a ./log_data/log.txt
 echo -------------------------------- | tee -a ./log_data/log.txt
 echo FILE updater-config.json | tee -a ./log_data/log.txt
 echo | tee -a ./log_data/log.txt
-cat ~/RH-ota/updater-config.json | tee -a ./log_data/log.txt
+cat ~/RH_Install-Manager/updater-config.json | tee -a ./log_data/log.txt
 echo | tee -a ./log_data/log.txt
 echo -------------------------------- | tee -a ./log_data/log.txt
-echo FILE ~/.ota_markers/ota_config.txt | tee -a ./log_data/log.txt
+echo FILE ~/.ota_markers/rhim_config.txt | tee -a ./log_data/log.txt
 echo | tee -a ./log_data/log.txt
-cat ~/.ota_markers/ota_config.json | tee -a ./log_data/log.txt
+cat ~/.ota_markers/rhim_config.json | tee -a ./log_data/log.txt
 echo | tee -a ./log_data/log.txt
 echo -- please wait few seconds --
 echo -------------------------------- | tee -a ./log_data/log.txt
@@ -54,5 +54,5 @@ echo | tee -a ./log_data/log.txt
 echo -------------------------------- | tee -a ./log_data/log.txt
 echo
 echo LOGGING TO FILE - DONE
-cd /home/"${1}"/RH-ota || exit
+cd /home/"${1}"/RH_Install-Manager || exit
 sleep 2

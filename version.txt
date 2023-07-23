@@ -1,15 +1,14 @@
-321.35.4e
+322.35.5a
 
-3.2.0-beta.4
+4.0.0-beta.4
 
 First line - version of this program - it has nothing to do with the RH version.
 First number refers to last stable RH version that can be installed using particular release.
 Second number is the API level of the newest contained nodes firmware (Arduino).
-Third number refers to the actual version of the OTA updater itself.
+Third number refers to the actual version of the Manager itself.
 
 For example version 220.25.1a could handle installation/update of the RotorHazard server v 2.2.0,
-would contain firmware with the API level 25 and the OTA release "name" is "1a".
-Done this way so the user would know at a glance if he has to update OTA to install newer version of RH.
+would contain firmware with the API level 25 and the Manager release "name" is "1a".
 
 Features and functions are described in files in /docs folder.
 

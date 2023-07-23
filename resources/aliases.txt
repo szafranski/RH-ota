@@ -1,24 +1,21 @@
 ### OTA aliases
 ### Aliases can be used in a terminal window ###
 #       ALIAS                           WHAT IT DOES
-alias ss="cd ~/RotorHazard/src/server && python3 server.py"    # starts the RH-server
 alias rh="cd ~/RotorHazard/src/server && python3 server.py"    # starts the RH-server
-alias cfg="nano ~/RotorHazard/src/server/config.json"          # opens config.json file
-alias rhdir="cd ~/RotorHazard/src/server"                      # goes to server file location
-alias py="python"                                              # "py" can be used instead of "python"
+alias cfg="nano ~/RotorHazard/src/server/config.json"          # opens RH config.json file
+alias rhdir="cd ~/RotorHazard/src/server"                      # goes to RH server file location
+alias py="python3"                                             # "py" can be used instead of "python"
 alias py3="python3"                                            # "py3" can be used instead of "python3"
 alias sts="sudo systemctl stop rotorhazard"                    # stops RotorHazard service
-alias otadir="cd ~/RH-ota"                                     # goes to the OTA directory
-alias ota="cd ~/RH-ota && sh ./ota.sh"                         # opens OTA software
+alias rhimdir="cd ~/RH_Install-Manager"                        # goes to the Manager directory
+alias ota="cd ~/RH_Install-Manager && sh ./rhim.sh"            # opens Manager software
+alias rhim="cd ~/RH_Install-Manager && sh ./rhim.sh"           # opens Manager software
 alias rcfg="sudo raspi-config"                                 # open Raspberry's configs
-alias gitota="git clone -b main_stable https://github.com/szafranski/RH-ota.git"    # clones ota repo
-alias otacfg="nano ~/RH-ota/updater-config.json"               # opens updater conf. file
-alias home="cd ~"                                              # go homedir (without '~' sign)
+alias gitrhman="git clone -b stable https://github.com/RotorHazard/Install-Manager.git"    # clones Manager repo
+alias rhmancfg="nano ~/RH_Install-Manager/updater-config.json" # opens Manager conf. file
 alias als="nano ~/.bashrc"                                     # opens file with aliases
 alias rld="source ~/.bashrc"                                   # reloads aliases file
-alias gotam="git clone -b master https://github.com/szafranski/RH-ota.git" # clones master repo
-alias gotas="git clone -b master git@github.com:szafranski/RH-ota.git"     # clones master repo via ssh
 
-### Every manual addition or change to aliases should be followed by a reboot to be implemented.
-### You can also type "source ~/.bashrc".
+### Every manual addition or change to aliases should be followed by a "source ~/.bashrc" command
+### Reboot will also cause changes to be implemented.
 ### end of OTA aliases
