@@ -9,8 +9,8 @@
 1. RotorHazard 3.2.2 (stable release) installation and update support added
 2. RotorHazard 4.0.0 (beta 4 release) installation and update support added
 3. Name of the main directory of the program changed
-4. Files names changed
-5. Aliases, Read-me files and typos - updated
+4. Files names changed (updated)
+5. Aliases, Read-me files, images and typos - updated
 
 321.35.4f
 1. Program itself and download "targets" migrated to the official RotorHazard repo
