@@ -1,5 +1,9 @@
 ![OTA Logo](./resources/rhim_logo.png)
 
+
+# Please go to the new repo: https://github.com/RotorHazard/RH_Install-Manager
+
+
 # Easy mange and update your [RotorHazard](https://github.com/RotorHazard/RotorHazard) installation.
 
 
