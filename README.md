@@ -1,4 +1,4 @@
-# Please go to the new repo: https://github.com/RotorHazard/RH_Install-Manager
+# !!! Please go to the new repo: https://github.com/RotorHazard/RH_Install-Manager !!!
 #
 
 ![OTA Logo](./resources/rhim_logo.png)
