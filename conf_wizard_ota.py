@@ -13,7 +13,7 @@ ask the user if they want to overwrite it.
 def conf_check():
     conf_now_flag = 1
     if os.path.exists("./updater-config.json"):
-        print("\n\tLooks that you have OTA software already configured.")
+        print("\n\tYou have already configured the Install Manager.")
         while True:
             cont_conf = input("\n\tOverwrite and continue anyway? [Y/n]\t\t")
             if not cont_conf:
@@ -26,7 +26,7 @@ def conf_check():
                 conf_now_flag = False
                 break
             else:
-                print("\ntoo big fingers :( wrong command. try again! :)")
+                print("\nPlease enter a valid selection")
 
     return conf_now_flag
 
@@ -56,7 +56,7 @@ def do_config(old_config):
         print("""
         
 Please type your configuration data. It can be modified later.
-If you want to use value given as default, just hit 'Enter'.
+If you want to use value given as default, press 'Enter'.
 """)
         pi_user_name = input("\nWhat is your user name on the Raspberry Pi? [default: pi]\t\t")
         if not pi_user_name:
@@ -82,7 +82,7 @@ If you want to use value given as default, just hit 'Enter'.
                 config.rh_version = ask_custom_rh_version()
                 break
             else:
-                print("\nPlease enter correct value!")
+                print("\nPlease enter a valid selection")
 
         while True:
             country_code = input("\nWhat is your country code? [default: GB]\t\t\t\t").upper()
@@ -94,7 +94,7 @@ If you want to use value given as default, just hit 'Enter'.
                 config.country = country_code
                 break
             else:
-                print("\nPlease enter correct value!")
+                print("\nPlease enter a valid selection")
 
         while True:
             nodes_number = input("\nHow many nodes will you use in your system? [min: 0/1 | max: 8]\t\t")
@@ -107,8 +107,8 @@ If you want to use value given as default, just hit 'Enter'.
         if int(nodes_number) % 2 != 0:
             while True:
                 odd_nodes_note = """
-Since you declared odd number of nodes, please input, 
-which pin will be used as GPIO reset pin? 
+Since you declared an odd number of nodes,
+which pin will be used as the GPIO reset pin?
 [ default (used on official PCB): 17 ] \t\t\t\t\t"""
                 gpio_reset_pin = input(odd_nodes_note)
                 if not gpio_reset_pin:
@@ -125,7 +125,7 @@ which pin will be used as GPIO reset pin?
 
         while True:
             flashing_port_name = input("""
-What is the name of the "flashing port" on your system?
+What port will be used for flashing Arduinos?
 Usually 'ttyS0' or 'ttyAMA0' (on older OSes) [default: ttyS0]\t\t""")
             if not flashing_port_name:
                 config.port_name = 'ttyS0'
@@ -134,8 +134,7 @@ Usually 'ttyS0' or 'ttyAMA0' (on older OSes) [default: ttyS0]\t\t""")
             else:
                 config.port_name = flashing_port_name
                 break
-
-        print("\nDo you want to enter advanced part of a wizard? [y/N | default: no]")
+        print("\nDo you want to enter advanced configuration? [y/N]")
         while True:
             advanced_wizard_flag = input("\t").strip().lower()
             if not advanced_wizard_flag:
@@ -149,7 +148,7 @@ Usually 'ttyS0' or 'ttyAMA0' (on older OSes) [default: ttyS0]\t\t""")
                 advanced_wizard_flag = False
                 break
             else:
-                print("\ntoo big fingers :( wrong command. try again! :)")
+                print("\nPlease enter a valid selection")
 
         if advanced_wizard_flag:
 
@@ -164,11 +163,11 @@ What is the number of the I2C bus used with nodes? [0/1 | default: 1]\t""")
                     config.i2c_bus_number = int(bus_number)
                     break
                 else:
-                    print("\nPlease enter correct value!")
+                    print("\nPlease enter a valid selection")
 
             while True:
                 debug_mode = input("""
-Will you use OTA software in a simulation mode? [y/N | default: no]
+Will you use OTA software in a simulation mode? [y/N]
 Flashing itself is not possible in "sim" mode!\t\t\t\t""").lower()
                 if not debug_mode:
                     debug_mode, config.debug_mode = False, False
@@ -181,7 +180,7 @@ Flashing itself is not possible in "sim" mode!\t\t\t\t""").lower()
                     debug_mode, config.debug_mode = False, False
                     break
                 else:
-                    print("\nPlease enter correct value!")
+                    print("\nPlease enter a valid selection")
 
             if debug_mode:
                 debug_user_name = input("\nWhat is your user name on sim/debug OS? \t\t\t\t")
@@ -191,7 +190,7 @@ Flashing itself is not possible in "sim" mode!\t\t\t\t""").lower()
             while True:
                 old_hardware_mod = input("""
 Are you using older, non-i2c hardware flashing mod? 
-(nodes reset pins connected to gpio pins) [y/N | default: no]\t\t""").lower()
+(nodes reset pins connected to gpio pins) [y/N]\t\t""").lower()
                 if not old_hardware_mod:
                     old_hardware_mod, config.old_hw_mod = False, False
                     print("defaulted to: no")
@@ -203,7 +202,7 @@ Are you using older, non-i2c hardware flashing mod?
                     old_hardware_mod, config.old_hw_mod = False, False
                     break
                 else:
-                    print("\nPlease enter correct value!")
+                    print("\nPlease enter a valid selection")
 
             while old_hardware_mod:
                 gpio_pins_assign = input("\nPins assignment? [default/custom/PCB | default: default]\t\t").lower()
@@ -213,7 +212,7 @@ Are you using older, non-i2c hardware flashing mod?
                     print("defaulted to: default")
                     break
                 elif gpio_pins_assign not in pins_valid_options:
-                    print("\nPlease enter correct value!")
+                    print("\nPlease enter a valid selection")
                     continue
                 else:
                     config.pins_assignment = gpio_pins_assign
@@ -222,7 +221,8 @@ Are you using older, non-i2c hardware flashing mod?
                 config.pins_assignment = 'default'
 
             while True:
-                user_is_beta_tester = input("\nAre you a beta tester? [y/N | default: no]\t\t\t\t").lower()
+                user_is_beta_tester = input(
+                    "\nAre you a beta tester for Install Manager? [y/N]\t\t").lower()
                 if not user_is_beta_tester:
                     config.beta_tester = False
                     print("defaulted to: no")
@@ -269,7 +269,7 @@ Are you using older, non-i2c hardware flashing mod?
             if selection in valid_options:
                 break
             else:
-                print("\ntoo big fingers ;) - please type yes/abort/change")
+                print("\nPlease enter a valid selection")
         if selection[0] == 'y':
             write_json(config, f"{home_dir}/RH_Install-Manager/updater-config.json")
             # Once we write out the json config we should re-load it just

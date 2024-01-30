@@ -23,6 +23,11 @@ $endc
 cd ~/RH_Install-Manager
 ./rhim.sh
 
+$yellow
+For the NuclearHazard quick install, enter:
+cd ~/RH_Install-Manager/NuclearHazard
+./rh-install.sh 1
+$endc
 "
 
 }

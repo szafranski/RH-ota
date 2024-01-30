@@ -119,13 +119,13 @@ def end_update(config, server_configured_flag, server_installed_flag):
             old_installations_were_found = True
         print(f"""
                 {configure}
-    
+
                 r - Reboot - recommended, not a must
-                
+
                 s - Start RH server now {clearing_color}
-                
+
                 o - Clear old RotorHazard installations{Bcolors.YELLOW}
-                
+
                 e - Exit now{Bcolors.ENDC}""")
         selection = input()
         if selection == 'r':
@@ -150,12 +150,12 @@ def end_update(config, server_configured_flag, server_installed_flag):
 def end_installation(config):
     while True:
         print(f"""
-    
+
             {Bcolors.GREEN}
             c - Configure RH server now - recommended {Bcolors.ENDC}
-            
+
             r - Reboot - STRONGLY recommended after configuring
-                        
+
             e - Exit now{Bcolors.ENDC}""")
 
         selection = input()
@@ -174,7 +174,7 @@ def installation(conf_allowed, config):
     clear_the_screen()
     internet_flag = internet_check()
     if not internet_flag:
-        print(f"\n\t{Bcolors.RED}Looks like you don't have internet connection. Installation canceled.{Bcolors.ENDC}")
+        print(f"\n\t{Bcolors.RED}No internet connection found. Installation canceled.{Bcolors.ENDC}")
         sleep(2)
     else:
         print(f"\n\t\t\t{Bcolors.GREEN}Internet connection - OK{Bcolors.ENDC}")
@@ -182,8 +182,8 @@ def installation(conf_allowed, config):
         clear_the_screen()
         print(f"\n\n\t{Bcolors.BOLD}Installation process has been started - please wait...{Bcolors.ENDC}\n\n")
         installation_completed = """
-        
-        
+
+
             ######################################################
             ##                                                  ##
             ##{bold}{green}Installation completed {thumbs}{endc}##
@@ -191,7 +191,7 @@ def installation(conf_allowed, config):
             ######################################################
 
 
-        After rebooting you can confirm by typing 'sudo raspi-config' 
+        After rebooting you can confirm by typing 'sudo raspi-config'
         if I2C, SPI and SSH protocols are active.
                     """.format(thumbs="👍👍👍  ", bold=Bcolors.BOLD_S,
                                endc=Bcolors.ENDC_S, green=Bcolors.GREEN_S)
@@ -218,7 +218,7 @@ def update(config):
     os.system("sudo systemctl stop rotorhazard >/dev/null 2>&1 &") if not config.debug_mode else None
     internet_flag = internet_check()
     if not internet_flag:
-        print(f"\n\t{Bcolors.RED}Looks like you don't have internet connection. Update canceled.{Bcolors.ENDC}")
+        print(f"\n\t{Bcolors.RED}No internet connection found. Update canceled.{Bcolors.ENDC}")
         sleep(2)
     else:
         print(f"\n\t\t\t{Bcolors.GREEN}Internet connection - OK{Bcolors.ENDC}")
@@ -227,11 +227,11 @@ def update(config):
         if not os.path.exists(f"/home/{config.user}/RotorHazard"):
             print(f"""{Bcolors.BOLD}
 
-    Looks like you don't have RotorHazard server software installed for now. 
+    No RotorHazard server installation found.
 
-    If so please install your server software first.{Bcolors.ENDC}{Bcolors.GREEN} 
-          
-        
+    If so please install your server software first.{Bcolors.ENDC}{Bcolors.GREEN}
+
+
         i - Install the software - recommended{Bcolors.ENDC}
 
         a - Abort {Bcolors.ENDC}
@@ -277,20 +277,20 @@ def main_window(config):
         You can automatically install and update RotorHazard timing software. 
         Additional dependencies and libraries also will be installed or updated.
         Current database, configs and custom bitmaps will stay on their place.
-        Source of the software is set to {underline}{blue}{server_version}{endc}{bold} version from the official 
+        Source of the software is set to {underline}{blue}{server_version}{endc}{bold} version from the official
         RotorHazard repository.
-         
+
         Please update this (OTA) software, before updating RotorHazard server.
-        Also make sure that you are logged as user {underline}{blue}{user}{endc}{bold} and that you don't have 
+        Also make sure that you are logged as user {underline}{blue}{user}{endc}{bold} and that you don't have
         other terminal windows opened - especially in RotorHazard directory.
-        
+
         You can change those in configuration wizard in Main Menu.
-        
-        
+
+
         Server version currently installed: {server} {bold}{update_prompt} {bold}
-        
+
         RotorHazard configuration state: {config_soft}
-            
+
             """.format(bold=Bcolors.BOLD, underline=Bcolors.UNDERLINE, endc=Bcolors.ENDC, blue=Bcolors.BLUE,
                        yellow=Bcolors.YELLOW, red=Bcolors.RED, orange=Bcolors.ORANGE,
                        server_version=configured_server_target, user=config.user, config_soft=rh_config_text,
@@ -308,15 +308,15 @@ def main_window(config):
             install = "i - Install software from scratch"
         print("""
                     {install}
-                    
+
                     {configure}
-                    
-                    u - Update existing installation 
-                    
+
+                    u - Update existing installation
+
                     s - Start RotorHazard server now{yellow}
-                        
+
                     e - Exit to Main Menu{endc}
-                    
+
                 """.format(yellow=Bcolors.YELLOW, endc=Bcolors.ENDC, configure=configure, install=install))
         selection = input()
         if selection == 'c':
@@ -336,16 +336,16 @@ def main_window(config):
             if sys_configured_flag:
                 clear_the_screen()
                 already_installed_prompt = """{bold}
-                
+
         Looks like you already have your system configured.{endc}{bold}
-        
+
         If so, please perform installation without sys. config.
-                
-                            
+
+
      {green}i - Force installation without sys. config. {endc}{bold}
-            
+
             c - Force installation and system config. {yellow}
-            
+
             a - Abort both {endc}
             """.format(bold=Bcolors.BOLD, endc=Bcolors.ENDC, underline=Bcolors.UNDERLINE,
                        yellow=Bcolors.YELLOW, green=Bcolors.GREEN_S)
