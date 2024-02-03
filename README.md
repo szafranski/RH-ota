@@ -6,6 +6,3 @@
 
 ![OTA Logo](./resources/rhim_logo.png)
 
-
-# Easy mange and update your [RotorHazard](https://github.com/RotorHazard/RotorHazard) installation.
-
